@@ -133,13 +133,8 @@ getTestLanguages().forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
 
         await I.selectDeceasedDomicile(language, optionYes);
-        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
-        if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language, optionYes);
-            await I.selectEEvalue(language);
-        } else {
-            await I.selectIhtCompleted(language, optionYes);
-        }
+        await I.selectEEDeceasedDod(language, optionYes);
+        await I.selectEEvalue(language);
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners
@@ -212,6 +207,7 @@ getTestLanguages().forEach(language => {
 
         // Thank You
         await I.seeThankYouPage(language);
-    }).tag('@noJenkine2e')
+    }).tag('@e2enightly')
+        .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });

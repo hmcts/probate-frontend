@@ -105,18 +105,31 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "Preview Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
-
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-      env.DONT_TEST_WELSH = true
-      yarnBuilder.yarn('test:fullfunctional-pr');
-    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      yarnBuilder.yarn('test:fullfunctional-pr');
+    def testsRan = true
+    try {
+      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+        env.DONT_TEST_WELSH = true
+        yarnBuilder.yarn('test:fullfunctional-pr');
+      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+        yarnBuilder.yarn('test:fullfunctional-pr');
+      } else {
+        testsRan = false
+      }
+    } finally {
+      // Only publish if tests ran AND report exists
+      if (testsRan && fileExists('functional-output/merged/mochawesome.html')) {
+        publishHTML target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: true,
+          keepAll: true,
+          reportDir: "functional-output/merged",
+          reportFiles: "mochawesome.html",
+          reportName: "Preview Functional Test Report"
+        ]
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      } else {
+        echo 'No E2E tests ran or no report generated - skipping report publishing'
+      }
     }
   }
 

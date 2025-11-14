@@ -1,0 +1,2 @@
+mochawesome=./temp-reports/report.json
+mocha-junit-reporter=./output/junit-report.xml

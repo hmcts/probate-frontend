@@ -57,8 +57,16 @@ exports.config = {
         },
     },
     mocha: {
-        reporter: 'mocha-multi',
-        timeout: 7200000
+        timeout: 60000,
+        reporter: 'mochawesome',
+        reporterOptions: {
+            reportDir: './functional-output',
+            reportFilename: 'mochawesome',
+            inlineAssets: true,
+            overwrite: false,
+            html: false,
+            json: true
+        }
     },
     bootstrap: TestConfigurator.bootStrapTestSuite(),
     multiple: {
@@ -67,5 +75,5 @@ exports.config = {
             browsers: ['chrome']
         }
     },
-    name: 'Probate FE Tests'
+    name: 'Probate FE E2E Test'
 };

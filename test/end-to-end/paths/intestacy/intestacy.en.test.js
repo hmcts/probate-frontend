@@ -138,13 +138,8 @@ getTestLanguages().forEach(language => {
         await I.selectDeathCertificateTranslation(language, optionYes);
 
         await I.selectDeceasedDomicile(language, optionYes);
-        const isEEEnabled = await TestConfigurator.checkFeatureToggle('probate-excepted-estates');
-        if (isEEEnabled) {
-            await I.selectEEDeceasedDod(language, optionNo);
-            await I.selectIhtCompleted(language, optionYes);
-        } else {
-            await I.selectIhtCompleted(language, optionYes);
-        }
+        await I.selectEEDeceasedDod(language, optionNo);
+        await I.selectIhtCompleted(language, optionYes);
         await I.selectPersonWhoDiedLeftAWill(language, optionNo);
 
         // Intestacy Sceeners

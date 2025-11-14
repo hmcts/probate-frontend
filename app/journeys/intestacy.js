@@ -167,7 +167,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     SiblingAnyParentsAlive: {
-        siblingHasParentsAlive: 'AdoptedIn',
+        hasNoLivingParents: 'AdoptedIn',
         otherwise: 'StopPage'
     },
     SameParents: {

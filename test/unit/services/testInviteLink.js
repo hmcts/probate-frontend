@@ -36,39 +36,50 @@ describe('InviteLinkService', () => {
     });
 
     describe('post()', () => {
-        it('should call log() and fetchText() when exec.inviteId is not given', (done) => {
-            const endpoint = '';
-            const fetchOptions = {method: 'POST'};
-            const inviteLink = new InviteLink(endpoint, 'abc123');
-            const logSpy = sinon.spy(inviteLink, 'log');
-            const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
-            const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
-            const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
-
-            inviteLink.post({dataObject: true}, {execObject: true});
-
-            expect(inviteLink.log.calledOnce).to.equal(true);
-            expect(inviteLink.log.calledWith('Post invite link')).to.equal(true);
-            expect(formatUrlStub.calledOnce).to.equal(true);
-            expect(formatUrlStub.calledWith(endpoint, '/invite')).to.equal(true);
-            expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
-            expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
-
-            logSpy.restore();
-            fetchJsonSpy.restore();
-            fetchOptionsStub.restore();
-            formatUrlStub.restore();
-            done();
-        });
+        it('should call log() and fetchText() when exec.inviteId is not given and encode params in data array',
+            (done) => {
+                const endpoint = '';
+                const fetchOptions = {method: 'POST'};
+                const inviteLink = new InviteLink(endpoint, 'abc123');
+                const logSpy = sinon.spy(inviteLink, 'log');
+                const fetchJsonSpy = sinon.stub(AsyncFetch, 'fetchJson');
+                const fetchOptionsStub = sinon.stub(AsyncFetch, 'fetchOptions').returns(fetchOptions);
+                const formatUrlStub = sinon.stub(FormatUrl, 'format').returns('/formattedUrl');
+                const data = [
+                    {Name: 'Test Name', email: 'john.doe@example.com'},
+                    {FirstName: 'John Doe', LastName: 'Smith'}
+                ];
+                inviteLink.post(data, {execObject: true});
+                expect(data[0].Name).to.equal('Test%20Name');
+                expect(data[1].FirstName).to.equal('John%20Doe');
+                expect(data[1].LastName).to.equal('Smith');
+                expect(inviteLink.log.calledOnce).to.equal(true);
+                expect(inviteLink.log.calledWith('Post invite link')).to.equal(true);
+                expect(formatUrlStub.calledOnce).to.equal(true);
+                expect(formatUrlStub.calledWith(endpoint, '/invite')).to.equal(true);
+                expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
+                expect(AsyncFetch.fetchJson.calledWith('/formattedUrl', fetchOptions)).to.equal(true);
+                logSpy.restore();
+                fetchJsonSpy.restore();
+                fetchOptionsStub.restore();
+                formatUrlStub.restore();
+                done();
+            });
     });
 
     describe('encodeURLNameParams()', () => {
-        it('should encode each name parameter in the url', (done) => {
+        it('should encode each name parameter in each executor invited in the array', (done) => {
             const endpoint = '';
             const inviteLink = new InviteLink(endpoint, 'abc123');
-            const invitation = {Name: 'Test Name'};
+            const invitation = [
+                {Name: 'Test Name'},
+                {FirstName: 'John Doe', LastName: 'Smith', email: 'john.doe@example.com'}
+            ];
             const encodedInvitation = inviteLink.encodeURLNameParams(invitation);
-            expect(encodedInvitation).to.deep.equal({Name: 'Test%20Name'});
+            expect(encodedInvitation).to.deep.equal([
+                {Name: 'Test%20Name'},
+                {FirstName: 'John%20Doe', LastName: 'Smith', email: 'john.doe@example.com'}
+            ]);
             done();
         });
     });

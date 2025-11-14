@@ -5,13 +5,11 @@
   "properties": {
     "aliasFirstNameOnWill": {
       "type": "string",
-      "minLength": 2,
-      "pattern": "^[^<>]+$"
+      "minLength": 2
     },
     "aliasLastNameOnWill": {
       "type": "string",
-      "minLength": 2,
-      "pattern": "^[^<>]+$"
+      "minLength": 2
     }
   },
   "required":[

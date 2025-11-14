@@ -149,5 +149,43 @@ describe('adoption-place', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
                 });
         });
+
+        it(`test it redirects to any other children page if sibling is adopted in England or Wales: ${expectedNextUrlForAnyOtherParentAlive}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptionPlace: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherParentAlive);
+                });
+        });
+
+        it(`test it redirects to stop page if sibling is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptionPlace: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                });
+        });
     });
 });

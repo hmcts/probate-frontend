@@ -151,5 +151,43 @@ describe('adoption-out', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherParentAlive);
                 });
         });
+
+        it(`test it redirects to stop page if sibling is adopted out: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedOut: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedStopPage);
+                });
+        });
+
+        it(`test it redirects to any other parent alive page if sibling is not adopted Out: ${expectedNextUrlForAnyOtherParentAlive}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedOut: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherParentAlive);
+                });
+        });
     });
 });

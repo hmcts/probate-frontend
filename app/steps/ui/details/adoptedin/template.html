@@ -8,6 +8,8 @@
 {%    set legendText = content.childQuestion %}
 {% elseif relationship == "optionGrandchild" %}
 {%    set legendText = content.grandchildQuestion %}
+{% elseif relationship == "optionSibling" %}
+{%    set legendText = content.siblingQuestion %}
 {% else %}
 {%    set legendText = content.parentQuestion %}
 {% endif %}

@@ -19,7 +19,7 @@ class AnyLivingParents extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'anyLivingParents', value: 'optionYes', choice: 'hasLivingParents'}
+                {key: 'anyLivingParents', value: 'optionNo', choice: 'hasNoLivingParents'}
             ]
         };
     }

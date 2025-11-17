@@ -87,7 +87,7 @@ router.use(['/task-list', '/assets-overseas', '/copies-overseas', '/copies-uk', 
 
     const executorsWrapper = new ExecutorsWrapper(formdata.executors);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-    const invitesSent = executorsWrapper.invitesSent();
+    const invitesSent = executorsWrapper.invitesSent() && !executorsWrapper.hasExecutorsToNotify();
 
     if (hasMultipleApplicants && invitesSent && applicantHasDeclared) {
         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
@@ -223,14 +223,15 @@ const redirectTaskList = (req, currentPageCleanUrl, formdata, applicationSubmitt
     const executorsWrapper = new ExecutorsWrapper(formdata.executors, req.session.haveAllExecutorsDeclared);
     const hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
     const invitesSent = executorsWrapper.invitesSent();
+    const hasExecutorsToNotify = executorsWrapper.hasExecutorsToNotify();
     const hasExecutorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
     const allExecutorsHaveDeclared = executorsWrapper.haveAllExecutorsDeclared();
     if ((!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) ||
         (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) ||
         (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
-        (applicantHasDeclared && hasMultipleApplicants && invitesSent && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
-        (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) ||
-        (applicantHasDeclared && (!hasMultipleApplicants || invitesSent) && currentPageCleanUrl === '/executors-invite') ||
+        (applicantHasDeclared && hasMultipleApplicants && invitesSent && !hasExecutorsToNotify && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && !hasExecutorsToNotify && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && !hasExecutorsToNotify)) && currentPageCleanUrl === '/executors-invite') ||
         (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') ||
         (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session)))) {
         return true;

@@ -41,7 +41,8 @@ describe(AnyLivingDescendants.name, () => {
             const nextStepOptions = AnyLivingDescendants.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyLivingDescendants', value: 'optionNo', choice: 'noLivingDescendants'},
+                    {key: 'siblings', value: true, choice: 'anyLivingParents'},
+                    {key: 'parent', value: true, choice: 'adoptedIn'}
                 ]
             });
             done();

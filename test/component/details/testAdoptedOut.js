@@ -40,7 +40,7 @@ describe('adoption-out', () => {
                     relationshipToDeceased: 'optionChild'
                 }
             };
-            const contentToExclude = ['grandchildQuestion', 'requiredGrandchild', 'parentQuestion', 'requiredParent'];
+            const contentToExclude = ['grandchildQuestion', 'requiredGrandchild', 'parentQuestion', 'requiredParent', 'siblingQuestion', 'requiredSibling'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -62,7 +62,7 @@ describe('adoption-out', () => {
                     relationshipToDeceased: 'optionGrandchild'
                 }
             };
-            const contentToExclude = ['childQuestion', 'requiredChild', 'parentQuestion', 'requiredParent'];
+            const contentToExclude = ['childQuestion', 'requiredChild', 'parentQuestion', 'requiredParent', 'siblingQuestion', 'requiredSibling'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

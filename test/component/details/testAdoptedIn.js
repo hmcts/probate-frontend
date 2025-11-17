@@ -37,7 +37,7 @@ describe('adoption-in', () => {
                     relationshipToDeceased: 'optionChild'
                 }
             };
-            const contentToExclude = ['grandchildQuestion', 'requiredGrandchild', 'parentQuestion', 'requiredParent'];
+            const contentToExclude = ['grandchildQuestion', 'requiredGrandchild', 'parentQuestion', 'requiredParent', 'siblingQuestion', 'requiredSibling'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

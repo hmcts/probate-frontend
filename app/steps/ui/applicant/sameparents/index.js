@@ -36,6 +36,7 @@ class SameParents extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        delete ctx.deceasedName;
         return [ctx, formdata];
     }
 }

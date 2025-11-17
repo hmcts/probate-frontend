@@ -26,19 +26,19 @@ describe('payment-breakdown', () => {
         feesCalculator = sinon.stub(FeesCalculator.prototype, 'calc');
         feesCalculator.returns(Promise.resolve({
             status: 'success',
-            applicationfee: 215,
+            applicationfee: 300,
             applicationvalue: 6000,
             ukcopies: 1,
-            ukcopiesfee: 1.50,
+            ukcopiesfee: 16.00,
             overseascopies: 2,
-            overseascopiesfee: 3,
+            overseascopiesfee: 32,
             applicationversion: 0,
             applicationcode: 'FEE0226',
             ukcopiesversion: 2,
             ukcopiescode: 'FEE0003',
             overseascopiesversion: 3,
             overseascopiescode: 'FEE0003',
-            total: 219.50
+            total: 348.00
         }));
     });
 
@@ -64,13 +64,13 @@ describe('payment-breakdown', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
-                    total: 219.50
+                    overseascopiesfee: 32,
+                    total: 348.00
                 },
                 declaration: {
                     declarationCheckbox: 'true'
@@ -146,13 +146,13 @@ describe('payment-breakdown', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({fees: {
                     status: 'success',
-                    applicationfee: 215,
+                    applicationfee: 300,
                     applicationvalue: 6000,
                     ukcopies: 1,
-                    ukcopiesfee: 1.50,
+                    ukcopiesfee: 16.00,
                     overseascopies: 2,
-                    overseascopiesfee: 3,
-                    total: 219.50
+                    overseascopiesfee: 32,
+                    total: 348.00
                 },
                 declaration: {
                     declarationCheckbox: 'true'

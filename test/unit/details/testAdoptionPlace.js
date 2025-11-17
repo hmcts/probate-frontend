@@ -58,7 +58,8 @@ describe('AdoptionPlace', () => {
                 options: [
                     {key: 'childAndAdoptedInEnglandOrWales', value: true, choice: 'childAndAdoptedInEnglandOrWales'},
                     {key: 'grandchildAndAdoptedInEnglandOrWales', value: true, choice: 'grandchildAndAdoptedInEnglandOrWales'},
-                    {key: 'deceasedAdoptedInEnglandOrWales', value: true, choice: 'deceasedAdoptedInEnglandOrWales'}
+                    {key: 'deceasedAdoptedInEnglandOrWales', value: true, choice: 'deceasedAdoptedInEnglandOrWales'},
+                    {key: 'siblingAdoptedInEnglandOrWales', value: true, choice: 'siblingAdoptedInEnglandOrWales'}
                 ]
             });
             done();

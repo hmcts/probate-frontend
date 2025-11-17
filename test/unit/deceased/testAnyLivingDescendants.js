@@ -22,6 +22,9 @@ describe(AnyLivingDescendants.name, () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe'
+                        },
+                        applicant: {
+                            relationshipToDeceased: 'optionSibling'
                         }
                     }
                 }

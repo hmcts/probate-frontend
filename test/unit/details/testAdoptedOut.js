@@ -85,7 +85,8 @@ describe('AdoptedOut', () => {
                 options: [
                     {key: 'childNotAdoptedOut', value: true, choice: 'childNotAdoptedOut'},
                     {key: 'grandchildNotAdoptedOut', value: true, choice: 'grandchildNotAdoptedOut'},
-                    {key: 'deceasedNotAdoptedOut', value: true, choice: 'deceasedNotAdoptedOut'}
+                    {key: 'deceasedNotAdoptedOut', value: true, choice: 'deceasedNotAdoptedOut'},
+                    {key: 'siblingNotAdoptedOut', value: true, choice: 'siblingNotAdoptedOut'}
                 ]
             });
             done();

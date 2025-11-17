@@ -26,7 +26,7 @@ class AnyLivingDescendants extends ValidationStep {
         ctx.parent = ctx.relationshipToDeceased === 'optionParent' && ctx.anyLivingDescendants === 'optionNo';
         return {
             options: [
-                {key: 'siblings', value: true, choice: 'anyLivingParent'},
+                {key: 'siblings', value: true, choice: 'anyLivingParents'},
                 {key: 'parent', value: true, choice: 'adoptedIn'}
             ]
         };

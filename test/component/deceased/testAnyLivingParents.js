@@ -56,7 +56,7 @@ describe(testStepUrl, () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        anyLivingParent: 'hasNoLivingParents',
+                        anyLivingParents: 'hasNoLivingParents',
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
@@ -68,7 +68,7 @@ describe(testStepUrl, () => {
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        anyLivingParent: 'optionYes'
+                        anyLivingParents: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

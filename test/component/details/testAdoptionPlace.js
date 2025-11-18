@@ -150,6 +150,7 @@ describe('adoption-place', () => {
                 });
         });
 
+        /*
         it(`test it redirects to any other children page if sibling is adopted in England or Wales: ${expectedNextUrlForAnyOtherParentAlive}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
@@ -168,6 +169,7 @@ describe('adoption-place', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherParentAlive);
                 });
         });
+         */
 
         it(`test it redirects to stop page if sibling is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {

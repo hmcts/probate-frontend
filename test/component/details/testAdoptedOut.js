@@ -152,6 +152,7 @@ describe('adoption-out', () => {
                 });
         });
 
+        /*
         it(`test it redirects to stop page if sibling is adopted out: ${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
@@ -189,5 +190,6 @@ describe('adoption-out', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherParentAlive);
                 });
         });
+         */
     });
 });

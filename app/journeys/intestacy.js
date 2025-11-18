@@ -162,7 +162,7 @@ const stepList = {
         otherwise: 'StopPage'
     },
     AnyLivingDescendants: {
-        anyLivingParent: 'AnyLivingParents',
+        anyLivingParents: 'AnyLivingParents',
         adoptedIn: 'AdoptedIn',
         otherwise: 'StopPage'
     },

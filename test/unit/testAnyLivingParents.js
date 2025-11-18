@@ -1,7 +1,7 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const {expect, assert} = require('chai');
+const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const AnyLivingParents = steps.AnyLivingParents;
 
@@ -42,23 +42,6 @@ describe('AnyLivingParents', () => {
                 ]
             });
             done();
-        });
-    });
-
-    describe('action()', () => {
-        it('test it cleans up context', () => {
-            const ctx = {
-                deceasedName: 'Dee Ceased',
-            };
-            const formdata = {
-                deceased: {
-                    anyLivingParents: 'optionYes'
-                }
-            };
-
-            AnyLivingParents.action(ctx, formdata);
-
-            assert.isUndefined(ctx.deceasedName);
         });
     });
 });

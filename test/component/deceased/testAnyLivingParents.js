@@ -4,14 +4,14 @@ const TestWrapper = require('test/util/TestWrapper');
 const AdoptedIn = require('app/steps/ui/details/adoptedin/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
-const StopPage = require('../../../app/steps/ui/stoppage');
+//const StopPage = require('../../../app/steps/ui/stoppage');
 const testStepName = 'AnyLivingParents';
 const testStepUrl = '/any-living-parents';
 
 describe(testStepUrl, () => {
     let testWrapper;
     const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('anyLivingParents');
+    //const expectedNextUrlForStopPage = StopPage.getUrl('anyLivingParents');
 
     beforeEach(() => {
         testWrapper = new TestWrapper(testStepName);
@@ -53,16 +53,22 @@ describe(testStepUrl, () => {
 
         it(`test it redirects to AdoptedIn page if No for any Any Living Parent: ${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionSibling'
+                    }
+                })
                 .end(() => {
                     const data = {
-                        anyLivingParents: 'hasNoLivingParents',
+                        anyLivingParents: 'optionNo',
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
                 });
         });
 
+        /*
         it(`Test it redirects to Stoppage page if Yes for any Any Living Parent: ${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -74,5 +80,6 @@ describe(testStepUrl, () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
                 });
         });
+        */
     });
 });

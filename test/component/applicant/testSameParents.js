@@ -30,6 +30,9 @@ describe('same-parents', () => {
                 ccdCase: {
                     state: 'Pending',
                     id: 1234567890123456
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
                 }
             };
 
@@ -49,6 +52,9 @@ describe('same-parents', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     sameParents: 'optionBothParentsSame'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
                 }
             };
 
@@ -56,7 +62,7 @@ describe('same-parents', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        sameParents: 'optionYes'
+                        sameParents: 'optionBothParentsSame'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForWholeBloodSibling);
@@ -68,6 +74,9 @@ describe('same-parents', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionDivorced'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
                 }
             };
 
@@ -75,7 +84,7 @@ describe('same-parents', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        sameParents: 'optionYes'
+                        sameParents: 'optionOneParentsSame'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForHalfBloodSibling);
@@ -83,8 +92,18 @@ describe('same-parents', () => {
         });
 
         it(`test it redirects to Stop page if adoption took place outside England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionDivorced'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
+                }
+            };
+
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
                         sameParents: 'optionNoParentsSame'

@@ -33,6 +33,10 @@ describe('same-parents', () => {
                 },
                 applicant: {
                     relationshipToDeceased: 'optionSibling'
+                },
+                deceased: {
+                    firstName: 'DECEASED',
+                    lastName: 'NAME',
                 }
             };
 

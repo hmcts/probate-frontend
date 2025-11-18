@@ -35,15 +35,18 @@ describe('same-parents', () => {
                     relationshipToDeceased: 'optionSibling'
                 },
                 deceased: {
-                    firstName: 'DECEASED',
-                    lastName: 'NAME',
+                    firstName: 'John',
+                    lastName: 'Doe',
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done);
+                    const contentData = {deceasedName: 'John Doe'};
+                    const contentToExclude = ['theDeceased'];
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

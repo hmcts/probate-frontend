@@ -57,9 +57,10 @@ class ExecutorsInvite extends ValidationStep {
                                 inviteId: execResult.inviteId,
                                 emailSent: true
                             };
-
+                            const matchingExecutor = ctx.list.find(execList => execList.email === execResult.email &&
+                                execList.fullName === decodeURIComponent(execResult.executorName));
                             merge(
-                                ctx.list.find(execList => execList.email === execResult.email && execList.fullName === execResult.executorName),
+                                matchingExecutor,
                                 sanitizeInput(result)
                             );
                         });

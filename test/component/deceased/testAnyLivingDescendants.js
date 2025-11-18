@@ -34,6 +34,9 @@ describe(testStepUrl, () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
                 }
             };
 

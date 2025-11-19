@@ -44,7 +44,6 @@ const gopOnlyPages = [
     '/executor-id-name/*',
     '/executor-name-reason',
     '/executor-name-reason/*',
-    '/executors-invite',
     '/executors-invites-sent',
     '/executors-names',
     '/executor-notified',

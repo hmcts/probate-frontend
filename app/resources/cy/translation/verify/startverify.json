@@ -1,0 +1,19 @@
+{
+  "title": "Co-Applicant verification - Gwneud cais am brofiant",
+  "header": "Gwneud cais am brofiant",
+  "introduction": "Mae {applicantName} wedi cychwyn cais am brofiant i ddelio ag ystad {deceasedName}, ac wedi eich enwi chi fel ceisydd.",
+  "paragraph1": "Bydd yr holl geiswyr a enwir ar y grant yn cael yr hawl gyfreithiol i:",
+  "listItem1": "gasglu asedau’r ystad (eiddo ac arian)",
+  "listItem2": "talu unrhyw drethi a dyledion",
+  "listItem3": "dosbarthu beth sydd ar ôl i’r bobl sydd â hawl iddo",
+  "paragraph2": "I barhau, bydd arnoch angen:",
+  "listItem4": "gwirio bod yr wybodaeth mae {applicantName} wedi’i rhoi yn gywir",
+  "listItem5": "cadarnhau eich bod yn cytuno â’r datganiad cyfreithiol",
+  "paragraph3": "Bydd arnoch angen dyddiad marwolaeth {deceasedName} i gael mynediad at y datganiad cyfreithiol.",
+  "multipleHeader": "Os nad ydych eisiau gwneud cais am brofiant",
+  "paragraph4": "Gallwch ddewis i beidio â gwneud cais os nad ydych eisiau rheoli’r ystad. Nid yw hyn yn effeithio ar eich hawl i etifeddu.",
+  "paragraph5": "Gallwch naill ai:",
+  "listItem6": "Gadael i {applicantName} wneud cais hebddoch chi",
+  "listItem7": "penodi rhywun arall i wneud cais ar eich rhan - bydd arnoch angen <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA12}\" class=\"govuk-link\" aria-label=\"llenwi Ffurflen PA12 (yn agor mewn tab newydd)\">llenwi Ffurflen PA12 (yn agor mewn tab newydd)</a>",
+  "paragraph6": "Bydd arnoch angen cysylltu â {{applicant 1 name}} a gofyn iddynt newid yr wybodaeth maent wedi’i rhoi os nad ydych eisiau gwneud cais."
+}

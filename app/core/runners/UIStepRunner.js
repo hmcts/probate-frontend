@@ -40,7 +40,7 @@ class UIStepRunner {
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
                     session.back.pop();
-                } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                } else if (session.back && session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                     session.back.push(step.constructor.getUrl());
                 }
                 const common = step.commonContent(session.language);
@@ -118,7 +118,7 @@ class UIStepRunner {
                         }
                     }
 
-                    if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
+                    if (session.back && session.back[session.back.length - 1] !== step.constructor.getUrl()) {
                         session.back.push(step.constructor.getUrl());
                     }
                     if (errorOccurred === false) {

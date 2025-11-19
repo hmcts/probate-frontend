@@ -1,0 +1,27 @@
+{% extends "includes/layout.html" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% set hideNavigation = true %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% set greenPanelHtml %}
+          <p class="govuk-!-font-size-36">
+            <strong class="govuk-!-font-weight-bold" aria-label="{{ content.pageHeader }}">{{ content.pageHeader }}</strong>
+          </p>
+          {% endset -%}
+
+          {{ govukPanel({
+          titleText: content.header | safe,
+          html: greenPanelHtml
+          }) }}
+            <p class="govuk-body">{{ content.paragraph1 | replace("{leadExecFullName}", fields.leadExecFullName.value) | safe }}</p>
+
+            <h2 class="govuk-heading-m">{{ content.subHeader | safe }}</h2>
+            <p class="govuk-body">{{ content.paragraph2 | replace("{leadExecFullName}", fields.leadExecFullName.value) | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph3 | replace("{leadExecFullName}", fields.leadExecFullName.value) | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph4a | replace("{probateEstate}", fields.probateEstate.value)  | safe }}</a>.</p>
+            {% include "includes/help_details.html" %}
+        </div>
+    </div>
+{% endblock %}

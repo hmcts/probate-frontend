@@ -139,7 +139,7 @@
     "copies": {
       "uk": {
         "number": "3",
-        "cost": "1.5"
+        "cost": "16"
       },
       "overseas": {
         "number": "0",
@@ -147,8 +147,8 @@
       },
       "status": "success"
     },
-    "applicationFee": "215",
-    "total": "216.50",
+    "applicationFee": "300",
+    "total": "348",
     "userId": "999999999",
     "reference": "RC-1234-5678-9012-3456",
     "status": "success"

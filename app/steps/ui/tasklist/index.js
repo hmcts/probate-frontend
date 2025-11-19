@@ -45,12 +45,10 @@ class TaskList extends Step {
         } else {
             ctx.daysToDeleteText = daysToDelete > 1 ? daysToDelete + ' days' : daysToDelete + ' day';
         }
-
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+        ctx.declarationStatuses = formdata.executorsDeclarations || [];
         if (ctx.caseType === caseTypes.GOP) {
-            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-            ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-            ctx.declarationStatuses = formdata.executorsDeclarations || [];
-
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,

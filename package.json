@@ -162,7 +162,7 @@
     "ws": "^8.17.1"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "^15.0.0",
+    "@pact-foundation/pact": "^16.0.0",
     "@pact-foundation/pact-node": "^10.18.0",
     "@playwright/test": "^1.41.2",
     "@types/node": "^22.0.0",

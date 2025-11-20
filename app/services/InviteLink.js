@@ -24,7 +24,7 @@ class InviteLink extends Service {
             'Authorization': authToken,
             'ServiceAuthorization': serviceAuthorisation
         };
-        const fetchOptions = AsyncFetch.fetchOptions(this.encodeURLNameParams(data), 'POST', headers);
+        const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
         return AsyncFetch.fetchJson(url, fetchOptions);
     }
 

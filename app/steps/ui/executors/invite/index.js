@@ -58,8 +58,8 @@ class ExecutorsInvite extends ValidationStep {
                                 emailSent: true
                             };
                             merge(
-                                ctx.list.find(execList => execList.email === execResult.email && execList.fullName ===
-                                    decodeURIComponent(execResult.executorName)),
+                                ctx.list.find(execList => execList.email === execResult.email &&
+                                    execList.fullName === execResult.executorName),
                                 sanitizeInput(result)
                             );
                         });

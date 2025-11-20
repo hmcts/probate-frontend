@@ -12,7 +12,7 @@
           {% endset -%}
 
           {{ govukPanel({
-          titleText: content.header | safe,
+          titleText: content.pageHeader | safe,
           html: greenPanelHtml
           }) }}
             <p class="govuk-body">{{ content.paragraph1 | replace("{leadExecFullName}", fields.leadExecFullName.value) | safe }}</p>

@@ -118,7 +118,8 @@ describe('verify-dod', () => {
                     'dod-day': '01',
                     'dod-month': '01',
                     'dod-year': '2000'
-                }
+                },
+                caseType: caseTypes.INTESTACY
             };
             const data = {
                 'dod-day': '01',

@@ -15,9 +15,10 @@ class CoApplicantAdoptionPlace extends ValidationStep {
         if (ctx.list?.[ctx.index]) {
             if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
                 ctx.adoptionPlace = ctx.list[ctx.index].childAdoptionInEnglandOrWales;
-            }
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
                 ctx.adoptionPlace = ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales;
+            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased !== 'optionSibling') {
+                ctx.adoptionPlace = ctx.list[ctx.index].halfBloodSiblingAdoptionInEnglandOrWales;
             }
         }
         return [ctx];
@@ -64,9 +65,10 @@ class CoApplicantAdoptionPlace extends ValidationStep {
     handlePost(ctx, errors) {
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
             ctx.list[ctx.index].childAdoptionInEnglandOrWales = ctx.adoptionPlace;
-        }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
             ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales = ctx.adoptionPlace;
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionSibling') {
+            ctx.list[ctx.index].halfBloodSiblingAdoptionInEnglandOrWales = ctx.adoptionPlace;
         }
         return [ctx, errors];
     }

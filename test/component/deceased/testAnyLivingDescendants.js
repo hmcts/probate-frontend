@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const AdoptedIn = require('app/steps/ui/details/adoptedin/index');
+const AdoptedIn = require('app/steps/ui/applicant/deceasedadoptedin/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');

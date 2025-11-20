@@ -33,6 +33,9 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         }
         ctx.deceased = formdata.deceased;
         const hasOtherChildren = ctx.deceased?.anyOtherChildren === 'optionYes';
+        const anyOtherHalfSiblings = formdata.applicant?.anyOtherHalfSiblings === 'optionYes';
+        const anyPredeceasedHalfSiblings = formdata.applicant?.anyPredeceasedHalfSiblings;
+        const hasAnySurvivingHalfNiecesAndHalfNephews = formdata.applicant?.anySurvivingHalfNiecesAndHalfNephews === 'optionYes';
 
         ctx.childOnly = hasOtherChildren &&
             (ctx.deceased.anyPredeceasedChildren === 'optionNo' ||
@@ -40,6 +43,8 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         ctx.grandChildOnly = hasOtherChildren &&
             ctx.deceased.anySurvivingGrandchildren === 'optionYes' &&
             (ctx.deceased.anyPredeceasedChildren === 'optionYesAll' || ctx.deceased.anyPredeceasedChildren === 'optionYesSome');
+        ctx.halfSiblingOnly = anyOtherHalfSiblings && (anyPredeceasedHalfSiblings === 'optionNo' || (anyPredeceasedHalfSiblings === 'optionYesSome' && hasAnySurvivingHalfNiecesAndHalfNephews));
+        ctx.halfNieceOrHalfNephewOnly = anyOtherHalfSiblings && hasAnySurvivingHalfNiecesAndHalfNephews && (anyPredeceasedHalfSiblings === 'optionYesAll' || anyPredeceasedHalfSiblings === 'optionYesSome');
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
@@ -89,6 +94,15 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             };
         }
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        if (formdata.executors && formdata.executors.list && ctx.list[ctx.index].coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index].coApplicantRelationshipToDeceased) {
+            delete formdata.executors.list[ctx.index].childDieBeforeDeceased;
+            delete formdata.executors.list[ctx.index].halfSiblingDieBeforeDeceased;
+        }
+        super.action(ctx, formdata);
+        return [ctx, formdata];
     }
 }
 

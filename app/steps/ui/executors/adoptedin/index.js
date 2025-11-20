@@ -15,9 +15,10 @@ class CoApplicantAdoptedIn extends ValidationStep {
         if (ctx.list?.[ctx.index]) {
             if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
                 ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
-            }
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
                 ctx.adoptedIn = ctx.list[ctx.index].grandchildAdoptedIn;
+            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased !== 'optionSibling') {
+                ctx.adoptedIn = ctx.list[ctx.index].halfBloodSiblingAdoptedIn;
             }
         }
         return [ctx];
@@ -62,6 +63,9 @@ class CoApplicantAdoptedIn extends ValidationStep {
         }
         if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
             ctx.list[ctx.index].grandchildAdoptedIn = ctx.adoptedIn;
+        }
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionSibling') {
+            ctx.list[ctx.index].halfBloodSiblingAdoptedIn = ctx.adoptedIn;
         }
         return [ctx, errors];
     }

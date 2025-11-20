@@ -13,7 +13,7 @@ describe('parent-adoption-place', () => {
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantAdoptionPlaceStop');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ParentAdoptionPlace');
+        testWrapper = new TestWrapper('CoApplicantParentAdoptionPlace');
         sessionData = {
             caseType: caseTypes.INTESTACY,
             applicantName: 'First coApplicant',

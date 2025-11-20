@@ -1,0 +1,12 @@
+{
+  "title": "A wnaeth yr unigolyn sydd wedi marw fabwysiadu eich rhiant (yr unigolyn sydd wedi marw yn gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)",
+  "question": "A wnaeth {deceasedName} fabwysiadu eich rhiant ({deceasedName} yn gyfreithlon allan o&rsquo;u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "parentAdoptedOut": {
+      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} roi eich rhiant i ffwrdd i gael eu mabwysiadu"
+    }
+  }
+}

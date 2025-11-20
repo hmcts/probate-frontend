@@ -50,7 +50,11 @@ class ParentDieBefore extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        if (ctx.list[ctx.index].relationshipToDeceased === 'optionGrandchild') {
+            ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        } else if (ctx.list[ctx.index].relationshipToDeceased === 'optionSibling') {
+            ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        }
         return [ctx, errors];
     }
 

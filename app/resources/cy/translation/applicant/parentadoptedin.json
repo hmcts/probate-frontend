@@ -1,0 +1,12 @@
+{
+  "title": "A wnaeth yr unigolyn sydd wedi marw fabwysiadu plentyn eich rhiant {deceasedName}) yn gyfreithlon?",
+  "question": "A wnaeth {deceasedName} fabwysiadu plentyn eich rhiant {deceasedName}) yn gyfreithlon?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "parentAdoptedIn": {
+      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} fabwysiadu eich rhiant yn gyfreithlon"
+    }
+  }
+}

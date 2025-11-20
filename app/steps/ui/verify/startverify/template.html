@@ -20,7 +20,7 @@
             <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
             <p class="govuk-body">
             <ul class="govuk-list govuk-list--bullet">
-              <li>{{ content.listItem4 | safe }}</li>
+              <li>{{ content.listItem4 | replace("{applicantName}", fields.applicantName.value) | safe }}</li>
               <li>{{ content.listItem5 | safe }}</li>
             </ul>
             </p>

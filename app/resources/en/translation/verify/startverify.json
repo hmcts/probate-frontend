@@ -7,7 +7,7 @@
   "listItem2": "pay any taxes and debts",
   "listItem3": "distribute what is left to the people entitled to it",
   "paragraph2": "To continue, you will need to:",
-  "listItem4": "check if the information {{ applicantName }} has given is correct",
+  "listItem4": "check if the information {applicantName} has given is correct",
   "listItem5": "confirm you agree with the legal statement",
   "paragraph3": "You will need {deceasedName}’s date of death to access the legal statement.",
   "multipleHeader": "If you do not want to apply for probate",

@@ -15,5 +15,5 @@
   "paragraph5": "Gallwch naill ai:",
   "listItem6": "Gadael i {applicantName} wneud cais hebddoch chi",
   "listItem7": "penodi rhywun arall i wneud cais ar eich rhan - bydd arnoch angen <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA12}\" class=\"govuk-link\" aria-label=\"llenwi Ffurflen PA12 (yn agor mewn tab newydd)\">llenwi Ffurflen PA12 (yn agor mewn tab newydd)</a>",
-  "paragraph6": "Bydd arnoch angen cysylltu â {{applicant 1 name}} a gofyn iddynt newid yr wybodaeth maent wedi’i rhoi os nad ydych eisiau gwneud cais."
+  "paragraph6": "Bydd arnoch angen cysylltu â {applicantName} a gofyn iddynt newid yr wybodaeth maent wedi’i rhoi os nad ydych eisiau gwneud cais."
 }

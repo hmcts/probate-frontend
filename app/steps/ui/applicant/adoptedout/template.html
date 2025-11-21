@@ -13,6 +13,8 @@
 {%    set legendText = content.wholeBloodSiblingQuestion %}
 {% elseif relationship == "optionSibling" and sameParent == "optionNo" %}
 {%    set legendText = content.halfBloodSiblingQuestion %}
+{% else %}
+{%    set legendText = content.childQuestion %}
 {% endif %}
 
 {% block form_content %}

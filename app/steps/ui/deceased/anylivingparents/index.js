@@ -16,6 +16,9 @@ class AnyLivingParents extends ValidationStep {
         return ctx;
     }
 
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('livingParents');
+    }
     nextStepOptions() {
         return {
             options: [

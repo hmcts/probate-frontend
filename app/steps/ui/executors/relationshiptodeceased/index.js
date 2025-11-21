@@ -44,7 +44,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             ctx.deceased.anySurvivingGrandchildren === 'optionYes' &&
             (ctx.deceased.anyPredeceasedChildren === 'optionYesAll' || ctx.deceased.anyPredeceasedChildren === 'optionYesSome');
         ctx.halfSiblingOnly = anyOtherHalfSiblings && (anyPredeceasedHalfSiblings === 'optionNo' || (anyPredeceasedHalfSiblings === 'optionYesSome' && hasAnySurvivingHalfNiecesAndHalfNephews));
-        ctx.halfNieceOrHalfNephewOnly = anyOtherHalfSiblings && hasAnySurvivingHalfNiecesAndHalfNephews && (anyPredeceasedHalfSiblings === 'optionYesAll' || anyPredeceasedHalfSiblings === 'optionYesSome');
+        ctx.halfNieceOrNephewOnly = anyOtherHalfSiblings && hasAnySurvivingHalfNiecesAndHalfNephews && (anyPredeceasedHalfSiblings === 'optionYesAll' || anyPredeceasedHalfSiblings === 'optionYesSome');
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
@@ -54,7 +54,6 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         const executor = ctx.list[lastIndex];
         return executor &&
             executor.fullName &&
-            executor.childAdoptedIn &&
             executor.email &&
             executor.address;
     }
@@ -68,25 +67,28 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.coApplicantRelationshipToDeceased === 'optionChild') {
+        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling') {
             return `/coapplicant-name/${ctx.index}`;
-        } else if (ctx.coApplicantRelationshipToDeceased === 'optionGrandchild') {
+        } else if (ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
             return `/parent-die-before/${ctx.index}`;
         }
         return this.next(req, ctx).constructor.getUrl('otherCoApplicantRelationship');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.childOrSibling = ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling';
+        ctx.grandchildOrNieceNephew = ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew';
         return {
             options: [
-                {key: 'coApplicantRelationshipToDeceased', value: 'optionChild', choice: 'optionChild'},
-                {key: 'coApplicantRelationshipToDeceased', value: 'optionGrandchild', choice: 'optionGrandchild'},
+                {key: 'childOrSibling', value: true, choice: 'childOrSibling'},
+                {key: 'grandchildOrNieceNephew', value: true, choice: 'grandchildOrNieceNephew'},
             ]
         };
     }
 
     handlePost(ctx, errors) {
-        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild') {
+        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' ||
+            ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
             ctx.list[ctx.index] = {
                 ...ctx.list[ctx.index],
                 coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
@@ -99,7 +101,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     action(ctx, formdata) {
         if (formdata.executors && formdata.executors.list && ctx.list[ctx.index].coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index].coApplicantRelationshipToDeceased) {
             delete formdata.executors.list[ctx.index].childDieBeforeDeceased;
-            delete formdata.executors.list[ctx.index].halfSiblingDieBeforeDeceased;
+            delete formdata.executors.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
         }
         super.action(ctx, formdata);
         return [ctx, formdata];

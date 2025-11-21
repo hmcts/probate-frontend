@@ -278,8 +278,8 @@ const stepList = {
         otherwise: 'TaskList'
     },
     CoApplicantRelationshipToDeceased: {
-        optionChild: 'CoApplicantName',
-        optionGrandchild: 'ParentDieBefore',
+        childOrSibling: 'CoApplicantName',
+        grandchildOrNieceNephew: 'ParentDieBefore',
         otherwise: 'StopPage'
     },
     RemoveCoApplicant: 'JointApplication',
@@ -296,12 +296,12 @@ const stepList = {
         otherwise: 'StopPage'
     },
     CoApplicantAdoptionPlace: {
-        childAdoptedInEnglandOrWales: 'CoApplicantEmail',
+        childOrSiblingOrNieceOrNephewAdoptedInEnglandOrWales: 'CoApplicantEmail',
         grandChildAdoptedInEnglandOrWales: 'ParentAdoptedIn',
         otherwise: 'StopPage'
     },
     CoApplicantAdoptedOut: {
-        childNotAdoptedOut: 'CoApplicantEmail',
+        childOrSiblingOrNieceOrNephewNotAdoptedOut: 'CoApplicantEmail',
         grandchildNotAdoptedOut: 'CoApplicantParentAdoptedIn',
         otherwise: 'StopPage'
     },

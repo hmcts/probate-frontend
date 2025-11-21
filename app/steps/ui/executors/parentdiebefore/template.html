@@ -3,15 +3,24 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set relationship = fields.relationshipToDeceased.value %}
+{% if relationship == "optionGrandchild" %}
+{%    set legendText = content.grandchildQuestion %}
+{%    set HintText = content.grandchildHintText %}
+{% elseif relationship == "optionHalfBloodNieceOrNephew" %}
+{%    set legendText = content.halfBloodNieceOrNephewQuestion %}
+{%    set HintText = content.halfBloodNieceOrNephewHintText %}
+{% endif %}
+
 {% block form_content %}
     {% call govukFieldset({
     legend: {
-    text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+    text: legendText | replace("{deceasedName}", fields.deceasedName.value) | safe,
     classes: "govuk-fieldset__legend--l",
     isPageHeading: true
     }
     }) %}
-    <p class="govuk-body">{{ content.hintText | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    <p class="govuk-body">{{ HintText | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "applicantParentDieBeforeDeceased",

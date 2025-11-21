@@ -16,12 +16,15 @@ class SameParents extends ValidationStep {
         return ctx;
     }
 
-    nextStepOptions() {
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('differentParents');
+    }
+
+    nextStepOptions(ctx) {
+        ctx.wholeOrHalfBloodSibling = ctx.sameParents === 'optionBothParentsSame' || ctx.sameParents === 'optionOneParentsSame';
         return {
             options: [
-                {key: 'sameParents', value: 'optionBothParentsSame', choice: 'bothParentsSameAsDeceased'},
-                {key: 'sameParents', value: 'optionOneParentsSame', choice: 'oneParentsSameAsDeceased'},
-                {key: 'sameParents', value: 'optionNoParentsSame', choice: 'noParentsSameAsDeceased'}
+                {key: 'wholeOrHalfBloodSibling', value: true, choice: 'wholeOrHalfBloodSibling'}
             ]
         };
     }

@@ -6,8 +6,10 @@
 {% set relationship = fields.relationship.value %}
 {% if relationship == "optionParent" %}
 {%    set legendText = content.parentQuestion %}
-{% else %}
+{% elseif relationship == "optionSibling" %}
 {%    set legendText = content.SiblingQuestion %}
+{% else %}
+{%    set legendText = content.parentQuestion %}
 {% endif %}
 
 {% block form_content %}

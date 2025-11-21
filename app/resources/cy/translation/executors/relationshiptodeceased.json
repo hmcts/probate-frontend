@@ -4,6 +4,9 @@
   "hintText": "Yn seiliedig ar yr wybodaeth yr ydych wedi&rsquo;i rhoi i ni, mae pobl eraill sydd &acirc; hawl i etifeddu y gallwch wneud cais gyda nhw.",
   "optionChild": "Plentyn",
   "optionGrandchild": "&Wcirc;yr/Wyres",
+  "optionHalfBloodSibling": "Hanner brawd/chwaer",
+  "optionHalfBloodNieceOrNephew": "Hanner nith neu hanner nai",
+  "optionHalfBloodNieceOrNephewHintText": "Gall hyn ond fod drwy unrhyw un o hanner frodyr neu hanner chwiorydd {deceasedName} wnaeth farw cyn {deceasedName}",
   "optionGrandchildHintText": "Gall hyn fod drwy unrhyw un o blant {deceasedName} wnaeth farw cyn {deceasedName}",
   "optionOther": "Arall",
 

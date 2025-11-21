@@ -104,16 +104,41 @@ describe('coapplicant-relationship-to-deceased', () => {
                 });
         });
 
-        it('test correct content loaded on the page', (done) => {
+        it('test correct content loaded on the page if relationship is grandchild', (done) => {
             sessionData.deceasedName = 'John Doe';
+            sessionData.deceased.anyOtherChildren = 'optionYes';
+            sessionData.anyPredeceasedChildren = 'optionYesAll';
+            sessionData.anySurvivingGrandchildren = 'optionYes';
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const contentToExclude = ['optionHalfBloodSibling', 'optionHalfBloodNieceOrNephew', 'optionHalfBloodNieceOrNephewHintText',];
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        deceasedName: 'John Doe'
+                        deceasedName: 'John Doe',
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
                     };
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test correct content loaded on the page if relationship is half-niece or half-nephew', (done) => {
+            sessionData.deceasedName = 'John Doe';
+            sessionData.applicant.anyOtherHalfSiblings = 'optionYes';
+            sessionData.applicant.anyPredeceasedHalfSiblings = 'optionYesAll';
+            sessionData.applicant.anySurvivingHalfNiecesAndHalfNephews = 'optionYes';
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const contentToExclude = ['optionGrandchild', 'optionGrandchildHintText'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        deceasedName: 'John Doe',
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                    };
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

@@ -1,6 +1,8 @@
 {
-  "question": "A fu farw rhiant yr unigolyn hwn (plentyn {deceasedName}) cyn {deceasedName}?",
-  "hintText": "dim ond os bu farw eu rhiant (plentyn {deceasedName}) cyn {deceasedName} y mae wyrion a wyresau {deceasedName} yn gymwys i wneud cais.",
+  "grandchildQuestion": "A fu farw rhiant yr unigolyn hwn (plentyn {deceasedName}) cyn {deceasedName}?",
+  "halfBloodNieceOrNephewQuestion": "A fu farw rhiant y person hwn (hanner brawd neu chwaer {deceasedName}) cyn {deceasedName}?",
+  "grandchildHintText": "dim ond os bu farw eu rhiant (plentyn {deceasedName}) cyn {deceasedName} y mae wyrion a wyresau {deceasedName} yn gymwys i wneud cais.",
+  "halfBloodNieceOrNephewHintText": "Dim ond os bu farw eu rhiant (hanner brawd neu chwaer {deceasedName}) cyn {deceasedName} y mae hanner nithod a hanner neiod {deceasedName} yn gymwys i wneud cais.",
   "optionYes": "Do",
   "optionNo": "Naddo",
 

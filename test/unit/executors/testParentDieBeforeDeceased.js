@@ -32,8 +32,9 @@ describe('Co-applicant-parent-die-before', () => {
             ctx = {
                 list: [
                     {fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionGrandchild'},
+                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', halfBloodSiblingDiedBeforeDeceased: 'optionYes'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild', childDieBeforeDeceased: 'optionYes'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ],
                 index: 0
             };
@@ -45,8 +46,14 @@ describe('Co-applicant-parent-die-before', () => {
             expect(ctx.applicantParentDieBeforeDeceased).to.equal('optionYes');
         });
 
-        it('should not set parent die before field when childDieBeforeDeceased is not present', () => {
+        it('should set parent die before field to current ctx from list if applicant is Niece or Nephew', () => {
             ctx.index = 1;
+            [ctx] = ParentDieBefore.handleGet(ctx);
+            expect(ctx.applicantParentDieBeforeDeceased).to.equal('optionYes');
+        });
+
+        it('should not set parent die before field when childDieBeforeDeceased is not present', () => {
+            ctx.index = 3;
             [ctx] = ParentDieBefore.handleGet(ctx);
             // eslint-disable-next-line no-undefined
             expect(ctx.applicantParentDieBeforeDeceased).to.equal(undefined);
@@ -62,7 +69,7 @@ describe('Co-applicant-parent-die-before', () => {
                 list: [
                     {firstName: 'John', lastName: 'Doe'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild', childDieBeforeDeceased: 'optionYes'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'},
                 ]
             };
             req = {
@@ -77,6 +84,13 @@ describe('Co-applicant-parent-die-before', () => {
             ctx.applicantParentDieBeforeDeceased = 'optionYes';
             const url = ParentDieBefore.nextStepUrl(req, ctx);
             expect(url).to.equal('/coapplicant-name/1');
+        });
+
+        it('should return the co applicant adopted in page if the applicantParentDieBeforeDeceased is optionYes for Half Niece or Nephew', () => {
+            ctx.index = 2;
+            ctx.applicantParentDieBeforeDeceased = 'optionYes';
+            const url = ParentDieBefore.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-name/2');
         });
 
         it('should return the stop page if the applicantParentDieBeforeDeceased is optionNo', () => {
@@ -96,7 +110,6 @@ describe('Co-applicant-parent-die-before', () => {
                 list: [
                     {firstName: 'John', lastName: 'Doe'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
                 ],
                 index: 1,
                 applicantParentDieBeforeDeceased: 'optionYes'
@@ -105,8 +118,27 @@ describe('Co-applicant-parent-die-before', () => {
             [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
             expect(ctx).to.deep.equal({
                 list: [{firstName: 'John', lastName: 'Doe'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild', childDieBeforeDeceased: 'optionYes'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},],
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild', childDieBeforeDeceased: 'optionYes'}],
+                index: 1,
+                applicantParentDieBeforeDeceased: 'optionYes'
+            });
+            done();
+        });
+
+        it('should set halfBloodSiblingDiedBeforeDeceased field in the list if ctx has applicantParentDieBeforeDeceased', (done) => {
+            ctx = {
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'},
+                ],
+                index: 1,
+                applicantParentDieBeforeDeceased: 'optionYes'
+            };
+            errors = [];
+            [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                list: [{firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', halfBloodSiblingDiedBeforeDeceased: 'optionYes'},],
                 index: 1,
                 applicantParentDieBeforeDeceased: 'optionYes'
             });

@@ -4,6 +4,9 @@
   "hintText": "Based on the information you have given us, there are other people entitled to inherit who you can apply with.",
   "optionChild": "Child",
   "optionGrandchild": "Grandchild",
+  "optionHalfBloodSibling": "Half-sibling",
+  "optionHalfBloodNieceOrNephew": "Half-niece or half-nephew",
+  "optionHalfBloodNieceOrNephewHintText": "This can only be through any of {deceasedName}&rsquo;s half-siblings that died before {deceasedName}",
   "optionGrandchildHintText": "This can only be through any of {deceasedName}&rsquo;s children that died before {deceasedName}",
   "optionOther": "Other",
 

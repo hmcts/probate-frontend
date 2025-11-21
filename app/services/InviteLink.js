@@ -27,17 +27,6 @@ class InviteLink extends Service {
         const fetchOptions = AsyncFetch.fetchOptions(data, 'POST', headers);
         return AsyncFetch.fetchJson(url, fetchOptions);
     }
-
-    encodeURLNameParams(invitation) {
-        invitation.forEach(obj => {
-            for (const key in obj) {
-                if (key.includes('Name')) {
-                    obj[key] = encodeURIComponent(obj[key]);
-                }
-            }
-        });
-        return invitation;
-    }
 }
 
 module.exports = InviteLink;

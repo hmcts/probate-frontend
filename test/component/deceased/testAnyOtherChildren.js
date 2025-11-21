@@ -1,15 +1,17 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const AllChildrenOver18 = require('app/steps/ui/deceased/allchildrenover18/index');
+const AnyPredeceasedChildren = require('app/steps/ui/deceased/anypredeceasedchildren/index');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
+const GrandchildParentHasOtherChildren = require('app/steps/ui/deceased/grandchildparenthasotherchildren/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('any-other-children', () => {
     let testWrapper;
-    const expectedNextUrlForAllChildrenOver18 = AllChildrenOver18.getUrl();
+    const expectedNextUrlForAnyPredeceasedChildren = AnyPredeceasedChildren.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
+    const expectedNextUrlForGrandchildParentHasOtherChildren = GrandchildParentHasOtherChildren.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyOtherChildren');
@@ -32,6 +34,9 @@ describe('any-other-children', () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
 
@@ -48,27 +53,53 @@ describe('any-other-children', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to All Children Over 18 page if deceased had other children: ${expectedNextUrlForAllChildrenOver18}`, (done) => {
+        it(`test it redirects to Any Predeceased children page if deceased had other children: ${expectedNextUrlForAnyPredeceasedChildren}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
+                        relationshipToDeceased: 'optionChild',
                         anyOtherChildren: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllChildrenOver18);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyPredeceasedChildren);
                 });
         });
 
         it(`test it redirects to Applicant Name page if deceased had no other children: ${expectedNextUrlForApplicantName}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
-                        anyOtherChildren: 'optionNo'
+                        relationshipToDeceased: 'optionChild',
+                        anyOtherChildren: 'optionNo',
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                });
+        });
+        it(`test it redirects to Grandchild parent has other children page if deceased had no other children and applicant is grandchild: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionGrandchild',
+                        anyOtherChildren: 'optionNo',
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasOtherChildren);
                 });
         });
     });

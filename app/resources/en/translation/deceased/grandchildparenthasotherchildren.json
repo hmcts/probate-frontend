@@ -1,0 +1,17 @@
+{
+  "title": "Did your parent (deceased’s child) have any other children?",
+  "question": "Did your parent ({deceasedName}’s child) have any other children?",
+  "paragraph1": "We need to know about all children your parent ({deceasedName}‘s child) had, including any children who:",
+  "listItem1": "were legally adopted or given up for adoption",
+  "listItem2": "have died, either before or after {deceasedName}",
+  "paragraph2": "This does not include any step-children.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "grandchildParentHasOtherChildren": {
+      "required": "Select &lsquo;Yes&rsquo; if your parent had any other children"
+    }
+  }
+}

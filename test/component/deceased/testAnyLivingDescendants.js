@@ -34,13 +34,16 @@ describe(testStepUrl, () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
                 }
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const contentData = {deceasedName: 'John Doe'};
+                    const contentData = {deceasedName: 'John Doe', relationshipToDeceased: 'optionSibling'};
                     const contentToExclude = ['theDeceased'];
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -53,10 +56,15 @@ describe(testStepUrl, () => {
 
         it(`test it redirects to Adopted in page if deceased no descendants: ${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionParent'
+                    }
+                })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionGrandchild',
+                        relationshipToDeceased: 'optionParent',
                         anyLivingDescendants: 'optionNo'
                     };
 
@@ -66,10 +74,16 @@ describe(testStepUrl, () => {
 
         it(`test it redirects to stop page if deceased has descendants: ${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionParent'
+                    }
+                })
                 .end(() => {
                     const data = {
-                        anyLivingDescendants: 'optionYes'
+                        relationshipToDeceased: 'optionParent',
+                        anyLivingDescendants: 'optionYes',
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);

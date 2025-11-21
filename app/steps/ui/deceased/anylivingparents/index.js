@@ -3,31 +3,23 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 
-class AnyLivingDescendants extends ValidationStep {
+class AnyLivingParents extends ValidationStep {
 
     static getUrl() {
-        return '/any-living-descendants';
+        return '/any-living-parents';
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.relationshipToDeceased = formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('hadLivingDescendants');
-    }
-
-    nextStepOptions(ctx) {
-        ctx.siblings = ctx.relationshipToDeceased === 'optionSibling' && ctx.anyLivingDescendants === 'optionNo';
-        ctx.parent = ctx.relationshipToDeceased === 'optionParent' && ctx.anyLivingDescendants === 'optionNo';
+    nextStepOptions() {
         return {
             options: [
-                {key: 'siblings', value: true, choice: 'anyLivingParents'},
-                {key: 'parent', value: true, choice: 'adoptedIn'}
+                {key: 'anyLivingParents', value: 'optionNo', choice: 'hasNoLivingParents'}
             ]
         };
     }
@@ -42,9 +34,8 @@ class AnyLivingDescendants extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
-
         return [ctx, formdata];
     }
 }
 
-module.exports = AnyLivingDescendants;
+module.exports = AnyLivingParents;

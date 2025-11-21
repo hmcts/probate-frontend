@@ -2,14 +2,14 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
-const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const AnyLivingDescendants = steps.AnyLivingDescendants;
+const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
+const AnyLivingParents = steps.AnyLivingParents;
 
-describe(AnyLivingDescendants.name, () => {
+describe('AnyLivingParents', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            const url = AnyLivingDescendants.constructor.getUrl();
-            expect(url).to.equal('/any-living-descendants');
+            const url = AnyLivingParents.constructor.getUrl();
+            expect(url).to.equal('/any-living-parents');
             done();
         });
     });
@@ -22,15 +22,12 @@ describe(AnyLivingDescendants.name, () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe'
-                        },
-                        applicant: {
-                            relationshipToDeceased: 'optionSibling'
                         }
                     }
                 }
             };
 
-            const ctx = AnyLivingDescendants.getContextData(req);
+            const ctx = AnyLivingParents.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
         });
@@ -38,12 +35,10 @@ describe(AnyLivingDescendants.name, () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
-            const nextStepOptions = AnyLivingDescendants.nextStepOptions(ctx);
+            const nextStepOptions = AnyLivingParents.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'siblings', value: true, choice: 'anyLivingParents'},
-                    {key: 'parent', value: true, choice: 'adoptedIn'}
+                    {key: 'anyLivingParents', value: 'optionNo', choice: 'hasNoLivingParents'}
                 ]
             });
             done();

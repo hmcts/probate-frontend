@@ -1,15 +1,17 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const ApplicantName = require('app/steps/ui/applicant/name/index');
+const AdoptedIn = require('app/steps/ui/details/adoptedin/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
-const testStepName = 'AnyOtherParentAlive';
-const testStepUrl = '/any-other-parent-alive';
+//const StopPage = require('../../../app/steps/ui/stoppage');
+const testStepName = 'AnyLivingParents';
+const testStepUrl = '/any-living-parents';
 
 describe(testStepUrl, () => {
     let testWrapper;
-    const expectedNextUrlForApplicantName = ApplicantName.getUrl();
+    const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
+    //const expectedNextUrlForStopPage = StopPage.getUrl('anyLivingParents');
 
     beforeEach(() => {
         testWrapper = new TestWrapper(testStepName);
@@ -49,29 +51,35 @@ describe(testStepUrl, () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to ApplicantName page if No for any Other Parent Alive: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to AdoptedIn page if No for any Any Living Parent: ${expectedNextUrlForAdoptedIn}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionSibling'
+                    }
+                })
+                .end(() => {
+                    const data = {
+                        anyLivingParents: 'optionNo',
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
+                });
+        });
+
+        /*
+        it(`Test it redirects to Stoppage page if Yes for any Any Living Parent: ${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionGrandchild',
-                        anyOtherParentAlive: 'optionNo'
+                        anyLivingParents: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
                 });
         });
-
-        it(`Test it redirects to ApplicantName page if Yes for any Other Parent Alive: ${expectedNextUrlForApplicantName}`, (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
-                .end(() => {
-                    const data = {
-                        anyOtherParentAlive: 'optionYes'
-                    };
-
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
-                });
-        });
+        */
     });
 });

@@ -58,6 +58,18 @@ class AdoptedOut extends ValidationStep {
         baseMessage.msg = baseMessage.msg.replace('{deceasedName}', deceasedName);
         return baseMessage;
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        if (ctx.relationshipToDeceased === 'optionGrandchild') {
+            delete ctx.grandchildParentAdoptionPlace;
+        } else if (ctx.relationshipToDeceased === 'optionChild') {
+            delete ctx.childAdoptionPlace;
+        } else if (ctx.relationshipToDeceased === 'optionParent') {
+            delete ctx.deceasedAdoptionPlace;
+        }
+        return [ctx, formdata];
+    }
 }
 
 module.exports = AdoptedOut;

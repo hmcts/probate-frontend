@@ -162,8 +162,18 @@ const stepList = {
         otherwise: 'StopPage'
     },
     AnyLivingDescendants: {
-        noLivingDescendants: 'DeceasedAdoptedIn',
+        anyLivingParents: 'AnyLivingParents',
+        adoptedIn: 'AdoptedIn',
         otherwise: 'StopPage'
+    },
+    AnyLivingParents: {
+        hasNoLivingParents: 'AdoptedIn',
+        otherwise: 'StopPage'
+    },
+    SameParents: {
+        optionBothParentsSame: 'WholeBloodSiblingAdoptedIn',
+        optionOneParentsSame: 'HalfBloodSiblingAdoptedIn',
+        optionNoParentsSame: 'StopPage'
     },
     SpouseNotApplyingReason: {
         childAndSpouseNotApplying: 'AdoptedIn',

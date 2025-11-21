@@ -2,13 +2,17 @@
   "title": "A wnaeth yr unigolyn sydd wedi marw eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
   "childQuestion": "A wnaeth {deceasedName} eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
   "grandchildQuestion": "A wnaeth eich rhiant (plentyn {deceasedName} eich mabwysiadu’n gyfreithlon?",
+  "wholeBloodSiblingQuestion": "A wnaeth eich rhieni eich mabwysiadu&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
+  "halfBloodSiblingQuestion": "A wnaeth y rhiant sydd gennych yn gyffredin gyda {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw? ",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "adoptedIn": {
       "requiredChild": "Dewiswch &lsquo;Do&rsquo; os wnaeth {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon",
-      "requiredGrandchild": "Dewiswch &lsquo;Do&rsquo; os wnaeth eich rhiant eich mabwysiadu"
+      "requiredGrandchild": "Dewiswch &lsquo;Do&rsquo; os wnaeth eich rhiant eich mabwysiadu",
+      "requiredWholeBloodSibling": "Dewiswch &lsquo;Do&rsquo; os wnaeth eich rhieni eich mabwysiadu&rsquo;n gyfreithlon",
+      "requiredHalfBloodSibling": "Dewiswch &lsquo;Do&rsquo; os yw eich rhiant (rhiant {deceasedName}) wedi eich mabwysiadu&rsquo;n gyfreithlon"
     }
   }
 }

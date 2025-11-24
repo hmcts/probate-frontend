@@ -1,7 +1,7 @@
 {
   "title": "Deceased adopted out",
   "parentQuestion": "Did you legally adopt {deceasedName} out of your family (give them up for adoption)?",
-  "siblingQuestion": "Did {deceased name}&rsquo;s parents legally adopt them out of their family (give them up for adoption)?",
+  "siblingQuestion": "Did {deceasedName}&rsquo;s parents legally adopt them out of their family (give them up for adoption)?",
   "optionYes": "Yes",
   "optionNo": "No",
 

@@ -12,10 +12,13 @@ class DeceasedAdoptionPlace extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('adoptionNotEnglandOrWales');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.parentApplyingAndDeceasedAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionParent' && ctx.deceasedAdoptionPlace === 'optionYes';
+        ctx.siblingApplyingAndDeceasedAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionSibling' && ctx.deceasedAdoptionPlace === 'optionYes';
         return {
             options: [
-                {key: 'deceasedAdoptionPlace', value: 'optionYes', choice: 'deceasedAdoptedInEnglandOrWales'}
+                {key: 'parentApplyingAndDeceasedAdoptedInEnglandOrWales', value: true, choice: 'parentApplyingAndDeceasedAdoptedInEnglandOrWales'},
+                {key: 'siblingApplyingAndDeceasedAdoptedInEnglandOrWales', value: true, choice: 'siblingApplyingAndDeceasedAdoptedInEnglandOrWales'}
             ]
         };
     }

@@ -56,7 +56,8 @@ describe('PrimaryApplicantAdoptionPlace', () => {
             const nextStepOptions = AdoptionPlace.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'applicantAdoptedInEnglandOrWales', value: true, choice: 'applicantAdoptedInEnglandOrWales'}
+                    {key: 'childOrGrandChildAdoptedInEnglandOrWales', value: true, choice: 'childOrGrandChildAdoptedInEnglandOrWales'},
+                    {key: 'siblingAdoptedInEnglandOrWales', value: true, choice: 'siblingAdoptedInEnglandOrWales'}
                 ]
             });
             done();

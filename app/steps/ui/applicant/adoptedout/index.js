@@ -25,10 +25,12 @@ class AdoptedOut extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.applicantNotAdoptedOut = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.adoptedOut === 'optionNo';
+        ctx.childOrGrandchildNotAdoptedOut = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.adoptedOut === 'optionNo';
+        ctx.siblingNotAdoptedOut = ctx.relationshipToDeceased === 'optionSibling' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
-                {key: 'applicantNotAdoptedOut', value: true, choice: 'applicantNotAdoptedOut'}
+                {key: 'childOrGrandchildNotAdoptedOut', value: true, choice: 'childOrGrandchildNotAdoptedOut'},
+                {key: 'siblingNotAdoptedOut', value: true, choice: 'siblingNotAdoptedOut'}
             ]
         };
     }
@@ -43,9 +45,9 @@ class AdoptedOut extends ValidationStep {
                     errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredGrandchild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionSibling') {
                     if (ctx.sameParents === 'optionBothParentsSame') {
-                        errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredWholeBloodSibling', session, ctx.deceasedName));
+                        errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredWholeBloodSibling', session, ctx.deceasedName));
                     } else if (ctx.sameParents === 'optionOneParentsSame') {
-                        errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredHalfBloodSibling', session, ctx.deceasedName));
+                        errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredHalfBloodSibling', session, ctx.deceasedName));
                     }
                 }
             }
@@ -57,18 +59,6 @@ class AdoptedOut extends ValidationStep {
         const baseMessage = FieldError(field, keyword, this.resourcePath, this.generateContent({}, {}, session.language), session.language);
         baseMessage.msg = baseMessage.msg.replace('{deceasedName}', deceasedName);
         return baseMessage;
-    }
-
-    action(ctx, formdata) {
-        super.action(ctx, formdata);
-        if (ctx.relationshipToDeceased === 'optionGrandchild') {
-            delete ctx.grandchildParentAdoptionPlace;
-        } else if (ctx.relationshipToDeceased === 'optionChild') {
-            delete ctx.childAdoptionPlace;
-        } else if (ctx.relationshipToDeceased === 'optionParent') {
-            delete ctx.deceasedAdoptionPlace;
-        }
-        return [ctx, formdata];
     }
 }
 

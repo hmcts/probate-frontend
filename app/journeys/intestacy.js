@@ -188,11 +188,13 @@ const stepList = {
         notAdoptedIn: 'AdoptedOut'
     },
     AdoptedOut: {
-        applicantNotAdoptedOut: 'AnyOtherChildren',
+        childOrGrandchildNotAdoptedOut: 'AnyOtherChildren',
+        siblingNotAdoptedOut: 'NeedToChange', // TO DO: change to 'AnyOtherWholeSiblings' when whole-sibling route is live
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
-        applicantAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        childOrGrandChildAdoptedInEnglandOrWales: 'AnyOtherChildren',
+        siblingAdoptedInEnglandOrWales: 'NeedToChange', // TO DO: change to 'AnyOtherWholeSiblings' when whole-sibling route is live
         otherwise: 'StopPage'
     },
     ParentAdoptedIn: {
@@ -212,11 +214,13 @@ const stepList = {
         deceasedNotAdoptedIn: 'DeceasedAdoptedOut'
     },
     DeceasedAdoptedOut: {
-        deceasedNotAdoptedOut: 'AnyOtherParentAlive',
+        parentApplyingAndDeceasedNotAdoptedOut: 'AnyOtherParentAlive',
+        siblingApplyingAndDeceasedNotAdoptedOut: 'SameParents',
         otherwise: 'StopPage'
     },
     DeceasedAdoptionPlace: {
-        deceasedAdoptedInEnglandOrWales: 'AnyOtherParentAlive',
+        parentApplyingAndDeceasedAdoptedInEnglandOrWales: 'AnyOtherParentAlive',
+        siblingApplyingAndDeceasedAdoptedInEnglandOrWales: 'SameParents',
         otherwise: 'StopPage'
     },
     AnyChildren: {

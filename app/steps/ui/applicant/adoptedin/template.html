@@ -9,9 +9,9 @@
 {%    set legendText = content.childQuestion %}
 {% elseif relationship == "optionGrandchild" %}
 {%    set legendText = content.grandchildQuestion %}
-{% elseif relationship == "optionSibling" and sameParent == "optionYes" %}
-{%    set legendText = content.wholeBloodSiblingQuestion %}
 {% elseif relationship == "optionSibling" and sameParent == "optionBothParentsSame" %}
+{%    set legendText = content.wholeBloodSiblingQuestion %}
+{% elseif relationship == "optionSibling" and sameParent == "optionOneParentsSame" %}
 {%    set legendText = content.halfBloodSiblingQuestion %}
 {% else %}
 {%    set legendText = content.childQuestion %}

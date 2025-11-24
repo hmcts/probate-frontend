@@ -56,7 +56,8 @@ describe('DeceasedAdoptionPlace', () => {
             const nextStepOptions = DeceasedAdoptionPlace.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'deceasedAdoptionPlace', value: 'optionYes', choice: 'deceasedAdoptedInEnglandOrWales'}
+                    {key: 'parentApplyingAndDeceasedAdoptedInEnglandOrWales', value: true, choice: 'parentApplyingAndDeceasedAdoptedInEnglandOrWales'},
+                    {key: 'siblingApplyingAndDeceasedAdoptedInEnglandOrWales', value: true, choice: 'siblingApplyingAndDeceasedAdoptedInEnglandOrWales'}
                 ]
             });
             done();

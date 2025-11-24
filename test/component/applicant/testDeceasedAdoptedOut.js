@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const OtherParentAlive = require('app/steps/ui/deceased/anyotherparentalive');
+const SameParents = require('app/steps/ui/applicant/sameparents');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const StopPage = require('app/steps/ui/stoppage');
 const caseTypes= require('app/utils/CaseTypes');
@@ -9,6 +10,7 @@ const caseTypes= require('app/utils/CaseTypes');
 describe('deceased-adoption-out', () => {
     let testWrapper;
     const expectedNextUrlForOtherParentAlive = OtherParentAlive.getUrl();
+    const expectedNextUrlForSameParents = SameParents.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('deceasedAdoptedOut');
 
     beforeEach(() => {
@@ -66,14 +68,14 @@ describe('deceased-adoption-out', () => {
                 });
         });
 
-        it(`test it redirects to any other parent alive page if grandchild is not adopted Out: ${expectedNextUrlForOtherParentAlive}`, (done) => {
+        it(`test it redirects to any other parent alive page if deceased is not adopted Out: ${expectedNextUrlForOtherParentAlive}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
                 },
                 applicant: {
-                    relationshipToDeceased: 'optionGrandchild'
+                    relationshipToDeceased: 'optionParent'
                 }
             };
 
@@ -85,6 +87,28 @@ describe('deceased-adoption-out', () => {
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForOtherParentAlive);
+                });
+        });
+
+        it(`test it redirects to applicant has Same parents page if deceased is not adopted Out and applicant is Sibling: ${expectedNextUrlForSameParents}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSibling'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        deceasedAdoptedOut: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForSameParents);
                 });
         });
     });

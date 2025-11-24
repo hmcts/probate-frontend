@@ -16,7 +16,7 @@
     <p class="govuk-body">{{ content.paragraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
 
     {{ govukRadios({
-        classes: "govuk-radios--inline",
+        classes: "govuk-radios",
         idPrefix: "sameParents",
         name: "sameParents",
         errorMessage: { text: fields.sameParents.errorMessage
@@ -34,7 +34,7 @@
             },
             {
                 value: "optionNoParentsSame",
-                text: content["optionNoParentsSame"] | safe,
+                text: content["optionNoParentsSame"] | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 checked: true if fields.sameParents.value == "optionNoParentsSame"
             }
         ]

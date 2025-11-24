@@ -35,12 +35,11 @@ describe('SameParents', () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = SameParents.nextStepOptions();
+            const ctx = {};
+            const nextStepOptions = SameParents.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'sameParents', value: 'optionBothParentsSame', choice: 'bothParentsSameAsDeceased'},
-                    {key: 'sameParents', value: 'optionOneParentsSame', choice: 'oneParentsSameAsDeceased'},
-                    {key: 'sameParents', value: 'optionNoParentsSame', choice: 'noParentsSameAsDeceased'}
+                    {key: 'wholeOrHalfBloodSibling', value: true, choice: 'wholeOrHalfBloodSibling'}
                 ]
             });
             done();

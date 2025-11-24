@@ -79,7 +79,8 @@ describe('DeceasedAdoptedOut', () => {
             const nextStepOptions = DeceasedAdoptedOut.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'deceasedAdoptedOut', value: 'optionNo', choice: 'deceasedNotAdoptedOut'},
+                    {key: 'parentApplyingAndDeceasedNotAdoptedOut', value: true, choice: 'parentApplyingAndDeceasedNotAdoptedOut'},
+                    {key: 'siblingApplyingAndDeceasedNotAdoptedOut', value: true, choice: 'siblingApplyingAndDeceasedNotAdoptedOut'}
                 ]
             });
             done();

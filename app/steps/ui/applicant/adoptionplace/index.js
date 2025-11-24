@@ -21,10 +21,12 @@ class AdoptionPlace extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.applicantAdoptedInEnglandOrWales = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.adoptionPlace === 'optionYes';
+        ctx.childOrGrandChildAdoptedInEnglandOrWales = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.adoptionPlace === 'optionYes';
+        ctx.siblingAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionSibling' && ctx.adoptionPlace === 'optionYes';
         return {
             options: [
-                {key: 'applicantAdoptedInEnglandOrWales', value: true, choice: 'applicantAdoptedInEnglandOrWales'}
+                {key: 'childOrGrandChildAdoptedInEnglandOrWales', value: true, choice: 'childOrGrandChildAdoptedInEnglandOrWales'},
+                {key: 'siblingAdoptedInEnglandOrWales', value: true, choice: 'siblingAdoptedInEnglandOrWales'}
             ]
         };
     }

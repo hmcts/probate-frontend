@@ -30,7 +30,7 @@ class AnyLivingParents extends ValidationStep {
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+            errors[0].msg = errors[0].msg.replace(/\{deceasedName\}/g, fields.deceasedName.value);
         }
         return fields;
     }

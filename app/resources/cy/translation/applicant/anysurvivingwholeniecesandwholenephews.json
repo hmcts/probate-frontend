@@ -1,6 +1,6 @@
 {
-  "title": "A oedd gan unrhyw un o’r brodyr/chwiorydd hyn blant wnaeth eu goroesi?",
-  "question": "DA oedd gan unrhyw un o’r brodyr/chwiorydd hyn blant wnaeth eu goroesi?",
+  "title": "A oedd gan unrhyw un o’r brodyr/chwiorydd hyn blant wnaeth eu goroesi pan fu farw yr unigolyn sydd wedi marw?",
+  "question": "A oedd gan unrhyw un o’r brodyr/chwiorydd hyn blant wnaeth eu goroesi pan fu farw {deceasedName}?",
   "paragraph1": "Nhw fyddai nithoedd a neiaint {deceasedName}.",
   "optionYes": "Oedd",
   "optionNo": "Nac oedd",

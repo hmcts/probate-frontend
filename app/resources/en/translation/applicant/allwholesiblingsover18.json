@@ -1,6 +1,6 @@
 {
-  "title": "Are all of the deceased&rsquo;s siblings 18 or older?",
-  "question": "Are all of {deceasedName}&rsquo;s siblings 18 or older?",
+  "title": "Are all of the deceased&rsquo;s surviving siblings 18 or older?",
+  "question": "Are all of {deceasedName}&rsquo;s surviving siblings 18 or older?",
   "paragraph": "You do not need to include any siblings that died after {deceasedName}.",
   "optionYes": "Yes",
   "optionNo": "No",

@@ -1,6 +1,6 @@
 {
-  "title": "Did any of these siblings have surviving children?",
-  "question": "Did any of these siblings have surviving children?",
+  "title": "Did any of these siblings have surviving children when the deceased died?",
+  "question": "Did any of these siblings have surviving children when {deceasedName} died?",
   "paragraph1": "They would be {deceasedName}&rsquo;s nieces and nephews.",
   "optionYes": "Yes",
   "optionNo": "No",

@@ -3,10 +3,10 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 
-class AnyPredeceasedHalfSiblings extends ValidationStep {
+class AnyPredeceasedWholeSiblings extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-half-siblings';
+        return '/deceased-whole-siblings';
     }
 
     getContextData(req) {
@@ -25,11 +25,11 @@ class AnyPredeceasedHalfSiblings extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hadSomeOrAllPredeceasedHalfSibling = ctx.anyPredeceasedHalfSiblings === 'optionYesSome' || ctx.anyPredeceasedHalfSiblings === 'optionYesAll';
+        ctx.hadSomeOrAllPredeceasedWholeSibling = ctx.anyPredeceasedWholeSiblings === 'optionYesSome' || ctx.anyPredeceasedWholeSiblings === 'optionYesAll';
         return {
             options: [
-                {key: 'hadSomeOrAllPredeceasedHalfSibling', value: true, choice: 'hadSomeOrAllPredeceasedHalfSibling'},
-                {key: 'anyPredeceasedHalfSiblings', value: 'optionNo', choice: 'optionNo'}
+                {key: 'hadSomeOrAllPredeceasedWholeSibling', value: true, choice: 'hadSomeOrAllPredeceasedWholeSibling'},
+                {key: 'anyPredeceasedWholeSiblings', value: 'optionNo', choice: 'optionNo'}
             ]
         };
     }
@@ -37,14 +37,14 @@ class AnyPredeceasedHalfSiblings extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
 
-        if (formdata.deceased && formdata.deceased.anyPredeceasedHalfSiblings && ctx.anyPredeceasedHalfSiblings !== formdata.deceased.anyPredeceasedHalfSiblings) {
-            delete ctx.anySurvivingHalfNiecesAndHalfNephews;
-            delete ctx.allHalfNiecesAndHalfNephewsOver18;
-            delete ctx.allHalfSiblingsOver18;
+        if (formdata.deceased && formdata.deceased.anyPredeceasedWholeSiblings && ctx.anyPredeceasedWholeSiblings !== formdata.deceased.anyPredeceasedWholeSiblings) {
+            delete ctx.anySurvivingWholeNiecesAndWholeNephews;
+            delete ctx.allWholeNiecesAndWholeNephewsOver18;
+            delete ctx.allWholeSiblingsOver18;
         }
 
         return [ctx, formdata];
     }
 }
 
-module.exports = AnyPredeceasedHalfSiblings;
+module.exports = AnyPredeceasedWholeSiblings;

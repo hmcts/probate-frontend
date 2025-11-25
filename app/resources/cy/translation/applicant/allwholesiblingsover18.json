@@ -1,6 +1,6 @@
 {
-  "title": "A yw holl frodyr/chwiorydd yr unigolyn sydd wedi marw yn 18 oed neu’n hŷn?",
-  "question": "A yw holl frodyr/chwiorydd {deceasedName} yn 18 oed neu’n hŷn?",
+  "title": "A yw holl frodyr/chwiorydd yr unigolyn sydd wedi marw wnaeth eu goroesi yn 18 oed neu’n hŷn??",
+  "question": "A yw holl frodyr/chwiorydd {deceasedName} wnaeth eu goroesi yn 18 oed neu’n hŷn??",
   "paragraph": "Nid oes arnoch angen cynnwys unrhyw frodyr/chwiorydd wnaeth farw ar ôl {deceasedName}.",
   "optionYes": "Ydyn",
   "optionNo": "Nac ydyn",

@@ -5060,9 +5060,9 @@ __metadata:
   linkType: hard
 
 "cookie@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "cookie@npm:1.0.2"
-  checksum: 10/f5817cdc84d8977761b12549eba29435e675e65c7fef172bc31737788cd8adc83796bf8abe6d950554e7987325ad2d9ac2971c5bd8ff0c4f81c145f82e4ab1be
+  version: 1.1.0
+  resolution: "cookie@npm:1.1.0"
+  checksum: 10/fb7863135a42daf58667120b251eddff56c61126a67f1b1a55ee44cc79921787fa850c4efa388d8b81281e8c23490de4aef48bc607c687b7017fcdbcc072358e
   languageName: node
   linkType: hard
 

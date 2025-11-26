@@ -189,12 +189,12 @@ const stepList = {
     },
     AdoptedOut: {
         childOrGrandchildNotAdoptedOut: 'AnyOtherChildren',
-        siblingNotAdoptedOut: 'NeedToChange', // TO DO: change to 'AnyOtherWholeSiblings' when whole-sibling route is live
+        siblingNotAdoptedOut: 'AnyOtherWholeSiblings',
         otherwise: 'StopPage'
     },
     AdoptionPlace: {
         childOrGrandChildAdoptedInEnglandOrWales: 'AnyOtherChildren',
-        siblingAdoptedInEnglandOrWales: 'NeedToChange', // TO DO: change to 'AnyOtherWholeSiblings' when whole-sibling route is live
+        siblingAdoptedInEnglandOrWales: 'AnyOtherWholeSiblings',
         otherwise: 'StopPage'
     },
     ParentAdoptedIn: {
@@ -259,6 +259,28 @@ const stepList = {
         allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
         childAndGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         grandchildAndGrandchildrenOver18AndAllPredeceasedChildren: 'GrandchildParentHasOtherChildren',
+        otherwise: 'StopPage'
+    },
+    AnyOtherWholeSiblings: {
+        hadOtherWholeSiblings: 'AnyPredeceasedWholeSiblings',
+        otherwise: 'ApplicantName'
+    },
+    AnyPredeceasedWholeSiblings: {
+        hadSomeOrAllPredeceasedWholeSibling: 'AnySurvivingWholeNiecesAndWholeNephews',
+        optionNo: 'AllWholeSiblingsOver18'
+    },
+    AnySurvivingWholeNiecesAndWholeNephews: {
+        hadSurvivingWholeNiecesAndWholeNephews: 'AllWholeNiecesAndWholeNephewsOver18',
+        hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews: 'AllWholeSiblingsOver18',
+        hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews: 'ApplicantName'
+    },
+    AllWholeNiecesAndWholeNephewsOver18: {
+        allWholeNiecesAndWholeNephewsOver18AndSomePredeceasedWholeSiblings: 'AllWholeSiblingsOver18',
+        allWholeNiecesAndWholeNephewsOver18AndAllPredeceasedWholeSiblings: 'ApplicantName',
+        otherwise: 'StopPage'
+    },
+    AllWholeSiblingsOver18: {
+        allWholeSiblingsOver18: 'ApplicantName',
         otherwise: 'StopPage'
     },
     AnyOtherHalfSiblings: {

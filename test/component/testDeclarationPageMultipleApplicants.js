@@ -72,6 +72,10 @@ describe('declaration, multiple applicants', () => {
         nock(config.services.orchestrator.url)
             .post(config.documentUpload.paths.upload)
             .reply(200, {});
+
+        nock(config.services.orchestrator.url)
+            .post(uri => uri.includes('resetAgreed'))
+            .reply(200, {});
     });
 
     afterEach(async () => {

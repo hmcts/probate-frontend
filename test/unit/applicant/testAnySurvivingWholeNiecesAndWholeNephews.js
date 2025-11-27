@@ -44,7 +44,8 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
             const ctx = {
                 anyPredeceasedWholeSiblings: 'optionYesSome',
                 anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
-                relationshipToDeceased: 'optionSibling'
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame'
             };
             const nextStepUrl = AnySurvivingWholeNiecesAndWholeNephews.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/whole-nieces-whole-nephews-age');
@@ -60,7 +61,8 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
             const ctx = {
                 anyPredeceasedWholeSiblings: 'optionYesSome',
                 anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
-                relationshipToDeceased: 'optionSibling'
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame'
             };
             const nextStepUrl = AnySurvivingWholeNiecesAndWholeNephews.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/whole-siblings-age');
@@ -76,7 +78,8 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
             const ctx = {
                 anyPredeceasedWholeSiblings: 'optionYesAll',
                 anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
-                relationshipToDeceased: 'optionSibling'
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame'
             };
             const nextStepUrl = AnySurvivingWholeNiecesAndWholeNephews.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
@@ -92,10 +95,45 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
             const ctx = {
                 anyPredeceasedWholeSiblings: 'optionYesAll',
                 anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
-                relationshipToDeceased: 'optionSibling'
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame'
             };
             const nextStepUrl = AnySurvivingWholeNiecesAndWholeNephews.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/whole-nieces-whole-nephews-age');
+            done();
+        });
+
+        it('should return the correct url when deceased has all predeceased whole-sibling and has surviving children for those predeceased', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyPredeceasedWholeSiblings: 'optionYesAll',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionOneParentsSame'
+            };
+            const nextStepUrl = AnySurvivingWholeNiecesAndWholeNephews.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/deceased-other-half-siblings');
+            done();
+        });
+
+        it('should return the correct url when deceased has all predeceased whole-sibling and has surviving children for those predeceased', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyPredeceasedWholeSiblings: 'optionYesAll',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionOneParentsSame'
+            };
+            const nextStepUrl = AnySurvivingWholeNiecesAndWholeNephews.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/hasSurvivingChildrenWithOneParent');
             done();
         });
     });
@@ -106,9 +144,10 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
             const nextStepOptions = AnySurvivingWholeNiecesAndWholeNephews.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anySurvivingWholeNiecesAndWholeNephews', value: 'optionYes', choice: 'hadSurvivingWholeNiecesAndWholeNephews'},
-                    {key: 'hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews', value: true, choice: 'hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews'},
-                    {key: 'hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews', value: true, choice: 'hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews'},
+                    {key: 'hasBothParentsSameAndHasSurvivors', value: true, choice: 'hasBothParentsSameAndHasSurvivors'},
+                    {key: 'hasBothParentsSameAndHadOtherWholeSiblingAndHadNoSurvivors', value: true, choice: 'hasBothParentsSameAndHadOtherWholeSiblingAndHadNoSurvivors'},
+                    {key: 'hasBothParentsSameAndHadNoOtherWholeSiblingAndHadNoSurvivors', value: true, choice: 'hasBothParentsSameAndHadNoOtherWholeSiblingAndHadNoSurvivors'},
+                    {key: 'hasOneParentsSameAndHadAllPredeceasedWholeSiblingAndNoSurvivors', value: true, choice: 'hasOneParentsSameAndHadAllPredeceasedWholeSiblingAndNoSurvivors'}
                 ]
             });
             done();

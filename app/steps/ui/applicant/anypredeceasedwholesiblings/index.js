@@ -24,12 +24,18 @@ class AnyPredeceasedWholeSiblings extends ValidationStep {
         return fields;
     }
 
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('hasOtherSiblingsWithSameParents');
+    }
+
     nextStepOptions(ctx) {
-        ctx.hadSomeOrAllPredeceasedWholeSibling = ctx.anyPredeceasedWholeSiblings === 'optionYesSome' || ctx.anyPredeceasedWholeSiblings === 'optionYesAll';
+        ctx.hadSomeOrAllPredeceasedWholeSibling = ((ctx.anyPredeceasedWholeSiblings === 'optionYesSome' || ctx.anyPredeceasedWholeSiblings === 'optionYesAll') && ctx.sameParents === 'optionBothParentsSame') ||
+            (ctx.anyPredeceasedWholeSiblings === 'optionYesAll' && ctx.sameParents === 'optionOneParentsSame');
+        ctx.hadNoPredeceasedWholeSiblings = ctx.anyPredeceasedWholeSiblings === 'optionNo' && ctx.sameParents === 'optionBothParentsSame';
         return {
             options: [
                 {key: 'hadSomeOrAllPredeceasedWholeSibling', value: true, choice: 'hadSomeOrAllPredeceasedWholeSibling'},
-                {key: 'anyPredeceasedWholeSiblings', value: 'optionNo', choice: 'optionNo'}
+                {key: 'hadNoPredeceasedWholeSiblings', value: true, choice: 'hadNoPredeceasedWholeSiblings'}
             ]
         };
     }

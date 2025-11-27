@@ -40,7 +40,8 @@ describe('AnyOtherWholeSiblings', () => {
             const nextStepOptions = AnyOtherWholeSiblings.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyOtherWholeSiblings', value: 'optionYes', choice: 'hadOtherWholeSiblings'}
+                    {key: 'anyOtherWholeSiblings', value: 'optionYes', choice: 'hadOtherWholeSiblings'},
+                    {key: 'hadOneParentSameAndHadNoWholeSiblings', value: true, choice: 'hadOneParentSameAndHadNoWholeSiblings'}
                 ]
             });
             done();

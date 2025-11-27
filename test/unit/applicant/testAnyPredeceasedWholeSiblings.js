@@ -40,7 +40,7 @@ describe('AnyPredeceasedWholeSiblings', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'hadSomeOrAllPredeceasedWholeSibling', value: true, choice: 'hadSomeOrAllPredeceasedWholeSibling'},
-                    {key: 'anyPredeceasedWholeSiblings', value: 'optionNo', choice: 'optionNo'}
+                    {key: 'hadNoPredeceasedWholeSiblings', value: true, choice: 'hadNoPredeceasedWholeSiblings'}
                 ]
             });
             done();

@@ -183,7 +183,7 @@ webchat:
       cy: 'kerv-deployment-cy'
     genesysBaseUrl: 'kerv-genesys-base-url'
     environment: 'kerv-environment'
-    kervBaseUrl: 'kerv-kerv-base-url'
+    kervBaseUrl: 'http://kerv-kerv-base-url/'
     apiKey: 'kerv-api-key'
 links:
   accessibility: '/accessibility-statement'

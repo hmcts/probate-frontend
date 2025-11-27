@@ -78,8 +78,8 @@ class StopPage extends Step {
         case 'hadLivingDescendants':
             pageHeader = 'notEntitledHeader';
             break;
-        case 'divorcePlace':
-        case 'separationPlace':
+        case 'divorcedNotInEnglandOrWales':
+        case 'separatedNotInEnglandOrWales':
             pageHeader = 'postHeader';
             break;
         case 'spouseNotApplying':

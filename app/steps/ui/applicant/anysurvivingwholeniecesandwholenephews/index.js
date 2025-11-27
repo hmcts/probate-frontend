@@ -16,14 +16,21 @@ class AnySurvivingWholeNiecesAndWholeNephews extends ValidationStep {
         return ctx;
     }
 
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('hasSurvivingChildrenWithOneParent');
+    }
+
     nextStepOptions(ctx) {
-        ctx.hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews = ctx.anySurvivingWholeNiecesAndWholeNephews === 'optionNo' && ctx.anyPredeceasedWholeSiblings === 'optionYesSome';
-        ctx.hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews = ctx.anySurvivingWholeNiecesAndWholeNephews === 'optionNo' && ctx.anyPredeceasedWholeSiblings === 'optionYesAll';
+        ctx.hasBothParentsSameAndHasSurvivors = ctx.anySurvivingWholeNiecesAndWholeNephews === 'optionYes' && ctx.sameParents === 'optionBothParentsSame' && (ctx.anyPredeceasedWholeSiblings === 'optionYesAll' || ctx.anyPredeceasedWholeSiblings === 'optionYesSome');
+        ctx.hasBothParentsSameAndHadOtherWholeSiblingAndHadNoSurvivors = ctx.anySurvivingWholeNiecesAndWholeNephews === 'optionNo' && ctx.anyPredeceasedWholeSiblings === 'optionYesSome' && ctx.sameParents === 'optionBothParentsSame';
+        ctx.hasBothParentsSameAndHadNoOtherWholeSiblingAndHadNoSurvivors = ctx.anySurvivingWholeNiecesAndWholeNephews === 'optionNo' && ctx.anyPredeceasedWholeSiblings === 'optionYesAll' && ctx.sameParents === 'optionBothParentsSame';
+        ctx.hasOneParentsSameAndHadAllPredeceasedWholeSiblingAndNoSurvivors = ctx.anySurvivingWholeNiecesAndWholeNephews === 'optionNo' && ctx.anyPredeceasedWholeSiblings === 'optionYesAll' && ctx.sameParents === 'optionOneParentsSame';
         return {
             options: [
-                {key: 'anySurvivingWholeNiecesAndWholeNephews', value: 'optionYes', choice: 'hadSurvivingWholeNiecesAndWholeNephews'},
-                {key: 'hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews', value: true, choice: 'hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews'},
-                {key: 'hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews', value: true, choice: 'hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews'},
+                {key: 'hasBothParentsSameAndHasSurvivors', value: true, choice: 'hasBothParentsSameAndHasSurvivors'},
+                {key: 'hasBothParentsSameAndHadOtherWholeSiblingAndHadNoSurvivors', value: true, choice: 'hasBothParentsSameAndHadOtherWholeSiblingAndHadNoSurvivors'},
+                {key: 'hasBothParentsSameAndHadNoOtherWholeSiblingAndHadNoSurvivors', value: true, choice: 'hasBothParentsSameAndHadNoOtherWholeSiblingAndHadNoSurvivors'},
+                {key: 'hasOneParentsSameAndHadAllPredeceasedWholeSiblingAndNoSurvivors', value: true, choice: 'hasOneParentsSameAndHadAllPredeceasedWholeSiblingAndNoSurvivors'}
             ]
         };
     }

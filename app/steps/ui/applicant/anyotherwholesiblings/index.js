@@ -16,10 +16,12 @@ class AnyOtherWholeSiblings extends ValidationStep {
         return ctx;
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.hadOneParentSameAndHadNoWholeSiblings = ctx.anyOtherWholeSiblings === 'optionNo' && ctx.sameParents === 'optionOneParentsSame';
         return {
             options: [
-                {key: 'anyOtherWholeSiblings', value: 'optionYes', choice: 'hadOtherWholeSiblings'}
+                {key: 'anyOtherWholeSiblings', value: 'optionYes', choice: 'hadOtherWholeSiblings'},
+                {key: 'hadOneParentSameAndHadNoWholeSiblings', value: true, choice: 'hadOneParentSameAndHadNoWholeSiblings'}
             ]
         };
     }

@@ -263,16 +263,20 @@ const stepList = {
     },
     AnyOtherWholeSiblings: {
         hadOtherWholeSiblings: 'AnyPredeceasedWholeSiblings',
+        hadOneParentSameAndHadNoWholeSiblings: 'AnyOtherHalfSiblings',
         otherwise: 'ApplicantName'
     },
     AnyPredeceasedWholeSiblings: {
         hadSomeOrAllPredeceasedWholeSibling: 'AnySurvivingWholeNiecesAndWholeNephews',
-        optionNo: 'AllWholeSiblingsOver18'
+        hadNoPredeceasedWholeSiblings: 'AllWholeSiblingsOver18',
+        otherwise: 'StopPage'
     },
     AnySurvivingWholeNiecesAndWholeNephews: {
-        hadSurvivingWholeNiecesAndWholeNephews: 'AllWholeNiecesAndWholeNephewsOver18',
-        hadOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews: 'AllWholeSiblingsOver18',
-        hadNoOtherWholeSiblingAndHadNoSurvivingWholeNiecesOrNephews: 'ApplicantName'
+        hasBothParentsSameAndHasSurvivors: 'AllWholeNiecesAndWholeNephewsOver18',
+        hasBothParentsSameAndHadOtherWholeSiblingAndHadNoSurvivors: 'AllWholeSiblingsOver18',
+        hasBothParentsSameAndHadNoOtherWholeSiblingAndHadNoSurvivors: 'ApplicantName',
+        hasOneParentsSameAndHadAllPredeceasedWholeSiblingAndNoSurvivors: 'AnyOtherHalfSiblings',
+        otherwise: 'StopPage'
     },
     AllWholeNiecesAndWholeNephewsOver18: {
         allWholeNiecesAndWholeNephewsOver18AndSomePredeceasedWholeSiblings: 'AllWholeSiblingsOver18',

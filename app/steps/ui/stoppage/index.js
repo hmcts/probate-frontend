@@ -97,6 +97,8 @@ class StopPage extends Step {
         case 'grandchildrenUnder18':
         case 'deceasedNoLegalPartnerAndRelationshipOther':
         case 'anyoneUnder18':
+        case 'hasOtherSiblingsWithSameParents':
+        case 'hasSurvivingChildrenWithOneParent':
             pageHeader = 'cannotApplyByOnlineHeader';
             break;
         case 'otherCoApplicantRelationship':

@@ -10,7 +10,7 @@ const FormatName = require('../../../../utils/FormatName');
 class DivorceDate extends ValidationStep {
 
     static getUrl() {
-        return '/deceased-divorce-or-separation-date';
+        return '/deceased-divorced-or-separation-date';
     }
 
     handleGet(ctx) {

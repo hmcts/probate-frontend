@@ -9,7 +9,7 @@ const intestacyOnlyPages = [
     '/value-assets-outside-england-wales',
     '/deceased-marital-status',
     '/deceased-divorce-or-separation-place',
-    '/deceased-divorce-date',
+    '/deceased-divorced-or-separation-date',
     '/relationship-to-deceased',
     '/child-adopted-in',
     '/child-adoption-place',

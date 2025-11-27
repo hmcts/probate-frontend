@@ -14,7 +14,7 @@ describe('DivorceDate', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DivorceDate.constructor.getUrl();
-            expect(url).to.equal('/deceased-divorce-or-separation-date');
+            expect(url).to.equal('/deceased-divorced-or-separation-date');
             done();
         });
     });

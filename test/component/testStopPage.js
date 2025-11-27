@@ -96,7 +96,7 @@ describe('stop-page', () => {
         });
 
         it('test right content loaded on the page - divorce not in england or wales', (done) => {
-            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('divorcePlace');
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('divorcedNotInEnglandOrWales');
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {
@@ -120,7 +120,7 @@ describe('stop-page', () => {
         });
 
         it('test right content loaded on the page - separation not in england or wales', (done) => {
-            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('separationPlace');
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('separatedNotInEnglandOrWales');
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {

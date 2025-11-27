@@ -68,7 +68,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: 'optionYes'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/deceased-divorce-or-separation-date');
+            expect(nextStepUrl).to.equal('/deceased-divorced-or-separation-date');
             done();
         });
 
@@ -83,7 +83,7 @@ describe('DivorcePlace', () => {
                 legalProcess: 'divorce or dissolution'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
+            expect(nextStepUrl).to.equal('/stop-page/divorcedNotInEnglandOrWales');
             done();
         });
         it('should return the correct url when No is given and legal act is Separation', (done) => {
@@ -97,7 +97,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
+            expect(nextStepUrl).to.equal('/stop-page/separatedNotInEnglandOrWales');
             done();
         });
     });

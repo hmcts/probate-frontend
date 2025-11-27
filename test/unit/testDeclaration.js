@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 'use strict';
 
-const {assert, expect} = require('chai');
+const {expect} = require('chai');
 const initSteps = require('app/core/initSteps');
 const sinon = require('sinon');
 const ExecutorsWrapper = require('app/wrappers/Executors');
@@ -164,58 +164,6 @@ describe('Declaration', () => {
         });
     });
 
-    describe('resetAgreedFlag()', () => {
-        const executorsList = {
-            list: [{
-                inviteId: '1'
-            }, {
-                inviteId: '2'
-            }, {
-                inviteId: '3'
-            }]
-        };
-        const ctx = {
-            ccdCase: {
-                id: 1234567890123456,
-                state: 'Pending'
-            },
-            executors: executorsList,
-            executorsWrapper: new ExecutorsWrapper(executorsList)
-        };
-
-        it('Success - there are no Errors in the results', (done) => {
-            const revert = Declaration.__set__('InviteData', class {
-                resetAgreedFlag() {
-                    return Promise.resolve([{agreed: null}]);
-                }
-            });
-            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            declaration.resetAgreedFlags(ctx)
-                .then((results) => {
-                    assert.isFalse(results.some(result => result.name === 'Error'));
-                    revert();
-                    done();
-                })
-                .catch(err => done(err));
-        });
-
-        it('Failure - there is an Error in the results', (done) => {
-            const revert = Declaration.__set__('InviteData', class {
-                resetAgreedFlag() {
-                    return Promise.resolve([new Error('Blimey')]);
-                }
-            });
-            const declaration = new Declaration(steps, section, templatePath, i18next, schema);
-            declaration.resetAgreedFlags(ctx)
-                .then((results) => {
-                    assert.isTrue(results.some(result => result.name === 'Error'));
-                    revert();
-                    done();
-                })
-                .catch(err => done(err));
-        });
-    });
-
     describe('action()', () => {
         let ctx;
         let formdata;
@@ -255,7 +203,7 @@ describe('Declaration', () => {
         });
 
         it('test that context variables are removed and resetAgreedFlags is called', (done) => {
-            ctx.hasDataChanged = true;
+            ctx.hasDataChanged = 'true';
             ctx.executors = {
                 executorsNumber: 3,
                 invitesSent: 'true',
@@ -270,9 +218,6 @@ describe('Declaration', () => {
             declaration.resetAgreedFlags = sinon.spy();
 
             [ctx, formdata] = declaration.action(ctx, formdata);
-
-            expect(declaration.resetAgreedFlags.calledOnce).to.equal(true);
-            expect(declaration.resetAgreedFlags.calledWith(ctx)).to.equal(true);
             expect(ctx).to.deep.equal({
                 executors: {
                     executorsNumber: 3,

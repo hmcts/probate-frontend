@@ -1033,4 +1033,41 @@ describe('Executors.js', () => {
             done();
         });
     });
+
+    describe('removeAgreedFlag()', () => {
+        it('should remove the agree flag of Executors who are applying', (done) => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {
+                        fullName: 'ed brown',
+                        isApplying: true,
+                        inviteId: 'invite_123',
+                        emailSent: true,
+                        executorAgreed: true
+                    },
+                    {
+                        fullName: 'bob brown',
+                        isApplying: false,
+                        inviteId: 'invite_456',
+                        emailSent: true
+                    },
+                    {
+                        fullName: 'steve brown',
+                        isApplying: false,
+                        inviteId: 'invite_789',
+                        emailSent: true
+                    }
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.removeAgreedFlag()).to.deep.equal([
+                {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                {fullName: 'ed brown', isApplying: true, inviteId: 'invite_123', emailSent: true},
+                {fullName: 'bob brown', isApplying: false, inviteId: 'invite_456', emailSent: true},
+                {fullName: 'steve brown', isApplying: false, inviteId: 'invite_789', emailSent: true}
+            ]);
+            done();
+        });
+    });
 });

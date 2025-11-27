@@ -21,13 +21,13 @@
       "invalid": "Nodwch flwyddyn geni ddilys"
     },
     "dob-day-month": {
-      "required": "Date of birth must include a day and month"
+      "required": "Rhaid i’r dyddiad geni gynnwys diwrnod a mis"
     },
     "dob-month-year": {
-      "required": "Date of birth must include a month and year"
+      "required": "Rhaid i’r dyddiad geni gynnwys mis a blwyddyn"
     },
     "dob-day-year": {
-      "required": "Date of birth must include a day and year"
+      "required": "Rhaid i’r dyddiad geni gynnwys diwrnod a blwyddyn"
     },
     "dob-date": {
       "required": "Nodwch y dyddiad pan ganwyd {deceasedName}",

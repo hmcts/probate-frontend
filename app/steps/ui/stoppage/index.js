@@ -66,7 +66,6 @@ class StopPage extends Step {
             pageHeader = 'eeEstateValuedHeader';
             break;
         case 'notDiedAfterOctober2014':
-        case 'notRelated':
         case 'notExecutor':
         case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
@@ -96,6 +95,7 @@ class StopPage extends Step {
         case 'coApplicantParentAdoptedOutStop':
         case 'grandchildrenUnder18':
         case 'deceasedNoLegalPartnerAndRelationshipOther':
+        case 'notRelated':
         case 'anyoneUnder18':
         case 'hasOtherSiblingsWithSameParents':
         case 'hasSurvivingChildrenWithOneParent':

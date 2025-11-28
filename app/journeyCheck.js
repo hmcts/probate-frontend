@@ -22,7 +22,7 @@ const intestacyOnlyPages = [
     '/any-predeceased-children',
     '/any-surviving-grandchildren',
     '/any-grandchildren-under-18',
-    '/same-parents',
+    '/deceased-same-parents',
     '/any-living-parents',
 ];
 

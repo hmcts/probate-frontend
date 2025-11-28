@@ -28,7 +28,7 @@ describe('ApplicantParentAdoptionPlace', () => {
                 parentAdoptionPlace: 'optionYes'
             };
             const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/adopted-in');
+            expect(nextStepUrl).to.equal('/main-applicant-adopted-in');
             done();
         });
 

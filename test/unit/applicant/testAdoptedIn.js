@@ -11,7 +11,7 @@ describe('PrimaryApplicantAdoptedIn', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AdoptedIn.constructor.getUrl();
-            expect(url).to.equal('/adopted-in');
+            expect(url).to.equal('/main-applicant-adopted-in');
             done();
         });
     });
@@ -71,7 +71,7 @@ describe('PrimaryApplicantAdoptedIn', () => {
                 adoptedIn: 'optionNo',
             };
             const nextStepUrl = AdoptedIn.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/adopted-out');
+            expect(nextStepUrl).to.equal('/main-applicant-adopted-out');
             done();
         });
     });

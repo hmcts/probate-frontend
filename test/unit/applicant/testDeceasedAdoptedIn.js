@@ -11,7 +11,7 @@ describe('DeceasedAdoptedIn', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = DeceasedAdoptedIn.constructor.getUrl();
-            expect(url).to.equal('/parent-adopted-deceased-in');
+            expect(url).to.equal('/deceased-adopted-in');
             done();
         });
     });
@@ -68,7 +68,7 @@ describe('DeceasedAdoptedIn', () => {
                 deceasedAdoptedIn: 'optionNo',
             };
             const nextStepUrl = DeceasedAdoptedIn.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/parent-adopted-deceased-out');
+            expect(nextStepUrl).to.equal('/deceased-adopted-out');
             done();
         });
     });

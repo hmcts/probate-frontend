@@ -75,9 +75,9 @@ class StopPage extends Step {
             break;
         case 'deceasedHadLegalPartnerAndRelationshipOther':
         case 'parentIsAlive':
-        case 'hadLivingDescendants':
-        case 'livingParents':
-        case 'differentParents':
+        case 'notEligibleLivingDescendants':
+        case 'notEligibleLivingParents':
+        case 'notEligibleSameParents':
             pageHeader = 'notEntitledHeader';
             break;
         case 'divorcePlace':

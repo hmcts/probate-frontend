@@ -401,8 +401,8 @@ describe('stop-page', () => {
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
-        it('test right content loaded on the page - Intestacy Parent hadLivingDescendants ', (done) => {
-            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('hadLivingDescendants');
+        it('test right content loaded on the page - Intestacy Parent notEligibleLivingDescendants', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notEligibleLivingDescendants');
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {
@@ -416,7 +416,7 @@ describe('stop-page', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'hadLivingDescendants'];
+            const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'notEligibleLivingDescendants'];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')

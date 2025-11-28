@@ -11,7 +11,7 @@ const testStepUrl = '/any-living-descendants';
 describe(testStepUrl, () => {
     let testWrapper;
     const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('hadLivingDescendants');
+    const expectedNextUrlForStopPage = StopPage.getUrl('notEligibleLivingDescendants');
 
     beforeEach(() => {
         testWrapper = new TestWrapper(testStepName);

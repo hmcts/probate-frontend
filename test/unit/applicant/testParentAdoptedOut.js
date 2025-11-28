@@ -51,7 +51,7 @@ describe('ApplicantParentAdoptedOut', () => {
                 parentAdoptedOut: 'optionNo',
             };
             const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/adopted-in');
+            expect(nextStepUrl).to.equal('/main-applicant-adopted-in');
             done();
         });
 

@@ -8,7 +8,7 @@ const FieldError = require('../../../../components/error');
 class DeceasedAdoptedIn extends ValidationStep {
 
     static getUrl() {
-        return '/parent-adopted-deceased-in';
+        return '/deceased-adopted-in';
     }
 
     getContextData(req) {

@@ -8,7 +8,7 @@ const FieldError = require('../../../../components/error');
 class AdoptedOut extends ValidationStep {
 
     static getUrl() {
-        return '/adopted-out';
+        return '/main-applicant-adopted-out';
     }
 
     getContextData(req) {

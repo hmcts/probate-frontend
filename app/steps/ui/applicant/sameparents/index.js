@@ -6,7 +6,7 @@ const FormatName = require('app/utils/FormatName');
 class SameParents extends ValidationStep {
 
     static getUrl() {
-        return '/same-parents';
+        return '/deceased-same-parents';
     }
 
     getContextData(req) {
@@ -17,7 +17,7 @@ class SameParents extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('differentParents');
+        return this.next(req, ctx).constructor.getUrl('notEligibleSameParents');
     }
 
     nextStepOptions(ctx) {

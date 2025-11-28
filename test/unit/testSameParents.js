@@ -9,7 +9,7 @@ describe('SameParents', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = SameParents.constructor.getUrl();
-            expect(url).to.equal('/same-parents');
+            expect(url).to.equal('/deceased-same-parents');
             done();
         });
     });

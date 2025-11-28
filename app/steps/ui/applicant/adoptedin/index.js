@@ -8,7 +8,7 @@ const {get} = require('lodash');
 class AdoptedIn extends ValidationStep {
 
     static getUrl() {
-        return '/adopted-in';
+        return '/main-applicant-adopted-in';
     }
 
     getContextData(req) {

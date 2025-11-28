@@ -11,7 +11,7 @@ describe('PrimaryApplicantAdoptedOut', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = AdoptedOut.constructor.getUrl();
-            expect(url).to.equal('/adopted-out');
+            expect(url).to.equal('/main-applicant-adopted-out');
             done();
         });
     });

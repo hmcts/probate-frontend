@@ -1,0 +1,14 @@
+{
+  "title": "Any deceased children",
+  "question": "Did any of these children die before {deceasedName}?",
+  "optionYesAll": "Yes, all of them",
+  "optionYesSome": "Yes, some of them",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "anyPredeceasedChildren": {
+      "required": "Select if any of the children died before {deceasedName}"
+    }
+  }
+}

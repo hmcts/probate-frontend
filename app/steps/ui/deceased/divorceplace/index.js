@@ -38,13 +38,12 @@ class DivorcePlace extends ValidationStep {
 
         return fields;
     }
-
     nextStepUrl(req, ctx) {
-        if (ctx.legalProcess === 'divorce') {
-            return this.next(req, ctx).constructor.getUrl('divorcePlace');
+        if (ctx.legalProcess === 'divorce or dissolution') {
+            return this.next(req, ctx).constructor.getUrl('divorcedNotInEnglandOrWales');
         }
 
-        return this.next(req, ctx).constructor.getUrl('separationPlace');
+        return this.next(req, ctx).constructor.getUrl('separatedNotInEnglandOrWales');
     }
 
     nextStepOptions() {

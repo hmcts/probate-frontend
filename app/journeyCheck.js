@@ -21,7 +21,9 @@ const intestacyOnlyPages = [
     '/all-children-over-18',
     '/any-predeceased-children',
     '/any-surviving-grandchildren',
-    '/any-grandchildren-under-18'
+    '/any-grandchildren-under-18',
+    '/deceased-same-parents',
+    '/any-living-parents',
 ];
 
 const gopOnlyPages = [

@@ -75,7 +75,9 @@ class StopPage extends Step {
             break;
         case 'deceasedHadLegalPartnerAndRelationshipOther':
         case 'parentIsAlive':
-        case 'hadLivingDescendants':
+        case 'notEligibleLivingDescendants':
+        case 'notEligibleLivingParents':
+        case 'notEligibleSameParents':
             pageHeader = 'notEntitledHeader';
             break;
         case 'divorcedNotInEnglandOrWales':
@@ -94,6 +96,9 @@ class StopPage extends Step {
         case 'grandchildrenUnder18':
         case 'deceasedNoLegalPartnerAndRelationshipOther':
         case 'notRelated':
+        case 'anyoneUnder18':
+        case 'hasOtherSiblingsWithSameParents':
+        case 'hasSurvivingChildrenWithOneParent':
             pageHeader = 'cannotApplyByOnlineHeader';
             break;
         case 'otherCoApplicantRelationship':

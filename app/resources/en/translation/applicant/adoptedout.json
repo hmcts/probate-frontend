@@ -1,0 +1,18 @@
+{
+  "title": "Child adopted out",
+  "childQuestion": "Did {deceasedName} legally adopt you out of their family (give you up for adoption)?",
+  "grandchildQuestion": "Did your parent ({deceasedName}&rsquo;s child) legally adopt you out of the family (give you up for adoption)?",
+  "wholeBloodSiblingQuestion": "Did your parents legally adopt you out of their family (give you up for adoption)?",
+  "halfBloodSiblingQuestion": "Did the parent you have in common with {deceasedName} legally adopt you out of their family (give you up for adoption)?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "adoptedOut": {
+      "requiredChild": "Select &lsquo;Yes&rsquo; if {deceasedName} gave you up for adoption",
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if your parent gave you up for adoption",
+      "requiredWholeBloodSibling": "Select &lsquo;Yes&rsquo; if your parents gave you up for adoption",
+      "requiredHalfBloodSibling": "Select &lsquo;Yes&rsquo; if your parent ({deceased name}’s parent) gave you up for adoption"
+    }
+  }
+}

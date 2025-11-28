@@ -5,7 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const {findIndex} = require('lodash');
 const pageUrl = '/parent-adoption-place';
 
-class ParentAdoptionPlace extends ValidationStep {
+class CoApplicantParentAdoptionPlace extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -56,4 +56,4 @@ class ParentAdoptionPlace extends ValidationStep {
     }
 }
 
-module.exports = ParentAdoptionPlace;
+module.exports = CoApplicantParentAdoptionPlace;

@@ -78,7 +78,7 @@ describe('RelationshipToDeceased', () => {
                 deceasedMaritalStatus: 'optionDivorced'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/adopted-in');
+            expect(nextStepUrl).to.equal('/main-applicant-adopted-in');
             done();
         });
 
@@ -107,7 +107,7 @@ describe('RelationshipToDeceased', () => {
                 relationshipToDeceased: 'optionAdoptedChild'
             };
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/adoption-place');
+            expect(nextStepUrl).to.equal('/adopted-in-england-or-wales');
             done();
         });
 
@@ -233,7 +233,6 @@ describe('RelationshipToDeceased', () => {
             assert.isUndefined(ctx.spousePartnerMoreThanIhtThreshold);
             assert.isUndefined(ctx.childDeceasedMarried);
             assert.isUndefined(ctx.childDeceasedNotMarried);
-            assert.isUndefined(ctx.adoptionPlace);
             assert.isUndefined(ctx.spouseNotApplyingReason);
             assert.isUndefined(formdata.deceased.anyChildren);
             assert.isUndefined(formdata.deceased.anyOtherChildren);

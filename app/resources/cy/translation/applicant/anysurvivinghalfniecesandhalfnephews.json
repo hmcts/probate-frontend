@@ -1,0 +1,13 @@
+{
+  "title": "A oedd gan unrhyw un o’r hanner frodyr/chwiorydd hyn blant wnaeth eu goroesi?",
+  "question": "A oedd gan unrhyw un o&rsquo;r hanner frodyr/chwiorydd hyn blant wnaeth eu goroesi?",
+  "paragraph1": "Nhw fyddai hanner nithoedd a hanner neiaint {deceasedName}.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+
+  "errors": {
+    "anySurvivingHalfNiecesAndHalfNephews": {
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oes unrhyw blant sydd wedi goroesi"
+    }
+  }
+}

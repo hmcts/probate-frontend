@@ -13,11 +13,23 @@ class CoApplicantAdoptedOut extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+            const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+            switch (rel) {
+            case 'optionChild':
                 ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
-            }
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+                break;
+            case 'optionGrandchild':
                 ctx.adoptedOut = ctx.list[ctx.index].grandchildAdoptedOut;
+                break;
+            case 'optionHalfBloodSibling':
+                ctx.adoptedOut = ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
+                break;
+            case 'optionHalfBloodNieceOrNephew':
+                ctx.adoptedOut = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
+                break;
+            default:
+                ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
+                break;
             }
         }
         return [ctx];
@@ -50,7 +62,9 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo') {
+        if ((ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo') {
             return `/coapplicant-email/${ctx.index}`;
         } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo') {
             return `/parent-adopted-in/${ctx.index}`;
@@ -59,22 +73,34 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.childNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' && ctx.adoptedOut === 'optionNo';
+        ctx.childOrSiblingOrNieceOrNephewNotAdoptedOut = (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo';
         ctx.grandChildNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
-                {key: 'childNotAdoptedOut', value: true, choice: 'childNotAdoptedOut'},
+                {key: 'childOrSiblingOrNieceOrNephewNotAdoptedOut', value: true, choice: 'childOrSiblingOrNieceOrNephewNotAdoptedOut'},
                 {key: 'grandChildNotAdoptedOut', value: true, choice: 'grandChildNotAdoptedOut'}
             ]
         };
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+        const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        // eslint-disable-next-line default-case
+        switch (rel) {
+        case 'optionChild':
             ctx.list[ctx.index].childAdoptedOut = ctx.adoptedOut;
-        }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            break;
+        case 'optionGrandchild':
             ctx.list[ctx.index].grandchildAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionHalfBloodSibling':
+            ctx.list[ctx.index].halfBloodSiblingAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionHalfBloodNieceOrNephew':
+            ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut = ctx.adoptedOut;
+            break;
         }
         return [ctx, errors];
     }

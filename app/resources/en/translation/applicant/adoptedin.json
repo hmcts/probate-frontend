@@ -1,0 +1,18 @@
+{
+  "title": "Child adopted in",
+  "childQuestion": "Did {deceasedName} legally adopt you into their family?",
+  "grandchildQuestion": "Did your parent ({deceasedName}'s child) legally adopt you?",
+  "wholeBloodSiblingQuestion": "Did your parents legally adopt you in to their family?",
+  "halfBloodSiblingQuestion": "Did the parent you have in common with {deceasedName} legally adopt you in to their family?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "adoptedIn": {
+      "requiredChild": "Select &lsquo;Yes&rsquo; if {deceasedName} legally adopted you",
+      "requiredGrandchild": "Select &lsquo;Yes&rsquo; if your parent legally adopted you",
+      "requiredWholeBloodSibling": "Select &lsquo;Yes&rsquo; if your parents legally adopted you",
+      "requiredHalfBloodSibling": "Select &lsquo;Yes&rsquo; if your parent ({deceasedName}&rsquo;s parent) legally adopted you"
+    }
+  }
+}

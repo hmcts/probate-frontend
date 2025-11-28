@@ -22,6 +22,9 @@ describe(AnyLivingDescendants.name, () => {
                         deceased: {
                             firstName: 'John',
                             lastName: 'Doe'
+                        },
+                        applicant: {
+                            relationshipToDeceased: 'optionSibling'
                         }
                     }
                 }
@@ -35,10 +38,12 @@ describe(AnyLivingDescendants.name, () => {
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const nextStepOptions = AnyLivingDescendants.nextStepOptions();
+            const ctx = {};
+            const nextStepOptions = AnyLivingDescendants.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyLivingDescendants', value: 'optionNo', choice: 'noLivingDescendants'},
+                    {key: 'siblings', value: true, choice: 'anyLivingParents'},
+                    {key: 'parent', value: true, choice: 'adoptedIn'}
                 ]
             });
             done();

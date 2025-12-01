@@ -160,7 +160,7 @@ describe('stop-page', () => {
                 }
             };
 
-            const contentToInclude = ['eligibilityTitle', 'title', 'postHeader', 'divorcePlace',];
+            const contentToInclude = ['title', 'postHeader', 'divorcePlace',];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -189,7 +189,7 @@ describe('stop-page', () => {
                 }
             };
 
-            const contentToInclude = ['eligibilityTitle', 'title', 'postHeader', 'separationPlace',];
+            const contentToInclude = ['title', 'postHeader', 'separationPlace',];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -238,7 +238,7 @@ describe('stop-page', () => {
                 }
             };
 
-            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'spouseNotApplying',];
+            const contentToInclude = ['title', 'cannotApplyByOnlineHeader', 'spouseNotApplying',];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -293,7 +293,7 @@ describe('stop-page', () => {
                 deceasedName: 'John Doe',
             };
 
-            const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'deceasedHadLegalPartnerAndRelationshipOther'];
+            const contentToInclude = ['title', 'notEntitledHeader', 'deceasedHadLegalPartnerAndRelationshipOther'];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -324,7 +324,7 @@ describe('stop-page', () => {
                 deceasedName: 'John Doe',
             };
 
-            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'deceasedNoLegalPartnerAndRelationshipOther'
+            const contentToInclude = ['title', 'cannotApplyByOnlineHeader', 'deceasedNoLegalPartnerAndRelationshipOther'
             ];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
@@ -357,7 +357,7 @@ describe('stop-page', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToInclude = ['eligibilityTitle', 'title', 'personCannotApplyByOnlineHeader', 'otherCoApplicantRelationship'];
+            const contentToInclude = ['title', 'personCannotApplyByOnlineHeader', 'otherCoApplicantRelationship'];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -386,7 +386,7 @@ describe('stop-page', () => {
                     list: [{fullName: 'John Doe', isApplying: true, isApplicant: true}]
                 }
             };
-            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'coApplicantAdoptedOutStop'];
+            const contentToInclude = ['title', 'cannotApplyByOnlineHeader', 'coApplicantAdoptedOutStop'];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -416,7 +416,7 @@ describe('stop-page', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToInclude = ['eligibilityTitle', 'title', 'notEntitledHeader', 'hadLivingDescendants'];
+            const contentToInclude = ['title', 'notEntitledHeader', 'hadLivingDescendants'];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')
@@ -444,7 +444,7 @@ describe('stop-page', () => {
                     lastName: 'Doe'
                 }
             };
-            const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'deceasedAdoptedOut'];
+            const contentToInclude = ['title', 'cannotApplyByOnlineHeader', 'deceasedAdoptedOut'];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
             testWrapper.agent.post('/prepare-session/form')

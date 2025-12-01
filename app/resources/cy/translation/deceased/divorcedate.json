@@ -34,8 +34,8 @@
     },
     "divorceDate": {
       "required": "Nodwch y dyddiad pan ddigwyddodd yr {legalProcess}",
-      "future": "Rhaid i ddyddiad yr {legalProcess} fod cyn dyddiad marwolaeth {deceasedName}",
-      "invalid": "Rhaid i ddyddiad yr {legalProcess} fod yn ddyddiad dilys"
+      "invalid": "Rhaid i ddyddiad yr {legalProcess} fod yn ddyddiad dilys",
+      "divorceDateAfterDod": "Rhaid i ddyddiad yr {legalProcess} fod cyn dyddiad marwolaeth {deceasedName}"
     }
   }
 }

@@ -178,7 +178,10 @@ describe('DivorceDate', () => {
                 'divorceDateKnown': 'optionYes',
                 'divorceDate-day': '4',
                 'divorceDate-month': '10',
-                'divorceDate-year': '3000'
+                'divorceDate-year': '3000',
+                'dod-day': '2',
+                'dod-month': '3',
+                'dod-year': '2020'
             };
             const errorsIn = [];
             const formdata = {};
@@ -188,7 +191,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate',
                 'href': '#divorceDate',
-                'msg': content.errors.divorceDate.future
+                'msg': content.errors.divorceDate.divorceDateAfterDod
             }]);
             done();
         });

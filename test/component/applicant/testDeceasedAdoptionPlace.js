@@ -11,7 +11,7 @@ describe('deceased-adoption-place', () => {
     let testWrapper;
     const expectedNextUrlForOtherParentAlive = OtherParentAlive.getUrl();
     const expectedNextUrlForSameParents = SameParents.getUrl();
-    const expectedNextUrlForStopPage = StopPage.getUrl('adoptionNotEnglandOrWales');
+    const expectedNextUrlForStopPage = StopPage.getUrl('adoptionNotInEnglandOrWales');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAdoptionPlace');

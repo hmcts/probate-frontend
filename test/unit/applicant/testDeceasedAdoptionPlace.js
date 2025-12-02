@@ -45,7 +45,7 @@ describe('DeceasedAdoptionPlace', () => {
                 deceasedAdoptionPlace: 'optionNo'
             };
             const nextStepUrl = DeceasedAdoptionPlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/adoptionNotEnglandOrWales');
+            expect(nextStepUrl).to.equal('/stop-page/adoptionNotInEnglandOrWales');
             done();
         });
     });

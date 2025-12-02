@@ -15,7 +15,8 @@ services:
     probate_redirect_base_url: http://localhost:3001
     caching: true
   orchestrator:
-    url: http://probate-orchestrator-service-aat.service.core-compute-aat.internal
+    #url: http://probate-orchestrator-service-aat.service.core-compute-aat.internal
+    url: http://localhost:8888
   validation:
     url: http://probate-business-service-aat.service.core-compute-aat.internal/validate
   payment:

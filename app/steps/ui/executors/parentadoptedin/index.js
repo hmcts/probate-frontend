@@ -5,9 +5,23 @@ const FormatName = require('../../../../utils/FormatName');
 const {findIndex} = require('lodash');
 const pageUrl = '/parent-adopted-in';
 
-class ParentAdoptedIn extends ValidationStep {
+class CoApplicantParentAdoptedIn extends ValidationStep {
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
+    }
+
+    getContextData(req) {
+        const formData = req.session.form;
+        const ctx = super.getContextData(req);
+        if (req.params && !isNaN(req.params[0])) {
+            ctx.index = parseInt(req.params[0]);
+        } else {
+            ctx.index = this.recalcIndex(ctx, 0);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        }
+        ctx.deceasedName = FormatName.format(formData.deceased);
+        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        return ctx;
     }
 
     handleGet(ctx) {
@@ -17,30 +31,8 @@ class ParentAdoptedIn extends ValidationStep {
         return [ctx];
     }
 
-    getContextData(req) {
-        const formdata = req.session.form;
-        const ctx = super.getContextData(req);
-        if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
-        } else {
-            ctx.index = this.recalcIndex(ctx, 0);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
-        }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
-        return ctx;
-    }
-
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
-    }
-
-    generateFields(language, ctx, errors) {
-        const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
-        }
-        return fields;
     }
 
     nextStepUrl(req, ctx) {
@@ -59,10 +51,18 @@ class ParentAdoptedIn extends ValidationStep {
         };
     }
 
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
+    }
+
     handlePost(ctx, errors, formdata) {
         formdata.executors.list[ctx.index].grandchildParentAdoptedIn = ctx.applicantParentAdoptedIn;
         return [ctx, errors];
     }
 }
 
-module.exports = ParentAdoptedIn;
+module.exports = CoApplicantParentAdoptedIn;

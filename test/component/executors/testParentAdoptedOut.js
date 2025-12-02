@@ -13,7 +13,7 @@ describe('parent-adopted-out', () => {
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantParentAdoptedOutStop');
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('ParentAdoptedOut');
+        testWrapper = new TestWrapper('CoApplicantParentAdoptedOut');
         sessionData = {
             caseType: caseTypes.INTESTACY,
             applicantName: 'First coApplicant',
@@ -43,7 +43,7 @@ describe('parent-adopted-out', () => {
     });
 
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantAdoptedOut', null, null, [],
+        testCommonContent.runTest('CoApplicantParentAdoptedOut', null, null, [],
             false, {caseType: caseTypes.INTESTACY}, ParentAdoptedOut.getUrl(1));
 
         it('test content loaded on the page', (done) => {

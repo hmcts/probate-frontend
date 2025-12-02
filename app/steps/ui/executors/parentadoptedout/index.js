@@ -5,10 +5,17 @@ const FormatName = require('../../../../utils/FormatName');
 const {findIndex} = require('lodash');
 const pageUrl = '/parent-adopted-out';
 
-class ParentAdoptedOut extends ValidationStep {
+class CoApplicantParentAdoptedOut extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
+    }
+
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.applicantParentAdoptedOut = ctx.list[ctx.index].grandchildParentAdoptedOut;
+        }
+        return [ctx];
     }
     getContextData(req) {
         const formdata = req.session.form;
@@ -19,15 +26,9 @@ class ParentAdoptedOut extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
-    }
-    handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptedOut = ctx.list[ctx.index].grandchildParentAdoptedOut;
-        }
-        return [ctx];
     }
     recalcIndex(ctx, index) {
         return findIndex(ctx.list, o => o.isApplying === true, index + 1);
@@ -59,4 +60,4 @@ class ParentAdoptedOut extends ValidationStep {
     }
 }
 
-module.exports = ParentAdoptedOut;
+module.exports = CoApplicantParentAdoptedOut;

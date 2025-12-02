@@ -38,14 +38,14 @@ class CoApplicantAdoptedOut extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
-        ctx.deceasedName = FormatName.format(formdata.deceased);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
+        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 

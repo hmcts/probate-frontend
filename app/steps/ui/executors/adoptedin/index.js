@@ -12,15 +12,15 @@ class CoApplicantAdoptedIn extends ValidationStep {
     }
 
     getContextData(req) {
+        const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        const formData = req.session.form;
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.deceasedName = FormatName.format(formData.deceased);
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
     }

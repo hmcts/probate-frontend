@@ -25,13 +25,13 @@ class ParentDieBefore extends ValidationStep {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
+        ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         return ctx;
     }
 

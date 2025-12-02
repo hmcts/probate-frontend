@@ -18,16 +18,16 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         return [ctx];
     }
     getContextData(req) {
+        const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
-        const formData = req.session.form;
-        ctx.deceasedName = FormatName.format(formData.deceased);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
+        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
     recalcIndex(ctx, index) {

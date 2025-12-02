@@ -82,6 +82,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        country: 'value',
                         relationshipToDeceased: 'optionChild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -112,6 +113,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        country: 'value',
                         relationshipToDeceased: 'optionChild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -144,6 +146,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        country: 'value',
                         relationshipToDeceased: 'optionChild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -177,6 +180,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        country: 'value',
                         relationshipToDeceased: 'optionGrandchild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -209,6 +213,7 @@ describe('applicant-address', () => {
                         addressLine1: 'value',
                         postTown: 'value',
                         newPostCode: 'value',
+                        country: 'value',
                         relationshipToDeceased: 'optionGrandchild',
                         list: [
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
@@ -240,7 +245,8 @@ describe('applicant-address', () => {
                     const data = {
                         addressLine1: 'value',
                         postTown: 'value',
-                        newPostCode: 'value'
+                        newPostCode: 'value',
+                        country: 'value',
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
                 });
@@ -269,7 +275,8 @@ describe('applicant-address', () => {
                     const data = {
                         addressLine1: 'value',
                         postTown: 'value',
-                        newPostCode: 'value'
+                        newPostCode: 'value',
+                        country: 'value',
                     };
                     testWrapper.testRedirect(done, data, expectedNextUrlForJointApplication);
                 });

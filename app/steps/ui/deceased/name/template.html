@@ -3,6 +3,7 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block form_content %}
     {% call govukFieldset({
@@ -12,7 +13,9 @@
             isPageHeading: true
         }
     }) %}
-    <p class="govuk-body">{{ content.explanation1 | safe }}</p>
+    {{ govukInsetText({
+    text: ("<p class=\"govuk-body\">" + content.explanation1 + "</p>") | safe
+    }) }}
 
         {{ govukInput({
             label: {

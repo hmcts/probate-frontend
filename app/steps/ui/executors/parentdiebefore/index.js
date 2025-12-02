@@ -12,7 +12,11 @@ class ParentDieBefore extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
+            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+                ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
+            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
+                ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
+            }
         }
         return [ctx];
     }
@@ -26,6 +30,7 @@ class ParentDieBefore extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
+        ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
@@ -50,7 +55,11 @@ class ParentDieBefore extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
+            ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        }
         return [ctx, errors];
     }
 

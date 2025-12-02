@@ -11,18 +11,6 @@ class CoApplicantAdoptedIn extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
-    handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
-                ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
-            }
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
-                ctx.adoptedIn = ctx.list[ctx.index].grandchildAdoptedIn;
-            }
-        }
-        return [ctx];
-    }
-
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
@@ -35,6 +23,30 @@ class CoApplicantAdoptedIn extends ValidationStep {
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
+    }
+
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+            switch (rel) {
+            case 'optionChild':
+                ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
+                break;
+            case 'optionGrandchild':
+                ctx.adoptedIn = ctx.list[ctx.index].grandchildAdoptedIn;
+                break;
+            case 'optionHalfBloodSibling':
+                ctx.adoptedIn = ctx.list[ctx.index].halfBloodSiblingAdoptedIn;
+                break;
+            case 'optionHalfBloodNieceOrNephew':
+                ctx.adoptedIn = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
+                break;
+            default:
+                ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
+                break;
+            }
+        }
+        return [ctx];
     }
 
     recalcIndex(ctx, index) {
@@ -57,11 +69,21 @@ class CoApplicantAdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+        const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        // eslint-disable-next-line default-case
+        switch (rel) {
+        case 'optionChild':
             ctx.list[ctx.index].childAdoptedIn = ctx.adoptedIn;
-        }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            break;
+        case 'optionGrandchild':
             ctx.list[ctx.index].grandchildAdoptedIn = ctx.adoptedIn;
+            break;
+        case 'optionHalfBloodSibling':
+            ctx.list[ctx.index].halfBloodSiblingAdoptedIn = ctx.adoptedIn;
+            break;
+        case 'optionHalfBloodNieceOrNephew':
+            ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn = ctx.adoptedIn;
+            break;
         }
         return [ctx, errors];
     }

@@ -20,11 +20,7 @@ describe('Co-applicant-relationship', () => {
 
         beforeEach(() => {
             ctx = {
-                list: [
-                    {fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild'},
-                    {fullName: 'CoApplicant 2'},
-                ],
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild'}, {fullName: 'CoApplicant 2'},],
                 index: 0
             };
         });
@@ -49,11 +45,7 @@ describe('Co-applicant-relationship', () => {
             ctx = {
                 coApplicantRelationshipToDeceased: '',
                 index: 0,
-                list: [
-                    {fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1'},
-                    {fullName: 'CoApplicant 2'},
-                ]
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}, {fullName: 'CoApplicant 3'}]
             };
             req = {
                 session: {
@@ -67,6 +59,20 @@ describe('Co-applicant-relationship', () => {
             ctx.coApplicantRelationshipToDeceased = 'optionChild';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
             expect(url).to.equal('/coapplicant-name/1');
+        });
+
+        it('should return the correct URL if the relationship to deceased is Half-blood sibling', () => {
+            ctx.index = 3;
+            ctx.coApplicantRelationshipToDeceased = 'optionHalfBloodSibling';
+            const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-name/3');
+        });
+
+        it('should return the correct URL if the relationship to deceased is Half-blood Niece or Nephew', () => {
+            ctx.index = 3;
+            ctx.coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+            const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(url).to.equal('/parent-die-before/3');
         });
 
         it('should return the correct URL if the relationship to deceased is Grandchild', () => {
@@ -89,9 +95,7 @@ describe('Co-applicant-relationship', () => {
 
         beforeEach(() => {
             ctx = {
-                list: [
-                    {fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild'},
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild'},
                     {fullName: 'CoApplicant 2', coApplicantRelationshipToDeceased: 'optionGrandchild'},
                 ],
                 deceasedName: 'John Doe',
@@ -149,20 +153,33 @@ describe('Co-applicant-relationship', () => {
             errors = [];
             [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                list: [{fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true},
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
                 coApplicantRelationshipToDeceased: 'optionGrandchild'
             });
             done();
         });
+        it('should update coApplicantRelationshipToDeceased and set isApplying to true for optionHalfBloodSibling', (done) => {
+            ctx = {
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}],
+                index: 1,
+                coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+            };
+            errors = [];
+            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({
+                list: [{fullName: 'Applicant'},
+                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', isApplying: true},
+                    {fullName: 'CoApplicant 2'}],
+                index: 1,
+                coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+            });
+            done();
+        });
         it('should not update isApplying or coApplicantRelationshipToDeceased for other values', (done) => {
             ctx = {
-                list: [
-                    {fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1'},
-                    {fullName: 'CoApplicant 2'}
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}
                 ],
                 index: 1,
                 coApplicantRelationshipToDeceased: 'optionOther'
@@ -170,9 +187,7 @@ describe('Co-applicant-relationship', () => {
             errors = [];
             [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
             expect(ctx).to.deep.equal({
-                list: [{fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1'},
-                    {fullName: 'CoApplicant 2'}],
+                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}],
                 index: 1,
                 coApplicantRelationshipToDeceased: 'optionOther'
             });
@@ -185,8 +200,8 @@ describe('Co-applicant-relationship', () => {
             const nextStepOptions = CoApplicantRelationshipToDeceased.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'coApplicantRelationshipToDeceased', value: 'optionChild', choice: 'optionChild'},
-                    {key: 'coApplicantRelationshipToDeceased', value: 'optionGrandchild', choice: 'optionGrandchild'}
+                    {key: 'childOrSibling', value: true, choice: 'childOrSibling'},
+                    {key: 'grandchildOrNieceNephew', value: true, choice: 'grandchildOrNieceNephew'},
                 ]
             });
             done();
@@ -199,24 +214,14 @@ describe('Co-applicant-relationship', () => {
                 session: {
                     form: {
                         deceased: {
-                            anyOtherChildren: 'optionYes',
-                            anyPredeceasedChildren: 'optionNo',
-                            firstName: 'John',
-                            lastName: 'Doe'
+                            anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionNo', firstName: 'John', lastName: 'Doe'
                         },
                         executors: {
                             list: [
                                 {
-                                    'firstName': 'Dave',
-                                    'lastName': 'Bassett',
-                                    'isApplying': true,
-                                    'isApplicant': true
+                                    'firstName': 'Dave', 'lastName': 'Bassett', 'isApplying': true, 'isApplicant': true
                                 }, {
-                                    isApplying: true,
-                                    coApplicantRelationshipToDeceased: 'optionChild',
-                                    fullName: 'Ed Brown',
-                                    childAdoptedIn: 'optionYes',
-                                    childAdoptionInEnglandOrWales: 'optionYes',
+                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionChild', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes',
                                 }
                             ]
                         }
@@ -237,27 +242,14 @@ describe('Co-applicant-relationship', () => {
                 session: {
                     form: {
                         deceased: {
-                            anyOtherChildren: 'optionYes',
-                            anyPredeceasedChildren: 'optionYesSome',
-                            anySurvivingGrandchildren: 'optionYes',
-                            firstName: 'John',
-                            lastName: 'Doe'
+                            anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionYesSome', anySurvivingGrandchildren: 'optionYes', firstName: 'John', lastName: 'Doe'
                         },
                         executors: {
                             list: [
                                 {
-                                    'firstName': 'Dave',
-                                    'lastName': 'Bassett',
-                                    'isApplying': true,
-                                    'isApplicant': true
+                                    'firstName': 'Dave', 'lastName': 'Bassett', 'isApplying': true, 'isApplicant': true
                                 }, {
-                                    isApplying: true,
-                                    coApplicantRelationshipToDeceased: 'optionChild',
-                                    fullName: 'Ed Brown',
-                                    childAdoptedIn: 'optionYes',
-                                    childAdoptionInEnglandOrWales: 'optionYes',
-                                    email: 'abc@gmail.com',
-                                    address: '20 Green Street, London, L12 9LN'
+                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionChild', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: '20 Green Street, London, L12 9LN'
                                 }
                             ]
                         }
@@ -273,16 +265,42 @@ describe('Co-applicant-relationship', () => {
             done();
         });
 
+        it('sets the index to next index when all details of co-applicant are entered and set half-sibling and half-niece or Nephew options', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        applicant: {
+                            anyOtherHalfSiblings: 'optionYes', anyPredeceasedHalfSiblings: 'optionYesSome', anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                        },
+                        deceased: {
+                            firstName: 'John', lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {
+                                    'firstName': 'Dave', 'lastName': 'Bassett', 'isApplying': true, 'isApplicant': true
+                                }, {
+                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: '20 Green Street, London, L12 9LN'
+                                }
+                            ]
+                        }
+                    }
+                }
+            };
+            const ctx = CoApplicantRelationshipToDeceased.getContextData(req);
+
+            expect(ctx.index).to.equal(2);
+            expect(ctx.halfSiblingOnly).to.equal(true);
+            expect(ctx.halfNieceOrNephewOnly).to.equal(true);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            done();
+        });
+
         it('recalculates index when there is a * url param and set grandchild options only', (done) => {
             const req = {
                 session: {
                     form: {
-                        deceased: {
-                            anyOtherChildren: 'optionYes',
-                            anyPredeceasedChildren: 'optionYesAll',
-                            anySurvivingGrandchildren: 'optionYes',
-                            firstName: 'John',
-                            lastName: 'Doe'
+                        deceased: {anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionYesAll', anySurvivingGrandchildren: 'optionYes', firstName: 'John', lastName: 'Doe'
                         },
                         executors: {
                             list: [

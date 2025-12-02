@@ -11,6 +11,20 @@ class CoApplicantAdoptedIn extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
+    getContextData(req) {
+        const formdata = req.session.form;
+        const ctx = super.getContextData(req);
+        if (req.params && !isNaN(req.params[0])) {
+            ctx.index = parseInt(req.params[0]);
+        } else {
+            ctx.index = this.recalcIndex(ctx, 0);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        }
+        ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        return ctx;
+    }
+
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
             const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
@@ -33,20 +47,6 @@ class CoApplicantAdoptedIn extends ValidationStep {
             }
         }
         return [ctx];
-    }
-
-    getContextData(req) {
-        const formdata = req.session.form;
-        const ctx = super.getContextData(req);
-        if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
-        } else {
-            ctx.index = this.recalcIndex(ctx, 0);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
-        }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
-        return ctx;
     }
 
     recalcIndex(ctx, index) {

@@ -16,16 +16,16 @@ class AllHalfSiblingsOver18 extends ValidationStep {
         return ctx;
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('anyoneUnder18');
-    }
-
     nextStepOptions() {
         return {
             options: [
                 {key: 'allHalfSiblingsOver18', value: 'optionYes', choice: 'allHalfSiblingsOver18'}
             ]
         };
+    }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('anyoneUnder18');
     }
 
     action(ctx, formdata) {

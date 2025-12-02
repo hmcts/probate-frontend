@@ -158,6 +158,13 @@ class Executors {
     haveAllExecutorsDeclared() {
         return (this.allExecutorsHaveDeclared || false).toString() === 'true';
     }
+
+    removeAgreedFlag() {
+        return this.executorsList.map(executor => {
+            delete executor.executorAgreed;
+            return executor;
+        });
+    }
 }
 
 module.exports = Executors;

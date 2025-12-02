@@ -14,6 +14,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 const featureToggle = require('app/utils/FeatureToggle');
 const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
+const moment = require('moment');
 
 class Summary extends Step {
 
@@ -154,6 +155,12 @@ class Summary extends Step {
 
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
+        }
+        if (formdata.deceased && formdata.deceased.divorceDate) {
+            const date = moment(formdata.deceased.divorceDate, 'YYYY-MM-DD');
+            if (date.isValid()) {
+                ctx.divorceDateFormatted = utils.formattedDate(date, req.session.language);
+            }
         }
 
         ctx.softStop = this.anySoftStops(formdata, ctx);

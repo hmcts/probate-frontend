@@ -1,6 +1,6 @@
 {
   "title": "Assets outside of England and Wales",
-  "question": "Did {deceasedName} have any assets outside of England and Wales?",
+  "question": "Did {deceasedName} have assets outside of England and Wales?",
   "hint": "Do not include any houses or land.",
   "optionYes": "Yes",
   "optionNo": "No",

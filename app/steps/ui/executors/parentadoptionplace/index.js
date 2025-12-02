@@ -20,8 +20,8 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 

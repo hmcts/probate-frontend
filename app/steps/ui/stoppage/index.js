@@ -80,8 +80,8 @@ class StopPage extends Step {
         case 'notEligibleSameParents':
             pageHeader = 'notEntitledHeader';
             break;
-        case 'divorcePlace':
-        case 'separationPlace':
+        case 'divorcedNotInEnglandOrWales':
+        case 'separatedNotInEnglandOrWales':
             pageHeader = 'postHeader';
             break;
         case 'spouseNotApplying':

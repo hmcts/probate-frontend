@@ -62,7 +62,7 @@ describe(testStepUrl, () => {
                 });
         });
 
-        it(`est it redirects to ApplicantName page if Yes for any Other Parent Alive: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`Test it redirects to ApplicantName page if Yes for any Other Parent Alive: ${expectedNextUrlForApplicantName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {

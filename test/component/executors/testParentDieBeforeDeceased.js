@@ -30,7 +30,7 @@ describe('Co-applicant-parent-die-before', () => {
             },
             executors: {
                 list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
-                    {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true}]
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true}]
             }
         };
     });
@@ -105,11 +105,12 @@ describe('Co-applicant-parent-die-before', () => {
                 });
         });
 
-        it('test correct content loaded on the page', (done) => {
+        it('test correct content loaded on the page if applicant is grandchild', (done) => {
             sessionData.deceased = {
                 firstName: 'John',
                 lastName: 'Doe'
             };
+            const contentToExclude = ['halfBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewHintText'];
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -117,7 +118,28 @@ describe('Co-applicant-parent-die-before', () => {
                     const contentData = {
                         deceasedName: 'John Doe'
                     };
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test correct content loaded on the page if applicant is half blood Niece or Nephew', (done) => {
+            sessionData.deceased = {
+                firstName: 'John',
+                lastName: 'Doe'
+            };
+            sessionData.executors = {
+                list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplying: true}]
+            };
+            const contentToExclude = ['grandchildQuestion', 'grandchildHintText'];
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        deceasedName: 'John Doe',
+                    };
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

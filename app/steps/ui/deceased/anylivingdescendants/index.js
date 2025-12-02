@@ -13,17 +13,21 @@ class AnyLivingDescendants extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant.relationshipToDeceased;
         return ctx;
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('hadLivingDescendants');
+        return this.next(req, ctx).constructor.getUrl('notEligibleLivingDescendants');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.siblings = ctx.relationshipToDeceased === 'optionSibling' && ctx.anyLivingDescendants === 'optionNo';
+        ctx.parent = ctx.relationshipToDeceased === 'optionParent' && ctx.anyLivingDescendants === 'optionNo';
         return {
             options: [
-                {key: 'anyLivingDescendants', value: 'optionNo', choice: 'noLivingDescendants'}
+                {key: 'siblings', value: true, choice: 'anyLivingParents'},
+                {key: 'parent', value: true, choice: 'adoptedIn'}
             ]
         };
     }

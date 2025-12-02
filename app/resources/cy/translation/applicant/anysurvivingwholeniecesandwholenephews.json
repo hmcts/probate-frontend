@@ -1,0 +1,13 @@
+{
+  "title": "A oedd gan unrhyw un o’r brodyr/chwiorydd hyn blant wnaeth eu goroesi pan fu farw yr unigolyn sydd wedi marw?",
+  "question": "A oedd gan unrhyw un o’r brodyr/chwiorydd hyn blant wnaeth eu goroesi pan fu farw {deceasedName}?",
+  "paragraph1": "Nhw fyddai nithoedd a neiaint {deceasedName}.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+
+  "errors": {
+    "anySurvivingWholeNiecesAndWholeNephews": {
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oes unrhyw blant sydd wedi goroesi"
+    }
+  }
+}

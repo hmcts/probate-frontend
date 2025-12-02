@@ -13,11 +13,23 @@ class CoApplicantAdoptedIn extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+            const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+            switch (rel) {
+            case 'optionChild':
                 ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
-            }
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+                break;
+            case 'optionGrandchild':
                 ctx.adoptedIn = ctx.list[ctx.index].grandchildAdoptedIn;
+                break;
+            case 'optionHalfBloodSibling':
+                ctx.adoptedIn = ctx.list[ctx.index].halfBloodSiblingAdoptedIn;
+                break;
+            case 'optionHalfBloodNieceOrNephew':
+                ctx.adoptedIn = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
+                break;
+            default:
+                ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
+                break;
             }
         }
         return [ctx];
@@ -57,11 +69,21 @@ class CoApplicantAdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild') {
+        const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        // eslint-disable-next-line default-case
+        switch (rel) {
+        case 'optionChild':
             ctx.list[ctx.index].childAdoptedIn = ctx.adoptedIn;
-        }
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+            break;
+        case 'optionGrandchild':
             ctx.list[ctx.index].grandchildAdoptedIn = ctx.adoptedIn;
+            break;
+        case 'optionHalfBloodSibling':
+            ctx.list[ctx.index].halfBloodSiblingAdoptedIn = ctx.adoptedIn;
+            break;
+        case 'optionHalfBloodNieceOrNephew':
+            ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn = ctx.adoptedIn;
+            break;
         }
         return [ctx, errors];
     }

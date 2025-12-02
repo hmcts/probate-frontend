@@ -24,7 +24,6 @@ class ParentDieBefore extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         const ctx = super.getContextData(req);
-        ctx.deceasedName = FormatName.format(formdata.deceased);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
@@ -32,6 +31,7 @@ class ParentDieBefore extends ValidationStep {
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 

@@ -16,14 +16,6 @@ class ParentAdoptedOut extends ValidationStep {
         return ctx;
     }
 
-    generateFields(language, ctx, errors) {
-        const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
-        }
-        return fields;
-    }
-
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).constructor.getUrl('grandchildParentAdoptedOut');
     }
@@ -34,6 +26,14 @@ class ParentAdoptedOut extends ValidationStep {
                 {key: 'parentAdoptedOut', value: 'optionNo', choice: 'parentNotAdoptedOut'},
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 }
 

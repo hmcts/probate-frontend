@@ -16,16 +16,16 @@ class GrandchildParentHasAllChildrenOver18 extends ValidationStep {
         return ctx;
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('childrenUnder18');
-    }
-
     nextStepOptions() {
         return {
             options: [
                 {key: 'grandchildParentHasAllChildrenOver18', value: 'optionYes', choice: 'allChildrenOver18'}
             ]
         };
+    }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl('childrenUnder18');
     }
 
     action(ctx, formdata) {

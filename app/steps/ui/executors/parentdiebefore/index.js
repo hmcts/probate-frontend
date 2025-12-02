@@ -30,8 +30,8 @@ class ParentDieBefore extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 

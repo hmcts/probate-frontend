@@ -15,7 +15,6 @@ class ParentAdoptedOut extends ValidationStep {
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
-
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.deceasedName && errors) {

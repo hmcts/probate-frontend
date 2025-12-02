@@ -10,15 +10,8 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
-    handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptedIn = ctx.list[ctx.index].grandchildParentAdoptedIn;
-        }
-        return [ctx];
-    }
-
     getContextData(req) {
-        const formdata = req.session.form;
+        const formData = req.session.form;
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
@@ -26,21 +19,20 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.deceasedName = FormatName.format(formData.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
     }
 
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.applicantParentAdoptedIn = ctx.list[ctx.index].grandchildParentAdoptedIn;
+        }
+        return [ctx];
     }
 
-    generateFields(language, ctx, errors) {
-        const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
-        }
-        return fields;
+    recalcIndex(ctx, index) {
+        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
     }
 
     nextStepUrl(req, ctx) {
@@ -57,6 +49,14 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
                 {key: 'applicantParentAdoptedIn', value: 'optionNo', choice: 'notParentAdoptedIn'},
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 
     handlePost(ctx, errors, formdata) {

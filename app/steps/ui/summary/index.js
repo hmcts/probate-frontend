@@ -145,7 +145,16 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);
             ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
-
+            ctx.relationshipToDeceasedQuestion = content.RelationshipToDeceased.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.RelationshipToDeceased.theDeceased);
+            ctx.adoptedIn = content.CoApplicantAdoptedIn.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedIn.theDeceased);
+            //.replace('{applicantName}', applicantName ? applicantName : content.CoApplicantAdoptedIn.applicantName);
+            ctx.adoptedOut = content.CoApplicantAdoptedOut.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedOut.theDeceased);
+            //.replace('{applicantName}', applicantName ? applicantName : content.CoApplicantAdoptedOut.applicantName);
+            //ctx.adoptedOut = content.CoApplicantName.question
+            //.replace('{applicantName}', applicantName ? applicantName : content.CoApplicantName.applicantName);
             if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }

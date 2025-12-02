@@ -9,6 +9,7 @@ const PinNumber = require('app/services/PinNumber');
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
+const ServiceMapper = require('./utils/ServiceMapper');
 
 class InviteLink {
     verify() {
@@ -17,6 +18,16 @@ class InviteLink {
         return (req, res) => {
             self.checkLinkIsValid(req, res,
                 (res) => res.redirect('/sign-in'),
+                (res) => res.redirect('/errors/404'));
+        };
+    }
+
+    verifyIntestacy() {
+        const self = this;
+
+        return (req, res) => {
+            self.checkIntestacyLinkIsValid(req, res,
+                (res) => res.redirect('/start-verify'),
                 (res) => res.redirect('/errors/404'));
         };
     }
@@ -71,6 +82,54 @@ class InviteLink {
             });
     }
 
+    checkIntestacyLinkIsValid(req, res, success, failure) {
+        this.getAuth(req)
+            .then(([authToken, serviceAuthorisation]) => {
+                if (authToken === null || serviceAuthorisation === null) {
+                    logger.error('Error while getting the authToken and serviceAuthorisation');
+                    failure(res);
+                } else {
+                    const inviteId = req.params.inviteId;
+                    const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
+
+                    inviteLink.get(inviteId, authToken, serviceAuthorisation)
+                        .then(result => {
+                            if (result.name === 'Error') {
+                                logger.error(`Error while verifying the token: ${result.message}`);
+                                failure(res);
+                            } else {
+                                logger.info('Intestacy Link is valid id:'+result.formdataId);
+                                const formData = ServiceMapper.map(
+                                    'FormData',
+                                    [config.services.orchestrator.url, req.sessionID]
+                                );
+                                formData.get(authToken, serviceAuthorisation, result.formdataId, 'INTESTACY')
+                                    .then(result => {
+                                        req.session.form = result;
+                                        req.session.formdataId = result.formdataId;
+                                        req.session.inviteId = inviteId;
+                                        req.session.validLink = true;
+                                        logger.info('successfully got the case for intestacy co-applicant');
+                                        success(res);
+                                    })
+                                    .catch(err => {
+                                        logger.error(`Error while get the case: ${err}`);
+                                        failure(res);
+                                    });
+                            }
+                        })
+                        .catch(err => {
+                            logger.error(`Error while checking the link or sending the pin: ${err}`);
+                            failure(res);
+                        });
+                }
+            })
+            .catch(err => {
+                logger.error(`Error while getting the authToken and serviceAuthorisation: ${err}`);
+                failure(res);
+            });
+    }
+
     checkCoApplicant(useIDAM) {
         return (req, res, next) => {
             if (useIDAM === 'true' && isEmpty(req.session.inviteId)) {
@@ -84,7 +143,7 @@ class InviteLink {
                 .then(([authToken, serviceAuthorisation]) => {
                     const ccdCaseId = req.session.form && req.session.form.ccdCase ? req.session.form.ccdCase.id : 'undefined';
 
-                    if (req.originalUrl === '/co-applicant-agree-page') {
+                    if (req.originalUrl === '/co-applicant-agree-page' || req.originalUrl === '/intestacy-co-applicant-agree-page') {
                         const allExecutorsAgreed = new AllExecutorsAgreed(config.services.orchestrator.url, req.sessionID);
 
                         allExecutorsAgreed.get(authToken, serviceAuthorisation, ccdCaseId)

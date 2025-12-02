@@ -373,7 +373,20 @@ const stepList = {
     },
     Equality: 'Summary',
     Summary: 'TaskList',
-    Declaration: 'TaskList',
+    Declaration: {
+        sendAdditionalInvites: 'ExecutorsAdditionalInvite',
+        executorEmailChanged: 'ExecutorsUpdateInvite',
+        dataChangedAfterEmailSent: 'ExecutorsChangeMade',
+        otherExecutorsApplying: 'ExecutorsInvite',
+        otherwise: 'TaskList'
+    },
+    ExecutorsAdditionalInvite: 'ExecutorsAdditionalInviteSent',
+    ExecutorsAdditionalInviteSent: 'TaskList',
+    ExecutorsUpdateInvite: 'ExecutorsUpdateInviteSent',
+    ExecutorsUpdateInviteSent: 'TaskList',
+    ExecutorsInvite: 'ExecutorsInvitesSent',
+    ExecutorsInvitesSent: 'TaskList',
+    ExecutorsChangeMade: 'TaskList',
     CopiesStart: 'CopiesUk',
     CopiesUk: 'AssetsOverseas',
     AssetsOverseas: {
@@ -389,6 +402,13 @@ const stepList = {
     TaskList: 'TaskList',
     Dashboard: 'TaskList',
     StopPage: 'StopPage',
+    VerifyDod: 'CoApplicantDeclaration',
+    CoApplicantDeclaration: {
+        agreed: 'IntestacyCoApplicantAgreePage',
+        otherwise: 'IntestacyCoApplicantDisagreePage'
+    },
+    CoApplicantAgreePage: 'CoApplicantAgreePage',
+    CoApplicantDisagreePage: 'CoApplicantDisagreePage',
     ProvideInformation: {
         responseOrDocument: 'ReviewResponse',
         isUploadingDocument: 'ProvideInformation',

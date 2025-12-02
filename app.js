@@ -331,7 +331,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.post('*', sanitizeRequestBody);
 
     app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
+    app.get('/executors/intestacy-invitation/:inviteId', inviteSecurity.verifyIntestacy());
     app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
+    app.use('/intestacy-co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
     app.use('/executors-additional-invite', additionalInvite);
     app.use('/declaration', declaration);
 

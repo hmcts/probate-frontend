@@ -64,13 +64,3 @@
 <script type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
 <!-- End Dynatrace -->
 
-{% if fields.isWebChatEnabled.value === 'true' and fields.isAvayaWebChatEnabled.value === 'true'%}
-    <!-- https://www.srihash.org/ creating the integrity from this url wheneverthe file changes -->
-    {% if fields.language.value ==='cy' %}
-      <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/welsh/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
-    {% endif %}
-    {% if fields.language.value ==='en' %}
-      <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es2015.js" defer type="module" crossorigin="anonymous"></script>
-    {% endif %}
-    <script src="https://{{ globals.webchat.avayaClientUrl }}/chat-client/1/app-es5.js" nomodule defer crossorigin="anonymous"></script>
-{% endif %}

@@ -73,9 +73,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             maxSizeBytes: config.documentUpload.maxSizeBytes
         },
         webchat: {
-            avayaUrl: config.webchat.avayaUrl,
-            avayaClientUrl: config.webchat.avayaClientUrl,
-            avayaService: config.webchat.avayaService,
             kerv: {
                 deploymentId: {
                     en: config.webchat.kerv.deploymentId.en,

@@ -12,7 +12,6 @@ class ApplicantPhone extends ValidationStep {
 
     * handlePost(ctx, errors, formdata, session) {
         const applicantPhoneNumber = ApplicantPhone.sanitisePhoneNumber(ctx.phoneNumber);
-        console.log(ctx);
 
         const validationResult = PhoneNumberValidator.validateMobilePhoneNumber(applicantPhoneNumber);
         if (!validationResult.isValid) {

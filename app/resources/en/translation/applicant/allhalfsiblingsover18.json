@@ -1,6 +1,6 @@
 {
   "title": "Are all of the deceased&rsquo;s half-siblings 18 or older?",
-  "question": "Are all of {deceasedName}&rsquo;s half-siblings 18 or older?",
+  "question": "Are all of {deceasedName}&rsquo;s surviving half-siblings 18 or older?",
   "paragraph": "You do not need to include any half-siblings that died after {deceasedName}.",
   "optionYes": "Yes",
   "optionNo": "No",

@@ -1,6 +1,6 @@
 {
   "title": "Did any of these half-siblings have surviving children?",
-  "question": "Did any of these half-siblings have surviving children?",
+  "question": "Did any of these half-siblings have surviving children when {deceasedName} died?",
   "paragraph1": "They would be {deceasedName}&rsquo;s half-nieces and half-nephews.",
   "optionYes": "Yes",
   "optionNo": "No",

@@ -6,7 +6,6 @@
         "id": 1234567890123456,
         "state": "Pending"
     },
-    "featureToggles": {},
     "isGaEnabled": true,
     "isWebChatEnabled": true,
     "language": "en"

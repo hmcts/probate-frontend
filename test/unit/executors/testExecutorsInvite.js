@@ -105,7 +105,6 @@ describe('Executors-Invite', () => {
             const promise = gen.next().value;
 
             await expect(promise).to.be.rejectedWith(ReferenceError);
-            expect(logger.error.calledOnce);
         });
 
         it('should merge invitations if result.name is ok', async () => {

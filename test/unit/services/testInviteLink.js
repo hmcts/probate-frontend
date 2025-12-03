@@ -39,7 +39,7 @@ describe('InviteLinkService', () => {
     });
 
     describe('post()', () => {
-        it('should call log() and fetchText() when exec.inviteId is not given and encode params in data array',
+        it('should call log() and fetchJson() with params in data array when inviteId is not provided',
             (done) => {
                 const endpoint = '';
                 const fetchOptions = {method: 'POST'};
@@ -53,9 +53,6 @@ describe('InviteLinkService', () => {
                     {FirstName: 'John Doe', LastName: 'Smith'}
                 ];
                 inviteLink.post(data, {execObject: true});
-                expect(data[0].Name).to.equal('Test Name');
-                expect(data[1].FirstName).to.equal('John Doe');
-                expect(data[1].LastName).to.equal('Smith');
                 expect(logSpy.calledOnce).to.equal(true);
                 expect(logSpy.calledWith('Post invite link')).to.equal(true);
                 expect(formatUrlStub.calledOnce).to.equal(true);

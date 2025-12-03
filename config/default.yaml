@@ -18,9 +18,8 @@ featureToggles:
   ft_excepted_estates: 'probate-excepted-estates'
   ft_will_condition : 'probate-will-condition'
   ft_stop_ihtonline : 'probate-stop-ihtonline'
-  ft_use_new_webchat : 'probate-use-new-webchat'
   ft_probate_fee_increase_2025 : 'probate-fee-increase-2025'
-  appwideToggles: ['ft_avaya_webchat', 'ft_use_new_webchat']
+  appwideToggles: ['ft_avaya_webchat']
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:
   webchatEnabled: true

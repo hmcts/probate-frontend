@@ -47,7 +47,7 @@ class CoApplicantAdoptedOut extends ValidationStep {
             index = parseInt(req.params[0]);
         } else {
             index = this.recalcIndex(ctx, 0);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+            ctx.redirect = `${pageUrl}/${index}`;
         }
         ctx.index = index;
         ctx.deceasedName = FormatName.format(formdata.deceased);

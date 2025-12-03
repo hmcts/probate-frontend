@@ -15,27 +15,27 @@
       "required": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}"
     },
     "divorceDate-year": {
-      "required": "Date of {legalProcess} must include a year"
+      "required": "Date of {legalProcessDifferentText} must include a year"
     },
     "divorceDate-month": {
-      "required": "Date of {legalProcess} must include a month"
+      "required": "Date of {legalProcessDifferentText} must include a month"
     },
     "divorceDate-day": {
       "required": "Date of {legalProcess} must include a day"
     },
     "divorceDate-day-month": {
-      "required": "Date of {legalProcess} must include a day and month"
+      "required": "Date of {legalProcessDifferentText} must include a day and month"
     },
     "divorceDate-month-year": {
-      "required": "Date of {legalProcess} must include a month and year"
+      "required": "Date of {legalProcessDifferentText} must include a month and year"
     },
     "divorceDate-day-year": {
-      "required": "Date of {legalProcess} must include a day and year"
+      "required": "Date of {legalProcessDifferentText} must include a day and year"
     },
     "divorceDate": {
       "required": "Enter the date the {legalProcess} took place",
-      "invalid": "Date of {legalProcess} must be a real date",
-      "divorceDateAfterDod": "The date of {legalProcess} must be before {deceasedName}’s date of death"
+      "invalid": "Date of {legalProcessDifferentText} must be a real date",
+      "divorceDateAfterDod": "The date of {legalProcessDifferentText} must be before {deceasedName}’s date of death"
     }
   }
 }

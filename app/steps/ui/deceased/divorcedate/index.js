@@ -28,6 +28,7 @@ class DivorceDate extends ValidationStep {
 
         if (formdata.deceased && formdata.deceased.maritalStatus) {
             ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+            ctx.legalProcessDifferentText = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorced : contentMaritalStatus.separation;
         }
 
         return ctx;
@@ -109,6 +110,7 @@ class DivorceDate extends ValidationStep {
                 if (fields[field] && fields[field].error) {
                     fields[field].errorMessage = fields[field].errorMessage
                         .replace('{legalProcess}', ctx.legalProcess)
+                        .replace('{legalProcessDifferentText}', ctx.legalProcessDifferentText)
                         .replace('{deceasedName}', fields.deceasedName.value);
                     errors[0].msg = fields[field].errorMessage;
                 }
@@ -125,6 +127,7 @@ class DivorceDate extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.legalProcess;
+        delete ctx.legalProcessDifferentText;
         delete ctx['divorceDate-day'];
         delete ctx['divorceDate-month'];
         delete ctx['divorceDate-year'];

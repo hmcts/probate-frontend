@@ -13,13 +13,12 @@ featureToggles:
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
-  ft_avaya_webchat: 'probate-avaya-webchat'
   ft_newfee_register_code: 'probate-newfee-register-code'
   ft_excepted_estates: 'probate-excepted-estates'
   ft_will_condition : 'probate-will-condition'
   ft_stop_ihtonline : 'probate-stop-ihtonline'
   ft_probate_fee_increase_2025 : 'probate-fee-increase-2025'
-  appwideToggles: ['ft_avaya_webchat']
+  appwideToggles: []
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:
   webchatEnabled: true
@@ -187,7 +186,6 @@ links:
   privacy: '/privacy-policy'
   terms: '/terms-conditions'
   contact: '/contact-us'
-  webchat: '/avaya-webchat'
   callCharges: 'https://www.gov.uk/call-charges'
   howToManageCookies: 'https://www.aboutcookies.org'
   googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/'

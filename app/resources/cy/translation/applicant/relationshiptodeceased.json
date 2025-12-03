@@ -11,7 +11,7 @@
   "hintParent": "Gan gynnwys rhieni mabwysiedig, ond nid llysrieni",
   "optionSibling": "Fi yw eu brawd/chwaer",
   "hintSibling": "Gan gynnwys brodyr/chwiorydd mabwysiedig, ond nid llysfrodyr/llyschwiorydd",
-  "optionOther": "Arall",
+  "optionOther": "Dim un o’r uchod",
   "or": "neu",
 
   "errors": {

@@ -11,7 +11,7 @@
   "hintParent": "including adoptive parents, but not step-parents",
   "optionSibling": "I am their sibling",
   "hintSibling": "Including adopted and half-siblings, but not step-siblings",
-  "optionOther": "Other",
+  "optionOther": "None of the above",
   "or": "or",
 
   "errors": {

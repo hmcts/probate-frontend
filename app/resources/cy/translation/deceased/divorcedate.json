@@ -15,27 +15,27 @@
       "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod y dyddiad yr {legalProcess}"
     },
     "divorceDate-year": {
-      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys blwyddyn"
+      "required": "Rhaid i ddyddiad yr {legalProcessDifferentText} gynnwys blwyddyn"
     },
     "divorceDate-month": {
-      "required": "Rhaid i ddyddiad y {legalProcess} gynnwys mis"
+      "required": "Rhaid i ddyddiad y {legalProcessDifferentText} gynnwys mis"
     },
     "divorceDate-day": {
       "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod"
     },
     "divorceDate-day-month": {
-      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod a mis"
+      "required": "Rhaid i ddyddiad yr {legalProcessDifferentText} gynnwys diwrnod a mis"
     },
     "divorceDate-month-year": {
-      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys mis a blwyddyn"
+      "required": "Rhaid i ddyddiad yr {legalProcessDifferentText} gynnwys mis a blwyddyn"
     },
     "divorceDate-day-year": {
-      "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod a blwyddyn"
+      "required": "Rhaid i ddyddiad yr {legalProcessDifferentText} gynnwys diwrnod a blwyddyn"
     },
     "divorceDate": {
       "required": "Nodwch y dyddiad pan ddigwyddodd yr {legalProcess}",
-      "invalid": "Rhaid i ddyddiad yr {legalProcess} fod yn ddyddiad dilys",
-      "divorceDateAfterDod": "Rhaid i ddyddiad yr {legalProcess} fod cyn dyddiad marwolaeth {deceasedName}"
+      "invalid": "Rhaid i ddyddiad yr {legalProcessDifferentText} fod yn ddyddiad dilys",
+      "divorceDateAfterDod": "Rhaid i ddyddiad yr {legalProcessDifferentText} fod cyn dyddiad marwolaeth {deceasedName}"
     }
   }
 }

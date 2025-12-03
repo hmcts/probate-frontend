@@ -47,7 +47,6 @@ describe('Dashboard', () => {
                 ],
                 userLoggedIn: false,
                 language: 'en',
-                featureToggles: {},
                 isGaEnabled: true,
                 isWebChatEnabled: true
             });

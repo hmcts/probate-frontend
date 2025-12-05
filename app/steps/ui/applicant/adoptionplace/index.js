@@ -11,7 +11,7 @@ class AdoptionPlace extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
+        ctx.relationshipToDeceased = formdata.applicant?.relationshipToDeceased;
         ctx.details = formdata.details || {};
         return ctx;
     }

@@ -26,7 +26,7 @@ class DivorceDate extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
 
-        if (formdata.deceased && formdata.deceased.maritalStatus) {
+        if (formdata.deceased?.maritalStatus) {
             ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
             ctx.legalProcessDifferentText = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorced : contentMaritalStatus.separation;
         }

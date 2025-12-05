@@ -27,6 +27,12 @@ class CoApplicantAdoptedOut extends ValidationStep {
             case 'optionHalfBloodNieceOrNephew':
                 ctx.adoptedOut = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
                 break;
+            case 'optionWholeBloodSibling':
+                ctx.adoptedOut = ctx.list[ctx.index].wholeBloodSiblingAdoptedOut;
+                break;
+            case 'optionWholeBloodNieceOrNephew':
+                ctx.adoptedOut = ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;
+                break;
             default:
                 ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
                 break;
@@ -66,7 +72,9 @@ class CoApplicantAdoptedOut extends ValidationStep {
     nextStepUrl(req, ctx) {
         if ((ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
             ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo') {
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo') {
             return `/coapplicant-email/${ctx.index}`;
         } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo') {
             return `/parent-adopted-in/${ctx.index}`;
@@ -77,7 +85,9 @@ class CoApplicantAdoptedOut extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.childOrSiblingOrNieceOrNephewNotAdoptedOut = (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
             ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo';
         ctx.grandChildNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
         return {
             options: [
@@ -102,6 +112,12 @@ class CoApplicantAdoptedOut extends ValidationStep {
             break;
         case 'optionHalfBloodNieceOrNephew':
             ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionWholeBloodSibling':
+            ctx.list[ctx.index].wholeBloodSiblingAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionWholeBloodNieceOrNephew':
+            ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut = ctx.adoptedOut;
             break;
         }
         return [ctx, errors];

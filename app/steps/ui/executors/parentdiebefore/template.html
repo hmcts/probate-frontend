@@ -7,7 +7,10 @@
 {% if relationship == "optionGrandchild" %}
 {%    set legendText = content.grandchildQuestion %}
 {%    set HintText = content.grandchildHintText %}
-{% else %}
+{% elseif relationship == "optionWholeBloodNieceOrNephew" %}
+{%    set legendText = content.wholeBloodNieceOrNephewQuestion %}
+{%    set HintText = content.wholeBloodNieceOrNephewHintText %}
+{% elseif relationship == "optionHalfBloodNieceOrNephew" %}
 {%    set legendText = content.halfBloodNieceOrNephewQuestion %}
 {%    set HintText = content.halfBloodNieceOrNephewHintText %}
 {% endif %}

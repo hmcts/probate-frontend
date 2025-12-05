@@ -7,6 +7,9 @@
   "optionHalfBloodSibling": "Half-sibling",
   "optionHalfBloodNieceOrNephew": "Half-niece or half-nephew",
   "optionHalfBloodNieceOrNephewHintText": "This can only be through any of {deceasedName}&rsquo;s half-siblings that died before {deceasedName}",
+  "optionWholeBloodSibling": "Sibling (not including half-siblings)",
+  "optionWholeBloodNieceOrNephew": "Niece or nephew (not including half-niece or half-nephew)",
+  "optionWholeBloodNieceOrNephewHintText": "This can only be through any of {deceasedName}&rsquo;s siblings that died before {deceasedName}",
   "optionGrandchildHintText": "This can only be through any of {deceasedName}&rsquo;s children that died before {deceasedName}",
   "optionOther": "Other",
 

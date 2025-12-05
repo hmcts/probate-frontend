@@ -1,5 +1,5 @@
 'use strict';
-
+/* eslint-disable max-lines */
 const initSteps = require('app/core/initSteps');
 const journey = require('app/journeys/intestacy');
 const expect = require('chai').expect;
@@ -71,6 +71,20 @@ describe('Co-applicant-relationship', () => {
         it('should return the correct URL if the relationship to deceased is Half-blood Niece or Nephew', () => {
             ctx.index = 3;
             ctx.coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+            const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(url).to.equal('/parent-die-before/3');
+        });
+
+        it('should return the correct URL if the relationship to deceased is Whole-blood sibling', () => {
+            ctx.index = 3;
+            ctx.coApplicantRelationshipToDeceased = 'optionWholeBloodSibling';
+            const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-name/3');
+        });
+
+        it('should return the correct URL if the relationship to deceased is Whole-blood Niece or Nephew', () => {
+            ctx.index = 3;
+            ctx.coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
             expect(url).to.equal('/parent-die-before/3');
         });

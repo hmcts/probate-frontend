@@ -144,6 +144,26 @@ describe('Co-applicant-parent-die-before', () => {
             });
             done();
         });
+
+        it('should set wholeBloodSiblingDiedBeforeDeceased field in the list if ctx has applicantParentDieBeforeDeceased', (done) => {
+            ctx = {
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'},
+                ],
+                index: 1,
+                applicantParentDieBeforeDeceased: 'optionYes'
+            };
+            errors = [];
+            [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                list: [{firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', wholeBloodSiblingDiedBeforeDeceased: 'optionYes'},],
+                index: 1,
+                applicantParentDieBeforeDeceased: 'optionYes'
+            });
+            done();
+        });
     });
 
     describe('getContextData()', () => {

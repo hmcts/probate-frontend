@@ -110,7 +110,7 @@ describe('Co-applicant-parent-die-before', () => {
                 firstName: 'John',
                 lastName: 'Doe'
             };
-            const contentToExclude = ['halfBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewHintText'];
+            const contentToExclude = ['halfBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewHintText', 'wholeBloodNieceOrNephewQuestion', 'wholeBloodNieceOrNephewHintText'];
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -131,7 +131,28 @@ describe('Co-applicant-parent-die-before', () => {
                 list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
                     {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplying: true}]
             };
-            const contentToExclude = ['grandchildQuestion', 'grandchildHintText'];
+            const contentToExclude = ['grandchildQuestion', 'grandchildHintText', 'wholeBloodNieceOrNephewQuestion', 'wholeBloodNieceOrNephewHintText'];
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        deceasedName: 'John Doe',
+                    };
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test correct content loaded on the page if applicant is whole blood Niece or Nephew', (done) => {
+            sessionData.deceased = {
+                firstName: 'John',
+                lastName: 'Doe'
+            };
+            sessionData.executors = {
+                list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplying: true}]
+            };
+            const contentToExclude = ['grandchildQuestion', 'grandchildHintText', 'halfBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewHintText'];
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

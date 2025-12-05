@@ -1,8 +1,23 @@
+{% set relationshipType = '' %}
+{% if executor.coApplicantRelationshipToDeceased == "optionChild" %}
+    {% set relationshipType = 'Child' %}
+{% elif executor.coApplicantRelationshipToDeceased == "optionSpouseOrCivilPartner" %}
+    {% set relationshipType = 'Spouse or Civil Partner' %}
+{% elif executor.coApplicantRelationshipToDeceased == "optionGrandchild" %}
+    {% set relationshipType = 'Grandchild' %}
+{% elif executor.coApplicantRelationshipToDeceased == "optionParent" %}
+    {% set relationshipType = 'Parent' %}
+{% elif executor.coApplicantRelationshipToDeceased == "optionSibling" %}
+    {% set relationshipType = 'Sibling' %}
+{% elif executor.coApplicantRelationshipToDeceased == "optionOther" %}
+    {% set relationshipType = 'Other' %}
+{% endif %}
+
 {{checkanswer(
     items = [
         {
-            question: content.Summary.relationshipToDeceasedQuestion.value,
-            answer: executor.relationshipToDeceased,
+            question: fields.summary.otherExecutorRelationshipToDeceased.value,
+            answer: relationshipType,
             visible: true
         }
     ],
@@ -24,11 +39,17 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
+{% set adoptedInAnswer = '' %}
+{% if executor.childAdoptedIn == "optionNo" %}
+    {% set adoptedInAnswer = 'No' %}
+{% elif executor.childAdoptedIn == "optionYes" %}
+    {% set adoptedInAnswer = 'Yes' %}
+{% endif %}
 {{checkanswer(
     items = [
         {
-            question: content.Summary.adoptedIn.value,
-            answer: executor.adoptedIn,
+            question: fields.summary.adoptedIn.value,
+            answer: adoptedInAnswer,
             visible: true
         }
     ],
@@ -37,11 +58,17 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
+{% set adoptedOutAnswer = '' %}
+{% if executor.childAdoptedOut == "optionNo" %}
+    {% set adoptedOutAnswer = 'No' %}
+{% elif executor.childAdoptedOut == "optionYes" %}
+    {% set adoptedOutAnswer = 'Yes' %}
+{% endif %}
 {{checkanswer(
     items = [
         {
-            question: content.Summary.adoptedOut.value,
-            answer: executor.adoptedOut,
+            question: fields.summary.adoptedOut.value,
+            answer: adoptedOutAnswer,
             visible: true
         }
     ],
@@ -53,8 +80,8 @@
 {{checkanswer(
     items = [
         {
-            question: content.Summary.emailAddress,
-            answer: executor..formattedAddress,
+            question: fields.summary.otherExecutorEmail.value,
+            answer: executor.email,
             visible: true
         }
     ],
@@ -66,7 +93,7 @@
 {{checkanswer(
     items = [
         {
-            question: content.Summary.address,
+            question: fields.summary.otherExecutorAddress.value,
             answer: executor.address.formattedAddress,
             visible: true
         }

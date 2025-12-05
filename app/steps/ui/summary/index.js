@@ -130,11 +130,11 @@ class Summary extends Step {
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
-                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
-                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedDivorceDate = content.DivorceDate.date
-                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question
@@ -156,7 +156,7 @@ class Summary extends Step {
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
         }
-        if (formdata.deceased && formdata.deceased.divorceDate) {
+        if (formdata.deceased?.divorceDate) {
             const date = moment(formdata.deceased.divorceDate, 'YYYY-MM-DD');
             if (date.isValid()) {
                 ctx.divorceDateFormatted = utils.formattedDate(date, req.session.language);

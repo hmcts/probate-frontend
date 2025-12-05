@@ -93,11 +93,11 @@
                 {% include "ui/summary/includes/other-people-applying.njk" %}
             </dl>
 
-            {% if fields.executors.executorsNumber.value > 1 %}
+            {% if fields.executors.list | length > 1 %}
               {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
               {% for executor in fields.executors.list.value %}
                 {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
-                  <h3 class="govuk-heading-s">{{ content.Summary.executorApplyingForProbate | replace("{applyingOrderNumber}", cls.next()) | safe }}</h3>
+                  <h3 class="govuk-heading-s">{{ content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
                   <dl class="govuk-summary-list">
                     {% include "ui/summary/includes/intestacy-people-applying.njk" %}
                   </dl>

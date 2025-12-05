@@ -1,0 +1,22 @@
+{
+  "title": "Pobl yn gwneud cais am brofiant",
+  "question": "Ydych chi eisiau gwneud cais gyda rhywun arall?",
+  "paragraph1": "Os oes pobl eraill sydd â hawl i etifeddu, gallwch wneud cais ar y cyd gyda hyd at 3 ohonynt. Byddant hefyd yn cael eu henwi ar y grant profiant.",
+  "paragraph2": "Bydd pob Ceisydd yn cael yr hawl gyfreithiol i ddelio ag ystad {deceasedName}. Mae hyn yn cynnwys:",
+  "bullet1": "casglu asedau&rsquo;r ystad (eiddo ac arian)",
+  "bullet2": "talu unrhyw drethi a dyledion",
+  "bullet3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd â hawl iddo",
+  "paragraph3": "Nid yw peidio &acirc; gwneud cais yn effeithio ar hawl unigolyn i etifeddu.",
+  "applicantExecutor" : "Ceisydd (chi)",
+  "furtherExecutor": "Ceisydd",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+  "removeAction": "Dileu",
+
+  "errors": {
+    "hasCoApplicant": {
+      "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych eisiau gwneud cais gyda rhywun arall",
+      "invalid": "Gallwch ond gwneud cais gyda hyd at 3 o bobl"
+    }
+  }
+}

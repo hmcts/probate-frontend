@@ -1,0 +1,12 @@
+{
+  "title": "Parent adopted out",
+  "question": "A wnaeth {deceasedName} fabwysiadu rhiant ({applicantName }} plentyn ({deceasedName}) yn gyfreithlon allan o’u teulu nhw (eu rhoi i ffwrdd i gael eu mabwysiadu)?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "applicantParentAdoptedOut": {
+      "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu allan o deulu {deceasedName}"
+    }
+  }
+}

@@ -9,6 +9,15 @@
     {{ fields.title }}
 {% endblock %}
 
+{% set maritalStatus = fields.maritalStatus.value %}
+{% if maritalStatus == "optionDivorced" %}
+{%    set paragraph1 = content.divorcedParagraph1 %}
+{%    set paragraph2 = content.divorcedParagraph2 %}
+{% else %}
+{%    set paragraph1 = content.separatedParagraph1 %}
+{%    set paragraph2 = content.separatedParagraph2 %}
+{% endif %}
+
 {% block form_content %}
 
     {% set errorFields = [
@@ -76,8 +85,8 @@
             isPageHeading: true
         }
     }) %}
-    <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+    <p class="govuk-body">{{ paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ paragraph2 | safe }}</p>
     {{ govukRadios({
         idPrefix: "divorceDateKnown",
         name: "divorceDateKnown",

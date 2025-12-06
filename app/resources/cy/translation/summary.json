@@ -13,6 +13,8 @@
   "otherNamesLabel": "Enwau a ddefnyddiwyd gan yr unigolyn sydd wedi marw",
   "aboutPeopleApplyingHeading": "Ynghylch y bobl sy&rsquo;n gwneud cais",
   "aboutYouHeading": "Amdanoch chi",
+  "otherPeopleApplyingHeading": "Other people applying for probate",
+  "applicantRelationshipToDeceased": "Your relationship to the deceased",
   "executorApplyingForProbate": "{executorOrderNumber} ysgutor sy&rsquo;n gwneud cais am brofiant",
   "executorsNotApplyingForProbate": "Ysgutorion sydd ddim yn gwneud cais am brofiant",
   "executorsWithOtherNames": "Pa ysgutorion sydd ag enwau gwahanol?",

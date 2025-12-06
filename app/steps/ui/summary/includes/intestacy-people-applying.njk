@@ -1,0 +1,77 @@
+{{checkanswer(
+    items = [
+        {
+            question: content.Summary.relationshipToDeceasedQuestion.value,
+            answer: executor.relationshipToDeceased,
+            visible: true
+        }
+    ],
+    url = content.CoApplicantRelationshipToDeceased.url  | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.CoApplicantName.question,
+            answer: executor.fullName,
+            visible: true
+        }
+    ],
+    url = content.ExecutorsNamed.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.Summary.adoptedIn.value,
+            answer: executor.adoptedIn,
+            visible: true
+        }
+    ],
+    url = content.AdoptedIn.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.Summary.adoptedOut.value,
+            answer: executor.adoptedOut,
+            visible: true
+        }
+    ],
+    url = content.adoptedOut.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.Summary.emailAddress,
+            answer: executor..formattedAddress,
+            visible: true
+        }
+    ],
+    url = content.ExecutorAddress.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.Summary.address,
+            answer: executor.address.formattedAddress,
+            visible: true
+        }
+    ],
+    url = content.ExecutorAddress.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

@@ -97,7 +97,7 @@ class Summary extends Step {
         const ctx = super.getContextData(req);
         const willWrapper = new WillWrapper(formdata.will);
         const deceasedName = FormatName.format(formdata.deceased);
-        const applicantName = FormatName.format(formdata.applicantName);
+        const executors = formdata.executors;
         const content = this.generateContent(ctx, formdata, req.session.language);
         const hasCodicils = willWrapper.hasCodicils();
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
@@ -147,16 +147,31 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);
             ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
-            ctx.relationshipToDeceasedQuestion = content.RelationshipToDeceased.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.RelationshipToDeceased.theDeceased);
-            ctx.adoptedIn = content.CoApplicantAdoptedIn.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedIn.theDeceased)
-                .replace('{applicantName}', applicantName ? applicantName : content.CoApplicantAdoptedIn.applicantName);
-            ctx.adoptedOut = content.CoApplicantAdoptedOut.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedOut.theDeceased)
-                .replace('{applicantName}', applicantName ? applicantName : content.CoApplicantAdoptedOut.applicantName);
-            ctx.adoptedOut = content.CoApplicantName.question
-                .replace('{applicantName}', applicantName ? applicantName : content.CoApplicantName.applicantName);
+            ctx.otherExecutorRelationshipToDeceased = content.CoApplicantRelationshipToDeceased.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantRelationshipToDeceased.theDeceased);
+
+            ctx.executorSummary = [];
+            if (executors && Array.isArray(executors.list)) {
+                executors.list.forEach((exec) => {
+                    ctx.executorSummary.push({
+                        adoptedInQuestion: content.CoApplicantAdoptedIn.question
+                            .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedIn.theDeceased)
+                            .replace('{applicantName}', exec.fullName || content.CoApplicantAdoptedIn.applicantName),
+                        adoptedInAnswer: exec.childAdoptedIn || '',
+                        adoptedOutQuestion: content.CoApplicantAdoptedOut.question
+                            .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedOut.theDeceased)
+                            .replace('{applicantName}', exec.fullName || content.CoApplicantAdoptedOut.applicantName),
+                        adoptedOutAnswer: exec.childAdoptedOut || '',
+                        emailQuestion: content.CoApplicantEmail.question
+                            .replace('{executorName}', exec.fullName || content.CoApplicantEmail.applicantName),
+                        emailAnswer: exec.email || '',
+                        addressQuestion: content.ExecutorAddress.question
+                            .replace('{executorName}', exec.fullName || content.ExecutorAddress.applicantName),
+                        addressAnswer: exec.address && exec.address.formattedAddress ? exec.address.formattedAddress : ''
+                    });
+                });
+            }
+
             if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }

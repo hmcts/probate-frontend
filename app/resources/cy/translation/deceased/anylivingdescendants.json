@@ -12,7 +12,7 @@
 
   "errors": {
     "anyLivingDescendants": {
-      "required": "Dewiswch &lsquo;Oes&rsquo; os oes gan {deceasedName} unrhyw blant, wyrion neu orwyrion sy&rsquo;n fyw"
+      "required": "Dewiswch &lsquo;Oes&rsquo; os oes gan {deceasedName} unrhyw blant, wyrion neu orwyrion sy&rsquo;n fyw adeg eu marwolaeth"
     }
   }
 }

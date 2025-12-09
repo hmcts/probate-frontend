@@ -86,6 +86,7 @@ describe('DivorceDate', () => {
 
         it ('should create an error when no month has been entered', (done) => {
             const ctxIn = {
+                maritalStatus: 'optionDivorced',
                 'divorceDateKnown': 'optionYes',
                 'divorceDate-day': '4',
                 'divorceDate-year': '2025',
@@ -98,7 +99,7 @@ describe('DivorceDate', () => {
             expect(errors).to.deep.equal([{
                 'field': 'divorceDate-month',
                 'href': '#divorceDate-month',
-                'msg': content.errors['divorceDate-month'].required
+                'msg': content.errors['divorceDate-month'].requiredDivorced
             }]);
             done();
         });

@@ -2,8 +2,5 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "divorceDate",
   "type": "object",
-  "properties": {},
-  "required": [
-    "divorceDateKnown"
-  ]
+  "properties": {}
 }

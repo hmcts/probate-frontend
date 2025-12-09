@@ -14,13 +14,16 @@
   "date": "Dyddiad yr {legalProcess}",
   "errors": {
     "divorceDateKnown": {
-      "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod y dyddiad yr {legalProcess}"
+      "requiredDivorced": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod y dyddiad yr {legalProcess}",
+      "requiredSeparated": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod dyddiad yr {legalProcess}"
     },
     "divorceDate-year": {
       "required": "Rhaid i ddyddiad yr {legalProcessDifferentText} gynnwys blwyddyn"
     },
     "divorceDate-month": {
-      "required": "Rhaid i ddyddiad y {legalProcessDifferentText} gynnwys mis"
+      "requiredDivorced": "Rhaid i ddyddiad y {legalProcessDifferentText} gynnwys mis",
+      "requiredSeparated": "Rhaid i ddyddiad yr {legalProcessDifferentText} gynnwys mis"
+
     },
     "divorceDate-day": {
       "required": "Rhaid i ddyddiad yr {legalProcess} gynnwys diwrnod"

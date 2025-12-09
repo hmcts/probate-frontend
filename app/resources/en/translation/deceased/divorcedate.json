@@ -14,13 +14,15 @@
   "date": "Date of {legalProcess}",
   "errors": {
     "divorceDateKnown": {
-      "required": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}"
+      "requiredDivorced": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}",
+      "requiredSeparated": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}"
     },
     "divorceDate-year": {
       "required": "Date of {legalProcessDifferentText} must include a year"
     },
     "divorceDate-month": {
-      "required": "Date of {legalProcessDifferentText} must include a month"
+      "requiredDivorced": "Date of {legalProcessDifferentText} must include a month",
+      "requiredSeparated": "Date of {legalProcessDifferentText} must include a month"
     },
     "divorceDate-day": {
       "required": "Date of {legalProcess} must include a day"

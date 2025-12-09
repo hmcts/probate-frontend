@@ -89,8 +89,6 @@
     {{ govukRadios({
         idPrefix: "divorceDateKnown",
         name: "divorceDateKnown",
-        errorMessage: { text: fields.divorceDateKnown.errorMessage
-            | replace("{legalProcess}", fields.legalProcess.value) | safe } if fields.divorceDateKnown.errorMessage,
         items: [
             {
                 value: "optionYes",

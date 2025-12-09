@@ -36,6 +36,10 @@ class DivorceDate extends ValidationStep {
 
     handlePost(ctx, errors, formdata, session) {
 
+        /*const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
+        if (!isSaveAndClose) {
+            if (typeof ctx.divorceDateKnown === 'undefined' || !ctx.divorceDateKnown) {*/
+
         if (ctx.divorceDateKnown === 'optionNo') {
             delete ctx['divorceDate-day'];
             delete ctx['divorceDate-month'];

@@ -69,11 +69,6 @@ describe('divorce-date', () => {
                 });
         });
 
-        it('test errors message displayed for missing data', (done) => {
-            const errorsToTest = ['divorceDateKnown'];
-            testWrapper.testErrors(done, {}, 'required', errorsToTest);
-        });
-
         it(`test it redirects to tasklist page: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})

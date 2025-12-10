@@ -1,23 +1,8 @@
-{% set relationshipType = '' %}
-{% if executor.coApplicantRelationshipToDeceased == "optionChild" %}
-    {% set relationshipType = 'Child' %}
-{% elif executor.coApplicantRelationshipToDeceased == "optionSpouseOrCivilPartner" %}
-    {% set relationshipType = 'Spouse or Civil Partner' %}
-{% elif executor.coApplicantRelationshipToDeceased == "optionGrandchild" %}
-    {% set relationshipType = 'Grandchild' %}
-{% elif executor.coApplicantRelationshipToDeceased == "optionParent" %}
-    {% set relationshipType = 'Parent' %}
-{% elif executor.coApplicantRelationshipToDeceased == "optionSibling" %}
-    {% set relationshipType = 'Sibling' %}
-{% elif executor.coApplicantRelationshipToDeceased == "optionOther" %}
-    {% set relationshipType = 'Other' %}
-{% endif %}
-
 {{checkanswer(
     items = [
         {
             question: fields.summary.otherExecutorRelationshipToDeceased.value,
-            answer: relationshipType,
+            answer: content.CoApplicantRelationshipToDeceased[executor.coApplicantRelationshipToDeceased],
             visible: true
         }
     ],
@@ -38,45 +23,78 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+{% set relationships = {
+    "optionChild": {
+        adoptedIn: "childAdoptedIn",
+        adoptedOut: "childAdoptedOut",
+        adoptionPlace: "childAdoptionInEnglandOrWales"
+    },
+    "optionGrandchild": {
+        adoptedIn: "grandchildAdoptedIn",
+        adoptedOut: "grandchildAdoptedOut",
+        adoptionPlace: "grandchildAdoptionInEnglandOrWales"
+    },
+    "optionHalfBloodSibling": {
+        adoptedIn: "halfBloodSiblingAdoptedIn",
+        adoptedOut: "halfBloodSiblingAdoptedOut",
+        adoptionPlace: "halfBloodSiblingAdoptionInEnglandOrWales"
+    },
+    "optionHalfBloodNieceOrNephew": {
+        adoptedIn: "halfBloodNieceOrNephewAdoptedIn",
+        adoptedOut: "halfBloodNieceOrNephewAdoptedOut",
+        adoptionPlace: "halfBloodNieceOrNephewAdoptionInEnglandOrWales"
+    },
+    "optionWholeBloodSibling": {
+        adoptedIn: "wholeBloodSiblingAdoptedIn",
+        adoptedOut: "wholeBloodSiblingAdoptedOut",
+        adoptionPlace: "wholeBloodSiblingAdoptionInEnglandOrWales"
+    },
+    "optionWholeBloodNieceOrNephew": {
+        adoptedIn: "wholeBloodNieceOrNephewAdoptedIn",
+        adoptedOut: "wholeBloodNieceOrNephewAdoptedOut",
+        adoptionPlace: "wholeBloodNieceOrNephewAdoptionInEnglandOrWales"
+    }
+} %}
 
-{% set adoptedInAnswer = '' %}
-{% if executor.childAdoptedIn == "optionNo" %}
-    {% set adoptedInAnswer = 'No' %}
-{% elif executor.childAdoptedIn == "optionYes" %}
-    {% set adoptedInAnswer = 'Yes' %}
+{% set rel = relationships[executor.coApplicantRelationshipToDeceased] %}
+{% if rel %}
+    {{checkanswer(
+        items = [
+            {
+                question: fields.summary.executorSummary.value[loop.index0].adoptedInQuestion,
+                answer: content.CoApplicantAdoptedIn[executor[rel.adoptedIn]],
+                visible: true
+            }
+        ],
+        url = content.AdoptedIn.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantAdoptionPlace.question,
+                answer: content.CoApplicantAdoptionPlace[executor[rel.adoptionPlace]],
+                visible: executor[rel.adoptedIn] == "optionYes"
+            }
+        ],
+        url = content.AdoptedIn.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: fields.summary.executorSummary.value[loop.index0].adoptedOutQuestion,
+                answer: content.CoApplicantAdoptedOut[executor[rel.adoptedOut]],
+                visible: executor[rel.adoptedIn] == "optionNo"
+            }
+        ],
+        url = content.adoptedOut.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
 {% endif %}
-{{checkanswer(
-    items = [
-        {
-            question: fields.summary.executorSummary.value[loop.index0].adoptedInQuestion,
-            answer: adoptedInAnswer,
-            visible: true
-        }
-    ],
-    url = content.AdoptedIn.url | replace("*", loop.index0 ),
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{% set adoptedOutAnswer = '' %}
-{% if executor.childAdoptedOut == "optionNo" %}
-    {% set adoptedOutAnswer = 'No' %}
-{% elif executor.childAdoptedOut == "optionYes" %}
-    {% set adoptedOutAnswer = 'Yes' %}
-{% endif %}
-{{checkanswer(
-    items = [
-        {
-            question: fields.summary.executorSummary.value[loop.index0].adoptedOutQuestion,
-            answer: adoptedOutAnswer,
-            visible: true
-        }
-    ],
-    url = content.adoptedOut.url | replace("*", loop.index0 ),
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
 {{checkanswer(
     items = [
         {

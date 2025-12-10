@@ -3,19 +3,20 @@
 const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const {get} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
+const FormatName = require('./FormatName');
 
 class IntestacyDeclarationFactory {
 
-    static build(ctx, content, formdata) {
+    static build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText) {
         const legalStatement = {};
         const declaration = {};
         const ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
 
         legalStatement.en = {
-            intro: content.en.intro,
-            applicant: content.en.legalStatementApplicant
-                .replace('{applicantName}', formdata.applicantName)
-                .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
+            intro: content.en[`intro${multipleApplicantSuffix}`]
+                .replace('{applicantName}', formdata.applicantName),
+            applicant: content.en[`legalStatementApplicant${multipleApplicantSuffix}`]
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress)),
             deceased: content.en.intestacyLegalStatementDeceased
                 .replace('{deceasedName}', formdata.deceasedName)
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
@@ -25,16 +26,16 @@ class IntestacyDeclarationFactory {
             deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
                 .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.en)),
             deceasedChildren: content.en.intestacyDeceasedChildren,
+            executorsApplying: executorsApplyingText.en,
             deceasedEstateValue: content.en.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
             deceasedEstateValueExceptedEstateConfirmation: content.en.deceasedEstateValueExceptedEstateConfirmation,
             deceasedEstateAssetsOverseas: content.en.intestacyDeceasedEstateOutside
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
-            deceasedEstateLand: content.en.intestacyDeceasedEstateLand
+            deceasedEstateLand: content.en[`intestacyDeceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
-            applying: content.en.intestacyLettersOfAdministration
-                .replace('{deceasedName}', formdata.deceasedName)
+            executorsNotApplying: executorsNotApplyingText.en
         };
         legalStatement.en.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.en, ihtThreshold);
         declaration.en = {
@@ -54,10 +55,10 @@ class IntestacyDeclarationFactory {
         };
 
         legalStatement.cy = {
-            intro: content.cy.intro,
-            applicant: content.cy.legalStatementApplicant
-                .replace('{applicantName}', formdata.applicantName)
-                .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
+            intro: content.cy[`intro${multipleApplicantSuffix}`]
+                .replace('{applicantName}', formdata.applicantName),
+            applicant: content.cy[`legalStatementApplicant${multipleApplicantSuffix}`]
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress)),
             deceased: content.cy.intestacyLegalStatementDeceased
                 .replace('{deceasedName}', formdata.deceasedName)
                 .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
@@ -67,16 +68,18 @@ class IntestacyDeclarationFactory {
             deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
                 .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.cy)),
             deceasedChildren: content.cy.intestacyDeceasedChildren,
+            executorsApplying: executorsApplyingText.cy,
             deceasedEstateValue: content.cy.deceasedEstateValue
                 .replace('{ihtGrossValue}', formdata.ihtGrossValue)
                 .replace('{ihtNetValue}', formdata.ihtNetValue),
             deceasedEstateValueExceptedEstateConfirmation: content.cy.deceasedEstateValueExceptedEstateConfirmation,
             deceasedEstateAssetsOverseas: content.cy.intestacyDeceasedEstateOutside
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
-            deceasedEstateLand: content.cy.intestacyDeceasedEstateLand
+            deceasedEstateLand: content.cy[`intestacyDeceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             applying: content.cy.intestacyLettersOfAdministration
-                .replace('{deceasedName}', formdata.deceasedName)
+                .replace('{deceasedName}', formdata.deceasedName),
+            executorsNotApplying: executorsNotApplyingText.cy
         };
         legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy, ihtThreshold);
         declaration.cy = {

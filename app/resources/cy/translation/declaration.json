@@ -81,6 +81,7 @@
   "intestacyDeceasedChildren": "Nid oes gan blant dan 18 oed hawl i&rsquo;r ystad.",
   "intestacyDeceasedEstateOutside": "Roedd gan yr unigolyn sydd wedi marw asedau dramor a oedd werth net &pound;{ihtNetValueAssetsOutside}.",
   "intestacyDeceasedEstateLand": "Hyd eithaf fy ngwybodaeth a&rsquo;m cred, nid oedd unrhyw dir wedi&rsquo;i freinio yn {deceasedName} a setlwyd cyn marwolaeth {deceasedName} ac a oedd dal yn dir a setlwyd er gwaethaf y farwolaeth honno.",
+  "intestacyDeceasedEstateLand-multipleApplicants": "Hyd eithaf fy ngwybodaeth a’m cred, nid oedd unrhyw dir wedi’i freinio yn {deceasedName} a setlwyd yn flaenorol cyn marwolaeth {deceasedName} ac a oedd dal yn dir a setlwyd er gwaethaf y farwolaeth honno.",
   "intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted": "Fi yw plentyn a fabwysiadwyd yn gyfreithiol {deceasedName} ac rwy&rsquo;n un o&rsquo;r bobl sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted": "Fi yw plentyn {deceasedName} ac rwy&rsquo;n un o&rsquo;r bobl sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted": "Fi yw plentyn a fabwysiadwyd yn gyfreithiol {deceasedName} a&rsquo;r unig unigolyn sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
@@ -96,9 +97,13 @@
   "intestacyDeceasedMarriedSpouseApplyingHadChildren": "Fi yw  g&wcirc;r/gwraig neu bartner sifil cyfreithiol {deceasedName} ac rwy&rsquo;n un o&rsquo;r bobl sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold": "Fi yw g&wcirc;r/gwraig neu bartner sifil cyfreithiol {deceasedName} a&rsquo;r unig unigolyn sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyLettersOfAdministration": "Rwy&rsquo;n gwneud cais am lythyrau gweinyddu. Rwyf wedi darparu&rsquo;r hyn a gredaf i fod yn wybodaeth gywir a gwir am {deceasedName}.",
+  "intestacyLettersOfAdministration-multipleApplicants": "Rydym yn gwneud cais am lythyrau gweinyddu. Rydym wedi darparu’r hyn a gredwn i fod yn wybodaeth gywir a gwir am {deceasedName}.",
   "warning": "Rhybudd",
   "saveThisPage": "Arbed y dudalen hon",
-
+  "peopleApplyingHeader": "Pobl yn gwneud cais am brofiant",
+  "intestacyPersonApplying": "Yr wyf i, {applicantName}, {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
+  "intestacyPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
+  "intestacyFurtherPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} {deceasedName}, hefyd yn gwneud cais am brofiant.",
   "errors": {
     "declarationCheckbox": {
       "required": "Ticiwch y blwch i gytuno i&rsquo;r datganiad"

@@ -68,6 +68,7 @@
   "declarationUnderstandItem1": "my application will be rejected if I do not answer any questions about the information I have given",
   "declarationUnderstandItem1-multipleApplicants": "our application will be rejected if we do not answer any questions about the information we have given",
   "declarationUnderstandItem1-intestacy": "my application will be rejected if I do not provide information (if asked)",
+  "declarationUnderstandItem1-intestacy-multipleApplicants": "our application will be rejected if we do not provide information (if asked)",
   "declarationUnderstandItem2": "proceedings for contempt of court may be brought against the undersigned if it is found that the evidence provided is deliberately untruthful or dishonest, as well as revocation of the grant",
   "declarationCheckbox": "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
   "declarationCheckbox-intestacy": "I confirm that I will administer the estate of the person who died according to law, and that my application is truthful.",
@@ -81,6 +82,7 @@
   "intestacyDeceasedChildren": "No children under 18 are entitled to the estate.",
   "intestacyDeceasedEstateOutside": "The deceased had assets overseas amounting to a net value of &pound;{ihtNetValueAssetsOutside}.",
   "intestacyDeceasedEstateLand": "To the best of my knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death of {deceasedName} and which remained settled land notwithstanding such death.",
+  "intestacyDeceasedEstateLand-multipleApplicants": "To the best of our knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death of {deceasedName} and which remained settled land notwithstanding such death.",
   "intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted": "I am the lawfully adopted child of {deceasedName} and one of the people now entitled to share in the estate.",
   "intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted": "I am the child of {deceasedName} and one of the people now entitled to share in the estate.",
   "intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted": "I am the lawfully adopted child of {deceasedName} and the only person now entitled to the estate.",
@@ -96,9 +98,13 @@
   "intestacyDeceasedMarriedSpouseApplyingHadChildren": "I am the lawful spouse or civil partner of {deceasedName} and one of the people now entitled to share in the estate.",
   "intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold": "I am the lawful spouse or civil partner of {deceasedName} and the only person now entitled to the estate.",
   "intestacyLettersOfAdministration": "I am applying for letters of administration. I have provided what I believe to be true and accurate information about {deceasedName}.",
+  "intestacyLettersOfAdministration-multipleApplicants": "We are applying for letters of administration. We have provided what we believe to be true and accurate information about {deceasedName}.",
   "warning": "Warning",
   "saveThisPage": "Save this page",
-
+  "peopleApplyingHeader": "People applying for probate",
+  "intestacyPersonApplying": "I, {applicantName}, the {relationshipToDeceased} of {deceasedName}, am applying for probate.",
+  "intestacyPeopleApplying": "{applicantName}, the {relationshipToDeceased} of {deceasedName}, is applying for probate.",
+  "intestacyFurtherPeopleApplying": "{applicantName}, the {relationshipToDeceased} of {deceasedName}, is also applying for probate.",
   "errors": {
     "declarationCheckbox": {
       "required": "Tick the check box to agree to the declaration"

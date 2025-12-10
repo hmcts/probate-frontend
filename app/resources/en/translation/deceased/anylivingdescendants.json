@@ -12,7 +12,7 @@
 
   "errors": {
     "anyLivingDescendants": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} has any living children, grandchildren or great-grandchildren"
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} had any living children, grandchildren or great-grandchildren at the time of their death"
     }
   }
 }

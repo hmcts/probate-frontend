@@ -6,6 +6,7 @@ const FormatDate = require('app/utils/FormatDate');
 const DateValidation = require('app/utils/DateValidation');
 const moment = require('moment');
 const FormatName = require('../../../../utils/FormatName');
+const {get} = require('lodash');
 
 class DivorceDate extends ValidationStep {
 
@@ -25,62 +26,80 @@ class DivorceDate extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(req.session.form.deceased);
-
+        ctx.maritalStatus = formdata.deceased?.maritalStatus;
         if (formdata.deceased && formdata.deceased.maritalStatus) {
             ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
+            ctx.legalProcessDifferentText = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorced : contentMaritalStatus.separation;
         }
 
         return ctx;
     }
 
+    // eslint-disable-next-line complexity
     handlePost(ctx, errors, formdata, session) {
+        const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
+        if (!isSaveAndClose) {
+            if (typeof ctx.divorceDateKnown === 'undefined' || !ctx.divorceDateKnown) {
+                if (ctx.maritalStatus === 'optionDivorced') {
+                    errors.push(FieldError('divorceDateKnown', 'requiredDivorced', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (ctx.maritalStatus === 'optionSeparated') {
+                    errors.push(FieldError('divorceDateKnown', 'requiredSeparated', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                }
+            } else {
+                if (ctx.divorceDateKnown === 'optionNo') {
+                    delete ctx['divorceDate-day'];
+                    delete ctx['divorceDate-month'];
+                    delete ctx['divorceDate-year'];
+                    ctx.divorceDate = '';
+                    return [ctx, errors];
+                }
 
-        if (ctx.divorceDateKnown === 'optionNo') {
-            delete ctx['divorceDate-day'];
-            delete ctx['divorceDate-month'];
-            delete ctx['divorceDate-year'];
-            ctx.divorceDate = '';
-            return [ctx, errors];
+                const day = ctx['divorceDate-day'];
+                const month = ctx['divorceDate-month'];
+                const year = ctx['divorceDate-year'];
+
+                const dateOutOfRange =
+                    (day && (day < 1 || day > 31)) ||
+                    (month && (month < 1 || month > 12)) ||
+                    (year && (year < 1000 || year > 9999));
+
+                const DATE_FORMATS = ['D/M/YYYY', 'DD/MM/YYYY', 'D/MM/YYYY', 'DD/M/YYYY'];
+                const divorceDate = moment(`${day}/${month}/${year}`, DATE_FORMATS, true).parseZone();
+
+                const dod = moment(`${ctx['dod-day']}/${ctx['dod-month']}/${ctx['dod-year']}`, DATE_FORMATS, true).parseZone();
+
+                const missingFields = [];
+                if (!day) {
+                    missingFields.push('day');
+                }
+                if (!month) {
+                    missingFields.push('month');
+                }
+                if (!year) {
+                    missingFields.push('year');
+                }
+
+                if (missingFields.length === 3) {
+                    errors.push(FieldError('divorceDate', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (missingFields.length === 2) {
+                    errors.push(FieldError(`divorceDate-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (missingFields.length === 1) {
+                    if (missingFields[0] === 'month' && ctx.maritalStatus === 'optionDivorced') {
+                        errors.push(FieldError(`divorceDate-${missingFields[0]}`, 'requiredDivorced', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                    } else if (missingFields[0] === 'month' && ctx.maritalStatus === 'optionSeparated') {
+                        errors.push(FieldError(`divorceDate-${missingFields[0]}`, 'requiredSeparated', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                    } else {
+                        errors.push(FieldError(`divorceDate-${missingFields[0]}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                    }
+                } else if (dateOutOfRange || !divorceDate.isValid() || !DateValidation.isPositive([day, month, year])) {
+                    errors.push(FieldError('divorceDate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (divorceDate.isAfter(dod)) {
+                    errors.push(FieldError('divorceDate', 'divorceDateAfterDod', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                }
+
+                ctx.divorceDate = FormatDate.formatDateBackend({'day': day, 'month': month, 'year': year});
+            }
         }
-
-        const day = ctx['divorceDate-day'];
-        const month = ctx['divorceDate-month'];
-        const year = ctx['divorceDate-year'];
-
-        const dateOutOfRange =
-            (day && (day < 1 || day > 31)) ||
-            (month && (month < 1 || month > 12)) ||
-            (year && (year < 1000 || year > 9999));
-
-        const DATE_FORMATS = ['D/M/YYYY', 'DD/MM/YYYY', 'D/MM/YYYY', 'DD/M/YYYY'];
-        const divorceDate = moment(`${day}/${month}/${year}`, DATE_FORMATS, true).parseZone();
-
-        const dod = moment(`${ctx['dod-day']}/${ctx['dod-month']}/${ctx['dod-year']}`, DATE_FORMATS, true).parseZone();
-
-        const missingFields = [];
-        if (!day) {
-            missingFields.push('day');
-        }
-        if (!month) {
-            missingFields.push('month');
-        }
-        if (!year) {
-            missingFields.push('year');
-        }
-
-        if (missingFields.length === 3) {
-            errors.push(FieldError('divorceDate', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (missingFields.length === 2) {
-            errors.push(FieldError(`divorceDate-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (missingFields.length === 1) {
-            errors.push(FieldError(`divorceDate-${missingFields[0]}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (dateOutOfRange || !divorceDate.isValid() || !DateValidation.isPositive([day, month, year])) {
-            errors.push(FieldError('divorceDate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (divorceDate.isAfter(dod)) {
-            errors.push(FieldError('divorceDate', 'divorceDateAfterDod', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        }
-
-        ctx.divorceDate = FormatDate.formatDateBackend({'day': day, 'month': month, 'year': year});
 
         return [ctx, errors];
     }
@@ -109,6 +128,7 @@ class DivorceDate extends ValidationStep {
                 if (fields[field] && fields[field].error) {
                     fields[field].errorMessage = fields[field].errorMessage
                         .replace('{legalProcess}', ctx.legalProcess)
+                        .replace('{legalProcessDifferentText}', ctx.legalProcessDifferentText)
                         .replace('{deceasedName}', fields.deceasedName.value);
                     errors[0].msg = fields[field].errorMessage;
                 }
@@ -125,6 +145,7 @@ class DivorceDate extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.legalProcess;
+        delete ctx.legalProcessDifferentText;
         delete ctx['divorceDate-day'];
         delete ctx['divorceDate-month'];
         delete ctx['divorceDate-year'];

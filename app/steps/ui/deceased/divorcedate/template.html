@@ -11,6 +11,14 @@
 
 {% block form_content %}
 
+    {% set maritalStatus = fields.maritalStatus.value %}
+    {% if maritalStatus == "optionDivorced" %}
+      {% set paragraph1 = content.divorcedParagraph1 %}
+      {% set paragraph2 = content.divorcedParagraph2 %}
+    {% else %}
+      {% set paragraph1 = content.separatedParagraph1 %}
+      {% set paragraph2 = content.separatedParagraph2 %}
+    {% endif %}
     {% set errorFields = [
         "divorceDate",
         "divorceDate-day",
@@ -76,13 +84,11 @@
             isPageHeading: true
         }
     }) %}
-    <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-    <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+    <p class="govuk-body">{{ paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ paragraph2 | safe }}</p>
     {{ govukRadios({
         idPrefix: "divorceDateKnown",
         name: "divorceDateKnown",
-        errorMessage: { text: fields.divorceDateKnown.errorMessage
-            | replace("{legalProcess}", fields.legalProcess.value) | safe } if fields.divorceDateKnown.errorMessage,
         items: [
             {
                 value: "optionYes",

@@ -139,11 +139,16 @@
                 <h3 class="govuk-heading-s declaration-subheader">{{ content.en.deceasedHeader | safe }}</h3>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceased | safe }} {{ fields.legalStatement.value.en.deceasedOtherNames | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedMaritalStatus | safe }}</p>
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
 
                 {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applicant2 | safe }}</p>
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.en.peopleApplyingHeader | safe }}</h3>
+                {% for applicant in fields.legalStatement.value.en.executorsApplying %}
+                  <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
+                {% endfor %}
+
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
+                <p class="govuk-body declaration-item">hi{{ fields.legalStatement.value.en.applicant2 | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>
 
                 {{ lists(content.en, fields.declaration.value.en) }}

@@ -1,8 +1,10 @@
 {
   "grandchildQuestion": "Did this person&rsquo;s parent ({deceasedName}’s child) die before {deceasedName}?",
   "halfBloodNieceOrNephewQuestion": "Did this person&rsquo;s parent ({deceasedName}’s half-sibling) die before {deceasedName}?",
+  "wholeBloodNieceOrNephewQuestion": "Did this person&rsquo;s parent ({deceasedName}’s sibling) die before {deceasedName}?",
   "grandchildHintText": "{deceasedName}&rsquo;s grandchildren are only entitled to apply if their parent ({deceasedName}&rsquo;s child) died before {deceasedName}.",
   "halfBloodNieceOrNephewHintText": "{deceasedName}&rsquo;s half-nieces and half-nephews are only entitled to apply if their parent ({deceasedName}&rsquo;s half-sibling) died before {deceasedName}.",
+  "wholeBloodNieceOrNephewHintText": "{deceasedName}&rsquo;s nieces and nephews are only entitled to apply if their parent ({deceasedName}&rsquo;s sibling) died before {deceasedName}.",
   "optionYes": "Yes",
   "optionNo": "No",
 

@@ -31,10 +31,10 @@ class ApplicantAddress extends AddressStep {
         const allPredeceasedChildren = ctx.deceased.anyPredeceasedChildren === 'optionYesAll';
         const noSurvivingGrandchildren = ctx.deceased.anySurvivingGrandchildren === 'optionNo';
         const hasAnyOtherChildren = ctx.deceased.anyOtherChildren === 'optionYes';
-        const hasAnyOtherHalfSiblings = ctx.applicant?.anyOtherHalfSiblings === 'optionYes';
-        const hasNoOtherHalfSiblings = ctx.applicant?.anyOtherHalfSiblings === 'optionNo';
-        const allPredeceasedHalfSiblings = ctx.applicant?.anyPredeceasedHalfSiblings === 'optionYesAll';
-        const noSurvivingHalfNiecesAndHalfNephews = ctx.applicant?.anySurvivingHalfNiecesAndHalfNephews === 'optionNo';
+        const hasAnyOtherSiblings = ctx.applicant?.anyOtherHalfSiblings === 'optionYes' || ctx.applicant?.anyOtherWholeSiblings === 'optionYes';
+        const hasNoOtherSiblings = ctx.applicant?.anyOtherHalfSiblings === 'optionNo' || ctx.applicant?.anyOtherWholeSiblings === 'optionNo';
+        const allPredeceasedSiblings = ctx.applicant?.anyPredeceasedHalfSiblings === 'optionYesAll' || ctx.applicant?.anyPredeceasedWholeSiblings === 'optionYesAll';
+        const noSurvivingNiecesAndNephews = ctx.applicant?.anySurvivingHalfNiecesAndHalfNephews === 'optionNo' || ctx.applicant?.anySurvivingWholeNiecesAndWholeNephews === 'optionNo';
         const commonCondition = hasAnyOtherChildren && allPredeceasedChildren && noSurvivingGrandchildren;
         const isIntestacy = ctx.caseType === caseTypes.INTESTACY;
         const isChild = ctx.relationshipToDeceased === 'optionChild';
@@ -46,7 +46,7 @@ class ApplicantAddress extends AddressStep {
         const hasNoCoApplicantAndChildIsApplicant = isIntestacy && isChild && (commonCondition || noOtherChildren);
 
         const hasNoCoApplicantAndGrandchildIsApplicant = isIntestacy && isGrandchild && ((commonCondition && grandchildParentHasNoOtherChildren) || noOtherChildren);
-        const hasNoCoApplicantAndSiblingIsApplicant = isIntestacy && isSibling && ((hasAnyOtherHalfSiblings && allPredeceasedHalfSiblings && noSurvivingHalfNiecesAndHalfNephews) || hasNoOtherHalfSiblings);
+        const hasNoCoApplicantAndSiblingIsApplicant = isIntestacy && isSibling && ((hasAnyOtherSiblings && allPredeceasedSiblings && noSurvivingNiecesAndNephews) || hasNoOtherSiblings);
         ctx.hasNoCoapplicant = hasNoCoApplicantAndChildIsApplicant || hasNoCoApplicantAndGrandchildIsApplicant || isSpouseOrCivilPartner || hasNoCoApplicantAndSiblingIsApplicant;
         ctx.hasCoApplicant = ctx.caseType === caseTypes.INTESTACY && (isChild || isGrandchild) && !ctx.hasNoCoapplicant;
         ctx.isIntestacyWithOtherParent = ctx.caseType === caseTypes.INTESTACY && ctx.relationshipToDeceased === 'optionParent' && ctx.deceased.anyOtherParentAlive === 'optionYes';

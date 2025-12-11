@@ -27,7 +27,7 @@ class GrandchildParentHasOtherChildren extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (formdata.deceased && formdata.deceased.grandchildParentHasOtherChildren && ctx.grandchildParentHasOtherChildren !== formdata.deceased.grandchildParentHasOtherChildren) {
+        if (formdata.deceased?.grandchildParentHasOtherChildren && ctx.grandchildParentHasOtherChildren !== formdata.deceased.grandchildParentHasOtherChildren) {
             delete ctx.grandchildParentHasAllChildrenOver18;
         }
 

@@ -37,7 +37,7 @@ class AnyOtherWholeSiblings extends ValidationStep {
     action(ctx, formdata) {//check after other pages are done
         super.action(ctx, formdata);
 
-        if (formdata.deceased && formdata.deceased.anyOtherWholeSiblings && ctx.anyOtherWholeSiblings !== formdata.deceased.anyOtherWholeSiblings) {
+        if (formdata.deceased?.anyOtherWholeSiblings && ctx.anyOtherWholeSiblings !== formdata.deceased.anyOtherWholeSiblings) {
             delete ctx.allWholeSiblingsOver18;
             delete ctx.anyPredeceasedWholeSiblings;
             delete ctx.anySurvivingWholeNiecesAndWholeNephews;

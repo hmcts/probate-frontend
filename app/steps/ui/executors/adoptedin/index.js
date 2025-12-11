@@ -41,6 +41,12 @@ class CoApplicantAdoptedIn extends ValidationStep {
             case 'optionHalfBloodNieceOrNephew':
                 ctx.adoptedIn = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
                 break;
+            case 'optionWholeBloodSibling':
+                ctx.adoptedIn = ctx.list[ctx.index].wholeBloodSiblingAdoptedIn;
+                break;
+            case 'optionWholeBloodNieceOrNephew':
+                ctx.adoptedIn = ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn;
+                break;
             default:
                 ctx.adoptedIn = ctx.list[ctx.index].childAdoptedIn;
                 break;
@@ -83,6 +89,12 @@ class CoApplicantAdoptedIn extends ValidationStep {
             break;
         case 'optionHalfBloodNieceOrNephew':
             ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn = ctx.adoptedIn;
+            break;
+        case 'optionWholeBloodSibling':
+            ctx.list[ctx.index].wholeBloodSiblingAdoptedIn = ctx.adoptedIn;
+            break;
+        case 'optionWholeBloodNieceOrNephew':
+            ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn = ctx.adoptedIn;
             break;
         }
         return [ctx, errors];

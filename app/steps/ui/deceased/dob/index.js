@@ -35,7 +35,7 @@ class DeceasedDob extends DateStep {
             (day && (day < 1 || day > 31)) ||
             (month && (month < 1 || month > 12)) ||
             (year && (year < 1000 || year > 9999));
-        const isNonNumeric = isNaN(Number(day)) || isNaN(Number(month)) || isNaN(Number(year));
+        const isNonNumeric = Number.isNaN(Number(day)) || Number.isNaN(Number(month)) || Number.isNaN(Number(year));
 
         if (missingFields.length === 2) {
             errors.push(FieldError(`dob-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));

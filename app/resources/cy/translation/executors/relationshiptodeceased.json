@@ -7,6 +7,9 @@
   "optionHalfBloodSibling": "Hanner brawd/chwaer",
   "optionHalfBloodNieceOrNephew": "Hanner nith neu hanner nai",
   "optionHalfBloodNieceOrNephewHintText": "Gall hyn ond fod drwy unrhyw un o hanner frodyr neu hanner chwiorydd {deceasedName} wnaeth farw cyn {deceasedName}",
+  "optionWholeBloodSibling": "Brawd neu chwaer (ddim yn cynnwys hanner brawd neu hanner chwaer)",
+  "optionWholeBloodNieceOrNephew": "Nith neu nai (ddim yn cynnwys hanner nithoedd neu hanner neiaint)",
+  "optionWholeBloodNieceOrNephewHintText": "Gall hyn fod drwy unrhyw un o frodyr neu chwiorydd {deceasedName} wnaeth farw cyn {deceasedName}",
   "optionGrandchildHintText": "Gall hyn fod drwy unrhyw un o blant {deceasedName} wnaeth farw cyn {deceasedName}",
   "optionOther": "Arall",
 

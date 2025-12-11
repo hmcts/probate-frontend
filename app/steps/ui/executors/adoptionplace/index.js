@@ -27,6 +27,12 @@ class CoApplicantAdoptionPlace extends ValidationStep {
             case 'optionHalfBloodNieceOrNephew':
                 ctx.adoptionPlace = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptionInEnglandOrWales;
                 break;
+            case 'optionWholeBloodSibling':
+                ctx.adoptionPlace = ctx.list[ctx.index].wholeBloodSiblingAdoptionInEnglandOrWales;
+                break;
+            case 'optionWholeBloodNieceOrNephew':
+                ctx.adoptionPlace = ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales;
+                break;
             default:
                 ctx.adoptionPlace = ctx.list[ctx.index].childAdoptionInEnglandOrWales;
                 break;
@@ -56,19 +62,26 @@ class CoApplicantAdoptionPlace extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         if ((ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') && ctx.adoptionPlace === 'optionYes') {
+                ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
+                ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+                ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
+                ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') &&
+            ctx.adoptionPlace === 'optionYes') {
             return `/coapplicant-email/${ctx.index}`;
         } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptionPlace === 'optionYes') {
             return `/parent-adopted-in/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('coApplicantAdoptionPlaceStop');
+        return this.next(req, ctx)
+            .constructor
+            .getUrl('coApplicantAdoptionPlaceStop');
     }
 
     nextStepOptions(ctx) {
         ctx.childOrSiblingOrNieceOrNephewAdoptedInEnglandOrWales = (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
             ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') && ctx.adoptionPlace === 'optionYes';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptionPlace === 'optionYes';
         ctx.grandChildAdoptedInEnglandOrWales = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptionPlace === 'optionYes';
         return {
             options: [
@@ -93,6 +106,12 @@ class CoApplicantAdoptionPlace extends ValidationStep {
             break;
         case 'optionHalfBloodNieceOrNephew':
             ctx.list[ctx.index].halfBloodNieceOrNephewAdoptionInEnglandOrWales = ctx.adoptionPlace;
+            break;
+        case 'optionWholeBloodSibling':
+            ctx.list[ctx.index].wholeBloodSiblingAdoptionInEnglandOrWales = ctx.adoptionPlace;
+            break;
+        case 'optionWholeBloodNieceOrNephew':
+            ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales = ctx.adoptionPlace;
             break;
         }
         return [ctx, errors];

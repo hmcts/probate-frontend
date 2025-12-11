@@ -16,6 +16,8 @@ class ParentDieBefore extends ValidationStep {
                 ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
             } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
                 ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
+            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+                ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;
             }
         }
         return [ctx];
@@ -59,6 +61,8 @@ class ParentDieBefore extends ValidationStep {
             ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
         } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
             ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+            ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
         }
         return [ctx, errors];
     }

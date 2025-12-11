@@ -110,7 +110,7 @@ describe('coapplicant-relationship-to-deceased', () => {
             sessionData.anyPredeceasedChildren = 'optionYesAll';
             sessionData.anySurvivingGrandchildren = 'optionYes';
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-            const contentToExclude = ['optionHalfBloodSibling', 'optionHalfBloodNieceOrNephew', 'optionHalfBloodNieceOrNephewHintText',];
+            const contentToExclude = ['optionHalfBloodSibling', 'optionHalfBloodNieceOrNephew', 'optionHalfBloodNieceOrNephewHintText', 'optionWholeBloodSibling', 'optionWholeBloodNieceOrNephew', 'optionWholeBloodNieceOrNephewHintText'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -129,7 +129,7 @@ describe('coapplicant-relationship-to-deceased', () => {
             sessionData.applicant.anyPredeceasedHalfSiblings = 'optionYesAll';
             sessionData.applicant.anySurvivingHalfNiecesAndHalfNephews = 'optionYes';
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-            const contentToExclude = ['optionGrandchild', 'optionGrandchildHintText'];
+            const contentToExclude = ['optionGrandchild', 'optionGrandchildHintText', 'optionWholeBloodSibling', 'optionWholeBloodNieceOrNephew', 'optionWholeBloodNieceOrNephewHintText'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -137,6 +137,25 @@ describe('coapplicant-relationship-to-deceased', () => {
                     const contentData = {
                         deceasedName: 'John Doe',
                         coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                    };
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test correct content loaded on the page if relationship is whole-niece or whole-nephew', (done) => {
+            sessionData.deceasedName = 'John Doe';
+            sessionData.applicant.anyOtherWholeSiblings = 'optionYes';
+            sessionData.applicant.anyPredeceasedWholeSiblings = 'optionYesSome';
+            sessionData.applicant.anySurvivingWholeNiecesAndWholeNephews = 'optionYes';
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const contentToExclude = ['optionGrandchild', 'optionGrandchildHintText', 'optionHalfBloodSibling', 'optionHalfBloodNieceOrNephew', 'optionHalfBloodNieceOrNephewHintText'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        deceasedName: 'John Doe',
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
                     };
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });

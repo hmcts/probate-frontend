@@ -27,6 +27,25 @@
 }), answers) %}
 {% endif %}
 
+{% if fields.wholeSiblingOnly.value == "true"%}
+{% set answers = (answers.push({
+value: "optionWholeBloodSibling",
+text: content["optionWholeBloodSibling"] | safe,
+checked: true if fields.coApplicantRelationshipToDeceased.value == "optionWholeBloodSibling"
+}), answers) %}
+{% endif %}
+
+{% if fields.wholeNieceOrNephewOnly.value == "true"%}
+{% set answers = (answers.push({
+value: "optionWholeBloodNieceOrNephew",
+text: content["optionWholeBloodNieceOrNephew"] | safe,
+checked: true if fields.coApplicantRelationshipToDeceased.value == "optionWholeBloodNieceOrNephew",
+hint: {
+text: content["optionWholeBloodNieceOrNephewHintText"] | replace("{deceasedName}", fields.deceasedName.value) | safe
+}
+}), answers) %}
+{% endif %}
+
 {% if fields.halfSiblingOnly.value == "true"%}
 {% set answers = (answers.push({
 value: "optionHalfBloodSibling",

@@ -39,7 +39,7 @@ class AnySurvivingHalfNiecesAndHalfNephews extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (formdata.deceased && formdata.deceased.anySurvivingHalfNiecesAndHalfNephews && ctx.anySurvivingHalfNiecesAndHalfNephews !== formdata.deceased.anySurvivingHalfNiecesAndHalfNephews) {
+        if (formdata.deceased?.anySurvivingHalfNiecesAndHalfNephews && ctx.anySurvivingHalfNiecesAndHalfNephews !== formdata.deceased.anySurvivingHalfNiecesAndHalfNephews) {
             delete ctx.allHalfNiecesAndHalfNephewsOver18;
         }
 

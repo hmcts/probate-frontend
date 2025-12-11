@@ -116,6 +116,36 @@ describe('CoApplicantAdoptedIn', () => {
             expect(ctx.list[2]).to.deep.equal({'grandchildAdoptedIn': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionGrandchild'});
         });
+        it('should optionWholeBloodSibling = optionYes if coApplicantRelationshipToDeceased is WholeBloodSibling', () => {
+            const ctx = {
+                index: '1',
+                adoptedIn: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            expect(ctx.list[1]).to.deep.equal({'wholeBloodSiblingAdoptedIn': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'});
+        });
+        it('should optionWholeBloodNieceOrNephew = optionYes if coApplicantRelationshipToDeceased is WholeBloodNieceOrNephew', () => {
+            const ctx = {
+                index: '2',
+                adoptedIn: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            expect(ctx.list[2]).to.deep.equal({'wholeBloodNieceOrNephewAdoptedIn': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'});
+        });
     });
     describe('generateFields()', () => {
         it('should return the correct content fields', (done) => {

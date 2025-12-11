@@ -97,7 +97,7 @@
               {% set cls = cycler(common.second,common.third,common.fourth,common.fifth) %}
               {% for executor in fields.executors.list.value %}
                 {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
-                  <h3 class="govuk-heading-s">{{ content.Summary.executorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
+                  <h3 class="govuk-heading-s">{{ content.Summary.intestacyExecutorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
                   <dl class="govuk-summary-list">
                     {% include "ui/summary/includes/intestacy-people-applying.njk" %}
                   </dl>

@@ -55,7 +55,7 @@ class ExecutorsApplying extends ValidationStep {
         let applyingCount = 0;
         if (ctx.list && ctx.list.length === 2) {
             errors = errors.filter(error => error.field !== 'executorsApplying');
-            if (ctx.otherExecutorsApplying === 'undefined' || !ctx.otherExecutorsApplying) {
+            if (typeof ctx.otherExecutorsApplying === 'undefined' || !ctx.otherExecutorsApplying) {
                 errors.push(this.generateDynamicErrorMessage('otherExecutorsApplying', session, ctx.executorName));
             } else if (ctx.otherExecutorsApplying === 'optionYes') {
                 ctx.list[1].isApplying = true;

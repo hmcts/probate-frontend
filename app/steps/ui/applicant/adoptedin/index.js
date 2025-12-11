@@ -36,7 +36,7 @@ class AdoptedIn extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
-            if (ctx.adoptedIn === 'undefined' || !ctx.adoptedIn) {
+            if (typeof ctx.adoptedIn === 'undefined' || !ctx.adoptedIn) {
                 if (ctx.relationshipToDeceased === 'optionChild') {
                     errors.push(this.generateDynamicErrorMessage('adoptedIn', 'requiredChild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionGrandchild') {

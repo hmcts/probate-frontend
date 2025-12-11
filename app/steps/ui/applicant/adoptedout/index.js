@@ -15,7 +15,7 @@ class AdoptedOut extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.relationshipToDeceased = formdata.applicant?.relationshipToDeceased;
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         ctx.details = formdata.details || {};
         return ctx;
     }
@@ -38,7 +38,7 @@ class AdoptedOut extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
-            if (ctx.adoptedOut === 'undefined' || !ctx.adoptedOut) {
+            if (typeof ctx.adoptedOut === 'undefined' || !ctx.adoptedOut) {
                 if (ctx.relationshipToDeceased === 'optionChild') {
                     errors.push(this.generateDynamicErrorMessage('adoptedOut', 'requiredChild', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionGrandchild') {

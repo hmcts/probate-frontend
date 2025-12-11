@@ -30,7 +30,7 @@ class DeceasedAdoptedIn extends ValidationStep {
     handlePost(ctx, errors, formdata, session) {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
-            if (ctx.deceasedAdoptedIn === 'undefined' || !ctx.deceasedAdoptedIn) {
+            if (typeof ctx.deceasedAdoptedIn === 'undefined' || !ctx.deceasedAdoptedIn) {
                 if (ctx.relationshipToDeceased === 'optionParent') {
                     errors.push(this.generateDynamicErrorMessage('deceasedAdoptedIn', 'requiredParent', session, ctx.deceasedName));
                 } else if (ctx.relationshipToDeceased === 'optionSibling') {

@@ -134,7 +134,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
         if (ctx.currentNameReason === 'optionOther' && !ctx.otherReason) {
             const messageType = 'required';
             return FieldError('otherReason', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
-        } else if (ctx.currentNameReason === 'undefined' || !ctx.currentNameReason) {
+        } else if (typeof ctx.currentNameReason === 'undefined' || !ctx.currentNameReason) {
             const messageType = 'required';
             const errorMessage = FieldError('currentNameReason', messageType, this.resourcePath, this.generateContent({}, {}, language), language);
             errorMessage.msg = errorMessage.msg.replace('{executorName}', executorName);

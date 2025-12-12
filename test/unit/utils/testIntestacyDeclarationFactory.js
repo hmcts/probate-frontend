@@ -7,6 +7,7 @@ const config = require('config');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
+const ExecutorsWrapper = require('../../../app/wrappers/Executors');
 const formdata = require('test/data/complete-form').formdata;
 const content = {
     en: require('app/resources/en/translation/declaration'),
@@ -22,6 +23,7 @@ describe('IntestacyDeclarationFactory', () => {
 
     beforeEach(() => {
         ctx = {};
+        ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
 
         const formdataApplicant = formdata.applicant || {};
         formdata.applicantName = FormatName.format(formdataApplicant);
@@ -30,7 +32,10 @@ describe('IntestacyDeclarationFactory', () => {
         const formdataDeceased = formdata.deceased || {};
         formdata.deceasedName = FormatName.format(formdataDeceased);
         formdata.deceasedAddress = get(formdataDeceased, 'address', {});
-        formdata.deceasedOtherNames = FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content);
+        formdata.deceasedOtherNames = {
+            en: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(get(formdataDeceased, 'otherNames'), content.cy)
+        };
         formdata.dobFormattedDate = utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'en');
         formdata.dodFormattedDate = utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'en');
         formdata.maritalStatus = formdataDeceased.maritalStatus;

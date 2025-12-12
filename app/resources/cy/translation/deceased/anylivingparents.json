@@ -1,0 +1,14 @@
+{
+  "title": "Any Living Parents",
+  "question": "A oedd gan {deceasedName} unrhyw rieni byw adeg eu marwolaeth?",
+  "paragraph1": "Nid yw hyn yn cynnwys unrhyw lys-rieni.",
+  "paragraph2": "Os mabwysiadwyd {deceasedName} yn gyfreithiol, mae hyn yn cynnwys eu rhieni mabwysiadol, ond nid eu rhieni biolegol.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+
+  "errors": {
+    "anyLivingParents": {
+      "required": "Dewiswch 'Oedd' os oedd unrhyw un o rieni {deceasedName} yn fyw pan fu farw"
+    }
+  }
+}

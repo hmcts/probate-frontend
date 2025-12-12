@@ -1,0 +1,127 @@
+'use strict';
+
+const ValidationStep = require('app/core/steps/ValidationStep');
+const FormatName = require('../../../../utils/FormatName');
+const pageUrl = '/coapplicant-adopted-out';
+const {findIndex} = require('lodash');
+
+class CoApplicantAdoptedOut extends ValidationStep {
+
+    static getUrl(index = '*') {
+        return `${pageUrl}/${index}`;
+    }
+
+    handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+            switch (rel) {
+            case 'optionChild':
+                ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
+                break;
+            case 'optionGrandchild':
+                ctx.adoptedOut = ctx.list[ctx.index].grandchildAdoptedOut;
+                break;
+            case 'optionHalfBloodSibling':
+                ctx.adoptedOut = ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
+                break;
+            case 'optionHalfBloodNieceOrNephew':
+                ctx.adoptedOut = ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
+                break;
+            case 'optionWholeBloodSibling':
+                ctx.adoptedOut = ctx.list[ctx.index].wholeBloodSiblingAdoptedOut;
+                break;
+            case 'optionWholeBloodNieceOrNephew':
+                ctx.adoptedOut = ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;
+                break;
+            default:
+                ctx.adoptedOut = ctx.list[ctx.index].childAdoptedOut;
+                break;
+            }
+        }
+        return [ctx];
+    }
+
+    recalcIndex(ctx, index) {
+        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        const formdata = req.session.form;
+        let index;
+        if (req.params && !isNaN(req.params[0])) {
+            index = parseInt(req.params[0]);
+        } else {
+            index = this.recalcIndex(ctx, 0);
+            ctx.redirect = `${pageUrl}/${index}`;
+        }
+        ctx.index = index;
+        ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        return ctx;
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && fields.applicantName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
+        }
+        return fields;
+    }
+
+    nextStepUrl(req, ctx) {
+        if ((ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo') {
+            return `/coapplicant-email/${ctx.index}`;
+        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo') {
+            return `/parent-adopted-in/${ctx.index}`;
+        }
+        return this.next(req, ctx).constructor.getUrl('coApplicantAdoptedOutStop');
+    }
+
+    nextStepOptions(ctx) {
+        ctx.childOrSiblingOrNieceOrNephewNotAdoptedOut = (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo';
+        ctx.grandChildNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
+        return {
+            options: [
+                {key: 'childOrSiblingOrNieceOrNephewNotAdoptedOut', value: true, choice: 'childOrSiblingOrNieceOrNephewNotAdoptedOut'},
+                {key: 'grandChildNotAdoptedOut', value: true, choice: 'grandChildNotAdoptedOut'}
+            ]
+        };
+    }
+
+    handlePost(ctx, errors) {
+        const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        // eslint-disable-next-line default-case
+        switch (rel) {
+        case 'optionChild':
+            ctx.list[ctx.index].childAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionGrandchild':
+            ctx.list[ctx.index].grandchildAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionHalfBloodSibling':
+            ctx.list[ctx.index].halfBloodSiblingAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionHalfBloodNieceOrNephew':
+            ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionWholeBloodSibling':
+            ctx.list[ctx.index].wholeBloodSiblingAdoptedOut = ctx.adoptedOut;
+            break;
+        case 'optionWholeBloodNieceOrNephew':
+            ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut = ctx.adoptedOut;
+            break;
+        }
+        return [ctx, errors];
+    }
+}
+
+module.exports = CoApplicantAdoptedOut;

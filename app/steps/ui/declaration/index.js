@@ -22,6 +22,7 @@ const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const {sanitizeInput} = require('../../../utils/Sanitize');
+const RelationshipToTheDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -238,7 +239,9 @@ class Declaration extends ValidationStep {
         const mainApplicantName = formdata.applicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         const caseType = formdata.caseType;
-        return executorsApplying.map(executor => {
+        const numberOfExecutorsApplying = executorsApplying.length;
+        const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
+        return executorsApplying.map((executor, index) => {
             return this.executorsApplyingText(
                 {
                     hasCodicils,
@@ -250,7 +253,10 @@ class Declaration extends ValidationStep {
                     deceasedName,
                     mainApplicantName,
                     language,
-                    caseType
+                    caseType,
+                    numberOfExecutorsApplying,
+                    index,
+                    primaryApplicantRelationshipToDeceased
                 });
         });
     }
@@ -265,20 +271,20 @@ class Declaration extends ValidationStep {
         let content = {};
         if (props.caseType === caseTypes.INTESTACY) {
             let name;
-            if (props.executorsLength === 1) {
+            if (props.numberOfExecutorsApplying === 1) {
                 name = props.content.intestacyPersonApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', props.executor.coApplicantRelationshipToDeceased)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
                     .replace('{deceasedName}', props.deceasedName);
-            } else if (props.executorIndex === 0) {
+            } else if (props.numberOfExecutorsApplying > 1 && props.index === 0) {
                 name = props.content.intestacyPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', props.executor.coApplicantRelationshipToDeceased)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
                     .replace('{deceasedName}', props.deceasedName);
             } else {
                 name = props.content.intestacyFurtherPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', props.executor.coApplicantRelationshipToDeceased)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased))
                     .replace('{deceasedName}', props.deceasedName);
             }
             content = {name, sign: ''};

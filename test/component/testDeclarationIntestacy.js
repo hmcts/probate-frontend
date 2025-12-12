@@ -127,7 +127,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.iht.assetsOutside = 'optionYes';
             sessionData.iht.grossValueField = '300000.10';
@@ -219,7 +229,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -301,7 +321,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -383,7 +413,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -465,7 +505,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionDivorced';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -547,7 +597,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -630,7 +690,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -713,7 +783,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -796,7 +876,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -879,7 +969,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -967,7 +1067,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionYes';
@@ -1055,7 +1165,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -1143,7 +1263,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.deceased.anyOtherChildren = 'optionNo';
@@ -1231,7 +1361,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -1314,7 +1454,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -1397,7 +1547,17 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased['dod-date'] = '2016-05-12';
             sessionData.deceased.maritalStatus = 'optionMarried';
@@ -1486,7 +1646,16 @@ describe('declaration, intestacy', () => {
                 'applicantName-codicils',
                 'codicil',
                 'codicils',
-                'deceasedEstateValueExceptedEstateConfirmation'
+                'deceasedEstateValueExceptedEstateConfirmation',
+                'legalStatementApplicant',
+                'legalStatementApplicant-multipleApplicants',
+                'declarationUnderstandItem1-intestacy-multipleApplicants',
+                'intestacyDeceasedEstateLand-multipleApplicants',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministration-multipleApplicants',
+                'intestacyPersonApplying',
+                'intestacyPeopleApplying',
+                'intestacyFurtherPeopleApplying'
             ];
             sessionData.deceased.maritalStatus = 'optionMarried';
             sessionData.applicant.anyChildren = 'optionYes';

@@ -22,6 +22,7 @@ const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const {sanitizeInput} = require('../../../utils/Sanitize');
+const RelationshipToTheDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -176,7 +177,22 @@ class Declaration extends ValidationStep {
             ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
             ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent;
-            templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate);
+
+            const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
+
+            const executorsApplying = ctx.executorsWrapper.executorsApplying();
+            const executorsApplyingText = {
+                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, false, null, formdata, 'en'),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, false, null, formdata, 'cy')
+            };
+
+            const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
+            const executorsNotApplyingText = {
+                en: this.executorsNotApplying(executorsNotApplying, content.en, formdata.deceasedName, false, req.session.language),
+                cy: this.executorsNotApplying(executorsNotApplying, content.cy, formdata.deceasedName, false, req.session.language)
+            };
+
+            templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         } else {
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.invitesSent = get(formdata, 'executors.invitesSent');
@@ -222,7 +238,10 @@ class Declaration extends ValidationStep {
         const deceasedName = formdata.deceasedName;
         const mainApplicantName = formdata.applicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
-        return executorsApplying.map(executor => {
+        const caseType = formdata.caseType;
+        const numberOfExecutorsApplying = executorsApplying.length;
+        const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
+        return executorsApplying.map((executor, index) => {
             return this.executorsApplyingText(
                 {
                     hasCodicils,
@@ -233,7 +252,11 @@ class Declaration extends ValidationStep {
                     executor,
                     deceasedName,
                     mainApplicantName,
-                    language
+                    language,
+                    caseType,
+                    numberOfExecutorsApplying,
+                    index,
+                    primaryApplicantRelationshipToDeceased
                 });
         });
     }
@@ -245,28 +268,50 @@ class Declaration extends ValidationStep {
         const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasSuffix = (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') || props.executor.currentName ? '-alias' : '';
         const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.language);
-        const content = {
-            name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
-                .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
-                .replace(/{applicantCurrentName}/g, applicantCurrentName)
-                .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
-                .replace('{aliasReason}', aliasReason),
-            sign: ''
-        };
-        if (props.executor.isApplicant) {
-            content.sign = props.content[`applicantSend${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
-                .replace('{applicantName}', props.mainApplicantName)
-                .replace('{deceasedName}', props.deceasedName);
+        let content = {};
+        if (props.caseType === caseTypes.INTESTACY) {
+            let name;
+            if (props.numberOfExecutorsApplying === 1) {
+                name = props.content.intestacyPersonApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
+                    .replace('{deceasedName}', props.deceasedName);
+            } else if (props.numberOfExecutorsApplying > 1 && props.index === 0) {
+                name = props.content.intestacyPeopleApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
+                    .replace('{deceasedName}', props.deceasedName);
+            } else {
+                name = props.content.intestacyFurtherPeopleApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased))
+                    .replace('{deceasedName}', props.deceasedName);
+            }
+            content = {name, sign: ''};
+        } else {
+            content = {
+                name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
+                    .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
+                    .replace(/{applicantCurrentName}/g, applicantCurrentName)
+                    .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
+                    .replace('{aliasReason}', aliasReason),
+                sign: ''
+            };
+            if (props.executor.isApplicant) {
+                content.sign = props.content[`applicantSend${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+                    .replace('{applicantName}', props.mainApplicantName)
+                    .replace('{deceasedName}', props.deceasedName);
 
-            if (props.hasCodicils) {
-                if (props.codicilsNumber === 1) {
-                    content.sign = content.sign
-                        .replace('{codicilsNumber}', '')
-                        .replace('{codicils}', props.content.codicil);
-                } else {
-                    content.sign = content.sign
-                        .replace('{codicilsNumber}', props.codicilsNumber)
-                        .replace('{codicils}', props.content.codicils);
+                if (props.hasCodicils) {
+                    if (props.codicilsNumber === 1) {
+                        content.sign = content.sign
+                            .replace('{codicilsNumber}', '')
+                            .replace('{codicils}', props.content.codicil);
+                    } else {
+                        content.sign = content.sign
+                            .replace('{codicilsNumber}', props.codicilsNumber)
+                            .replace('{codicils}', props.content.codicils);
+                    }
                 }
             }
         }

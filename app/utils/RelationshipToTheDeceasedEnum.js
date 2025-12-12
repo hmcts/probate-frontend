@@ -28,6 +28,21 @@ class RelationshipToTheDeceasedEnum {
             throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${value} not found`);
         }
     }
+
+    static mapOptionToValue(optionValue) {
+        switch (optionValue) {
+        case 'optionChild':
+            return 'child';
+        case 'optionGrandchild':
+            return 'grandchild';
+        case 'optionSpousePartner':
+            return 'spouse or civil partner';
+        case 'optionSibling':
+            return 'sibling';
+        default:
+            throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${optionValue} not found`);
+        }
+    }
 }
 
 module.exports = RelationshipToTheDeceasedEnum;

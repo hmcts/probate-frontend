@@ -35,20 +35,23 @@ class IntestacyDeclarationFactory {
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
             deceasedEstateLand: content.en[`intestacyDeceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
-            executorsNotApplying: executorsNotApplyingText.en
+            executorsNotApplying: executorsNotApplyingText.en,
+            applying: content.en[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
+                .replace('{deceasedName}', formdata.deceasedName),
+
         };
         legalStatement.en.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.en, ihtThreshold);
         declaration.en = {
-            confirm: content.en.declarationConfirm
+            confirm: content.en[`declarationConfirm${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
             confirmItem1: content.en.declarationConfirmItem1,
             confirmItem2: content.en.declarationConfirmItem2,
             confirmItem3: content.en['declarationConfirmItem3-intestacy'],
-            requests: content.en.declarationRequests,
+            requests: content.en[`declarationRequests${multipleApplicantSuffix}`],
             requestsItem1: content.en['declarationRequestsItem1-intestacy'],
             requestsItem2: content.en['declarationRequestsItem2-intestacy'],
-            understand: content.en.declarationUnderstand,
-            understandItem1: content.en['declarationUnderstandItem1-intestacy'],
+            understand: content.en[`declarationUnderstand${multipleApplicantSuffix}`],
+            understandItem1: content.en[`declarationUnderstandItem1-intestacy${multipleApplicantSuffix}`],
             understandItem2: content.en.declarationUnderstandItem2,
             accept: content.en.declarationCheckbox,
             submitWarning: content.en.submitWarning
@@ -77,22 +80,22 @@ class IntestacyDeclarationFactory {
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
             deceasedEstateLand: content.cy[`intestacyDeceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
-            applying: content.cy.intestacyLettersOfAdministration
+            applying: content.cy[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
             executorsNotApplying: executorsNotApplyingText.cy
         };
         legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy, ihtThreshold);
         declaration.cy = {
-            confirm: content.cy.declarationConfirm
+            confirm: content.cy[`declarationConfirm${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
             confirmItem1: content.cy.declarationConfirmItem1,
             confirmItem2: content.cy.declarationConfirmItem2,
             confirmItem3: content.cy['declarationConfirmItem3-intestacy'],
-            requests: content.cy.declarationRequests,
+            requests: content.cy[`declarationRequests${multipleApplicantSuffix}`],
             requestsItem1: content.cy['declarationRequestsItem1-intestacy'],
             requestsItem2: content.cy['declarationRequestsItem2-intestacy'],
-            understand: content.cy.declarationUnderstand,
-            understandItem1: content.cy['declarationUnderstandItem1-intestacy'],
+            understand: content.cy[`declarationUnderstand${multipleApplicantSuffix}`],
+            understandItem1: content.cy[`declarationUnderstandItem1-intestacy${multipleApplicantSuffix}`],
             understandItem2: content.cy.declarationUnderstandItem2,
             accept: content.cy.declarationCheckbox,
             submitWarning: content.cy.submitWarning

@@ -10,7 +10,7 @@
 
   "errors": {
     "applicantParentDieBeforeDeceased": {
-      "required": "Select &lsquo;Yes&rsquo; if this person’s parent died before {deceasedName}"
+      "required": "Dewiswch 'Do' os wnaeth rhiant y person hwn farw cyn {deceasedName}"
     }
   }
 }

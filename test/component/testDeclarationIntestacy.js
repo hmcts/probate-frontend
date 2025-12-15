@@ -48,7 +48,10 @@ describe('declaration, intestacy', () => {
             deceasedDob: deceasedData['dob-formattedDate'],
             deceasedDod: deceasedData['dod-formattedDate'],
             ihtGrossValue: sessionData.iht.grossValueField,
-            ihtNetValue: sessionData.iht.netValueField
+            ihtNetValue: sessionData.iht.netValueField,
+            applicant: {
+                coApplicantRelationshipToDeceased: 'optionSpousePartner'
+            }
         };
     });
 

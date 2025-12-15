@@ -30,6 +30,7 @@ class RelationshipToTheDeceasedEnum {
     }
 
     static mapOptionToValue(optionValue) {
+        console.log('RelationshipToTheDeceasedEnum optionValue: ', optionValue);
         switch (optionValue) {
         case 'optionChild':
             return 'child';
@@ -39,6 +40,8 @@ class RelationshipToTheDeceasedEnum {
             return 'spouse or civil partner';
         case 'optionSibling':
             return 'sibling';
+        case 'optionAdoptedChild':
+            return 'adopted child';
         default:
             throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${optionValue} not found`);
         }

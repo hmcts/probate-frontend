@@ -106,7 +106,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     action(ctx, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.list[ctx.index].coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index].coApplicantRelationshipToDeceased) {
+        if (formdata.executors && formdata.executors.list && ctx.list[ctx.index]?.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
             delete formdata.executors.list[ctx.index].childDieBeforeDeceased;
             delete formdata.executors.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
             delete formdata.executors.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;

@@ -7,7 +7,7 @@ const FormatName = require('./FormatName');
 
 class IntestacyDeclarationFactory {
 
-    static build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText) {
+    static build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText) {
         const legalStatement = {};
         const declaration = {};
         const ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
@@ -37,7 +37,6 @@ class IntestacyDeclarationFactory {
                 .replace('{ihtNetValueAssetsOutside}', formdata.ihtNetValueAssetsOutside),
             deceasedEstateLand: content.en[`intestacyDeceasedEstateLand${multipleApplicantSuffix}`]
                 .replace(/{deceasedName}/g, formdata.deceasedName),
-            executorsNotApplying: executorsNotApplyingText.en,
             applying: content.en[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
 
@@ -86,7 +85,6 @@ class IntestacyDeclarationFactory {
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             applying: content.cy[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
-            executorsNotApplying: executorsNotApplyingText.cy
         };
         legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy, ihtThreshold);
         declaration.cy = {

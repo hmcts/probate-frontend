@@ -98,7 +98,7 @@ class ExecutorAddress extends AddressStep {
             };
         }
         if (ctx.caseType === caseTypes.INTESTACY) {
-            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild';
+            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
             ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
             return {
                 options: [

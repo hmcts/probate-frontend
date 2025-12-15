@@ -30,7 +30,6 @@ class RelationshipToTheDeceasedEnum {
     }
 
     static mapOptionToValue(optionValue) {
-        console.log('RelationshipToTheDeceasedEnum optionValue: ', optionValue);
         switch (optionValue) {
         case 'optionChild':
             return 'child';

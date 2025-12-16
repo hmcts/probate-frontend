@@ -13,15 +13,15 @@ __metadata:
   linkType: hard
 
 "@asamuzakjp/css-color@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@asamuzakjp/css-color@npm:4.1.0"
+  version: 4.1.1
+  resolution: "@asamuzakjp/css-color@npm:4.1.1"
   dependencies:
     "@csstools/css-calc": "npm:^2.1.4"
     "@csstools/css-color-parser": "npm:^3.1.0"
     "@csstools/css-parser-algorithms": "npm:^3.0.5"
     "@csstools/css-tokenizer": "npm:^3.0.4"
-    lru-cache: "npm:^11.2.2"
-  checksum: 10/e76b57fff34b958e224662d2afb19d23bc6c95d6ea40055e23a8f7417ae79904b7741655bbe6a883c09d5ee68ebb20e9313036aed3680fe85e383e0527397566
+    lru-cache: "npm:^11.2.4"
+  checksum: 10/4b7e900d9d18a86e01a42d6140936a0373801e44854bcdd70fc7c06022b7e6a793d1960fbe9f6a65bdad1874798a30c0cd91e52bfd5eae909b3347c98cc1c4f5
   languageName: node
   linkType: hard
 
@@ -3455,7 +3455,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-function@npm:^1.0.0":
+"async-function@npm:1.0.0, async-function@npm:^1.0.0":
   version: 1.0.0
   resolution: "async-function@npm:1.0.0"
   checksum: 10/1a09379937d846f0ce7614e75071c12826945d4e417db634156bf0e4673c495989302f52186dfa9767a1d9181794554717badd193ca2bbab046ef1da741d8efd
@@ -7576,7 +7576,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"generator-function@npm:^2.0.0, generator-function@npm:^2.0.1":
+"generator-function@npm:^2.0.0":
   version: 2.0.1
   resolution: "generator-function@npm:2.0.1"
   checksum: 10/eb7e7eb896c5433f3d40982b2ccacdb3dd990dd3499f14040e002b5d54572476513be8a2e6f9609f6e41ab29f2c4469307611ddbfc37ff4e46b765c326663805
@@ -10154,7 +10154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.1, lru-cache@npm:^11.2.2, lru-cache@npm:^11.2.4":
+"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.1, lru-cache@npm:^11.2.4":
   version: 11.2.4
   resolution: "lru-cache@npm:11.2.4"
   checksum: 10/3b2da74c0b6653767f8164c38c4c4f4d7f0cc10c62bfa512663d94a830191ae6a5af742a8d88a8b30d5f9974652d3adae53931f32069139ad24fa2a18a199aca
@@ -12494,7 +12494,7 @@ __metadata:
     ajv: "npm:^6.12.6"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.5.0"
-    async-function: "npm:^1.0.0"
+    async-function: "npm:1.0.0"
     axios: "npm:^1.12.2"
     basic-auth: "npm:^2.0.1"
     body-parser: "npm:^2.0.0"
@@ -12517,7 +12517,6 @@ __metadata:
     express: "npm:^4.21.2"
     express-session: "npm:^1.18.2"
     file-type: "npm:^12.4.2"
-    generator-function: "npm:^2.0.1"
     get-port: "npm:^4.2.0"
     git-rev-sync: "npm:^3.0.2"
     govuk-frontend: "npm:^5.8.0"

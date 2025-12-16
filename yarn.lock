@@ -7928,6 +7928,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"generator-function@npm:1.0.0":
+  version: 1.0.0
+  resolution: "generator-function@npm:1.0.0"
+  checksum: 10/7f1e53f10c9d4c54979f03232a86d6dd15f77c69b483c563499bd446c7d61559eb3fd65944a38dcd0300c89737f57be67564b1f4c153f4b98fbb35e1f4f66127
+  languageName: node
+  linkType: hard
+
 "generator-function@npm:^2.0.0":
   version: 2.0.1
   resolution: "generator-function@npm:2.0.1"
@@ -13307,6 +13314,7 @@ __metadata:
     express: "npm:^4.21.2"
     express-session: "npm:^1.18.2"
     file-type: "npm:^12.4.2"
+    generator-function: "npm:1.0.0"
     get-port: "npm:^4.2.0"
     git-rev-sync: "npm:^3.0.2"
     govuk-frontend: "npm:^5.8.0"

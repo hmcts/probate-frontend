@@ -229,6 +229,5 @@
     "tar-fs": "^3.0.10",
     "tmp": "0.2.5"
   },
-  "packageManager": "yarn@4.12.0",
-  "type": "module"
+  "packageManager": "yarn@4.12.0"
 }

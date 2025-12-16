@@ -103,6 +103,7 @@
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
     "applicationinsights": "^2.5.0",
+    "async-function": "1.0.0",
     "axios": "^1.12.2",
     "basic-auth": "^2.0.1",
     "body-parser": "^2.0.0",

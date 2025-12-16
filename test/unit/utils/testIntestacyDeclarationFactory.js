@@ -49,19 +49,11 @@ describe('IntestacyDeclarationFactory', () => {
 
         multipleApplicantSuffix = '';
         executorsApplying = ctx.executorsWrapper.executorsApplying();
-        executorsApplyingText = {
-            en: '',
-            cy: ''
-        };
-        executorsNotApplyingText = {
-            en: '',
-            cy: ''
-        };
     });
 
     describe('build()', () => {
         it('should return the Legal Statement and Declaration objects when the deceased has no other names', (done) => {
-            const templateData = intestacyDeclarationFactory.build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
+            const templateData = intestacyDeclarationFactory.build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText);
 
             expect(templateData).to.deep.equal({
                 legalStatement: {
@@ -77,7 +69,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedDod}', formdata.dodFormattedDate.en),
                         deceasedOtherNames: '',
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
-                            .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.en)),
+                            .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
                         deceasedChildren: content.en.intestacyDeceasedChildren,
                         executorsApplying: executorsApplyingText.en,
                         deceasedEstateValue: content.en.deceasedEstateValue
@@ -102,7 +94,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
                         deceasedOtherNames: '',
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
-                            .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.cy)),
+                            .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
                         deceasedChildren: content.cy.intestacyDeceasedChildren,
                         executorsApplying: executorsApplyingText.cy,
                         deceasedEstateValue: content.cy.deceasedEstateValue
@@ -160,7 +152,7 @@ describe('IntestacyDeclarationFactory', () => {
                 cy: 'Deceased Other Name'
             };
 
-            const templateData = intestacyDeclarationFactory.build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
+            const templateData = intestacyDeclarationFactory.build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText);
 
             expect(templateData).to.deep.equal({
                 legalStatement: {
@@ -176,7 +168,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedDod}', formdata.dodFormattedDate.en),
                         deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.en) ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
-                            .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.en)),
+                            .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
                         deceasedChildren: content.en.intestacyDeceasedChildren,
                         executorsApplying: executorsApplyingText.en,
                         deceasedEstateValue: content.en.deceasedEstateValue
@@ -201,7 +193,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
                         deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.cy) ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
-                            .replace('{deceasedMaritalStatus}', this.getMaritalStatus(formdata, content.cy)),
+                            .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
                         deceasedChildren: content.cy.intestacyDeceasedChildren,
                         executorsApplying: executorsApplyingText.cy,
                         deceasedEstateValue: content.cy.deceasedEstateValue

@@ -61,6 +61,13 @@ def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
   env.NODE_OPTIONS='--experimental-require-module'
+  afterSuccess('checkout') {
+    echo 'Checked out......'
+  }
+
+  afterSuccess('build') {
+    echo 'build successful....'
+  }
   /*  afterCheckout {
      onMaster {
        try {

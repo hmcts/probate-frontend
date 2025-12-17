@@ -71,7 +71,7 @@ withPipeline("nodejs", product, component) {
   afterSuccess('test') {
     echo 'after test....'
   }
-  beforeSuccess('test') {
+  before('test') {
     echo 'before test....'
   }
   /*  afterCheckout {

@@ -3455,10 +3455,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-function@npm:0.1.0":
-  version: 0.1.0
-  resolution: "async-function@npm:0.1.0"
-  checksum: 10/7455bc48882611d1246afd8e793d349eecd68fddf1e9d8fed7aae0d9db10fc88811d1f9e8a8fa8fb7f580f3f26e0ab1d3d50ae91247e2ad7267c34610460d521
+"async-function@npm:1.0.0":
+  version: 1.0.0
+  resolution: "async-function@npm:1.0.0"
+  checksum: 10/1a09379937d846f0ce7614e75071c12826945d4e417db634156bf0e4673c495989302f52186dfa9767a1d9181794554717badd193ca2bbab046ef1da741d8efd
   languageName: node
   linkType: hard
 

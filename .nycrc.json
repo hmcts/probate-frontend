@@ -2,5 +2,13 @@
   "all": true,
   "check-coverage": false,
   "include": ["app/"],
-  "exclude": ["app/assets/**", "app/**/template.html", "app/**/*.njk", "app/**/scripts.html"]
+  "exclude": [
+    "app/assets/**",
+    "app/**/template.html",
+    "app/**/*.njk",
+    "app/**/scripts.html",
+    "**/*.mjs",
+    "node_modules"
+  ],
+  "extension": [".js"]
 }

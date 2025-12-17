@@ -2,6 +2,8 @@
   "all": true,
   "check-coverage": false,
   "include": ["app/"],
+  "extension": [".js"],
+  "require": [],
   "exclude": [
     "app/assets/**",
     "app/**/template.html",
@@ -9,7 +11,5 @@
     "app/**/scripts.html",
     "**/*.mjs",
     "node_modules"
-  ],
-  "extension": [".js"],
-  "excludeAfterRemap": true
+  ]
 }

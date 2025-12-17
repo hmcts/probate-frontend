@@ -68,6 +68,12 @@ withPipeline("nodejs", product, component) {
   afterSuccess('build') {
     echo 'build successful....'
   }
+  afterSuccess('test') {
+    echo 'after test....'
+  }
+  beforeSuccess('test') {
+    echo 'before test....'
+  }
   /*  afterCheckout {
      onMaster {
        try {

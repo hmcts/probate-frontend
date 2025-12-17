@@ -29,6 +29,8 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
+        errorMessage: { text: fields.adoptedIn.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.adoptedIn.errorMessage,
         items: [
             {
                 value: "optionYes",

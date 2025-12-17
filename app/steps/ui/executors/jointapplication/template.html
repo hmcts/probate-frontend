@@ -58,6 +58,7 @@ rows: summaryListRows
         classes: "govuk-radios--inline",
         idPrefix: "hasCoApplicant",
         name: "hasCoApplicant",
+        errorMessage: { text: fields.hasCoApplicant.errorMessage | safe } if fields.hasCoApplicant.errorMessage,
     items: [{
             value: "optionYes",
             text: content["optionYes"] | safe

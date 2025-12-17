@@ -125,6 +125,8 @@ describe('coapplicant-relationship-to-deceased', () => {
 
         it('test correct content loaded on the page if relationship is half-niece or half-nephew', (done) => {
             sessionData.deceasedName = 'John Doe';
+            sessionData.applicant.relationshipToDeceased = 'optionSibling';
+            sessionData.applicant.sameParents = 'optionOneParentsSame';
             sessionData.applicant.anyOtherHalfSiblings = 'optionYes';
             sessionData.applicant.anyPredeceasedHalfSiblings = 'optionYesAll';
             sessionData.applicant.anySurvivingHalfNiecesAndHalfNephews = 'optionYes';
@@ -144,6 +146,8 @@ describe('coapplicant-relationship-to-deceased', () => {
 
         it('test correct content loaded on the page if relationship is whole-niece or whole-nephew', (done) => {
             sessionData.deceasedName = 'John Doe';
+            sessionData.applicant.relationshipToDeceased = 'optionSibling';
+            sessionData.applicant.sameParents = 'optionBothParentsSame';
             sessionData.applicant.anyOtherWholeSiblings = 'optionYes';
             sessionData.applicant.anyPredeceasedWholeSiblings = 'optionYesSome';
             sessionData.applicant.anySurvivingWholeNiecesAndWholeNephews = 'optionYes';

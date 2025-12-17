@@ -3724,7 +3724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-function@npm:1.0.0, async-function@npm:^1.0.0":
+"async-function@npm:^1.0.0":
   version: 1.0.0
   resolution: "async-function@npm:1.0.0"
   checksum: 10/1a09379937d846f0ce7614e75071c12826945d4e417db634156bf0e4673c495989302f52186dfa9767a1d9181794554717badd193ca2bbab046ef1da741d8efd
@@ -7925,13 +7925,6 @@ __metadata:
   bin:
     geckodriver: bin/geckodriver.js
   checksum: 10/0f6647f139b040bce8c3d5b7e03779c6725aa17ff5ba7c04ec30bd1dece0c5ea21069d566374ef90dded1eeef3ca3f0879b225b9a1e4758d917926f161289a60
-  languageName: node
-  linkType: hard
-
-"generator-function@npm:1.0.0":
-  version: 1.0.0
-  resolution: "generator-function@npm:1.0.0"
-  checksum: 10/7f1e53f10c9d4c54979f03232a86d6dd15f77c69b483c563499bd446c7d61559eb3fd65944a38dcd0300c89737f57be67564b1f4c153f4b98fbb35e1f4f66127
   languageName: node
   linkType: hard
 
@@ -13291,7 +13284,6 @@ __metadata:
     ajv: "npm:^6.12.6"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.5.0"
-    async-function: "npm:1.0.0"
     axios: "npm:^1.12.2"
     basic-auth: "npm:^2.0.1"
     body-parser: "npm:^2.0.0"
@@ -13314,7 +13306,6 @@ __metadata:
     express: "npm:^4.21.2"
     express-session: "npm:^1.18.2"
     file-type: "npm:^12.4.2"
-    generator-function: "npm:1.0.0"
     get-port: "npm:^4.2.0"
     git-rev-sync: "npm:^3.0.2"
     govuk-frontend: "npm:^5.8.0"

@@ -284,7 +284,7 @@ describe('Co-applicant-relationship', () => {
                 session: {
                     form: {
                         applicant: {
-                            anyOtherHalfSiblings: 'optionYes', anyPredeceasedHalfSiblings: 'optionYesSome', anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                            relationshipToDeceased: 'optionSibling', anyOtherHalfSiblings: 'optionYes', sameParents: 'optionOneParentsSame', anyPredeceasedHalfSiblings: 'optionYesSome', anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
                         },
                         deceased: {
                             firstName: 'John', lastName: 'Doe'

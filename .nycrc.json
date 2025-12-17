@@ -10,5 +10,6 @@
     "**/*.mjs",
     "node_modules"
   ],
-  "extension": [".js"]
+  "extension": [".js"],
+  "excludeAfterRemap": true
 }

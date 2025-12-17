@@ -74,6 +74,12 @@ withPipeline("nodejs", product, component) {
   before('test') {
     echo 'before test....'
   }
+  afterSuccess('build-container') {
+    echo 'after build-container....'
+  }
+  before('build-container') {
+    echo 'before build-container....'
+  }
   /*  afterCheckout {
      onMaster {
        try {

@@ -232,7 +232,7 @@ class Declaration extends ValidationStep {
         const deceasedName = formdata.deceasedName;
         const mainApplicantName = formdata.applicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
-        return executorsApplying.map((executor) => {
+        return executorsApplying.map(executor => {
             return this.executorsApplyingText(
                 {
                     hasCodicils,

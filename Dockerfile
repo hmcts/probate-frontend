@@ -7,9 +7,13 @@ USER hmcts
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
+RUN echo "WORKDIR=$WORKDIR"
 ENV NODE_OPTIONS='--experimental-require-module'
-RUN echo "1NODE_OPTIONS=$NODE_OPTIONS"
-RUN node -e "console.log(process.env.NODE_OPTIONS)"
+RUN echo "==============================="
+RUN echo "NODE_OPTIONS=$NODE_OPTIONS"
+RUN echo "==============================="
+RUN node -e "console.log('NODE_OPTIONS from node:', process.env.NODE_OPTIONS)"
+RUN sleep 2
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
@@ -25,10 +29,6 @@ COPY --chown=hmcts:hmcts . ./
 USER root
 RUN apk add git
 USER hmcts
-
-ENV NODE_OPTIONS='--experimental-require-module'
-RUN echo "NODE_OPTIONS=$NODE_OPTIONS"
-RUN node -e "console.log(process.env.NODE_OPTIONS)"
 
 RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
 RUN yarn -v

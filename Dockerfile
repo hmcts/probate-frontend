@@ -1,6 +1,7 @@
 # ---- Base image ----
 
 FROM hmctspublic.azurecr.io/base/node:20-alpine as base
+ENV NODE_OPTIONS="--no-experimental-detect-module"
 USER root
 RUN corepack enable
 USER hmcts
@@ -30,6 +31,8 @@ RUN rm -rf /opt/app/.git
 
 # ---- Runtime image ----
 FROM build as runtime
+
+ENV NODE_OPTIONS="--no-experimental-detect-module"
 
 EXPOSE 3000
 CMD ["yarn", "start" ]

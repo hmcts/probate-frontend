@@ -2,6 +2,7 @@
   "name": "probate-frontend",
   "description": "Probate NodeJS web app",
   "version": "4.1.3",
+  "type": "commonjs",
   "private": true,
   "engines": {
     "node": ">=20.0.0"

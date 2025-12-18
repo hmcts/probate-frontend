@@ -1,13 +1,14 @@
 # ---- Base image ----
 
 FROM hmctspublic.azurecr.io/base/node:22-alpine as base
+ENV NODE_OPTIONS="--no-experimental-detect-module"
 USER root
 RUN corepack enable
 USER hmcts
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
-ENV NODE_OPTIONS='--experimental-require-module'
+
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
@@ -23,6 +24,8 @@ COPY --chown=hmcts:hmcts . ./
 USER root
 RUN apk add git
 USER hmcts
+
+RUN rm -rf node_modules package-lock.json
 
 RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
 RUN yarn -v

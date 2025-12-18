@@ -6,8 +6,6 @@ ENV NODE_OPTIONS="--no-experimental-detect-module"
 
 USER root
 RUN corepack enable
-# Ensure hmcts user exists in alpine
-RUN addgroup -S hmcts && adduser -S hmcts -G hmcts
 USER hmcts
 
 ENV WORKDIR /opt/app
@@ -15,8 +13,13 @@ WORKDIR ${WORKDIR}
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
+RUN yarn config set httpProxy "$http_proxy" \
+    && yarn config set httpsProxy "$https_proxy" \
+    && yarn workspaces focus --all --production \
+    && rm -rf $(yarn cache clean)
 # ---- Build image ----
 FROM base as build
+COPY --chown=hmcts:hmcts . ./
 USER root
 RUN apk add --no-cache git
 USER hmcts

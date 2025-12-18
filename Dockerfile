@@ -1,6 +1,6 @@
 # ---- Base image ----
 
-FROM hmctspublic.azurecr.io/base/node:20-alpine as base
+FROM hmctspublic.azurecr.io/base/node:22-alpine as base
 USER root
 RUN corepack enable
 USER hmcts
@@ -17,6 +17,7 @@ RUN yarn config set httpProxy "$http_proxy" \
 # ---- Build image ----
 FROM base as build
 COPY --chown=hmcts:hmcts . ./
+ENV NODE_OPTIONS='--experimental-require-module'
 
 USER root
 RUN apk add git

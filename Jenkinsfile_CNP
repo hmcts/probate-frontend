@@ -60,6 +60,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
+  /*  afterCheckout {
      onMaster {
        try {
          sh """

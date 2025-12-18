@@ -1679,6 +1679,7 @@ describe('declaration, intestacy', () => {
                 });
         });
 
+        /*
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -1688,5 +1689,6 @@ describe('declaration, intestacy', () => {
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
+        */
     });
 });

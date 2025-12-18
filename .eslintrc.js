@@ -10,7 +10,7 @@ module.exports = {
     'extends': 'eslint:recommended',
     'parserOptions': {
         'ecmaVersion': 2020,
-        'sourceType': 'module'
+        'sourceType': 'script'
     },
     'rules': {
         'accessor-pairs': 'error',

@@ -74,10 +74,10 @@ withPipeline("nodejs", product, component) {
   before('test') {
     echo 'before test....'
   }
-  afterSuccess('build-container') {
+  afterSuccess('Static checks / Container build') {
     echo 'after build-container....'
   }
-  before('build-container') {
+  before('Static checks / Container build') {
     echo 'before build-container....'
   }
   /*  afterCheckout {

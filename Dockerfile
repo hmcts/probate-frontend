@@ -1,6 +1,6 @@
 # ---- Base image ----
 
-FROM hmctspublic.azurecr.io/base/node:22-alpine as base
+FROM hmctspublic.azurecr.io/base/node:20-alpine as base
 # Force CJS behavior globally
 ENV NODE_OPTIONS="--no-experimental-detect-module"
 USER root

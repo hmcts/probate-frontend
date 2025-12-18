@@ -227,7 +227,7 @@
     "shelljs": ">=0.10.0",
     "tar-fs": "^3.0.10",
     "tmp": "0.2.5",
-    "async-function": "1.0.0"
+    "async-function": "^1.0.0"
   },
   "packageManager": "yarn@4.12.0"
 }

@@ -30,7 +30,9 @@ COPY --chown=hmcts:hmcts . ./
 RUN rm -rf node_modules yarn.lock
 
 # Re-run install to rebuild native modules (like sass/bindings) for Node 22
-RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
+RUN NODE_OPTIONS="--no-experimental-detect-module" \
+    PUPPETEER_SKIP_DOWNLOAD=true \
+    yarn install --no-immutable --check-files
 
 RUN NODE_OPTIONS="--no-experimental-detect-module" yarn setup-sass
 RUN rm -rf /opt/app/.git

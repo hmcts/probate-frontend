@@ -1,6 +1,8 @@
 # ---- Base image ----
 
-FROM hmctspublic.azurecr.io/base/node:20-alpine as base
+FROM hmctspublic.azurecr.io/base/node:22-alpine as base
+# Force CJS behavior globally
+ENV NODE_OPTIONS="--no-experimental-detect-module"
 USER root
 RUN corepack enable
 USER hmcts
@@ -22,18 +24,19 @@ USER root
 RUN apk add git
 USER hmcts
 
-RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
-RUN yarn -v
-RUN node -v
-RUN yarn setup-sass
+# Re-run install to rebuild native modules (like sass/bindings) for Node 22
+RUN NODE_OPTIONS="--no-experimental-detect-module" \
+    PUPPETEER_SKIP_DOWNLOAD=true \
+    yarn install
+
+RUN NODE_OPTIONS="--no-experimental-detect-module" yarn setup-sass
 RUN rm -rf /opt/app/.git
 
 # ---- Runtime image ----
 FROM build as runtime
-#COPY --from=build . .
-#COPY --from=build ${WORKDIR}/app app/
-#COPY --from=build ${WORKDIR}/config config/
-#COPY --from=build ${WORKDIR}/public public/
-#COPY --from=build ${WORKDIR}/server.js ${WORKDIR}/app.js ${WORKDIR}/git.properties.json ./
+
+# Ensure the flag persists to the final execution
+ENV NODE_OPTIONS="--no-experimental-detect-module"
+
 EXPOSE 3000
 CMD ["yarn", "start" ]

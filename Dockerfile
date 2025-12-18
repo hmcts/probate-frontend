@@ -7,13 +7,7 @@ USER hmcts
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
-RUN echo "WORKDIR=$WORKDIR"
 ENV NODE_OPTIONS='--experimental-require-module'
-RUN echo "==============================="
-RUN echo "NODE_OPTIONS=$NODE_OPTIONS"
-RUN echo "==============================="
-RUN node -e "console.log('NODE_OPTIONS from node:', process.env.NODE_OPTIONS)"
-RUN sleep 2
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 

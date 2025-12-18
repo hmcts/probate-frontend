@@ -3455,7 +3455,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-function@npm:^1.0.0":
+"async-function@npm:1.0.0":
   version: 1.0.0
   resolution: "async-function@npm:1.0.0"
   checksum: 10/1a09379937d846f0ce7614e75071c12826945d4e417db634156bf0e4673c495989302f52186dfa9767a1d9181794554717badd193ca2bbab046ef1da741d8efd

@@ -17,11 +17,14 @@ RUN yarn config set httpProxy "$http_proxy" \
 # ---- Build image ----
 FROM base as build
 COPY --chown=hmcts:hmcts . ./
-ENV NODE_OPTIONS='--experimental-require-module'
 
 USER root
 RUN apk add git
 USER hmcts
+
+ENV NODE_OPTIONS='--experimental-require-module'
+RUN echo "NODE_OPTIONS=$NODE_OPTIONS"
+RUN node -e "console.log(process.env.NODE_OPTIONS)"
 
 RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
 RUN yarn -v

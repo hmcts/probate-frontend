@@ -34,7 +34,7 @@ RUN yarn lint --debug
 # Re-run install to rebuild native modules (like sass/bindings) for Node 22
 RUN NODE_OPTIONS="--no-experimental-detect-module" \
     PUPPETEER_SKIP_DOWNLOAD=true \
-    yarn install --no-immutable --check-files
+    yarn install
 
 RUN NODE_OPTIONS="--no-experimental-detect-module" yarn setup-sass
 RUN rm -rf /opt/app/.git

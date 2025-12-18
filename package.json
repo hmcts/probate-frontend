@@ -73,7 +73,7 @@
     "merge-reports": "bash bin/merge-reports.sh",
     "test:fullfunctional:dev-aat:single": "TEST_HEADLESS=false NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run -c ./test/end-to-end/ --steps --verbose --grep '@runningNow'",
     "test:fullfunctional:dev-aat:parallel": "TEST_HEADLESS=true DONT_FAIL_ON_EMPTY_RUN=1 NODE_ENV=dev-aat NODE_PATH=. node ./node_modules/codeceptjs/bin/codecept.js run-multiple parallel -c ./test/end-to-end/ --steps --grep '@e2enightly'",
-    "test:coverage": "NODE_ENV=test NODE_PATH=. nyc --reporter=lcov --reporter-options reportDir=output,reportFilename=results mocha './test/unit/**/test*.js' './test/component/**/test*.js' --timeout 10000 --recursive --exit",
+    "test:coverage": "NODE_ENV=test NODE_PATH=. NODE_OPTIONS='--no-experimental-detect-module' nyc --reporter=lcov --reporter-options reportDir=output,reportFilename=results mocha './test/unit/**/test*.js' './test/component/**/test*.js' --timeout 10000 --recursive --exit",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar-scan-comment": "cookies has been excluded by -Dcpd.exclusions - it is covered by both unit and component test yet reports incorrectly as not covered",
     "sonar-scan": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.projectName='Probate :: frontend' -Dsonar.sources=app -Dsonar.language=js -Dsonar.cpd.exclusions=app/journeys/*.js,app/**/*.njk,app/**/template.html,app/**/scripts.html,app/steps/**/index.js -Dsonar.exclusions=app/routes.js,app/components/launch-darkly.js,app/assets/**,app/**/scripts.html,app/steps/ui/static/cookies/index.js -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
@@ -226,8 +226,7 @@
     "qs": "^6.14.0",
     "shelljs": ">=0.10.0",
     "tar-fs": "^3.0.10",
-    "tmp": "0.2.5",
-    "async-function": "^1.0.0"
+    "tmp": "0.2.5"
   },
   "packageManager": "yarn@4.12.0"
 }

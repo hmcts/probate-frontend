@@ -230,6 +230,9 @@ describe('Co-applicant-relationship', () => {
                         deceased: {
                             anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionNo', firstName: 'John', lastName: 'Doe'
                         },
+                        applicant: {
+                            relationshipToDeceased: 'optionChild'
+                        },
                         executors: {
                             list: [
                                 {
@@ -257,6 +260,9 @@ describe('Co-applicant-relationship', () => {
                     form: {
                         deceased: {
                             anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionYesSome', anySurvivingGrandchildren: 'optionYes', firstName: 'John', lastName: 'Doe'
+                        },
+                        applicant: {
+                            relationshipToDeceased: 'optionChild'
                         },
                         executors: {
                             list: [
@@ -316,6 +322,7 @@ describe('Co-applicant-relationship', () => {
                     form: {
                         deceased: {anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionYesAll', anySurvivingGrandchildren: 'optionYes', firstName: 'John', lastName: 'Doe'
                         },
+                        applicant: {relationshipToDeceased: 'optionGrandchild'},
                         executors: {
                             list: [
                                 {fullName: 'Prince', isApplicant: true},

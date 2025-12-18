@@ -37,21 +37,24 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         const anyOtherHalfSiblings = formdata.applicant?.anyOtherHalfSiblings === 'optionYes';
         const anyPredeceasedHalfSiblings = formdata.applicant?.anyPredeceasedHalfSiblings;
         const hasAnySurvivingHalfNiecesAndHalfNephews = formdata.applicant?.anySurvivingHalfNiecesAndHalfNephews === 'optionYes';
+        const hasNoSurvivingHalfNiecesAndHalfNephews = formdata.applicant?.anySurvivingHalfNiecesAndHalfNephews === 'optionNo';
         const anyOtherWholeSiblings = formdata.applicant?.anyOtherWholeSiblings === 'optionYes';
         const bothParentsSame = formdata.applicant?.relationshipToDeceased === 'optionSibling' && formdata.applicant?.sameParents === 'optionBothParentsSame';
         const oneParentSame = formdata.applicant?.relationshipToDeceased === 'optionSibling' && formdata.applicant?.sameParents === 'optionOneParentsSame';
         const anyPredeceasedWholeSiblings = formdata.applicant?.anyPredeceasedWholeSiblings;
         const hasAnySurvivingWholeNiecesAndWholeNephews = formdata.applicant?.anySurvivingWholeNiecesAndWholeNephews === 'optionYes';
+        const hasNoSurvivingWholeNiecesAndWholeNephews = formdata.applicant?.anySurvivingWholeNiecesAndWholeNephews === 'optionNo';
+        const isChild = formdata.applicant?.relationshipToDeceased === 'optionChild';
 
-        ctx.childOnly = hasOtherChildren &&
+        ctx.childOnly = isChild && hasOtherChildren &&
             (ctx.deceased.anyPredeceasedChildren === 'optionNo' ||
-                (ctx.deceased.anyPredeceasedChildren === 'optionYesSome' && ctx.deceased.anySurvivingGrandchildren === 'optionYes'));
+                (ctx.deceased.anyPredeceasedChildren === 'optionYesSome' && (ctx.deceased.anySurvivingGrandchildren === 'optionYes' || ctx.deceased.anySurvivingGrandchildren === 'optionNo')));
         ctx.grandChildOnly = hasOtherChildren &&
             ctx.deceased.anySurvivingGrandchildren === 'optionYes' &&
             (ctx.deceased.anyPredeceasedChildren === 'optionYesAll' || ctx.deceased.anyPredeceasedChildren === 'optionYesSome');
-        ctx.halfSiblingOnly = oneParentSame && anyOtherHalfSiblings && (anyPredeceasedHalfSiblings === 'optionNo' || (anyPredeceasedHalfSiblings === 'optionYesSome' && hasAnySurvivingHalfNiecesAndHalfNephews));
+        ctx.halfSiblingOnly = oneParentSame && anyOtherHalfSiblings && (anyPredeceasedHalfSiblings === 'optionNo' || (anyPredeceasedHalfSiblings === 'optionYesSome' && (hasAnySurvivingHalfNiecesAndHalfNephews || hasNoSurvivingHalfNiecesAndHalfNephews)));
         ctx.halfNieceOrNephewOnly = oneParentSame && anyOtherHalfSiblings && hasAnySurvivingHalfNiecesAndHalfNephews && (anyPredeceasedHalfSiblings === 'optionYesAll' || anyPredeceasedHalfSiblings === 'optionYesSome');
-        ctx.wholeSiblingOnly = bothParentsSame && anyOtherWholeSiblings && (anyPredeceasedWholeSiblings === 'optionNo' || (anyPredeceasedWholeSiblings === 'optionYesSome' && hasAnySurvivingWholeNiecesAndWholeNephews));
+        ctx.wholeSiblingOnly = bothParentsSame && anyOtherWholeSiblings && (anyPredeceasedWholeSiblings === 'optionNo' || (anyPredeceasedWholeSiblings === 'optionYesSome' && (hasAnySurvivingWholeNiecesAndWholeNephews || hasNoSurvivingWholeNiecesAndWholeNephews)));
         ctx.wholeNieceOrNephewOnly = bothParentsSame && anyOtherWholeSiblings && hasAnySurvivingWholeNiecesAndWholeNephews && (anyPredeceasedWholeSiblings === 'optionYesAll' || anyPredeceasedWholeSiblings === 'optionYesSome');
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;

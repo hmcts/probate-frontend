@@ -7,13 +7,17 @@ USER hmcts
 
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
+ENV NODE_OPTIONS='--experimental-require-module'
+RUN echo "1NODE_OPTIONS=$NODE_OPTIONS"
+RUN node -e "console.log(process.env.NODE_OPTIONS)"
 
 COPY --chown=hmcts:hmcts package.json yarn.lock ./
 
 RUN yarn config set httpProxy "$http_proxy" \
     && yarn config set httpsProxy "$https_proxy" \
     && yarn workspaces focus --all --production \
-    && rm -rf $(yarn cache clean)
+    && rm -rf $(yarn cache clean) \
+
 # ---- Build image ----
 FROM base as build
 COPY --chown=hmcts:hmcts . ./

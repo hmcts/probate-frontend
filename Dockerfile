@@ -27,7 +27,9 @@ USER hmcts
 COPY --chown=hmcts:hmcts . ./
 
 # Remove old artifacts to prevent binary mismatch between Node 20 and 22
-RUN rm -rf node_modules yarn.lock
+RUN rm -rf node_modules yarn.lock .eslintcache
+RUN yarn install --check-files
+RUN yarn lint --debug
 
 # Re-run install to rebuild native modules (like sass/bindings) for Node 22
 RUN NODE_OPTIONS="--no-experimental-detect-module" \

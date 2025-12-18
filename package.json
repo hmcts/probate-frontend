@@ -235,6 +235,6 @@
   },
   "packageManager": "yarn@4.12.0",
   "scripts": {
-    "lint": "eslint . --debug"
+    "lint": "NODE_OPTIONS='--experimental-require-module --no-experimental-detect-module' eslint ."
   }
 }

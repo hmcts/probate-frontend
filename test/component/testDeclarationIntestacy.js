@@ -1679,8 +1679,10 @@ describe('declaration, intestacy', () => {
                 });
         });
 
-        /*
         it('test errors message displayed for missing data', (done) => {
+            sessionData.applicant.relationshipToDeceased = 'optionChild';
+            sessionData.executors.list[0].coApplicantRelationshipToDeceased = 'optionChild';
+
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -1689,6 +1691,5 @@ describe('declaration, intestacy', () => {
                     testWrapper.testErrors(done, {}, 'required', errorsToTest);
                 });
         });
-        */
     });
 });

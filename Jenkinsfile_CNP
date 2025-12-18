@@ -60,27 +60,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
-  env.NODE_OPTIONS='--experimental-require-module'
-  afterSuccess('checkout') {
-    echo 'Checked out......'
-  }
-
-  afterSuccess('build') {
-    echo 'build successful....'
-  }
-  afterSuccess('test') {
-    echo 'after test....'
-  }
-  before('test') {
-    echo 'before test....'
-  }
-  afterSuccess('Static checks / Container build') {
-    echo 'after build-container....'
-  }
-  before('Static checks / Container build') {
-    echo 'before build-container....'
-  }
-  /*  afterCheckout {
      onMaster {
        try {
          sh """

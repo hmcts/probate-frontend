@@ -148,6 +148,9 @@
                 {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
                 <h3 class="govuk-heading-s declaration-subheader">{{ content.en.peopleApplyingHeader | safe }}</h3>
+
+                <p class="govuk-body declaration-item">{{fields.legalStatement.value.en.executorsApplying.name | safe}}</p>
+
                 {% for applicant in fields.legalStatement.value.en.executorsApplying %}
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}

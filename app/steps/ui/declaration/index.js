@@ -252,9 +252,18 @@ class Declaration extends ValidationStep {
         const deceasedName = formdata.deceasedName;
         const mainApplicantName = formdata.applicantName;
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
-        const caseType = formdata.caseType;
         const numberOfExecutorsApplying = executorsApplying.length;
         const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
+        if (executorsApplying.length === 0) {
+            return this.intestacyExecutorsApplyingText({
+                deceasedName,
+                numberOfExecutorsApplying,
+                mainApplicantName,
+                primaryApplicantRelationshipToDeceased,
+                content,
+                language
+            });
+        }
         return executorsApplying.map((executor, index) => {
             return this.intestacyExecutorsApplyingText(
                 {
@@ -265,7 +274,6 @@ class Declaration extends ValidationStep {
                     deceasedName,
                     mainApplicantName,
                     language,
-                    caseType,
                     numberOfExecutorsApplying,
                     index,
                     primaryApplicantRelationshipToDeceased
@@ -311,32 +319,30 @@ class Declaration extends ValidationStep {
     }
 
     intestacyExecutorsApplyingText(props) {
-        const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
-        const applicantCurrentName = FormatName.formatName(props.executor, true);
-        const aliasSuffix = (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') || props.executor.currentName ? '-alias' : '';
-        const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.language);
-        let name;
-        if (props.numberOfExecutorsApplying === 1) {
-            name = props.content.intestacyPersonApplying
-                .replace('{applicantName}', props.executor.fullName)
-                .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
-                .replace('{deceasedName}', props.deceasedName);
-            name = props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}`]
-                .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
-                .replace(/{applicantCurrentName}/g, applicantCurrentName)
-                .replace('{aliasReason}', aliasReason);
-        } else if (props.numberOfExecutorsApplying > 1 && props.index === 0) {
-            name = props.content.intestacyPeopleApplying
-                .replace('{applicantName}', props.executor.fullName)
-                .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
-                .replace('{deceasedName}', props.deceasedName);
+        let content = {};
+        if (props.numberOfExecutorsApplying === 0) {
+            content = {
+                name: props.content.intestacyPersonApplying
+                    .replace('{applicantName}', props.mainApplicantName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
+                    .replace('{deceasedName}', props.deceasedName)
+            };
+        } else if (props.numberOfExecutorsApplying >= 1 && props.index === 0) {
+            content = {
+                name: props.content.intestacyPeopleApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
+                    .replace('{deceasedName}', props.deceasedName)
+            };
         } else {
-            name = props.content.intestacyFurtherPeopleApplying
-                .replace('{applicantName}', props.executor.fullName)
-                .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased))
-                .replace('{deceasedName}', props.deceasedName);
+            content = {
+                name: props.content.intestacyFurtherPeopleApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased))
+                    .replace('{deceasedName}', props.deceasedName)
+            };
         }
-        return {name, sign: ''};
+        return content;
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {

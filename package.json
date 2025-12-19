@@ -89,7 +89,7 @@
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
     "suppress-cve": "yarn npm audit --recursive --environment production --json > yarn-audit-known-issues",
-    "postinstall": "echo \"exports.default = (function() { try { return Function('return async function(){}')(); } catch (e) { return null; } })();\" > node_modules/async-function/require.mjs"
+    "postinstall": "sed -i \"s/require.mjs/index.js/g\" node_modules/is-async-function/index.js && echo \"module.exports = (function() { try { return Function('return async function(){}')(); } catch (e) { return null; } })();\" > node_modules/async-function/index.js"
   },
   "pre-commit": [
     "lint"

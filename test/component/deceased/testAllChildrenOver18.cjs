@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AnyDeceasedChildren = require('app/steps/ui/deceased/anydeceasedchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('all-children-over-18', () => {

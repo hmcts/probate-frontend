@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDod = require('app/steps/ui/deceased/dod');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-dob', () => {

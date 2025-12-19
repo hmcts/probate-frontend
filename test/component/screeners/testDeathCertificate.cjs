@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeathCertificateInEnglish = require('app/steps/ui/screeners/deathcertificateinenglish');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('config');
 

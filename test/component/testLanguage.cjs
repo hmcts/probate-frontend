@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name');
 const DeceasedDetails = require('app/steps/ui/deceased/details');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('bilingual-gop', () => {

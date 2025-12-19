@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const CodicilsNumber = require('app/steps/ui/will/codicilsnumber');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('will-codicils', () => {

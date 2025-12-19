@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const IhtIdentifier = require('app/steps/ui/iht/identifier');
 const IhtPaper = require('app/steps/ui/iht/paper');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('iht-method', () => {
     let testWrapper;

@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DiedEnglandOrWales = require('app/steps/ui/deceased/diedengorwales');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('deceased-address', () => {
     let testWrapper;

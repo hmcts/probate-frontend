@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const IhtMethod = require('app/steps/ui/iht/method');
 const CalcCheck = require('app/steps/ui/iht/calccheck');
 const IhtEstateForm = require('app/steps/ui/iht/estateform');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 const IhtPaper = require('app/steps/ui/iht/paper');
 

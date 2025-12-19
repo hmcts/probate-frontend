@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorsApplying = require('app/steps/ui/executors/applying');
 const ExecutorsWhoDied = require('app/steps/ui/executors/whodied');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('any-executors-died', () => {

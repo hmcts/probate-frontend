@@ -6,7 +6,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const config = require('config');
 const caseTypes = require('app/utils/CaseTypes');
 const ThankYou = require('app/steps/ui/thankyou');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('documents', () => {
     let testWrapper;

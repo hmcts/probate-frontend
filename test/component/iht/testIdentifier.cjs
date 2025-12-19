@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const IhtValue = require('app/steps/ui/iht/value');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('iht-identifier', () => {
     let testWrapper;

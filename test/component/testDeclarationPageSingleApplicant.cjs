@@ -4,7 +4,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const content = require('app/resources/en/translation/declaration');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const nock = require('nock');
 const config = require('config');
 const commonContent = require('../../app/resources/en/translation/common.json');

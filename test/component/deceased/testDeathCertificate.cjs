@@ -1,7 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const IhtMethod = require('app/steps/ui/iht/method');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');

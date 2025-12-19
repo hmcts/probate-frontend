@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedDob = require('app/steps/ui/deceased/dob');
 const DeceasedAliasNameOnWill = require('app/steps/ui/deceased/aliasnameonwill');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('../../../app/utils/CaseTypes');
 
 describe('deceased-name-as-on-will', () => {

@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ValueAssetsOutside = require('app/steps/ui/iht/valueassetsoutside');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('assets-outside-england-wales', () => {

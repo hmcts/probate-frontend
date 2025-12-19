@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const WillCodicils = require('app/steps/ui/will/codicils');
 const WillHasVisibleDamage = require('app/steps/ui/will/willhasvisibledamage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-married', () => {

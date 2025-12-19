@@ -6,7 +6,7 @@ const ForeignDeathCertTranslation = require('app/steps/ui/deceased/foreigndeathc
 const CalcCheck = require('app/steps/ui/iht/calccheck');
 const IhtEstateForm = require('app/steps/ui/iht/estateform');
 const IhtPaper = require('app/steps/ui/iht/paper');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('english-foreign-death-cert', () => {

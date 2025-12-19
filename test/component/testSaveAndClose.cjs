@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const TaskList = require('app/steps/ui/tasklist');
 const ApplicantNameAsOnWill = require('app/steps/ui/applicant/nameasonwill');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('save-and-close', () => {
     let testWrapper;

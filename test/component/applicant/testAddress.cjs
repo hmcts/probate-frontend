@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const ExecutorCheckWill = require('app/steps/ui/executors/checkwill');
 const formatAddress = address => address.replace(/,/g, ', ');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('applicant-address', () => {
     let testWrapper;

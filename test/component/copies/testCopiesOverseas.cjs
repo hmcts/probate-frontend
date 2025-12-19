@@ -4,7 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 
 const CopiesSummary = require('app/steps/ui/copies/summary');
 
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 

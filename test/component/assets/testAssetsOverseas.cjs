@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const CopiesOverseas = require('app/steps/ui/copies/overseas');
 const CopiesSummary = require('app/steps/ui/copies/summary');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('assets-overseas', () => {
     let testWrapper;

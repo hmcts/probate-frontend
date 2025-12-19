@@ -2,7 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ApplicantNameAsOnWill = require('app/steps/ui/applicant/nameasonwill');
-const testCommonContent = require('test/component/common/testCommonContent.js');
+const testCommonContent = require('test/component/common/testCommonContent');
 
 describe('applicant-name', () => {
     let testWrapper;

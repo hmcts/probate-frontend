@@ -88,7 +88,7 @@ class JointApplication extends ValidationStep {
             if (hasCoApplicantChecked === false) {
                 errors.push(FieldError('hasCoApplicant', 'required', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
-            } else if (ctx.list.length > 3) {
+            } else if (ctx.list.length > 3 && ctx.hasCoApplicant === 'optionYes') {
                 errors.push(FieldError('hasCoApplicant', 'invalid', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             }

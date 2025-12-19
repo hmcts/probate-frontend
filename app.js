@@ -387,7 +387,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             console.log(`Application started: https://localhost:${port}`);
         });
     } else {
-        http = app.listen(port, () => {
+        http = app.listen(port, '0.0.0.0', () => {
             console.log(`Application started: http://localhost:${port}`);
         });
     }

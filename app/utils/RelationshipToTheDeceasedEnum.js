@@ -37,6 +37,8 @@ class RelationshipToTheDeceasedEnum {
             return 'grandchild';
         case 'optionSpousePartner':
             return 'spouse or civil partner';
+        case 'optionSpouseOrCivilPartner':
+            return 'spouse or civil partner';
         case 'optionSibling':
             return 'sibling';
         case 'optionAdoptedChild':

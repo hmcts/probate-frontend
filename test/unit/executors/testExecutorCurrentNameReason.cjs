@@ -2,10 +2,10 @@
 
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {assert, expect} = require('chai');
-const ExecutorsWrapper = require('app/wrappers/Executors');
-const journey = require('app/journeys/probate');
+const ExecutorsWrapper = require('app/wrappers/Executors.cjs');
+const journey = require('app/journeys/probate.cjs');
 const executorCurrentNameReasonPath = '/executor-name-reason/';
 
 describe('ExecutorCurrentNameReason', () => {

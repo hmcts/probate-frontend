@@ -1,14 +1,14 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
 const AnyChildren = require('app/steps/ui/deceased/anychildren');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren');
 const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('relationship-to-deceased', () => {
     let testWrapper;

@@ -1,7 +1,7 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 
 describe('deceased-otherNames', () => {
     let testWrapper;

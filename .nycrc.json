@@ -1,6 +1,15 @@
 {
   "all": true,
   "check-coverage": false,
+  "extension": [".cjs", ".js"],
   "include": ["app/"],
-  "exclude": ["app/assets/**", "app/**/template.html", "app/**/*.njk", "app/**/scripts.html"]
+  "exclude": [
+    "app/assets/**",
+    "app/**/template.html",
+    "app/**/*.njk",
+    "app/**/scripts.html",
+    "**/*.mjs",
+    "node_modules/**",
+    "node_modules/async-function/**"
+  ]
 }

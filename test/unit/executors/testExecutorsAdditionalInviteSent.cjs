@@ -1,6 +1,6 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {assert, expect} = require('chai');
 const coreContextMockData = require('../../data/core-context-mock-data.json');
 

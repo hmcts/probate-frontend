@@ -1,6 +1,6 @@
 'use strict';
 
-const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
+const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder.cjs');
 const {assert} = require('chai');
 
 let checkAnswersSummaryJSONObjBuilder;
@@ -14,7 +14,7 @@ const html = `
             <div id="check-your-answers">
                 <h1 class="govuk-heading-l">Check your answers</h1>
                 <p class="govuk-body" id="main-heading-content">Check the information below carefully. This will form a record of your application for probate. It will also be stored as a public record, and will be able to be viewed online.</p>
-    
+
                 <h2 class="govuk-heading-m">About the person who died</h2>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
@@ -53,7 +53,7 @@ const html = `
                         </dd>
                     </div>
                 </dl>
-    
+
                 <h2 class="govuk-heading-m">Uploaded documents</h2>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
@@ -68,7 +68,7 @@ const html = `
                         </dd>
                     </div>
                 </dl>
-    
+
                 <h2 class="govuk-heading-m">Inheritance tax</h2>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
@@ -86,7 +86,7 @@ const html = `
                         </dd>
                     </div>
                 </dl>
-    
+
                 <h2 class="govuk-heading-m">The executors</h2>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
@@ -97,7 +97,7 @@ const html = `
                         </dd>
                     </div>
                 </dl>
-    
+
                 <h3 class="govuk-heading-s">About you</h3>
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">

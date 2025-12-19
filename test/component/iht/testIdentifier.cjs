@@ -1,8 +1,8 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const IhtValue = require('app/steps/ui/iht/value');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 
 describe('iht-identifier', () => {
     let testWrapper;

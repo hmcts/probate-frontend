@@ -2,7 +2,7 @@
 
 const {assert, expect} = require('chai');
 const rewire = require('rewire');
-const AdditionalExecutorInvite = rewire('app/utils/AdditionalExecutorInvite');
+const AdditionalExecutorInvite = rewire('app/utils/AdditionalExecutorInvite.cjs');
 
 describe('AdditionalExecutorInvite', () => {
     describe('invite()', () => {

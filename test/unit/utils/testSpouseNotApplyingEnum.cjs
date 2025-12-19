@@ -1,6 +1,6 @@
 'use strict';
 
-const SpouseNotApplyingEnum = require('app/utils/SpouseNotApplyingEnum');
+const SpouseNotApplyingEnum = require('app/utils/SpouseNotApplyingEnum.cjs');
 const expect = require('chai').expect;
 
 describe('SpouseNotApplyingEnum.js', () => {

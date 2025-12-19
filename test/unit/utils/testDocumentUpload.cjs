@@ -4,7 +4,7 @@
 
 const expect = require('chai').expect;
 const rewire = require('rewire');
-const DocumentUpload = rewire('app/utils/DocumentUpload');
+const DocumentUpload = rewire('app/utils/DocumentUpload.cjs');
 
 describe('DocumentUploadUtil', () => {
     describe('initDocuments()', () => {

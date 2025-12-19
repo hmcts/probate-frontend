@@ -1,4 +1,4 @@
-const RelationshipToDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum');
+const RelationshipToDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum.cjs');
 const expect = require('chai').expect;
 
 describe('RelationshipToDeceasedEnum.js', () => {

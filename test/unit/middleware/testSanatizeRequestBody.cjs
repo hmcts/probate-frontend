@@ -1,6 +1,6 @@
 'use strict';
 
-const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
+const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody.cjs');
 const {assert} = require('chai');
 const sinon = require('sinon');
 

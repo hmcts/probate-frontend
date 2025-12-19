@@ -1,10 +1,10 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const rewire = require('rewire');
-const PinSent = rewire('app/steps/ui/pin/sent');
+const PinSent = rewire('app/steps/ui/pin/sent/index.cjs');
 const i18next = require('i18next');
 const section = 'pin';
 const templatePath = 'pin/sent';

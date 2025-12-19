@@ -3,7 +3,7 @@
 'use strict';
 
 const rewire = require('rewire');
-const EligibilityCookie = rewire('app/utils/EligibilityCookie');
+const EligibilityCookie = rewire('app/utils/EligibilityCookie.cjs');
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const config = require('config');

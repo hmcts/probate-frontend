@@ -5,9 +5,9 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
-const documentUploadMiddleware = rewire('app/middleware/documentUpload');
-const DocumentUpload = require('app/utils/DocumentUpload');
-const FormData = require('app/services/FormData');
+const documentUploadMiddleware = rewire('app/middleware/documentUpload.cjs');
+const DocumentUpload = require('app/utils/DocumentUpload.cjs');
+const FormData = require('app/services/FormData.cjs');
 
 describe('DocumentUploadMiddleware', () => {
     describe('getDocument()', () => {

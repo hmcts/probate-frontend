@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const CopiesOverseas = require('app/steps/ui/copies/overseas');
 const CopiesSummary = require('app/steps/ui/copies/summary');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 
 describe('assets-overseas', () => {
     let testWrapper;

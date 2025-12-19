@@ -1,4 +1,4 @@
-const ActionStepRunner = require('app/core/runners/ActionStepRunner');
+const ActionStepRunner = require('app/core/runners/ActionStepRunner.cjs');
 const sinon = require('sinon');
 const chai = require('chai');
 const expect = chai.expect;

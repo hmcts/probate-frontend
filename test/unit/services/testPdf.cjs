@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const nock = require('nock');
 const co = require('co');
 const rewire = require('rewire');
-const Pdf = rewire('app/services/Pdf');
+const Pdf = rewire('app/services/Pdf.cjs');
 const config = require('config');
 
 describe('PdfService', () => {

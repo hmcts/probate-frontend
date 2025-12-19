@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const DeceasedDob = require('app/steps/ui/deceased/dob');
 const DeceasedAliasNameOnWill = require('app/steps/ui/deceased/aliasnameonwill');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('../../../app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('../../../app/utils/CaseTypes.cjs');
 
 describe('deceased-name-as-on-will', () => {
     let testWrapper;

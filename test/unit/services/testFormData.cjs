@@ -1,9 +1,9 @@
 'use strict';
 
 const expect = require('chai').expect;
-const FormData = require('app/services/FormData');
+const FormData = require('app/services/FormData.cjs');
 const co = require('co');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const config = require('config');
 const nock = require('nock');
 

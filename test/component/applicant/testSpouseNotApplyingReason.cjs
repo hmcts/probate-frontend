@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const AnyOtherChildren = require('app/steps/ui/deceased/anyotherchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('spouse-not-applying-reason', () => {
     let testWrapper;

@@ -1,7 +1,7 @@
 'use strict';
 
-const journey = require('app/journeys/probate');
-const initSteps = require('app/core/initSteps');
+const journey = require('app/journeys/probate.cjs');
+const initSteps = require('app/core/initSteps.cjs');
 const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const coreContextMockData = require('../../data/core-context-mock-data.json');

@@ -1,7 +1,7 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const caseTypes = require('app/utils/CaseTypes');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const config = require('config');
 const nock = require('nock');
 

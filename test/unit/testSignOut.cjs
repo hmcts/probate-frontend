@@ -1,9 +1,9 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const assert = require('chai').assert;
 const rewire = require('rewire');
-const SignOut = rewire('app/steps/ui/signout');
+const SignOut = rewire('app/steps/ui/signout/index.cjs');
 const sinon = require('sinon');
 
 describe('Sign-Out', () => {

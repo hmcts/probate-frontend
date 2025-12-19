@@ -1,6 +1,6 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const requireDir = require('require-directory');
 const PaymentBreakdown = require('app/steps/ui/payment/breakdown');
 const copiesContent = requireDir(module, '../../../app/resources/en/translation/copies');

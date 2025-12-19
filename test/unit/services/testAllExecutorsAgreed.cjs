@@ -2,9 +2,9 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed');
-const FormatUrl = require('app/utils/FormatUrl');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const AllExecutorsAgreed = require('app/services/AllExecutorsAgreed.cjs');
+const FormatUrl = require('app/utils/FormatUrl.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('AllExecutorsAgreedService', () => {
     describe('get()', () => {

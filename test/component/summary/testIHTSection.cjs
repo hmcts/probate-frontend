@@ -1,7 +1,7 @@
 'use strict';
 
 const requireDir = require('require-directory');
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ihtContent = requireDir(module, '../../../app/resources/en/translation/iht');
 
 describe('summary-iht-section', () => {

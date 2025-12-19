@@ -1,13 +1,13 @@
 'use strict';
 
 const expect = require('chai').expect;
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const sinon = require('sinon');
 const rewire = require('rewire');
-const Declaration = rewire('app/steps/ui/declaration');
+const Declaration = rewire('app/steps/ui/declaration/index.cjs');
 const co = require('co');
-const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration');
-const caseTypes = require('app/utils/CaseTypes');
+const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const {assert} = require('chai');
 
 describe('Declaration', () => {

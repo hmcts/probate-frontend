@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const rewire = require('rewire');
-const FormatUrl = rewire('app/utils/FormatUrl');
+const FormatUrl = rewire('app/utils/FormatUrl.cjs');
 
 describe('FormatUrl.js', () => {
     describe('format()', () => {

@@ -1,7 +1,7 @@
 'use strict';
 
 const {expect} = require('chai');
-const normalizeNonIdamPages = require('app/utils/configNormalisers.js');
+const normalizeNonIdamPages = require('app/utils/configNormalisers.cjs');
 
 describe('normalizeNonIdamPages', () => {
     it('returns the same array instance when input is an array', () => {

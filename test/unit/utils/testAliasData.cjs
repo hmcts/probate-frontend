@@ -1,5 +1,5 @@
 'use strict';
-const AliasData = require('app/utils/AliasData.js');
+const AliasData = require('app/utils/AliasData.cjs');
 const expect = require('chai').expect;
 
 describe('AliasData.js', () => {

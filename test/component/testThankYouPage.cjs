@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const config = require('config');
 const content = require('app/resources/en/translation/thankyou');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('thank-you', () => {
     let testWrapper;

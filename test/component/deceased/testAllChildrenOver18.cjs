@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const AnyDeceasedChildren = require('app/steps/ui/deceased/anydeceasedchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('all-children-over-18', () => {
     let testWrapper;

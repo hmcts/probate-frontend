@@ -1,6 +1,6 @@
 'use strict';
 
-const FormatDate = require('app/utils/FormatDate');
+const FormatDate = require('app/utils/FormatDate.cjs');
 const expect = require('chai').expect;
 
 describe('FormatDate.js', () => {

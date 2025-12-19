@@ -1,6 +1,6 @@
 'use strict';
 
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('app/utils/FormatName.cjs');
 const expect = require('chai').expect;
 
 describe('FormatName.js', () => {

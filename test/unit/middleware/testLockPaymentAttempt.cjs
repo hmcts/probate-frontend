@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const lockPaymentAttemptMiddleware = require('app/middleware/lockPaymentAttempt');
+const lockPaymentAttemptMiddleware = require('app/middleware/lockPaymentAttempt.cjs');
 
 describe('lockPaymentAttemptMiddleware', () => {
     describe('lockPaymentAttempt', () => {

@@ -1,9 +1,9 @@
 'use strict';
 
 const expect = require('chai').expect;
-const ServiceAuthoriser = require('app/utils/ServiceAuthoriser');
+const ServiceAuthoriser = require('app/utils/ServiceAuthoriser.cjs');
 const sinon = require('sinon');
-const Service = require('app/services/Service');
+const Service = require('app/services/Service.cjs');
 let serviceAuthoriser;
 let fetchTextStub;
 

@@ -3,8 +3,8 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
-const Payment = rewire('app/services/Payment');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const Payment = rewire('app/services/Payment.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('PaymentService', () => {
     describe('get()', () => {

@@ -2,9 +2,9 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const InviteData = require('app/services/InviteData');
-const FormatUrl = require('app/utils/FormatUrl');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const InviteData = require('app/services/InviteData.cjs');
+const FormatUrl = require('app/utils/FormatUrl.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('InviteDataService', () => {
     describe('updateContactDetails()', () => {

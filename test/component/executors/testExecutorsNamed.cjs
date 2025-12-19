@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ExecutorsNames = require('app/steps/ui/executors/names');
 const Equality = require('app/steps/ui/equality');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('executors-named', () => {
     let testWrapper, sessionData;

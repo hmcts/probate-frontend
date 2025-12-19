@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const sinon = require('sinon');
 const when = require('when');
-const PostcodeAddress = require('app/services/PostcodeAddress');
+const PostcodeAddress = require('app/services/PostcodeAddress.cjs');
 const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
 const postcodeAddress = new PostcodeAddress();
 

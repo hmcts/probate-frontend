@@ -1,8 +1,8 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ApplicantAddress = require('app/steps/ui/applicant/address');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 
 describe('applicant-phone', () => {
     let testWrapper;

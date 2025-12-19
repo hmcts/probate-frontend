@@ -2,10 +2,10 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const SubmitData = require('app/services/SubmitData');
+const SubmitData = require('app/services/SubmitData.cjs');
 const config = require('config');
-const caseTypes = require('app/utils/CaseTypes');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const caseTypes = require('app/utils/CaseTypes.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('SubmitDataService', () => {
     describe('submit()', () => {

@@ -1,4 +1,4 @@
-const MaritalStatusEnum = require('app/utils/MaritalStatusEnum');
+const MaritalStatusEnum = require('app/utils/MaritalStatusEnum.cjs');
 const expect = require('chai').expect;
 
 describe('MaritalStatusEnum.js', () => {

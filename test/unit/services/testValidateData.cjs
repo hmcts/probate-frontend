@@ -2,9 +2,9 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const ValidateData = require('app/services/ValidateData');
-const caseTypes = require('app/utils/CaseTypes');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const ValidateData = require('app/services/ValidateData.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('ValidateData', () => {
     describe('put()', () => {

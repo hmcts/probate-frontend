@@ -1,6 +1,6 @@
 'use strict';
 
-const CaseProgress = require('app/utils/CaseProgress');
+const CaseProgress = require('app/utils/CaseProgress.cjs');
 const expect = require('chai').expect;
 
 describe('CaseProgress.js', () => {

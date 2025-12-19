@@ -1,8 +1,8 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {assert, expect} = require('chai');
-const journey = require('app/journeys/probate');
+const journey = require('app/journeys/probate.cjs');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecsInvite = steps.ExecutorsInvite;
 

@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ExecutorCurrentName = require('app/steps/ui/executors/currentname');
 const commonContent = require('app/resources/en/translation/common');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('executor-current-name', () => {
     let testWrapper, sessionData;

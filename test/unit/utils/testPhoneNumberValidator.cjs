@@ -1,4 +1,4 @@
-const PhoneNumberValidator = require('app/utils/PhoneNumberValidator');
+const PhoneNumberValidator = require('app/utils/PhoneNumberValidator.cjs');
 const expect = require('chai').expect;
 
 describe('PhoneNumberValidator.js', () => {

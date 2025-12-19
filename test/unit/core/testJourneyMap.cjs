@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const rewire = require('rewire');
-const JourneyMap = rewire('app/core/JourneyMap');
+const JourneyMap = rewire('app/core/JourneyMap.cjs');
 
 describe('JourneyMap.js', () => {
     let currentStep;

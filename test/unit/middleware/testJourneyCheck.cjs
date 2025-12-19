@@ -2,8 +2,8 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const journeyCheck = require('app/middleware/journeyCheck');
-const caseTypes = require('app/utils/CaseTypes');
+const journeyCheck = require('app/middleware/journeyCheck.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('Security component', () => {
     it('should load the next page in the journey if case types match', () => {

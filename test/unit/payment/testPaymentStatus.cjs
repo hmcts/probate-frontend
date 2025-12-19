@@ -1,13 +1,13 @@
 /* eslint-disable max-lines */
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const expect = require('chai').expect;
 const co = require('co');
 const rewire = require('rewire');
-const PaymentStatus = rewire('app/steps/ui/payment/status');
+const PaymentStatus = rewire('app/steps/ui/payment/status/index.cjs');
 const nock = require('nock');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const content = require('app/resources/en/translation/payment/status');
 const i18next = require('i18next');
 

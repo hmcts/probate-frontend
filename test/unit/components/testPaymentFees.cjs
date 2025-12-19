@@ -1,6 +1,6 @@
 'use strict';
 
-const paymentData = require('app/components/payment-data');
+const paymentData = require('app/components/payment-data.cjs');
 const {expect} = require('chai');
 
 describe('payment-data.js', () => {

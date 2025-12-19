@@ -2,9 +2,9 @@
 
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const content = require('app/resources/en/translation/declaration');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const nock = require('nock');
 const config = require('config');
 const commonContent = require('../../app/resources/en/translation/common.json');

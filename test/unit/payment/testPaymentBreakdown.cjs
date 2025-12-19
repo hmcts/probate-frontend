@@ -2,17 +2,17 @@
 
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const expect = require('chai').expect;
 const co = require('co');
-const probateJourney = require('app/journeys/probate');
-const intestacyJourney = require('app/journeys/intestacy');
+const probateJourney = require('app/journeys/probate.cjs');
+const intestacyJourney = require('app/journeys/intestacy.cjs');
 const rewire = require('rewire');
-const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown');
+const PaymentBreakdown = rewire('app/steps/ui/payment/breakdown/index.cjs');
 const sinon = require('sinon');
-const FeesCalculator = require('app/utils/FeesCalculator');
-const Payment = require('app/services/Payment');
-const caseTypes = require('app/utils/CaseTypes');
+const FeesCalculator = require('app/utils/FeesCalculator.cjs');
+const Payment = require('app/services/Payment.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const content = require('app/resources/en/translation/payment/breakdown');
 const i18next = require('i18next');
 

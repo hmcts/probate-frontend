@@ -1,11 +1,11 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const IhtMethod = require('app/steps/ui/iht/method');
 const IhtPaper = require('app/steps/ui/iht/paper');
 const config = require('config');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const IhtEstateForm = require('app/steps/ui/iht/estateform');
 const CalcCheck = require('app/steps/ui/iht/calccheck');
 

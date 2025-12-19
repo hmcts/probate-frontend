@@ -1,6 +1,6 @@
 'use strict';
 
-const utils = require('app/components/utils');
+const utils = require('app/components/utils.cjs');
 const assert = require('chai').assert;
 
 describe('Test stringifyNumberBelow21', () => {

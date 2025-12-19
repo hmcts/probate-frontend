@@ -1,13 +1,13 @@
 'use strict';
 
-const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
-const FormatName = require('app/utils/FormatName');
+const applicant2NameFactory = require('app/utils/Applicant2NameFactory.cjs');
+const FormatName = require('app/utils/FormatName.cjs');
 const {get} = require('lodash');
 const expect = require('chai').expect;
 const config = require('config');
-const utils = require('app/components/step-utils');
+const utils = require('app/components/step-utils.cjs');
 const moment = require('moment');
-const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
+const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory.cjs');
 const formdata = require('test/data/complete-form').formdata;
 const content = {
     en: require('app/resources/en/translation/declaration'),

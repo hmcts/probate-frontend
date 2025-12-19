@@ -1,6 +1,6 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const applicantNameContent = require('app/resources/en/translation/applicant/name');
 const applicantPhoneContent = require('app/resources/en/translation/applicant/phone');
 const applicantAddressContent = require('app/resources/en/translation/applicant/address');
@@ -12,7 +12,7 @@ const anyExecutorsDiedContent = require('app/resources/en/translation/executors/
 const executorsRoles = require('app/resources/en/translation/executors/roles');
 const executorsAliasReason = require('app/resources/en/translation/executors/currentnamereason');
 const executorsDiedBefore = require('app/resources/en/translation/executors/whendied');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('app/utils/FormatName.cjs');
 
 describe('summary-executor-section', () => {
     let testWrapper, sessionData;

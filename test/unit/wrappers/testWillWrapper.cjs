@@ -1,4 +1,4 @@
-const WillWrapper = require('app/wrappers/Will');
+const WillWrapper = require('app/wrappers/Will.cjs');
 const expect = require('chai').expect;
 
 describe('Will', () => {

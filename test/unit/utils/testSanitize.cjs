@@ -1,6 +1,6 @@
 'use strict';
 
-const {sanitizeInput} = require('../../../app/utils/Sanitize');
+const {sanitizeInput} = require('../../../app/utils/Sanitize.cjs');
 const {expect} = require('chai');
 describe('Sanitize.sanitizeInput', () => {
     it('should remove dangerous keys from the input object', () => {

@@ -1,10 +1,10 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const expect = require('chai').expect;
 const rewire = require('rewire');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const CitizensHub = rewire('app/steps/ui/citizenshub');
+const CitizensHub = rewire('app/steps/ui/citizenshub/index.cjs');
 const i18next = require('i18next');
 const co = require('co');
 

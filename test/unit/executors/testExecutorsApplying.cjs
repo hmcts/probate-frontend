@@ -1,5 +1,5 @@
 'use strict';
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {expect} = require('chai');
 const assert = require('chai').assert;
 

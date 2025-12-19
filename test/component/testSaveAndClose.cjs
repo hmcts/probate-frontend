@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const TaskList = require('app/steps/ui/tasklist');
 const ApplicantNameAsOnWill = require('app/steps/ui/applicant/nameasonwill');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 
 describe('save-and-close', () => {
     let testWrapper;

@@ -1,11 +1,11 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {assert, expect} = require('chai');
 const co = require('co');
 const rewire = require('rewire');
-const Summary = rewire('app/steps/ui/summary');
-const probateJourney = require('app/journeys/probate');
+const Summary = rewire('app/steps/ui/summary/index.cjs');
+const probateJourney = require('app/journeys/probate.cjs');
 const coreContextMockData = require('../data/core-context-mock-data.json');
 
 describe('Summary', () => {

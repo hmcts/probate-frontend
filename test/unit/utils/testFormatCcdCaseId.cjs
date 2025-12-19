@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
+const FormatCcdCaseId = require('app/utils/FormatCcdCaseId.cjs');
 
 describe('FormatCcdCaseId', () => {
     describe('format()', () => {

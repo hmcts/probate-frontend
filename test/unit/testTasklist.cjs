@@ -2,17 +2,17 @@
 
 'use strict';
 
-const initSteps = require('app/core/initSteps');
-const JourneyMap = require('app/core/JourneyMap');
+const initSteps = require('app/core/initSteps.cjs');
+const JourneyMap = require('app/core/JourneyMap.cjs');
 const {expect, assert} = require('chai');
 const completedForm = require('test/data/complete-form').formdata;
 const completedFormWillConditionOn = require('test/data/complete-form-will-condition-toggle-on.json').formdata;
-const journeyProbate = require('app/journeys/probate');
-const journeyIntestacy = require('app/journeys/intestacy');
+const journeyProbate = require('app/journeys/probate.cjs');
+const journeyIntestacy = require('app/journeys/intestacy.cjs');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const taskList = steps.TaskList;
-const caseTypes = require('app/utils/CaseTypes');
-const DateValidation = require('app/utils/DateValidation');
+const caseTypes = require('app/utils/CaseTypes.cjs');
+const DateValidation = require('app/utils/DateValidation.cjs');
 const sinon = require('sinon');
 
 describe('Tasklist', () => {

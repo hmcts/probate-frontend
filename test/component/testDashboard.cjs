@@ -1,6 +1,6 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const commonContent = require('app/resources/en/translation/common');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;

@@ -1,7 +1,7 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const caseTypes = require('app/utils/CaseTypes');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('executors-additional-invite-sent', () => {
     let testWrapper;

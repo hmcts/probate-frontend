@@ -1,9 +1,9 @@
 'use strict';
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ApplicantPhone = require('app/steps/ui/applicant/phone');
 const ApplicantAlias = require('app/steps/ui/applicant/alias');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('applicant-name-as-on-will', () => {
     let testWrapper;

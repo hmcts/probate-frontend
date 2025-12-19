@@ -1,6 +1,6 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const {assert} = require('chai');
 const PinSent = require('app/steps/ui/pin/sent');
 const commonContent = require('app/resources/en/translation/common');

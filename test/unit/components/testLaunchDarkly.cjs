@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const LaunchDarkly = require('app/components/launch-darkly');
+const LaunchDarkly = require('app/components/launch-darkly.cjs');
 
 describe('LaunchDarkly', () => {
     let ld = null;

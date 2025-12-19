@@ -1,10 +1,10 @@
 'use strict';
 
 const requireDir = require('require-directory');
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const applicantContent = requireDir(module, '../../../app/resources/en/translation/applicant');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('app/utils/FormatName.cjs');
 
 describe('summary-applicants-section', () => {
     let testWrapper;

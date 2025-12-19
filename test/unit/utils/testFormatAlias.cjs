@@ -1,6 +1,6 @@
 'use strict';
 
-const FormatAlias = require('app/utils/FormatAlias');
+const FormatAlias = require('app/utils/FormatAlias.cjs');
 const expect = require('chai').expect;
 
 describe('FormatAlias.js', () => {

@@ -1,13 +1,13 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
-const PinNumber = require('app/services/PinNumber');
+const PinNumber = require('app/services/PinNumber.cjs');
 const sinon = require('sinon');
 const rewire = require('rewire');
-const PinResend = rewire('app/steps/ui/pin/resend');
-const caseTypes = require('app/utils/CaseTypes');
+const PinResend = rewire('app/steps/ui/pin/resend/index.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const co = require('co');
 const i18next = require('i18next');
 const section = 'pin';

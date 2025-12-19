@@ -3,9 +3,9 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
-const documentDownload = rewire('app/middleware/documentDownload');
-const probateJourney = require('app/journeys/probate');
-const caseTypes = require('app/utils/CaseTypes');
+const documentDownload = rewire('app/middleware/documentDownload.cjs');
+const probateJourney = require('app/journeys/probate.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('DocumentDownloadMiddleware', () => {
     describe('documentDownload()', () => {

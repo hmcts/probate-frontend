@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const sinon = require('sinon');
-const FeesCalculator = require('app/utils/FeesCalculator');
+const FeesCalculator = require('app/utils/FeesCalculator.cjs');
 let feesCalculator;
 
 describe('payment-breakdown', () => {

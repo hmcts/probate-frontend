@@ -2,12 +2,12 @@
 'use strict';
 
 const {expect} = require('chai');
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const sinon = require('sinon');
-const ExecutorsWrapper = require('app/wrappers/Executors');
+const ExecutorsWrapper = require('app/wrappers/Executors.cjs');
 const content = require('app/resources/en/translation/declaration');
 const rewire = require('rewire');
-const Declaration = rewire('app/steps/ui/declaration');
+const Declaration = rewire('app/steps/ui/declaration/index.cjs');
 
 describe('Declaration', () => {
     const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]).Declaration;

@@ -2,9 +2,9 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const PinNumber = require('app/services/PinNumber');
-const FormatUrl = require('app/utils/FormatUrl');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const PinNumber = require('app/services/PinNumber.cjs');
+const FormatUrl = require('app/utils/FormatUrl.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('PinNumberService', () => {
     describe('get()', () => {

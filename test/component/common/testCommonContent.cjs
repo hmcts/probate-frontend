@@ -1,7 +1,7 @@
 'use strict';
 
 const isEmpty = require('lodash').isEmpty;
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const commonContent = require('app/resources/en/translation/common');
 let localSessionData;
 

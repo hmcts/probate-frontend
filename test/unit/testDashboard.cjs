@@ -2,11 +2,11 @@
 
 const rewire = require('rewire');
 const sinon = require('sinon');
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {assert, expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
 const Dashboard = steps.Dashboard;
-const dashboard = rewire('app/steps/ui/dashboard');
+const dashboard = rewire('app/steps/ui/dashboard/index.cjs');
 
 describe('Dashboard', () => {
     describe('getUrl()', () => {

@@ -1,0 +1,27 @@
+'use strict';
+
+const Step = require('app/core/steps/Step.cjs');
+
+class Timeout extends Step {
+
+    static getUrl () {
+        return '/time-out';
+    }
+
+    getContextData(req) {
+        const ctx = super.getContextData(req);
+        req.session.destroy();
+        delete req.cookies;
+        delete req.sessionID;
+        delete req.session;
+        delete req.sessionStore;
+
+        return ctx;
+    }
+
+    shouldHaveBackLink() {
+        return false;
+    }
+}
+
+module.exports = Timeout;

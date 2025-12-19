@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const DateStep = require('app/core/steps/DateStep');
+const DateStep = require('app/core/steps/DateStep.cjs');
 const sinon = require('sinon');
 const i18next = require('i18next');
 

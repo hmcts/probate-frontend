@@ -1,9 +1,9 @@
-const UIStepRunner = require('app/core/runners/UIStepRunner');
+const UIStepRunner = require('app/core/runners/UIStepRunner.cjs');
 const sinon = require('sinon');
 const chai = require('chai');
 const expect = chai.expect;
 const sinonChai = require('sinon-chai');
-const DetectDataChange = require('app/wrappers/DetectDataChange');
+const DetectDataChange = require('app/wrappers/DetectDataChange.cjs');
 chai.use(sinonChai);
 const co = require('co');
 

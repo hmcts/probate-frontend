@@ -4,8 +4,8 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
-const FeatureToggle = require('app/utils/FeatureToggle');
-const RewiredFeatureToggle = rewire('app/utils/FeatureToggle');
+const FeatureToggle = require('app/utils/FeatureToggle.cjs');
+const RewiredFeatureToggle = rewire('app/utils/FeatureToggle.cjs');
 
 describe('FeatureToggle', () => {
     describe('checkToggle()', () => {

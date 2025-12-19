@@ -5,8 +5,8 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
-const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const multipleApplicationsMiddleware = rewire('app/middleware/multipleApplications.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 //DTSPB-529 Test file duplicated for new probate death cert flow.
 

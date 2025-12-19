@@ -1,0 +1,340 @@
+'use strict';
+/* eslint-disable max-lines */
+const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory.cjs');
+const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory.cjs');
+const ValidationStep = require('app/core/steps/ValidationStep.cjs');
+const {mapValues, get, merge} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors.cjs');
+const WillWrapper = require('app/wrappers/Will.cjs');
+const FormatName = require('app/utils/FormatName.cjs');
+const FormatAlias = require('app/utils/FormatAlias.cjs');
+const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder.cjs');
+const legalDocumentJSONObjBuilder = new LegalDocumentJSONObjectBuilder();
+const logger = require('app/components/logger.cjs')('Init');
+const InviteData = require('app/services/InviteData.cjs');
+const config = require('config');
+const caseTypes = require('app/utils/CaseTypes.cjs');
+const UploadLegalDeclaration = require('app/services/UploadLegalDeclaration.cjs');
+const ServiceMapper = require('app/utils/ServiceMapper.cjs');
+const FieldError = require('app/components/error');
+const utils = require('app/components/step-utils.cjs');
+const moment = require('moment');
+const IhtThreshold = require('app/utils/IhtThreshold.cjs');
+const DocumentsWrapper = require('app/wrappers/Documents.cjs');
+const {sanitizeInput} = require('../../../utils/Sanitize.cjs');
+
+class Declaration extends ValidationStep {
+    static getUrl() {
+        return '/declaration';
+    }
+
+    constructor(steps, section = null, resourcePath, i18next, schema, language = 'en') {
+        super(steps, section, resourcePath, i18next, schema, language);
+        this.content = {
+            en: require(`app/resources/en/translation/${resourcePath}`),
+            cy: require(`app/resources/cy/translation/${resourcePath}`)
+        };
+    }
+
+    pruneFormData(body, ctx) {
+        if (body && Object.keys(body).length > 0 && !Object.keys(body).includes('declarationCheckbox')) {
+            delete ctx.declarationCheckbox;
+        }
+        return ctx;
+    }
+
+    * handlePost(ctx, errors, formdata, session) {
+        const result = yield this.validateFormData(formdata, ctx, session.req);
+        let returnErrors;
+        if (result.type === 'VALIDATION') {
+            returnErrors = [FieldError('businessError', 'validationError', this.resourcePath, ctx, session.language)];
+        } else {
+            returnErrors = errors;
+        }
+        const uploadLegalDec = new UploadLegalDeclaration();
+        formdata.statementOfTruthDocument =
+            yield uploadLegalDec.generateAndUpload(ctx.sessionID, session.req.userId, session.req);
+        session.form.statementOfTruthDocument = formdata.statementOfTruthDocument;
+        const documentsWrapper = new DocumentsWrapper(formdata);
+        if (!documentsWrapper.documentsRequired() && formdata.applicant) {
+            formdata.applicant.notRequiredToSendDocuments = true;
+        }
+        if (ctx.hasDataChanged && ctx.invitesSent) {
+            const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
+            yield inviteData.resetAgreedFlag(ctx.ccdCase.id, ctx)
+                .then(result => {
+                    if (result.name === 'Error') {
+                        logger.error(`Error while reset agreed flags: ${result}`);
+                        throw new ReferenceError('Error reset agreed flags');
+                    } else {
+                        formdata.executors.list = ctx.executorsWrapper.removeAgreedFlag();
+                        formdata.declaration.hasDataChanged = 'false';
+                    }
+                });
+        }
+        return [ctx, returnErrors];
+    }
+
+    * validateFormData(data, ctx, req) {
+        const validateData = ServiceMapper.map(
+            'ValidateData',
+            [config.services.orchestrator.url, ctx.sessionID]
+        );
+        return yield validateData.put(data, req.authToken, req.session.serviceAuthorization, caseTypes.getCaseType(req.session));
+    }
+
+    getFormDataForTemplate(content, formdata) {
+        const formdataApplicant = formdata.applicant || {};
+        formdata.applicantName = FormatName.format(formdataApplicant);
+        formdata.applicantAddress = get(formdataApplicant, 'address', {});
+        const formdataDeceased = formdata.deceased || {};
+        formdata.deceasedName = FormatName.format(formdataDeceased);
+        formdata.deceasedAddress = get(formdataDeceased, 'address', {});
+        const otherNames = this.collectOtherNames(formdataDeceased);
+
+        formdata.deceasedOtherNames = {
+            en: FormatName.formatMultipleNamesAndAddress(otherNames, content.en),
+            cy: FormatName.formatMultipleNamesAndAddress(otherNames, content.cy)
+        };
+
+        formdata.dobFormattedDate = {};
+        formdata.dodFormattedDate = {};
+        formdata.dobFormattedDate.en = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'en') : '';
+        formdata.dodFormattedDate.en = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'en') : '';
+
+        if (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes') {
+            formdata.dobFormattedDate.cy = formdataDeceased['dob-day'] ? utils.formattedDate(moment(formdataDeceased['dob-day'] + '/' + formdataDeceased['dob-month'] + '/' + formdataDeceased['dob-year'], config.dateFormat).parseZone(), 'cy') : '';
+            formdata.dodFormattedDate.cy = formdataDeceased['dod-day'] ? utils.formattedDate(moment(formdataDeceased['dod-day'] + '/' + formdataDeceased['dod-month'] + '/' + formdataDeceased['dod-year'], config.dateFormat).parseZone(), 'cy') : '';
+        }
+
+        formdata.maritalStatus = formdataDeceased.maritalStatus;
+        formdata.relationshipToDeceased = formdataApplicant.relationshipToDeceased;
+        formdata.anyChildren = formdataDeceased.anyChildren;
+        formdata.anyOtherChildren = formdataDeceased.anyOtherChildren;
+
+        const formdataIht = formdata.iht || {};
+        formdata.ihtGrossValue = formdataIht.grossValue ? formdataIht.grossValue.toFixed(2) : 0;
+        formdata.ihtNetValue = formdataIht.netValue ? formdataIht.netValue.toFixed(2) : 0;
+        formdata.ihtNetValueAssetsOutside = formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside.toFixed(2) : 0;
+        formdata.ihtTotalNetValue = formdataIht.netValue;
+        formdata.ihtTotalNetValue += formdataIht.netValueAssetsOutside ? formdataIht.netValueAssetsOutside : 0;
+        return formdata;
+    }
+
+    collectOtherNames(formdataDeceased) {
+        const otherNames = structuredClone(get(formdataDeceased, 'otherNames', {}));
+        const isDifferentNameOnWill = get(formdataDeceased, 'nameAsOnTheWill') === 'optionNo';
+
+        if (isDifferentNameOnWill) {
+            const {aliasFirstNameOnWill = '', aliasLastNameOnWill = ''} = formdataDeceased;
+            const aliasExists = Object.values(otherNames).some(
+                ({firstName, lastName}) =>
+                    firstName === aliasFirstNameOnWill && lastName === aliasLastNameOnWill
+            );
+
+            if (!aliasExists) {
+                otherNames.willAlias = {
+                    firstName: aliasFirstNameOnWill,
+                    lastName: aliasLastNameOnWill
+                };
+            }
+        }
+
+        return otherNames;
+    }
+
+    generateContent(ctx, formdata) {
+        const contentCtx = merge(
+            {},
+            sanitizeInput(formdata),
+            sanitizeInput(ctx),
+            this.commonProps
+        );
+        mapValues(this.content.en, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+        mapValues(this.content.cy, (value, key) => this.i18next.t(`${this.resourcePath.replace(/\//g, '.')}.${key}`, contentCtx));
+        return this.content;
+    }
+
+    getContextData(req) {
+        let templateData;
+        let ctx = super.getContextData(req);
+        ctx = this.pruneFormData(req.body, ctx);
+        const formdata = req.session.form;
+        ctx.bilingual = (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes').toString();
+        ctx.language = req.session.language;
+        const content = this.generateContent(ctx, formdata, req.session.language);
+        const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
+        ctx.exceptedEstate = formdata.iht && formdata.iht.estateValueCompleted === 'optionNo';
+        if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
+            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > ctx.ihtThreshold)).toString();
+            if (ctx.showNetValueAssetsOutside) {
+                ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
+            }
+            templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate);
+        } else {
+            ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.invitesSent = get(formdata, 'executors.invitesSent');
+            ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
+            ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
+            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent;
+
+            const hasCodicils = (new WillWrapper(formdata.will)).hasCodicils();
+            const codicilsNumber = (new WillWrapper(formdata.will)).codicilsNumber();
+            const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
+
+            const executorsApplying = ctx.executorsWrapper.executorsApplying();
+            const executorsApplyingText = {
+                en: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, hasCodicils, codicilsNumber, formdata, 'en'),
+                cy: this.executorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, hasCodicils, codicilsNumber, formdata, 'cy')
+            };
+
+            const executorsNotApplying = ctx.executorsWrapper.executorsNotApplying();
+            const executorsNotApplyingText = {
+                en: this.executorsNotApplying(executorsNotApplying, content.en, formdata.deceasedName, hasCodicils, req.session.language),
+                cy: this.executorsNotApplying(executorsNotApplying, content.cy, formdata.deceasedName, hasCodicils, req.session.language)
+            };
+
+            templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
+        }
+
+        merge(ctx, sanitizeInput(templateData));
+        ctx.softStop = this.anySoftStops(formdata, ctx);
+        ctx.authToken = req.authToken;
+        ctx.serviceAuthorization = req.session.serviceAuthorization;
+        return ctx;
+    }
+
+    codicilsSuffix(hasCodicils) {
+        return hasCodicils ? '-codicils' : '';
+    }
+
+    multipleApplicantSuffix(hasMultipleApplicants) {
+        return hasMultipleApplicants ? '-multipleApplicants' : '';
+    }
+
+    executorsApplying(hasMultipleApplicants, executorsApplying, content, hasCodicils, codicilsNumber, formdata, language) {
+        const deceasedName = formdata.deceasedName;
+        const mainApplicantName = formdata.applicantName;
+        const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
+        return executorsApplying.map(executor => {
+            return this.executorsApplyingText(
+                {
+                    hasCodicils,
+                    codicilsNumber,
+                    hasMultipleApplicants,
+                    content,
+                    multipleApplicantSuffix,
+                    executor,
+                    deceasedName,
+                    mainApplicantName,
+                    language
+                });
+        });
+    }
+
+    executorsApplyingText(props) {
+        const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
+        const codicilsSuffix = this.codicilsSuffix(props.hasCodicils);
+        const applicantNameOnWill = FormatName.formatName(props.executor);
+        const applicantCurrentName = FormatName.formatName(props.executor, true);
+        const aliasSuffix = (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') || props.executor.currentName ? '-alias' : '';
+        const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.language);
+        const content = {
+            name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
+                .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
+                .replace(/{applicantCurrentName}/g, applicantCurrentName)
+                .replace('{applicantNameOnWill}', props.executor.hasOtherName ? ` ${props.content.as} ${applicantNameOnWill}` : '')
+                .replace('{aliasReason}', aliasReason),
+            sign: ''
+        };
+        if (props.executor.isApplicant) {
+            content.sign = props.content[`applicantSend${props.multipleApplicantSuffix}${mainApplicantSuffix}${codicilsSuffix}`]
+                .replace('{applicantName}', props.mainApplicantName)
+                .replace('{deceasedName}', props.deceasedName);
+
+            if (props.hasCodicils) {
+                if (props.codicilsNumber === 1) {
+                    content.sign = content.sign
+                        .replace('{codicilsNumber}', '')
+                        .replace('{codicils}', props.content.codicil);
+                } else {
+                    content.sign = content.sign
+                        .replace('{codicilsNumber}', props.codicilsNumber)
+                        .replace('{codicils}', props.content.codicils);
+                }
+            }
+        }
+        return content;
+    }
+
+    executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {
+        return executorsNotApplying.map(executor => {
+            return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]
+                .replace('{otherExecutorName}', FormatName.formatName(executor))
+                .replace('{otherExecutorApplying}', this.executorsNotApplyingText(executor, content, language))
+                .replace('{deceasedName}', deceasedName);
+        });
+    }
+
+    executorsNotApplyingText(executor, content, language) {
+        const executorContent = require(`app/resources/${language}/translation/executors/executorcontent`);
+
+        if (Object.keys(executorContent).includes(executor.notApplyingKey)) {
+            let executorApplyingText = content[executor.notApplyingKey];
+
+            if (executor.executorNotified === 'optionYes') {
+                executorApplyingText += ` ${content.additionalExecutorNotified}`;
+            }
+            return executorApplyingText;
+        }
+    }
+
+    nextStepOptions(ctx) {
+        ctx.hasDataChangedAfterEmailSent = ctx.hasDataChanged && ctx.invitesSent;
+        ctx.hasEmailChanged = ctx.executorsEmailChanged && ctx.invitesSent;
+
+        return {
+            options: [
+                {key: 'hasExecutorsToNotify', value: true, choice: 'sendAdditionalInvites'},
+                {key: 'hasEmailChanged', value: true, choice: 'executorEmailChanged'},
+                {key: 'hasDataChangedAfterEmailSent', value: true, choice: 'dataChangedAfterEmailSent'},
+                {key: 'hasMultipleApplicants', value: true, choice: 'otherExecutorsApplying'}
+            ]
+        };
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        delete ctx.showNetValueAssetsOutside;
+        delete ctx.ihtNetValueAssetsOutside;
+        delete ctx.hasMultipleApplicants;
+
+        delete ctx.executorsWrapper;
+        delete ctx.hasDataChanged;
+        delete ctx.hasExecutorsToNotify;
+        delete ctx.executorsEmailChanged;
+        delete ctx.hasDataChangedAfterEmailSent;
+        delete ctx.invitesSent;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
+        delete ctx.bilingual;
+        delete ctx.language;
+        delete ctx.exceptedEstate;
+        delete ctx.serviceAuthorization;
+        delete ctx.authToken;
+        return [ctx, formdata];
+    }
+
+    renderPage(res, html) {
+        const formdata = res.req.session.form;
+        res.req.session.form.legalDeclaration = legalDocumentJSONObjBuilder.build(formdata, html);
+        res.send(html);
+    }
+
+    isComplete(ctx, formdata) {
+        return [get(formdata, 'declaration.declarationCheckbox') === 'true', 'inProgress'];
+    }
+}
+
+module.exports = Declaration;

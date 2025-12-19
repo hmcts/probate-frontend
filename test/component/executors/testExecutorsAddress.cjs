@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const Equality = require('app/steps/ui/equality');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails.cjs');
 const ExecutorRoles = require('app/steps/ui/executors/roles');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('executors-address', () => {
     let testWrapper, sessionData;

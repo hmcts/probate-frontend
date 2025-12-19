@@ -1,7 +1,7 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const nock = require('nock');

@@ -2,13 +2,13 @@
 
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ExecutorsInvite = require('app/steps/ui/executors/invite');
 const ExecutorsUpdateInvite = require('app/steps/ui/executors/updateinvite');
 const ExecutorsAdditionalInvite = require('app/steps/ui/executors/additionalinvite');
 const ExecutorsChangeMade = require('app/steps/ui/executors/changemade');
 const Tasklist = require('app/steps/ui/tasklist');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const {assert} = require('chai');
 const nock = require('nock');
 const config = require('config');

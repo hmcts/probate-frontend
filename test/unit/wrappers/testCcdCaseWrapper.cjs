@@ -1,6 +1,6 @@
 'use strict';
 
-const CcdCaseWrapper = require('app/wrappers/CcdCase');
+const CcdCaseWrapper = require('app/wrappers/CcdCase.cjs');
 const expect = require('chai').expect;
 
 describe('CcdCase.js', () => {

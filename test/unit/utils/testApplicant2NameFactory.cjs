@@ -2,7 +2,7 @@
 
 const content = require('app/resources/en/translation/declaration');
 const expect = require('chai').expect;
-const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
+const applicant2NameFactory = require('app/utils/Applicant2NameFactory.cjs');
 
 describe('Applicant2NameFactory', () => {
     let formdata;

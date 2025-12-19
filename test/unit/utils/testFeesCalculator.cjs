@@ -3,11 +3,11 @@
 'use strict';
 
 const expect = require('chai').expect;
-const FeesCalculator = require('app/utils/FeesCalculator');
-const FeesLookup = require('app/services/FeesLookup');
+const FeesCalculator = require('app/utils/FeesCalculator.cjs');
+const FeesLookup = require('app/services/FeesLookup.cjs');
 const sinon = require('sinon');
 const config = require('config');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 let feesCalculator;
 let formdata;

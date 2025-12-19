@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const DocumentPageUtil = require('app/utils/DocumentPageUtil');
+const DocumentPageUtil = require('app/utils/DocumentPageUtil.cjs');
 
 describe('DocumentPageUtil.js', () => {
     describe('getCheckListItemTextOnly()', () => {

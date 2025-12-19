@@ -1,7 +1,7 @@
-const setServiceAuthorisationToken = require('../../../app/middleware/setServiceAuthorisationToken');
-const {commonReq, commonRes, commonNext} = require('../../util/commonConsts');
+const setServiceAuthorisationToken = require('../../../app/middleware/setServiceAuthorisationToken.cjs');
+const {commonReq, commonRes, commonNext} = require('../../util/commonConsts.cjs');
 const sinon = require('sinon');
-const ServiceAuthoriser = require('../../../app/utils/ServiceAuthoriser');
+const ServiceAuthoriser = require('../../../app/utils/ServiceAuthoriser.cjs');
 const {expect} = require('chai');
 
 describe('setServiceAuthorisationToken', () => {

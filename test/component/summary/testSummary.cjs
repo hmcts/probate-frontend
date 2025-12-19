@@ -1,6 +1,6 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const TaskList = require('app/steps/ui/tasklist');
 
 describe('summary', () => {

@@ -1,5 +1,5 @@
-const {getStore} = require('../../../app/components/utils');
-const {commonNext, commonRes} = require('../../util/commonConsts');
+const {getStore} = require('../../../app/components/utils.cjs');
+const {commonNext, commonRes} = require('../../util/commonConsts.cjs');
 const expect = require('chai').expect;
 
 describe('utils', () => {

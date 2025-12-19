@@ -2,11 +2,11 @@
 
 const expect = require('chai').expect;
 const rewire = require('rewire');
-const Service = rewire('app/services/Service');
+const Service = rewire('app/services/Service.cjs');
 const fetch = require('node-fetch');
 const HttpsProxyAgent = require('https-proxy-agent');
 const sinon = require('sinon');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('Service', () => {
     describe('get()', () => {

@@ -1,8 +1,8 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const {assert} = require('chai');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const nock = require('nock');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;

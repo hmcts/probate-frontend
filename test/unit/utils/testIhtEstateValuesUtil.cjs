@@ -1,4 +1,4 @@
-const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
+const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil.cjs');
 const expect = require('chai').expect;
 
 describe('IhtEstateValuesUtil.js', () => {

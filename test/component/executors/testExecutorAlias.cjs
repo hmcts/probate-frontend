@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const ExecutorsAlias = require('app/steps/ui/executors/alias');
 const ExecutorsCurrentName = require('app/steps/ui/executors/currentname');
-const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails');
-const caseTypes = require('app/utils/CaseTypes');
+const ExecutorContactDetails = require('app/steps/ui/executors/contactdetails.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const commonContent = require('../../../app/resources/en/translation/common.json');
 
 describe('executors-alias', () => {

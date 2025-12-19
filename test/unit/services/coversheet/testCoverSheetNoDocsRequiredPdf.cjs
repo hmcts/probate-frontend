@@ -2,8 +2,8 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const CoverSheetPdf = require('app/services/CoverSheetPdf');
-const Pdf = require('app/services/Pdf');
+const CoverSheetPdf = require('app/services/CoverSheetPdf.cjs');
+const Pdf = require('app/services/Pdf.cjs');
 const config = require('config');
 
 let postStub;

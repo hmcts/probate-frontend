@@ -2,8 +2,8 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const Authorise = require('app/services/Authorise');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const Authorise = require('app/services/Authorise.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('AuthoriseService', () => {
     describe('post()', () => {

@@ -1,6 +1,6 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const DeathCertificate = require('app/steps/ui/screeners/deathcertificate');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');

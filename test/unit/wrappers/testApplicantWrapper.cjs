@@ -1,6 +1,6 @@
 'use strict';
 
-const ApplicantWrapper = require('app/wrappers/Applicant');
+const ApplicantWrapper = require('app/wrappers/Applicant.cjs');
 const expect = require('chai').expect;
 
 describe('Applicant.js', () => {

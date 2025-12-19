@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const ExecutorCheckWill = require('app/steps/ui/executors/checkwill');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const ExecutorCheckWill = require('app/steps/ui/executors/checkwill/index.cjs');
 const formatAddress = address => address.replace(/,/g, ', ');
-const testCommonContent = require('test/component/common/testCommonContent');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 
 describe('applicant-address', () => {
     let testWrapper;

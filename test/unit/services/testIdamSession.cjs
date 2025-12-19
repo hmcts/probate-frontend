@@ -2,8 +2,8 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const IdamSession = require('app/services/IdamSession');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const IdamSession = require('app/services/IdamSession.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('IdamSessionService', () => {
     describe('get()', () => {

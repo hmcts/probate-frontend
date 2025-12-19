@@ -1,9 +1,9 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const commonContent = require('app/resources/en/translation/common');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('divorce-place', () => {
     let testWrapper;

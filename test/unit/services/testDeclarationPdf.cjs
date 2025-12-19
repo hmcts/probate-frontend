@@ -2,8 +2,8 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const ProbateDeclarationPdf = require('app/services/DeclarationPdf');
-const ProbatePdf = require('app/services/Pdf');
+const ProbateDeclarationPdf = require('app/services/DeclarationPdf.cjs');
+const ProbatePdf = require('app/services/Pdf.cjs');
 const config = require('config').pdf;
 
 describe('DeclarationPdfService', () => {

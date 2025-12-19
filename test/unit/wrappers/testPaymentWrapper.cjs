@@ -1,6 +1,6 @@
 'use strict';
 
-const PaymentWrapper = require('app/wrappers/Payment');
+const PaymentWrapper = require('app/wrappers/Payment.cjs');
 const expect = require('chai').expect;
 
 describe('Payment.js', () => {

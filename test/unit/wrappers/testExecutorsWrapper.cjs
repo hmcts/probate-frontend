@@ -2,7 +2,7 @@
 
 'use strict';
 
-const ExecutorsWrapper = require('app/wrappers/Executors');
+const ExecutorsWrapper = require('app/wrappers/Executors.cjs');
 const expect = require('chai').expect;
 let data;
 

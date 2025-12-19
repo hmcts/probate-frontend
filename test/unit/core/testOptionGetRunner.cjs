@@ -1,6 +1,6 @@
 'use strict';
 
-const OptionGetRunner = require('app/core/runners/OptionGetRunner');
+const OptionGetRunner = require('app/core/runners/OptionGetRunner.cjs');
 const sinon = require('sinon');
 const chai = require('chai');
 const expect = chai.expect;

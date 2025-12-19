@@ -2,10 +2,10 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const Oauth2Token = require('app/services/Oauth2Token');
+const Oauth2Token = require('app/services/Oauth2Token.cjs');
 const config = require('config');
 const {URLSearchParams} = require('url');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('Oauth2TokenService', () => {
     describe('post()', () => {

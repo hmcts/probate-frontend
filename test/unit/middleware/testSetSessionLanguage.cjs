@@ -1,6 +1,6 @@
 'use strict';
 
-const setSessionLanguage = require('../../../app/middleware/setSessionLanguage');
+const setSessionLanguage = require('../../../app/middleware/setSessionLanguage.cjs');
 
 const {assert} = require('chai');
 const sinon = require('sinon');

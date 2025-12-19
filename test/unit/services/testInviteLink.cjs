@@ -2,9 +2,9 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const InviteLink = require('app/services/InviteLink');
-const FormatUrl = require('app/utils/FormatUrl');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const InviteLink = require('app/services/InviteLink.cjs');
+const FormatUrl = require('app/utils/FormatUrl.cjs');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('InviteLinkService', () => {
     describe('get()', () => {

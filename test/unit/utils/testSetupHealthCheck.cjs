@@ -1,14 +1,14 @@
 'use strict';
 const healthcheck = require('@hmcts/nodejs-healthcheck');
-const setupHealthCheck = require('app/utils/setupHealthCheck');
+const setupHealthCheck = require('app/utils/setupHealthCheck.cjs');
 const config = require('config');
 const modulePath = 'app/utils';
 const sinon = require('sinon');
 const assert = require('sinon').assert;
 const expect = require('chai').expect;
 const outputs = require('@hmcts/nodejs-healthcheck/healthcheck/outputs');
-const FormatUrl = require('app/utils/FormatUrl');
-const logger = require('app/components/logger')('Init');
+const FormatUrl = require('app/utils/FormatUrl.cjs');
+const logger = require('app/components/logger.cjs')('Init');
 const app = {};
 let res = {};
 

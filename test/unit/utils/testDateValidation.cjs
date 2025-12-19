@@ -1,4 +1,4 @@
-const DateValidation = require('app/utils/DateValidation');
+const DateValidation = require('app/utils/DateValidation.cjs');
 const proxyquire = require('proxyquire');
 const expect = require('chai').expect;
 
@@ -53,7 +53,7 @@ describe('FormatDate.js', () => {
                 },
             };
 
-            const DateValidation = proxyquire('app/utils/DateValidation', {
+            const DateValidation = proxyquire('app/utils/DateValidation.cjs', {
                 'config': mockConfig,
             });
 
@@ -70,7 +70,7 @@ describe('FormatDate.js', () => {
                 },
             };
 
-            const DateValidation = proxyquire('app/utils/DateValidation', {
+            const DateValidation = proxyquire('app/utils/DateValidation.cjs', {
                 'config': mockConfig,
             });
             const inputDate = '2023-10-02';
@@ -90,7 +90,7 @@ describe('FormatDate.js', () => {
                 },
             };
 
-            const DateValidation = proxyquire('app/utils/DateValidation', {
+            const DateValidation = proxyquire('app/utils/DateValidation.cjs', {
                 'config': mockConfig,
             });
             const inputDate = '2023-12-15';
@@ -111,7 +111,7 @@ describe('FormatDate.js', () => {
                 },
             };
 
-            const DateValidation = proxyquire('app/utils/DateValidation', {
+            const DateValidation = proxyquire('app/utils/DateValidation.cjs', {
                 'config': mockConfig,
             });
             const inputDate = '2024-01-10'; // Recent modification date
@@ -131,7 +131,7 @@ describe('FormatDate.js', () => {
                 },
             };
 
-            const DateValidation = proxyquire('app/utils/DateValidation', {
+            const DateValidation = proxyquire('app/utils/DateValidation.cjs', {
                 'config': mockConfig,
             });
             const inputDate = '2023-06-01'; // Old case

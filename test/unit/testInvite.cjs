@@ -5,7 +5,7 @@ const sinonChai = require('sinon-chai');
 const expect = chai.expect;
 const sinon = require('sinon');
 const rewire = require('rewire');
-const InviteLink = rewire('app/invite');
+const InviteLink = rewire('app/invite.cjs');
 
 chai.use(sinonChai);
 

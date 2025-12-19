@@ -2,12 +2,12 @@
 
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
-const testCommonContent = require('test/component/common/testCommonContent');
+const TestWrapper = require('test/util/TestWrapper.cjs');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const declarationContent = require('app/resources/en/translation/declaration');
 const config = require('config');
 const nock = require('nock');
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('declaration, intestacy', () => {
     let testWrapper, contentData, sessionData;

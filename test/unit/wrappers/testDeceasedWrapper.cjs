@@ -1,6 +1,6 @@
 'use strict';
 
-const DeceasedWrapper = require('app/wrappers/Deceased');
+const DeceasedWrapper = require('app/wrappers/Deceased.cjs');
 const expect = require('chai').expect;
 
 describe('Deceased.js', () => {

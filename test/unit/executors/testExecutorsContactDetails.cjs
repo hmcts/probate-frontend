@@ -1,11 +1,11 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const co = require('co');
 const expect = require('chai').expect;
-const journey = require('app/journeys/probate');
+const journey = require('app/journeys/probate.cjs');
 const rewire = require('rewire');
-const ContactDetails = rewire('app/steps/ui/executors/contactdetails');
+const ContactDetails = rewire('app/steps/ui/executors/contactdetails/index.cjs');
 
 describe('Contact-Details', () => {
     let ctx;

@@ -1,8 +1,8 @@
 'use strict';
 
-const DocumentsWrapper = require('app/wrappers/Documents');
+const DocumentsWrapper = require('app/wrappers/Documents.cjs');
 const expect = require('chai').expect;
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('Documents.js', () => {
     describe('documentsSent()', () => {

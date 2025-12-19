@@ -1,12 +1,12 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const DeceasedAlias = require('app/steps/ui/deceased/alias');
-const testCommonContent = require('test/component/common/testCommonContent');
-const caseTypes = require('app/utils/CaseTypes');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 const config = require('config');
 const {expect} = require('chai');
-const initSteps = require('../../../app/core/initSteps');
+const initSteps = require('../../../app/core/initSteps.cjs');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ProbateEstateValues = steps.ProbateEstateValues;
 

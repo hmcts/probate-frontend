@@ -1,10 +1,10 @@
 'use strict';
 
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const {assert} = require('chai');
 const ExecutorsInvitesSent = require('app/steps/ui/executors/invitesent');
-const caseTypes = require('app/utils/CaseTypes');
-const testCommonContent = require('test/component/common/testCommonContent');
+const caseTypes = require('app/utils/CaseTypes.cjs');
+const testCommonContent = require('test/component/common/testCommonContent.cjs');
 const nock = require('nock');
 const config = require('config');
 const orchestratorServiceUrl = config.services.orchestrator.url;

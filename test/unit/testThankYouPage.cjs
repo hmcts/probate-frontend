@@ -1,13 +1,13 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const co = require('co');
 const expect = require('chai').expect;
 const rewire = require('rewire');
 const steps = initSteps([`${__dirname}/../../app/steps/action/`, `${__dirname}/../../app/steps/ui`]);
-const ThankYou = rewire('app/steps/ui/thankyou');
+const ThankYou = rewire('app/steps/ui/thankyou/index.cjs');
 const i18next = require('i18next');
-const caseTypes = require('../../app/utils/CaseTypes');
+const caseTypes = require('../../app/utils/CaseTypes.cjs');
 
 describe('ThankYou', () => {
     let section;

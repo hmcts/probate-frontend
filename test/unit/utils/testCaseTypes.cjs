@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const caseTypes = require('app/utils/CaseTypes');
+const caseTypes = require('app/utils/CaseTypes.cjs');
 
 describe('caseTypes', () => {
     describe('isIntestacyCaseType()', () => {

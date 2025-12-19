@@ -2,10 +2,10 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const Document = require('app/services/Document');
-const FormatUrl = require('app/utils/FormatUrl');
+const Document = require('app/services/Document.cjs');
+const FormatUrl = require('app/utils/FormatUrl.cjs');
 const config = require('config');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 
 describe('DocumentService', () => {
     describe('post()', () => {

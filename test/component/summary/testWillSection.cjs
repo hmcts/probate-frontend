@@ -1,7 +1,7 @@
 'use strict';
 
 const requireDir = require('require-directory');
-const TestWrapper = require('test/util/TestWrapper');
+const TestWrapper = require('test/util/TestWrapper.cjs');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
 const willContentWelsh = requireDir(module, '../../../app/resources/cy/translation/will');
 

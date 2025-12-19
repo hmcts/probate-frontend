@@ -1,6 +1,6 @@
 'use strict';
 
-const RegistryWrapper = require('app/wrappers/Registry');
+const RegistryWrapper = require('app/wrappers/Registry.cjs');
 const expect = require('chai').expect;
 
 describe('Registry.js', () => {

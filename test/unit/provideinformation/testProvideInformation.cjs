@@ -1,12 +1,12 @@
 'use strict';
 
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {assert} = require('chai');
 const {stub} = require('sinon');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ProvideInformation = steps.ProvideInformation;
-const Document = require('app/services/Document');
+const Document = require('app/services/Document.cjs');
 const content = require('app/resources/en/translation/provideinformation');
 
 describe('ProvideInformation', () => {

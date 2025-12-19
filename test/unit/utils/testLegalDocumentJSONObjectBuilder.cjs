@@ -1,13 +1,13 @@
 'use strict';
 
-const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder');
+const LegalDocumentJSONObjectBuilder = require('app/utils/LegalDocumentJSONObjectBuilder.cjs');
 const {assert} = require('chai');
 const fs = require('fs');
 const html = fs.readFileSync('test/data/legalDeclationHTML.html').toString();
 const requireDir = require('require-directory');
 const translations = requireDir(module, '../../../app/resources/en/translation');
 const he = require('he');
-const FormatName = require('app/utils/FormatName');
+const FormatName = require('app/utils/FormatName.cjs');
 
 let legalDocumentJSONObjectBuilder;
 let sessionData;

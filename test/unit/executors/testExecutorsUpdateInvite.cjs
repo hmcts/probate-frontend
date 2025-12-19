@@ -1,8 +1,8 @@
 'use strict';
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {expect, assert} = require('chai');
 const rewire = require('rewire');
-const UpdateInvite = rewire('app/steps/ui/executors/updateinvite');
+const UpdateInvite = rewire('app/steps/ui/executors/updateinvite/index.cjs');
 const co = require('co');
 
 describe('Update-Invite', () => {

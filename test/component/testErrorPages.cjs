@@ -25,7 +25,7 @@ describe('error-pages', () => {
 
     it('test 500', (done) => {
         const request = require('supertest');
-        const routes = require('app/routes');
+        const routes = require('app/routes.cjs');
         routes.get('/throwError', () => {
             throw new Error('Test error');
         });

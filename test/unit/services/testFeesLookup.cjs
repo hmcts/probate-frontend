@@ -1,9 +1,9 @@
 'use strict';
 
 const {assert, expect} = require('chai');
-const FeesLookup = require('app/services/FeesLookup');
+const FeesLookup = require('app/services/FeesLookup.cjs');
 const sinon = require('sinon');
-const AsyncFetch = require('app/utils/AsyncFetch');
+const AsyncFetch = require('app/utils/AsyncFetch.cjs');
 let expectedResponse;
 let fees;
 let headers;

@@ -1,4 +1,4 @@
-const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
+const DeathCertificateWrapper = require('app/wrappers/DeathCertificate.cjs');
 const expect = require('chai').expect;
 
 describe('DeathCertificate', () => {

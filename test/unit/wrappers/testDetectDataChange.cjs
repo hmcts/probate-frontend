@@ -2,7 +2,7 @@
 
 'use strict';
 
-const DetectDataChange = require('app/wrappers/DetectDataChange');
+const DetectDataChange = require('app/wrappers/DetectDataChange.cjs');
 const expect = require('chai').expect;
 
 describe('DetectDataChange.js', () => {

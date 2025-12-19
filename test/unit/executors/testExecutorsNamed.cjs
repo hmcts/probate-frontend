@@ -1,5 +1,5 @@
 'use strict';
-const initSteps = require('app/core/initSteps');
+const initSteps = require('app/core/initSteps.cjs');
 const {expect, assert} = require('chai');
 const content = require('../../../app/resources/en/translation/executors/named.json');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);

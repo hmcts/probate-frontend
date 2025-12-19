@@ -8,7 +8,7 @@ const sinonChai = require('sinon-chai');
 const rewire = require('rewire');
 const proxyquire = require('proxyquire');
 const NodeCache = require('node-cache');
-const Security = rewire('app/services/Security');
+const Security = rewire('app/services/Security.cjs');
 const expect = chai.expect;
 
 chai.use(sinonChai);
@@ -60,14 +60,14 @@ describe('Security component', () => {
         });
 
         it('should create a node cache if IDAM caching is enabled', () => {
-            const SecurityStub = proxyquire('app/services/Security', {'config': {'services': {'idam': {'caching': 'true'}}}});
+            const SecurityStub = proxyquire('app/services/Security.cjs', {'config': {'services': {'idam': {'caching': 'true'}}}});
             security = new SecurityStub(loginUrl);
             expect(security.idamDetailsCache instanceof NodeCache).to.equal(true);
         });
 
         it('should handle successful IDAM response when cached', () => {
             const nodeCacheGetStub = sinon.stub().returns({roles: ['citizen']});
-            const SecurityStub = proxyquire('app/services/Security', {
+            const SecurityStub = proxyquire('app/services/Security.cjs', {
                 'config': {'services': {'idam': {'caching': 'true'}}},
                 'node-cache': sinon.stub().callsFake(() => {
                     return {get: nodeCacheGetStub};
@@ -89,12 +89,12 @@ describe('Security component', () => {
         it('should cache IDAM response if not already cached', (done) => {
             const promise = when({name: 'Success'});
             const cacheSetStub = sinon.stub();
-            const SecurityStub = proxyquire('app/services/Security', {
+            const SecurityStub = proxyquire('app/services/Security.cjs', {
                 'config': {'services': {'idam': {'caching': 'true'}}},
                 'node-cache': sinon.stub().callsFake(() => {
                     return {get: sinon.stub().returns(), set: cacheSetStub};
                 }),
-                'app/services/IdamSession': sinon.stub().callsFake(() => {
+                'app/services/IdamSession.cjs': sinon.stub().callsFake(() => {
                     return {get: sinon.stub().returns(promise)};
                 })
             });

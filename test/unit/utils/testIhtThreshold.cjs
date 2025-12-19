@@ -1,4 +1,4 @@
-const IhtThreshold = require('app/utils/IhtThreshold');
+const IhtThreshold = require('app/utils/IhtThreshold.cjs');
 const expect = require('chai').expect;
 
 describe('IhtThreshold.js', () => {

@@ -3,7 +3,7 @@
 
 'use strict';
 
-const logger = require('app/components/logger');
+const logger = require('app/components/logger.cjs');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -27,17 +27,17 @@ const fs = require('fs');
 const https = require('https');
 const {v4: uuidv4} = require('uuid');
 const nonce = uuidv4().replace(/-/g, '');
-const EligibilityCookie = require('app/utils/EligibilityCookie');
+const EligibilityCookie = require('app/utils/EligibilityCookie.cjs');
 const eligibilityCookie = new EligibilityCookie();
-const caseTypes = require('app/utils/CaseTypes');
-const featureToggles = require('app/featureToggles');
-const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody');
-const setSessionLanguage = require('app/middleware/setSessionLanguage');
+const caseTypes = require('app/utils/CaseTypes.cjs');
+const featureToggles = require('app/featureToggles.cjs');
+const sanitizeRequestBody = require('app/middleware/sanitizeRequestBody.cjs');
+const setSessionLanguage = require('app/middleware/setSessionLanguage.cjs');
 const isEmpty = require('lodash').isEmpty;
-const setupHealthCheck = require('app/utils/setupHealthCheck');
-const {sanitizeInput} = require('./app/utils/Sanitize');
+const setupHealthCheck = require('app/utils/setupHealthCheck.cjs');
+const {sanitizeInput} = require('./app/utils/Sanitize.cjs');
 const {merge} = require('lodash');
-const normalizeNonIdamPages = require('app/utils/configNormalisers');
+const normalizeNonIdamPages = require('app/utils/configNormalisers.cjs');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();

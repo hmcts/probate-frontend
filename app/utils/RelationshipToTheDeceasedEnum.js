@@ -30,21 +30,23 @@ class RelationshipToTheDeceasedEnum {
     }
 
     static mapOptionToValue(optionValue) {
-        switch (optionValue) {
-        case 'optionChild':
-            return 'child';
-        case 'optionGrandchild':
-            return 'grandchild';
-        case 'optionSpousePartner':
-            return 'spouse or civil partner';
-        case 'optionSpouseOrCivilPartner':
-            return 'spouse or civil partner';
-        case 'optionSibling':
-            return 'sibling';
-        case 'optionAdoptedChild':
-            return 'adopted child';
-        default:
-            throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${optionValue} not found`);
+        if (optionValue !== null && typeof optionValue !== 'undefined') {
+            switch (optionValue) {
+            case 'optionChild':
+                return 'child';
+            case 'optionGrandchild':
+                return 'grandchild';
+            case 'optionSpousePartner':
+                return 'spouse or civil partner';
+            case 'optionSpouseOrCivilPartner':
+                return 'spouse or civil partner';
+            case 'optionSibling':
+                return 'sibling';
+            case 'optionAdoptedChild':
+                return 'adopted child';
+            default:
+                throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${optionValue} not found`);
+            }
         }
     }
 }

@@ -373,7 +373,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     // Start the app
     let http;
-
+    const HOST = '0.0.0.0';
     if (['development', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment)) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
@@ -383,11 +383,11 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         };
         const server = https.createServer(sslOptions, app);
 
-        http = server.listen(port, () => {
+        http = server.listen(port, HOST, () => {
             console.log(`Application started: https://localhost:${port}`);
         });
     } else {
-        http = app.listen(port, '0.0.0.0', () => {
+        http = app.listen(port, HOST, () => {
             console.log(`Application started: http://localhost:${port}`);
         });
     }

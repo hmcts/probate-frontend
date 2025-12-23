@@ -8,13 +8,12 @@ USER hmcts
 ENV WORKDIR /opt/app
 WORKDIR ${WORKDIR}
 
-COPY --chown=hmcts:hmcts package.json yarn.lock ./
-COPY --chown=hmcts:hmcts .yarnrc.yml ./
-COPY --chown=hmcts:hmcts .yarn/ .yarn/
+COPY --chown=hmcts:hmcts .yarn ./.yarn
+COPY --chown=hmcts:hmcts package.json yarn.lock .yarnrc.yml ./
 
 RUN yarn config set httpProxy "$http_proxy" \
     && yarn config set httpsProxy "$https_proxy" \
-    && YARN_ENABLE_SCRIPTS=false yarn workspaces focus --all --production \
+    && yarn workspaces focus --all --production \
     && rm -rf $(yarn cache clean)
 # ---- Build image ----
 FROM base as build

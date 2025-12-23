@@ -87,8 +87,7 @@
     "stub:equality-and-diversity-endpoint": "NODE_PATH=. node test/service-stubs/equalityAndDiversityEndpoint.js",
     "stub:equality-and-diversity-health": "NODE_PATH=. node test/service-stubs/equalityAndDiversityHealth.js",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
-    "suppress-cve": "yarn npm audit --recursive --environment production --json > yarn-audit-known-issues",
-    "postinstall": "echo \"globalThis.getAsyncFunc = (function() { try { return Function('return async function(){}')(); } catch (e) { return null; } })();\" > node_modules/async-function/require.mjs"
+    "suppress-cve": "yarn npm audit --recursive --environment production --json > yarn-audit-known-issues"
   },
   "pre-commit": [
     "lint"
@@ -225,7 +224,8 @@
     "qs": "^6.14.0",
     "shelljs": ">=0.10.0",
     "tar-fs": "^3.0.10",
-    "tmp": "0.2.5"
+    "tmp": "0.2.5",
+    "is-async-function": "2.1.0"
   },
   "packageManager": "yarn@4.12.0"
 }

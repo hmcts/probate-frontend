@@ -1,5 +1,5 @@
 'use strict';
-
+/* eslint-disable max-lines */
 const initSteps = require('app/core/initSteps');
 const journey = require('app/journeys/intestacy');
 const expect = require('chai').expect;
@@ -71,6 +71,20 @@ describe('Co-applicant-relationship', () => {
         it('should return the correct URL if the relationship to deceased is Half-blood Niece or Nephew', () => {
             ctx.index = 3;
             ctx.coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+            const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(url).to.equal('/parent-die-before/3');
+        });
+
+        it('should return the correct URL if the relationship to deceased is Whole-blood sibling', () => {
+            ctx.index = 3;
+            ctx.coApplicantRelationshipToDeceased = 'optionWholeBloodSibling';
+            const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-name/3');
+        });
+
+        it('should return the correct URL if the relationship to deceased is Whole-blood Niece or Nephew', () => {
+            ctx.index = 3;
+            ctx.coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
             expect(url).to.equal('/parent-die-before/3');
         });
@@ -216,6 +230,9 @@ describe('Co-applicant-relationship', () => {
                         deceased: {
                             anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionNo', firstName: 'John', lastName: 'Doe'
                         },
+                        applicant: {
+                            relationshipToDeceased: 'optionChild'
+                        },
                         executors: {
                             list: [
                                 {
@@ -244,6 +261,9 @@ describe('Co-applicant-relationship', () => {
                         deceased: {
                             anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionYesSome', anySurvivingGrandchildren: 'optionYes', firstName: 'John', lastName: 'Doe'
                         },
+                        applicant: {
+                            relationshipToDeceased: 'optionChild'
+                        },
                         executors: {
                             list: [
                                 {
@@ -270,7 +290,7 @@ describe('Co-applicant-relationship', () => {
                 session: {
                     form: {
                         applicant: {
-                            anyOtherHalfSiblings: 'optionYes', anyPredeceasedHalfSiblings: 'optionYesSome', anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                            relationshipToDeceased: 'optionSibling', anyOtherHalfSiblings: 'optionYes', sameParents: 'optionOneParentsSame', anyPredeceasedHalfSiblings: 'optionYesSome', anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
                         },
                         deceased: {
                             firstName: 'John', lastName: 'Doe'
@@ -302,6 +322,7 @@ describe('Co-applicant-relationship', () => {
                     form: {
                         deceased: {anyOtherChildren: 'optionYes', anyPredeceasedChildren: 'optionYesAll', anySurvivingGrandchildren: 'optionYes', firstName: 'John', lastName: 'Doe'
                         },
+                        applicant: {relationshipToDeceased: 'optionGrandchild'},
                         executors: {
                             list: [
                                 {fullName: 'Prince', isApplicant: true},

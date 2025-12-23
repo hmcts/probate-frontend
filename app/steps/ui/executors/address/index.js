@@ -49,7 +49,7 @@ class ExecutorAddress extends AddressStep {
             ctx.postTown = get(ctx.address, 'postTown', '');
             ctx.county = get(ctx.address, 'county', '');
             ctx.newPostCode = get(ctx.address, 'postCode', '');
-            ctx.country = get(ctx.address, 'country', 'United Kingdom');
+            ctx.country = get(ctx.address, 'country', '');
         }
         if (ctx.list[ctx.index].postcode && !ctx.postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
@@ -98,7 +98,7 @@ class ExecutorAddress extends AddressStep {
             };
         }
         if (ctx.caseType === caseTypes.INTESTACY) {
-            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild';
+            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
             ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
             return {
                 options: [

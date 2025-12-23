@@ -9,9 +9,9 @@
 {%    set legendText = content.childQuestion %}
 {% elseif relationship == "optionGrandchild" %}
 {%    set legendText = content.grandchildQuestion %}
-{% elseif relationship == "optionSibling" and sameParent == "optionYes" %}
+{% elseif relationship == "optionSibling" and sameParent == "optionBothParentsSame" %}
 {%    set legendText = content.wholeBloodSiblingQuestion %}
-{% elseif relationship == "optionSibling" and sameParent == "optionNo" %}
+{% elseif relationship == "optionSibling" and sameParent == "optionOneParentsSame" %}
 {%    set legendText = content.halfBloodSiblingQuestion %}
 {% else %}
 {%    set legendText = content.childQuestion %}
@@ -29,6 +29,8 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
+        errorMessage: { text: fields.adoptedOut.errorMessage
+            | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.adoptedOut.errorMessage,
         items: [
             {
                 value: "optionYes",

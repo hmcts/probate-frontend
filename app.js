@@ -391,7 +391,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             console.log(`Server started: https://localhost:${port}`);
         });
     } else {
-        // This executes when nodeEnvironment is 'production'
         http = app.listen(port, () => {
             console.log(`Application started: http://localhost:${port}`);
         });

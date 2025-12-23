@@ -377,21 +377,22 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     // Start the app
     let http;
-    const HOST = '0.0.0.0';
-    if (['development', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment)) {
+    const isDevOrTest = ['development', 'test', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment);
+    if (isDevOrTest) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
             cert: fs.readFileSync(path.join(sslDirectory, 'localhost.crt')),
-            secureProtocol: 'TLSv1_2_method'
+            // secureProtocol is optional in Node 22+ unless targeting specific old clients
         };
         const server = https.createServer(sslOptions, app);
 
-        http = server.listen(port, HOST, () => {
-            console.log(`Application started: https://localhost:${port}`);
+        http = server.listen(port, '0.0.0.0', () => {
+            console.log(`Server started: https://localhost:${port}`);
         });
     } else {
-        http = app.listen(port, HOST, () => {
+        // This executes when nodeEnvironment is 'production'
+        http = app.listen(port, () => {
             console.log(`Application started: http://localhost:${port}`);
         });
     }

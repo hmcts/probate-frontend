@@ -14,6 +14,16 @@
   "changeLink": "Newid",
   "sendInvites": "Hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais",
 
+  "intestacyQuestion": "Notify the other applicants",
+  "intestacyParagraph1": "We will send the other applicants an email asking them to confirm the information you have provided and make their declaration.",
+  "intestacyParagraph2": "If the other applicants do not agree with the information provided, or if they no longer want to apply, we will ask them to contact you to discuss the application.",
+  "intestacyParagraph3": "You can continue to make changes to the application until all applicants have their declaration.",
+  "intestacyParagraph4": "If you make any changes to your application, you will need to contact the other applicants to let them know the legal statement has been updated.",
+  "intestacyParagraph5": "You will not be able to submit your application until all applicants have made their declaration.",
+  "intestacyHeading1": "If the other applicants do not agree with the information",
+  "intestacyHeading2": "Other applicants",
+  "intestacyHeading3": "Other applicants",
+
   "errors": {
     "getUrl(index": {
       "invalid": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"

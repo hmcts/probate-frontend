@@ -29,23 +29,46 @@ class RelationshipToTheDeceasedEnum {
         }
     }
 
-    static mapOptionToValue(optionValue) {
+    static mapOptionToValue(optionValue, language) {
         if (optionValue !== null && typeof optionValue !== 'undefined') {
-            switch (optionValue) {
-            case 'optionChild':
-                return 'child';
-            case 'optionGrandchild':
-                return 'grandchild';
-            case 'optionSpousePartner':
-                return 'spouse or civil partner';
-            case 'optionSpouseOrCivilPartner':
-                return 'spouse or civil partner';
-            case 'optionSibling':
-                return 'sibling';
-            case 'optionAdoptedChild':
-                return 'adopted child';
-            default:
-                throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${optionValue} not found`);
+            if (language === 'en') {
+                switch (optionValue) {
+                case 'optionChild':
+                    return 'child';
+                case 'optionGrandchild':
+                    return 'grandchild';
+                case 'optionSpousePartner':
+                    return 'husband, wife or civil partner';
+                case 'optionSpouseOrCivilPartner':
+                    return 'husband, wife or civil partner';
+                case 'optionSibling':
+                    return 'sibling';
+                case 'optionParent':
+                    return 'parent';
+                case 'optionNieceOrNephew':
+                    return 'niece or nephew';
+                default:
+                    throw new Error(`Enumerator RelationshipToDeceasedEnum English value: ${optionValue} not found`);
+                }
+            } else {
+                switch (optionValue) {
+                case 'optionChild':
+                    return 'plentyn';
+                case 'optionGrandchild':
+                    return 'ŵyr/wyres';
+                case 'optionSpousePartner':
+                    return 'gŵr, gwraig neu bartner sifil';
+                case 'optionSpouseOrCivilPartner':
+                    return 'gŵr, gwraig neu bartner sifil';
+                case 'optionSibling':
+                    return 'brawd/chwaer';
+                case 'optionParent':
+                    return 'rhiant';
+                case 'optionNieceOrNephew':
+                    return 'nith neu nai';
+                default:
+                    throw new Error(`Enumerator RelationshipToDeceasedEnum Welsh value: ${optionValue} not found`);
+                }
             }
         }
     }

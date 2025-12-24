@@ -1,8 +1,8 @@
 {
   "title": "Parent adopted in",
   "question": "A wnaeth {deceasedName} fabwysiadu rhiant ({applicantName}  plentyn ({deceasedName}) yn gyfreithlon?",
-  "optionYes": "Yes",
-  "optionNo": "No",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
 
   "errors": {
     "applicantParentAdoptedIn": {

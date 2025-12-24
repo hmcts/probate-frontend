@@ -25,7 +25,7 @@ class FormatDate {
     }
 
     static pad(n) {
-        return n && n.length === 1 ? '0' + n : n;
+        return n?.length === 1 ? '0' + n : n;
     }
 
     static formatDateGet(dateString) {

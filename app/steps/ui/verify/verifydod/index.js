@@ -50,7 +50,7 @@ class VerifyDod extends DateStep {
             errors.push(FieldError(`dod-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (missingFields.length === 1) {
             errors.push(FieldError(`dod-${missingFields[0]}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (isNonNumeric || isDateOutOfRange || isNaN(verifyDod.getTime()) || !DateValidation.isPositive([day, month, year])) {
+        } else if (isNonNumeric || isDateOutOfRange || Number.isNaN(verifyDod.getTime()) || !DateValidation.isPositive([day, month, year])) {
             errors.push(FieldError('dod-date', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (verifyDod > today) {
             errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent({}, {}, session.language), session.language));

@@ -68,6 +68,7 @@
   "declarationUnderstandItem1": "y bydd fy nghais yn cael ei wrthod os na fyddaf yn ateb unrhyw gwestiynau am yr wybodaeth rwyf wedi&rsquo;i rhoi",
   "declarationUnderstandItem1-multipleApplicants": "y bydd ein cais yn cael ei wrthod os na fyddwn yn ateb unrhyw gwestiynau am yr wybodaeth rydym wedi&rsquo;i rhoi",
   "declarationUnderstandItem1-intestacy": "y bydd fy nghais yn cael ei wrthod os na fyddaf yn darparu gwybodaeth (os gofynnwyd)",
+  "declarationUnderstandItem1-intestacy-multipleApplicants": "y bydd ein cais yn cael ei wrthod os na fyddwn yn ateb unrhyw gwestiynau am yr wybodaeth rydym wedi’i rhoi",
   "declarationUnderstandItem2": "y gellir dwyn achos dirmyg llys yn erbyn y sawl sydd wedi llofnodi isod os penderfynir bod y dystiolaeth a ddarparwyd yn anwir neu’n anonest yn fwriadol, yn ogystal â diddymu’r grant",
   "declarationCheckbox": "Rwy&rsquo;n cadarnhau y byddaf yn gweinyddu ystad yr unigolyn sydd wedi marw yn unol &acirc;&rsquo;r gyfraith, a bod fy  nghais yn gywir.",
   "declarationCheckbox-intestacy": "Rwy&rsquo;n cadarnhau y byddaf yn gweinyddu ystad yr unigolyn sydd wedi marw yn unol &acirc;&rsquo;r gyfraith, a bod fy  nghais yn gywir.",
@@ -101,7 +102,7 @@
   "warning": "Rhybudd",
   "saveThisPage": "Arbed y dudalen hon",
   "peopleApplyingHeader": "Pobl yn gwneud cais am brofiant",
-  "intestacyPersonApplying": "Yr wyf i, {applicantName}, {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
+  "intestacyPersonApplying": "Yr wyf i, {applicantName} {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
   "intestacyPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} {deceasedName}, yn gwneud cais am brofiant.",
   "intestacyFurtherPeopleApplying": "Mae {applicantName}, {relationshipToDeceased} {deceasedName}, hefyd yn gwneud cais am brofiant.",
   "errors": {

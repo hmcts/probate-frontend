@@ -254,7 +254,23 @@ class Declaration extends ValidationStep {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         const numberOfExecutorsApplying = executorsApplying.length;
         const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
-        if (executorsApplying.length === 0) {
+        if (hasMultipleApplicants) {
+            return executorsApplying.map((executor, index) => {
+                return this.intestacyExecutorsApplyingText(
+                    {
+                        hasMultipleApplicants,
+                        content,
+                        multipleApplicantSuffix,
+                        executor,
+                        deceasedName,
+                        mainApplicantName,
+                        language,
+                        numberOfExecutorsApplying,
+                        index,
+                        primaryApplicantRelationshipToDeceased
+                    });
+            });
+        } else if (mainApplicantName && !hasMultipleApplicants) {
             return this.intestacyExecutorsApplyingText({
                 deceasedName,
                 numberOfExecutorsApplying,
@@ -264,21 +280,6 @@ class Declaration extends ValidationStep {
                 language
             });
         }
-        return executorsApplying.map((executor, index) => {
-            return this.intestacyExecutorsApplyingText(
-                {
-                    hasMultipleApplicants,
-                    content,
-                    multipleApplicantSuffix,
-                    executor,
-                    deceasedName,
-                    mainApplicantName,
-                    language,
-                    numberOfExecutorsApplying,
-                    index,
-                    primaryApplicantRelationshipToDeceased
-                });
-        });
     }
 
     executorsApplyingText(props) {
@@ -324,22 +325,25 @@ class Declaration extends ValidationStep {
             content = {
                 name: props.content.intestacyPersonApplying
                     .replace('{applicantName}', props.mainApplicantName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
-                    .replace('{deceasedName}', props.deceasedName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language)) //solo i am
+                    .replace('{deceasedName}', props.deceasedName),
+                sign: ''
             };
         } else if (props.numberOfExecutorsApplying >= 1 && props.index === 0) {
             content = {
                 name: props.content.intestacyPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased))
-                    .replace('{deceasedName}', props.deceasedName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language)) //multiple exec - 1st i am applying
+                    .replace('{deceasedName}', props.deceasedName),
+                sign: ''
             };
         } else {
             content = {
                 name: props.content.intestacyFurtherPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased))
-                    .replace('{deceasedName}', props.deceasedName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased, props.language)) //multiple exec - 2nd i am ALSO applying
+                    .replace('{deceasedName}', props.deceasedName),
+                sign: ''
             };
         }
         return content;

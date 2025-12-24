@@ -277,7 +277,8 @@ class Declaration extends ValidationStep {
                 mainApplicantName,
                 primaryApplicantRelationshipToDeceased,
                 content,
-                language
+                language,
+                hasMultipleApplicants
             });
         }
     }
@@ -321,27 +322,30 @@ class Declaration extends ValidationStep {
 
     intestacyExecutorsApplyingText(props) {
         let content = {};
-        if (props.numberOfExecutorsApplying === 0) {
+        console.log('props.hasMultipleApplicants');
+        console.log(props.mainApplicantName);
+        console.log('props.hasMultipleApplicants');
+        if (!props.hasMultipleApplicants && props.mainApplicantName) {
             content = {
                 name: props.content.intestacyPersonApplying
                     .replace('{applicantName}', props.mainApplicantName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language)) //solo i am
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language))
                     .replace('{deceasedName}', props.deceasedName),
                 sign: ''
             };
-        } else if (props.numberOfExecutorsApplying >= 1 && props.index === 0) {
+        } else if (props.hasMultipleApplicants && props.index === 0) {
             content = {
                 name: props.content.intestacyPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language)) //multiple exec - 1st i am applying
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language))
                     .replace('{deceasedName}', props.deceasedName),
                 sign: ''
             };
-        } else {
+        } else if (props.hasMultipleApplicants) {
             content = {
                 name: props.content.intestacyFurtherPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased, props.language)) //multiple exec - 2nd i am ALSO applying
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased, props.language))
                     .replace('{deceasedName}', props.deceasedName),
                 sign: ''
             };

@@ -43,6 +43,8 @@ class RelationshipToTheDeceasedEnum {
                     return 'husband, wife or civil partner';
                 case 'optionSibling':
                     return 'sibling';
+                case 'optionAdoptedChild':
+                    return 'adopted child';
                 case 'optionParent':
                     return 'parent';
                 case 'optionNieceOrNephew':
@@ -62,6 +64,8 @@ class RelationshipToTheDeceasedEnum {
                     return 'gŵr, gwraig neu bartner sifil';
                 case 'optionSibling':
                     return 'brawd/chwaer';
+                case 'optionAdoptedChild':
+                    return 'adopted child';
                 case 'optionParent':
                     return 'rhiant';
                 case 'optionNieceOrNephew':

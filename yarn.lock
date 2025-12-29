@@ -1043,6 +1043,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@exodus/bytes@npm:^1.6.0":
+  version: 1.7.0
+  resolution: "@exodus/bytes@npm:1.7.0"
+  peerDependencies:
+    "@exodus/crypto": ^1.0.0-rc.4
+  peerDependenciesMeta:
+    "@exodus/crypto":
+      optional: true
+  checksum: 10/66081ee7f46511019ac40f7524abaefd252158ac53c1e43fcfc4ad73ba32f9eb8cc659348488206b972cb1d1d974f6449557de86f097b5e247fca6cfeb57bd1e
+  languageName: node
+  linkType: hard
+
 "@flatten-js/interval-tree@npm:^1.1.2":
   version: 1.1.3
   resolution: "@flatten-js/interval-tree@npm:1.1.3"
@@ -5307,15 +5319,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csurf@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "csurf@npm:1.10.0"
+"csurf@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "csurf@npm:1.11.0"
   dependencies:
-    cookie: "npm:0.3.1"
+    cookie: "npm:0.4.0"
     cookie-signature: "npm:1.0.6"
     csrf: "npm:3.1.0"
-    http-errors: "npm:~1.7.2"
-  checksum: 10/ae297b051bd629a0027f980c79059420364cf2e08e7222c2a7c48a82a5d997e0790d0ae12730925dbe1a1be50d34ce0af21ac2cface37393f430e9c055c68c7f
+    http-errors: "npm:~1.7.3"
+  checksum: 10/823e6f4a11a7cded7473af18f7f3605477102f154b892291e37e99f67ba00863ef299369d1facdf9603ea8946acfb8281d35f54831d5e9c8ac704d526cd9ca4e
   languageName: node
   linkType: hard
 
@@ -8153,12 +8165,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-encoding-sniffer@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "html-encoding-sniffer@npm:4.0.0"
+"html-encoding-sniffer@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "html-encoding-sniffer@npm:6.0.0"
   dependencies:
-    whatwg-encoding: "npm:^3.1.1"
-  checksum: 10/e86efd493293a5671b8239bd099d42128433bb3c7b0fdc7819282ef8e118a21f5dead0ad6f358e024a4e5c84f17ebb7a9b36075220fac0a6222b207248bede6f
+    "@exodus/bytes": "npm:^1.6.0"
+  checksum: 10/97392e45d8aff57f180f62a1b12e62201c8451af68424b8bc3196f78e273891f2df285e5be43a3f28c7ba4badf9524ef305db65c4e4935a9e796afc86d9654b8
   languageName: node
   linkType: hard
 
@@ -8244,7 +8256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-errors@npm:~1.7.2":
+"http-errors@npm:~1.7.3":
   version: 1.7.3
   resolution: "http-errors@npm:1.7.3"
   dependencies:
@@ -9523,16 +9535,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^27.0.0":
-  version: 27.3.0
-  resolution: "jsdom@npm:27.3.0"
+"jsdom@npm:^27.4.0":
+  version: 27.4.0
+  resolution: "jsdom@npm:27.4.0"
   dependencies:
     "@acemir/cssom": "npm:^0.9.28"
     "@asamuzakjp/dom-selector": "npm:^6.7.6"
+    "@exodus/bytes": "npm:^1.6.0"
     cssstyle: "npm:^5.3.4"
     data-urls: "npm:^6.0.0"
     decimal.js: "npm:^10.6.0"
-    html-encoding-sniffer: "npm:^4.0.0"
+    html-encoding-sniffer: "npm:^6.0.0"
     http-proxy-agent: "npm:^7.0.2"
     https-proxy-agent: "npm:^7.0.6"
     is-potential-custom-element-name: "npm:^1.0.1"
@@ -9542,7 +9555,6 @@ __metadata:
     tough-cookie: "npm:^6.0.0"
     w3c-xmlserializer: "npm:^5.0.0"
     webidl-conversions: "npm:^8.0.0"
-    whatwg-encoding: "npm:^3.1.1"
     whatwg-mimetype: "npm:^4.0.0"
     whatwg-url: "npm:^15.1.0"
     ws: "npm:^8.18.3"
@@ -9552,7 +9564,7 @@ __metadata:
   peerDependenciesMeta:
     canvas:
       optional: true
-  checksum: 10/c650e954df04a80e7309984450ce764ae2a840810b9575b20204194dee3c5cff42e65526519cb58b946ffe66a058b7b763bad4814b3903a9c86a2c1651b8b74b
+  checksum: 10/7c6db85ab91183b95204648e086cfc09ecee36d9e8fee0bb5d68e27543eca632de0af6d43de461176a7823820543d5c53561778af5f712b1a1cd28bfac084d51
   languageName: node
   linkType: hard
 
@@ -9797,7 +9809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"launchdarkly-node-server-sdk@npm:^7.0.0":
+"launchdarkly-node-server-sdk@npm:^7.0.4":
   version: 7.0.4
   resolution: "launchdarkly-node-server-sdk@npm:7.0.4"
   dependencies:
@@ -12629,7 +12641,7 @@ __metadata:
     connect-redis: "npm:^8.0.0"
     connect-timeout: "npm:^1.9.1"
     cookie-parser: "npm:^1.4.6"
-    csurf: "npm:^1.10.0"
+    csurf: "npm:^1.11.0"
     debug: "npm:^4.3.4"
     email-validator: "npm:^2.0.4"
     eslint: "npm:^8.0.0"
@@ -12650,8 +12662,8 @@ __metadata:
     ip: "npm:^2.0.1"
     jquery: "npm:^3.6.4"
     js-yaml: "npm:^4.0.0"
-    jsdom: "npm:^27.0.0"
-    launchdarkly-node-server-sdk: "npm:^7.0.0"
+    jsdom: "npm:^27.4.0"
+    launchdarkly-node-server-sdk: "npm:^7.0.4"
     libphonenumber-js: "npm:^1.11.17"
     lodash: "npm:^4.17.21"
     mocha: "npm:^11.0.0"
@@ -12693,12 +12705,12 @@ __metadata:
     sonarqube-scanner: "npm:^4.0.0"
     superagent: "npm:^10.0.0"
     superagent-proxy: "npm:^3.0.0"
-    supertest: "npm:^7.0.0"
+    supertest: "npm:^7.1.3"
     tar: "npm:^7.5.2"
     traverse: "npm:^0.6.7"
     tunnel-agent: "npm:^0.6.0"
     unirest: "npm:^0.6.0"
-    uuid: "npm:^11.0.0"
+    uuid: "npm:^11.1.0"
     validator: "npm:^13.15.20"
     watch: "npm:^1.0.0"
     webdriverio: "npm:^9.20.0"
@@ -14904,7 +14916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^10.0.0, superagent@npm:^10.2.2":
+"superagent@npm:^10.0.0, superagent@npm:^10.2.2, superagent@npm:^10.2.3":
   version: 10.2.3
   resolution: "superagent@npm:10.2.3"
   dependencies:
@@ -14939,30 +14951,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^9.0.1":
-  version: 9.0.2
-  resolution: "superagent@npm:9.0.2"
-  dependencies:
-    component-emitter: "npm:^1.3.0"
-    cookiejar: "npm:^2.1.4"
-    debug: "npm:^4.3.4"
-    fast-safe-stringify: "npm:^2.1.1"
-    form-data: "npm:^4.0.0"
-    formidable: "npm:^3.5.1"
-    methods: "npm:^1.1.2"
-    mime: "npm:2.6.0"
-    qs: "npm:^6.11.0"
-  checksum: 10/d3c0c9051ceec84d5b431eaa410ad81bcd53255cea57af1fc66d683a24c34f3ba4761b411072a9bf489a70e3d5b586a78a0e6f2eac6a561067e7d196ddab0907
-  languageName: node
-  linkType: hard
-
-"supertest@npm:^7.0.0":
-  version: 7.1.0
-  resolution: "supertest@npm:7.1.0"
+"supertest@npm:^7.1.3":
+  version: 7.1.4
+  resolution: "supertest@npm:7.1.4"
   dependencies:
     methods: "npm:^1.1.2"
-    superagent: "npm:^9.0.1"
-  checksum: 10/20069f739a44821dfa4f7f397b9086ef31a358366331138f97945eedb2e231796e7c55b032125d3bd12f9839f089fbb809893dbc0f98edc57e12333b9f42b726
+    superagent: "npm:^10.2.3"
+  checksum: 10/ecb5d41f2b62b257dbdcabac245c32b8e8fb264fe2636dd85c2c883569d23dc14adc0a471abb84187cbdb49bc36ad870ad355b4a0b85973f510fd57fc229e6cc
   languageName: node
   linkType: hard
 
@@ -15874,7 +15869,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:11.1.0, uuid@npm:^11.0.0":
+"uuid@npm:11.1.0, uuid@npm:^11.1.0":
   version: 11.1.0
   resolution: "uuid@npm:11.1.0"
   bin:

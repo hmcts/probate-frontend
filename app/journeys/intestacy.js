@@ -105,7 +105,7 @@ const stepList = {
         otherwise: 'ProbateEstateValues'
     },
     UniqueProbateCode: 'ProbateEstateValues',
-    WaitingForHmrc: 'HmrcLetter',
+    WaitingForHmrc: 'TaskList',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: {
         lessThanOrEqualToIhtThreshold: 'AssetsOutside',

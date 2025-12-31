@@ -321,12 +321,8 @@ class Declaration extends ValidationStep {
     }
 
     intestacyExecutorsApplyingText(props) {
-        let content = {};
-        console.log('props.hasMultipleApplicants');
-        console.log(props.mainApplicantName);
-        console.log('props.hasMultipleApplicants');
         if (!props.hasMultipleApplicants && props.mainApplicantName) {
-            content = {
+            return {
                 name: props.content.intestacyPersonApplying
                     .replace('{applicantName}', props.mainApplicantName)
                     .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language))
@@ -334,7 +330,7 @@ class Declaration extends ValidationStep {
                 sign: ''
             };
         } else if (props.hasMultipleApplicants && props.index === 0) {
-            content = {
+            return {
                 name: props.content.intestacyPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
                     .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language))
@@ -342,7 +338,7 @@ class Declaration extends ValidationStep {
                 sign: ''
             };
         } else if (props.hasMultipleApplicants) {
-            content = {
+            return {
                 name: props.content.intestacyFurtherPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
                     .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased, props.language))
@@ -350,7 +346,6 @@ class Declaration extends ValidationStep {
                 sign: ''
             };
         }
-        return content;
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {

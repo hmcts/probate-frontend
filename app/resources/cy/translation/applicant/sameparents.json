@@ -1,0 +1,14 @@
+{
+  "title": "Same Parents",
+  "question": "A oes gennych chi’r un rhieni â {deceasedName}?",
+  "paragraph1": "Mae hyn yn cynnwys os cawsoch chi eich mabwysiadu gan un neu’r ddau o rieni {deceasedName}.",
+  "optionBothParentsSame": "Mae fy dau riant yr un peth",
+  "optionOneParentsSame": "Mae un o fy rhieni yr un peth",
+  "optionNoParentsSame": "Mae gen i rieni gwahanol neu mae un o rieni {deceasedName} yn lysriant i mi.",
+
+  "errors": {
+    "sameParents": {
+      "required": "Dewiswch a oes gennych chi’r un rhieni â {deceasedName}"
+    }
+  }
+}

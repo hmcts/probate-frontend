@@ -290,8 +290,7 @@ class Declaration extends ValidationStep {
         const applicantCurrentName = FormatName.formatName(props.executor, true);
         const aliasSuffix = (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') || props.executor.currentName ? '-alias' : '';
         const aliasReason = FormatAlias.aliasReason(props.executor, props.hasMultipleApplicants, props.language);
-        let content = {};
-        content = {
+        const content = {
             name: props.content[`applicantName${props.multipleApplicantSuffix}${mainApplicantSuffix}${aliasSuffix}${codicilsSuffix}`]
                 .replace('{applicantWillName}', props.executor.isApplicant && (typeof props.executor.nameAsOnTheWill !== 'undefined' && props.executor.nameAsOnTheWill === 'optionNo') ? FormatName.applicantWillName(props.executor) : props.mainApplicantName)
                 .replace(/{applicantCurrentName}/g, applicantCurrentName)

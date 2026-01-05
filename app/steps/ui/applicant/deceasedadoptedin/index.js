@@ -27,6 +27,12 @@ class DeceasedAdoptedIn extends ValidationStep {
         };
     }
 
+    isComplete(ctx) {
+        return [
+            ctx.deceasedAdoptedIn==='optionYes' || ctx.deceasedAdoptedIn==='optionNo', 'inProgress'
+        ];
+    }
+
     handlePost(ctx, errors, formdata, session) {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {

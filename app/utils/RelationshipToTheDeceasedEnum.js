@@ -39,8 +39,6 @@ class RelationshipToTheDeceasedEnum {
                     return 'grandchild';
                 case 'optionSpousePartner':
                     return 'husband, wife or civil partner';
-                case 'optionSpouseOrCivilPartner':
-                    return 'husband, wife or civil partner';
                 case 'optionSibling':
                     return 'sibling';
                 case 'optionAdoptedChild':
@@ -59,8 +57,6 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionGrandchild':
                     return 'ŵyr/wyres';
                 case 'optionSpousePartner':
-                    return 'gŵr, gwraig neu bartner sifil';
-                case 'optionSpouseOrCivilPartner':
                     return 'gŵr, gwraig neu bartner sifil';
                 case 'optionSibling':
                     return 'brawd/chwaer';

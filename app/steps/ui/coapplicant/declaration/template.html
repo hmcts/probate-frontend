@@ -10,14 +10,16 @@
 {% set hideNavigation = true %}
 {% set title = content[fields.language.value].title | safe %}
 
+
 {% block form_content %}
+{% set caseType = fields.caseType.value %}
     {% if fields.bilingual.value === "true" %}
         <h1 class="govuk-heading-l">{{ content.cy.pageHeader | safe }}</h1>
         <p class="govuk-body">{{ content.cy.legalStatementIntro | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
         <div class="inset-page margin-bottom100">
             <div class="govuk-heading-m declaration-header">{{ content.cy.highCourtHeader | safe }}</div>
             <div class="govuk-heading-s declaration-header">{{ content.cy.familyDivisionHeader | safe }}</div>
-            <div class="govuk-heading-s declaration-header">{{ content.cy.probateHeader | safe }}</div>
+            <div class="govuk-heading-s declaration-header">{{ content.cy.intestacyHeader if caseType == "intestacy" else content.cy.probateHeader | safe }}</div>
 
             <h2 class="govuk-heading-m">{{ content.cy.legalStatementHeader | safe }}</h2>
             <p class="govuk-body">{{ fields.legalStatement.value.cy.applicant | safe }}</p>
@@ -81,7 +83,7 @@
     <div class="inset-page">
         <div class="govuk-heading-m declaration-header">{{ content.en.highCourtHeader | safe }}</div>
         <div class="govuk-heading-s declaration-header">{{ content.en.familyDivisionHeader | safe }}</div>
-        <div class="govuk-heading-s declaration-header">{{ content.en.probateHeader | safe }}</div>
+        <div class="govuk-heading-s declaration-header">{{ content.en.intestacyHeader if caseType == "intestacy" else content.en.probateHeader | safe }}</div>
 
         <h2 class="govuk-heading-m">{{ content.en.legalStatementHeader | safe }}</h2>
         <p class="govuk-body">{{ fields.legalStatement.value.en.applicant | safe }}</p>
@@ -136,12 +138,17 @@
     </div>
 
     <h2 class="govuk-heading-m">{{ content[fields.language.value].agreementHeader | safe }}</h2>
-    <p class="govuk-body">{{ content[fields.language.value].agreementParagraph | safe }}</p>
-    {{ unorderedList([
+    {% if caseType == "intestacy" %}
+      <p class="govuk-body">{{ content[fields.language.value].intestacyAgreementParagraph1 | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe }}</p>
+      <p class="govuk-body">{{ content[fields.language.value].intestacyAgreementParagraph2 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% else %}
+      <p class="govuk-body">{{ content[fields.language.value].agreementParagraph | safe }}</p>
+      {{ unorderedList([
         content[fields.language.value].agreementItem1,
         content[fields.language.value].agreementItem2,
         content[fields.language.value].agreementItem3
-    ]) }}
+      ]) }}
+    {% endif %}
 
     {{ govukRadios({
         classes: "govuk-radios",
@@ -149,7 +156,7 @@
         name: "agreement",
         fieldset: {
             legend: {
-                text: content[fields.language.value].agreementHeader | safe,
+                text: content[fields.language.value].agreementHeader if caseType == "gop"  | safe,
                 classes: "govuk-fieldset__legend--m"
             }
         },
@@ -168,14 +175,15 @@
         ]
     }) }}
 
-    {{ govukInsetText({
-        text: content[fields.language.value].optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe,
-        classes: "js-hidden",
-        attributes: {
-            id: "agreement-2-details"
-        }
-    }) }}
-
+    {% if caseType == "gop" %}
+      {{ govukInsetText({
+          text: content[fields.language.value].optionNoText | replace("{mainApplicantName}", fields.applicant.value.firstName + " " +  fields.applicant.value.lastName) | safe,
+          classes: "js-hidden",
+          attributes: {
+              id: "agreement-2-details"
+          }
+      }) }}
+    {% endif %}
     <div class="govuk-form-group">
         {{ govukButton({
             text: content[fields.language.value].submit | safe,

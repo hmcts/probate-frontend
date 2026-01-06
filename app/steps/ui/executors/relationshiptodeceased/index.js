@@ -44,9 +44,8 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         const anyPredeceasedWholeSiblings = formdata.applicant?.anyPredeceasedWholeSiblings;
         const hasAnySurvivingWholeNiecesAndWholeNephews = formdata.applicant?.anySurvivingWholeNiecesAndWholeNephews === 'optionYes';
         const hasNoSurvivingWholeNiecesAndWholeNephews = formdata.applicant?.anySurvivingWholeNiecesAndWholeNephews === 'optionNo';
-        const isChild = formdata.applicant?.relationshipToDeceased === 'optionChild';
 
-        ctx.childOnly = isChild && hasOtherChildren &&
+        ctx.childOnly = hasOtherChildren &&
             (ctx.deceased.anyPredeceasedChildren === 'optionNo' ||
                 (ctx.deceased.anyPredeceasedChildren === 'optionYesSome' && (ctx.deceased.anySurvivingGrandchildren === 'optionYes' || ctx.deceased.anySurvivingGrandchildren === 'optionNo')));
         ctx.grandChildOnly = hasOtherChildren &&

@@ -14,15 +14,15 @@
   "changeLink": "Newid",
   "sendInvites": "Hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais",
 
-  "intestacyQuestion": "Notify the other applicants",
-  "intestacyParagraph1": "We will send the other applicants an email asking them to confirm the information you have provided and make their declaration.",
-  "intestacyParagraph2": "If the other applicants do not agree with the information provided, or if they no longer want to apply, we will ask them to contact you to discuss the application.",
-  "intestacyParagraph3": "You can continue to make changes to the application until all applicants have their declaration.",
-  "intestacyParagraph4": "If you make any changes to your application, you will need to contact the other applicants to let them know the legal statement has been updated.",
-  "intestacyParagraph5": "You will not be able to submit your application until all applicants have made their declaration.",
-  "intestacyHeading1": "If the other applicants do not agree with the information",
-  "intestacyHeading2": "Other applicants",
-  "intestacyHeading3": "Other applicants",
+  "intestacyQuestion": "Hysbysu’r ceiswyr eraill",
+  "intestacyParagraph1": "Byddwn yn anfon e-bost at y ceiswyr eraill yn gofyn iddynt gadarnhau’r wybodaeth a ddarparwyd gennych a gwneud eu datganiad.",
+  "intestacyParagraph2": "Os nad yw’r ceiswyr eraill yn cytuno â'r wybodaeth a ddarparwyd gennych, neu os nad ydynt am wneud cais mwyach, byddwn yn gofyn iddynt gysylltu â chi i drafod y cais.",
+  "intestacyParagraph3": "Gallwch barhau i wneud newidiadau i’r cais nes bod yr holl geiswyr wedi gwneud eu datganiadau.",
+  "intestacyParagraph4": "Os gwnewch unrhyw newidiadau i’ch cais, bydd angen i chi gysylltu â’r ceiswyr eraill i roi gwybod iddynt fod y datganiad cyfreithiol wedi'i ddiweddaru.",
+  "intestacyParagraph5": "Ni fyddwch yn gallu cyflwyno’ch cais nes bod yr holl geiswyr wedi gwneud eu datganiadau.",
+  "intestacyHeading1": "Os nad yw’r ceiswyr eraill yn cytuno â’r wybodaeth",
+  "intestacyHeading2": "Ceiswyr eraill",
+  "intestacyHeading3": "Ceiswyr eraill",
 
   "errors": {
     "getUrl(index": {

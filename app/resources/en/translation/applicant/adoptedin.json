@@ -2,8 +2,8 @@
   "title": "Child adopted in",
   "childQuestion": "Did {deceasedName} legally adopt you into their family?",
   "grandchildQuestion": "Did your parent ({deceasedName}'s child) legally adopt you?",
-  "wholeBloodSiblingQuestion": "Did your parents legally adopt you in to their family?",
-  "halfBloodSiblingQuestion": "Did the parent you have in common with {deceasedName} legally adopt you in to their family?",
+  "wholeBloodSiblingQuestion": "Did your parents legally adopt you into their family?",
+  "halfBloodSiblingQuestion": "Did the parent you have in common with {deceasedName} legally adopt you into their family?",
   "optionYes": "Yes",
   "optionNo": "No",
 

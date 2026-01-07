@@ -65,7 +65,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         return executor &&
             executor.fullName &&
             executor.email &&
-            executor.address;
+            executor.address.formattedAddress;
     }
 
     generateFields(language, ctx, errors) {

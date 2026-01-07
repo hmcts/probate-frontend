@@ -32,7 +32,6 @@ class Executors {
     executorEmailAlreadyUsed(email, fullName, applicantEmail = '') {
         return applicantEmail.toLowerCase() === email.toLowerCase() || this.executorsList
             .filter(executor => executor.email)
-            .filter(executor => executor.fullName !== fullName)
             .some(executor => executor.email.toLowerCase() === email.toLowerCase());
     }
 

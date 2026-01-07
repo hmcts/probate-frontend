@@ -118,7 +118,7 @@ describe('Executors.js', () => {
 
                 it('should exclude current executor', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown', 'applicant.email@test.com')).to.deep.equal(false);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown', 'applicant.email@test.com')).to.deep.equal(true);
                     done();
                 });
             });

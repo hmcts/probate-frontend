@@ -62,10 +62,9 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     areLastExecutorValid(ctx) {
         const lastIndex = ctx.list.length - 1;
         const executor = ctx.list[lastIndex];
-        return executor &&
-            executor.fullName &&
-            executor.email &&
-            executor.address.formattedAddress;
+        return executor?.fullName &&
+            executor?.email &&
+            executor?.address?.formattedAddress;
     }
 
     generateFields(language, ctx, errors) {

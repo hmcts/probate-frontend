@@ -269,7 +269,7 @@ describe('Co-applicant-relationship', () => {
                                 {
                                     'firstName': 'Dave', 'lastName': 'Bassett', 'isApplying': true, 'isApplicant': true
                                 }, {
-                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionChild', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: '20 Green Street, London, L12 9LN'
+                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionChild', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: {addressLine1: 'Adam & Eve', addressLine2: '81 Petty France', formattedAddress: 'Adam & Eve 81 Petty France London SW1H 9EX', postTown: 'London', postCode: 'SW1H 9EX'}
                                 }
                             ]
                         }
@@ -300,7 +300,7 @@ describe('Co-applicant-relationship', () => {
                                 {
                                     'firstName': 'Dave', 'lastName': 'Bassett', 'isApplying': true, 'isApplicant': true
                                 }, {
-                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: '20 Green Street, London, L12 9LN'
+                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: {addressLine1: 'Adam & Eve', addressLine2: '81 Petty France', formattedAddress: 'Adam & Eve 81 Petty France London SW1H 9EX', postTown: 'London', postCode: 'SW1H 9EX'}
                                 }
                             ]
                         }

@@ -3,6 +3,8 @@
   "question": "Ydych chi eisiau gwneud cais gyda rhywun arall?",
   "paragraph1": "Os oes pobl eraill sydd â hawl i etifeddu, gallwch wneud cais ar y cyd gyda hyd at 3 ohonynt. Byddant hefyd yn cael eu henwi ar y grant profiant.",
   "paragraph2": "Bydd pob Ceisydd yn cael yr hawl gyfreithiol i ddelio ag ystad {deceasedName}. Mae hyn yn cynnwys:",
+  "paragraph1Parent": "Gallwch wneud cais ar y cyd gyda rhiant arall {deceasedName}.",
+  "paragraph2Parent": "Byddant hefyd yn cael eu henwi ar y grant profiant a byddant yn cael yr hawl gyfreithiol i ymdrin ag ystad {deceasedName}. Mae hyn yn cynnwys:",
   "bullet1": "casglu asedau&rsquo;r ystad (eiddo ac arian)",
   "bullet2": "talu unrhyw drethi a dyledion",
   "bullet3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd â hawl iddo",

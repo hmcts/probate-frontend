@@ -28,7 +28,8 @@ describe('joint-application', () => {
                 'lastName': 'Applicant',
                 'isApplying': true,
                 'isApplicant': true,
-                'fullName': 'Bobby Applicant'
+                'fullName': 'Bobby Applicant',
+                relationshipToDeceased: 'optionChild'
             },
             executors: {
                 list: []
@@ -82,13 +83,26 @@ describe('joint-application', () => {
         });
 
         it('test correct content loaded on the page', (done) => {
+            const contentToExclude = ['paragraph1Parent', 'paragraph2Parent'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
                         deceasedName: 'John Doe'
                     };
-                    testWrapper.testContent(done, contentData);
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+        it('test correct content loaded on the page for relationshipToDeceased is Parent', (done) => {
+            const contentToExclude = ['paragraph1', 'paragraph2'];
+            sessionData.applicant.relationshipToDeceased = 'optionParent';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        deceasedName: 'John Doe'
+                    };
+                    testWrapper.testContent(done, contentData, contentToExclude);
                 });
         });
 

@@ -3,6 +3,8 @@
   "question": "Do you want to apply with anyone else?",
   "paragraph1": "If there are other people entitled to inherit, you can make a joint application with up to 3 of them. They will also be named on the grant of probate.",
   "paragraph2": "All applicants will be given the legal right to deal with {deceasedName}&rsquo;s estate. This includes:",
+  "paragraph1Parent": "You can make a joint application with {deceasedName}&rsquo;s other parent.",
+  "paragraph2Parent": "They will also be named on the grant of probate and will be given the legal right to deal with {deceasedName}&rsquo;s estate. This includes:",
   "bullet1": "collecting the estate’s assets (property, money and possessions)",
   "bullet2": "paying any taxes and debts",
   "bullet3": "distributing what is left to the people entitled to it",

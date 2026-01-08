@@ -29,9 +29,9 @@ class Executors {
                 .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
     }
 
-    executorEmailAlreadyUsed(email, fullName, applicantEmail = '') {
+    executorEmailAlreadyUsed(email, indexToSkip, applicantEmail = '') {
         return applicantEmail.toLowerCase() === email.toLowerCase() || this.executorsList
-            .filter(executor => executor.email)
+            .filter((executor, idx) => executor.email && idx !== indexToSkip)
             .some(executor => executor.email.toLowerCase() === email.toLowerCase());
     }
 

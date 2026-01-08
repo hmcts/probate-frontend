@@ -1,6 +1,8 @@
 {
   "title": "Pobl yn gwneud cais am brofiant",
+  "titleParent": "Cais ar y cyd",
   "question": "Ydych chi eisiau gwneud cais gyda rhywun arall?",
+  "questionParent": "Ydych chi eisiau gwneud cais ar y cyd gyda rhiant arall {deceasedName}?",
   "paragraph1": "Os oes pobl eraill sydd â hawl i etifeddu, gallwch wneud cais ar y cyd gyda hyd at 3 ohonynt. Byddant hefyd yn cael eu henwi ar y grant profiant.",
   "paragraph2": "Bydd pob Ceisydd yn cael yr hawl gyfreithiol i ddelio ag ystad {deceasedName}. Mae hyn yn cynnwys:",
   "paragraph1Parent": "Gallwch wneud cais ar y cyd gyda rhiant arall {deceasedName}.",

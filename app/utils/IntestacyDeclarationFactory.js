@@ -12,6 +12,13 @@ class IntestacyDeclarationFactory {
         const declaration = {};
         const ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
 
+        /*
+        - This json object takes the content from our typical en and cy json content files and then populates the
+        case data with the user's specific information via the supplied parameters.
+        - It works by replacing the variables stored within the declaration.json using suffixes to check the booleans value
+        and then populate the specific json object. Look at declaration.json to see how the suffixes work.
+        - Suffixes can be concatenated, see the ProbateDeclarationFactory for examples of this.
+        */
         legalStatement.en = {
             intro: content.en[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', formdata.applicantName),

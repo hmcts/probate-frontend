@@ -14527,8 +14527,8 @@ __metadata:
   linkType: hard
 
 "sonarqube-scanner@npm:^4.0.0":
-  version: 4.3.3
-  resolution: "sonarqube-scanner@npm:4.3.3"
+  version: 4.3.4
+  resolution: "sonarqube-scanner@npm:4.3.4"
   dependencies:
     adm-zip: "npm:0.5.16"
     axios: "npm:1.13.2"
@@ -14544,7 +14544,7 @@ __metadata:
   bin:
     sonar: bin/sonar-scanner.js
     sonar-scanner: bin/sonar-scanner.js
-  checksum: 10/985e18eb803cc2e331c2456afa9387594a088a17207023409e00f6d8d288e7b397ad03d9bd8da0bdc9835168a35d85455b93768d01842a487d4eeac68be1c0ea
+  checksum: 10/0f9d3dfc195e77495ea91d945b5ff993def4c9eed4ac3d2f098c0c4ef17f3dbe7e35529e270886befec4f9c4c50c51cf2dce04ef9d0ee18226d6521f5a257e2f
   languageName: node
   linkType: hard
 

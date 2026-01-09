@@ -6,7 +6,7 @@
 
   "errors": {
     "applicantParentAdoptedIn": {
-      "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {DeceasedName}"
+      "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {deceasedName}"
     }
   }
 }

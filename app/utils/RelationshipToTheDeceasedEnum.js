@@ -61,7 +61,7 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionSibling':
                     return 'brawd/chwaer';
                 case 'optionAdoptedChild':
-                    return 'adopted child';
+                    return 'plentyn mabwysiedig';
                 case 'optionParent':
                     return 'rhiant';
                 case 'optionNieceOrNephew':

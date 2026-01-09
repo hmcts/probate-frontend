@@ -54,24 +54,32 @@
         {% ifAsync fields.caseType.value === globals.caseTypes.intestacy %}
             <div class="declaration-wrapper word-break declaration-language language-cy margin-bottom100">
                 <div class="inset-page declaration-grid-item">
-                    <div class="declaration-header">
-                        <div class="govuk-heading-m declaration-header-item">{{ content.cy.highCourtHeader | safe }}</div>
-                        <div class="govuk-heading-s declaration-header-item">{{ content.cy.familyDivisionHeader | safe }}</div>
-                        <div class="govuk-heading-s declaration-header-item">{{ content.cy.intestacyHeader | safe }}</div>
-                    </div>
+                <div class="declaration-header">
+                    <div class="govuk-heading-m declaration-header-item">{{ content.cy.highCourtHeader | safe }}</div>
+                    <div class="govuk-heading-s declaration-header-item">{{ content.cy.familyDivisionHeader | safe }}</div>
+                    <div class="govuk-heading-s declaration-header-item">{{ content.cy.intestacyHeader | safe }}</div>
+                </div>
 
-                    <h2 class="govuk-heading-m declaration-subheader">{{ content.cy.legalStatementHeader | safe }}</h2>
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant | safe }}</p>
+                <h2 class="govuk-heading-m declaration-subheader">{{ content.cy.legalStatementHeader | safe }}</h2>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant | safe }}</p>
 
-                    <h3 class="govuk-heading-s declaration-subheader">{{ content.cy.deceasedHeader | safe }}</h3>
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceased | safe }} {{ fields.legalStatement.value.cy.deceasedOtherNames | safe }}</p>
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedMaritalStatus | safe }}</p>
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.cy.deceasedHeader | safe }}</h3>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceased | safe }} {{ fields.legalStatement.value.cy.deceasedOtherNames | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedMaritalStatus | safe }}</p>
 
-                    {{ estate(content.cy, fields.legalStatement.value.cy, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
+                {{ estate(content.cy, fields.legalStatement.value.cy, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant2 | safe }}</p>
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.cy.peopleApplyingHeader | safe }}</h3>
+
+                <p class="govuk-body declaration-item">{{fields.legalStatement.value.cy.executorsApplying.name | safe}}</p>
+
+                {% for applicant in fields.legalStatement.value.cy.executorsApplying %}
+                  <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
+                {% endfor %}
+
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant2 | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
 
                     {{ lists(content.cy, fields.declaration.value.cy) }}
                 </div>
@@ -139,10 +147,18 @@
                 <h3 class="govuk-heading-s declaration-subheader">{{ content.en.deceasedHeader | safe }}</h3>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceased | safe }} {{ fields.legalStatement.value.en.deceasedOtherNames | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedMaritalStatus | safe }}</p>
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
 
                 {{ estate(content.en, fields.legalStatement.value.en, fields.showNetValueAssetsOutside.value, fields.exceptedEstate.value) }}
 
+                <h3 class="govuk-heading-s declaration-subheader">{{ content.en.peopleApplyingHeader | safe }}</h3>
+
+                <p class="govuk-body declaration-item">{{fields.legalStatement.value.en.executorsApplying.name | safe}}</p>
+
+                {% for applicant in fields.legalStatement.value.en.executorsApplying %}
+                  <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
+                {% endfor %}
+
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applicant2 | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>
 

@@ -55,7 +55,10 @@ describe('Declaration', () => {
             hasCodicils = false;
             formdata = {
                 deceasedName: 'Mrs Deceased',
-                applicantName: 'Applicant Current Name'
+                applicantName: 'Applicant Current Name',
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
             };
         });
 

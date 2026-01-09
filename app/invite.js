@@ -11,6 +11,12 @@ const Authorise = require('app/services/Authorise');
 const FormatUrl = require('app/utils/FormatUrl');
 
 class InviteLink {
+
+    constructor(redisClient, pinTimeout) {
+        this.redisClient = redisClient;
+        this.pinTimeout = pinTimeout;
+    }
+
     verify() {
         const self = this;
 
@@ -32,38 +38,72 @@ class InviteLink {
             .then(([authToken, serviceAuthorisation]) => {
                 if (authToken === null || serviceAuthorisation === null) {
                     logger.error('Error while getting the authToken and serviceAuthorisation');
-                    failure(res);
-                } else {
-                    const inviteId = req.params.inviteId;
-                    const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
+                    return Promise.reject(new Error('Error getting authToken and serviceAuthorisation'));
+                }
+                const inviteId = req.params.inviteId;
+                const inviteLink = new InviteLinkService(config.services.orchestrator.url, req.sessionID);
 
-                    inviteLink.get(inviteId, authToken, serviceAuthorisation)
-                        .then(result => {
-                            if (result.name === 'Error') {
-                                logger.error(`Error while verifying the token: ${result.message}`);
-                                failure(res);
-                            } else {
-                                logger.info('Link is valid');
-                                const pinNumber = new PinNumber(config.services.orchestrator.url, req.sessionID);
-                                const bilingual = result.bilingual === 'optionYes';
+                const sessionId = req.sessionID;
+                return inviteLink.get(inviteId, authToken, serviceAuthorisation)
+                    .then(result => {
+                        return {authToken, serviceAuthorisation, inviteId, result, sessionId};
+                    });
+            })
+            .then(resultObj => {
+                const result = resultObj.result;
+                const serviceAuthorisation = resultObj.serviceAuthorisation;
+                const authToken = resultObj.authToken;
+                const inviteId = resultObj.inviteId;
+                const sessionId = resultObj.sessionId;
 
-                                pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
-                                    .then(generatedPin => {
-                                        req.session.pin = generatedPin;
-                                        req.session.phoneNumber = result.phoneNumber;
-                                        req.session.leadExecutorName = result.mainExecutorName;
-                                        req.session.formdataId = result.formdataId;
-                                        req.session.inviteId = inviteId;
-                                        req.session.validLink = true;
-                                        success(res);
-                                    });
-                            }
-                        })
-                        .catch(err => {
-                            logger.error(`Error while checking the link or sending the pin: ${err}`);
-                            failure(res);
+                if (result.name === 'Error') {
+                    logger.error(`Error while verifying the token: ${result.message}`);
+                    return Promise.reject(new Error(`Error while verifying the token: ${result.message}`));
+                }
+                logger.info('Link is valid');
+
+                req.session.phoneNumber = result.phoneNumber;
+                req.session.leadExecutorName = result.mainExecutorName;
+                req.session.formdataId = result.formdataId;
+                req.session.inviteId = inviteId;
+                req.session.validLink = true;
+
+                if (!(this.redisClient)) {
+                    logger.warn(`No redis client, send pin unconditionally for invite: ${inviteId}`);
+                    const pinNumber = new PinNumber(config.services.orchestrator.url, sessionId);
+                    const bilingual = result.bilingual === 'optionYes';
+
+                    return pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
+                        .then(generatedPin => {
+                            return generatedPin;
                         });
                 }
+                // check whether we have recently sent a PIN
+                return this.redisClient.get(inviteId)
+                    .then(pinValue => {
+                        if (pinValue) {
+                            return this.redisClient.ttl(inviteId)
+                                .then(ttl => {
+                                    logger.info(`Recently seen invite: ${inviteId} (ttl: ${ttl}), not resending`);
+                                    return pinValue;
+                                });
+                        }
+                        logger.info(`Not seen invite: ${inviteId}, send pin and setting timeout to ${this.pinTimeout}`);
+                        const pinNumber = new PinNumber(config.services.orchestrator.url, sessionId);
+                        const bilingual = result.bilingual === 'optionYes';
+
+                        return pinNumber.get(result.phoneNumber, bilingual, authToken, serviceAuthorisation)
+                            .then(generatedPin => {
+                                this.redisClient.set(inviteId, generatedPin);
+                                this.redisClient.expire(inviteId, this.pinTimeout);
+
+                                return generatedPin;
+                            });
+                    });
+            })
+            .then(pin => {
+                req.session.pin = pin;
+                success(res);
             })
             .catch(err => {
                 logger.error(`Error while getting the authToken and serviceAuthorisation: ${err}`);

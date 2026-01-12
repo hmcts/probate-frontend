@@ -87,6 +87,23 @@
             <dl class="govuk-summary-list">
                 {% include "ui/summary/includes/executors-applicant.njk" %}
             </dl>
+
+            <h3 class="govuk-heading-s">{{ content.Summary.otherPeopleApplyingHeading | safe }}</h3>
+            <dl class="govuk-summary-list">
+                {% include "ui/summary/includes/other-people-applying.njk" %}
+            </dl>
+
+            {% if fields.executors.list | length > 1 %}
+              {% set cls = cycler(common.second,common.third,common.fourth) %}
+              {% for executor in fields.executors.list.value %}
+                {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
+                  <h3 class="govuk-heading-s">{{ content.Summary.intestacyExecutorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
+                  <dl class="govuk-summary-list">
+                    {% include "ui/summary/includes/intestacy-people-applying.njk" %}
+                  </dl>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
         {% endif %}
 
         <p class="govuk-body save-this-page-link">

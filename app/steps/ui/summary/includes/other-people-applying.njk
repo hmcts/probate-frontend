@@ -1,0 +1,17 @@
+{% set multiExecAnswer = 'No' %}
+{% set isMultipleExecutors = fields.executors.list | length > 1 %}
+{% if isMultipleExecutors %}
+    {% set multiExecAnswer = 'Yes' %}
+{% endif %}
+{{checkanswer(
+    items = [
+        {
+            question: content.JointApplication.question,
+            answer: multiExecAnswer,
+            visible: true
+        }
+    ],
+    url = content.JointApplication.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

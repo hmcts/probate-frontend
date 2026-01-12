@@ -212,7 +212,9 @@ describe('Summary', () => {
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
                 caseType: 'intestacy',
                 readyToDeclare: false,
+                otherExecutorRelationshipToDeceased: 'What is the other applicant&rsquo;s relationship to Dee Ceased?',
                 exceptedEstateDodAfterThreshold: false,
+                executorSummary: [],
                 session: {
                     language: 'en',
                     form: {

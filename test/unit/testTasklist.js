@@ -723,6 +723,9 @@ describe('Tasklist', () => {
                     documentupload: {},
                     documents: {
                         uploads: completedForm.documents.uploads
+                    },
+                    applicant: {
+                        relationshipToDeceased: '',
                     }
                 };
                 req.session.form = formdata;

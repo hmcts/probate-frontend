@@ -96,6 +96,7 @@
           "hasOtherName": true,
           "currentName": "Number 2",
           "currentNameReason": "optionMarriage",
+          "coApplicantRelationshipToDeceased": "optionChild",
           "address": {
             "addressLine1": "21 Treelined Avenue",
             "addressLine2": "",

@@ -113,6 +113,7 @@ describe('ParentAdoptedIn', () => {
             const ctx = {
                 language: 'en',
                 deceasedName: 'John Doe',
+                applicantName: 'Jane Doe'
             };
             const errors = [
                 {
@@ -136,6 +137,10 @@ describe('ParentAdoptedIn', () => {
                 deceasedName: {
                     error: false,
                     value: 'John Doe'
+                },
+                applicantName: {
+                    error: false,
+                    value: 'Jane Doe'
                 }
             });
             done();

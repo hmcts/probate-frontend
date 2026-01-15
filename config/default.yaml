@@ -198,11 +198,11 @@ links:
   survey: 'https://www.smartsurvey.co.uk/s/Probate_Feedback/'
   surveyEndOfApplication: 'https://www.smartsurvey.co.uk/s/SurveyExit/?service=Probate'
   ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value'
+  applicationFormPA12: 'https://www.gov.uk/government/publications/form-pa12-apply-for-power-of-attorney-intestate'
   applicationFormPA14: 'https://www.gov.uk/government/publications/form-pa14-medical-certificate-probate'
-  applicationFormPA17: 'https://www.gov.uk/government/publications/form-pa17-give-up-probate-executor-rights-for-probate-practitioners'
   applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-give-up-probate-executor-rights'
-  applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will'
-  applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will'
+  applicationFormPA16: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
+  applicationFormPA17: 'https://www.gov.uk/government/publications/form-pa17-give-up-probate-executor-rights-for-probate-practitioners'
   applicationFormPA19: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company'
   deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
   hmctAccessAccessibilityStatement: 'https://hmcts-access.service.gov.uk/accessibility-statement'
@@ -316,7 +316,6 @@ intestacyScreenersDeathCertificateInEnglish:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -325,7 +324,6 @@ intestacyScreenersDeathCertificateNotInEnglish:
   completed: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -334,7 +332,6 @@ intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   eeEstateValued: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -344,7 +341,6 @@ intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   eeEstateValued: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -354,7 +350,6 @@ intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
-  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'

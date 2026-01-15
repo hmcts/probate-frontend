@@ -273,7 +273,7 @@ class Declaration extends ValidationStep {
                     });
             });
         } else if (mainApplicantName && !hasMultipleApplicants) {
-            return this.intestacyExecutorsApplyingText({
+            return [this.intestacyExecutorsApplyingText({
                 deceasedName,
                 numberOfExecutorsApplying,
                 mainApplicantName,
@@ -281,7 +281,7 @@ class Declaration extends ValidationStep {
                 content,
                 language,
                 hasMultipleApplicants
-            });
+            })];
         }
     }
 

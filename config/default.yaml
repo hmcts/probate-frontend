@@ -13,14 +13,12 @@ featureToggles:
   ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
-  ft_avaya_webchat: 'probate-avaya-webchat'
   ft_newfee_register_code: 'probate-newfee-register-code'
   ft_excepted_estates: 'probate-excepted-estates'
   ft_will_condition : 'probate-will-condition'
   ft_stop_ihtonline : 'probate-stop-ihtonline'
-  ft_use_new_webchat : 'probate-use-new-webchat'
   ft_probate_fee_increase_2025 : 'probate-fee-increase-2025'
-  appwideToggles: ['ft_avaya_webchat', 'ft_use_new_webchat']
+  appwideToggles: []
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:
   webchatEnabled: true
@@ -174,9 +172,6 @@ dateFormat: 'DD/MM/YYYY'
 payloadVersion: '4.1.1'
 enableTracking: 'true'
 webchat:
-  avayaUrl: 'webchat.pp.ctsc.hmcts.net'
-  avayaClientUrl: 'webchat-client.pp.ctsc.hmcts.net'
-  avayaService: 'Testing'
   kerv:
     deploymentId:
       en: 'kerv-deployment-en'
@@ -191,7 +186,6 @@ links:
   privacy: '/privacy-policy'
   terms: '/terms-conditions'
   contact: '/contact-us'
-  webchat: '/avaya-webchat'
   callCharges: 'https://www.gov.uk/call-charges'
   howToManageCookies: 'https://www.aboutcookies.org'
   googlePrivacyPolicy: 'https://www.google.com/policies/privacy/partners/'
@@ -204,14 +198,12 @@ links:
   survey: 'https://www.smartsurvey.co.uk/s/Probate_Feedback/'
   surveyEndOfApplication: 'https://www.smartsurvey.co.uk/s/SurveyExit/?service=Probate'
   ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value'
-  applicationFormPA12: 'https://www.gov.uk/government/publications/form-pa12-apply-for-power-of-attorney-intestate'
   applicationFormPA14: 'https://www.gov.uk/government/publications/form-pa14-medical-certificate-probate'
-  applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-give-up-probate-executor-rights'
-  applicationFormPA16: 'https://www.gov.uk/government/publications/form-pa16-give-up-probate-administrator-rights'
   applicationFormPA17: 'https://www.gov.uk/government/publications/form-pa17-give-up-probate-executor-rights-for-probate-practitioners'
-  applicationFormPA19: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company'
+  applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-give-up-probate-executor-rights'
   applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will'
   applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will'
+  applicationFormPA19: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company'
   deathCertificate: 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
   hmctAccessAccessibilityStatement: 'https://hmcts-access.service.gov.uk/accessibility-statement'
   payAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'
@@ -249,8 +241,8 @@ payment:
   siteId: 'P223'
   version: '1'
   currency: 'GBP'
-noHeaderLinksPages: ['/time-out', '/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in', '/start-verify', '/verify-dod']
-alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error', '/avaya-webchat']
+noHeaderLinksPages: ['/time-out', '/sign-out', '/co-applicant-start-page', '/co-applicant-declaration', '/co-applicant-agree-page', '/co-applicant-disagree-page', '/co-applicant-all-agreed-page', '/pin-resend', '/pin-sent', '/sign-in']
+alwaysWhitelistedPages: ['/time-out', '/sign-out', '/contact-us', '/accessibility-statement', '/terms-conditions', '/privacy-policy', '/cookies', '/health', '/stop-page', '/error']
 whitelistedPagesAfterSubmission: ['/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/citizens-hub']
 whitelistedPagesAfterPayment: ['/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf']
 whitelistedPagesAfterDeclaration: ['/task-list', '/executors-invites-sent', '/copies-uk', '/assets-overseas', '/copies-overseas', '/copies-summary', '/payment-breakdown', '/payment-status', '/documents', '/thank-you', '/check-answers-pdf', '/declaration-pdf', '/equality-and-diversity', '/citizens-hub']
@@ -324,6 +316,7 @@ intestacyScreenersDeathCertificateInEnglish:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
+  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -332,6 +325,7 @@ intestacyScreenersDeathCertificateNotInEnglish:
   completed: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
+  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -340,6 +334,7 @@ intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   eeEstateValued: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
+  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -349,6 +344,7 @@ intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   eeEstateValued: 'optionYes'
   left: 'optionNo'
   related: 'optionYes'
+  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -358,6 +354,7 @@ intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   left: 'optionNo'
   diedAfter: 'optionYes'
   related: 'optionYes'
+  otherApplicants: 'optionNo'
 intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -371,8 +368,8 @@ intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
 hardStopParams:
   gop: []
   intestacy: []
-nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'avaya-webchat', 'ee-deceased-dod', 'ee-estate-valued', 'time-out','start-verify','verify-dod']
-noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'avaya-webchat', 'ee-deceased-dod', 'ee-estate-valued', 'task-list']
+nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'ee-deceased-dod', 'ee-estate-valued', 'time-out']
+noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'ee-deceased-dod', 'ee-estate-valued', 'task-list']
 endpoints:
   health: '/health'
   info: '/info'

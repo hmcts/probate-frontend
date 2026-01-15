@@ -1,18 +1,22 @@
 {
   "title": "Enw&rsquo;r unigolyn sydd wedi marw",
-  "question": "Beth yw enw llawn yr unigolyn a fu farw?",
+  "question": "Beth yw enw llawn yr unigolyn sydd wedi marw?",
   "explanation1": "Dylech ddefnyddio'r enw sydd wedi'i ysgrifennu ar y dystysgrif marwolaeth.",
   "firstName": "Enw cyntaf ac unrhyw enwau canol",
   "lastName": "Cyfenw",
 
   "errors": {
     "firstName": {
-      "required": "Nodwch enw cyntaf yr unigolyn sydd wedi marw",
-      "invalid": "Rhowch enw cyntaf dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
+      "required": "Rhowch yr enw cyntaf ac unrhyw enwau canol y sawl a fu farw",
+      "invalid": "Rhaid i’r enw cyntaf ond cynnwys llythrennau o a i z, a nodau arbenning fel cysylltnodau, bylchau a chollnodau",
+      "minLength": "Rhaid i’r enw cyntaf fod yn 2 o nodau neu fwy",
+      "maxLength": "Rhaid i’r enw cyntaf fod yn 100 o nodau neu lai"
     },
     "lastName": {
-      "required": "Nodwch gyfenw&rsquo;r unigolyn sydd wedi marw",
-      "invalid": "Rhowch enw olaf dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
+      "required": "Nodwch enw olaf yr unigolyn sydd wedi marw",
+      "invalid": "Rhaid i’r cyfenw ond cynnwys llythrennau o a i z, a nodau arbennig fel cysylltnodau, bylchau a chollnodau",
+      "minLength": "Rhaid i’r cyfenw fod yn 2 o nodau neu fwy",
+      "maxLength": "Rhaid i’r cyfenw fod yn 100 o nodau neu lai"
     }
   }
 }

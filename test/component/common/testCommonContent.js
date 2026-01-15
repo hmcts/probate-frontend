@@ -6,7 +6,7 @@ const commonContent = require('app/resources/en/translation/common');
 let localSessionData;
 
 class TestCommonContent {
-    static runTest(page, beforeEachParam, afterEachParam, cookies = [], pageOutsideIdam = false, sessionData = {}) {
+    static runTest(page, beforeEachParam, afterEachParam, cookies = [], pageOutsideIdam = false, sessionData = {}, testUrl) {
         const testWrapper = new TestWrapper(page);
 
         describe('Test the help content', () => {
@@ -39,7 +39,9 @@ class TestCommonContent {
                     helpTelephoneOpeningHours2: commonContent.helpTelephoneOpeningHours2,
                     helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
                 };
-
+                if (testUrl) {
+                    testWrapper.pageUrl = testUrl;
+                }
                 testWrapper.agent.post('/prepare-session/form')
                     .send(localSessionData)
                     .end(() => {

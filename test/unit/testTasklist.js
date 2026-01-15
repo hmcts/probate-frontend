@@ -706,7 +706,7 @@ describe('Tasklist', () => {
 
                 assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDetails, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDod, ctx).constructor.getUrl());
                 assert.equal(ctx.ApplicantsTask.status, 'notStarted');
                 assert.equal(ctx.ApplicantsTask.nextURL, steps[journeyMap.taskList().ApplicantsTask.firstStep].constructor.getUrl());
             });
@@ -723,6 +723,9 @@ describe('Tasklist', () => {
                     documentupload: {},
                     documents: {
                         uploads: completedForm.documents.uploads
+                    },
+                    applicant: {
+                        relationshipToDeceased: '',
                     }
                 };
                 req.session.form = formdata;
@@ -792,7 +795,7 @@ describe('Tasklist', () => {
 
                 assert.equal(ctx.DeceasedTask.checkYourAnswersLink, steps.Summary.constructor.getUrl());
                 assert.equal(ctx.DeceasedTask.status, 'started');
-                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDetails, ctx).constructor.getUrl());
+                assert.equal(ctx.DeceasedTask.nextURL, journeyMap.nextStep(steps.DeceasedDod, ctx).constructor.getUrl());
                 assert.equal(ctx.ApplicantsTask.status, 'started');
             });
 

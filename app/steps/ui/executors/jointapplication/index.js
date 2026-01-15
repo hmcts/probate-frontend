@@ -65,7 +65,19 @@ class JointApplication extends ValidationStep {
     }
 
     isComplete(ctx) {
-        return [ctx.hasCoApplicant === 'optionYes' || ctx.hasCoApplicant === 'optionNo', 'inProgress'];
+        if (ctx.hasCoApplicant === 'optionYes' && !this.areLastExecutorValid(ctx)) {
+            return [true, 'inProgress'];
+        } else if (ctx.hasCoApplicant === 'optionNo') {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
+    }
+    areLastExecutorValid(ctx) {
+        const lastIndex = ctx.list.length - 1;
+        const executor = ctx.list[lastIndex];
+        return executor?.isApplicant !== true && executor?.fullName &&
+            executor?.email &&
+            executor?.address?.formattedAddress;
     }
     nextStepOptions(ctx) {
         ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';

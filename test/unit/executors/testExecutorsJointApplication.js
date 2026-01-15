@@ -126,15 +126,25 @@ describe('JointApplication', () => {
     });
     describe('isComplete', () => {
         it('should return inProgress when hasCoApplicant is Yes', () => {
-            const ctx = {hasCoApplicant: 'optionYes'};
+            const ctx = {hasCoApplicant: 'optionYes',
+                list: [{isApplicant: false, fullName: 'Ed Brown',}]
+            };
             const result = JointApplication.isComplete(ctx);
             expect(result).to.deep.equal([true, 'inProgress']);
         });
 
-        it('should return inProgress when hasCoApplicant is No', () => {
+        it('should return true inProgress when hasCoApplicant is No', () => {
             const ctx = {hasCoApplicant: 'optionNo'};
             const result = JointApplication.isComplete(ctx);
             expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should return false inProgress when hasCoApplicant is Yes and all fields in the list is completed', () => {
+            const ctx = {hasCoApplicant: 'optionYes',
+                list: [{isApplicant: false, fullName: 'Ed Brown', email: 'abc@gmail.com', address: {formattedAddress: '1 Red Road, London, L1 1LL'}}]
+            };
+            const result = JointApplication.isComplete(ctx);
+            expect(result).to.deep.equal([false, 'inProgress']);
         });
 
         it('should not return inProgress when hasCoApplicant is undefined', () => {

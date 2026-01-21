@@ -29,6 +29,7 @@ class RelationshipToTheDeceasedEnum {
         }
     }
 
+    // eslint-disable-next-line complexity
     static mapOptionToValue(optionValue, language) {
         if (optionValue !== null && typeof optionValue !== 'undefined') {
             if (language === 'en') {
@@ -41,6 +42,10 @@ class RelationshipToTheDeceasedEnum {
                     return 'husband, wife or civil partner';
                 case 'optionSibling':
                     return 'sibling';
+                case 'optionWholeBloodSibling':
+                    return 'whole blood sibling';
+                case 'optionHalfBloodSibling':
+                    return 'half blood sibling';
                 case 'optionAdoptedChild':
                     return 'adopted child';
                 case 'optionParent':
@@ -60,6 +65,10 @@ class RelationshipToTheDeceasedEnum {
                     return 'gŵr, gwraig neu bartner sifil';
                 case 'optionSibling':
                     return 'brawd/chwaer';
+                case 'optionWholeBloodSibling':
+                    return 'whole blood sibling';
+                case 'optionHalfBloodSibling':
+                    return 'half blood sibling';
                 case 'optionAdoptedChild':
                     return 'plentyn mabwysiedig';
                 case 'optionParent':

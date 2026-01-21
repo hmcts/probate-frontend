@@ -88,22 +88,70 @@
                 {% include "ui/summary/includes/executors-applicant.njk" %}
             </dl>
 
-            <h3 class="govuk-heading-s">{{ content.Summary.otherPeopleApplyingHeading | safe }}</h3>
-            <dl class="govuk-summary-list">
-                {% include "ui/summary/includes/other-people-applying.njk" %}
-            </dl>
+        {% set hideOtherApplicants = false %}
+        {% set relationship = fields.applicant.relationshipToDeceased.value %}
 
-            {% if fields.executors.list | length > 1 %}
-              {% set cls = cycler(common.second,common.third,common.fourth) %}
-              {% for executor in fields.executors.list.value %}
-                {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
-                  <h3 class="govuk-heading-s">{{ content.Summary.intestacyExecutorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
-                  <dl class="govuk-summary-list">
-                    {% include "ui/summary/includes/intestacy-people-applying.njk" %}
-                  </dl>
-                {% endif %}
-              {% endfor %}
+        {% if relationship == "optionChild" or relationship == "optionGrandchild" %}
+            {% set hideOtherApplicants = (
+                fields.deceased.anyOtherChildren.value == "optionNo" or
+                (
+                    fields.deceased.anyOtherChildren.value == "optionYes" and
+                    fields.deceased.anyPredeceasedChildren.value == "optionYesAll" and
+                    fields.deceased.anySurvivingGrandchildren.value == "optionNo"
+                )
+            ) %}
+
+            {% if relationship == "optionGrandchild" and hideOtherApplicants %}
+                {% set hideOtherApplicants = fields.deceased.grandchildParentHasOtherChildren.value == "optionNo" %}
             {% endif %}
+        {% endif %}
+
+        {% if relationship == "optionParent" %}
+            {% set hideOtherApplicants = fields.deceased.anyOtherParentAlive.value == "optionNo" %}
+        {% endif %}
+
+        {# Whole Sibling #}
+        {% if relationship == "optionSibling" and fields.applicant.sameParents.value == "optionBothParentsSame" %}
+            {% set hideOtherApplicants = (
+                fields.applicant.anyOtherWholeSiblings.value == "optionNo" or
+                (
+                    fields.applicant.anyOtherWholeSiblings.value == "optionYes" and
+                    fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" and
+                    fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionNo"
+                )
+            ) %}
+        {% endif %}
+
+        {# Half Sibling #}
+        {% if relationship == "optionSibling" and fields.applicant.sameParents.value == "optionOneParentsSame" %}
+            {% set hideOtherApplicants = (
+                fields.applicant.anyOtherHalfSiblings.value == "optionNo" or
+                (
+                    fields.applicant.anyOtherHalfSiblings.value == "optionYes" and
+                    fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesAll" and
+                    fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo"
+                )
+            ) %}
+        {% endif %}
+
+        {% if not hideOtherApplicants %}
+          <h3 class="govuk-heading-s">{{ content.Summary.otherPeopleApplyingHeading | safe }}</h3>
+              <dl class="govuk-summary-list">
+                  {% include "ui/summary/includes/other-people-applying.njk" %}
+              </dl>
+
+              {% if fields.executors.list | length > 1 %}
+                {% set cls = cycler(common.second,common.third,common.fourth) %}
+                {% for executor in fields.executors.list.value %}
+                  {% ifAsync executor.isApplicant != true and executor.isApplying == true %}
+                    <h3 class="govuk-heading-s">{{ content.Summary.intestacyExecutorApplyingForProbate | replace("{executorOrderNumber}", cls.next()) | safe }}</h3>
+                    <dl class="govuk-summary-list">
+                      {% include "ui/summary/includes/intestacy-people-applying.njk" %}
+                    </dl>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+          {% endif %}
         {% endif %}
 
         <p class="govuk-body save-this-page-link">

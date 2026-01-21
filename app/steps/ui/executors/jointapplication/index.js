@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const FieldError = require('../../../../components/error');
 const caseTypes = require('../../../../utils/CaseTypes');
@@ -75,7 +75,7 @@ class JointApplication extends ValidationStep {
     areLastExecutorValid(ctx) {
         const lastIndex = ctx.list.length - 1;
         const executor = ctx.list[lastIndex];
-        return executor?.isApplicant !== true && executor?.fullName &&
+        return executor?.isApplying !== true && executor?.fullName &&
             executor?.email &&
             executor?.address?.formattedAddress;
     }
@@ -104,6 +104,12 @@ class JointApplication extends ValidationStep {
                 errors.push(FieldError('hasCoApplicant', 'invalid', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             }
+        }
+        if (ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo' &&
+            ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.list.length === 2) {
+            const lastIndex = ctx.list.length - 1;
+            ctx.list.splice(lastIndex, 1);
+            set(formdata, 'executors.list', ctx.list);
         }
         return [ctx, errors];
     }

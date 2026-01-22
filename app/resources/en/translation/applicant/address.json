@@ -4,6 +4,7 @@
   "explanation1": "We will send the grant of probate to this address.",
   "postTown": "Town or city",
   "postcode": "UK Postcode",
+  "postcodeUK": "UK postcode",
   "country": "Country",
   "findAddress": "Find UK address",
   "addressLabel": "Address Line 1",

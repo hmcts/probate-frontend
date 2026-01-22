@@ -6,7 +6,7 @@
 
   "errors": {
     "adoptedOut": {
-      "required": "Dewiswch &lsquo;Do&rsquo; os cafodd {applicantName} ei fabwysiadu&rsquo;n gyfreithlon allan o deulu {deceasedName}?"
+      "required": "Dewiswch &lsquo;Do&rsquo; os gafodd {applicantName} ei fabwysiadu&rsquo;n gyfreithlon allan o deulu {deceasedName}?"
     }
   }
 }

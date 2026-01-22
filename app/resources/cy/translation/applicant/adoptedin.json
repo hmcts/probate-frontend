@@ -1,7 +1,7 @@
 {
   "title": "A wnaeth yr unigolyn sydd wedi marw eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
   "childQuestion": "A wnaeth {deceasedName} eich mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
-  "grandchildQuestion": "A wnaeth eich rhiant (plentyn {deceasedName} eich mabwysiadu’n gyfreithlon?",
+  "grandchildQuestion": "A wnaeth eich rhiant (plentyn {deceasedName}) eich mabwysiadu’n gyfreithlon?",
   "wholeBloodSiblingQuestion": "A wnaeth eich rhieni eich mabwysiadu&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
   "halfBloodSiblingQuestion": "A wnaeth y rhiant sydd gennych yn gyffredin gyda {deceasedName} eich mabwysiadu&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw? ",
   "optionYes": "Do",

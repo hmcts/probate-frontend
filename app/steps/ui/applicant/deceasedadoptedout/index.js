@@ -28,7 +28,7 @@ class DeceasedAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('deceasedAdoptedOut');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'deceasedAdoptedOut');
     }
 
     nextStepOptions(ctx) {

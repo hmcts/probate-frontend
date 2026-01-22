@@ -18,7 +18,7 @@ class AnyLivingDescendants extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('notEligibleLivingDescendants');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notEligibleLivingDescendants');
     }
 
     nextStepOptions(ctx) {

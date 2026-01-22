@@ -17,7 +17,7 @@ class AllHalfSiblingsOver18 extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('anyoneUnder18');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'anyoneUnder18');
     }
 
     nextStepOptions() {

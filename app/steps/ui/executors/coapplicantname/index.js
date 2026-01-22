@@ -42,12 +42,12 @@ class CoApplicantName extends ValidationStep {
     }
     nextStepUrl(req, ctx) {
         if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
+            return this.next(req, ctx).getUrlWithContext(ctx);
         }
         if (ctx.applicantRelationshipToDeceased === 'optionParent') {
             return '/coapplicant-email/1';
         }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+        return this.next(req, ctx).getUrlWithContext(ctx, ctx.index);
     }
 
     nextStepOptions(ctx) {

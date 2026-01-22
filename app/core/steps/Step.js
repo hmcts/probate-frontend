@@ -15,9 +15,9 @@ const Sanitize = require('app/utils/Sanitize');
 
 class Step {
 
+    // eslint-disable-next-line no-unused-vars
     static getUrl(unused) {
-        this._unused = unused;
-        throw new ReferenceError('Step must override #url');
+        throw new ReferenceError('Step must implement #getUrl');
     }
 
     getUrlWithContext(ctx, unused) {

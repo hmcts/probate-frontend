@@ -81,7 +81,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         } else if (ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
             return `/parent-die-before/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl('otherCoApplicantRelationship');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'otherCoApplicantRelationship');
     }
 
     nextStepOptions(ctx) {

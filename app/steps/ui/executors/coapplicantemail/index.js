@@ -75,7 +75,7 @@ class CoApplicantEmail extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+        return this.next(req, ctx).getUrlWithContext(ctx, ctx.index);
     }
 
     action(ctx, formdata) {

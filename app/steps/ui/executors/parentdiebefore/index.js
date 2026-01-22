@@ -42,10 +42,7 @@ class ParentDieBefore extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.applicantParentDieBeforeDeceased === 'optionYes') {
-            return `/coapplicant-name/${ctx.index}`;
-        }
-        return this.next(req, ctx).constructor.getUrl('otherCoApplicantRelationship');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'otherCoApplicantRelationship');
     }
 
     nextStepOptions() {

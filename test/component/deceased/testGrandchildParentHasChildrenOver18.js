@@ -60,7 +60,7 @@ describe('grandchild-parent-all-children-over-18', () => {
                 });
         });
 
-        it(`test it redirects to Stop page if grandchild parent children were under 18: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if grandchild parent children were under 18: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -68,7 +68,7 @@ describe('grandchild-parent-all-children-over-18', () => {
                         grandchildParentHasAllChildrenOver18: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

@@ -49,7 +49,7 @@ describe('grandchild-parent-has-other-children', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to children age page if grandchild parent had other children: ${expectedNextUrlForGrandchildParentHasAllChildrenOver18}`, (done) => {
+        it(`test it redirects to children age page if grandchild parent had other children: /intestacy${expectedNextUrlForGrandchildParentHasAllChildrenOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -58,11 +58,11 @@ describe('grandchild-parent-has-other-children', () => {
                         grandchildParentHasOtherChildren: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasAllChildrenOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForGrandchildParentHasAllChildrenOver18}`);
                 });
         });
 
-        it(`test it redirects to Applicant Name page if grandchild parent had no other children: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if grandchild parent had no other children: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -70,7 +70,7 @@ describe('grandchild-parent-has-other-children', () => {
                         grandchildParentHasOtherChildren: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
     });

@@ -13,6 +13,14 @@ class CoApplicantName extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
+    getUrlWithContext(ctx) {
+        const noCtxUrl = this.constructor.getUrl(ctx?.index);
+        if (ctx?.caseType === 'intestacy') {
+            return `/intestacy${noCtxUrl}`;
+        }
+        return noCtxUrl;
+    }
+
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
             ctx.fullName = ctx.list[ctx.index].fullName;

@@ -16,6 +16,14 @@ class ExecutorContactDetails extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
+    getUrlWithContext(ctx) {
+        const noCtxUrl = this.constructor.getUrl(ctx?.index);
+        if (ctx?.caseType === 'intestacy') {
+            return `/intestacy${noCtxUrl}`;
+        }
+        return noCtxUrl;
+    }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {

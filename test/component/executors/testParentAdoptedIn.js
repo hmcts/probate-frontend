@@ -9,8 +9,8 @@ const caseTypes= require('app/utils/CaseTypes');
 
 describe('parent-adopted-in', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForParentAdoptionPlace = ParentAdoptionPlace.getUrl('*');
-    const expectedNextUrlForParentAdoptedOut = ParentAdoptedOut.getUrl('*');
+    const expectedNextUrlForParentAdoptionPlace = ParentAdoptionPlace.getUrl(1);
+    const expectedNextUrlForParentAdoptedOut = ParentAdoptedOut.getUrl(1);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantParentAdoptedIn');

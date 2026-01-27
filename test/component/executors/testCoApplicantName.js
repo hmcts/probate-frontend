@@ -8,8 +8,8 @@ const commonContent = require('../../../app/resources/en/translation/common.json
 
 describe('coapplicant-name', () => {
     let testWrapper, sessionData;
-    const expectedNextUrlForCoApplicantAdoptedIn = CoApplicantAdoptedIn.getUrl('*');
-    const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl('*');
+    const expectedNextUrlForCoApplicantAdoptedIn = CoApplicantAdoptedIn.getUrl(1);
+    const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantName');

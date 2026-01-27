@@ -8,7 +8,7 @@ const CoApplicantName = steps.CoApplicantName;
 const namePath = '/coapplicant-name/';
 const content = require('../../../app/resources/en/translation/executors/coapplicantname.json');
 
-describe.only('Co-applicant-name', () => {
+describe('Co-applicant-name', () => {
     describe('getUrl()', () => {
         it('returns the url with a * param when no index is given', (done) => {
             const url = CoApplicantName.constructor.getUrl();

@@ -1,17 +1,16 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-//const CoApplicantName = require('app/steps/ui/executors/coapplicantname');
-//const ParentDieBefore = require('app/steps/ui/executors/parentdiebefore');
-//const testCommonContent = require('test/component/common/testCommonContent.js');
+const CoApplicantName = require('app/steps/ui/executors/coapplicantname');
+const ParentDieBefore = require('app/steps/ui/executors/parentdiebefore');
 const caseTypes = require('app/utils/CaseTypes');
+const commonContent = require('../../../app/resources/en/translation/common.json');
 
 describe('coapplicant-relationship-to-deceased', () => {
-    // eslint-disable-next-line no-unused-vars
     let testWrapper, sessionData;
-    //const expectedNextUrlForCoApplicantName = CoApplicantName.getUrl(1);
+    const expectedNextUrlForCoApplicantName = CoApplicantName.getUrl(1);
 
-    //const expectedNextUrlForParentDieBefore = ParentDieBefore.getUrl(1);
+    const expectedNextUrlForParentDieBefore = ParentDieBefore.getUrl(1);
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantRelationshipToDeceased');
@@ -50,7 +49,26 @@ describe('coapplicant-relationship-to-deceased', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
 
-        /*testCommonContent.runTest('CoApplicantRelationshipToDeceased', null, null, [], false, {type: caseTypes.INTESTACY});
+        it('test help block content is loaded on page', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const playbackData = {
+                        helpTitle: commonContent.helpTitle,
+                        helpHeading1: commonContent.helpHeading1,
+                        helpHeading2: commonContent.helpHeading2,
+                        helpHeading3: commonContent.helpHeading3,
+                        helpTelephoneNumber: commonContent.helpTelephoneNumber,
+                        helpTelephoneOpeningHoursTitle: commonContent.helpTelephoneOpeningHoursTitle,
+                        helpTelephoneOpeningHours1: commonContent.helpTelephoneOpeningHours1,
+                        helpTelephoneOpeningHours2: commonContent.helpTelephoneOpeningHours2,
+                        helpEmailLabel: commonContent.helpEmailLabel.replace(/{contactEmailAddress}/g, commonContent.helpEmail)
+                    };
+
+                    testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
 
         it('test redirection to coApplicant name page when relationship to deceased is child', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
@@ -91,7 +109,7 @@ describe('coapplicant-relationship-to-deceased', () => {
                 });
         });
 
-        /*it('test redirection to stop page when relationship to deceased is others', (done) => {
+        it('test redirection to stop page when relationship to deceased is others', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
@@ -102,7 +120,7 @@ describe('coapplicant-relationship-to-deceased', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    const data = {list: [{'fullName': 'Jeff Exec Two', 'isApplying': true}],
+                    const data = {list: [{'fullName': 'Jeff Exec One', 'isApplying': true}, {'fullName': 'Jeff Exec Two', 'isApplying': true, coapplicantRelationshipToDeceased: 'optionOther'}],
                         coApplicantRelationshipToDeceased: 'optionOther'};
 
                     testWrapper.testRedirect(done, data, '/stop-page/otherCoApplicantRelationship');
@@ -179,6 +197,6 @@ describe('coapplicant-relationship-to-deceased', () => {
                     };
                     testWrapper.testErrors(done, data, 'required');
                 });
-        });*/
+        });
     });
 });

@@ -44,6 +44,7 @@ class JointApplication extends ValidationStep {
             fullName: executor.fullName
         }))];
         ctx.list = ctx.list.filter(executor =>
+            executor.coApplicantRelationshipToDeceased !== 'optionOther' &&
             executor.childAdoptionInEnglandOrWales !== 'optionNo' &&
             executor.grandchildAdoptionInEnglandOrWales !== 'optionNo' &&
             executor.childAdoptedOut !== 'optionYes' &&

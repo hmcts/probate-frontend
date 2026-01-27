@@ -104,6 +104,10 @@ class CoApplicantEmail extends ValidationStep {
         }
         return fields;
     }
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).constructor.getUrl(ctx.index);
+    }
 }
 
 module.exports = CoApplicantEmail;

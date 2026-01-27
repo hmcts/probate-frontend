@@ -1,11 +1,14 @@
 'use strict';
 
+const journey = require('../../../app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ParentAdoptedIn = steps.CoApplicantParentAdoptedIn;
 const content = require('app/resources/en/translation/executors/parentadoptedin');
 const stepUrl='/parent-adopted-in/1';
+const optionYesUrl='/parent-adoption-place/1';
+const optionNoUrl='/parent-adopted-out/1';
 
 describe('ParentAdoptedIn', () => {
     describe('ParentAdoptedIn.getUrl()', () => {
@@ -93,6 +96,39 @@ describe('ParentAdoptedIn', () => {
             expect(ctx.index).to.equal(2);
             expect(ctx.deceasedName).to.equal('John Doe');
             expect(ctx.applicantName).to.equal('Main Applicant2');
+            done();
+        });
+    });
+
+    describe('ParentAdoptedIn.nextStepUrl()', () => {
+
+        it('should return the correct url when the co-applicant is ParentAdopted In', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: '1',
+                applicantParentAdoptedIn: 'optionYes',
+            };
+            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal(optionYesUrl);
+            done();
+        });
+
+        it('should return the correct url when the co-applicant Parent is not adopted In', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: '1',
+                applicantParentAdoptedIn: 'optionNo',
+            };
+            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal(optionNoUrl);
             done();
         });
     });

@@ -1,11 +1,14 @@
 'use strict';
 
+const journey = require('../../../app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const CoApplicantAdoptedIn = steps.CoApplicantAdoptedIn;
 const content = require('app/resources/en/translation/executors/adoptedin');
 const stepUrl='/coapplicant-adopted-in/1';
+const optionYesUrl='/coapplicant-adoption-place/1';
+const optionNoUrl='/coapplicant-adopted-out/1';
 
 describe('CoApplicantAdoptedIn', () => {
     describe('CoApplicantAdoptedIn.getUrl()', () => {
@@ -93,6 +96,41 @@ describe('CoApplicantAdoptedIn', () => {
             expect(ctx.index).to.equal(2);
             expect(ctx.deceasedName).to.equal('John Doe');
             expect(ctx.applicantName).to.equal('Main Applicant2');
+            done();
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+
+        it('should return the correct url when the co-applicant is adopted in', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: '1',
+                coApplicantRelationshipToDeceased: 'optionChild',
+                adoptedIn: 'optionYes',
+            };
+            const nextStepUrl = CoApplicantAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal(optionYesUrl);
+            done();
+        });
+
+        it('should return the correct url when the co-applicant is not adopted In', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: '1',
+                coApplicantRelationshipToDeceased: 'optionChild',
+                adoptedIn: 'optionNo',
+            };
+            const nextStepUrl = CoApplicantAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal(optionNoUrl);
             done();
         });
     });

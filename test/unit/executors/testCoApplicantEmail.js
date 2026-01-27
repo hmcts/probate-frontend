@@ -3,6 +3,7 @@
 const initSteps = require('app/core/initSteps');
 const co = require('co');
 const expect = require('chai').expect;
+const journey = require('app/journeys/intestacy');
 const rewire = require('rewire');
 const CoApplicantEmail = rewire('app/steps/ui/executors/coapplicantemail');
 
@@ -209,6 +210,22 @@ describe('coapplicant-email', () => {
                 .catch((err) => {
                     done(err);
                 });
+        });
+    });
+    describe('nextStepUrl()', () => {
+        it('should return url for the next step', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                index: 1
+            };
+            const coApplicantEmail = new CoApplicantEmail(steps, section, templatePath, i18next, schema);
+            const nextStepUrl = coApplicantEmail.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/executor-address/1');
+            done();
         });
     });
 });

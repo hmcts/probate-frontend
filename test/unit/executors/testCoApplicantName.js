@@ -2,12 +2,13 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
+const journey = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const CoApplicantName = steps.CoApplicantName;
 const namePath = '/coapplicant-name/';
 const content = require('../../../app/resources/en/translation/executors/coapplicantname.json');
 
-describe('Co-applicant-name', () => {
+describe.only('Co-applicant-name', () => {
     describe('getUrl()', () => {
         it('returns the url with a * param when no index is given', (done) => {
             const url = CoApplicantName.constructor.getUrl();
@@ -120,6 +121,48 @@ describe('Co-applicant-name', () => {
                 }
             ]);
             done();
+        });
+    });
+    describe('CoApplicantName nextStepUrl', () => {
+        let ctx;
+        let req;
+        beforeEach(() => {
+            ctx = {
+                fullName: '',
+                index: 0,
+                caseType: 'intestacy',
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionChild'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
+                ]
+            };
+            req = {
+                session: {
+                    journey: journey
+                }
+            };
+        });
+
+        it('should return the correct URL if the index is there', () => {
+            ctx.index = 1;
+            ctx.applicantRelationshipToDeceased = 'optionChild';
+            const url = CoApplicantName.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-adopted-in/1');
+        });
+        it('should return the correct URL if the index is there for parent journey', () => {
+            ctx = {
+                fullName: '',
+                index: 1,
+                applicantRelationshipToDeceased: 'optionParent',
+                caseType: 'intestacy',
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {coApplicantRelationshipToDeceased: 'optionParent'}
+                ]
+            };
+            const url = CoApplicantName.nextStepUrl(req, ctx);
+            expect(url).to.equal('/coapplicant-email/1');
         });
     });
 

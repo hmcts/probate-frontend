@@ -100,6 +100,13 @@ class CoApplicantAdoptedIn extends ValidationStep {
         return fields;
     }
 
+    nextStepUrl(req, ctx) {
+        if (ctx.adoptedIn === 'optionYes') {
+            return `/coapplicant-adoption-place/${ctx.index}`;
+        }
+        return `/coapplicant-adopted-out/${ctx.index}`;
+    }
+
     handlePost(ctx, errors) {
         const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
         // eslint-disable-next-line default-case

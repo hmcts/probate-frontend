@@ -65,7 +65,7 @@ describe('Co-applicant-parent-die-before', () => {
         beforeEach(() => {
             ctx = {
                 fullName: '',
-                index: 0,
+                index: 2,
                 list: [
                     {firstName: 'John', lastName: 'Doe'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild', childDieBeforeDeceased: 'optionYes'},
@@ -79,22 +79,9 @@ describe('Co-applicant-parent-die-before', () => {
             };
         });
 
-        it('should return the co applicant adopted in page if the applicantParentDieBeforeDeceased is optionYes', () => {
-            ctx.index = 1;
-            ctx.applicantParentDieBeforeDeceased = 'optionYes';
-            const url = ParentDieBefore.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-name/1');
-        });
-
-        it('should return the co applicant adopted in page if the applicantParentDieBeforeDeceased is optionYes for Half Niece or Nephew', () => {
-            ctx.index = 2;
-            ctx.applicantParentDieBeforeDeceased = 'optionYes';
-            const url = ParentDieBefore.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-name/2');
-        });
-
         it('should return the stop page if the applicantParentDieBeforeDeceased is optionNo', () => {
-            ctx.index = 1;
+            ctx.index = 2;
+            ctx.applicantParentDieBeforeDeceased = 'optionNo';
             const url = ParentDieBefore.nextStepUrl(req, ctx);
             expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
         });

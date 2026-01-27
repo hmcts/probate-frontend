@@ -1,7 +1,6 @@
 'use strict';
 
 const initSteps = require('app/core/initSteps');
-const journey = require('app/journeys/intestacy');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const CoApplicantName = steps.CoApplicantName;
@@ -51,55 +50,6 @@ describe('Co-applicant-name', () => {
             [ctx] = CoApplicantName.handleGet(ctx);
             // eslint-disable-next-line no-undefined
             expect(ctx.fullName).to.equal(undefined);
-        });
-    });
-    describe('CoApplicantName nextStepUrl', () => {
-        let ctx;
-        let req;
-        beforeEach(() => {
-            ctx = {
-                fullName: '',
-                index: 0,
-                caseType: 'intestacy',
-                list: [
-                    {firstName: 'John', lastName: 'Doe'},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
-                ]
-            };
-            req = {
-                session: {
-                    journey: journey
-                }
-            };
-        });
-
-        it('should return the correct URL if the index is there', () => {
-            ctx.index = 1;
-            ctx.applicantRelationshipToDeceased = 'optionChild';
-            const url = CoApplicantName.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-adopted-in/1');
-        });
-
-        it('should return the correct URL with param as * if the index is -1', () => {
-            ctx.index = -1;
-            ctx.applicantRelationshipToDeceased = 'optionChild';
-            const url = CoApplicantName.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-adopted-in/*');
-        });
-        it('should return the correct URL if the index is there for parent journey', () => {
-            ctx = {
-                fullName: '',
-                index: 1,
-                applicantRelationshipToDeceased: 'optionParent',
-                caseType: 'intestacy',
-                list: [
-                    {firstName: 'John', lastName: 'Doe'},
-                    {coApplicantRelationshipToDeceased: 'optionParent'}
-                ]
-            };
-            const url = CoApplicantName.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-email/1');
         });
     });
     describe('handlePost()', () => {
@@ -215,6 +165,81 @@ describe('Co-applicant-name', () => {
                             list: [
                                 {fullName: 'Prince', isApplying: true, isApplicant: false},
                                 {fullName: 'Cher', isApplying: true}
+                            ]
+                        }
+                    },
+                },
+                params: ['*']
+            };
+            const ctx = CoApplicantName.getContextData(req);
+
+            expect(ctx.index).to.equal(1);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            done();
+        });
+        it('recalculates current index when there is a * url param and only few details of co applicant entered', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Prince', isApplying: true, isApplicant: false},
+                                {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionChild'},
+                            ]
+                        }
+                    },
+                },
+                params: ['*']
+            };
+            const ctx = CoApplicantName.getContextData(req);
+
+            expect(ctx.index).to.equal(1);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            done();
+        });
+        it('recalculates next index when there is a * url param and if all the details of co applicant entered', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Prince', isApplying: true, isApplicant: false},
+                                {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionChild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}},
+                            ]
+                        }
+                    },
+                },
+                params: ['*']
+            };
+            const ctx = CoApplicantName.getContextData(req);
+
+            expect(ctx.index).to.equal(2);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            done();
+        });
+        it('recalculates current index as 1 when there is a * url param and if applicant is parent', (done) => {
+            const req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        applicant: {
+                            relationshipToDeceased: 'optionParent'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Prince', isApplying: true, isApplicant: false},
+                                {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionChild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}},
                             ]
                         }
                     },

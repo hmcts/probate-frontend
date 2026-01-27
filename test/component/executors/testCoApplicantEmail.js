@@ -70,28 +70,13 @@ describe('coapplicant-email', () => {
                 });
         });
 
-        it('test error messages displayed if no data entered', (done) => {
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const errorsToTest = ['email'];
-                    const data = {
-                        index: 1,
-                        email: '',
-                        executorName: 'Other Applicant'
-                    };
-
-                    testWrapper.testErrors(done, data, 'required', errorsToTest);
-                });
-        });
-
         it('test error messages displayed if no email entered', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
                         index: 1,
-                        executorName: 'Other Applicant',
+                        executorName: 'Harvey',
                         email: '',
                     };
                     const errorsToTest = ['email'];

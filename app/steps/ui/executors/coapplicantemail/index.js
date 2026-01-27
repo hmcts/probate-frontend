@@ -4,9 +4,9 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const emailValidator = require('email-validator');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const FieldError = require('app/components/error');
-const {findIndex, every, tail} = require('lodash');
 const InviteData = require('app/services/InviteData');
 const config = require('config');
+const {get} = require('lodash');
 const pageUrl = '/coapplicant-email';
 
 class CoApplicantEmail extends ValidationStep {
@@ -17,10 +17,11 @@ class CoApplicantEmail extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        const formdata = req.session.form;
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            ctx.index = this.recalcIndex(ctx, formdata);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         const executor = ctx.list[ctx.index];
@@ -30,6 +31,15 @@ class CoApplicantEmail extends ValidationStep {
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;
         return ctx;
+    }
+
+    recalcIndex(ctx, formdata) {
+        ctx.applicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
+            return 1;
+        }
+        return executorsWrapper.getNextIndex();
     }
 
     handleGet(ctx) {
@@ -69,13 +79,11 @@ class CoApplicantEmail extends ValidationStep {
         }
         return [ctx, errors];
     }
-
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
-    }
-
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+    isComplete(ctx) {
+        if (ctx.list[ctx.index]?.email) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
     }
 
     action(ctx, formdata) {
@@ -87,10 +95,6 @@ class CoApplicantEmail extends ValidationStep {
         delete ctx.serviceAuthorization;
         delete ctx.authToken;
         return [ctx, formdata];
-    }
-
-    isComplete(ctx) {
-        return [every(tail(ctx.list).filter(exec => exec.isApplying === true), exec => exec.email && exec.address), 'inProgress'];
     }
 
     generateFields(language, ctx, errors) {

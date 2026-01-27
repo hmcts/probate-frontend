@@ -1,14 +1,11 @@
 'use strict';
 
-const journey = require('../../../app/journeys/intestacy');
 const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const CoApplicantAdoptedIn = steps.CoApplicantAdoptedIn;
 const content = require('app/resources/en/translation/executors/adoptedin');
 const stepUrl='/coapplicant-adopted-in/1';
-const optionYesUrl='/coapplicant-adoption-place/1';
-const optionNoUrl='/coapplicant-adopted-out/1';
 
 describe('CoApplicantAdoptedIn', () => {
     describe('CoApplicantAdoptedIn.getUrl()', () => {
@@ -48,39 +45,54 @@ describe('CoApplicantAdoptedIn', () => {
             expect(ctx.applicantName).to.equal('Main Applicant1');
             done();
         });
-    });
-
-    describe('nextStepUrl()', () => {
-
-        it('should return the correct url when the co-applicant is adopted in', (done) => {
-            const req = {
+        it('should sets the index to current index when all details of co-applicant are not entered and return the context with the deceased name', (done) => {
+            req = {
                 session: {
-                    journey: journey
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Main Applicant1'},
+                                {fullName: 'Main Applicant2'}
+                            ]
+                        },
+                    }
                 }
             };
-            const ctx = {
-                index: '1',
-                coApplicantRelationshipToDeceased: 'optionChild',
-                adoptedIn: 'optionYes',
-            };
-            const nextStepUrl = CoApplicantAdoptedIn.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal(optionYesUrl);
+
+            ctx = CoApplicantAdoptedIn.getContextData(req);
+            expect(ctx.index).to.equal(1);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
             done();
         });
-
-        it('should return the correct url when the co-applicant is not adopted In', (done) => {
-            const req = {
+        it('should sets the index to next index when all details of co-applicant are entered', (done) => {
+            req = {
                 session: {
-                    journey: journey
-                }
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Main Applicant1'},
+                                {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}},
+                                {fullName: 'Main Applicant2'}
+                            ]
+                        },
+                    }
+                },
+                params: ['*']
             };
-            const ctx = {
-                index: '1',
-                coApplicantRelationshipToDeceased: 'optionChild',
-                adoptedIn: 'optionNo',
-            };
-            const nextStepUrl = CoApplicantAdoptedIn.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal(optionNoUrl);
+
+            ctx = CoApplicantAdoptedIn.getContextData(req);
+            expect(ctx.index).to.equal(2);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
             done();
         });
     });

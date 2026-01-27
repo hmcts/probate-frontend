@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
-const {findIndex} = require('lodash');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/parent-adopted-in';
 
 class CoApplicantParentAdoptedIn extends ValidationStep {
@@ -16,12 +16,19 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            const executorsWrapper = new ExecutorsWrapper(formData.executors);
+            ctx.index = executorsWrapper.getNextIndex();
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formData.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
+    }
+    isComplete(ctx) {
+        if (ctx.list[ctx.index]?.grandchildParentAdoptedIn) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
     }
 
     handleGet(ctx) {
@@ -31,22 +38,12 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         return [ctx];
     }
 
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
-    }
-
-    nextStepUrl(req, ctx) {
-        if (ctx.applicantParentAdoptedIn === 'optionYes') {
-            return `/parent-adoption-place/${ctx.index}`;
-        }
-        return `/parent-adopted-out/${ctx.index}`;
-    }
-
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.parentAdopted = ctx.list[ctx.index]?.grandchildParentAdoptedIn === 'optionYes';
         return {
             options: [
-                {key: 'applicantParentAdoptedIn', value: 'optionYes', choice: 'parentAdoptedIn'},
-                {key: 'applicantParentAdoptedIn', value: 'optionNo', choice: 'notParentAdoptedIn'},
+                {key: 'parentAdopted', value: true, choice: 'parentAdoptedIn'},
+                {key: 'parentAdopted', value: false, choice: 'notParentAdoptedIn'},
             ]
         };
     }
@@ -59,8 +56,8 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         return fields;
     }
 
-    handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].grandchildParentAdoptedIn = ctx.applicantParentAdoptedIn;
+    handlePost(ctx, errors) {
+        ctx.list[ctx.index].grandchildParentAdoptedIn = ctx.applicantParentAdoptedIn;
         return [ctx, errors];
     }
 }

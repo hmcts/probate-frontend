@@ -210,7 +210,13 @@ describe('Co-applicant-relationship', () => {
     });
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
+            const ctx = {
+                list: [
+                    {fullName: 'Applicant'},
+                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild'},
+                ],
+                index: 1
+            };
             const nextStepOptions = CoApplicantRelationshipToDeceased.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [

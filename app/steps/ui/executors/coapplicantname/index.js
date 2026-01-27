@@ -1,10 +1,10 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {findIndex, get, every, tail} = require('lodash');
+const {get} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const FieldError = require('../../../../components/error');
-const caseTypes = require('../../../../utils/CaseTypes');
+const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/coapplicant-name';
 
 class CoApplicantName extends ValidationStep {
@@ -27,40 +27,30 @@ class CoApplicantName extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            ctx.index = this.recalcIndex(ctx, formdata);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
 
-    recalcIndex(ctx, index) {
+    recalcIndex(ctx, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         if (ctx.applicantRelationshipToDeceased === 'optionParent') {
             return 1;
         }
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
-    }
-    nextStepUrl(req, ctx) {
-        if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
-        }
-        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
-            return '/coapplicant-email/1';
-        }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+        return executorsWrapper.getNextIndex();
     }
 
     nextStepOptions(ctx) {
-        if (ctx.caseType === caseTypes.INTESTACY) {
-            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
-            ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
-            return {
-                options: [
-                    {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
-                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
-                ],
-            };
-        }
+        ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
+        ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
+        return {
+            options: [
+                {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
+                {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
+            ],
+        };
     }
     action(ctx, formdata) {
         super.action(ctx, formdata);
@@ -68,9 +58,10 @@ class CoApplicantName extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.caseType === caseTypes.INTESTACY) {
-            return [every(tail(ctx.list).filter(coApplicant => coApplicant.relationshipToDeceased === 'optionParent'), coApplicant => coApplicant.fullName), 'inProgress'];
+        if (ctx.list[ctx.index]?.fullName) {
+            return [true, 'inProgress'];
         }
+        return [false, 'inProgress'];
     }
     handlePost(ctx, errors, formdata, session) {
         if (ctx.fullName && ctx.fullName.length < 2) {

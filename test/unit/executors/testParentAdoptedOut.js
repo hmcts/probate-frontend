@@ -7,7 +7,6 @@ const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname
 const ParentAdoptedOut = steps.CoApplicantParentAdoptedOut;
 const content = require('app/resources/en/translation/executors/adoptedout');
 const stepUrl='/parent-adopted-out/1';
-const optionNoUrl='/coapplicant-email/1';
 const optionYesUrl='/stop-page/coApplicantParentAdoptedOutStop';
 
 describe('ParentAdoptedOut', () => {
@@ -23,7 +22,7 @@ describe('ParentAdoptedOut', () => {
         let ctx;
         let req;
 
-        it('should return the context with the deceased name', (done) => {
+        it('should sets the index when param value is given', (done) => {
             req = {
                 session: {
                     form: {
@@ -39,13 +38,64 @@ describe('ParentAdoptedOut', () => {
                         },
                     }
                 },
-                params: [0]
+                params: [1]
             };
 
             ctx = ParentAdoptedOut.getContextData(req);
-            expect(ctx.index).to.equal(req.params[0]);
+            expect(ctx.index).to.equal(1);
             expect(ctx.deceasedName).to.equal('John Doe');
-            expect(ctx.applicantName).to.equal('Main Applicant1');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
+            done();
+        });
+
+        it('should sets the index to current index when all details of co-applicant are not entered and return the context with the deceased name', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Main Applicant1'},
+                                {fullName: 'Main Applicant2'}
+                            ]
+                        },
+                    }
+                }
+            };
+
+            ctx = ParentAdoptedOut.getContextData(req);
+            expect(ctx.index).to.equal(1);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
+            done();
+        });
+        it('should sets the index to next index when all details of co-applicant are entered', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Main Applicant1'},
+                                {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}},
+                                {fullName: 'Main Applicant2'}
+                            ]
+                        },
+                    }
+                },
+                params: ['*']
+            };
+
+            ctx = ParentAdoptedOut.getContextData(req);
+            expect(ctx.index).to.equal(2);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
             done();
         });
     });
@@ -68,26 +118,6 @@ describe('ParentAdoptedOut', () => {
             };
             const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal(optionYesUrl);
-            done();
-        });
-
-        it('should return the correct url when the co-applicant parent is not adopted out', (done) => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                index: '1',
-                list: [
-                    {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
-                    {coApplicantRelationshipToDeceased: 'optionGrandchild'}
-                ],
-                applicantParentAdoptedOut: 'optionNo',
-            };
-            const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal(optionNoUrl);
             done();
         });
     });

@@ -164,6 +164,21 @@ class Executors {
             return executor;
         });
     }
+
+    getNextIndex() {
+        const lastIndex = this.executorsList.length - 1;
+        const lastExec = this.executorsList[lastIndex];
+        if (lastExec && (lastExec.isApplicant === true ||
+            (typeof lastExec.isApplicant === 'undefined' && this.isValid(lastExec)))) {
+            return this.executorsList.length;
+        }
+        return lastIndex;
+    }
+    isValid(executor) {
+        return executor?.fullName &&
+            executor?.email &&
+            executor?.address?.formattedAddress;
+    }
 }
 
 module.exports = Executors;

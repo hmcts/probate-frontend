@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
-const {findIndex} = require('lodash');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adoption-place';
 
 class CoApplicantParentAdoptionPlace extends ValidationStep {
@@ -17,7 +17,8 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.index = executorsWrapper.getNextIndex();
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
@@ -25,8 +26,11 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
         return ctx;
     }
 
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
+    isComplete(ctx) {
+        if (ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
     }
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
@@ -42,10 +46,11 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
         return this.next(req, ctx).constructor.getUrl('coApplicantAdoptionPlaceStop');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.parentAdoptedInEnglandOrWales = ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes';
         return {
             options: [
-                {key: 'applicantParentAdoptionPlace', value: 'optionYes', choice: 'parentAdoptedOutEnglandOrWales'},
+                {key: 'parentAdoptedInEnglandOrWales', value: true, choice: 'parentAdoptedOutEnglandOrWales'},
             ]
         };
     }

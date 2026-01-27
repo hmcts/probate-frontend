@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-relationship-to-deceased';
 
 class CoApplicantRelationshipToDeceased extends ValidationStep {
@@ -24,12 +25,8 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            const lastIndex = ctx.list.length - 1;
-            if (ctx.list[lastIndex] && (ctx.list[lastIndex].isApplicant === true || (typeof ctx.list[lastIndex].isApplicant === 'undefined' && this.areLastExecutorValid(ctx)))) {
-                ctx.index = ctx.list.length;
-            } else {
-                ctx.index = lastIndex;
-            }
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.index = executorsWrapper.getNextIndex();
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceased = formdata.deceased;
@@ -58,13 +55,11 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
-
-    areLastExecutorValid(ctx) {
-        const lastIndex = ctx.list.length - 1;
-        const executor = ctx.list[lastIndex];
-        return executor?.fullName &&
-            executor?.email &&
-            executor?.address?.formattedAddress;
+    isComplete(ctx) {
+        if (ctx.list[ctx.index]?.coApplicantRelationshipToDeceased) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
     }
 
     generateFields(language, ctx, errors) {
@@ -85,8 +80,8 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.childOrSibling = ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling';
-        ctx.grandchildOrNieceNephew = ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew';
+        ctx.childOrSibling = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling';
+        ctx.grandchildOrNieceNephew = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew';
         return {
             options: [
                 {key: 'childOrSibling', value: true, choice: 'childOrSibling'},

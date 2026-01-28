@@ -48,6 +48,56 @@ describe('CoApplicantAdoptedIn', () => {
             expect(ctx.applicantName).to.equal('Main Applicant1');
             done();
         });
+        it('should sets the index to current index when all details of co-applicant are not entered and return the context with the deceased name', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Main Applicant1'},
+                                {fullName: 'Main Applicant2'}
+                            ]
+                        },
+                    }
+                }
+            };
+
+            ctx = CoApplicantAdoptedIn.getContextData(req);
+            expect(ctx.index).to.equal(1);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
+            done();
+        });
+        it('should sets the index to next index when all details of co-applicant are entered', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe'
+                        },
+                        executors: {
+                            list: [
+                                {fullName: 'Main Applicant1'},
+                                {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}},
+                                {fullName: 'Main Applicant2'}
+                            ]
+                        },
+                    }
+                },
+                params: ['*']
+            };
+
+            ctx = CoApplicantAdoptedIn.getContextData(req);
+            expect(ctx.index).to.equal(2);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.applicantName).to.equal('Main Applicant2');
+            done();
+        });
     });
 
     describe('nextStepUrl()', () => {

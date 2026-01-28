@@ -335,8 +335,8 @@ const stepList = {
         otherwise: 'StopPage'
     },
     CoApplicantAdoptionPlace: {
-        childOrSiblingOrNieceOrNephewAdoptedInEnglandOrWales: 'CoApplicantEmail',
-        grandChildAdoptedInEnglandOrWales: 'ParentAdoptedIn',
+        childAdoptedInEnglandOrWales: 'CoApplicantEmail',
+        grandChildAdoptedInEnglandOrWales: 'CoApplicantParentAdoptedIn',
         otherwise: 'StopPage'
     },
     CoApplicantAdoptedOut: {

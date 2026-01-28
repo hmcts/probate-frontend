@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
-const {findIndex} = require('lodash');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adopted-out';
 
 class CoApplicantParentAdoptedOut extends ValidationStep {
@@ -31,15 +31,19 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.index = executorsWrapper.getNextIndex();
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
+    isComplete(ctx) {
+        if (ctx.list[ctx.index]?.grandchildParentAdoptedOut) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
     }
 
     nextStepUrl(req, ctx) {
@@ -48,10 +52,11 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutStop');
     }
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        ctx.parentNotAdoptedOut = ctx.list[ctx.index]?.grandchildParentAdoptedOut === 'optionNo';
         return {
             options: [
-                {key: 'applicantParentAdoptedOut', value: 'optionNo', choice: 'parentNotAdoptedOut'},
+                {key: 'parentNotAdoptedOut', value: true, choice: 'parentNotAdoptedOut'},
             ]
         };
     }

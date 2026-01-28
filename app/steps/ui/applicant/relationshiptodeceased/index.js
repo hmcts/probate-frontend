@@ -36,7 +36,7 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.spousePartnerLessThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue <= ctx.ihtThreshold;
         ctx.spousePartnerMoreThanIhtThreshold = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.assetsValue > ctx.ihtThreshold;
         ctx.childOrGrandchildDeceasedMarried = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.deceasedMaritalStatus === 'optionMarried';
-        ctx.parentSiblingNotMarried = (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') && ctx.deceasedMaritalStatus === 'optionNotMarried';
+        ctx.parentSiblingNotMarried = (ctx.relationshipToDeceased === 'optionParent' || ctx.relationshipToDeceased === 'optionSibling') && ctx.deceasedMaritalStatus !== 'optionMarried';
         ctx.childAndDeceasedNotMarried = ctx.relationshipToDeceased === 'optionChild' && ctx.deceasedMaritalStatus !== 'optionMarried';
         ctx.grandchildAndDeceasedNotMarried = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.deceasedMaritalStatus !== 'optionMarried';
 

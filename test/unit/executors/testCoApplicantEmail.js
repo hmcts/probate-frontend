@@ -212,7 +212,6 @@ describe('coapplicant-email', () => {
                 });
         });
     });
-
     describe('nextStepUrl()', () => {
         it('should return url for the next step', (done) => {
             const req = {

@@ -2,8 +2,8 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-adopted-out';
-const {findIndex} = require('lodash');
 
 class CoApplicantAdoptedOut extends ValidationStep {
 
@@ -49,24 +49,31 @@ class CoApplicantAdoptedOut extends ValidationStep {
         return [ctx];
     }
 
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
-    }
-
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        let index;
         if (req.params && !isNaN(req.params[0])) {
-            index = parseInt(req.params[0]);
+            ctx.index = parseInt(req.params[0]);
         } else {
-            index = this.recalcIndex(ctx, 0);
-            ctx.redirect = `${pageUrl}/${index}`;
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.index = executorsWrapper.getNextIndex();
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.index = index;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
+    }
+    isComplete(ctx) {
+        const adoptedOutFields = [
+            'childAdoptedOut',
+            'grandchildAdoptedOut',
+            'halfBloodSiblingAdoptedOut',
+            'halfBloodNieceOrNephewAdoptedOut',
+            'wholeBloodSiblingAdoptedOut',
+            'wholeBloodNieceOrNephewAdoptedOut'
+        ];
+        const hasAdoptedIn = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]);
+        return [hasAdoptedIn, 'inProgress'];
     }
 
     generateFields(language, ctx, errors) {
@@ -91,12 +98,18 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.childOrSiblingOrNieceOrNephewNotAdoptedOut = (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo';
-        ctx.grandChildNotAdoptedOut = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo';
+        const adoptedOutFields = [
+            'childAdoptedOut',
+            'grandchildAdoptedOut',
+            'halfBloodSiblingAdoptedOut',
+            'halfBloodNieceOrNephewAdoptedOut',
+            'wholeBloodSiblingAdoptedOut',
+            'wholeBloodNieceOrNephewAdoptedOut'
+        ];
+        const relationship = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        const hasAdoptedOut = ctx.adoptedOut === 'optionNo' || adoptedOutFields.some(field => ctx.list[ctx.index]?.[field] === 'optionNo');
+        ctx.childOrSiblingOrNieceOrNephewNotAdoptedOut = relationship !== 'optionGrandchild' && hasAdoptedOut;
+        ctx.grandChildNotAdoptedOut = relationship === 'optionGrandchild' && hasAdoptedOut;
         return {
             options: [
                 {key: 'childOrSiblingOrNieceOrNephewNotAdoptedOut', value: true, choice: 'childOrSiblingOrNieceOrNephewNotAdoptedOut'},

@@ -1,7 +1,7 @@
 'use strict';
 
 const AddressStep = require('app/core/steps/AddressStep');
-const {findIndex, get, startsWith, every, tail} = require('lodash');
+const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const caseTypes = require('../../../../utils/CaseTypes');
 const pageUrl = '/executor-address';
@@ -22,16 +22,27 @@ class ExecutorAddress extends AddressStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
+        const formdata = req.session.form;
         ctx.caseType = caseTypes.getCaseType(req.session);
-        if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
-            req.session.indexPosition = ctx.index;
-        } else if (req.params && req.params[0] === '*') {
-            ctx.index = req.session.indexPosition;
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
-        } else if (startsWith(req.path, pageUrl)) {
-            ctx.index = this.recalcIndex(ctx, 0);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        const paramIndex = req.params && !isNaN(req.params[0]) ? parseInt(req.params[0]) : null;
+        if (ctx.caseType === caseTypes.INTESTACY) {
+            if (paramIndex !== null) {
+                ctx.index = paramIndex;
+            } else {
+                ctx.index = this.recalcIntestacyIndex(ctx, formdata);
+                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            }
+        } else if (ctx.caseType === caseTypes.GOP) {
+            if (paramIndex !== null) {
+                ctx.index = paramIndex;
+                req.session.indexPosition = ctx.index;
+            } else if (req.params && req.params[0] === '*') {
+                ctx.index = req.session.indexPosition;
+                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            } else if (startsWith(req.path, pageUrl)) {
+                ctx.index = this.recalcIndex(ctx, 0);
+                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            }
         }
         if (ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;
@@ -40,6 +51,15 @@ class ExecutorAddress extends AddressStep {
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
 
         return ctx;
+    }
+
+    recalcIntestacyIndex(ctx, formdata) {
+        ctx.applicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
+            return 1;
+        }
+        return executorsWrapper.getNextIndex();
     }
 
     handleGet(ctx) {
@@ -104,8 +124,7 @@ class ExecutorAddress extends AddressStep {
                     {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
                 ],
             };
-        }
-        if (ctx.caseType === caseTypes.INTESTACY) {
+        } else if (ctx.caseType === caseTypes.INTESTACY) {
             ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
             ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
             return {
@@ -133,8 +152,10 @@ class ExecutorAddress extends AddressStep {
 
     isComplete(ctx) {
         if (ctx.caseType === caseTypes.INTESTACY) {
-            return [every(tail(ctx.list).filter(coApplicant => coApplicant.relationshipToDeceased === 'optionParent'), coApplicant => coApplicant.address),
-                'inProgress'];
+            if (ctx.list[ctx.index]?.address && ctx.list[ctx.index].address.formattedAddress) {
+                return [true, 'inProgress'];
+            }
+            return [false, 'inProgress'];
         }
         return [
             ctx.executorsWrapper.executorsApplying(true).every(executor => executor.email && executor.mobile && executor.address),

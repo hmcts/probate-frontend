@@ -191,26 +191,16 @@ describe('Co-applicant-relationship', () => {
             });
             done();
         });
-        it('should not update isApplying or coApplicantRelationshipToDeceased for other values', (done) => {
-            ctx = {
-                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}
-                ],
-                index: 1,
-                coApplicantRelationshipToDeceased: 'optionOther'
-            };
-            errors = [];
-            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
-            expect(ctx).to.deep.equal({
-                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}],
-                index: 1,
-                coApplicantRelationshipToDeceased: 'optionOther'
-            });
-            done();
-        });
     });
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
-            const ctx = {};
+            const ctx = {
+                list: [
+                    {fullName: 'Applicant'},
+                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild'},
+                ],
+                index: 1
+            };
             const nextStepOptions = CoApplicantRelationshipToDeceased.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [

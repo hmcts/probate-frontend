@@ -3,6 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const {findIndex} = require('lodash');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-adopted-in';
 
 class CoApplicantAdoptedIn extends ValidationStep {
@@ -25,12 +26,44 @@ class CoApplicantAdoptedIn extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.index = executorsWrapper.getNextIndex();
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
+    }
+    isComplete(ctx) {
+        const adoptedInFields = [
+            'childAdoptedIn',
+            'grandchildAdoptedIn',
+            'halfBloodSiblingAdoptedIn',
+            'halfBloodNieceOrNephewAdoptedIn',
+            'wholeBloodSiblingAdoptedIn',
+            'wholeBloodNieceOrNephewAdoptedIn'
+        ];
+        const hasAdoptedIn = adoptedInFields.some(field => ctx.list[ctx.index]?.[field]);
+        return [hasAdoptedIn, 'inProgress'];
+    }
+
+    nextStepOptions(ctx) {
+        const adoptedInFields = [
+            'childAdoptedIn',
+            'grandchildAdoptedIn',
+            'halfBloodSiblingAdoptedIn',
+            'halfBloodNieceOrNephewAdoptedIn',
+            'wholeBloodSiblingAdoptedIn',
+            'wholeBloodNieceOrNephewAdoptedIn'
+        ];
+        ctx.isAdoptedIn = ctx.adoptedIn === 'optionYes' ||
+            adoptedInFields.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        return {
+            options: [
+                {key: 'isAdoptedIn', value: true, choice: 'adoptedIn'},
+                {key: 'isAdoptedIn', value: false, choice: 'notAdoptedIn'},
+            ]
+        };
     }
 
     handleGet(ctx) {

@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
-const {findIndex} = require('lodash');
+const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
 class ParentDieBefore extends ValidationStep {
 
@@ -37,26 +37,39 @@ class ParentDieBefore extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            ctx.index = this.recalcIndex(ctx, 0);
+            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.index = executorsWrapper.getNextIndex();
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
-
-    recalcIndex(ctx, index) {
-        return findIndex(ctx.list, o => o.isApplying === true, index + 1);
+    isComplete(ctx) {
+        const parentDieBeforeFields = [
+            'childDieBeforeDeceased',
+            'halfBloodSiblingDiedBeforeDeceased',
+            'wholeBloodSiblingDiedBeforeDeceased'
+        ];
+        const parentDieBefore = parentDieBeforeFields.some(field => ctx.list[ctx.index]?.[field]);
+        return [parentDieBefore, 'inProgress'];
     }
 
     nextStepUrl(req, ctx) {
         return this.next(req, ctx).getUrlWithContext(ctx, 'otherCoApplicantRelationship');
     }
 
-    nextStepOptions() {
+    nextStepOptions(ctx) {
+        const parentDieBeforeFields = [
+            'childDieBeforeDeceased',
+            'halfBloodSiblingDiedBeforeDeceased',
+            'wholeBloodSiblingDiedBeforeDeceased'
+        ];
+        ctx.parentDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased === 'optionYes' ||
+            parentDieBeforeFields.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
         return {
             options: [
-                {key: 'applicantParentDieBeforeDeceased', value: 'optionYes', choice: 'parentDieBefore'},
+                {key: 'parentDieBeforeDeceased', value: true, choice: 'parentDieBefore'},
             ]
         };
     }

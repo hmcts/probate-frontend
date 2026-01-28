@@ -11,14 +11,6 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
-    getUrlWithContext(ctx) {
-        const noCtxUrl = this.constructor.getUrl(ctx?.index);
-        if (ctx?.caseType === 'intestacy') {
-            return `/intestacy${noCtxUrl}`;
-        }
-        return noCtxUrl;
-    }
-
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
             ctx.coApplicantRelationshipToDeceased = ctx.list[ctx.index].coApplicantRelationshipToDeceased;

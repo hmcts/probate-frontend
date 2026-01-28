@@ -39,13 +39,6 @@ class ExecutorCurrentName extends ValidationStep {
         return findIndex(ctx.list, o => o.hasOtherName === true, index + 1);
     }
 
-    nextStepUrl(req, ctx) {
-        if (ctx.index === -1) {
-            return this.next(req, ctx).getUrlWithContext(ctx);
-        }
-        return this.next(req, ctx).getUrlWithContext(ctx, ctx.index);
-    }
-
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
         return {

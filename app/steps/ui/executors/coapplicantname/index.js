@@ -13,14 +13,6 @@ class CoApplicantName extends ValidationStep {
         return `${pageUrl}/${index}`;
     }
 
-    getUrlWithContext(ctx) {
-        const noCtxUrl = this.constructor.getUrl(ctx?.index);
-        if (ctx?.caseType === 'intestacy') {
-            return `/intestacy${noCtxUrl}`;
-        }
-        return noCtxUrl;
-    }
-
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
             ctx.fullName = ctx.list[ctx.index].fullName;
@@ -61,12 +53,6 @@ class CoApplicantName extends ValidationStep {
         };
     }
 
-    nextStepUrl(req, ctx) {
-        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
-            return '/coapplicant-email/1';
-        }
-        return this.next(req, ctx).getUrlWithContext(ctx);
-    }
     action(ctx, formdata) {
         super.action(ctx, formdata);
         return [ctx, formdata];

@@ -1,6 +1,6 @@
 {
-  "title": "A wnaeth yr unigolyn sydd wedi marw fabwysiadu plentyn eich rhiant {deceasedName}) yn gyfreithlon?",
-  "question": "A wnaeth {deceasedName} fabwysiadu eich rhiant, plentyn {deceasedName}) yn gyfreithlon?",
+  "title": "A wnaeth yr unigolyn sydd wedi marw fabwysiadu (plentyn eich rhiant {deceasedName}) yn gyfreithlon?",
+  "question": "A wnaeth {deceasedName} fabwysiadu eich rhiant, (plentyn {deceasedName}) yn gyfreithlon?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 

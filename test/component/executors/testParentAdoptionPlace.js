@@ -80,7 +80,7 @@ describe('parent-adoption-place', () => {
                     testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
                 });
         });
-        it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.pageUrl = ParentAdoptionPlace.getUrl(2);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -89,7 +89,7 @@ describe('parent-adoption-place', () => {
                         applicantParentAdoptionPlace: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

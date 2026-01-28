@@ -79,7 +79,7 @@ describe('Co-applicant-parent-die-before', () => {
                             {coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true}
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantName}`);
                 });
         });
 
@@ -101,7 +101,7 @@ describe('Co-applicant-parent-die-before', () => {
                             {coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true}
                         ]};
 
-                    testWrapper.testRedirect(done, data, '/stop-page/otherCoApplicantRelationship');
+                    testWrapper.testRedirect(done, data, '/intestacy/stop-page/otherCoApplicantRelationship');
                 });
         });
 

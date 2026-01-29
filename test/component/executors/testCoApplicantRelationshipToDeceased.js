@@ -123,7 +123,7 @@ describe('coapplicant-relationship-to-deceased', () => {
                     const data = {list: [{'fullName': 'Jeff Exec One', 'isApplying': true}, {'fullName': 'Jeff Exec Two', 'isApplying': true, coapplicantRelationshipToDeceased: 'optionOther'}],
                         coApplicantRelationshipToDeceased: 'optionOther'};
 
-                    testWrapper.testRedirect(done, data, '/stop-page/otherCoApplicantRelationship');
+                    testWrapper.testRedirect(done, data, '/intestacy/stop-page/otherCoApplicantRelationship');
                 });
         });
 

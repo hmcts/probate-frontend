@@ -84,7 +84,7 @@ describe('any-other-children', () => {
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
-        it(`test it redirects to Grandchild parent has other children page if deceased had no other children and applicant is grandchild: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
+        it(`test it redirects to Grandchild parent has other children page if deceased had no other children and applicant is grandchild: /intestacy${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -99,7 +99,7 @@ describe('any-other-children', () => {
                         anyOtherChildren: 'optionNo',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasOtherChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForGrandchildParentHasOtherChildren}`);
                 });
         });
     });

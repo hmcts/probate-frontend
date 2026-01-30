@@ -56,7 +56,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+        if (ctx.list[ctx.index]?.coApplicantRelationshipToDeceased) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];

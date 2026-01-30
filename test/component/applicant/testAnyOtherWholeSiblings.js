@@ -51,7 +51,7 @@ describe('any-other-whole-siblings', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Any Predeceased whole-siblings page if deceased had other whole-sibling: ${expectedNextUrlForAnyPredeceasedWholeSiblings}`, (done) => {
+        it(`test it redirects to Any Predeceased whole-siblings page if deceased had other whole-sibling: /intestacy${expectedNextUrlForAnyPredeceasedWholeSiblings}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -60,11 +60,11 @@ describe('any-other-whole-siblings', () => {
                         anyOtherWholeSiblings: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyPredeceasedWholeSiblings);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyPredeceasedWholeSiblings}`);
                 });
         });
 
-        it(`test it redirects to Applicant Name page if deceased had no other whole-sibling: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if deceased had no other whole-sibling: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -79,7 +79,7 @@ describe('any-other-whole-siblings', () => {
                         anyOtherWholeSiblings: 'optionNo',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
     });

@@ -56,7 +56,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.coApplicantRelationshipToDeceased) {
+        if (ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
@@ -80,8 +80,8 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.childOrSibling = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling';
-        ctx.grandchildOrNieceNephew = ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew';
+        ctx.childOrSibling = ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionChild' || ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling';
+        ctx.grandchildOrNieceNephew = ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew';
         return {
             options: [
                 {key: 'childOrSibling', value: true, choice: 'childOrSibling'},
@@ -91,11 +91,21 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        ctx.list[ctx.index] = {
-            ...ctx.list[ctx.index],
-            coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
-            isApplying: true
-        };
+        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' ||
+            ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
+            ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+            ctx.list[ctx.index] = {
+                ...ctx.list[ctx.index],
+                coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
+                isApplying: true
+            };
+        } else if (ctx.coApplicantRelationshipToDeceased === 'optionOther') {
+            ctx.list[ctx.index] = {
+                ...ctx.list[ctx.index],
+                coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
+                isApplying: false
+            };
+        }
         return [ctx, errors];
     }
 

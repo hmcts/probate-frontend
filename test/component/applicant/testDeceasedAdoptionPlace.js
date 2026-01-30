@@ -48,7 +48,7 @@ describe('deceased-adoption-place', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to any other parent alive page if deceased is adopted in England or Wales: ${expectedNextUrlForOtherParentAlive}`, (done) => {
+        it(`test it redirects to any other parent alive page if deceased is adopted in England or Wales: /intestacy${expectedNextUrlForOtherParentAlive}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -66,11 +66,11 @@ describe('deceased-adoption-place', () => {
                         deceasedAdoptionPlace: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForOtherParentAlive);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForOtherParentAlive}`);
                 });
         });
 
-        it(`test it redirects to any same parent page if deceased is adopted in England or Wales: ${expectedNextUrlForSameParents}`, (done) => {
+        it(`test it redirects to any same parent page if deceased is adopted in England or Wales: /intestacy${expectedNextUrlForSameParents}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -88,11 +88,11 @@ describe('deceased-adoption-place', () => {
                         deceasedAdoptionPlace: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForSameParents);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForSameParents}`);
                 });
         });
 
-        it(`test it redirects to stop page if parent is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if parent is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -110,7 +110,7 @@ describe('deceased-adoption-place', () => {
                         deceasedAdoptionPlace: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

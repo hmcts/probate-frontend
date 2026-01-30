@@ -49,7 +49,7 @@ describe('applicant-parent-adoption-in', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to grandchild parent Adoption place page if grandchild parent is adopted in: ${expectedNextUrlForParentAdoptionPlace}`, (done) => {
+        it(`test it redirects to grandchild parent Adoption place page if grandchild parent is adopted in: /intestacy${expectedNextUrlForParentAdoptionPlace}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -67,11 +67,11 @@ describe('applicant-parent-adoption-in', () => {
                         parentAdoptedIn: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForParentAdoptionPlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptionPlace}`);
                 });
         });
 
-        it(`test it redirects to grandchild parent adopted out page if grandchild parent is not adopted in: ${expectedNextUrlForParentAdoptedOut}`, (done) => {
+        it(`test it redirects to grandchild parent adopted out page if grandchild parent is not adopted in: /intestacy${expectedNextUrlForParentAdoptedOut}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -89,7 +89,7 @@ describe('applicant-parent-adoption-in', () => {
                         parentAdoptedIn: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForParentAdoptedOut);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptedOut}`);
                 });
         });
     });

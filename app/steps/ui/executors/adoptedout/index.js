@@ -64,8 +64,8 @@ class CoApplicantAdoptedOut extends ValidationStep {
             'wholeBloodSiblingAdoptedOut',
             'wholeBloodNieceOrNephewAdoptedOut'
         ];
-        const hasAdoptedIn = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]);
-        return [hasAdoptedIn, 'inProgress'];
+        const hasAdoptedOut = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]);
+        return [hasAdoptedOut, 'inProgress'];
     }
 
     generateFields(language, ctx, errors) {
@@ -105,7 +105,7 @@ class CoApplicantAdoptedOut extends ValidationStep {
         return {
             options: [
                 {key: 'childOrSiblingOrNieceOrNephewNotAdoptedOut', value: true, choice: 'childOrSiblingOrNieceOrNephewNotAdoptedOut'},
-                {key: 'grandChildNotAdoptedOut', value: true, choice: 'grandChildNotAdoptedOut'}
+                {key: 'grandChildNotAdoptedOut', value: true, choice: 'grandChildCoApplicantNotAdoptedOut'}
             ]
         };
     }

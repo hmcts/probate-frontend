@@ -127,7 +127,8 @@ describe('JointApplication', () => {
     describe('isComplete', () => {
         it('should return inProgress when hasCoApplicant is Yes', () => {
             const ctx = {hasCoApplicant: 'optionYes',
-                list: [{isApplicant: false, fullName: 'Ed Brown',}]
+                list: [{isApplicant: true, fullName: 'Ed Brown',},
+                    {isApplicant: false, fullName: 'Ed Brown2'}]
             };
             const result = JointApplication.isComplete(ctx);
             expect(result).to.deep.equal([true, 'inProgress']);

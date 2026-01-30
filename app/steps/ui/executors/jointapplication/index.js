@@ -44,12 +44,20 @@ class JointApplication extends ValidationStep {
             fullName: executor.fullName
         }))];
         ctx.list = ctx.list.filter(executor =>
-            executor.coApplicantRelationshipToDeceased !== 'optionOther' &&
             executor.childAdoptionInEnglandOrWales !== 'optionNo' &&
             executor.grandchildAdoptionInEnglandOrWales !== 'optionNo' &&
+            executor.wholeBloodSiblingAdoptionInEnglandOrWales !== 'optionNo' &&
+            executor.halfBloodSiblingAdoptionInEnglandOrWales !== 'optionNo' &&
+            executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales !== 'optionNo' &&
             executor.childAdoptedOut !== 'optionYes' &&
             executor.grandchildAdoptedOut !== 'optionYes' &&
-            executor.childDieBeforeDeceased !== 'optionNo'
+            executor.wholeBloodSiblingAdoptedOut !== 'optionYes' &&
+            executor.halfBloodSiblingAdoptedOut !== 'optionYes' &&
+            executor.wholeBloodNieceOrNephewAdoptedOut !== 'optionYes' &&
+            executor.halfBloodNieceOrNephewAdoptedOut !== 'optionYes' &&
+            executor.childDieBeforeDeceased !== 'optionNo' &&
+            executor.wholeBloodSiblingDiedBeforeDeceased !== 'optionNo' &&
+            executor.halfBloodSiblingDiedBeforeDeceased !== 'optionNo'
         );
         ctx.executorsNumber = ctx.list.length;
         const applicant = formdata.applicant;
@@ -66,7 +74,7 @@ class JointApplication extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.hasCoApplicant === 'optionYes' && !this.areLastExecutorValid(ctx)) {
+        if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !this.areLastExecutorValid(ctx)) {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionNo') {
             return [true, 'inProgress'];
@@ -78,7 +86,7 @@ class JointApplication extends ValidationStep {
     areLastExecutorValid(ctx) {
         const lastIndex = ctx.list.length - 1;
         const executor = ctx.list[lastIndex];
-        return executor?.isApplicant !== true && executor?.fullName &&
+        return executor?.isApplicant !== true && executor?.coApplicantRelationshipToDeceased && executor?.fullName &&
             executor?.email &&
             executor?.address?.formattedAddress;
     }

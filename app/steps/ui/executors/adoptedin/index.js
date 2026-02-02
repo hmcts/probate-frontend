@@ -20,7 +20,7 @@ class CoApplicantAdoptedIn extends ValidationStep {
         } else {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.index = executorsWrapper.getNextIndex();
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+            ctx.redirect = this.getUrlWithContext(ctx);
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
@@ -48,8 +48,9 @@ class CoApplicantAdoptedIn extends ValidationStep {
             'wholeBloodSiblingAdoptedIn',
             'wholeBloodNieceOrNephewAdoptedIn'
         ];
+        const applicant = ctx.list?.at(ctx.index);
         ctx.isAdoptedIn = ctx.adoptedIn === 'optionYes' ||
-            adoptedInFields.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+            adoptedInFields.some(field => applicant?.[field] === 'optionYes');
         return {
             options: [
                 {key: 'isAdoptedIn', value: true, choice: 'adoptedIn'},
@@ -98,13 +99,6 @@ class CoApplicantAdoptedIn extends ValidationStep {
             errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
         }
         return fields;
-    }
-
-    nextStepUrl(req, ctx) {
-        if (ctx.adoptedIn === 'optionYes') {
-            return `/coapplicant-adoption-place/${ctx.index}`;
-        }
-        return `/coapplicant-adopted-out/${ctx.index}`;
     }
 
     handlePost(ctx, errors) {

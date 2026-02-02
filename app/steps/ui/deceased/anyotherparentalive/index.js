@@ -27,7 +27,7 @@ class AnyOtherParentAlive extends ValidationStep {
     }
     handlePost(ctx, errors, formdata) {
         ctx.applicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
-        if (ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.list.length === 2) {
+        if (ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.list?.length === 2) {
             const lastIndex = ctx.list.length - 1;
             ctx.list.splice(lastIndex, 1);
             set(formdata, 'executors.list', ctx.list);

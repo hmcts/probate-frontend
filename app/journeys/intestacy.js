@@ -341,7 +341,7 @@ const stepList = {
     },
     CoApplicantAdoptedOut: {
         childOrSiblingOrNieceOrNephewNotAdoptedOut: 'CoApplicantEmail',
-        grandChildNotAdoptedOut: 'CoApplicantParentAdoptedIn',
+        grandChildCoApplicantNotAdoptedOut: 'CoApplicantParentAdoptedIn',
         otherwise: 'StopPage'
     },
     CoApplicantParentAdoptedIn: {

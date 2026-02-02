@@ -49,7 +49,7 @@ class CoApplicantAdoptedOut extends ValidationStep {
         } else {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.index = executorsWrapper.getNextIndex();
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+            ctx.redirect = this.getUrlWithContext(ctx);
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
@@ -77,15 +77,6 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if ((ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionChild' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' ||
-            ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') && ctx.adoptedOut === 'optionNo') {
-            return `/coapplicant-email/${ctx.index}`;
-        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild' && ctx.adoptedOut === 'optionNo') {
-            return `/parent-adopted-in/${ctx.index}`;
-        }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptedOutStop');
     }
 

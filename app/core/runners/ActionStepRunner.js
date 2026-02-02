@@ -29,8 +29,9 @@ class ActionStepRunner {
             [ctx, errors] = yield step.handlePost(ctx, errors, formdata, session);
 
             const next = step.next(req, ctx);
+            const nextUrl = next.getUrlWithContext(ctx);
             step.action(ctx, formdata);
-            res.redirect(next.getUrlWithContext(ctx));
+            res.redirect(nextUrl);
         }).catch((error) => {
             const commonContent = require(`app/resources/${req.session.language}/translation/common`);
 

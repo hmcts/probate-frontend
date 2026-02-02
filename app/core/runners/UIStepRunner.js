@@ -29,8 +29,9 @@ class UIStepRunner {
             } else {
                 const featureToggles = session.featureToggles;
                 [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
+                const stepUrl = step.getUrlWithContext(ctx);
                 forEach(errors, (error) =>
-                    req.log.info({type: 'Validation Message', url: step.getUrlWithContext(ctx)}, JSON.stringify(error))
+                    req.log.info({type: 'Validation Message', url: stepUrl}, JSON.stringify(error))
                 );
 
                 ctx.showBackLink = step.shouldHaveBackLink();
@@ -40,8 +41,8 @@ class UIStepRunner {
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
                     session.back.pop();
-                } else if (session.back && session.back[session.back.length - 1] !== step.getUrlWithContext(ctx)) {
-                    session.back.push(step.getUrlWithContext(ctx));
+                } else if (session.back && session.back[session.back.length - 1] !== stepUrl) {
+                    session.back.push(stepUrl);
                 }
                 const common = step.commonContent(session.language);
                 common.SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
@@ -70,7 +71,8 @@ class UIStepRunner {
             let ctx = step.getContextData(req, res);
             const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
             let [isValid, errors] = [];
-            formdata.eventDescription = config.eventDescriptionPrefix + (step.getUrlWithContext(ctx)).replace('/', '');
+            const stepUrl = step.getUrlWithContext(ctx);
+            formdata.eventDescription = config.eventDescriptionPrefix + (stepUrl).replace('/', '');
 
             let isEmptyForm = true;
             if (req.body) {
@@ -118,12 +120,16 @@ class UIStepRunner {
                         }
                     }
 
-                    if (session.back && session.back[session.back.length - 1] !== step.getUrlWithContext(ctx)) {
-                        session.back.push(step.getUrlWithContext(ctx));
+                    if (session.back && session.back[session.back.length - 1] !== stepUrl) {
+                        session.back.push(stepUrl);
                     }
                     if (errorOccurred === false) {
                         if (isSaveAndClose) {
-                            res.redirect('/task-list');
+                            if (ctx.caseType === 'INTESTACY') {
+                                res.redirect('/intestacy/task-list');
+                            } else {
+                                res.redirect('/task-list');
+                            }
                         } else {
                             res.redirect(nextStepUrl);
                         }

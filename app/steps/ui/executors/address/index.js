@@ -22,7 +22,7 @@ class ExecutorAddress extends AddressStep {
                 ctx.index = paramIndex;
             } else {
                 ctx.index = this.recalcIntestacyIndex(ctx, formdata);
-                ctx.redirect = `${pageUrl}/${ctx.index}`;
+                ctx.redirect = this.getUrlWithContext(ctx);
             }
         } else if (ctx.caseType === caseTypes.GOP) {
             if (paramIndex !== null) {
@@ -30,10 +30,10 @@ class ExecutorAddress extends AddressStep {
                 req.session.indexPosition = ctx.index;
             } else if (req.params && req.params[0] === '*') {
                 ctx.index = req.session.indexPosition;
-                ctx.redirect = `${pageUrl}/${ctx.index}`;
+                ctx.redirect = this.getUrlWithContext(ctx);
             } else if (startsWith(req.path, pageUrl)) {
                 ctx.index = this.recalcIndex(ctx, 0);
-                ctx.redirect = `${pageUrl}/${ctx.index}`;
+                ctx.redirect = this.getUrlWithContext(ctx);
             }
         }
         if (ctx.list[ctx.index]) {

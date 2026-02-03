@@ -40,9 +40,6 @@ def secrets = [
     secret('testValidationServiceUrl', 'VALIDATION_SERVICE_URL'),
     secret('launchdarkly-key', 'LAUNCHDARKLY_KEY'),
     secret('launchdarklyUserkeyFrontend', 'LAUNCHDARKLY_USER_KEY'),
-    secret('webchat-avaya-url', 'WEBCHAT_AVAYA_URL'),
-    secret('webchat-avaya-client-url', 'WEBCHAT_AVAYA_CLIENT_URL'),
-    secret('webchat-avaya-service', 'WEBCHAT_AVAYA_SERVICE'),
     secret('AppInsightsInstrumentationKey', 'APPINSIGHTS_INSTRUMENTATIONKEY')
   ]
 ]
@@ -105,24 +102,31 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
+    def testsRan = true
     try {
       if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
         env.DONT_TEST_WELSH = true
         yarnBuilder.yarn('test:fullfunctional-pr');
       } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
         yarnBuilder.yarn('test:fullfunctional-pr');
+      } else {
+        testsRan = false
       }
     } finally {
-      // Always publish reports, even on failure
-      publishHTML target: [
-        allowMissing: false,
-        alwaysLinkToLastBuild: true,
-        keepAll: true,
-        reportDir: "functional-output/merged",
-        reportFiles: "mochawesome.html",
-        reportName: "Preview Functional Tests"
-      ]
-      steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      // Only publish if tests ran AND report exists
+      if (testsRan && fileExists('functional-output/merged/mochawesome.html')) {
+        publishHTML target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: true,
+          keepAll: true,
+          reportDir: "functional-output/merged",
+          reportFiles: "mochawesome.html",
+          reportName: "Preview Functional Test Report"
+        ]
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      } else {
+        echo 'No E2E tests ran or no report generated - skipping report publishing'
+      }
     }
   }
 

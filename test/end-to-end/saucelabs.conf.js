@@ -108,9 +108,6 @@ const setupConfig = {
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
-        },
-        microsoft: {
-            browsers: getBrowserConfig('microsoft')
         }
     },
     name: 'Probate FrontEnd Cross-Browser Tests'

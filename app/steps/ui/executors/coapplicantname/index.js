@@ -28,7 +28,7 @@ class CoApplicantName extends ValidationStep {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, formdata);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+            ctx.redirect = this.getUrlWithContext(ctx);
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;

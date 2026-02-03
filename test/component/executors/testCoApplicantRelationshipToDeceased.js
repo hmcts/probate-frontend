@@ -87,7 +87,7 @@ describe('coapplicant-relationship-to-deceased', () => {
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantName}`);
                 });
         });
 
@@ -105,7 +105,7 @@ describe('coapplicant-relationship-to-deceased', () => {
                     const data = {list: [{'fullName': 'Jeff Exec Two', 'isApplying': true}],
                         coApplicantRelationshipToDeceased: 'optionGrandchild',};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForParentDieBefore);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentDieBefore}`);
                 });
         });
 

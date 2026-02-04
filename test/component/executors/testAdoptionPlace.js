@@ -8,7 +8,7 @@ const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes= require('app/utils/CaseTypes');
 const StopPage = require('../../../app/steps/ui/stoppage');
 
-describe.only('coapplicant-adoption-place', () => {
+describe('coapplicant-adoption-place', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn = CoApplicantParentAdoptedIn.getUrl(2);
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);

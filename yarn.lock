@@ -12776,7 +12776,7 @@ __metadata:
     uuid: "npm:^11.0.0"
     validator: "npm:^13.15.20"
     watch: "npm:^1.0.0"
-    webdriverio: "npm:^9.20.0"
+    webdriverio: "npm:^9.23.3"
     when: "npm:^3.7.8"
     ws: "npm:^8.17.1"
   languageName: unknown
@@ -16085,7 +16085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:9.23.3, webdriverio@npm:^9.20.0":
+"webdriverio@npm:^9.23.3":
   version: 9.23.3
   resolution: "webdriverio@npm:9.23.3"
   dependencies:

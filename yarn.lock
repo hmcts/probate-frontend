@@ -16085,7 +16085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:9.23.3, webdriverio@npm:^9.23.3":
+"webdriverio@npm:^9.23.3":
   version: 9.23.3
   resolution: "webdriverio@npm:9.23.3"
   dependencies:

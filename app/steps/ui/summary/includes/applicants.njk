@@ -27,6 +27,19 @@
 {{checkanswer(
     items = [
         {
+            question: content.AnyOtherParentAlive.question,
+            answer: content.AnyOtherParentAlive[fields.deceased.anyOtherParentAlive.value],
+            visible: fields.deceased.anyOtherParentAlive.value == "optionYes"
+        }
+    ],
+    url = content.AnyOtherParentAlive.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedSpouseNotApplyingReasonQuestion.value,
             answer: content.SpouseNotApplyingReason[fields.applicant.spouseNotApplyingReason.value],
             visible:

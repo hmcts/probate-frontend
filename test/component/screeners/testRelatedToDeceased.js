@@ -49,7 +49,7 @@ describe('related-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to next page: /intestacy${expectedNextUrlForStartApply}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForStartApply}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
@@ -69,7 +69,7 @@ describe('related-to-deceased', () => {
                         related: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStartApply}`, cookies);
+                    testWrapper.testRedirect(done, data, `${expectedNextUrlForStartApply}`, cookies);
                 });
         });
 

@@ -163,11 +163,7 @@ const getCase = (req, res, next, checkDeclarationStatuses, screenersCompleted = 
             .then(result => {
                 if (redirectingFromDashboard || screenersCompleted) {
                     session.form = result;
-                    if (probateType === 'INTESTACY') {
-                        res.redirect('/intestacy/task-list');
-                    } else {
-                        res.redirect('/task-list');
-                    }
+                    res.redirect('/task-list');
                 } else {
                     if (checkDeclarationStatuses) {
                         session.form = populateDeclarationFlags(result, session.form);

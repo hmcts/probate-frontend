@@ -125,11 +125,7 @@ class UIStepRunner {
                     }
                     if (errorOccurred === false) {
                         if (isSaveAndClose) {
-                            if (ctx.caseType === 'INTESTACY') {
-                                res.redirect('/intestacy/task-list');
-                            } else {
-                                res.redirect('/task-list');
-                            }
+                            res.redirect('/task-list');
                         } else {
                             res.redirect(nextStepUrl);
                         }

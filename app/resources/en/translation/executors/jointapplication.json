@@ -11,6 +11,7 @@
   "bullet2": "paying any taxes and debts",
   "bullet3": "distributing what is left to the people entitled to it",
   "paragraph3": "Not applying does not affect a person’s entitlement to inherit.",
+  "paragraph3Parent": "Not applying does not affect their entitlement to inherit.",
   "applicantExecutor" : "Applicant (you)",
   "furtherExecutor": "Applicant",
   "optionYes": "Yes",
@@ -20,7 +21,8 @@
   "errors": {
     "hasCoApplicant": {
       "required": "Select &lsquo;Yes&rsquo; if you want to apply with another person",
-      "invalid": "You can only apply with up to 3 other people"
+      "invalid": "You can only apply with up to 3 other people",
+      "requiredParent": "Select &lsquo;Yes&rsquo; if you want to apply together with {deceasedName}&rsquo;s other parent"
     }
   }
 }

@@ -11,6 +11,7 @@
   "bullet2": "talu unrhyw drethi a dyledion",
   "bullet3": "dosrannu beth sydd ar &ocirc;l i&rsquo;r bobl sydd â hawl iddo",
   "paragraph3": "Nid yw peidio &acirc; gwneud cais yn effeithio ar hawl unigolyn i etifeddu.",
+  "paragraph3Parent": "Nid yw gwneud cais yn effeithio ar eu hawl i etifeddu.",
   "applicantExecutor" : "Ceisydd (chi)",
   "furtherExecutor": "Ceisydd",
   "optionYes": "Ydw",
@@ -20,7 +21,8 @@
   "errors": {
     "hasCoApplicant": {
       "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych eisiau gwneud cais gyda rhywun arall",
-      "invalid": "Gallwch ond gwneud cais gyda hyd at 3 o bobl"
+      "invalid": "Gallwch ond gwneud cais gyda hyd at 3 o bobl",
+      "requiredParent": "Dewiswch &lsquo;Ydw&rsquo; os ydych eisiau gwneud cais ar y cyd gyda rhiant arall {deceasedName}"
     }
   }
 }

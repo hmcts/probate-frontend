@@ -1,15 +1,17 @@
-{{checkanswer(
-    items = [
-        {
-            question: fields.summary.otherExecutorRelationshipToDeceased.value,
-            answer: content.CoApplicantRelationshipToDeceased[executor.coApplicantRelationshipToDeceased],
-            visible: true
-        }
-    ],
-    url = content.CoApplicantRelationshipToDeceased.url  | replace("*", loop.index0 ),
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
+{% if relationship !== "optionParent" %}
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.otherExecutorRelationshipToDeceased.value,
+              answer: content.CoApplicantRelationshipToDeceased[executor.coApplicantRelationshipToDeceased],
+              visible: true
+          }
+      ],
+      url = content.CoApplicantRelationshipToDeceased.url  | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+{% endif %}
 
 {{checkanswer(
     items = [

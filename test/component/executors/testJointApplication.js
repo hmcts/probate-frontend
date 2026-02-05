@@ -83,7 +83,7 @@ describe('joint-application', () => {
         });
 
         it('test correct content loaded on the page', (done) => {
-            const contentToExclude = ['titleParent', 'questionParent', 'paragraph1Parent', 'paragraph2Parent'];
+            const contentToExclude = ['titleParent', 'questionParent', 'paragraph1Parent', 'paragraph2Parent', 'paragraph3Parent'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -94,7 +94,7 @@ describe('joint-application', () => {
                 });
         });
         it('test correct content loaded on the page for relationshipToDeceased is Parent', (done) => {
-            const contentToExclude = ['title', 'question', 'paragraph1', 'paragraph2', 'applicantExecutor'];
+            const contentToExclude = ['title', 'question', 'paragraph1', 'paragraph2', 'paragraph3', 'applicantExecutor'];
             sessionData.applicant.relationshipToDeceased = 'optionParent';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

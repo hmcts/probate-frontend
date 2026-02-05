@@ -2,7 +2,7 @@
     items = [
         {
             question: content.JointApplication.question,
-            answer: 'Yes' if (fields.executors.list.value | length > 1) else 'No',
+            answer: content.JointApplication[fields.executors.hasCoApplicant.value],
             visible: true
         }
     ],

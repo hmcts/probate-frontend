@@ -108,8 +108,11 @@ class JointApplication extends ValidationStep {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
             const hasCoApplicantChecked = ctx.hasCoApplicantChecked === 'true';
-            if (hasCoApplicantChecked === false) {
+            if (hasCoApplicantChecked === false && ctx.applicantRelationshipToDeceased !== 'optionParent') {
                 errors.push(FieldError('hasCoApplicant', 'required', this.resourcePath,
+                    this.generateContent({}, {}, session.language), session.language));
+            } else if (hasCoApplicantChecked === false && ctx.applicantRelationshipToDeceased === 'optionParent') {
+                errors.push(FieldError('hasCoApplicant', 'requiredParent', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             } else if (ctx.list.length > 3 && ctx.hasCoApplicant === 'optionYes') {
                 errors.push(FieldError('hasCoApplicant', 'invalid', this.resourcePath,
@@ -123,6 +126,14 @@ class JointApplication extends ValidationStep {
             set(formdata, 'executors.list', ctx.list);
         }
         return [ctx, errors];
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 }
 

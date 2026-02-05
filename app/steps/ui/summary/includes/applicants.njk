@@ -29,7 +29,7 @@
         {
             question: content.AnyOtherParentAlive.question,
             answer: content.AnyOtherParentAlive[fields.deceased.anyOtherParentAlive.value],
-            visible: fields.deceased.anyOtherParentAlive.value == "optionYes"
+            visible: fields.applicant.relationshipToDeceased.value == "optionParent"
         }
     ],
     url = content.AnyOtherParentAlive.url,

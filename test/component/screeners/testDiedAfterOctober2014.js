@@ -48,7 +48,7 @@ describe('died-after-october-2014', () => {
                 });
         });
 
-        it(`test it redirects to next page: /intestacy${expectedNextUrlForRelatedToDeceased}`, (done) => {
+        it(`test it redirects to next page: ${expectedNextUrlForRelatedToDeceased}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
@@ -67,7 +67,7 @@ describe('died-after-october-2014', () => {
                         diedAfter: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForRelatedToDeceased}`, cookies);
+                    testWrapper.testRedirect(done, data, `${expectedNextUrlForRelatedToDeceased}`, cookies);
                 });
         });
 

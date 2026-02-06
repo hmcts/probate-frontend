@@ -414,7 +414,7 @@ describe('ExecutorAddress', () => {
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
-            expect(url).to.equal('/joint-application');
+            expect(url).to.equal('/intestacy/joint-application');
             done();
         });
 
@@ -433,7 +433,7 @@ describe('ExecutorAddress', () => {
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
-            expect(url).to.equal('/equality-and-diversity');
+            expect(url).to.equal('/intestacy/equality-and-diversity');
             done();
         });
     });

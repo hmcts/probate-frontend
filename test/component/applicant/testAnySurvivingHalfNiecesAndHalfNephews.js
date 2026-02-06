@@ -54,7 +54,7 @@ describe('any-surviving-half-niece-half-nephew', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to half-niece and half-nephew page if surviving children are there: ${expectedNextUrlForAllHalfNiecesAndHalfNephewsOver18}`, (done) => {
+        it(`test it redirects to half-niece and half-nephew page if surviving children are there: /intestacy${expectedNextUrlForAllHalfNiecesAndHalfNephewsOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -62,10 +62,10 @@ describe('any-surviving-half-niece-half-nephew', () => {
                         anySurvivingHalfNiecesAndHalfNephews: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllHalfNiecesAndHalfNephewsOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllHalfNiecesAndHalfNephewsOver18}`);
                 });
         });
-        it(`test it redirects to grandchild over 18 page if some half-siblings are predeceased: ${expectedNextUrlForAllHalfSiblingsOver18}`, (done) => {
+        it(`test it redirects to grandchild over 18 page if some half-siblings are predeceased: /intestacy${expectedNextUrlForAllHalfSiblingsOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -74,10 +74,10 @@ describe('any-surviving-half-niece-half-nephew', () => {
                         anySurvivingHalfNiecesAndHalfNephews: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllHalfSiblingsOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllHalfSiblingsOver18}`);
                 });
         });
-        it(`test it redirects to Applicant name page if all half-sibling are predeceased: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant name page if all half-sibling are predeceased: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -93,7 +93,7 @@ describe('any-surviving-half-niece-half-nephew', () => {
                         relationshipToDeceased: 'optionSibling'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
     });

@@ -17,7 +17,7 @@ class DeceasedChildAlive extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('parentIsAlive');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'parentIsAlive');
     }
 
     nextStepOptions() {

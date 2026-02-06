@@ -51,7 +51,7 @@ describe(testStepUrl, () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to AdoptedIn page if No for any Any Living Parent: ${expectedNextUrlForAdoptedIn}`, (done) => {
+        it(`test it redirects to AdoptedIn page if No for any Any Living Parent: /intestacy${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({
                     caseType: caseTypes.INTESTACY,
@@ -64,10 +64,10 @@ describe(testStepUrl, () => {
                         anyLivingParents: 'optionNo',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedIn}`);
                 });
         });
-        it(`Test it redirects to Stoppage page if Yes for any Any Living Parent: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`Test it redirects to Stoppage page if Yes for any Any Living Parent: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -75,7 +75,7 @@ describe(testStepUrl, () => {
                         anyLivingParents: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

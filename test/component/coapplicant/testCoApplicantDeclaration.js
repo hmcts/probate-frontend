@@ -110,7 +110,7 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
-        it(`test it redirects to agree page: ${expectedNextUrlForIntestacyCoAppAgree}`, (done) => {
+        it(`test it redirects to agree page: /intestacy${expectedNextUrlForIntestacyCoAppAgree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
@@ -127,12 +127,12 @@ describe('co-applicant-declaration', () => {
                             const data = {
                                 agreement: 'optionYes'
                             };
-                            testWrapper.testRedirect(done, data, expectedNextUrlForIntestacyCoAppAgree);
+                            testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForIntestacyCoAppAgree}`);
                         });
                 });
         });
 
-        it(`test it redirects to disagree page: ${expectedNextUrlForIntestacyCoAppDisagree}`, (done) => {
+        it(`test it redirects to disagree page: /intestacy${expectedNextUrlForIntestacyCoAppDisagree}`, (done) => {
             inviteAgreedNock();
 
             testWrapper.agent.post('/prepare-session/form')
@@ -147,7 +147,7 @@ describe('co-applicant-declaration', () => {
                     const data = {
                         agreement: 'optionNo'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForIntestacyCoAppDisagree);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForIntestacyCoAppDisagree}`);
                 });
         });
 

@@ -46,7 +46,7 @@ describe('deceased-adoption-out', () => {
                 });
         });
 
-        it(`test it redirects to stop page if deceased is adopted out: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if deceased is adopted out: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -64,11 +64,11 @@ describe('deceased-adoption-out', () => {
                         deceasedAdoptedOut: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
 
-        it(`test it redirects to any other parent alive page if deceased is not adopted Out: ${expectedNextUrlForOtherParentAlive}`, (done) => {
+        it(`test it redirects to any other parent alive page if deceased is not adopted Out: /intestacy${expectedNextUrlForOtherParentAlive}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -86,11 +86,11 @@ describe('deceased-adoption-out', () => {
                         deceasedAdoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForOtherParentAlive);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForOtherParentAlive}`);
                 });
         });
 
-        it(`test it redirects to applicant has Same parents page if deceased is not adopted Out and applicant is Sibling: ${expectedNextUrlForSameParents}`, (done) => {
+        it(`test it redirects to applicant has Same parents page if deceased is not adopted Out and applicant is Sibling: /intestacy${expectedNextUrlForSameParents}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -108,7 +108,7 @@ describe('deceased-adoption-out', () => {
                         deceasedAdoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForSameParents);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForSameParents}`);
                 });
         });
     });

@@ -70,7 +70,7 @@ describe('parent-adopted-out', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: ${expectedNextUrlForCoApplicantEmail}`, (done) => {
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: /intestacy${expectedNextUrlForCoApplicantEmail}`, (done) => {
             testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -79,10 +79,10 @@ describe('parent-adopted-out', () => {
                         applicantParentAdoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
                 });
         });
-        it(`test it redirects to stop page if co-applicant is adopted out : ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if co-applicant is adopted out : /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -91,7 +91,7 @@ describe('parent-adopted-out', () => {
                         applicantParentAdoptedOut: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

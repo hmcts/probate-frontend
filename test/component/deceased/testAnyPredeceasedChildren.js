@@ -61,10 +61,10 @@ describe('any-deceased-children', () => {
                         anyPredeceasedChildren: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllChildrenOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllChildrenOver18}`);
                 });
         });
-        it(`test it redirects to Any surviving grandchildren page if some children are predeceased: ${expectedNextUrlForAnySurvivingGrandchildren}`, (done) => {
+        it(`test it redirects to Any surviving grandchildren page if some children are predeceased: /intestacy${expectedNextUrlForAnySurvivingGrandchildren}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -72,10 +72,10 @@ describe('any-deceased-children', () => {
                         anyPredeceasedChildren: 'optionYesAll'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnySurvivingGrandchildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnySurvivingGrandchildren}`);
                 });
         });
-        it(`test it redirects to Any surviving grandchildren page if all children are predeceased: ${expectedNextUrlForAnySurvivingGrandchildren}`, (done) => {
+        it(`test it redirects to Any surviving grandchildren page if all children are predeceased: /intestacy${expectedNextUrlForAnySurvivingGrandchildren}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -83,7 +83,7 @@ describe('any-deceased-children', () => {
                         anyPredeceasedChildren: 'optionYesSome'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnySurvivingGrandchildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnySurvivingGrandchildren}`);
                 });
         });
     });

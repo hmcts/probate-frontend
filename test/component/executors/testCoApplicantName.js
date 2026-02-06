@@ -84,7 +84,7 @@ describe('coapplicant-name', () => {
                             {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true}
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptedIn}`);
                 });
         });
 
@@ -106,7 +106,7 @@ describe('coapplicant-name', () => {
                     const data = {
                         fullName: 'CoApplicant'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
                 });
         });
 

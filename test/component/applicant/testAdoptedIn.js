@@ -47,7 +47,7 @@ describe('adoption-in', () => {
                 });
         });
 
-        it(`test it redirects to Child Adoption place page if child is adopted in: ${expectedNextUrlForAdoptionPlace}`, (done) => {
+        it(`test it redirects to Child Adoption place page if child is adopted in: /intestacy${expectedNextUrlForAdoptionPlace}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -65,11 +65,11 @@ describe('adoption-in', () => {
                         adoptedIn: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptionPlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptionPlace}`);
                 });
         });
 
-        it(`test it redirects to child adopted out page if child is not adopted in: ${expectedNextUrlForAdoptedOut}`, (done) => {
+        it(`test it redirects to child adopted out page if child is not adopted in: /intestacy${expectedNextUrlForAdoptedOut}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -87,11 +87,11 @@ describe('adoption-in', () => {
                         adoptedIn: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedOut);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedOut}`);
                 });
         });
 
-        it(`test it redirects to Grandchild Adoption place page if Grandchild is adopted in: ${expectedNextUrlForAdoptionPlace}`, (done) => {
+        it(`test it redirects to Grandchild Adoption place page if Grandchild is adopted in: /intestacy${expectedNextUrlForAdoptionPlace}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -106,11 +106,11 @@ describe('adoption-in', () => {
                         adoptedIn: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptionPlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptionPlace}`);
                 });
         });
 
-        it(`test it redirects to Grandchild adopted out page if Grandchild is not adopted in: ${expectedNextUrlForAdoptedOut}`, (done) => {
+        it(`test it redirects to Grandchild adopted out page if Grandchild is not adopted in: /intestacy${expectedNextUrlForAdoptedOut}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -125,7 +125,7 @@ describe('adoption-in', () => {
                         adoptedIn: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedOut);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedOut}`);
                 });
         });
     });

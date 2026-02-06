@@ -11,6 +11,11 @@ class RelatedToDeceased extends EligibilityValidationStep {
         return pageUrl;
     }
 
+    // eslint-disable-next-line no-unused-vars
+    getUrlWithContext(ctx, unused) {
+        return this.constructor.getUrl();
+    }
+
     getContextData(req, res) {
         return super.getContextData(req, res, pageUrl, fieldKey);
     }
@@ -20,7 +25,7 @@ class RelatedToDeceased extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('notRelated');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notRelated');
     }
 
     nextStepOptions() {

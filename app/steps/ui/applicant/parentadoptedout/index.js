@@ -24,7 +24,7 @@ class ParentAdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('grandchildParentAdoptedOut');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'grandchildParentAdoptedOut');
     }
 
     nextStepOptions() {

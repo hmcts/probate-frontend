@@ -9,6 +9,10 @@ class StopPage extends Step {
         return `/stop-page/${reason}`;
     }
 
+    getUrlParamFromContext(context, reason) {
+        return reason;
+    }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.stopReason = req.params[0];

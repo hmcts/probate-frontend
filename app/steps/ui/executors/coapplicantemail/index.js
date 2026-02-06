@@ -79,11 +79,9 @@ class CoApplicantEmail extends ValidationStep {
         }
         return [ctx, errors];
     }
-    isComplete(ctx) {
-        if (ctx.list[ctx.index]?.email) {
-            return [true, 'inProgress'];
-        }
-        return [false, 'inProgress'];
+
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).getUrlWithContext(ctx);
     }
 
     action(ctx, formdata) {
@@ -97,16 +95,19 @@ class CoApplicantEmail extends ValidationStep {
         return [ctx, formdata];
     }
 
+    isComplete(ctx) {
+        if (ctx.list[ctx.index]?.email) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
+    }
+
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.executorName && errors) {
             errors[0].msg = errors[0].msg.replace('{executorName}', fields.executorName.value);
         }
         return fields;
-    }
-
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
     }
 }
 

@@ -7,7 +7,7 @@ const caseTypes = require('app/utils/CaseTypes');
 
 describe('value-assets-outside-england-wales', () => {
     let testWrapper;
-    const expectedNextUrlForDeceasedAlias = DeceasedAlias.getUrl();
+    const expectedNextUrlForDeceasedAlias = `/intestacy${DeceasedAlias.getUrl()}`;
 
     beforeEach(() => {
         testWrapper = new TestWrapper('ValueAssetsOutside');

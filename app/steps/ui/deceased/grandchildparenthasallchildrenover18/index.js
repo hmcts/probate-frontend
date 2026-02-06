@@ -17,7 +17,7 @@ class GrandchildParentHasAllChildrenOver18 extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('childrenUnder18');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'childrenUnder18');
     }
 
     nextStepOptions() {

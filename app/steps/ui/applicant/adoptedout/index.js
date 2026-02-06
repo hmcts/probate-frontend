@@ -21,7 +21,7 @@ class AdoptedOut extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptedOut');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'adoptedOut');
     }
 
     nextStepOptions(ctx) {

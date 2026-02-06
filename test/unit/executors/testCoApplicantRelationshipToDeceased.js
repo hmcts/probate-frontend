@@ -43,6 +43,7 @@ describe('Co-applicant-relationship', () => {
         let req;
         beforeEach(() => {
             ctx = {
+                caseType: 'intestacy',
                 coApplicantRelationshipToDeceased: '',
                 index: 0,
                 list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1'}, {fullName: 'CoApplicant 2'}, {fullName: 'CoApplicant 3'}]
@@ -56,50 +57,51 @@ describe('Co-applicant-relationship', () => {
 
         it('should return the correct URL if the relationship to deceased is child', () => {
             ctx.index = 1;
-            ctx.coApplicantRelationshipToDeceased = 'optionChild';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionChild';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-name/1');
+            expect(url).to.equal('/intestacy/coapplicant-name/1');
         });
 
         it('should return the correct URL if the relationship to deceased is Half-blood sibling', () => {
             ctx.index = 3;
-            ctx.coApplicantRelationshipToDeceased = 'optionHalfBloodSibling';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionHalfBloodSibling';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-name/3');
+            expect(url).to.equal('/intestacy/coapplicant-name/3');
         });
 
         it('should return the correct URL if the relationship to deceased is Half-blood Niece or Nephew', () => {
             ctx.index = 3;
-            ctx.coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/parent-die-before/3');
+            expect(url).to.equal('/intestacy/parent-die-before/3');
         });
 
         it('should return the correct URL if the relationship to deceased is Whole-blood sibling', () => {
             ctx.index = 3;
-            ctx.coApplicantRelationshipToDeceased = 'optionWholeBloodSibling';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionWholeBloodSibling';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-name/3');
+            expect(url).to.equal('/intestacy/coapplicant-name/3');
         });
 
         it('should return the correct URL if the relationship to deceased is Whole-blood Niece or Nephew', () => {
             ctx.index = 3;
-            ctx.coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/parent-die-before/3');
+            expect(url).to.equal('/intestacy/parent-die-before/3');
         });
 
         it('should return the correct URL if the relationship to deceased is Grandchild', () => {
             ctx.index = 2;
-            ctx.coApplicantRelationshipToDeceased = 'optionGrandchild';
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionGrandchild';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/parent-die-before/2');
+            expect(url).to.equal('/intestacy/parent-die-before/2');
         });
 
         it('should return the stop page url if the relationship to deceased is Other', () => {
-            ctx.coApplicantRelationshipToDeceased = 'optionOther';
+            ctx.index = 3;
+            ctx.list[ctx.index].coApplicantRelationshipToDeceased = 'optionOther';
             const url = CoApplicantRelationshipToDeceased.nextStepUrl(req, ctx);
-            expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
+            expect(url).to.equal('/intestacy/stop-page/otherCoApplicantRelationship');
         });
     });
     describe('CoApplicantRelationship generateFields', () => {

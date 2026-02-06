@@ -8,6 +8,7 @@ class RemoveCoApplicant extends ValidationStep {
     static getUrl(index = '*') {
         return `/remove-coApplicant/${index}`;
     }
+
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.index = req.params[0];

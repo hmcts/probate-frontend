@@ -54,7 +54,7 @@ describe(testStepUrl, () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Adopted in page if deceased no descendants: ${expectedNextUrlForAdoptedIn}`, (done) => {
+        it(`test it redirects to Adopted in page if deceased no descendants: /intestacy${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({
                     caseType: caseTypes.INTESTACY,
@@ -68,11 +68,11 @@ describe(testStepUrl, () => {
                         anyLivingDescendants: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedIn}`);
                 });
         });
 
-        it(`test it redirects to stop page if deceased has descendants: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if deceased has descendants: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({
                     caseType: caseTypes.INTESTACY,
@@ -86,7 +86,7 @@ describe(testStepUrl, () => {
                         anyLivingDescendants: 'optionYes',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

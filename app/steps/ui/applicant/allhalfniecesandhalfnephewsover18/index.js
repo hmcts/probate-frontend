@@ -17,7 +17,7 @@ class AllHalfNiecesAndHalfNephewsOver18 extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('anyoneUnder18');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'anyoneUnder18');
     }
     nextStepOptions(ctx) {
         ctx.allHalfNiecesAndHalfNephewsOver18AndSomePredeceasedHalfSiblings = ctx.allHalfNiecesAndHalfNephewsOver18 === 'optionYes' && ctx.anyPredeceasedHalfSiblings === 'optionYesSome';

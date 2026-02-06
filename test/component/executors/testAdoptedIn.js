@@ -69,7 +69,7 @@ describe('coapplicant-adopted-in', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to CoApplicant Adoption place page if child is adopted in: ${expectedNextUrlForCoApplicantAdoptionPlace}`, (done) => {
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted in: /intestacy${expectedNextUrlForCoApplicantAdoptionPlace}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptedIn.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -78,11 +78,11 @@ describe('coapplicant-adopted-in', () => {
                         adoptedIn: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantAdoptionPlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptionPlace}`);
                 });
         });
 
-        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: ${expectedNextUrlForCoApplicantAdoptedOut}`, (done) => {
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: /intestacy${expectedNextUrlForCoApplicantAdoptedOut}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptedIn.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -91,7 +91,7 @@ describe('coapplicant-adopted-in', () => {
                         adoptedIn: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantAdoptedOut);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptedOut}`);
                 });
         });
     });

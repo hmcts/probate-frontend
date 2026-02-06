@@ -48,7 +48,7 @@ describe('all-whole-sibling-over-18', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Applicant name page if deceased whole-sibling were all over 18 and sibling is applying: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant name page if deceased whole-sibling were all over 18 and sibling is applying: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -63,11 +63,11 @@ describe('all-whole-sibling-over-18', () => {
                         allWholeSiblingsOver18: 'optionYes',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`test it redirects to Stop page if some deceased whole-sibling were under 18: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if some deceased whole-sibling were under 18: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -75,7 +75,7 @@ describe('all-whole-sibling-over-18', () => {
                         allWholeSiblingsOver18: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

@@ -49,7 +49,7 @@ describe(testStepUrl, () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to ApplicantName page if No for any Other Parent Alive: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to ApplicantName page if No for any Other Parent Alive: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -58,11 +58,11 @@ describe(testStepUrl, () => {
                         anyOtherParentAlive: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`Test it redirects to ApplicantName page if Yes for any Other Parent Alive: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`Test it redirects to ApplicantName page if Yes for any Other Parent Alive: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -70,7 +70,7 @@ describe(testStepUrl, () => {
                         anyOtherParentAlive: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
     });

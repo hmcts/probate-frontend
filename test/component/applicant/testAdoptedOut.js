@@ -69,7 +69,7 @@ describe('adoption-out', () => {
                 });
         });
 
-        it(`test it redirects to stop page if child is adopted out: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if child is adopted out: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -87,11 +87,11 @@ describe('adoption-out', () => {
                         adoptedOut: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
 
-        it(`test it redirects to any other children page if child is not adopted Out: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
+        it(`test it redirects to any other children page if child is not adopted Out: /intestacy${expectedNextUrlForAnyOtherChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -109,7 +109,7 @@ describe('adoption-out', () => {
                         adoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyOtherChildren}`);
                 });
         });
     });

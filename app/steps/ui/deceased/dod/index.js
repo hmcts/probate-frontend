@@ -66,7 +66,7 @@ class DeceasedDod extends DateStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('notDiedAfterOctober2014');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notDiedAfterOctober2014');
     }
 
     nextStepOptions(ctx) {

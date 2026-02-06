@@ -28,7 +28,6 @@ class ParentAdoptedIn extends ValidationStep {
         return {
             options: [
                 {key: 'parentAdoptedIn', value: 'optionYes', choice: 'parentAdoptedIn'},
-                {key: 'parentAdoptedIn', value: 'optionNo', choice: 'parentNotAdoptedIn'}
             ]
         };
     }

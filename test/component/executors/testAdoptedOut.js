@@ -72,7 +72,7 @@ describe('coapplicant-adopted-out', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: ${expectedNextUrlForCoApplicantEmail}`, (done) => {
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: /intestacy${expectedNextUrlForCoApplicantEmail}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptedOut.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -81,11 +81,11 @@ describe('coapplicant-adopted-out', () => {
                         adoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
                 });
         });
 
-        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: ${expectedNextUrlForCoApplicantParentAdoptedIn}`, (done) => {
+        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: /intestacy${expectedNextUrlForCoApplicantParentAdoptedIn}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptedOut.getUrl(2);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -94,10 +94,10 @@ describe('coapplicant-adopted-out', () => {
                         adoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantParentAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantParentAdoptedIn}`);
                 });
         });
-        it(`test it redirects to stop page if co-applicant is adopted out : ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if co-applicant is adopted out : /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptedOut.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -106,7 +106,7 @@ describe('coapplicant-adopted-out', () => {
                         adoptedOut: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

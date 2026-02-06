@@ -46,7 +46,7 @@ describe('deceased-adoption-in', () => {
                 });
         });
 
-        it(`test it redirects to deceased Adoption place page if deceased is adopted in: ${expectedNextUrlForDeceasedAdoptionPlace}`, (done) => {
+        it(`test it redirects to deceased Adoption place page if deceased is adopted in: /intestacy${expectedNextUrlForDeceasedAdoptionPlace}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -64,11 +64,11 @@ describe('deceased-adoption-in', () => {
                         deceasedAdoptedIn: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAdoptionPlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedAdoptionPlace}`);
                 });
         });
 
-        it(`test it redirects to deceased adopted out page if deceased is not adopted in: ${expectedNextUrlForDeceasedAdoptedOut}`, (done) => {
+        it(`test it redirects to deceased adopted out page if deceased is not adopted in: /intestacy${expectedNextUrlForDeceasedAdoptedOut}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -86,7 +86,7 @@ describe('deceased-adoption-in', () => {
                         deceasedAdoptedIn: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAdoptedOut);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedAdoptedOut}`);
                 });
         });
     });

@@ -28,7 +28,7 @@ class CoApplicantName extends ValidationStep {
             ctx.index = parseInt(req.params[0]);
         } else {
             ctx.index = this.recalcIndex(ctx, formdata);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+            ctx.redirect = this.getUrlWithContext(ctx);
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
@@ -53,12 +53,6 @@ class CoApplicantName extends ValidationStep {
         };
     }
 
-    nextStepUrl(req, ctx) {
-        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
-            return '/coapplicant-email/1';
-        }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
-    }
     action(ctx, formdata) {
         super.action(ctx, formdata);
         return [ctx, formdata];

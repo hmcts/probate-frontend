@@ -62,7 +62,7 @@ describe('applicant-address', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForExecutorCheckWill);
         });
 
-        it(`test it redirects to  page: ${expectedNextUrlForJointApplication}`, (done) => {
+        it(`test it redirects to  page: /intestacy${expectedNextUrlForJointApplication}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -88,11 +88,11 @@ describe('applicant-address', () => {
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForJointApplication);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForJointApplication}`);
                 });
         });
 
-        it(`test it redirects to  page: ${expectedNextUrlForEquality}`, (done) => {
+        it(`test it redirects to  page: /intestacy${expectedNextUrlForEquality}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -119,7 +119,7 @@ describe('applicant-address', () => {
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForEquality}`);
                 });
         });
 
@@ -152,7 +152,7 @@ describe('applicant-address', () => {
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForEquality}`);
                 });
         });
 
@@ -186,7 +186,7 @@ describe('applicant-address', () => {
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForEquality}`);
                 });
         });
 
@@ -216,7 +216,7 @@ describe('applicant-address', () => {
                         newPostCode: 'value',
                         country: 'value',
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForEquality}`);
                 });
         });
 
@@ -246,7 +246,7 @@ describe('applicant-address', () => {
                         newPostCode: 'value',
                         country: 'value',
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForJointApplication);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForJointApplication}`);
                 });
         });
         it('test the address dropdown box displays all addresses when the user returns to the page', (done) => {

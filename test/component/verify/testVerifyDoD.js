@@ -112,7 +112,7 @@ describe('verify-dod', () => {
                 });
         });
 
-        it(`test it redirects to deceased dod where dod is same as dod: ${expectedNextUrlForCoApplicantDeclaration}`, (done) => {
+        it(`test it redirects to deceased dod where dod is same as dod: /intestacy${expectedNextUrlForCoApplicantDeclaration}`, (done) => {
             const sessionData = {
                 deceased: {
                     'dod-day': '01',
@@ -130,7 +130,7 @@ describe('verify-dod', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantDeclaration);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantDeclaration}`);
                 });
         });
     });

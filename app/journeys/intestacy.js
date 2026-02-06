@@ -211,7 +211,7 @@ const stepList = {
     },
     DeceasedAdoptedIn: {
         deceasedAdoptedIn: 'DeceasedAdoptionPlace',
-        deceasedNotAdoptedIn: 'DeceasedAdoptedOut'
+        otherwise: 'DeceasedAdoptedOut'
     },
     DeceasedAdoptedOut: {
         parentApplyingAndDeceasedNotAdoptedOut: 'AnyOtherParentAlive',

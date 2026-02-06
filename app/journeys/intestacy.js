@@ -247,7 +247,7 @@ const stepList = {
     },
     AnyPredeceasedChildren: {
         hadSomeOrAllPredeceasedChildren: 'AnySurvivingGrandchildren',
-        optionNo: 'AllChildrenOver18'
+        otherwise: 'AllChildrenOver18'
     },
     AnySurvivingGrandchildren: {
         hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',

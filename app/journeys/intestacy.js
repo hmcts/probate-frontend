@@ -199,7 +199,7 @@ const stepList = {
     },
     ParentAdoptedIn: {
         parentAdoptedIn: 'ParentAdoptionPlace',
-        parentNotAdoptedIn: 'ParentAdoptedOut',
+        otherwise: 'ParentAdoptedOut',
     },
     ParentAdoptedOut: {
         parentNotAdoptedOut: 'AdoptedIn',

@@ -185,7 +185,7 @@ const stepList = {
     },
     AdoptedIn: {
         adoptedIn: 'AdoptionPlace',
-        notAdoptedIn: 'AdoptedOut'
+        otherwise: 'AdoptedOut'
     },
     AdoptedOut: {
         childOrGrandchildNotAdoptedOut: 'AnyOtherChildren',

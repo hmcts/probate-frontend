@@ -23,7 +23,6 @@ class AdoptedIn extends ValidationStep {
         return {
             options: [
                 {key: 'adoptedIn', value: 'optionYes', choice: 'adoptedIn'},
-                {key: 'adoptedIn', value: 'optionNo', choice: 'notAdoptedIn'},
             ]
         };
     }

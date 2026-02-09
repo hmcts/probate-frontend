@@ -48,7 +48,6 @@ class CoApplicantName extends ValidationStep {
         return {
             options: [
                 {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
-                {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
             ],
         };
     }

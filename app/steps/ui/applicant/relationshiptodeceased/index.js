@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const FormatName = require('app/utils/FormatName');
 const logger = require('app/components/logger');
@@ -19,6 +19,7 @@ class RelationshipToDeceased extends ValidationStep {
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.list = formdata.executors?.list;
         return ctx;
     }
 
@@ -67,6 +68,13 @@ class RelationshipToDeceased extends ValidationStep {
 
         return fields;
     }
+    handlePost(ctx, errors, formdata) {
+        if (ctx.list?.length > 0 && formdata.applicant?.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
+            ctx.list.splice(0);
+            set(formdata, 'executors.list', ctx.list);
+        }
+        return super.handlePost(ctx, errors);
+    }
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
@@ -78,7 +86,7 @@ class RelationshipToDeceased extends ValidationStep {
         delete ctx.deceasedMaritalStatus;
         delete ctx.ihtThreshold;
 
-        if (formdata.applicant && formdata.applicant.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
+        if (formdata.applicant?.relationshipToDeceased && ctx.relationshipToDeceased !== formdata.applicant.relationshipToDeceased) {
             delete ctx.spouseNotApplyingReason;
 
             if (formdata.deceased) {

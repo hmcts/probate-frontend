@@ -32,6 +32,103 @@ describe('AnyPredeceasedWholeSiblings', () => {
             done();
         });
     });
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing whole niece/nephew coApplicants from the list if predeceased whole-sibling changed from yesSome to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anyPredeceasedWholeSiblings: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedWholeSiblings: 'optionYesSome',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyPredeceasedWholeSiblings.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anyPredeceasedWholeSiblings: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'
+                    }
+                ]
+            });
+            done();
+        });
+        it('should remove existing whole-sibling coApplicants from the list if predeceased whole-sibling changed from YesSome to YesAll', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anyPredeceasedWholeSiblings: 'optionYesAll',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedWholeSiblings: 'optionYesSome',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyPredeceasedWholeSiblings.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anyPredeceasedWholeSiblings: 'optionYesAll',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not remove existing whole sibling/niece/nephew coApplicants from the list if predeceased whole-sibling changed from YesAll to YesSome', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anyPredeceasedWholeSiblings: 'optionYesSome',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedWholeSiblings: 'optionYesAll',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyPredeceasedWholeSiblings.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anyPredeceasedWholeSiblings: 'optionYesSome',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            });
+            done();
+        });
+    });
 
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
@@ -56,7 +153,7 @@ describe('AnyPredeceasedWholeSiblings', () => {
                 allWholeSiblingsOver18: 'optionYes'
             };
             const formdata = {
-                deceased: {
+                applicant: {
                     anyPredeceasedWholeSiblings: 'optionYesAll'
                 }
             };

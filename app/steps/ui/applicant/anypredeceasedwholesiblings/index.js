@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const {set} = require('lodash');
 
 class AnyPredeceasedWholeSiblings extends ValidationStep {
 
@@ -13,6 +14,7 @@ class AnyPredeceasedWholeSiblings extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.list = formdata.executors?.list;
         return ctx;
     }
 
@@ -39,11 +41,32 @@ class AnyPredeceasedWholeSiblings extends ValidationStep {
             ]
         };
     }
+
+    handlePost(ctx, errors, formdata) {
+        if (ctx.list?.length > 1 && formdata.applicant?.anyPredeceasedWholeSiblings && ctx.anyPredeceasedWholeSiblings !== formdata.applicant.anyPredeceasedWholeSiblings) {
+            let relationshipToRemove = null;
+            switch (ctx.anyPredeceasedWholeSiblings) {
+            case 'optionNo':
+                relationshipToRemove = 'optionWholeBloodNieceOrNephew';
+                break;
+            case 'optionYesAll':
+                relationshipToRemove = 'optionWholeBloodSibling';
+                break;
+            default:
+                break;
+            }
+            if (relationshipToRemove) {
+                ctx.list = ctx.list.filter(coApplicant => coApplicant.coApplicantRelationshipToDeceased !== relationshipToRemove);
+                set(formdata, 'executors.list', ctx.list);
+            }
+        }
+        return super.handlePost(ctx, errors);
+    }
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.deceasedName;
 
-        if (formdata.deceased?.anyPredeceasedWholeSiblings && ctx.anyPredeceasedWholeSiblings !== formdata.deceased.anyPredeceasedWholeSiblings) {
+        if (formdata.applicant?.anyPredeceasedWholeSiblings && ctx.anyPredeceasedWholeSiblings !== formdata.applicant.anyPredeceasedWholeSiblings) {
             delete ctx.anySurvivingWholeNiecesAndWholeNephews;
             delete ctx.allWholeNiecesAndWholeNephewsOver18;
             delete ctx.allWholeSiblingsOver18;

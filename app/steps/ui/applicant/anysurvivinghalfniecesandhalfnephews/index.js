@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const {set} = require('lodash');
 
 class AnySurvivingHalfNiecesAndHalfNephews extends ValidationStep {
 
@@ -13,6 +14,7 @@ class AnySurvivingHalfNiecesAndHalfNephews extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.list = formdata.executors?.list;
         return ctx;
     }
 
@@ -36,10 +38,24 @@ class AnySurvivingHalfNiecesAndHalfNephews extends ValidationStep {
         return fields;
     }
 
+    handlePost(ctx, errors, formdata) {
+        if (ctx.list?.length > 1 && formdata.applicant?.anySurvivingHalfNiecesAndHalfNephews && ctx.anySurvivingHalfNiecesAndHalfNephews !== formdata.applicant.anySurvivingHalfNiecesAndHalfNephews) {
+            if (ctx.anySurvivingHalfNiecesAndHalfNephews === 'optionNo') {
+                if (formdata.applicant.anyPredeceasedHalfSiblings === 'optionYesSome') {
+                    ctx.list = ctx.list.filter(coApplicant => coApplicant.coApplicantRelationshipToDeceased !== 'optionHalfBloodNieceOrNephew');
+                } else if (formdata.applicant.anyPredeceasedHalfSiblings === 'optionYesAll') {
+                    ctx.list.splice(1);
+                }
+                set(formdata, 'executors.list', ctx.list);
+            }
+        }
+        return super.handlePost(ctx, errors);
+    }
+
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (formdata.deceased?.anySurvivingHalfNiecesAndHalfNephews && ctx.anySurvivingHalfNiecesAndHalfNephews !== formdata.deceased.anySurvivingHalfNiecesAndHalfNephews) {
+        if (formdata.applicant?.anySurvivingHalfNiecesAndHalfNephews && ctx.anySurvivingHalfNiecesAndHalfNephews !== formdata.applicant.anySurvivingHalfNiecesAndHalfNephews) {
             delete ctx.allHalfNiecesAndHalfNephewsOver18;
         }
 

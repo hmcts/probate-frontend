@@ -45,6 +45,75 @@ describe('GrandchildParentHasOtherChildren', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existingGrandchild coApplicants from the list if parent has other children changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionGrandchild',
+                grandchildParentHasOtherChildren: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyPredeceasedChildren: 'optionYesSome',
+                    grandchildParentHasOtherChildren: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = GrandchildParentHasOtherChildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionGrandchild',
+                grandchildParentHasOtherChildren: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not remove existing child/grandchild coApplicants from the list if grandchild parent changed from no to yes', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                grandchildParentHasOtherChildren: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyPredeceasedChildren: 'optionYesSome',
+                    grandchildParentHasOtherChildren: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = GrandchildParentHasOtherChildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                grandchildParentHasOtherChildren: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            });
+            done();
+        });
+    });
+
     describe('action()', () => {
         it('test it cleans up context', () => {
             const ctx = {

@@ -34,6 +34,107 @@ describe('AnySurvivingGrandchildren', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existingGrandchild coApplicants from the list if surviving children changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                anySurvivingGrandchildren: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionChild'
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyPredeceasedChildren: 'optionYesSome',
+                    anySurvivingGrandchildren: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingGrandchildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                anySurvivingGrandchildren: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionChild'
+                    }
+                ]
+            });
+            done();
+        });
+        it('should remove All coApplicants from the index 1 in the list if surviving children changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                anySurvivingGrandchildren: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Child One', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyPredeceasedChildren: 'optionYesAll',
+                    anySurvivingGrandchildren: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingGrandchildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                anySurvivingGrandchildren: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Child One', isApplicant: true
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not remove existing child/grandchild coApplicants from the list if surviving children changed from no to yes', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                anySurvivingGrandchildren: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyPredeceasedChildren: 'optionYesSome',
+                    anySurvivingGrandchildren: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingGrandchildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                anySurvivingGrandchildren: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when deceased has some predeceased children and has surviving children for those predeceased', (done) => {
             const req = {

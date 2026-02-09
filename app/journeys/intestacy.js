@@ -328,7 +328,7 @@ const stepList = {
     },
     CoApplicantAdoptedIn: {
         adoptedIn: 'CoApplicantAdoptionPlace',
-        notAdoptedIn: 'CoApplicantAdoptedOut'
+        otherwise: 'CoApplicantAdoptedOut'
     },
     ParentDieBefore: {
         parentDieBefore: 'CoApplicantName',

@@ -54,7 +54,6 @@ class CoApplicantAdoptedIn extends ValidationStep {
         return {
             options: [
                 {key: 'isAdoptedIn', value: true, choice: 'adoptedIn'},
-                {key: 'isAdoptedIn', value: false, choice: 'notAdoptedIn'},
             ]
         };
     }

@@ -1,7 +1,7 @@
 {
   "title": "Did the deceased have any living descendants at the time of their death?",
   "question": "Did {deceasedName} have any living descendants at the time of their death?",
-  "paragraph1": "These are {deceasedName}’s",
+  "paragraph1": "These are {deceasedName}’s:",
   "listItem1": "children",
   "listItem2": "grandchildren",
   "listItem3": "great-grandchildren",

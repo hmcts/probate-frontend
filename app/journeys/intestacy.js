@@ -293,7 +293,7 @@ const stepList = {
     },
     AnyPredeceasedHalfSiblings: {
         hadSomeOrAllPredeceasedHalfSibling: 'AnySurvivingHalfNiecesAndHalfNephews',
-        optionNo: 'AllHalfSiblingsOver18'
+        otherwise: 'AllHalfSiblingsOver18'
     },
     AnySurvivingHalfNiecesAndHalfNephews: {
         hadSurvivingHalfNiecesAndHalfNephews: 'AllHalfNiecesAndHalfNephewsOver18',

@@ -228,9 +228,9 @@ const stepList = {
         otherwise: 'ApplicantName'
     },
     AnyOtherChildren: {
+        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren',
         hadOtherChildren: 'AnyPredeceasedChildren',
-        childAndHadNoChildren: 'ApplicantName',
-        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren'
+        otherwise: 'ApplicantName',
     },
     AllChildrenOver18: {
         childAndAllChildrenOver18: 'ApplicantName',

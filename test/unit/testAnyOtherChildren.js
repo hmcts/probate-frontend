@@ -42,7 +42,6 @@ describe('AnyOtherChildren', () => {
                 options: [
                     {key: 'grandchildAndHadNoChildren', value: true, choice: 'grandchildAndHadNoChildren'},
                     {key: 'anyOtherChildren', value: 'optionYes', choice: 'hadOtherChildren'},
-                    {key: 'childAndHadNoChildren', value: true, choice: 'childAndHadNoChildren'}
                 ]
             });
             done();

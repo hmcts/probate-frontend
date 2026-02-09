@@ -42,6 +42,72 @@ describe('RelationshipToDeceased', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing child/Grandchild coApplicants from index 1 in the list if any relationship changed', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild',
+                }
+            };
+            errors = [];
+            [ctx, errors] = RelationshipToDeceased.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                list: []
+            });
+            done();
+        });
+        it('should not change anything  if any relationship is not changed from CYA', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    relationshipToDeceased: 'optionGrandchild',
+                    anyOtherChildren: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = RelationshipToDeceased.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when relationship is Child and the deceased was married', (done) => {
             const req = {

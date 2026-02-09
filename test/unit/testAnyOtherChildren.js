@@ -34,6 +34,64 @@ describe('AnyOtherChildren', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing child/Grandchild coApplicants from index 1 in the list if any other children changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                anyOtherChildren: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionGrandchild'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyPredeceasedChildren: 'optionYesSome',
+                    anyOtherChildren: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyOtherChildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                anyOtherChildren: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not change anything if any other children changed from no to yes', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionChild',
+                anyOtherChildren: 'optionYes'
+            };
+            formdata = {
+                deceased: {
+                    anyOtherChildren: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyOtherChildren.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionChild',
+                anyOtherChildren: 'optionYes',
+            });
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {};

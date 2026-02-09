@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const {set} = require('lodash');
 
 class SameParents extends ValidationStep {
 
@@ -13,6 +14,7 @@ class SameParents extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.list = formdata.executors?.list;
         return ctx;
     }
 
@@ -27,6 +29,14 @@ class SameParents extends ValidationStep {
                 {key: 'wholeOrHalfBloodSibling', value: true, choice: 'wholeOrHalfBloodSibling'}
             ]
         };
+    }
+
+    handlePost(ctx, errors, formdata) {
+        if (ctx.list?.length > 0 && formdata.applicant?.sameParents && ctx.sameParents !== formdata.applicant.sameParents) {
+            ctx.list.splice(0);
+            set(formdata, 'executors.list', ctx.list);
+        }
+        return super.handlePost(ctx, errors);
     }
 
     generateFields(language, ctx, errors) {

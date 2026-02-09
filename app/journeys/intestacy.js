@@ -360,7 +360,7 @@ const stepList = {
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
         isChildJointApplication: 'JointApplication',
-        isParentJointApplication: 'Equality'
+        otherwise: 'Equality'
     },
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',

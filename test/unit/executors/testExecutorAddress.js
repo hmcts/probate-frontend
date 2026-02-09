@@ -466,7 +466,6 @@ describe('ExecutorAddress', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
-                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
                 ],
             });
             done();

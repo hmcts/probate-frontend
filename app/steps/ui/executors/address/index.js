@@ -122,7 +122,6 @@ class ExecutorAddress extends AddressStep {
             return {
                 options: [
                     {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
-                    {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
                 ],
             };
         }

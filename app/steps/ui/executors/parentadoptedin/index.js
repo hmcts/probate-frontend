@@ -44,7 +44,6 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         return {
             options: [
                 {key: 'parentAdopted', value: true, choice: 'parentAdoptedIn'},
-                {key: 'parentAdopted', value: false, choice: 'notParentAdoptedIn'},
             ]
         };
     }

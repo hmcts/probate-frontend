@@ -253,7 +253,7 @@ const stepList = {
         hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
         hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
         childAndNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
-        grandchildAndNoSurvivingGrandchildrenOfOtherChildren: 'GrandchildParentHasOtherChildren'
+        otherwise: 'GrandchildParentHasOtherChildren'
     },
     AnyGrandchildrenUnder18: {
         allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
@@ -298,7 +298,7 @@ const stepList = {
     AnySurvivingHalfNiecesAndHalfNephews: {
         hadSurvivingHalfNiecesAndHalfNephews: 'AllHalfNiecesAndHalfNephewsOver18',
         hadOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews: 'AllHalfSiblingsOver18',
-        hadNoOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews: 'ApplicantName'
+        otherwise: 'ApplicantName',
     },
     AllHalfNiecesAndHalfNephewsOver18: {
         allHalfNiecesAndHalfNephewsOver18AndSomePredeceasedHalfSiblings: 'AllHalfSiblingsOver18',

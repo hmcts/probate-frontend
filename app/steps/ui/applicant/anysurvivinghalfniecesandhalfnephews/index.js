@@ -23,7 +23,6 @@ class AnySurvivingHalfNiecesAndHalfNephews extends ValidationStep {
             options: [
                 {key: 'anySurvivingHalfNiecesAndHalfNephews', value: 'optionYes', choice: 'hadSurvivingHalfNiecesAndHalfNephews'},
                 {key: 'hadOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews', value: true, choice: 'hadOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews'},
-                {key: 'hadNoOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews', value: true, choice: 'hadNoOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews'},
             ]
         };
     }

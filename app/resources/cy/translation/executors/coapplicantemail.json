@@ -6,7 +6,7 @@
 
   "errors": {
     "email": {
-      "required": "Beth yw cyfeiriad e-bost {{ executorName }} ?",
+      "required": "Beth yw cyfeiriad e-bost {{ executorName }}?",
       "invalid": "Nodwch gyfeiriad e-bost dilys",
       "duplicate": "Rydych wedi defnyddio&rsquo;r cyfeiriad e-bost hwn ar gyfer ysgutor arall"
     }

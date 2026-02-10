@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const {set} = require('lodash');
 
 class AnySurvivingGrandchildren extends ValidationStep {
 
@@ -14,6 +15,7 @@ class AnySurvivingGrandchildren extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
+        ctx.list = formdata.executors?.list;
         return ctx;
     }
 
@@ -28,6 +30,20 @@ class AnySurvivingGrandchildren extends ValidationStep {
                 {key: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren'},
             ]
         };
+    }
+
+    handlePost(ctx, errors, formdata) {
+        if (ctx.list?.length > 1 && formdata.deceased?.anySurvivingGrandchildren && ctx.anySurvivingGrandchildren !== formdata.deceased.anySurvivingGrandchildren) {
+            if (ctx.anySurvivingGrandchildren === 'optionNo') {
+                if (formdata.deceased.anyPredeceasedChildren === 'optionYesSome') {
+                    ctx.list = ctx.list.filter(coApplicant => coApplicant.coApplicantRelationshipToDeceased !== 'optionGrandchild');
+                } else if (formdata.deceased.anyPredeceasedChildren === 'optionYesAll') {
+                    ctx.list.splice(1);
+                }
+                set(formdata, 'executors.list', ctx.list);
+            }
+        }
+        return super.handlePost(ctx, errors);
     }
     action(ctx, formdata) {
         super.action(ctx, formdata);

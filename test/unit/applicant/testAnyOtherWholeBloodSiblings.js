@@ -34,6 +34,83 @@ describe('AnyOtherWholeSiblings', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing whole sibling/niece/nephew coApplicants from index 1 in the list if any other whole-sibling changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame',
+                anyOtherWholeSiblings: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeSibling'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyOtherWholeSiblings: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyOtherWholeSiblings.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame',
+                anyOtherWholeSiblings: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not change anything if any other whole-sibling changed from no to yes', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame',
+                anyOtherWholeSiblings: 'optionYes',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeSibling'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    anyOtherWholeSiblings: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnyOtherWholeSiblings.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame',
+                anyOtherWholeSiblings: 'optionYes',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeSibling'
+                    }
+                ]
+            });
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {};
@@ -89,7 +166,7 @@ describe('AnyOtherWholeSiblings', () => {
                 allWholeSiblingsOver18: 'optionYes'
             };
             const formdata = {
-                deceased: {
+                applicant: {
                     anyOtherWholeSiblings: 'optionYes'
                 }
             };

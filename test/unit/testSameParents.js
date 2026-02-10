@@ -33,6 +33,78 @@ describe('SameParents', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing sibling/niece/nephew coApplicants from index 1 in the list if any relationship changed', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionOneParentsSame',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeSibling'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    sameParents: 'optionBothParentsSame',
+                }
+            };
+            errors = [];
+            [ctx, errors] = SameParents.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionOneParentsSame',
+                list: []
+            });
+            done();
+        });
+        it('should not change anything  if any relationship is not changed from CYA', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeSibling'
+                    }
+                ]
+            };
+            formdata = {
+                deceased: {
+                    relationshipToDeceased: 'optionSibling',
+                },
+                applicant: {
+                    sameParents: 'optionBothParentsSame',
+                }
+            };
+            errors = [];
+            [ctx, errors] = SameParents.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                sameParents: 'optionBothParentsSame',
+                list: [
+                    {
+                        fullName: 'Main Applicant', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeSibling'
+                    }
+                ]
+            });
+            done();
+        });
+    });
+
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {
             const ctx = {};

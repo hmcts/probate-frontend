@@ -33,6 +33,106 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
             done();
         });
     });
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing whole niece/nephew coApplicants from the list if surviving niece/nephew changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedWholeSiblings: 'optionYesSome',
+                    anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingWholeNiecesAndWholeNephews.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'
+                    }
+                ]
+            });
+            done();
+        });
+        it('should remove All coApplicants from the index 1 in the list if surviving children changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Child One', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedWholeSiblings: 'optionYesAll',
+                    anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingWholeNiecesAndWholeNephews.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Child One', isApplicant: true
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not remove existing sibling/nephew/niece coApplicants from the list if surviving children changed from no to yes', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedWholeSiblings: 'optionYesSome',
+                    anySurvivingWholeNiecesAndWholeNephews: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingWholeNiecesAndWholeNephews.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'
+                    }
+                ]
+            });
+            done();
+        });
+    });
 
     describe('nextStepUrl()', () => {
         it('should return the correct url when deceased has some predeceased whole-siblings and has surviving children for those predeceased', (done) => {
@@ -164,7 +264,7 @@ describe('AnySurvivingWholeNiecesAndWholeNephews', () => {
                 allWholeSiblingsOver18: 'optionYes'
             };
             const formdata = {
-                deceased: {
+                applicant: {
                     anySurvivingWholeNiecesAndWholeNephews: 'optionNo'
                 }
             };

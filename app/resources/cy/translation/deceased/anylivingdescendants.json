@@ -1,7 +1,7 @@
 {
   "title": "A oedd gan unrhyw ddisgynyddion byw adeg eu marwolaeth?",
   "question": "A oedd gan {deceasedName} unrhyw ddisgynyddion byw adeg eu marwolaeth?",
-  "paragraph1": "Y rhain yw",
+  "paragraph1": "Y rhain yw:",
   "listItem1": "plant {deceasedName}",
   "listItem2": "wyrion ac wyresau {deceasedName}",
   "listItem3": "gorwyrion a gorwyresau {deceasedName}",

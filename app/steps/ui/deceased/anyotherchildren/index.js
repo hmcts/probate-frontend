@@ -2,6 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
+const {set} = require('lodash');
 
 class AnyOtherChildren extends ValidationStep {
 
@@ -14,6 +15,7 @@ class AnyOtherChildren extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
+        ctx.list = formdata.executors?.list;
         return ctx;
     }
 
@@ -26,6 +28,16 @@ class AnyOtherChildren extends ValidationStep {
                 {key: 'anyOtherChildren', value: 'optionYes', choice: 'hadOtherChildren'},
             ]
         };
+    }
+
+    handlePost(ctx, errors, formdata) {
+        if (ctx.list?.length > 1 && formdata.deceased?.anyOtherChildren && ctx.anyOtherChildren !== formdata.deceased.anyOtherChildren) {
+            if (ctx.anyOtherChildren === 'optionNo') {
+                ctx.list.splice(1);
+                set(formdata, 'executors.list', ctx.list);
+            }
+        }
+        return super.handlePost(ctx, errors);
     }
 
     generateFields(language, ctx, errors) {

@@ -34,6 +34,107 @@ describe('AnySurvivingHalfNiecesAndHalfNephews', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors;
+        let formdata;
+        const session = {};
+
+        it('should remove existing half niece/nephew coApplicants from the list if surviving niece/nephew changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingHalfNiecesAndHalfNephews: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedHalfSiblings: 'optionYesSome',
+                    anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingHalfNiecesAndHalfNephews.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingHalfNiecesAndHalfNephews: 'optionNo',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+                    }
+                ]
+            });
+            done();
+        });
+        it('should remove All coApplicants from the index 1 in the list if surviving niece/nephew changed from yes to no', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingHalfNiecesAndHalfNephews: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Child One', isApplicant: true
+                    },
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedHalfSiblings: 'optionYesAll',
+                    anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingHalfNiecesAndHalfNephews.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingHalfNiecesAndHalfNephews: 'optionNo',
+                list: [
+                    {
+                        fullName: 'Child One', isApplicant: true
+                    }
+                ]
+            });
+            done();
+        });
+        it('should not remove existing sibling/nephew/niece coApplicants from the list if surviving niece/nephew changed from no to yes', (done) => {
+            ctx = {
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'
+                    }
+                ]
+            };
+            formdata = {
+                applicant: {
+                    anyPredeceasedHalfSiblings: 'optionYesSome',
+                    anySurvivingHalfNiecesAndHalfNephews: 'optionNo',
+                }
+            };
+            errors = [];
+            [ctx, errors] = AnySurvivingHalfNiecesAndHalfNephews.handlePost(ctx, errors, formdata, session);
+            expect(ctx).to.deep.equal({
+                relationshipToDeceased: 'optionSibling',
+                anySurvivingHalfNiecesAndHalfNephews: 'optionYes',
+                list: [
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'
+                    }
+                ]
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when deceased has some predeceased half-siblings and has surviving children for those predeceased', (done) => {
             const req = {
@@ -124,7 +225,7 @@ describe('AnySurvivingHalfNiecesAndHalfNephews', () => {
                 allHalfSiblingsOver18: 'optionYes'
             };
             const formdata = {
-                deceased: {
+                applicant: {
                     anySurvivingHalfNiecesAndHalfNephews: 'optionNo'
                 }
             };

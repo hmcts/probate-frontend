@@ -67,7 +67,7 @@ describe('died-after-october-2014', () => {
                         diedAfter: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, `${expectedNextUrlForRelatedToDeceased}`, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForRelatedToDeceased, cookies);
                 });
         });
 

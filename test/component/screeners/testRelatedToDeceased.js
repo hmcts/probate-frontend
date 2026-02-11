@@ -69,7 +69,7 @@ describe('related-to-deceased', () => {
                         related: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, `${expectedNextUrlForStartApply}`, cookies);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);
                 });
         });
 

@@ -73,7 +73,7 @@ describe('deceased-marital-status', () => {
                 });
         });
 
-        it(`test it redirects to tasklist if married: /intestacy${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to tasklist if married: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -81,11 +81,11 @@ describe('deceased-marital-status', () => {
                         maritalStatus: 'optionMarried'
                     };
 
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForTaskList}`);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
 
-        it(`test it redirects to tasklist if not married: /intestacy${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to tasklist if not married: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -93,11 +93,11 @@ describe('deceased-marital-status', () => {
                         maritalStatus: 'optionNotMarried'
                     };
 
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForTaskList}`);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
 
-        it(`test it redirects to tasklist if widowed: /intestacy${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to tasklist if widowed: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -105,7 +105,7 @@ describe('deceased-marital-status', () => {
                         maritalStatus: 'optionWidowed'
                     };
 
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForTaskList}`);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
                 });
         });
     });

@@ -59,8 +59,8 @@ getTestLanguages().forEach(language => {
         await I.enterDeceasedName(language, deceasedFirstName, deceasedLastName);
         await I.enterDeceasedNameOnWill(language, optionNo);
         await I.enterDeceasedAlias(language, 'Deceased Alias First Name', 'Deceased Alias Last Name');
-        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', deceasedFullName);
-        await I.enterDeceasedDateOfDeath(language, '02', '01', '2022', deceasedFullName);
+        await I.enterDeceasedDateOfBirth(language, deceasedFullName, '01', '01', '1950');
+        await I.enterDeceasedDateOfDeath(language, deceasedFullName, '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);

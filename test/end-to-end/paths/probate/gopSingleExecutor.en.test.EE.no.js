@@ -56,7 +56,7 @@ getTestLanguages().forEach(language => {
         await I.chooseBiLingualGrant(language, optionNo);
         await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
         await I.enterDeceasedNameOnWill(language, optionYes);
-        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', true, deceasedFullName);
+        await I.enterDeceasedDateOfBirth(language, deceasedFullName, '01', '01', '1950', true);
 
         await I.seeSignOut(language);
 
@@ -68,8 +68,8 @@ getTestLanguages().forEach(language => {
         // Deceased Details
         await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
 
-        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950', deceasedFullName);
-        await I.enterDeceasedDateOfDeath(language, '02', '01', '2022', deceasedFullName);
+        await I.enterDeceasedDateOfBirth(language, deceasedFullName, '01', '01', '1950');
+        await I.enterDeceasedDateOfDeath(language, deceasedFullName, '02', '01', '2022');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);

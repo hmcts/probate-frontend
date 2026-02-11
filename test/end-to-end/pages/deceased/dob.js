@@ -2,7 +2,7 @@
 
 const config = require('config');
 
-module.exports = async function(language = 'en', day = null, month = null, year= null, saveAndClose = false, deceasedFullName) {
+module.exports = async function(language = 'en', deceasedFullName, day = null, month = null, year= null, saveAndClose = false) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
     const dobContent = require(`app/resources/${language}/translation/deceased/dob`);

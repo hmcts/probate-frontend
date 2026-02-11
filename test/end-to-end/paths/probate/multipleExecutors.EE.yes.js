@@ -230,5 +230,6 @@ getTestLanguages().forEach(language => {
 
     }).tag('@e2enightly')
         .tag('@e2enightly-pr')
+        .tag('@e2egop')
         .retry(TestConfigurator.getRetryScenarios());
 });

@@ -2,13 +2,14 @@
 
 const config = require('config');
 
-module.exports = async function(language = 'en', day = null, month = null, year = null) {
+module.exports = async function(language = 'en', day = null, month = null, year = null, deceasedFullName) {
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
     const dodContent = require(`app/resources/${language}/translation/deceased/dod`);
+    const dobQuestion = dodContent.question.replace('{deceasedName}', deceasedFullName);
 
     await I.checkInUrl('/deceased-dod');
-    await I.waitForText(dodContent.question, config.TestWaitForTextToAppear);
+    await I.waitForText(dobQuestion, config.TestWaitForTextToAppear);
     const dodDayLocator = {css: '#dod-date-day'};
     await I.waitForEnabled(dodDayLocator);
     await I.fillField(dodDayLocator, day);

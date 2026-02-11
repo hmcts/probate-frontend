@@ -27,7 +27,7 @@
 {{checkanswer(
     items = [
         {
-            question: content.AnyOtherParentAlive.question,
+            question: fields.summary.anyOtherParentAlive.value,
             answer: content.AnyOtherParentAlive[fields.deceased.anyOtherParentAlive.value],
             visible: fields.applicant.relationshipToDeceased.value == "optionParent"
         }

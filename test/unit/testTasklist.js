@@ -17,8 +17,18 @@ const sinon = require('sinon');
 
 describe('Tasklist', () => {
     describe('getUrl()', () => {
-        it('should return the correct url', (done) => {
-            const url = taskList.getUrlWithContext({});
+        it('should return the correct url when not intestacy', (done) => {
+            const ctx = {};
+            const url = taskList.getUrlWithContext(ctx);
+            expect(url).to.equal('/task-list');
+            done();
+        });
+
+        it('should return the correct url when intestacy', (done) => {
+            const ctx = {
+                caseType: 'intestacy',
+            };
+            const url = taskList.getUrlWithContext(ctx);
             expect(url).to.equal('/task-list');
             done();
         });

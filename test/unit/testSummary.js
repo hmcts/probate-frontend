@@ -129,6 +129,7 @@ describe('Summary', () => {
                 exceptedEstateDodAfterThreshold: true,
                 readyToDeclare: false,
                 aliasNameOnWill: 'firstNameOnWill lastNameOnWill',
+                anyOtherParentAlive: 'Is Dee Ceased’s other parent alive?',
                 session: {
                     language: 'en',
                     form: {
@@ -215,6 +216,7 @@ describe('Summary', () => {
                 otherExecutorRelationshipToDeceased: 'What is the other applicant&rsquo;s relationship to Dee Ceased?',
                 exceptedEstateDodAfterThreshold: false,
                 executorSummary: [],
+                anyOtherParentAlive: 'Is Dee Ceased’s other parent alive?',
                 session: {
                     language: 'en',
                     form: {

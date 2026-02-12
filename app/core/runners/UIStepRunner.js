@@ -141,7 +141,7 @@ class UIStepRunner {
                     forEach(errors, (error) =>
                         req.log.info({
                             type: 'Validation Message',
-                            url: step.getUrlWithContext(ctx)
+                            url: stepUrl,
                         }, JSON.stringify(error))
                     );
                     const content = step.generateContent(ctx, formdata, session.language);

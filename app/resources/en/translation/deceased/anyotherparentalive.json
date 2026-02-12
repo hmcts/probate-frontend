@@ -8,7 +8,7 @@
 
   "errors": {
     "anyOtherParentAlive": {
-      "required": "Select &lsquo;Yes&rsquo; if {deceasedName}’&rsquo; other parent is alive"
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName}&rsquo;s other parent is alive"
     }
   }
 }

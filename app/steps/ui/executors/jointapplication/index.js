@@ -16,6 +16,7 @@ class JointApplication extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         let ctx = super.getContextData(req);
+        ctx.isStopPage = this.isStopPage(ctx);
         ctx = this.createExecutorList(ctx, req.session.form);
         ctx.deceased = formdata.deceased;
         ctx.deceasedName = FormatName.format(ctx.deceased);
@@ -77,11 +78,31 @@ class JointApplication extends ValidationStep {
         if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !this.areLastExecutorValid(ctx)) {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionNo') {
+            if (ctx.isStopPage) {
+                return [false, 'inProgress'];
+            }
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionYes' && this.areLastExecutorValid(ctx) && ctx.applicantRelationshipToDeceased === 'optionParent') {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
+    }
+    isStopPage(ctx) {
+        return ctx.list?.some(executor => (
+            executor.childAdoptionInEnglandOrWales === 'optionNo' ||
+            executor.grandchildAdoptionInEnglandOrWales === 'optionNo' ||
+            executor.wholeBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||
+            executor.halfBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||
+            executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales === 'optionNo' ||
+            executor.childAdoptedOut === 'optionYes' ||
+            executor.grandchildAdoptedOut === 'optionYes' ||
+            executor.wholeBloodSiblingAdoptedOut === 'optionYes' ||
+            executor.halfBloodSiblingAdoptedOut === 'optionYes' ||
+            executor.wholeBloodNieceOrNephewAdoptedOut === 'optionYes' ||
+            executor.halfBloodNieceOrNephewAdoptedOut === 'optionYes' ||
+            executor.childDieBeforeDeceased === 'optionNo' ||
+            executor.wholeBloodSiblingDiedBeforeDeceased === 'optionNo' ||
+            executor.halfBloodSiblingDiedBeforeDeceased === 'optionNo'));
     }
     areLastExecutorValid(ctx) {
         const lastIndex = ctx.list.length - 1;

@@ -50,7 +50,7 @@ class CoApplicantAdoptionPlace extends ValidationStep {
         } else {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.index = executorsWrapper.getNextIndex();
-            ctx.redirect = this.getUrlWithContext(ctx);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
 
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;

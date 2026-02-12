@@ -18,7 +18,7 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         } else {
             const executorsWrapper = new ExecutorsWrapper(formData.executors);
             ctx.index = executorsWrapper.getNextIndex();
-            ctx.redirect = this.getUrlWithContext(ctx);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formData.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;

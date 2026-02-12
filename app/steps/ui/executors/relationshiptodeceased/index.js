@@ -27,7 +27,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         } else {
             const executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.index = executorsWrapper.getNextIndex();
-            ctx.redirect = this.getUrlWithContext(ctx);
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceased = formdata.deceased;
         const hasOtherChildren = ctx.deceased?.anyOtherChildren === 'optionYes';

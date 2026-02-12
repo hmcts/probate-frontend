@@ -98,14 +98,6 @@ class ExecutorAddress extends AddressStep {
         return findIndex(ctx.list, o => o.isApplying === true && o.isDead !== true, index + 1);
     }
 
-    nextStepUrl(req, ctx) {
-        if (ctx.index === -1) {
-            return this.next(req, ctx).getUrlWithContext(ctx);
-        }
-        return this.next(req, ctx).getUrlWithContext(ctx, ctx.index);
-
-    }
-
     nextStepOptions(ctx) {
         if (ctx.caseType === caseTypes.GOP) {
             ctx.continue = get(ctx, 'index', -1) !== -1;

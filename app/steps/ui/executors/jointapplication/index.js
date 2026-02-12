@@ -88,7 +88,7 @@ class JointApplication extends ValidationStep {
         return [false, 'inProgress'];
     }
     isStopPage(ctx) {
-        return ctx.list.some(executor => (
+        return ctx.list?.some(executor => (
             executor.childAdoptionInEnglandOrWales === 'optionNo' ||
             executor.grandchildAdoptionInEnglandOrWales === 'optionNo' ||
             executor.wholeBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||

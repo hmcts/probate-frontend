@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "parent-adopted-out",
+  "type": "object",
+  "properties": {
+    "applicantParentAdoptedOut": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "applicantParentAdoptedOut"
+  ]
+}

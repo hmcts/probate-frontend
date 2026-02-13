@@ -1,0 +1,132 @@
+'use strict';
+
+const TestWrapper = require('test/util/TestWrapper');
+const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
+const AdoptedOut = require('app/steps/ui/applicant/adoptedout');
+const testCommonContent = require('test/component/common/testCommonContent.js');
+const caseTypes= require('app/utils/CaseTypes');
+
+describe('adoption-in', () => {
+    let testWrapper;
+    const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
+    const expectedNextUrlForAdoptedOut = AdoptedOut.getUrl();
+
+    beforeEach(() => {
+        testWrapper = new TestWrapper('AdoptedIn');
+    });
+
+    afterEach(async () => {
+        await testWrapper.destroy();
+    });
+
+    describe('Verify Content, Errors and Redirection', () => {
+        testCommonContent.runTest('AdoptedIn', null, null, [], false, {type: caseTypes.INTESTACY});
+
+        it('test content loaded on the page if applicant is child', (done) => {
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
+            const contentToExclude = ['grandchildQuestion', 'requiredGrandchild', 'wholeBloodSiblingQuestion',
+                'requiredWholeBloodSibling', 'halfBloodSiblingQuestion', 'requiredHalfBloodSibling'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done, {deceasedName: 'John Doe'}, contentToExclude);
+                });
+        });
+
+        it(`test it redirects to Child Adoption place page if child is adopted in: /intestacy${expectedNextUrlForAdoptionPlace}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedIn: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptionPlace}`);
+                });
+        });
+
+        it(`test it redirects to child adopted out page if child is not adopted in: /intestacy${expectedNextUrlForAdoptedOut}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedIn: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedOut}`);
+                });
+        });
+
+        it(`test it redirects to Grandchild Adoption place page if Grandchild is adopted in: /intestacy${expectedNextUrlForAdoptionPlace}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedIn: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptionPlace}`);
+                });
+        });
+
+        it(`test it redirects to Grandchild adopted out page if Grandchild is not adopted in: /intestacy${expectedNextUrlForAdoptedOut}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        adoptedIn: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedOut}`);
+                });
+        });
+    });
+});

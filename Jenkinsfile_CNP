@@ -13,6 +13,10 @@ def checkForNightlyLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
 }
 
+def checkForNightlyGopLabel(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly-gop").contains("nightly-gop")
+}
+
 def checkForNightlyWithoutWelshTestsLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly-without-welsh-tests").contains("nightly-without-welsh-tests")
 }
@@ -109,7 +113,9 @@ withPipeline("nodejs", product, component) {
         yarnBuilder.yarn('test:fullfunctional-pr');
       } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
         yarnBuilder.yarn('test:fullfunctional-pr');
-      } else {
+      } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
+        yarnBuilder.yarn('test:fullfunctional-gop');
+      }else {
         testsRan = false
       }
     } finally {

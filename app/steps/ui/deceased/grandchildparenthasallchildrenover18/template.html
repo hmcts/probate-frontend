@@ -1,0 +1,42 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+    <p class="govuk-body">{{ content.paragraph | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "grandchildParentHasAllChildrenOver18",
+        name: "grandchildParentHasAllChildrenOver18",
+        errorMessage: { text: fields.grandchildParentHasAllChildrenOver18.errorMessage | safe } if fields.grandchildParentHasAllChildrenOver18.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.grandchildParentHasAllChildrenOver18.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.grandchildParentHasAllChildrenOver18.value == "optionNo"
+            }
+        ]
+    }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

@@ -3,9 +3,12 @@
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantAgreePage = require('app/steps/ui/coapplicant/agreepage');
 const CoApplicantDisagreePage = require('app/steps/ui/coapplicant/disagreepage');
+const IntestacyCoApplicantAgreePage = require('app/steps/ui/coapplicant/intestacyagreepage');
+const IntestacyCoApplicantDisagreePage = require('app/steps/ui/coapplicant/intestacydisagreepage');
 const commonContent = require('app/resources/en/translation/common');
 const nock = require('nock');
 const config = require('config');
+const caseTypes = require('../../../app/utils/CaseTypes');
 const orchestratorServiceUrl = config.services.orchestrator.url;
 const idamS2sUrl = config.services.idam.s2s_url;
 const idamApiUrl = config.services.idam.apiUrl;
@@ -41,6 +44,8 @@ describe('co-applicant-declaration', () => {
     let sessionData;
     const expectedNextUrlForCoAppAgree = CoApplicantAgreePage.getUrl();
     const expectedNextUrlForCoAppDisagree = CoApplicantDisagreePage.getUrl();
+    const expectedNextUrlForIntestacyCoAppAgree = IntestacyCoApplicantAgreePage.getUrl();
+    const expectedNextUrlForIntestacyCoAppDisagree = IntestacyCoApplicantDisagreePage.getUrl();
 
     beforeEach(() => {
         invitesAllAgreedNock();
@@ -57,7 +62,10 @@ describe('co-applicant-declaration', () => {
     describe('Verify Content, Errors and Redirection', () => {
         it('test right content loaded on the page', (done) => {
             const contentToExclude = [
-                'executorNotApplyingHeader'
+                'executorNotApplyingHeader',
+                'intestacyHeader',
+                'intestacyAgreementParagraph1',
+                'intestacyAgreementParagraph2'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -71,11 +79,75 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
+        it('test right instestacycontent loaded on the page', (done) => {
+            const contentToExclude = [
+                'executorNotApplyingHeader',
+                'probateHeader',
+                'agreementParagraph',
+                'agreementItem1',
+                'agreementItem2',
+                'agreementItem3',
+                'optionNoText'
+            ];
+            sessionData.caseType = caseTypes.INTESTACY;
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        mainApplicantName: 'Bob Smith',
+                        deceasedName: 'Dee Ceased'
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
         it('test errors message displayed for missing data', (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testErrors(done, {}, 'required');
+                });
+        });
+
+        it(`test it redirects to agree page: /intestacy${expectedNextUrlForIntestacyCoAppAgree}`, (done) => {
+            inviteAgreedNock();
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
+                })
+                .end(() => {
+                    testWrapper.agent.post('/prepare-session-field/inviteId/98562349756342563456349695634593')
+                        .end(() => {
+                            const data = {
+                                agreement: 'optionYes'
+                            };
+                            testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForIntestacyCoAppAgree}`);
+                        });
+                });
+        });
+
+        it(`test it redirects to disagree page: /intestacy${expectedNextUrlForIntestacyCoAppDisagree}`, (done) => {
+            inviteAgreedNock();
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    ccdCase: {
+                        id: 1234567890123456,
+                        state: 'Pending'
+                    }
+                })
+                .end(() => {
+                    const data = {
+                        agreement: 'optionNo'
+                    };
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForIntestacyCoAppDisagree}`);
                 });
         });
 

@@ -1,0 +1,12 @@
+{
+  "title": "Grandchild parent adopted out",
+  "question": "Did {deceasedName} legally adopt your parent ({deceasedName}&rsquo;s child) out of their family (give them up for adoption)?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "parentAdoptedOut": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} gave your parent up for adoption"
+    }
+  }
+}

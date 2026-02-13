@@ -22,7 +22,7 @@ describe('IhtMethod', () => {
             deceased: {
                 anyChildren: 'optionYes',
                 allChildrenOver18: 'optionYes',
-                anyDeceasedChildren: 'optionYes',
+                anyPredeceasedChildren: 'optionYesAll',
                 anyGrandchildrenUnder18: 'optionNo',
                 nameAsOnTheWill: 'Yes',
             }
@@ -74,7 +74,7 @@ describe('IhtMethod', () => {
                 deceased: {
                     anyChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 }
             };
@@ -108,7 +108,7 @@ describe('IhtMethod', () => {
                 deceased: {
                     anyChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 }
             };

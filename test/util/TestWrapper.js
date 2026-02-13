@@ -36,6 +36,7 @@ class TestWrapper {
         });
 
         config.app.useCSRFProtection = 'false';
+        config.app.port = 0;
         const app = require('app');
         this.server = app.init(false, {}, ftValue);
         this.httpTerminator = createHttpTerminator({server: this.server.http});

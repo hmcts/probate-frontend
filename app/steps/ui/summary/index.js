@@ -14,6 +14,7 @@ const IhtThreshold = require('app/utils/IhtThreshold');
 const featureToggle = require('app/utils/FeatureToggle');
 const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
+const moment = require('moment');
 
 class Summary extends Step {
 
@@ -46,7 +47,7 @@ class Summary extends Step {
             .forEach((stepName) => {
                 const step = this.steps[stepName];
                 content[stepName] = step.generateContent(formdata[step.section], formdata, language);
-                content[stepName].url = step.constructor.getUrl();
+                content[stepName].url = step.getUrlWithContext(ctx);
             });
         content[this.name] = super.generateContent(ctx, formdata, language);
         content[this.name].url = Summary.getUrl();
@@ -96,11 +97,16 @@ class Summary extends Step {
         const ctx = super.getContextData(req);
         const willWrapper = new WillWrapper(formdata.will);
         const deceasedName = FormatName.format(formdata.deceased);
+        const executors = formdata.executors;
         const content = this.generateContent(ctx, formdata, req.session.language);
         const hasCodicils = willWrapper.hasCodicils();
         ctx.ihtTotalNetValue = get(formdata, 'iht.netValue', 0);
         ctx.deceasedAliasQuestion = content.DeceasedAlias.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAlias.theDeceased);
+        ctx.deceasedDobQuestion = content.DeceasedDob.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedDob.theDeceased);
+        ctx.deceasedDodQuestion = content.DeceasedDod.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedDod.theDeceased);
         ctx.diedEnglandOrWalesQuestion = content.DiedEnglandOrWales.question
             .replace('{deceasedName}', deceasedName ? deceasedName : content.DiedEnglandOrWales.theDeceased);
         ctx.deceasedAddressQuestion = content.DeceasedAddress.question
@@ -110,6 +116,10 @@ class Summary extends Step {
         ctx.ihtUnusedAllowanceClaimedQuestion = content.IhtUnusedAllowanceClaimed.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         ctx.deceasedHadLateSpouseOrCivilPartnerQuestion = content.DeceasedHadLateSpouseOrCivilPartner.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.relationshipToDeceasedQuestion = content.RelationshipToDeceased.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.anyOtherParentAlive = content.AnyOtherParentAlive.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
@@ -123,18 +133,46 @@ class Summary extends Step {
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
-                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+            ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
+                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+            ctx.deceasedDivorceDate = content.DivorceDate.date
+                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherChildren.theDeceased);
-            ctx.deceasedAnyDeceasedChildrenQuestion = content.AnyDeceasedChildren.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyDeceasedChildren.theDeceased)
+            ctx.deceasedAnyPredeceasedChildrenQuestion = content.AnyPredeceasedChildren.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyPredeceasedChildren.theDeceased)
                 .replace('{deceasedDoD}', (formdata.deceased && formdata.deceased['dod-formattedDate']) ? formdata.deceased['dod-formattedDate'] : '');
             ctx.deceasedAllChildrenOver18Question = content.AllChildrenOver18.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AllChildrenOver18.theDeceased);
             ctx.deceasedSpouseNotApplyingReasonQuestion = content.SpouseNotApplyingReason.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
+            ctx.otherExecutorRelationshipToDeceased = content.CoApplicantRelationshipToDeceased.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantRelationshipToDeceased.theDeceased);
+
+            ctx.executorSummary = [];
+            if (executors && Array.isArray(executors.list)) {
+                executors.list.forEach((exec) => {
+                    ctx.executorSummary.push({
+                        adoptedInQuestion: content.CoApplicantAdoptedIn.question
+                            .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedIn.theDeceased)
+                            .replace('{applicantName}', exec.fullName || content.CoApplicantAdoptedIn.applicantName),
+                        adoptedInAnswer: exec.childAdoptedIn || '',
+                        adoptedOutQuestion: content.CoApplicantAdoptedOut.question
+                            .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantAdoptedOut.theDeceased)
+                            .replace('{applicantName}', exec.fullName || content.CoApplicantAdoptedOut.applicantName),
+                        adoptedOutAnswer: exec.childAdoptedOut || '',
+                        emailQuestion: content.CoApplicantEmail.question
+                            .replace('{executorName}', exec.fullName || content.CoApplicantEmail.applicantName),
+                        emailAnswer: exec.email || '',
+                        addressQuestion: content.ExecutorAddress.question
+                            .replace('{executorName}', exec.fullName || content.ExecutorAddress.applicantName),
+                        addressAnswer: exec.address && exec.address.formattedAddress ? exec.address.formattedAddress : ''
+                    });
+                });
+            }
 
             if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
@@ -144,6 +182,12 @@ class Summary extends Step {
 
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
+        }
+        if (formdata.deceased?.divorceDate) {
+            const date = moment(formdata.deceased.divorceDate, 'YYYY-MM-DD');
+            if (date.isValid()) {
+                ctx.divorceDateFormatted = utils.formattedDate(date, req.session.language);
+            }
         }
 
         ctx.softStop = this.anySoftStops(formdata, ctx);

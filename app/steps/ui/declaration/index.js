@@ -186,6 +186,8 @@ class Declaration extends ValidationStep {
                 cy: this.intestacyExecutorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, formdata, 'cy')
             };
 
+            console.log('declaration/index.js L189 - formdata.relationshipToDeceased: ' + formdata.relationshipToDeceased);
+
             templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText);
         } else {
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -254,6 +256,7 @@ class Declaration extends ValidationStep {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         const numberOfExecutorsApplying = executorsApplying.length;
         const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
+        const relationshipToDeceased = formdata.relationshipToDeceased;
         if (hasMultipleApplicants) {
             return executorsApplying.map((executor, index) => {
                 return this.intestacyExecutorsApplyingText(
@@ -267,7 +270,8 @@ class Declaration extends ValidationStep {
                         language,
                         numberOfExecutorsApplying,
                         index,
-                        primaryApplicantRelationshipToDeceased
+                        primaryApplicantRelationshipToDeceased,
+                        relationshipToDeceased
                     });
             });
         } else if (mainApplicantName && !hasMultipleApplicants) {
@@ -320,6 +324,8 @@ class Declaration extends ValidationStep {
     }
 
     intestacyExecutorsApplyingText(props) {
+        console.log('declaration/index.js L325 - props.hasMultipleApplicants {}', props.hasMultipleApplicants);
+        console.log('declaration/index.js L329 - props.relationshipToDeceased {}', props.relationshipToDeceased);
         if (!props.hasMultipleApplicants && props.mainApplicantName) {
             return {
                 name: props.content.intestacyPersonApplying
@@ -340,7 +346,7 @@ class Declaration extends ValidationStep {
             return {
                 name: props.content.intestacyFurtherPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.executor.coApplicantRelationshipToDeceased, props.language))
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.relationshipToDeceased, props.language))
                     .replace('{deceasedName}', props.deceasedName),
                 sign: ''
             };

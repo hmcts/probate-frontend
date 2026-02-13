@@ -65,6 +65,8 @@ const getAnyOtherChildrenAboveThreshold = (formdata, content) => {
 const getNotMarried = (formdata, content) => {
     if (formdata.anyOtherChildren === 'optionYes') {
         return getNotMarriedAndOtherChildren(formdata, content);
+    } else if (formdata.relationshipToDeceased === 'optionParent') {
+        return '';
     }
     return getNotMarriedAndNoOtherChildren(formdata, content);
 };

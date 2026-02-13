@@ -46,7 +46,7 @@ describe('adoption-place', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to any other children page if child is adopted in England or Wales: ${expectedNextUrlForAnyOtherChildren}`, (done) => {
+        it(`test it redirects to any other children page if child is adopted in England or Wales: /intestacy${expectedNextUrlForAnyOtherChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -64,11 +64,11 @@ describe('adoption-place', () => {
                         adoptionPlace: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyOtherChildren}`);
                 });
         });
 
-        it(`test it redirects to stop page if child is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if child is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -86,10 +86,10 @@ describe('adoption-place', () => {
                         adoptionPlace: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
-        it(`test it redirects to stop page if grandchild is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if grandchild is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -107,7 +107,7 @@ describe('adoption-place', () => {
                         adoptionPlace: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

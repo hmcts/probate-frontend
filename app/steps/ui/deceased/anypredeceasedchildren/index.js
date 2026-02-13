@@ -31,7 +31,6 @@ class AnyPredeceasedChildren extends ValidationStep {
         return {
             options: [
                 {key: 'hadSomeOrAllPredeceasedChildren', value: true, choice: 'hadSomeOrAllPredeceasedChildren'},
-                {key: 'anyPredeceasedChildren', value: 'optionNo', choice: 'optionNo'}
             ]
         };
     }

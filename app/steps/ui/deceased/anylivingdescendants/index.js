@@ -13,12 +13,12 @@ class AnyLivingDescendants extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.relationshipToDeceased = formdata.applicant.relationshipToDeceased;
+        ctx.relationshipToDeceased = formdata.applicant?.relationshipToDeceased;
         return ctx;
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('notEligibleLivingDescendants');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notEligibleLivingDescendants');
     }
 
     nextStepOptions(ctx) {

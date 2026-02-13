@@ -16,14 +16,13 @@ class AdoptedIn extends ValidationStep {
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.details = formdata.details || {};
-        ctx.sameParents = formdata.applicant.sameParents;
+        ctx.sameParents = formdata.applicant?.sameParents;
         return ctx;
     }
     nextStepOptions() {
         return {
             options: [
                 {key: 'adoptedIn', value: 'optionYes', choice: 'adoptedIn'},
-                {key: 'adoptedIn', value: 'optionNo', choice: 'notAdoptedIn'},
             ]
         };
     }

@@ -60,7 +60,7 @@ describe('joint-application', () => {
                             {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
                         ]};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantRelationship);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantRelationship}`);
                 });
         });
 
@@ -78,7 +78,7 @@ describe('joint-application', () => {
                         hasCoApplicant: 'optionNo',
                         hasCoApplicantChecked: true};
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEquality);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForEquality}`);
                 });
         });
 

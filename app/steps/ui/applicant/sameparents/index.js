@@ -19,7 +19,7 @@ class SameParents extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('notEligibleSameParents');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notEligibleSameParents');
     }
 
     nextStepOptions(ctx) {

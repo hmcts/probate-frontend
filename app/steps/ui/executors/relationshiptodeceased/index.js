@@ -71,17 +71,15 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling') {
-            return `/coapplicant-name/${ctx.index}`;
-        } else if (ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
-            return `/parent-die-before/${ctx.index}`;
-        }
-        return this.next(req, ctx).constructor.getUrl('otherCoApplicantRelationship');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'otherCoApplicantRelationship');
     }
 
     nextStepOptions(ctx) {
-        ctx.childOrSibling = ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionChild' || ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodSibling';
-        ctx.grandchildOrNieceNephew = ctx.list[ctx.index]?.coApplicantRelationshipToDeceased === 'optionGrandchild' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' || ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew';
+        const applicantRelToDec = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
+        const childOrSiblingValues = ['optionChild', 'optionHalfBloodSibling', 'optionWholeBloodSibling'];
+        const grandchildOrNieceNephewValues = ['optionGrandchild', 'optionHalfBloodNieceOrNephew', 'optionWholeBloodNieceOrNephew'];
+        ctx.childOrSibling = childOrSiblingValues.includes(applicantRelToDec);
+        ctx.grandchildOrNieceNephew = grandchildOrNieceNephewValues.includes(applicantRelToDec);
         return {
             options: [
                 {key: 'childOrSibling', value: true, choice: 'childOrSibling'},

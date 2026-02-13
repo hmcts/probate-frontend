@@ -148,7 +148,7 @@ describe('Co-applicant-name', () => {
             ctx.index = 1;
             ctx.applicantRelationshipToDeceased = 'optionChild';
             const url = CoApplicantName.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-adopted-in/1');
+            expect(url).to.equal('/intestacy/coapplicant-adopted-in/1');
         });
         it('should return the correct URL if the index is there for parent journey', () => {
             ctx = {
@@ -162,7 +162,7 @@ describe('Co-applicant-name', () => {
                 ]
             };
             const url = CoApplicantName.nextStepUrl(req, ctx);
-            expect(url).to.equal('/coapplicant-email/1');
+            expect(url).to.equal('/intestacy/coapplicant-email/1');
         });
     });
 

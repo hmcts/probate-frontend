@@ -58,7 +58,7 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to whole-niece and whole-nephew page if surviving children are there: ${expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18}`, (done) => {
+        it(`test it redirects to whole-niece and whole-nephew page if surviving children are there: /intestacy${expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -68,10 +68,10 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
                         sameParents: 'optionBothParentsSame'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18}`);
                 });
         });
-        it(`test it redirects to whole-niece and whole-nephew page if surviving children are there: ${expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18}`, (done) => {
+        it(`test it redirects to whole-niece and whole-nephew page if surviving children are there: /intestacy${expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -81,10 +81,10 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
                         sameParents: 'optionBothParentsSame'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllWholeNiecesAndWholeNephewsOver18}`);
                 });
         });
-        it(`test it redirects to whole sibling over 18 page if some whole-siblings are predeceased: ${expectedNextUrlForAllWholeSiblingsOver18}`, (done) => {
+        it(`test it redirects to whole sibling over 18 page if some whole-siblings are predeceased: /intestacy${expectedNextUrlForAllWholeSiblingsOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -94,10 +94,10 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
                         sameParents: 'optionBothParentsSame'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllWholeSiblingsOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllWholeSiblingsOver18}`);
                 });
         });
-        it(`test it redirects to Applicant name page if all whole-sibling are predeceased: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant name page if all whole-sibling are predeceased: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -114,11 +114,11 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
                         relationshipToDeceased: 'optionSibling'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`test it redirects to Any other half-siblings page if all whole-sibling are predeceased and only one parent is common: ${expectedNextUrlForAnyOtherHalfSiblings}`, (done) => {
+        it(`test it redirects to Any other half-siblings page if all whole-sibling are predeceased and only one parent is common: /intestacy${expectedNextUrlForAnyOtherHalfSiblings}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -135,10 +135,10 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
                         relationshipToDeceased: 'optionSibling'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyOtherHalfSiblings);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyOtherHalfSiblings}`);
                 });
         });
-        it(`test it redirects to stop page if all whole-sibling are predeceased and only one parent in common: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if all whole-sibling are predeceased and only one parent in common: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -155,7 +155,7 @@ describe('any-surviving-whole-niece-whole-nephew', () => {
                         relationshipToDeceased: 'optionSibling'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

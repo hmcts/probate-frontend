@@ -39,11 +39,11 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.parentAdopted = ctx.list[ctx.index]?.grandchildParentAdoptedIn === 'optionYes';
+        const coapplParentAdoptedIn = ctx.list?.at(ctx.index)?.grandchildParentAdoptedIn;
+        ctx.parentAdopted = coapplParentAdoptedIn === 'optionYes';
         return {
             options: [
                 {key: 'parentAdopted', value: true, choice: 'parentAdoptedIn'},
-                {key: 'parentAdopted', value: false, choice: 'notParentAdoptedIn'},
             ]
         };
     }
@@ -54,13 +54,6 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
             errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
         }
         return fields;
-    }
-
-    nextStepUrl(req, ctx) {
-        if (ctx.applicantParentAdoptedIn === 'optionYes') {
-            return `/parent-adoption-place/${ctx.index}`;
-        }
-        return `/parent-adopted-out/${ctx.index}`;
     }
 
     handlePost(ctx, errors) {

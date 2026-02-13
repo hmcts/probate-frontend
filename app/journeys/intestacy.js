@@ -185,7 +185,7 @@ const stepList = {
     },
     AdoptedIn: {
         adoptedIn: 'AdoptionPlace',
-        notAdoptedIn: 'AdoptedOut'
+        otherwise: 'AdoptedOut'
     },
     AdoptedOut: {
         childOrGrandchildNotAdoptedOut: 'AnyOtherChildren',
@@ -199,7 +199,7 @@ const stepList = {
     },
     ParentAdoptedIn: {
         parentAdoptedIn: 'ParentAdoptionPlace',
-        parentNotAdoptedIn: 'ParentAdoptedOut',
+        otherwise: 'ParentAdoptedOut',
     },
     ParentAdoptedOut: {
         parentNotAdoptedOut: 'AdoptedIn',
@@ -211,7 +211,7 @@ const stepList = {
     },
     DeceasedAdoptedIn: {
         deceasedAdoptedIn: 'DeceasedAdoptionPlace',
-        deceasedNotAdoptedIn: 'DeceasedAdoptedOut'
+        otherwise: 'DeceasedAdoptedOut'
     },
     DeceasedAdoptedOut: {
         parentApplyingAndDeceasedNotAdoptedOut: 'AnyOtherParentAlive',
@@ -228,9 +228,9 @@ const stepList = {
         otherwise: 'ApplicantName'
     },
     AnyOtherChildren: {
+        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren',
         hadOtherChildren: 'AnyPredeceasedChildren',
-        childAndHadNoChildren: 'ApplicantName',
-        grandchildAndHadNoChildren: 'GrandchildParentHasOtherChildren'
+        otherwise: 'ApplicantName',
     },
     AllChildrenOver18: {
         childAndAllChildrenOver18: 'ApplicantName',
@@ -247,13 +247,13 @@ const stepList = {
     },
     AnyPredeceasedChildren: {
         hadSomeOrAllPredeceasedChildren: 'AnySurvivingGrandchildren',
-        optionNo: 'AllChildrenOver18'
+        otherwise: 'AllChildrenOver18'
     },
     AnySurvivingGrandchildren: {
         hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
         hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
         childAndNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
-        grandchildAndNoSurvivingGrandchildrenOfOtherChildren: 'GrandchildParentHasOtherChildren'
+        otherwise: 'GrandchildParentHasOtherChildren'
     },
     AnyGrandchildrenUnder18: {
         allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
@@ -293,12 +293,12 @@ const stepList = {
     },
     AnyPredeceasedHalfSiblings: {
         hadSomeOrAllPredeceasedHalfSibling: 'AnySurvivingHalfNiecesAndHalfNephews',
-        optionNo: 'AllHalfSiblingsOver18'
+        otherwise: 'AllHalfSiblingsOver18'
     },
     AnySurvivingHalfNiecesAndHalfNephews: {
         hadSurvivingHalfNiecesAndHalfNephews: 'AllHalfNiecesAndHalfNephewsOver18',
         hadOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews: 'AllHalfSiblingsOver18',
-        hadNoOtherHalfSiblingAndHadNoSurvivingHalfNiecesOrNephews: 'ApplicantName'
+        otherwise: 'ApplicantName',
     },
     AllHalfNiecesAndHalfNephewsOver18: {
         allHalfNiecesAndHalfNephewsOver18AndSomePredeceasedHalfSiblings: 'AllHalfSiblingsOver18',
@@ -324,11 +324,11 @@ const stepList = {
     RemoveCoApplicant: 'JointApplication',
     CoApplicantName: {
         isChildJointApplication: 'CoApplicantAdoptedIn',
-        isParentJointApplication: 'CoApplicantEmail'
+        otherwise: 'CoApplicantEmail'
     },
     CoApplicantAdoptedIn: {
         adoptedIn: 'CoApplicantAdoptionPlace',
-        notAdoptedIn: 'CoApplicantAdoptedOut'
+        otherwise: 'CoApplicantAdoptedOut'
     },
     ParentDieBefore: {
         parentDieBefore: 'CoApplicantName',
@@ -346,7 +346,7 @@ const stepList = {
     },
     CoApplicantParentAdoptedIn: {
         parentAdoptedIn: 'CoApplicantParentAdoptionPlace',
-        notParentAdoptedIn: 'CoApplicantParentAdoptedOut'
+        otherwise: 'CoApplicantParentAdoptedOut'
     },
     CoApplicantParentAdoptedOut: {
         parentNotAdoptedOut: 'CoApplicantEmail',
@@ -360,7 +360,7 @@ const stepList = {
     ExecutorContactDetails: 'ExecutorAddress',
     ExecutorAddress: {
         isChildJointApplication: 'JointApplication',
-        isParentJointApplication: 'Equality'
+        otherwise: 'Equality'
     },
     ApplicantName: 'ApplicantPhone',
     ApplicantPhone: 'ApplicantAddress',

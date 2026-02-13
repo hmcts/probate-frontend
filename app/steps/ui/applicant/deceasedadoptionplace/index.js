@@ -9,7 +9,7 @@ class DeceasedAdoptionPlace extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptionNotInEnglandOrWales');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'adoptionNotInEnglandOrWales');
     }
 
     nextStepOptions(ctx) {

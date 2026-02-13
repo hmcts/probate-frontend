@@ -52,7 +52,7 @@ describe('spouse-not-applying-reason', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Adopted in page if spouse renouncing and child is applying: ${expectedNextUrlForAdoptedIn}`, (done) => {
+        it(`test it redirects to Adopted in page if spouse renouncing and child is applying: /intestacy${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -61,11 +61,11 @@ describe('spouse-not-applying-reason', () => {
                         relationshipToDeceased: 'optionChild'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedIn}`);
                 });
         });
 
-        it(`test it redirects to Parent alive page if spouse renouncing and grandchild is applying: ${expectedNextUrlForParentAlive}`, (done) => {
+        it(`test it redirects to Parent alive page if spouse renouncing and grandchild is applying: /intestacy${expectedNextUrlForParentAlive}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -74,11 +74,11 @@ describe('spouse-not-applying-reason', () => {
                         relationshipToDeceased: 'optionGrandchild'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForParentAlive);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAlive}`);
                 });
         });
 
-        it(`test it redirects to Any Other Children page if spouse not applying for other reasons: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Any Other Children page if spouse not applying for other reasons: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -86,7 +86,7 @@ describe('spouse-not-applying-reason', () => {
                         spouseNotApplyingReason: 'optionOther'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

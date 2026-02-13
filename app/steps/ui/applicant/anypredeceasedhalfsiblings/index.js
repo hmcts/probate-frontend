@@ -31,7 +31,6 @@ class AnyPredeceasedHalfSiblings extends ValidationStep {
         return {
             options: [
                 {key: 'hadSomeOrAllPredeceasedHalfSibling', value: true, choice: 'hadSomeOrAllPredeceasedHalfSibling'},
-                {key: 'anyPredeceasedHalfSiblings', value: 'optionNo', choice: 'optionNo'}
             ]
         };
     }

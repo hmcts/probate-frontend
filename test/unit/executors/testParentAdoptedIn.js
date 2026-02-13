@@ -7,8 +7,8 @@ const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname
 const ParentAdoptedIn = steps.CoApplicantParentAdoptedIn;
 const content = require('app/resources/en/translation/executors/parentadoptedin');
 const stepUrl='/parent-adopted-in/1';
-const optionYesUrl='/parent-adoption-place/1';
-const optionNoUrl='/parent-adopted-out/1';
+const optionYesUrl='/intestacy/parent-adoption-place/1';
+const optionNoUrl='/intestacy/parent-adopted-out/1';
 
 describe('ParentAdoptedIn', () => {
     describe('ParentAdoptedIn.getUrl()', () => {
@@ -109,8 +109,11 @@ describe('ParentAdoptedIn', () => {
                 }
             };
             const ctx = {
+                caseType: 'intestacy',
                 index: '1',
-                applicantParentAdoptedIn: 'optionYes',
+                list: [{}, {
+                    grandchildParentAdoptedIn: 'optionYes',
+                }],
             };
             const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal(optionYesUrl);
@@ -124,8 +127,11 @@ describe('ParentAdoptedIn', () => {
                 }
             };
             const ctx = {
+                caseType: 'intestacy',
                 index: '1',
-                applicantParentAdoptedIn: 'optionNo',
+                list: [{}, {
+                    grandchildParentAdoptedIn: 'optionNo',
+                }],
             };
             const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal(optionNoUrl);

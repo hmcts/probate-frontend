@@ -50,7 +50,7 @@ describe('all-half-niece-half-nephew-over-18', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Applicant Name page if no half-niece and half-nephew are under 18 and no predeceased half-sibling: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant Name page if no half-niece and half-nephew are under 18 and no predeceased half-sibling: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -66,11 +66,11 @@ describe('all-half-niece-half-nephew-over-18', () => {
                         relationshipToDeceased: 'optionSibling'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
 
-        it(`test it redirects to All half-sibling over 18 page if no half niece or nephew are under 18 and have some predeceased half-sibling: ${expectedNextUrlForAllHalfSiblingsOver18}`, (done) => {
+        it(`test it redirects to All half-sibling over 18 page if no half niece or nephew are under 18 and have some predeceased half-sibling: /intestacy${expectedNextUrlForAllHalfSiblingsOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -79,11 +79,11 @@ describe('all-half-niece-half-nephew-over-18', () => {
                         anyPredeceasedHalfSiblings: 'optionYesSome'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllHalfSiblingsOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllHalfSiblingsOver18}`);
                 });
         });
 
-        it(`test it redirects to Stop page if any grandchildren are under 18: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if any grandchildren are under 18: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -91,7 +91,7 @@ describe('all-half-niece-half-nephew-over-18', () => {
                         allHalfNiecesAndHalfNephewsOver18: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

@@ -73,7 +73,7 @@ describe('related-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
@@ -93,7 +93,7 @@ describe('related-to-deceased', () => {
                         related: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`, cookies);
                 });
         });
 

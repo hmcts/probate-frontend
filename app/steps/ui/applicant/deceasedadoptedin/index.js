@@ -22,7 +22,6 @@ class DeceasedAdoptedIn extends ValidationStep {
         return {
             options: [
                 {key: 'deceasedAdoptedIn', value: 'optionYes', choice: 'deceasedAdoptedIn'},
-                {key: 'deceasedAdoptedIn', value: 'optionNo', choice: 'deceasedNotAdoptedIn'},
             ]
         };
     }

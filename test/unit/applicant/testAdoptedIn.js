@@ -122,7 +122,6 @@ describe('PrimaryApplicantAdoptedIn', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'adoptedIn', value: 'optionYes', choice: 'adoptedIn'},
-                    {key: 'adoptedIn', value: 'optionNo', choice: 'notAdoptedIn'}
                 ]
             });
             done();

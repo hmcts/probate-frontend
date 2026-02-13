@@ -56,7 +56,7 @@ describe('any-surviving-grandchildren', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Any grandchildren under 18 page if surviving children are there: ${expectedNextUrlForAnyGrandchildrenUnder18}`, (done) => {
+        it(`test it redirects to Any grandchildren under 18 page if surviving children are there: /intestacy${expectedNextUrlForAnyGrandchildrenUnder18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -64,10 +64,10 @@ describe('any-surviving-grandchildren', () => {
                         anySurvivingGrandchildren: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyGrandchildrenUnder18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyGrandchildrenUnder18}`);
                 });
         });
-        it(`test it redirects to grandchild over 18 page if some children are predeceased: ${expectedNextUrlForAllChildrenOver18}`, (done) => {
+        it(`test it redirects to grandchild over 18 page if some children are predeceased: /intestacy${expectedNextUrlForAllChildrenOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -76,10 +76,10 @@ describe('any-surviving-grandchildren', () => {
                         anySurvivingGrandchildren: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAllChildrenOver18);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllChildrenOver18}`);
                 });
         });
-        it(`test it redirects to Applicant name page if all children are predeceased and applicant is child: ${expectedNextUrlForApplicantName}`, (done) => {
+        it(`test it redirects to Applicant name page if all children are predeceased and applicant is child: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -95,10 +95,10 @@ describe('any-surviving-grandchildren', () => {
                         relationshipToDeceased: 'optionChild'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
-        it(`test it redirects to Parent has any children page if all children are predeceased and applicant is grandchild: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
+        it(`test it redirects to Parent has any children page if all children are predeceased and applicant is grandchild: /intestacy${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 applicant: {
@@ -114,7 +114,7 @@ describe('any-surviving-grandchildren', () => {
                         relationshipToDeceased: 'optionGrandchild'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasOtherChildren);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForGrandchildParentHasOtherChildren}`);
                 });
         });
     });

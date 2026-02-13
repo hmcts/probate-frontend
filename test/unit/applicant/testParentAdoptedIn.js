@@ -113,8 +113,7 @@ describe('ApplicantParentAdoptedIn', () => {
             const nextStepOptions = ParentAdoptedIn.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'parentAdoptedIn', value: 'optionYes', choice: 'parentAdoptedIn'},
-                    {key: 'parentAdoptedIn', value: 'optionNo', choice: 'parentNotAdoptedIn'}
+                    {key: 'parentAdoptedIn', value: 'optionYes', choice: 'parentAdoptedIn'}
                 ]
             });
             done();

@@ -28,7 +28,6 @@ class AnySurvivingGrandchildren extends ValidationStep {
                 {key: 'anySurvivingGrandchildren', value: 'optionYes', choice: 'hadSurvivingGrandchildren'},
                 {key: 'hadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadOtherChildrenAndHadNoSurvivingGrandchildren'},
                 {key: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren'},
-                {key: 'grandchildAndNoSurvivingGrandchildrenOfOtherChildren', value: true, choice: 'grandchildAndNoSurvivingGrandchildrenOfOtherChildren'}
             ]
         };
     }

@@ -44,7 +44,7 @@ describe('applicant-parent-adoption-out', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to stop page if grandchild parent is adopted out: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if grandchild parent is adopted out: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -62,11 +62,11 @@ describe('applicant-parent-adoption-out', () => {
                         parentAdoptedOut: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
 
-        it(`test it redirects to any other children page if grandchild parent is not adopted Out: ${expectedNextUrlForApplicantAdoptedIn}`, (done) => {
+        it(`test it redirects to any other children page if grandchild parent is not adopted Out: /intestacy${expectedNextUrlForApplicantAdoptedIn}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -84,7 +84,7 @@ describe('applicant-parent-adoption-out', () => {
                         parentAdoptedOut: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantAdoptedIn}`);
                 });
         });
     });

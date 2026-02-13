@@ -49,7 +49,7 @@ describe('deceased-child-alive', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Parent Adopted in page if grandchild parent is not alive: ${expectedNextUrlForAdoptedIn}`, (done) => {
+        it(`test it redirects to Parent Adopted in page if grandchild parent is not alive: /intestacy${expectedNextUrlForAdoptedIn}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -58,11 +58,11 @@ describe('deceased-child-alive', () => {
                         childAlive: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedIn}`);
                 });
         });
 
-        it(`test it redirects to Applicant Name page if grandchild parent had no other children: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Applicant Name page if grandchild parent had no other children: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -70,7 +70,7 @@ describe('deceased-child-alive', () => {
                         childAlive: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

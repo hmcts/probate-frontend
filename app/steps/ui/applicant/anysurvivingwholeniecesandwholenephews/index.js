@@ -19,7 +19,7 @@ class AnySurvivingWholeNiecesAndWholeNephews extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('hasSurvivingChildrenWithOneParent');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'hasSurvivingChildrenWithOneParent');
     }
 
     nextStepOptions(ctx) {

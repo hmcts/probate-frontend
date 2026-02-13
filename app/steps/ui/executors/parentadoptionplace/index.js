@@ -40,14 +40,12 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        if (ctx.applicantParentAdoptionPlace === 'optionYes') {
-            return `/coapplicant-email/${ctx.index}`;
-        }
-        return this.next(req, ctx).constructor.getUrl('coApplicantAdoptionPlaceStop');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
     }
 
     nextStepOptions(ctx) {
-        ctx.parentAdoptedInEnglandOrWales = ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes';
+        const parentAdoptedEngWales = ctx.list?.at(ctx.index)?.grandchildParentAdoptionInEnglandOrWales;
+        ctx.parentAdoptedInEnglandOrWales = parentAdoptedEngWales === 'optionYes';
         return {
             options: [
                 {key: 'parentAdoptedInEnglandOrWales', value: true, choice: 'parentAdoptedOutEnglandOrWales'},

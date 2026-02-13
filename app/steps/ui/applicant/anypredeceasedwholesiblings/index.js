@@ -27,7 +27,7 @@ class AnyPredeceasedWholeSiblings extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('hasOtherSiblingsWithSameParents');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'hasOtherSiblingsWithSameParents');
     }
 
     nextStepOptions(ctx) {

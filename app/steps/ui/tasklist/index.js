@@ -12,6 +12,11 @@ class TaskList extends Step {
         return '/task-list';
     }
 
+    // eslint-disable-next-line no-unused-vars
+    getUrlWithContext(ctx, unused) {
+        return this.constructor.getUrl();
+    }
+
     previousTaskStatus(previousTasks) {
         const allPreviousTasksComplete = previousTasks.every((task) => {
             return task && task.status === 'complete';

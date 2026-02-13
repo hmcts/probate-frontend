@@ -70,7 +70,7 @@ describe('coapplicant-adoption-place', () => {
             testWrapper.testErrors(done, data, 'required');
         });
 
-        it(`test it redirects to any other children page if co-applicant is adopted in England or Wales: ${expectedNextUrlForCoApplicantEmail}`, (done) => {
+        it(`test it redirects to any other children page if co-applicant is adopted in England or Wales: /intestacy${expectedNextUrlForCoApplicantEmail}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -79,11 +79,11 @@ describe('coapplicant-adoption-place', () => {
                         adoptionPlace: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantEmail);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
                 });
         });
 
-        it(`test it redirects to any other children page if co-applicant is adopted in England or Wales: ${expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn}`, (done) => {
+        it(`test it redirects to any other children page if co-applicant is adopted in England or Wales: /intestacy${expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(2);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -92,10 +92,10 @@ describe('coapplicant-adoption-place', () => {
                         adoptionPlace: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantCoApplicantParentAdoptedIn}`);
                 });
         });
-        it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             testWrapper.pageUrl = CoApplicantAdoptionPlace.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -104,7 +104,7 @@ describe('coapplicant-adoption-place', () => {
                         adoptionPlace: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
                 });
         });
     });

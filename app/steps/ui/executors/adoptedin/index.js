@@ -48,12 +48,12 @@ class CoApplicantAdoptedIn extends ValidationStep {
             'wholeBloodSiblingAdoptedIn',
             'wholeBloodNieceOrNephewAdoptedIn'
         ];
+        const applicant = ctx.list?.at(ctx.index);
         ctx.isAdoptedIn = ctx.adoptedIn === 'optionYes' ||
-            adoptedInFields.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+            adoptedInFields.some(field => applicant?.[field] === 'optionYes');
         return {
             options: [
                 {key: 'isAdoptedIn', value: true, choice: 'adoptedIn'},
-                {key: 'isAdoptedIn', value: false, choice: 'notAdoptedIn'},
             ]
         };
     }
@@ -98,13 +98,6 @@ class CoApplicantAdoptedIn extends ValidationStep {
             errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
         }
         return fields;
-    }
-
-    nextStepUrl(req, ctx) {
-        if (ctx.adoptedIn === 'optionYes') {
-            return `/coapplicant-adoption-place/${ctx.index}`;
-        }
-        return `/coapplicant-adopted-out/${ctx.index}`;
     }
 
     handlePost(ctx, errors) {

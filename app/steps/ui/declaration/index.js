@@ -186,8 +186,6 @@ class Declaration extends ValidationStep {
                 cy: this.intestacyExecutorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, formdata, 'cy')
             };
 
-            console.log('declaration/index.js L189 - formdata.relationshipToDeceased: ' + formdata.relationshipToDeceased);
-
             templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText);
         } else {
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -324,8 +322,6 @@ class Declaration extends ValidationStep {
     }
 
     intestacyExecutorsApplyingText(props) {
-        console.log('declaration/index.js L325 - props.hasMultipleApplicants {}', props.hasMultipleApplicants);
-        console.log('declaration/index.js L329 - props.relationshipToDeceased {}', props.relationshipToDeceased);
         if (!props.hasMultipleApplicants && props.mainApplicantName) {
             return {
                 name: props.content.intestacyPersonApplying

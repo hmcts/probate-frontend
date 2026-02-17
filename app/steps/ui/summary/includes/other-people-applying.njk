@@ -1,8 +1,18 @@
+{% macro jointApplicationAnswer(language, executorsList) %}
+    {% if language == 'en' %}
+        {{ 'Yes' if executorsList and (executorsList | length) > 1 else 'No' }}
+    {% elif language == 'cy' %}
+        {{ 'Oedd' if executorsList and (executorsList | length) > 1 else 'Do' }}
+    {% else %}
+        {{ '' }}
+    {% endif %}
+{% endmacro %}
+
 {{checkanswer(
     items = [
         {
             question: content.JointApplication.question,
-            answer: 'Yes' if (fields.executors.list and fields.executors.list.value and (fields.executors.list.value | length) > 1) else ('No' if (fields.executors.list and fields.executors.list.value) else ''),
+            answer: jointApplicationAnswer(fields.summary.language.value, fields.executors.list.value),
             visible: true
         }
     ],

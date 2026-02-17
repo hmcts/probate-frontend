@@ -69,7 +69,7 @@ class IntestacyDeclarationFactory {
             intro: content.cy[`intro${multipleApplicantSuffix}`]
                 .replace('{applicantName}', formdata.applicantName),
             applicant: content.cy[`legalStatementApplicant${multipleApplicantSuffix}`]
-                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress))
+                .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.cy, formdata.applicantAddress))
                 .replace('{applicantName}', formdata.applicantName)
                 .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
             deceased: content.cy.intestacyLegalStatementDeceased

@@ -100,7 +100,7 @@
     "@wdio/cli": "^9.20.0",
     "@wdio/selenium-standalone-service": "^8.10.4",
     "ajv": "^8.0.0",
-    "ajv-keywords": "^3.5.2",
+    "ajv-keywords": "^5.0.0",
     "applicationinsights": "^2.5.0",
     "axios": "^1.12.2",
     "basic-auth": "^2.0.1",

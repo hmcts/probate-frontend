@@ -99,7 +99,7 @@
     "@hmcts/properties-volume": "^1.0.0",
     "@wdio/cli": "^9.20.0",
     "@wdio/selenium-standalone-service": "^8.10.4",
-    "ajv": "^8.0.0",
+    "ajv": "^8.18.0",
     "ajv-keywords": "^5.0.0",
     "applicationinsights": "^2.5.0",
     "axios": "^1.12.2",

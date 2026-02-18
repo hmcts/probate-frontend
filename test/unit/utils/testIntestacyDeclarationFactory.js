@@ -121,7 +121,8 @@ describe('IntestacyDeclarationFactory', () => {
                 },
                 declaration: {
                     en: {
-                        accept: content.en.declarationCheckbox,
+                        accept: content.en.declarationCheckbox
+                            .replace('{deceasedName}', formdata.deceasedName),
                         confirm: content.en.declarationConfirm
                             .replace('{deceasedName}', formdata.deceasedName),
                         confirmItem1: content.en.declarationConfirmItem1,
@@ -136,7 +137,8 @@ describe('IntestacyDeclarationFactory', () => {
                         understandItem2: content.en.declarationUnderstandItem2,
                     },
                     cy: {
-                        accept: content.cy.declarationCheckbox,
+                        accept: content.cy.declarationCheckbox
+                            .replace('{deceasedName}', formdata.deceasedName),
                         confirm: content.cy.declarationConfirm
                             .replace('{deceasedName}', formdata.deceasedName),
                         confirmItem1: content.cy.declarationConfirmItem1,
@@ -238,7 +240,8 @@ describe('IntestacyDeclarationFactory', () => {
                         understand: content.en.declarationUnderstand,
                         understandItem1: content.en['declarationUnderstandItem1-intestacy'],
                         understandItem2: content.en.declarationUnderstandItem2,
-                        accept: content.en.declarationCheckbox,
+                        accept: content.en.declarationCheckbox
+                            .replace('{deceasedName}', formdata.deceasedName),
                         submitWarning: content.en.submitWarning
                     },
                     cy: {
@@ -253,7 +256,8 @@ describe('IntestacyDeclarationFactory', () => {
                         understand: content.cy.declarationUnderstand,
                         understandItem1: content.cy['declarationUnderstandItem1-intestacy'],
                         understandItem2: content.cy.declarationUnderstandItem2,
-                        accept: content.cy.declarationCheckbox,
+                        accept: content.cy.declarationCheckbox
+                            .replace('{deceasedName}', formdata.deceasedName),
                         submitWarning: content.cy.submitWarning
                     }
                 }

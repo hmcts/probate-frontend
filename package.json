@@ -181,7 +181,7 @@
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.2.0",
     "nock": "^14.0.0",
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.11",
     "nyc": "^17.0.0",
     "phantomjs-prebuilt": "^2.1.16",
     "pre-commit": "^1.2.2",

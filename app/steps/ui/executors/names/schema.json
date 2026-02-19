@@ -5,8 +5,7 @@
   "properties": {
     "executorName": {
       "type": "string",
-      "minLength": 2,
-      "pattern": "^[\\sa-zA-Z'-]+$"
+      "minLength": 2
     }
   },
   "required": [

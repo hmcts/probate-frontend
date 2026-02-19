@@ -207,7 +207,7 @@
     "async": "^3.2.6",
     "blob": "^13.0.1",
     "braces": "^3.0.3",
-    "codeceptjs": "3.7.5",
+    "codeceptjs": "3.7.6",
     "cookie": "^1.0.2",
     "cookiejar": ">=2.1.4",
     "cross-spawn": "^7.0.6",

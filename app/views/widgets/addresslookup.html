@@ -3,7 +3,7 @@
 
 {% macro addressFinder(fields,content,step) %}
     <div class="govuk-form-group {{ "govuk-form-group--error" if fields.postcode.error }}">
-        <label for="postcode" class="govuk-label">{{ content.postcode | safe }}</label>
+        <label for="postcode" class="govuk-label">{{ content.postcodeUK | safe }}</label>
 
         {{ fieldError(fields.postcode) }}
 

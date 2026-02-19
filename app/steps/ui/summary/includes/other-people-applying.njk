@@ -1,0 +1,22 @@
+{% macro jointApplicationAnswer(language, executorsList) %}
+    {% if language == 'en' %}
+        {{ 'Yes' if executorsList and (executorsList | length) > 1 else 'No' }}
+    {% elif language == 'cy' %}
+        {{ 'Oedd' if executorsList and (executorsList | length) > 1 else 'Do' }}
+    {% else %}
+        {{ '' }}
+    {% endif %}
+{% endmacro %}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.JointApplication.question,
+            answer: jointApplicationAnswer(fields.summary.language.value, fields.executors.list.value),
+            visible: true
+        }
+    ],
+    url = content.JointApplication.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

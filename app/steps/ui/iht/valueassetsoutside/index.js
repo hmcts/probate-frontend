@@ -36,7 +36,7 @@ class ValueAssetsOutside extends ValidationStep {
         if (formdata.deceased && (ctx.netValue + ctx.netValueAssetsOutside) <= ctx.ihtThreshold) {
             delete formdata.deceased.anyChildren;
             delete formdata.deceased.allChildrenOver18;
-            delete formdata.deceased.anyDeceasedChildren;
+            delete formdata.deceased.anyPredeceasedChildren;
             delete formdata.deceased.anyGrandchildrenUnder18;
         }
 

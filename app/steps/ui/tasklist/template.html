@@ -55,6 +55,9 @@
             <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            {% if fields.caseType.value === 'intestacy' %}
+              <p class="govuk-body">{{ content.intestacyParagraph1 | safe }}</p>
+            {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(

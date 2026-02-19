@@ -1,0 +1,99 @@
+{% extends "includes/layout.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% block content %}
+<form class="form" id="main-form" method="post" autocomplete="off" action="{{ pageUrl }}" novalidate>
+  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% block error_summary %}
+    {% include "includes/error_summary.html" %}
+    {% endblock %}
+    {% set errorFields = [
+    "dod-date",
+    "dod-day",
+    "dod-month",
+    "dod-year",
+    "dod-day-month",
+    "dod-month-year",
+    "dod-day-year"
+    ] %}
+    {% if errors %}
+        {% set errorMessages = [] %}
+        {% for field in errorFields %}
+            {% if fields[field].errorMessage %}
+                {% set errorMessages = errorMessages.concat([fields[field].errorMessage | replace("{applicantName}", fields.applicantName.value) | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
+            {% endif %}
+        {% endfor %}
+        {% set inlineErrors = {
+            text: errorMessages | join("<br>") | safe
+        } %}
+    {% endif %}
+
+    {{ govukDateInput({
+        id: "dod-date",
+        namePrefix: "dod",
+        fieldset: {
+            legend: {
+                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        hint: {
+            text: content.questionHint | safe
+        },
+        errorMessage: inlineErrors,
+        items: [
+            {
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-day"].error or fields["dod-date"].error
+                    or fields["dod-day-month"].error or fields["dod-day-year"].error),
+                name: "day",
+                label: content["dayName"] | safe,
+                value: fields["dod-day"].value
+            },
+            {
+                classes: "govuk-input--width-2" + (" govuk-input--error" if fields["dod-month"].error or fields["dod-date"].error
+                    or fields["dod-day-month"].error or fields["dod-month-year"].error),
+                name: "month",
+                label: content["monthName"] | safe,
+                value: fields["dod-month"].value
+            },
+            {
+                classes: "govuk-input--width-4" + (" govuk-input--error" if fields["dod-year"].error or fields["dod-date"].error
+                    or fields["dod-day-year"].error or fields["dod-month-year"].error),
+                name: "year",
+                label: content["yearName"] | safe,
+                value: fields["dod-year"].value
+            }
+        ]
+    }) }}
+
+
+  <details class="govuk-details" data-module="govuk-details" id="no-Information">
+    <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          {{ content.noInfoHeading | safe }}
+        </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p class="govuk-body"> {{ content.noInfoDetails | replace("{applicantName}", fields.applicantName.value) | safe }}</p>
+    </div>
+
+  </details>
+    <div class="govuk-form-group">
+      {{ govukButton({
+      text: common.continue | safe,
+      preventDoubleClick: true
+      }) }}
+    </div>
+    {% include "includes/help_details.html" %}
+  </div>
+</div>
+</form>
+
+{% endblock %}
+

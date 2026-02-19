@@ -39,7 +39,9 @@ describe('summary-applicants-section', () => {
                                 throw err;
                             }
                             const playbackData = {
-                                relationshipToDeceased: applicantContent.relationshiptodeceased.question
+                                relationshipToDeceased: applicantContent.relationshiptodeceased.question.replace(
+                                    '{deceasedName}',
+                                    'the deceased'),
                             };
                             testWrapper.testDataPlayback(done, playbackData);
                         });
@@ -62,13 +64,12 @@ describe('summary-applicants-section', () => {
                     delete require.cache[require.resolve('test/data/deceased')];
                     const deceasedName = FormatName.format(deceasedData.deceased);
                     const playbackData = {
-                        relationshipToDeceased: applicantContent.relationshiptodeceased.question,
+                        relationshipToDeceased: applicantContent.relationshiptodeceased.question.replace('{deceasedName}', deceasedName),
                         adoptionPlace: applicantContent.adoptionplace.question,
                         spouseNotApplyingReason: applicantContent.spousenotapplyingreason.question.replace('{deceasedName}', deceasedName),
                         anyOtherChildren: deceasedContent.anyotherchildren.question.replace('{deceasedName}', deceasedName),
                         allChildrenOver18: deceasedContent.allchildrenover18.question.replace('{deceasedName}', deceasedName),
-                        anyDeceasedChildren: deceasedContent.anydeceasedchildren.question.replace('{deceasedName}', deceasedName).replace('{deceasedDoD}', deceasedData.deceased['dod-formattedDate']),
-                        anyGrandchildrenUnder18: deceasedContent.anygrandchildrenunder18.question
+                        anyPredeceasedChildren: deceasedContent.anypredeceasedchildren.question.replace('{deceasedName}', deceasedName).replace('{deceasedDoD}', deceasedData.deceased['dod-formattedDate']),
                     };
 
                     testWrapper.testDataPlayback(done, playbackData);

@@ -22,6 +22,7 @@ const moment = require('moment');
 const IhtThreshold = require('app/utils/IhtThreshold');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const {sanitizeInput} = require('../../../utils/Sanitize');
+const RelationshipToTheDeceasedEnum = require('app/utils/RelationshipToTheDeceasedEnum');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -171,7 +172,21 @@ class Declaration extends ValidationStep {
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }
-            templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate);
+            ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
+            ctx.invitesSent = get(formdata, 'executors.invitesSent');
+            ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
+            ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
+            ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent;
+
+            const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
+
+            const executorsApplying = ctx.executorsWrapper.executorsApplying();
+            const executorsApplyingText = {
+                en: this.intestacyExecutorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.en, formdata, 'en'),
+                cy: this.intestacyExecutorsApplying(ctx.hasMultipleApplicants, executorsApplying, content.cy, formdata, 'cy')
+            };
+
+            templateData = intestacyDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText);
         } else {
             ctx.executorsWrapper = new ExecutorsWrapper(formdata.executors);
             ctx.invitesSent = get(formdata, 'executors.invitesSent');
@@ -233,6 +248,43 @@ class Declaration extends ValidationStep {
         });
     }
 
+    intestacyExecutorsApplying(hasMultipleApplicants, executorsApplying, content, formdata, language) {
+        const deceasedName = formdata.deceasedName;
+        const mainApplicantName = formdata.applicantName;
+        const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
+        const numberOfExecutorsApplying = executorsApplying.length;
+        const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
+        const relationshipToDeceased = formdata.relationshipToDeceased;
+        if (hasMultipleApplicants) {
+            return executorsApplying.map((executor, index) => {
+                return this.intestacyExecutorsApplyingText(
+                    {
+                        hasMultipleApplicants,
+                        content,
+                        multipleApplicantSuffix,
+                        executor,
+                        deceasedName,
+                        mainApplicantName,
+                        language,
+                        numberOfExecutorsApplying,
+                        index,
+                        primaryApplicantRelationshipToDeceased,
+                        relationshipToDeceased
+                    });
+            });
+        } else if (mainApplicantName && !hasMultipleApplicants) {
+            return [this.intestacyExecutorsApplyingText({
+                deceasedName,
+                numberOfExecutorsApplying,
+                mainApplicantName,
+                primaryApplicantRelationshipToDeceased,
+                content,
+                language,
+                hasMultipleApplicants
+            })];
+        }
+    }
+
     executorsApplyingText(props) {
         const mainApplicantSuffix = (props.hasMultipleApplicants && props.executor.isApplicant) ? '-mainApplicant' : '';
         const codicilsSuffix = this.codicilsSuffix(props.hasCodicils);
@@ -265,7 +317,36 @@ class Declaration extends ValidationStep {
                 }
             }
         }
+
         return content;
+    }
+
+    intestacyExecutorsApplyingText(props) {
+        if (!props.hasMultipleApplicants && props.mainApplicantName) {
+            return {
+                name: props.content.intestacyPersonApplying
+                    .replace('{applicantName}', props.mainApplicantName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language))
+                    .replace('{deceasedName}', props.deceasedName),
+                sign: ''
+            };
+        } else if (props.hasMultipleApplicants && props.index === 0) {
+            return {
+                name: props.content.intestacyPeopleApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.primaryApplicantRelationshipToDeceased, props.language))
+                    .replace('{deceasedName}', props.deceasedName),
+                sign: ''
+            };
+        } else if (props.hasMultipleApplicants) {
+            return {
+                name: props.content.intestacyFurtherPeopleApplying
+                    .replace('{applicantName}', props.executor.fullName)
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.relationshipToDeceased, props.language))
+                    .replace('{deceasedName}', props.deceasedName),
+                sign: ''
+            };
+        }
     }
 
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {

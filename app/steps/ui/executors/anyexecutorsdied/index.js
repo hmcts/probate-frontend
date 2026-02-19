@@ -9,12 +9,11 @@ class AnyExecutorsDied extends ValidationStep {
         return '/any-executors-died';
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl(1);
-    }
-
     nextStepOptions(ctx) {
         ctx.singleExecutor = ctx.list && ctx.list.length === 2 && ctx.anyExecutorsDied === 'optionYes';
+        if (ctx.singleExecutor) {
+            ctx.index = 1;
+        }
         ctx.multiExecutor = ctx.list && ctx.list.length > 2 && ctx.anyExecutorsDied === 'optionYes';
         return {
             options: [

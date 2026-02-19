@@ -33,7 +33,10 @@ describe('summary', () => {
                 'emailAddress',
                 'uploadedDocumentsHeading',
                 'uploadedDocumentsEmpty',
-                'aboutPeopleApplyingHeading'
+                'aboutPeopleApplyingHeading',
+                'otherPeopleApplyingHeading',
+                'applicantRelationshipToDeceased',
+                'intestacyExecutorApplyingForProbate'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -70,7 +73,8 @@ describe('summary', () => {
                 'uploadedDocumentsEmpty',
                 'applicantHeading',
                 'willConditionHeading',
-                'codicilsConditionHeading'
+                'codicilsConditionHeading',
+                'intestacyExecutorApplyingForProbate'
             ];
 
             testWrapper.agent.post('/prepare-session/form')

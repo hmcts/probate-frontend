@@ -29,10 +29,9 @@ class Executors {
                 .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
     }
 
-    executorEmailAlreadyUsed(email, fullName, applicantEmail = '') {
+    executorEmailAlreadyUsed(email, indexToSkip, applicantEmail = '') {
         return applicantEmail.toLowerCase() === email.toLowerCase() || this.executorsList
-            .filter(executor => executor.email)
-            .filter(executor => executor.fullName !== fullName)
+            .filter((executor, idx) => executor.email && idx !== indexToSkip)
             .some(executor => executor.email.toLowerCase() === email.toLowerCase());
     }
 
@@ -164,6 +163,21 @@ class Executors {
             delete executor.executorAgreed;
             return executor;
         });
+    }
+
+    getNextIndex() {
+        const lastIndex = this.executorsList.length - 1;
+        const lastExec = this.executorsList[lastIndex];
+        if (lastExec && (lastExec.isApplicant === true ||
+            (typeof lastExec.isApplicant === 'undefined' && this.isValid(lastExec)))) {
+            return this.executorsList.length;
+        }
+        return lastIndex;
+    }
+    isValid(executor) {
+        return executor?.fullName &&
+            executor?.email &&
+            executor?.address?.formattedAddress;
     }
 }
 

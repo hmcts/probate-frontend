@@ -73,7 +73,29 @@ describe('deceased-otherNames', () => {
         });
 
         it('test otherNames schema validation when no data is entered', (done) => {
-            testWrapper.testErrors(done, {}, 'required');
+            const sessionData = {
+                deceased: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    otherNames: {
+                        name_0: {
+                            firstName: '',
+                            lastName: ''
+                        }
+                    }
+                }
+            };
+            const errorsToTest = ['firstName', 'lastName'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        deceasedName: 'John Doe'
+                    };
+
+                    testWrapper.testErrors(done, data, 'required', errorsToTest);
+                });
         });
     });
 });

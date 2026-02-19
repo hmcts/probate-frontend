@@ -1,18 +1,20 @@
 {
   "title": "Statws priodasol yr unigolyn sydd wedi marw",
   "question": "Beth oedd statws priodasol {deceasedName}?",
-  "optionMarried": "Wedi priodi neu mewn partneriaeth sifil",
-  "optionDivorced": "Wedi ysgaru neu roedd eu partneriaeth sifil wedi&rsquo;i diddymu",
-  "optionWidowed": "Gweddw",
-  "optionNotMarried": "Erioed wedi priodi",
-  "optionSeparated": "Ymwahaniad cyfreithiol",
-  "divorce": "wedi ysgaru",
-  "separation": "wedi gwahanu",
+  "optionMarried": "Wedi priodi neu mewn partneriaeth sifil cofrestredig",
+  "optionDivorced": "Wedi ysgaru neu wedi dod â’u partneriaeth sifil i ben (a elwir hefyd yn ddiddymiad)",
+  "optionWidowed": "Gwraig weddw/Gŵr gweddw/Partner sifil sy'n goroesi",
+  "optionNotMarried": "Byth wedi priodi neu byth wedi bod mewn partneriaeth sifil",
+  "optionSeparated": "Wedi cael ymwahaniad cyfreithiol (a elwir hefyd yn ymwahaniad barnwrol)",
+  "hintTextMarried": "Rhaid bod partneriaeth sifil wedi’i chofrestru ac mae’n wahanol i fyw gyda’ch gilydd fel partneriaid",
+  "divorce": "ysgariad neu’r diddymiad",
+  "divorced": "ysgariad neu ddiddymiad",
+  "separation": "ymwahaniad cyfreithiol",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "maritalStatus": {
-      "required": "Dewiswch opsiwn ar gyfer eu statws priodasol"
+      "required": "Dewiswch statws priodasol {deceasedName} ar adeg eu marwolaeth"
     }
   }
 }

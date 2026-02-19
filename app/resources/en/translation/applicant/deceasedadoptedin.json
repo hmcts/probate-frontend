@@ -1,0 +1,14 @@
+{
+  "title": "Deceased adopted in",
+  "parentQuestion": "Did you legally adopt {deceasedName} into your family?",
+  "siblingQuestion": "Did {deceasedName}’s parents legally adopt them into their family?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "deceasedAdoptedIn": {
+      "requiredParent": "Select &lsquo;Yes&rsquo; if you legally adopted {deceasedName}",
+      "requiredSibling": "Select &lsquo;Yes&rsquo; if {deceasedName}’s parents legally adopted them"
+    }
+  }
+}

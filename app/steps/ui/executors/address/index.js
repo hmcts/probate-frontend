@@ -3,6 +3,7 @@
 const AddressStep = require('app/core/steps/AddressStep');
 const {findIndex, get, startsWith} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
+const caseTypes = require('../../../../utils/CaseTypes');
 const pageUrl = '/executor-address';
 
 class ExecutorAddress extends AddressStep {
@@ -13,22 +14,44 @@ class ExecutorAddress extends AddressStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
-            req.session.indexPosition = ctx.index;
-        } else if (req.params && req.params[0] === '*') {
-            ctx.index = req.session.indexPosition;
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
-        } else if (startsWith(req.path, pageUrl)) {
-            ctx.index = this.recalcIndex(ctx, 0);
-            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        const formdata = req.session.form;
+        ctx.caseType = caseTypes.getCaseType(req.session);
+        const paramIndex = req.params && !isNaN(req.params[0]) ? parseInt(req.params[0]) : null;
+        if (ctx.caseType === caseTypes.INTESTACY) {
+            if (paramIndex !== null) {
+                ctx.index = paramIndex;
+            } else {
+                ctx.index = this.recalcIntestacyIndex(ctx, formdata);
+                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            }
+        } else if (ctx.caseType === caseTypes.GOP) {
+            if (paramIndex !== null) {
+                ctx.index = paramIndex;
+                req.session.indexPosition = ctx.index;
+            } else if (req.params && req.params[0] === '*') {
+                ctx.index = req.session.indexPosition;
+                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            } else if (startsWith(req.path, pageUrl)) {
+                ctx.index = this.recalcIndex(ctx, 0);
+                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            }
         }
         if (ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;
         }
+        ctx.applicantRelationshipToDeceased = get(req.session.form, 'applicant.relationshipToDeceased');
         ctx.executorsWrapper = new ExecutorsWrapper(ctx);
 
         return ctx;
+    }
+
+    recalcIntestacyIndex(ctx, formdata) {
+        ctx.applicantRelationshipToDeceased = get(formdata, 'applicant.relationshipToDeceased');
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        if (ctx.applicantRelationshipToDeceased === 'optionParent') {
+            return 1;
+        }
+        return executorsWrapper.getNextIndex();
     }
 
     handleGet(ctx) {
@@ -46,7 +69,7 @@ class ExecutorAddress extends AddressStep {
             ctx.postTown = get(ctx.address, 'postTown', '');
             ctx.county = get(ctx.address, 'county', '');
             ctx.newPostCode = get(ctx.address, 'postCode', '');
-            ctx.country = get(ctx.address, 'country', 'United Kingdom');
+            ctx.country = get(ctx.address, 'country', '');
         }
         if (ctx.list[ctx.index].postcode && !ctx.postcode) {
             ctx.postcode = ctx.list[ctx.index].postcode;
@@ -75,24 +98,25 @@ class ExecutorAddress extends AddressStep {
         return findIndex(ctx.list, o => o.isApplying === true && o.isDead !== true, index + 1);
     }
 
-    nextStepUrl(req, ctx) {
-        if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
-        }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
-
-    }
-
     nextStepOptions(ctx) {
-        ctx.continue = get(ctx, 'index', -1) !== -1;
-        ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
-
-        return {
-            options: [
-                {key: 'continue', value: true, choice: 'continue'},
-                {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
-            ],
-        };
+        if (ctx.caseType === caseTypes.GOP) {
+            ctx.continue = get(ctx, 'index', -1) !== -1;
+            ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
+            return {
+                options: [
+                    {key: 'continue', value: true, choice: 'continue'},
+                    {key: 'allExecsApplying', value: true, choice: 'allExecsApplying'}
+                ],
+            };
+        } else if (ctx.caseType === caseTypes.INTESTACY) {
+            ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
+            ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
+            return {
+                options: [
+                    {key: 'isChildJointApplication', value: true, choice: 'isChildJointApplication'},
+                ],
+            };
+        }
     }
 
     action(ctx, formdata) {
@@ -110,6 +134,12 @@ class ExecutorAddress extends AddressStep {
     }
 
     isComplete(ctx) {
+        if (ctx.caseType === caseTypes.INTESTACY) {
+            if (ctx.list[ctx.index]?.address && ctx.list[ctx.index].address.formattedAddress) {
+                return [true, 'inProgress'];
+            }
+            return [false, 'inProgress'];
+        }
         return [
             ctx.executorsWrapper.executorsApplying(true).every(executor => executor.email && executor.mobile && executor.address),
             'inProgress'

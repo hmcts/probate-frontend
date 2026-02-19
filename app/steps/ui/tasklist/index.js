@@ -12,6 +12,11 @@ class TaskList extends Step {
         return '/task-list';
     }
 
+    // eslint-disable-next-line no-unused-vars
+    getUrlWithContext(ctx, unused) {
+        return this.constructor.getUrl();
+    }
+
     previousTaskStatus(previousTasks) {
         const allPreviousTasksComplete = previousTasks.every((task) => {
             return task && task.status === 'complete';
@@ -45,12 +50,10 @@ class TaskList extends Step {
         } else {
             ctx.daysToDeleteText = daysToDelete > 1 ? daysToDelete + ' days' : daysToDelete + ' day';
         }
-
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+        ctx.declarationStatuses = formdata.executorsDeclarations || [];
         if (ctx.caseType === caseTypes.GOP) {
-            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-            ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-            ctx.declarationStatuses = formdata.executorsDeclarations || [];
-
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,

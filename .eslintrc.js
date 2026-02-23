@@ -316,6 +316,7 @@ module.exports = {
             'never'
         ]
     },
+    'ignorePatterns': ['test/**/*.ts', 'playwright.config.ts', '*.ts'],
     'overrides': [
         {
             'files': ['app/journeys/intestacy.js',

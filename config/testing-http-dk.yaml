@@ -4,11 +4,11 @@ environment: 'sandbox'
 #this feature toggle shouldnt be here remove this later when not longer working end to end on local: todo remove this
 featureToggles:
   enabled: true
-  launchDarklyKey: 'Dummy_LD_Key'
+  launchDarklyKey: 'sdk-4d50eb6e-8400-4aa7-b4c5-8bdfc8b1d844'
   launchDarklyUser:
-    firstName: 'Probate'
-    lastName: 'Frontend'
-    key: 'Dummy_User_Key'
+    firstName: 'Marian'
+    lastName: 'Local'
+    key: 'Marian.Irudayanathan@justice.gov.uk'
 
 configFeatureToggles:
   webchatEnabled: false
@@ -16,23 +16,23 @@ configFeatureToggles:
 
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
-TestE2EFrontendUrl: 'http://localhost:3000'
-TestFrontendUrl: 'http://localhost:3000'
+TestE2EFrontendUrl: 'https://probate-frontend-pr-3024.preview.platform.hmcts.net'
+TestFrontendUrl: 'https://probate-frontend-pr-3024.preview.platform.hmcts.net'
 TestIdamAddUserUrl: '/testing-support/accounts'
-TestIdamBaseUrl: 'http://localhost:5000'
-TestIdamLoginUrl: 'http://localhost:3501/login'
+TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net'
+TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
 TestOutputDir: './functional-output'
 TestPathToRun: './paths/**/*.js'
 TestProxy: 'socks5:proxyout.reform.hmcts.net:8080'
-TestRetryFeatures: 2
-TestRetryScenarios: 2
-TestRetrySteps: 2
-TestShowBrowser: false
+TestRetryFeatures: 0
+TestRetryScenarios: 0
+TestRetrySteps: 0
+TestShowBrowser: 'true'
 TestUseGovPay: 'true'
 TestUseIdam: 'true'
-TestUseProxy: 'false'
+TestUseProxy: false
 TestWaitForDocumentUpload: 60
 TestWaitForTextToAppear: 120
 TestWaitForElementToAppear: 60

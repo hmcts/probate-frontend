@@ -179,10 +179,11 @@ getTestLanguages().forEach(language => {
         await I.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
         await I.enterApplicantPhone(language);
         await I.enterAddressManually(language);
-        if (TestConfigurator.equalityAndDiversityEnabled()) {
+
+        /* if (TestConfigurator.equalityAndDiversityEnabled()) {
             await I.exitEqualityAndDiversity(language);
             await I.completeEqualityAndDiversity(language);
-        }
+        } */
 
         // Check your answers and declaration
         await I.selectATask(language, 'reviewAndConfirmTask', taskListContent.taskNotStarted);

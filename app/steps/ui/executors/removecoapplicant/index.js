@@ -19,7 +19,12 @@ class RemoveCoApplicant extends ValidationStep {
     handlePost(ctx, errors, formdata) {
         if (ctx.removeCoApplicant === 'optionYes') {
             ctx.list.splice(ctx.index, 1);
+            ctx.executorsEn = formdata.declaration?.legalStatement?.en?.executorsApplying;
+            ctx.executorsCy = formdata.declaration?.legalStatement?.cy?.executorsApplying;
+            ctx.executors?.splice(ctx.index, 1);
             set(formdata, 'executors.list', ctx.list);
+            set(formdata, 'legalStatement.en.executorsApplying', ctx.executorsEn);
+            set(formdata, 'legalStatement.cy.executorsApplying', ctx.executorsCy);
         }
         return [ctx, errors];
     }

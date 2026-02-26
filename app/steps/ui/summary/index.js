@@ -151,7 +151,28 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.SpouseNotApplyingReason.theDeceased);
             ctx.otherExecutorRelationshipToDeceased = content.CoApplicantRelationshipToDeceased.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.CoApplicantRelationshipToDeceased.theDeceased);
-
+            ctx.sameParents = content.SameParents.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.SameParents.theDeceased);
+            ctx.allWholeSiblingsOver18 = content.AllWholeSiblingsOver18.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AllWholeSiblingsOver18.theDeceased);
+            ctx.anyOtherWholeSiblings = content.AnyOtherWholeSiblings.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherWholeSiblings.theDeceased);
+            ctx.anyPredeceasedWholeSiblings = content.AnyPredeceasedWholeSiblings.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyPredeceasedWholeSiblings.theDeceased);
+            ctx.anySurvivingWholeNiecesAndWholeNephews = content.AnySurvivingWholeNiecesAndWholeNephews.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnySurvivingWholeNiecesAndWholeNephews.theDeceased);
+            ctx.allWholeNiecesAndWholeNephewsOver18 = content.AllWholeNiecesAndWholeNephewsOver18.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AllWholeNiecesAndWholeNephewsOver18.theDeceased);
+            ctx.allHalfSiblingsOver18 = content.AllHalfSiblingsOver18.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AllHalfSiblingsOver18.theDeceased);
+            ctx.anyOtherHalfSiblings = content.AnyOtherHalfSiblings.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyOtherHalfSiblings.theDeceased);
+            ctx.anyPredeceasedHalfSiblings = content.AnyPredeceasedHalfSiblings.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyPredeceasedHalfSiblings.theDeceased);
+            ctx.anySurvivingHalfNiecesAndHalfNephews = content.AnySurvivingHalfNiecesAndHalfNephews.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AnySurvivingHalfNiecesAndHalfNephews.theDeceased);
+            ctx.allHalfNiecesAndHalfNephewsOver18 = content.AllHalfNiecesAndHalfNephewsOver18.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.AllHalfNiecesAndHalfNephewsOver18.theDeceased);
             ctx.executorSummary = [];
             if (executors && Array.isArray(executors.list)) {
                 executors.list.forEach((exec) => {

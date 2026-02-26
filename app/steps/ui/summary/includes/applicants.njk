@@ -260,7 +260,11 @@
         {
             question: fields.summary.allWholeSiblingsOver18.value,
             answer: content.AllWholeSiblingsOver18[fields.applicant.allWholeSiblingsOver18.value],
-            visible: fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionNo" and fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome" and fields.applicant.sameParents.value == "optionBothParentsSame"
+            visible: (fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionNo" and fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome" and fields.applicant.sameParents.value == "optionBothParentsSame")
+                     or
+                     (fields.applicant.allWholeNiecesAndWholeNephewsOver18.value == "optionNo" and fields.applicant.anyPredeceasedWholeSiblings.value == "optionYes")
+                     or
+                     (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome" and fields.applicant.sameParents.value == "optionBothParentsSame")
         }
     ],
     url = content.AllWholeSiblingsOver18.url,
@@ -329,7 +333,11 @@
         {
             question: fields.summary.allHalfSiblingsOver18.value,
             answer: content.AllHalfSiblingsOver18[fields.applicant.allHalfSiblingsOver18.value],
-            visible: fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesAll"
+            visible: (fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesAll")
+                     or
+                     (fields.applicant.anyPredeceasedHalfSiblings.value == 'optionNo' and fields.applicant.sameParents.value == 'optionOneParentsSame')
+                     or
+                     (fields.applicant.allHalfNiecesAndHalfNephewsOver18.value == 'optionYes' and fields.applicant.anyPredeceasedHalfSiblings.value == 'optionYesSome')
         }
     ],
     url = content.AllHalfSiblingsOver18.url,

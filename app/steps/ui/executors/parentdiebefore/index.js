@@ -43,7 +43,7 @@ class ParentDieBefore extends ValidationStep {
             'halfBloodSiblingDiedBeforeDeceased',
             'wholeBloodSiblingDiedBeforeDeceased'
         ];
-        const parentDieBefore = parentDieBeforeFields.some(field => ctx.list[ctx.index]?.[field]);
+        const parentDieBefore = parentDieBeforeFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionNo');
         return [parentDieBefore, 'inProgress'];
     }
 

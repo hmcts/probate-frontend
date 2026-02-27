@@ -65,7 +65,7 @@ class CoApplicantAdoptionPlace extends ValidationStep {
             'wholeBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
         ];
-        const hasAdoptedIn = adoptedPlaceFields.some(field => ctx.list[ctx.index]?.[field]);
+        const hasAdoptedIn = adoptedPlaceFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionNo');
         return [hasAdoptedIn, 'inProgress'];
     }
 

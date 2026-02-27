@@ -65,7 +65,6 @@ class CoApplicantAdoptedOut extends ValidationStep {
             'wholeBloodNieceOrNephewAdoptedOut'
         ];
         const hasAdoptedOut = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionYes');
-        console.log('hasAdoptedOut-->', hasAdoptedOut);
         return [hasAdoptedOut, 'inProgress'];
     }
 

@@ -174,15 +174,10 @@ describe('Summary', () => {
                         },
                         caseType: 'intestacy',
                         deceased: {
-                            'firstName': 'Dee',
-                            'lastName': 'Ceased',
-                            'dod-date': '2015-02-02',
-                            'dod-formattedDate': '2 February 2015'
+                            'firstName': 'Dee', 'lastName': 'Ceased', 'dod-date': '2015-02-02', 'dod-formattedDate': '2 February 2015'
                         },
                         iht: {
-                            netValue: 300000,
-                            netValueAssetsOutside: 250000,
-                            assetsOutside: 'optionYes'
+                            netValue: 300000, netValueAssetsOutside: 250000, assetsOutside: 'optionYes'
                         }
                     }
                 },
@@ -211,6 +206,17 @@ describe('Summary', () => {
                 deceasedSpouseNotApplyingReasonQuestion: 'Why is Dee Ceased&rsquo;s husband, wife or civil partner not applying?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
                 relationshipToDeceasedQuestion: 'What is your relationship to Dee Ceased?',
+                allHalfNiecesAndHalfNephewsOver18: 'Are all of these children 18 or older?',
+                allHalfSiblingsOver18: 'Are all of Dee Ceased&rsquo;s surviving half-siblings 18 or older?',
+                allWholeNiecesAndWholeNephewsOver18: 'Are all of these children 18 or older?',
+                allWholeSiblingsOver18: 'Are all of Dee Ceased&rsquo;s surviving siblings 18 or older?',
+                anyOtherHalfSiblings: 'Did Dee Ceased have any other siblings who have one parent in common (half-siblings)?',
+                anyOtherWholeSiblings: 'Did Dee Ceased have any other siblings who have the same parents?',
+                anyPredeceasedHalfSiblings: 'Did any of these half-siblings die before Dee Ceased?',
+                anyPredeceasedWholeSiblings: 'Did any of these siblings die before Dee Ceased?',
+                anySurvivingHalfNiecesAndHalfNephews: 'Did any of these half-siblings have surviving children when Dee Ceased died?',
+                anySurvivingWholeNiecesAndWholeNephews: 'Did any of these siblings have surviving children when Dee Ceased died?',
+                sameParents: 'Do you have the same parents as Dee Ceased?',
                 ihtThreshold: 250000,
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
@@ -230,15 +236,10 @@ describe('Summary', () => {
                         },
                         caseType: 'intestacy',
                         deceased: {
-                            'dod-date': '2015-02-02',
-                            'dod-formattedDate': '2 February 2015',
-                            'firstName': 'Dee',
-                            'lastName': 'Ceased'
+                            'dod-date': '2015-02-02', 'dod-formattedDate': '2 February 2015', 'firstName': 'Dee', 'lastName': 'Ceased'
                         },
                         iht: {
-                            assetsOutside: 'optionYes',
-                            netValue: 300000,
-                            netValueAssetsOutside: 250000
+                            assetsOutside: 'optionYes', netValue: 300000, netValueAssetsOutside: 250000
                         },
                         summary: {
                             readyToDeclare: false

@@ -16,7 +16,8 @@ class JointApplication extends ValidationStep {
     getContextData(req) {
         const formdata = req.session.form;
         let ctx = super.getContextData(req);
-        ctx.isStopPage = this.isStopPage(ctx);
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.isStopPage = executorsWrapper.isStopPage();
         ctx = this.createExecutorList(ctx, req.session.form);
         ctx.deceased = formdata.deceased;
         ctx.deceasedName = FormatName.format(ctx.deceased);
@@ -77,10 +78,9 @@ class JointApplication extends ValidationStep {
     isComplete(ctx) {
         if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !this.areLastExecutorValid(ctx)) {
             return [true, 'inProgress'];
+        } else if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && ctx.isStopPage) {
+            return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionNo') {
-            if (ctx.isStopPage) {
-                return [false, 'inProgress'];
-            }
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionYes' && this.areLastExecutorValid(ctx) && ctx.applicantRelationshipToDeceased === 'optionParent') {
             return [true, 'inProgress'];
@@ -108,8 +108,7 @@ class JointApplication extends ValidationStep {
         const lastIndex = ctx.list.length - 1;
         const executor = ctx.list[lastIndex];
         return executor?.isApplicant !== true && executor?.coApplicantRelationshipToDeceased && executor?.fullName &&
-            executor?.email &&
-            executor?.address?.formattedAddress;
+            executor?.email && executor?.address?.formattedAddress;
     }
     nextStepOptions(ctx) {
         ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';

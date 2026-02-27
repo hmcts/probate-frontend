@@ -64,7 +64,8 @@ class CoApplicantAdoptedOut extends ValidationStep {
             'wholeBloodSiblingAdoptedOut',
             'wholeBloodNieceOrNephewAdoptedOut'
         ];
-        const hasAdoptedOut = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]);
+        const hasAdoptedOut = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionYes');
+        console.log('hasAdoptedOut-->', hasAdoptedOut);
         return [hasAdoptedOut, 'inProgress'];
     }
 
@@ -123,6 +124,9 @@ class CoApplicantAdoptedOut extends ValidationStep {
         case 'optionWholeBloodNieceOrNephew':
             ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut = ctx.adoptedOut;
             break;
+        }
+        if (ctx.adoptedOut==='optionYes') {
+            ctx.hasCoApplicant = 'optionYes';
         }
         return [ctx, errors];
     }

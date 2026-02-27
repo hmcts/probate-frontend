@@ -118,6 +118,9 @@ class CoApplicantAdoptionPlace extends ValidationStep {
             ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales = ctx.adoptionPlace;
             break;
         }
+        if (ctx.adoptedOut==='optionNo') {
+            ctx.hasCoApplicant = 'optionYes';
+        }
         return [ctx, errors];
     }
 }

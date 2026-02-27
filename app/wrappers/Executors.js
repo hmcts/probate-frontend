@@ -166,6 +166,10 @@ class Executors {
     }
 
     getNextIndex() {
+        const stopPageIndex = this.getStopPageIndex();
+        if (stopPageIndex !== -1) {
+            return stopPageIndex;
+        }
         const lastIndex = this.executorsList.length - 1;
         const lastExec = this.executorsList[lastIndex];
         if (lastExec && (lastExec.isApplicant === true ||
@@ -179,6 +183,43 @@ class Executors {
             executor?.email &&
             executor?.address?.formattedAddress;
     }
-}
 
+    hasStopCondition(executor) {
+        const optionNoFields = [
+            'childAdoptionInEnglandOrWales',
+            'grandchildAdoptionInEnglandOrWales',
+            'wholeBloodSiblingAdoptionInEnglandOrWales',
+            'halfBloodSiblingAdoptionInEnglandOrWales',
+            'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+            'childDieBeforeDeceased',
+            'wholeBloodSiblingDiedBeforeDeceased',
+            'halfBloodSiblingDiedBeforeDeceased'
+        ];
+
+        const optionYesFields = [
+            'childAdoptedOut',
+            'grandchildAdoptedOut',
+            'wholeBloodSiblingAdoptedOut',
+            'halfBloodSiblingAdoptedOut',
+            'wholeBloodNieceOrNephewAdoptedOut',
+            'halfBloodNieceOrNephewAdoptedOut'
+        ];
+
+        return (
+            optionNoFields.some(field => executor[field] === 'optionNo') ||
+            optionYesFields.some(field => executor[field] === 'optionYes')
+        );
+    }
+    getStopPageIndex() {
+        return this.executorsList.findIndex(executor =>
+            this.hasStopCondition(executor)
+        );
+    }
+
+    isStopPage() {
+        return this.executorsList?.some(executor =>
+            this.hasStopCondition(executor)
+        );
+    }
+}
 module.exports = Executors;

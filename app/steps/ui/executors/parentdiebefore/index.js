@@ -74,6 +74,9 @@ class ParentDieBefore extends ValidationStep {
         } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
             ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
         }
+        if (ctx.applicantParentDieBeforeDeceased==='optionNo') {
+            ctx.hasCoApplicant = 'optionYes';
+        }
         return [ctx, errors];
     }
 

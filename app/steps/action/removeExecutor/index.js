@@ -22,8 +22,7 @@ class RemoveExecutor extends ExecutorsNamed {
         ctx.executorsEn = formdata.declaration?.legalStatement?.en?.executorsApplying;
         ctx.executorsCy = formdata.declaration?.legalStatement?.cy?.executorsApplying;
         ctx.list.splice(ctx.index, 1);
-        ctx.executorsEn?.splice(ctx.index, 1);
-        ctx.executorsCy?.splice(ctx.index, 1);
+        ctx.executors?.splice(ctx.index, 1);
         return ctx;
     }
 

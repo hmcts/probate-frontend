@@ -18,11 +18,7 @@ class RemoveExecutor extends ExecutorsNamed {
     getContextData(req) {
         const ctx = super.getContextData(req);
         ctx.index = req.params[0];
-        const formdata = req.session.form;
-        ctx.executorsEn = formdata.declaration?.legalStatement?.en?.executorsApplying;
-        ctx.executorsCy = formdata.declaration?.legalStatement?.cy?.executorsApplying;
         ctx.list.splice(ctx.index, 1);
-        ctx.executors?.splice(ctx.index, 1);
         return ctx;
     }
 
@@ -32,8 +28,6 @@ class RemoveExecutor extends ExecutorsNamed {
 
     handlePost(ctx, errors, formdata) {
         set(formdata, 'executors.list', ctx.list);
-        set(formdata, 'legalStatement.en.executorsApplying', ctx.executorsEn);
-        set(formdata, 'legalStatement.cy.executorsApplying', ctx.executorsCy);
         if (!isEmpty(errors)) {
             set(formdata, 'executors.errors', errors);
         }

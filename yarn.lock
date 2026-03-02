@@ -1471,10 +1471,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ioredis/commands@npm:1.5.0":
-  version: 1.5.0
-  resolution: "@ioredis/commands@npm:1.5.0"
-  checksum: 10/b5a842fde4785c20318b4b26c7ae98bb1f9cbdc1ade3e55a2de07d5db8fb4e9281e590fb08559e5a9027909f0f9f1214688af33e6fb469ce4ff3decc7cfde679
+"@ioredis/commands@npm:1.5.1":
+  version: 1.5.1
+  resolution: "@ioredis/commands@npm:1.5.1"
+  checksum: 10/7efb0339302094aed30903ccbf8ca24d6048cff0d556114f43004c2e02d0808e6619a814ca72d6ea00586972fab7aae6c18892f9feabea56e632fb2db34b09db
   languageName: node
   linkType: hard
 
@@ -3554,13 +3554,13 @@ __metadata:
   linkType: hard
 
 "axios@npm:^1.12.2, axios@npm:^1.8.4":
-  version: 1.13.5
-  resolution: "axios@npm:1.13.5"
+  version: 1.13.6
+  resolution: "axios@npm:1.13.6"
   dependencies:
     follow-redirects: "npm:^1.15.11"
     form-data: "npm:^4.0.5"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/db726d09902565ef9a0632893530028310e2ec2b95b727114eca1b101450b00014133dfc3871cffc87983fb922bca7e4874d7e2826d1550a377a157cdf3f05b6
+  checksum: 10/a7ed83c2af3ef21d64609df0f85e76893a915a864c5934df69241001d0578082d6521a0c730bf37518ee458821b5695957cb10db9fc705f2a8996c8686ea7a89
   languageName: node
   linkType: hard
 
@@ -3787,15 +3787,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bfj@npm:~9.1.2":
-  version: 9.1.2
-  resolution: "bfj@npm:9.1.2"
+"bfj@npm:~9.1.3":
+  version: 9.1.3
+  resolution: "bfj@npm:9.1.3"
   dependencies:
     check-types: "npm:^11.2.3"
     hoopy: "npm:^0.1.4"
-    jsonpath: "npm:^1.1.1"
     tryer: "npm:^1.0.1"
-  checksum: 10/dd91fbd734c21451bb93efa707d2ca82b61bac19f128dd8e31cd7e06b908147599035b7716329be1dee3b9de1a6db43c77c48af828bdf93ce5758b01232ab62f
+  checksum: 10/33119ebc5237345f0032d6d5b1543306298022711891eb28bd7e592663c3a027dec2f561beebd491e6c2f3779883bcaae91df4d958920776e1db9659399e1b8e
   languageName: node
   linkType: hard
 
@@ -4900,7 +4899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^14.0.0, commander@npm:~14.0.1":
+"commander@npm:^14.0.0, commander@npm:~14.0.3":
   version: 14.0.3
   resolution: "commander@npm:14.0.3"
   checksum: 10/dfa9ebe2a433d277de5cb0252d23b10a543d245d892db858d23b516336a835c50fd4f52bee4cd13c705cc8acb6f03dc632c73dd806f7d06d3353eb09953dd17a
@@ -6596,16 +6595,6 @@ __metadata:
     acorn-jsx: "npm:^5.3.2"
     eslint-visitor-keys: "npm:^3.4.1"
   checksum: 10/255ab260f0d711a54096bdeda93adff0eadf02a6f9b92f02b323e83a2b7fc258797919437ad331efec3930475feb0142c5ecaaf3cdab4befebd336d47d3f3134
-  languageName: node
-  linkType: hard
-
-"esprima@npm:1.2.5":
-  version: 1.2.5
-  resolution: "esprima@npm:1.2.5"
-  bin:
-    esparse: ./bin/esparse.js
-    esvalidate: ./bin/esvalidate.js
-  checksum: 10/839aad5916d05d3a82ccf3adaf67c2b5df69278fd7168347346e7af298dc7fbfbfd7bc5e27e38031a584d50d28e37da35d711b2f5d5376794f84b1bd8e559665
   languageName: node
   linkType: hard
 
@@ -8514,15 +8503,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-in-the-middle@npm:^2.0.0":
-  version: 2.0.6
-  resolution: "import-in-the-middle@npm:2.0.6"
+"import-in-the-middle@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "import-in-the-middle@npm:3.0.0"
   dependencies:
     acorn: "npm:^8.15.0"
     acorn-import-attributes: "npm:^1.9.5"
     cjs-module-lexer: "npm:^2.2.0"
     module-details-from-path: "npm:^1.0.4"
-  checksum: 10/8be80d7f2d4ad34e5eb1082925ee2e90844edb65359cad0f5d8e934a09fafeca10e66f50d0b07570bd6b877ff678755d3c2d36d05258cc3541e39fa6aae6ae56
+  checksum: 10/0bf1f22d00a080e7f651db8c5d136aa4aca6829397769f22fb544a67d9117b1c78590f180a690eb19eb0cfb4a558beac66b6508d346cccc91e1e5f75c934e9de
   languageName: node
   linkType: hard
 
@@ -8656,10 +8645,10 @@ __metadata:
   linkType: hard
 
 "ioredis@npm:^5.0.0":
-  version: 5.9.3
-  resolution: "ioredis@npm:5.9.3"
+  version: 5.10.0
+  resolution: "ioredis@npm:5.10.0"
   dependencies:
-    "@ioredis/commands": "npm:1.5.0"
+    "@ioredis/commands": "npm:1.5.1"
     cluster-key-slot: "npm:^1.1.0"
     debug: "npm:^4.3.4"
     denque: "npm:^2.1.0"
@@ -8668,7 +8657,7 @@ __metadata:
     redis-errors: "npm:^1.2.0"
     redis-parser: "npm:^3.0.0"
     standard-as-callback: "npm:^2.1.0"
-  checksum: 10/e0624c2a33f9e9836ba20accdd438873675c8ff211b6e007bc0eac9c08831293fe8bf03ece4c50ebf24227c7ba06dcdbe87fc682b59d92775be9d443f07ae72e
+  checksum: 10/f0e7c51ca16b2e55f2e42142885bba1e29e48062054b8231cb86173f3cf40f8b5e88842171d19d080049fc187a271c2b98cd01d91a23a4a49ada525d68ba2f51
   languageName: node
   linkType: hard
 
@@ -9709,17 +9698,6 @@ __metadata:
     graceful-fs:
       optional: true
   checksum: 10/03014769e7dc77d4cf05fa0b534907270b60890085dd5e4d60a382ff09328580651da0b8b4cdf44d91e4c8ae64d91791d965f05707beff000ed494a38b6fec85
-  languageName: node
-  linkType: hard
-
-"jsonpath@npm:^1.1.1":
-  version: 1.2.1
-  resolution: "jsonpath@npm:1.2.1"
-  dependencies:
-    esprima: "npm:1.2.5"
-    static-eval: "npm:2.1.1"
-    underscore: "npm:1.13.6"
-  checksum: 10/6ef7ffd94a74448ad6f87c3208b9ced092dee7cd66a3b144c97642117354922d7233e885afe4b5d56f9b5a6dff742faec8c9a7c5a7a1b47f61ebfb198ca9a01b
   languageName: node
   linkType: hard
 
@@ -12027,22 +12005,22 @@ __metadata:
   linkType: hard
 
 "pa11y@npm:^9.0.0":
-  version: 9.1.0
-  resolution: "pa11y@npm:9.1.0"
+  version: 9.1.1
+  resolution: "pa11y@npm:9.1.1"
   dependencies:
     "@pa11y/html_codesniffer": "npm:^2.6.0"
     axe-core: "npm:~4.11.1"
-    bfj: "npm:~9.1.2"
-    commander: "npm:~14.0.1"
+    bfj: "npm:~9.1.3"
+    commander: "npm:~14.0.3"
     envinfo: "npm:~7.21.0"
     kleur: "npm:~4.1.5"
     mustache: "npm:~4.2.0"
     node.extend: "npm:~2.0.3"
-    puppeteer: "npm:^24.7.2"
-    semver: "npm:~7.7.1"
+    puppeteer: "npm:^24.37.5"
+    semver: "npm:~7.7.4"
   bin:
     pa11y: bin/pa11y.js
-  checksum: 10/f471f7d7186d9909912043b9b11284295c806023a0d9b8ed19b485364d94bb92c2702bb88903c8130454109850cb72662c1853e55082972222038fa4d9744a07
+  checksum: 10/35687f62564e1266ecff62d364164c0829f4acd210889d0215d30cce97128966aef6cc46bbbc3c8c2fc59829189d57725dcab843b0921fa0c85228f7c2563763
   languageName: node
   linkType: hard
 
@@ -13992,7 +13970,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.0.0, semver@npm:^7.1.3, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.4, semver@npm:~7.7.1":
+"semver@npm:^7.0.0, semver@npm:^7.1.3, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.4, semver@npm:~7.7.4":
   version: 7.7.4
   resolution: "semver@npm:7.7.4"
   bin:
@@ -14618,15 +14596,6 @@ __metadata:
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
   checksum: 10/88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c
-  languageName: node
-  linkType: hard
-
-"static-eval@npm:2.1.1":
-  version: 2.1.1
-  resolution: "static-eval@npm:2.1.1"
-  dependencies:
-    escodegen: "npm:^2.1.0"
-  checksum: 10/b47e8238014745ea457f2dc9e14130298ce5dbec142a5c93a943f338fe1b47d03086d1897114e15d8603a9a7a39fed95bb49ccd3fa95dfc1550952eca0688417
   languageName: node
   linkType: hard
 

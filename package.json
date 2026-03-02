@@ -135,7 +135,7 @@
     "lodash": "^4.17.23",
     "mocha-lcov-reporter": "^1.3.0",
     "moment": "^2.29.4",
-    "multer": "2.0.2",
+    "multer": "2.1.0",
     "nocache": "^4.0.0",
     "node-cache": "^5.1.2",
     "node-emoji": "^2.0.0",

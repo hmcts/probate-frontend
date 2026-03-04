@@ -27,7 +27,7 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales) {
+        if (ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes') {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
@@ -55,6 +55,9 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         formdata.executors.list[ctx.index].grandchildParentAdoptionInEnglandOrWales = ctx.applicantParentAdoptionPlace;
+        if (ctx.applicantParentAdoptionPlace === 'optionNo') {
+            ctx.hasCoApplicant = 'optionYes';
+        }
         return [ctx, errors];
     }
 }

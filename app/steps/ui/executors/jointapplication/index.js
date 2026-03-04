@@ -45,22 +45,7 @@ class JointApplication extends ValidationStep {
             ...executor,
             fullName: executor.fullName
         }))];
-        ctx.list = ctx.list.filter(executor =>
-            executor.childAdoptionInEnglandOrWales !== 'optionNo' &&
-            executor.grandchildAdoptionInEnglandOrWales !== 'optionNo' &&
-            executor.wholeBloodSiblingAdoptionInEnglandOrWales !== 'optionNo' &&
-            executor.halfBloodSiblingAdoptionInEnglandOrWales !== 'optionNo' &&
-            executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales !== 'optionNo' &&
-            executor.childAdoptedOut !== 'optionYes' &&
-            executor.grandchildAdoptedOut !== 'optionYes' &&
-            executor.wholeBloodSiblingAdoptedOut !== 'optionYes' &&
-            executor.halfBloodSiblingAdoptedOut !== 'optionYes' &&
-            executor.wholeBloodNieceOrNephewAdoptedOut !== 'optionYes' &&
-            executor.halfBloodNieceOrNephewAdoptedOut !== 'optionYes' &&
-            executor.childDieBeforeDeceased !== 'optionNo' &&
-            executor.wholeBloodSiblingDiedBeforeDeceased !== 'optionNo' &&
-            executor.halfBloodSiblingDiedBeforeDeceased !== 'optionNo'
-        );
+        ctx.list = ctx.list.filter(executor => !executorsWrapper.hasStopCondition(executor));
         ctx.executorsNumber = ctx.list.length;
         const applicant = formdata.applicant;
         ctx.applicantName= applicant?.alias ?? FormatName.format(applicant);
@@ -78,7 +63,7 @@ class JointApplication extends ValidationStep {
     isComplete(ctx) {
         if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !this.areLastExecutorValid(ctx)) {
             return [true, 'inProgress'];
-        } else if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && ctx.isStopPage) {
+        } else if (ctx.hasCoApplicant === 'optionYes' && ctx.isStopPage) {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionNo') {
             return [true, 'inProgress'];
@@ -87,23 +72,7 @@ class JointApplication extends ValidationStep {
         }
         return [false, 'inProgress'];
     }
-    isStopPage(ctx) {
-        return ctx.list?.some(executor => (
-            executor.childAdoptionInEnglandOrWales === 'optionNo' ||
-            executor.grandchildAdoptionInEnglandOrWales === 'optionNo' ||
-            executor.wholeBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||
-            executor.halfBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||
-            executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales === 'optionNo' ||
-            executor.childAdoptedOut === 'optionYes' ||
-            executor.grandchildAdoptedOut === 'optionYes' ||
-            executor.wholeBloodSiblingAdoptedOut === 'optionYes' ||
-            executor.halfBloodSiblingAdoptedOut === 'optionYes' ||
-            executor.wholeBloodNieceOrNephewAdoptedOut === 'optionYes' ||
-            executor.halfBloodNieceOrNephewAdoptedOut === 'optionYes' ||
-            executor.childDieBeforeDeceased === 'optionNo' ||
-            executor.wholeBloodSiblingDiedBeforeDeceased === 'optionNo' ||
-            executor.halfBloodSiblingDiedBeforeDeceased === 'optionNo'));
-    }
+
     areLastExecutorValid(ctx) {
         const lastIndex = ctx.list.length - 1;
         const executor = ctx.list[lastIndex];

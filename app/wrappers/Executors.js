@@ -188,6 +188,7 @@ class Executors {
         const optionNoFields = [
             'childAdoptionInEnglandOrWales',
             'grandchildAdoptionInEnglandOrWales',
+            'grandchildParentAdoptionInEnglandOrWales',
             'wholeBloodSiblingAdoptionInEnglandOrWales',
             'halfBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
@@ -199,6 +200,7 @@ class Executors {
         const optionYesFields = [
             'childAdoptedOut',
             'grandchildAdoptedOut',
+            'grandchildParentAdoptedOut',
             'wholeBloodSiblingAdoptedOut',
             'halfBloodSiblingAdoptedOut',
             'wholeBloodNieceOrNephewAdoptedOut',

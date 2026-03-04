@@ -32,7 +32,7 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.grandchildParentAdoptedOut) {
+        if (ctx.list[ctx.index]?.grandchildParentAdoptedOut === 'optionNo') {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
@@ -59,6 +59,9 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
     }
     handlePost(ctx, errors, formdata) {
         formdata.executors.list[ctx.index].grandchildParentAdoptedOut = ctx.applicantParentAdoptedOut;
+        if (ctx.applicantParentAdoptedOut === 'optionYes') {
+            ctx.hasCoApplicant = 'optionYes';
+        }
         return [ctx, errors];
     }
 }

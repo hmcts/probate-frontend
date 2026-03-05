@@ -69,6 +69,7 @@ router.use(journeyCheck);
 router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
+router.post('/intestacy/payment-breakdown', lockPaymentAttempt);
 
 router.get('/start-apply', (req, res, next) => {
     if (config.app.useIDAM === 'true' && req.userLoggedIn) {

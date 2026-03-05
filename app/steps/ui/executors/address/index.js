@@ -1,7 +1,7 @@
 'use strict';
 
 const AddressStep = require('app/core/steps/AddressStep');
-const {findIndex, get, startsWith} = require('lodash');
+const {findIndex, get} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const caseTypes = require('../../../../utils/CaseTypes');
 const pageUrl = '/executor-address';
@@ -17,24 +17,21 @@ class ExecutorAddress extends AddressStep {
         const formdata = req.session.form;
         ctx.caseType = caseTypes.getCaseType(req.session);
         const paramIndex = req.params && !isNaN(req.params[0]) ? parseInt(req.params[0]) : null;
-        if (ctx.caseType === caseTypes.INTESTACY) {
-            if (paramIndex !== null) {
-                ctx.index = paramIndex;
-            } else {
+        if (paramIndex !== null) {
+            ctx.index = paramIndex;
+            req.session.indexPosition = ctx.index;
+        } else if (req.params && req.params[0] === '*') {
+            ctx.index = req.session.indexPosition;
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
+        } else if (req.path?.match(`^(?:/intestacy)?${pageUrl}`)) {
+            if (ctx.caseType === caseTypes.INTESTACY) {
                 ctx.index = this.recalcIntestacyIndex(ctx, formdata);
-                ctx.redirect = `${pageUrl}/${ctx.index}`;
-            }
-        } else if (ctx.caseType === caseTypes.GOP) {
-            if (paramIndex !== null) {
-                ctx.index = paramIndex;
-                req.session.indexPosition = ctx.index;
-            } else if (req.params && req.params[0] === '*') {
-                ctx.index = req.session.indexPosition;
-                ctx.redirect = `${pageUrl}/${ctx.index}`;
-            } else if (startsWith(req.path, pageUrl)) {
+            } else if (ctx.caseType === caseTypes.GOP) {
                 ctx.index = this.recalcIndex(ctx, 0);
-                ctx.redirect = `${pageUrl}/${ctx.index}`;
+            } else {
+                throw new Error(`Unknown case type: ${ctx.caseType}`);
             }
+            ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         if (ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;

@@ -108,9 +108,6 @@ const setupConfig = {
         },
         firefox: {
             browsers: getBrowserConfig('firefox')
-        },
-        safari: {
-            browsers: getBrowserConfig('safari')
         }
     },
     name: 'Probate FrontEnd Cross-Browser Tests'

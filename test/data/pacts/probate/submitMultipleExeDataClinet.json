@@ -23,15 +23,15 @@
     },
     "payment": {
       "date": "2019-03-13T11:37:45.666+0000",
-      "total": 217.5,
-      "amount": 217.5,
+      "total": 380,
+      "amount": 380,
       "copies": {
         "uk": {
-          "cost": 1.5,
+          "cost": 16,
           "number": 3
         },
         "overseas": {
-          "cost": 1,
+          "cost": 16,
           "number": 2
         }
       },

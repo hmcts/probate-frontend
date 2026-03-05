@@ -55,9 +55,6 @@ redis:
   secret: REDIS_SECRET
 enableTracking: ENABLE_TRACKING
 webchat:
-  avayaUrl: WEBCHAT_AVAYA_URL
-  avayaClientUrl: WEBCHAT_AVAYA_CLIENT_URL
-  avayaService: WEBCHAT_AVAYA_SERVICE
   kerv:
     deploymentId:
       en: KERV_DEPLOYMENT_ID_EN
@@ -82,6 +79,8 @@ payment:
 
 appInsights:
   connectionString: APP-INSIGHTS-CONNECTION-STRING
+
+nonIdamPages: NON_IDAM_PAGES
 
 TestCitizenDomain: CITIZEN_EMAIL_DOMAIN
 TestE2EFrontendUrl: TEST_URL

@@ -64,7 +64,7 @@ describe('UIStepRunner', () => {
         const hasDataChangedStub = sinon.stub(DetectDataChange.prototype, 'hasDataChanged').returns(true);
         const expectedForm = {
             declarationCheckbox: 'false',
-            hasDataChanged: true
+            hasDataChanged: 'true'
         };
         const res = {
             redirect: (url) => url

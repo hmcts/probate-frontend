@@ -37,6 +37,7 @@ const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 const {sanitizeInput} = require('./app/utils/Sanitize');
 const {merge} = require('lodash');
+const normalizeNonIdamPages = require('app/utils/configNormalisers');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const app = express();
@@ -72,9 +73,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             maxSizeBytes: config.documentUpload.maxSizeBytes
         },
         webchat: {
-            avayaUrl: config.webchat.avayaUrl,
-            avayaClientUrl: config.webchat.avayaClientUrl,
-            avayaService: config.webchat.avayaService,
             kerv: {
                 deploymentId: {
                     en: config.webchat.kerv.deploymentId.en,
@@ -217,6 +215,11 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         maxAge: 31536000,
     }));
 
+    app.use((req, res, next) => {
+        res.header('X-Robots-Tag', 'noindex');
+        next();
+    });
+
     const caching = {cacheControl: true, setHeaders: (res) => res.setHeader('Cache-Control', 'max-age=604800')};
 
     // Middleware to serve static assets
@@ -228,7 +231,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use('/public/javascripts', express.static(`${__dirname}/app/assets/javascripts`, caching));
     app.use('/public/pdf', express.static(`${__dirname}/app/assets/pdf`));
     app.use('/assets', express.static(`${__dirname}/node_modules/govuk-frontend/dist/govuk/assets`, caching));
-    app.use('/assets/locale', express.static(`${__dirname}/app/assets/locales/avaya-webchat`, caching));
 
     // Elements refers to icon folder instead of images folder
     app.use(favicon(path.join(__dirname, 'node_modules', 'govuk-frontend', 'dist', 'govuk', 'assets', 'images', 'favicon.ico')));
@@ -341,7 +343,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.use(featureToggles);
 
     if (useIDAM === 'true') {
-        const idamPages = new RegExp(`/((?!${config.nonIdamPages.join('|')}).)*`);
+        const nonIdamPages = normalizeNonIdamPages(config.nonIdamPages);
+        const idamPages = new RegExp(`/((?!${nonIdamPages.join('|')}).)*`);
         app.use(idamPages, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {
@@ -370,18 +373,18 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     // Start the app
     let http;
-
-    if (['development', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment)) {
+    const isDevOrTest = ['development', 'test', 'testing', 'testing-unit', 'testing-component'].includes(config.nodeEnvironment);
+    if (isDevOrTest) {
         const sslDirectory = path.join(__dirname, 'app', 'resources', 'localhost-ssl');
         const sslOptions = {
             key: fs.readFileSync(path.join(sslDirectory, 'localhost.key')),
             cert: fs.readFileSync(path.join(sslDirectory, 'localhost.crt')),
-            secureProtocol: 'TLSv1_2_method'
+            // secureProtocol is optional in Node 22+ unless targeting specific old clients
         };
         const server = https.createServer(sslOptions, app);
 
-        http = server.listen(port, () => {
-            console.log(`Application started: https://localhost:${port}`);
+        http = server.listen(port, '0.0.0.0', () => {
+            console.log(`Server started: https://localhost:${port}`);
         });
     } else {
         http = app.listen(port, () => {

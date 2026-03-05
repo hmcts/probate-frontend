@@ -4,7 +4,14 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-adoption-place';
-
+const ADOPTION_PLACE_IN_EW_FIELDS = [
+    'childAdoptionInEnglandOrWales',
+    'grandchildAdoptionInEnglandOrWales',
+    'halfBloodSiblingAdoptionInEnglandOrWales',
+    'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
+    'wholeBloodSiblingAdoptionInEnglandOrWales',
+    'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
+];
 class CoApplicantAdoptionPlace extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -57,16 +64,8 @@ class CoApplicantAdoptionPlace extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        const adoptedPlaceFields = [
-            'childAdoptionInEnglandOrWales',
-            'grandchildAdoptionInEnglandOrWales',
-            'halfBloodSiblingAdoptionInEnglandOrWales',
-            'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-            'wholeBloodSiblingAdoptionInEnglandOrWales',
-            'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
-        ];
-        const hasAdoptedIn = adoptedPlaceFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionYes');
-        return [hasAdoptedIn, 'inProgress'];
+        const isAnyAdoptionPlaceInEW = ADOPTION_PLACE_IN_EW_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        return [isAnyAdoptionPlaceInEW, 'inProgress'];
     }
 
     nextStepUrl(req, ctx) {
@@ -75,16 +74,8 @@ class CoApplicantAdoptionPlace extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const adoptedPlaceFields = [
-            'childAdoptionInEnglandOrWales',
-            'grandchildAdoptionInEnglandOrWales',
-            'halfBloodSiblingAdoptionInEnglandOrWales',
-            'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-            'wholeBloodSiblingAdoptionInEnglandOrWales',
-            'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
-        ];
         const relationship = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
-        const hasAdoptionPlace = ctx.adoptionPlace === 'optionYes' || adoptedPlaceFields.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        const hasAdoptionPlace = ctx.adoptionPlace === 'optionYes' || ADOPTION_PLACE_IN_EW_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
         ctx.childOrSiblingOrNieceOrNephewAdoptedInEnglandOrWales = relationship !== 'optionGrandchild' && hasAdoptionPlace;
         ctx.grandChildAdoptedInEnglandOrWales = relationship === 'optionGrandchild' && hasAdoptionPlace;
         return {

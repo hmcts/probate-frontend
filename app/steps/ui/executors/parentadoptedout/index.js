@@ -32,10 +32,8 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.grandchildParentAdoptedOut === 'optionNo') {
-            return [true, 'inProgress'];
-        }
-        return [false, 'inProgress'];
+        const isGrandchildParentAdoptedOut = ctx.list[ctx.index]?.grandchildParentAdoptedOut === 'optionNo';
+        return [isGrandchildParentAdoptedOut, 'inProgress'];
     }
 
     nextStepUrl(req, ctx) {

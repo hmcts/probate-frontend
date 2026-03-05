@@ -4,6 +4,11 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
+const PARENT_DIE_BEFORE_FIELDS = [
+    'childDieBeforeDeceased',
+    'halfBloodSiblingDiedBeforeDeceased',
+    'wholeBloodSiblingDiedBeforeDeceased'
+];
 class ParentDieBefore extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -38,13 +43,8 @@ class ParentDieBefore extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        const parentDieBeforeFields = [
-            'childDieBeforeDeceased',
-            'halfBloodSiblingDiedBeforeDeceased',
-            'wholeBloodSiblingDiedBeforeDeceased'
-        ];
-        const parentDieBefore = parentDieBeforeFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionYes');
-        return [parentDieBefore, 'inProgress'];
+        const isAnyParentDieBefore = PARENT_DIE_BEFORE_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        return [isAnyParentDieBefore, 'inProgress'];
     }
 
     nextStepUrl(req, ctx) {
@@ -52,13 +52,8 @@ class ParentDieBefore extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const parentDieBeforeFields = [
-            'childDieBeforeDeceased',
-            'halfBloodSiblingDiedBeforeDeceased',
-            'wholeBloodSiblingDiedBeforeDeceased'
-        ];
         ctx.parentDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased === 'optionYes' ||
-            parentDieBeforeFields.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+            PARENT_DIE_BEFORE_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
         return {
             options: [
                 {key: 'parentDieBeforeDeceased', value: true, choice: 'parentDieBefore'},

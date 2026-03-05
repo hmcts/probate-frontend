@@ -4,7 +4,14 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-adopted-out';
-
+const ADOPTED_OUT_FIELDS = [
+    'childAdoptedOut',
+    'grandchildAdoptedOut',
+    'halfBloodSiblingAdoptedOut',
+    'halfBloodNieceOrNephewAdoptedOut',
+    'wholeBloodSiblingAdoptedOut',
+    'wholeBloodNieceOrNephewAdoptedOut'
+];
 class CoApplicantAdoptedOut extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -56,16 +63,8 @@ class CoApplicantAdoptedOut extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        const adoptedOutFields = [
-            'childAdoptedOut',
-            'grandchildAdoptedOut',
-            'halfBloodSiblingAdoptedOut',
-            'halfBloodNieceOrNephewAdoptedOut',
-            'wholeBloodSiblingAdoptedOut',
-            'wholeBloodNieceOrNephewAdoptedOut'
-        ];
-        const hasAdoptedOut = adoptedOutFields.some(field => ctx.list[ctx.index]?.[field]=== 'optionNo');
-        return [hasAdoptedOut, 'inProgress'];
+        const isAnyAdoptedOutAnswerNo = ADOPTED_OUT_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionNo');
+        return [isAnyAdoptedOutAnswerNo, 'inProgress'];
     }
 
     generateFields(language, ctx, errors) {
@@ -81,16 +80,8 @@ class CoApplicantAdoptedOut extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const adoptedOutFields = [
-            'childAdoptedOut',
-            'grandchildAdoptedOut',
-            'halfBloodSiblingAdoptedOut',
-            'halfBloodNieceOrNephewAdoptedOut',
-            'wholeBloodSiblingAdoptedOut',
-            'wholeBloodNieceOrNephewAdoptedOut'
-        ];
         const relationship = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
-        const hasAdoptedOut = ctx.adoptedOut === 'optionNo' || adoptedOutFields.some(field => ctx.list[ctx.index]?.[field] === 'optionNo');
+        const hasAdoptedOut = ctx.adoptedOut === 'optionNo' || ADOPTED_OUT_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionNo');
         ctx.childOrSiblingOrNieceOrNephewNotAdoptedOut = relationship !== 'optionGrandchild' && hasAdoptedOut;
         ctx.grandChildNotAdoptedOut = relationship === 'optionGrandchild' && hasAdoptedOut;
         return {

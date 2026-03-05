@@ -27,10 +27,8 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes') {
-            return [true, 'inProgress'];
-        }
-        return [false, 'inProgress'];
+        const isGrandchildParentAdoptionInEnglandOrWales = ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes';
+        return [isGrandchildParentAdoptionInEnglandOrWales, 'inProgress'];
     }
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {

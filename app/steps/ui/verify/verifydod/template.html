@@ -25,7 +25,7 @@
         {% set errorMessages = [] %}
         {% for field in errorFields %}
             {% if fields[field].errorMessage %}
-                {% set errorMessages = errorMessages.concat([fields[field].errorMessage | replace("{applicantName}", fields.applicantName.value) | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
+                {% set errorMessages = errorMessages.concat([fields[field].errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe]) %}
             {% endif %}
         {% endfor %}
         {% set inlineErrors = {

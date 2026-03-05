@@ -63,7 +63,7 @@ class VerifyDod extends DateStep {
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.applicantName && errors) {
-            errors[0].msg = errors[0].msg.replace('{applicantName}', fields.applicantName.value);
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
         }
         return fields;
     }

@@ -25,17 +25,14 @@ class TaskList extends Step {
     }
 
     paymentPreviousTaskStatus(session, ctx) {
+        if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
+            return 'locked';
+        }
         if (ctx.caseType === caseTypes.GOP) {
-            if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
-                return 'locked';
-            }
-
             return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
         }
-
         return this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask]);
     }
-
     getContextData(req, res) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;

@@ -77,7 +77,7 @@
   "declarationPdf": "Legal declaration (30kb PDF)",
   "codicil": "codicil",
   "codicils": "codicils",
-  "intestacyLegalStatementDeceased": "That {deceasedName}, of {deceasedAddress}, was born on {deceasedDob} and died on {deceasedDod} intestate.",
+  "intestacyLegalStatementDeceased": "That {deceasedName} of {deceasedAddress}, was born on {deceasedDob} and died on {deceasedDod} intestate.",
   "intestacyDeceasedMaritalStatus": "They were {deceasedMaritalStatus} and domiciled in England and Wales.",
   "intestacyDeceasedChildren": "No children under 18 are entitled to the estate.",
   "intestacyDeceasedEstateOutside": "The deceased had assets overseas amounting to a net value of &pound;{ihtNetValueAssetsOutside}.",
@@ -102,7 +102,7 @@
   "warning": "Warning",
   "saveThisPage": "Save this page",
   "peopleApplyingHeader": "People applying for probate",
-  "intestacyPersonApplying": "I, {applicantName} the {relationshipToDeceased} of {deceasedName}, am applying for probate.",
+  "intestacyPersonApplying": "I, {applicantName}, the {relationshipToDeceased} of {deceasedName}, am applying for probate.",
   "intestacyPeopleApplying": "{applicantName}, the {relationshipToDeceased} of {deceasedName}, is applying for probate.",
   "intestacyFurtherPeopleApplying": "{applicantName}, the {relationshipToDeceased} of {deceasedName}, is also applying for probate.",
   "errors": {

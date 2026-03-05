@@ -173,6 +173,10 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnySurvivingHalfNiecesAndHalfNephews.theDeceased);
             ctx.allHalfNiecesAndHalfNephewsOver18 = content.AllHalfNiecesAndHalfNephewsOver18.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AllHalfNiecesAndHalfNephewsOver18.theDeceased);
+            ctx.grandchildParentHasOtherChildren = content.GrandchildParentHasOtherChildren.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.GrandchildParentHasOtherChildren.theDeceased);
+            ctx.grandchildParentHasAllChildrenOver18 = content.GrandchildParentHasAllChildrenOver18.question
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.GrandchildParentHasAllChildrenOver18.theDeceased);
             ctx.executorSummary = [];
             if (executors && Array.isArray(executors.list)) {
                 executors.list.forEach((exec) => {

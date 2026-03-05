@@ -16,7 +16,7 @@
   "otherPeopleApplyingHeading": "Pobl eraill sy’n gwneud cais am brofiant",
   "applicantRelationshipToDeceased": "Eich perthynas a'r ymadawedig",
   "executorApplyingForProbate": "{executorOrderNumber} ysgutor sy&rsquo;n gwneud cais am brofiant",
-  "intestacyExecutorApplyingForProbate": "{executorOrderNumber} yr unigolyn sy'n gwneud cais",
+  "intestacyExecutorApplyingForProbate": "{executorOrderNumber} berson sy’n gwneud cais",
   "executorsNotApplyingForProbate": "Ysgutorion sydd ddim yn gwneud cais am brofiant",
   "executorsWithOtherNames": "Pa ysgutorion sydd ag enwau gwahanol?",
   "nameOnWill": "Enw ar yr ewyllys",

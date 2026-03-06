@@ -25,6 +25,8 @@ services:
 redis:
   enabled: 'true'
   password: ''
+configFeatureToggles:
+  webchatEnabled: false
 
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
@@ -69,9 +71,6 @@ govPayTestCardDetails:
   addressPostcode: 'SW1A1AA'
 
 environment: local
-
-configFeatureToggles:
-  webchatEnabled: true
 
 webchat:
   kerv:

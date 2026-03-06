@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -118,16 +119,20 @@ describe('Summary', () => {
                 codicilPresent: false,
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedHadLateSpouseOrCivilPartnerQuestion: 'Did Dee Ceased have a husband, wife or civil partner who died before them?',
+                deceasedDobQuestion: 'What was Dee Ceased’s date of birth?',
+                deceasedDodQuestion: 'What was the date that Dee Ceased died?',
                 deceasedAddressQuestion: 'What was Dee Ceased\'s permanent address at the time of their death?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or form a civil partnership after the will was signed?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
+                relationshipToDeceasedQuestion: 'What is your relationship to Dee Ceased?',
                 ihtTotalNetValue: 300000,
                 ihtUnusedAllowanceClaimedQuestion: 'Are you claiming the unused Inheritance Tax allowance of Dee Ceased’s husband, wife or civil partner?',
                 exceptedEstateDodAfterThreshold: true,
                 readyToDeclare: false,
                 aliasNameOnWill: 'firstNameOnWill lastNameOnWill',
+                anyOtherParentAlive: 'Is Dee Ceased’s other parent alive?',
                 session: {
                     language: 'en',
                     form: {
@@ -170,15 +175,10 @@ describe('Summary', () => {
                         },
                         caseType: 'intestacy',
                         deceased: {
-                            'firstName': 'Dee',
-                            'lastName': 'Ceased',
-                            'dod-date': '2015-02-02',
-                            'dod-formattedDate': '2 February 2015'
+                            'firstName': 'Dee', 'lastName': 'Ceased', 'dod-date': '2015-02-02', 'dod-formattedDate': '2 February 2015'
                         },
                         iht: {
-                            netValue: 300000,
-                            netValueAssetsOutside: 250000,
-                            assetsOutside: 'optionYes'
+                            netValue: 300000, netValueAssetsOutside: 250000, assetsOutside: 'optionYes'
                         }
                     }
                 },
@@ -193,22 +193,43 @@ describe('Summary', () => {
                 deceasedAliasQuestion: 'Did Dee Ceased have assets in another name?',
                 deceasedAddressQuestion: 'What was Dee Ceased\'s permanent address at the time of their death?',
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
-                deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children over 18?',
+                deceasedAllChildrenOver18Question: 'Are all of Dee Ceased&rsquo;s children 18 or older?',
                 deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
-                deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
+                deceasedAnyPredeceasedChildrenQuestion: 'Did any of these children die before Dee Ceased?',
                 deceasedAnyOtherChildrenQuestion: 'Did Dee Ceased have any other children?',
-                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
+                deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
                 deceasedHadLateSpouseOrCivilPartnerQuestion: 'Did Dee Ceased have a husband, wife or civil partner who died before them?',
+                deceasedDivorceDate: 'Date of legal separation',
+                deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
+                deceasedDobQuestion: 'What was Dee Ceased’s date of birth?',
+                deceasedDodQuestion: 'What was the date that Dee Ceased died?',
                 deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
-                deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
+                deceasedSpouseNotApplyingReasonQuestion: 'Why is Dee Ceased&rsquo;s husband, wife or civil partner not applying?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
+                relationshipToDeceasedQuestion: 'What is your relationship to Dee Ceased?',
+                allHalfNiecesAndHalfNephewsOver18: 'Are all of these children 18 or older?',
+                allHalfSiblingsOver18: 'Are all of Dee Ceased&rsquo;s surviving half-siblings 18 or older?',
+                allWholeNiecesAndWholeNephewsOver18: 'Are all of these children 18 or older?',
+                allWholeSiblingsOver18: 'Are all of Dee Ceased&rsquo;s surviving siblings 18 or older?',
+                anyOtherHalfSiblings: 'Did Dee Ceased have any other siblings who have one parent in common (half-siblings)?',
+                anyOtherWholeSiblings: 'Did Dee Ceased have any other siblings who have the same parents?',
+                anyPredeceasedHalfSiblings: 'Did any of these half-siblings die before Dee Ceased?',
+                anyPredeceasedWholeSiblings: 'Did any of these siblings die before Dee Ceased?',
+                anySurvivingHalfNiecesAndHalfNephews: 'Did any of these half-siblings have surviving children when Dee Ceased died?',
+                anySurvivingWholeNiecesAndWholeNephews: 'Did any of these siblings have surviving children when Dee Ceased died?',
+                sameParents: 'Do you have the same parents as Dee Ceased?',
                 ihtThreshold: 250000,
                 ihtTotalNetValue: 550000,
                 ihtTotalNetValueGreaterThanIhtThreshold: true,
                 ihtUnusedAllowanceClaimedQuestion: 'Are you claiming the unused Inheritance Tax allowance of Dee Ceased’s husband, wife or civil partner?',
                 caseType: 'intestacy',
                 readyToDeclare: false,
+                otherExecutorRelationshipToDeceased: 'What is the other applicant&rsquo;s relationship to Dee Ceased?',
                 exceptedEstateDodAfterThreshold: false,
+                executorSummary: [],
+                anyOtherParentAlive: 'Is Dee Ceased’s other parent alive?',
+                grandchildParentHasAllChildrenOver18: 'Are all of these children 18 or older?',
+                grandchildParentHasOtherChildren: 'Did your parent (Dee Ceased’s child) have any other children?',
                 session: {
                     language: 'en',
                     form: {
@@ -218,15 +239,10 @@ describe('Summary', () => {
                         },
                         caseType: 'intestacy',
                         deceased: {
-                            'dod-date': '2015-02-02',
-                            'dod-formattedDate': '2 February 2015',
-                            'firstName': 'Dee',
-                            'lastName': 'Ceased'
+                            'dod-date': '2015-02-02', 'dod-formattedDate': '2 February 2015', 'firstName': 'Dee', 'lastName': 'Ceased'
                         },
                         iht: {
-                            assetsOutside: 'optionYes',
-                            netValue: 300000,
-                            netValueAssetsOutside: 250000
+                            assetsOutside: 'optionYes', netValue: 300000, netValueAssetsOutside: 250000
                         },
                         summary: {
                             readyToDeclare: false

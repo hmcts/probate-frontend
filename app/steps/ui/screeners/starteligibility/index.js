@@ -8,6 +8,11 @@ class StartEligibility extends Step {
         return '/start-eligibility';
     }
 
+    // eslint-disable-next-line no-unused-vars
+    getUrlWithContext(ctx, unused) {
+        return this.constructor.getUrl();
+    }
+
     shouldHaveBackLink() {
         return false;
     }

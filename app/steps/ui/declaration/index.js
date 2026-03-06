@@ -198,7 +198,9 @@ class Declaration extends ValidationStep {
             templateData = probateDeclarationFactory.build(ctx, content, formDataForTemplate, multipleApplicantSuffix, executorsApplying, executorsApplyingText, executorsNotApplyingText);
         }
 
-        merge(ctx, sanitizeInput(templateData));
+        const sanitizedTemplateData = sanitizeInput(templateData);
+        ctx.legalStatement = sanitizedTemplateData.legalStatement;
+        ctx.declaration = sanitizedTemplateData.declaration;
         ctx.softStop = this.anySoftStops(formdata, ctx);
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;

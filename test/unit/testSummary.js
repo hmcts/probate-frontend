@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -227,6 +228,8 @@ describe('Summary', () => {
                 exceptedEstateDodAfterThreshold: false,
                 executorSummary: [],
                 anyOtherParentAlive: 'Is Dee Ceased’s other parent alive?',
+                grandchildParentHasAllChildrenOver18: 'Are all of these children 18 or older?',
+                grandchildParentHasOtherChildren: 'Did your parent (Dee Ceased’s child) have any other children?',
                 session: {
                     language: 'en',
                     form: {

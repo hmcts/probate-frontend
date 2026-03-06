@@ -405,7 +405,12 @@ assetsValueThreshold: [
   },
   {
     minDate: '2020-02-06',
+    maxDate: '2023-07-25',
     value: 270000
+  },
+  {
+    minDate: '2023-07-26',
+    value: 322000
   }
 ]
 exceptedEstateDateOfDeath: '2022-01-01'

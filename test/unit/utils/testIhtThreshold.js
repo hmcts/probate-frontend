@@ -33,9 +33,27 @@ describe('IhtThreshold.js', () => {
             done();
         });
 
-        it('should return the correct IHT threshold for dates after 6 Feb 2020', (done) => {
-            const date = '2025-08-04';
+        it('should return the correct IHT threshold for dates after 6 Feb 2020 and before 25 July 2023', (done) => {
+            const date = '2023-02-04';
             expect(IhtThreshold.getIhtThreshold(date)).to.equal(270000);
+            done();
+        });
+
+        it('should return the correct IHT threshold for date on 25 July 2023', (done) => {
+            const date = '2023-07-25';
+            expect(IhtThreshold.getIhtThreshold(date)).to.equal(270000);
+            done();
+        });
+
+        it('should return the correct IHT threshold for dates on 26 July 2023', (done) => {
+            const date = '2023-07-26';
+            expect(IhtThreshold.getIhtThreshold(date)).to.equal(322000);
+            done();
+        });
+
+        it('should return the correct IHT threshold for dates after 26 July 2023', (done) => {
+            const date = '2025-07-27';
+            expect(IhtThreshold.getIhtThreshold(date)).to.equal(322000);
             done();
         });
     });

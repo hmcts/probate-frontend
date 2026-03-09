@@ -160,6 +160,7 @@ class Declaration extends ValidationStep {
         let templateData;
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
+        console.log(ctx);
         const formdata = req.session.form;
         ctx.bilingual = (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes').toString();
         ctx.language = req.session.language;
@@ -256,7 +257,6 @@ class Declaration extends ValidationStep {
         const multipleApplicantSuffix = this.multipleApplicantSuffix(hasMultipleApplicants);
         const numberOfExecutorsApplying = executorsApplying.length;
         const primaryApplicantRelationshipToDeceased = formdata.applicant.relationshipToDeceased;
-        const relationshipToDeceased = formdata.relationshipToDeceased;
         if (hasMultipleApplicants) {
             return executorsApplying.map((executor, index) => {
                 return this.intestacyExecutorsApplyingText(
@@ -271,7 +271,7 @@ class Declaration extends ValidationStep {
                         numberOfExecutorsApplying,
                         index,
                         primaryApplicantRelationshipToDeceased,
-                        relationshipToDeceased
+                        coApplicantRelationshipToDeceased: executor.coApplicantRelationshipToDeceased || formdata.applicant.relationshipToDeceased
                     });
             });
         } else if (mainApplicantName && !hasMultipleApplicants) {
@@ -344,7 +344,7 @@ class Declaration extends ValidationStep {
             return {
                 name: props.content.intestacyFurtherPeopleApplying
                     .replace('{applicantName}', props.executor.fullName)
-                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.relationshipToDeceased, props.language))
+                    .replace('{relationshipToDeceased}', RelationshipToTheDeceasedEnum.mapOptionToValue(props.coApplicantRelationshipToDeceased, props.language))
                     .replace('{deceasedName}', props.deceasedName),
                 sign: ''
             };

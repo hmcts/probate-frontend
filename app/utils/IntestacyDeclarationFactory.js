@@ -20,8 +20,7 @@ class IntestacyDeclarationFactory {
         - Suffixes can be concatenated, see the ProbateDeclarationFactory for examples of this.
         */
         legalStatement.en = {
-            intro: content.en[`intro${multipleApplicantSuffix}`]
-                .replace('{applicantName}', formdata.applicantName),
+            intro: content.en.intro,
             applicant: content.en[`legalStatementApplicant${multipleApplicantSuffix}`]
                 .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress))
                 .replace('{applicantName}', formdata.applicantName)
@@ -67,8 +66,7 @@ class IntestacyDeclarationFactory {
         };
 
         legalStatement.cy = {
-            intro: content.cy[`intro${multipleApplicantSuffix}`]
-                .replace('{applicantName}', formdata.applicantName),
+            intro: content.cy.intro,
             applicant: content.cy[`legalStatementApplicant${multipleApplicantSuffix}`]
                 .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.cy, formdata.applicantAddress))
                 .replace('{applicantName}', formdata.applicantName)

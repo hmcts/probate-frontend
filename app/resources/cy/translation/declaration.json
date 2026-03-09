@@ -1,7 +1,6 @@
 {
   "title": "Gwiriwch y datganiad cyfreithiol a gwnewch eich datganiad",
   "intro": "Mae&rsquo;r datganiad hwn wedi&rsquo;i seilio ar yr wybodaeth rydych wedi&rsquo;i rhoi yn eich cais. Bydd yn cael ei storio fel cofnod cyhoeddus.",
-  "intro-multipleApplicants": "Mae&rsquo;r datganiad hwn wedi&rsquo;i seilio ar yr wybodaeth y mae {applicantName} wedi&rsquo;i rhoi yn eu cais. Bydd yn cael ei storio fel cofnod cyhoeddus.",
   "highCourtHeader": "Yn yr Uchel Lys Barn",
   "familyDivisionHeader": "Yr Adran Deulu",
   "probateHeader": "(Profiant)",

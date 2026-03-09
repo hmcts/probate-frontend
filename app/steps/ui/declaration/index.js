@@ -160,7 +160,6 @@ class Declaration extends ValidationStep {
         let templateData;
         let ctx = super.getContextData(req);
         ctx = this.pruneFormData(req.body, ctx);
-        console.log(ctx);
         const formdata = req.session.form;
         ctx.bilingual = (get(formdata, 'language.bilingual', 'optionNo') === 'optionYes').toString();
         ctx.language = req.session.language;

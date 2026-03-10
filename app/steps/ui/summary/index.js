@@ -10,7 +10,7 @@ const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
-const IhtThreshold = require('app/utils/IhtThreshold');
+const IhtThreshold = require('app/utils/AssetsThreshold');
 const featureToggle = require('app/utils/FeatureToggle');
 const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
@@ -119,7 +119,7 @@ class Summary extends Step {
             ctx.aliasNameOnWill = FormatName.formatAliasNameOnWIll(formdata.deceased);
             ctx.codicilPresent = hasCodicils;
         } else {
-            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+            ctx.ihtThreshold = IhtThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question

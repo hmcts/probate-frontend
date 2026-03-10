@@ -2,14 +2,14 @@
 
 const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const IhtThreshold = require('app/utils/AssetsThreshold');
 
 class IntestacyDeclarationFactory {
 
     static build(ctx, content, formdata) {
         const legalStatement = {};
         const declaration = {};
-        const ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        const ihtThreshold = IhtThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
 
         legalStatement.en = {
             intro: content.en.intro,

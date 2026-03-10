@@ -5,7 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const IhtThreshold = require('app/utils/AssetsThreshold');
 
 class IhtPaper extends ValidationStep {
 
@@ -16,7 +16,7 @@ class IhtPaper extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        ctx.ihtThreshold = IhtThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
         return ctx;
     }
 

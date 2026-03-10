@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const IhtThreshold = require('app/utils/AssetsThreshold');
 
 class RelationshipToDeceased extends ValidationStep {
 
@@ -13,7 +13,7 @@ class RelationshipToDeceased extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        ctx.ihtThreshold = IhtThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
         ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
         ctx.assetsValue = get(formdata, 'iht.netValue', 0) + get(formdata, 'iht.netValueAssetsOutside', 0);
         return ctx;

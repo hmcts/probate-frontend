@@ -136,6 +136,20 @@ describe('CoApplicantAdoptedIn', () => {
     });
 
     describe('handlePost', () => {
+        const req = {
+            session: {
+                journey: journey
+            },
+            form: {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1'},
+                        {fullName: 'Main Applicant2'},
+                        {fullName: 'Main Applicant3'}
+                    ]
+                },
+            }
+        };
         it('should childAdoptedIn = optionYes if coApplicantRelationshipToDeceased is Child', () => {
             const ctx = {
                 index: '1',
@@ -147,7 +161,7 @@ describe('CoApplicantAdoptedIn', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            CoApplicantAdoptedIn.handlePost(ctx, errors, req.form);
             expect(ctx.list[1]).to.deep.equal({'childAdoptedIn': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionChild'});
         });
@@ -162,7 +176,7 @@ describe('CoApplicantAdoptedIn', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            CoApplicantAdoptedIn.handlePost(ctx, errors, req.form);
             expect(ctx.list[2]).to.deep.equal({'grandchildAdoptedIn': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionGrandchild'});
         });
@@ -177,7 +191,7 @@ describe('CoApplicantAdoptedIn', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            CoApplicantAdoptedIn.handlePost(ctx, errors, req.form);
             expect(ctx.list[1]).to.deep.equal({'wholeBloodSiblingAdoptedIn': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionWholeBloodSibling'});
         });
@@ -192,7 +206,7 @@ describe('CoApplicantAdoptedIn', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptedIn.handlePost(ctx, errors);
+            CoApplicantAdoptedIn.handlePost(ctx, errors, req.form);
             expect(ctx.list[2]).to.deep.equal({'wholeBloodNieceOrNephewAdoptedIn': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'});
         });

@@ -100,7 +100,10 @@ class CoApplicantAdoptedIn extends ValidationStep {
         return fields;
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata) {
+        if (formdata.executors && formdata.executors.list && ctx.adoptedIn !== formdata.executors.list[ctx.index]?.adoptedIn) {
+            this.clearAdoptionRelatedFields(ctx, formdata);
+        }
         const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
         // eslint-disable-next-line default-case
         switch (rel) {
@@ -124,6 +127,38 @@ class CoApplicantAdoptedIn extends ValidationStep {
             break;
         }
         return [ctx, errors];
+    }
+
+    clearAdoptionRelatedFields(ctx, formdata) {
+        const rel = formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased;
+        switch (rel) {
+        case 'optionChild':
+            delete ctx.list[ctx.index].childAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].childAdoptedOut;
+            break;
+        case 'optionGrandchild':
+            delete ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].grandchildAdoptedOut;
+            break;
+        case 'optionHalfBloodSibling':
+            delete ctx.list[ctx.index].halfBloodSiblingAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
+            break;
+        case 'optionHalfBloodNieceOrNephew':
+            delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
+            break;
+        case 'optionWholeBloodSibling':
+            delete ctx.list[ctx.index].wholeBloodSiblingAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].wholeBloodSiblingAdoptedOut;
+            break;
+        case 'optionWholeBloodNieceOrNephew':
+            delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;
+            break;
+        default:
+            break;
+        }
     }
 }
 

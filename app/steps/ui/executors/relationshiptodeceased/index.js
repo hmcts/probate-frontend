@@ -88,7 +88,10 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata) {
+        if (formdata.executors && formdata.executors.list && ctx.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
+            this.clearRelationshipFields(ctx, formdata);
+        }
         if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' ||
             ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
             ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
@@ -108,13 +111,55 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     action(ctx, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.list[ctx.index]?.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
-            delete formdata.executors.list[ctx.index].childDieBeforeDeceased;
-            delete formdata.executors.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
-            delete formdata.executors.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;
-        }
         super.action(ctx, formdata);
         return [ctx, formdata];
+    }
+    clearRelationshipFields(ctx, formdata) {
+        const rel = formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased;
+        switch (rel) {
+        case 'optionChild':
+            delete ctx.list[ctx.index].childAdoptedIn;
+            delete ctx.list[ctx.index].childAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].childAdoptedOut;
+            break;
+        case 'optionGrandchild':
+            delete ctx.list[ctx.index].childDieBeforeDeceased;
+            delete ctx.list[ctx.index].grandchildAdoptedIn;
+            delete ctx.list[ctx.index].grandchildAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].grandchildAdoptedOut;
+            delete ctx.list[ctx.index].grandchildParentAdoptedIn;
+            delete ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].grandchildParentAdoptedOut;
+            break;
+        case 'optionWholeBloodSibling':
+            delete ctx.list[ctx.index].wholeBloodSiblingAdoptedIn;
+            delete ctx.list[ctx.index].wholeBloodSiblingAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].wholeBloodSiblingAdoptedOut;
+            break;
+        case 'optionHalfBloodSibling':
+            delete ctx.list[ctx.index].halfBloodSiblingAdoptedIn;
+            delete ctx.list[ctx.index].halfBloodSiblingAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
+            break;
+        case 'optionHalfBloodNieceOrNephew':
+            delete ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
+            delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
+            delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
+            break;
+        case 'optionWholeBloodNieceOrNephew':
+            delete ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;
+            delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn;
+            delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;
+            break;
+        default:
+            break;
+        }
+        delete ctx.list[ctx.index]?.fullName;
+        delete ctx.list[ctx.index]?.email;
+        delete ctx.list[ctx.index]?.postcode;
+        delete ctx.list[ctx.index]?.address;
     }
 }
 

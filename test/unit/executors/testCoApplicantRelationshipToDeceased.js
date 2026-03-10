@@ -134,6 +134,20 @@ describe('Co-applicant-relationship', () => {
     describe('handlePost()', () => {
         let ctx;
         let errors;
+        const req = {
+            session: {
+                journey: journey
+            },
+            form: {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1'},
+                        {fullName: 'CoApplicant 1'},
+                        {fullName: 'CoApplicant 2'}
+                    ]
+                },
+            }
+        };
 
         it('should update coApplicantRelationshipToDeceased and set isApplying to true for optionChild', (done) => {
             ctx = {
@@ -146,10 +160,10 @@ describe('Co-applicant-relationship', () => {
                 coApplicantRelationshipToDeceased: 'optionChild'
             };
             errors = [];
-            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
+            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
             expect(ctx).to.deep.equal({
                 list: [{fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionChild', isApplying: true},
+                    {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
                 coApplicantRelationshipToDeceased: 'optionChild'
@@ -167,9 +181,9 @@ describe('Co-applicant-relationship', () => {
                 coApplicantRelationshipToDeceased: 'optionGrandchild'
             };
             errors = [];
-            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
+            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
             expect(ctx).to.deep.equal({
-                list: [{fullName: 'Applicant'}, {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true},
+                list: [{fullName: 'Applicant'}, {coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
                 coApplicantRelationshipToDeceased: 'optionGrandchild'
@@ -183,13 +197,43 @@ describe('Co-applicant-relationship', () => {
                 coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
             };
             errors = [];
-            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors);
+            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
             expect(ctx).to.deep.equal({
                 list: [{fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', isApplying: true},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
                 coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+            });
+            done();
+        });
+        it('should update coApplicantRelationshipToDeceased from CYA and set isApplying to true for optionChild', (done) => {
+            req.form = {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1'},
+                        {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionGrandchild'},
+                        {fullName: 'CoApplicant 2'}
+                    ]
+                },
+            };
+            ctx = {
+                list: [
+                    {fullName: 'Applicant'},
+                    {fullName: 'CoApplicant 1'},
+                    {fullName: 'CoApplicant 2'}
+                ],
+                index: 1,
+                coApplicantRelationshipToDeceased: 'optionChild'
+            };
+            errors = [];
+            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
+            expect(ctx).to.deep.equal({
+                list: [{fullName: 'Applicant'},
+                    {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true},
+                    {fullName: 'CoApplicant 2'}],
+                index: 1,
+                coApplicantRelationshipToDeceased: 'optionChild'
             });
             done();
         });

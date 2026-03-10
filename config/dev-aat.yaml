@@ -15,7 +15,7 @@ services:
     probate_redirect_base_url: http://localhost:3001
     caching: true
   orchestrator:
-    url: http://probate-orchestrator-service-aat.service.core-compute-aat.internal
+    url: http://localhost:8888
   validation:
     url: http://probate-business-service-aat.service.core-compute-aat.internal/validate
   payment:
@@ -25,8 +25,6 @@ services:
 redis:
   enabled: 'true'
   password: ''
-configFeatureToggles:
-  webchatEnabled: false
 
 TestCitizenDomain: '/@probateTest.com'
 TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png'
@@ -71,6 +69,9 @@ govPayTestCardDetails:
   addressPostcode: 'SW1A1AA'
 
 environment: local
+
+configFeatureToggles:
+  webchatEnabled: true
 
 webchat:
   kerv:

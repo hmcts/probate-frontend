@@ -70,14 +70,14 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionWholeBloodSibling':
                     return 'whole blood sibling';
                 case 'optionHalfBloodSibling':
-                    return 'half blood sibling';
+                    return 'hanner brawd/chwaer';
                 case 'optionAdoptedChild':
                     return 'plentyn mabwysiedig';
                 case 'optionParent':
                     return 'rhiant';
                 case 'optionWholeBloodNieceOrNephew':
                     return 'niece or nephew';
-                case 'nith neu nai':
+                case 'optionHalfBloodNieceOrNephew':
                     return 'hanner nith neu hanner nai';
                 default:
                     throw new Error(`Enumerator RelationshipToDeceasedEnum Welsh value: ${optionValue} not found`);

@@ -50,8 +50,10 @@ class RelationshipToTheDeceasedEnum {
                     return 'adopted child';
                 case 'optionParent':
                     return 'parent';
-                case 'optionNieceOrNephew':
+                case 'optionWholeBloodNieceOrNephew':
                     return 'niece or nephew';
+                case 'optionHalfBloodNieceOrNephew':
+                    return 'half-niece or half-nephew';
                 default:
                     throw new Error(`Enumerator RelationshipToDeceasedEnum English value: ${optionValue} not found`);
                 }
@@ -73,8 +75,10 @@ class RelationshipToTheDeceasedEnum {
                     return 'plentyn mabwysiedig';
                 case 'optionParent':
                     return 'rhiant';
-                case 'optionNieceOrNephew':
-                    return 'nith neu nai';
+                case 'optionWholeBloodNieceOrNephew':
+                    return 'niece or nephew';
+                case 'nith neu nai':
+                    return 'hanner nith neu hanner nai';
                 default:
                     throw new Error(`Enumerator RelationshipToDeceasedEnum Welsh value: ${optionValue} not found`);
                 }

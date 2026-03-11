@@ -109,6 +109,11 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
+        if (formdata.executors && formdata.executors.list && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.grandchildParentAdoptedIn) {
+            delete ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].grandchildParentAdoptedOut;
+            ctx.hasCoApplicant = 'optionYes';
+        }
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         const adoptedIn = relationship === 'optionGrandchild'
             ? 'grandchildParentAdoptedIn'

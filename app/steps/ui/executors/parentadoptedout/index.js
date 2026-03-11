@@ -102,6 +102,9 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         return 'required';
     }
     handlePost(ctx, errors, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const checkAllExecutorsHaveValidDetails = executorsWrapper.checkAllExecutorsHaveValidDetails();
+        formdata.executors.list[ctx.index].grandchildParentAdoptedOut = ctx.applicantParentAdoptedOut;
         const adoptedOutField = this.parentAdoptedOutField(ctx);
         if (adoptedOutField) {
             ctx.list[ctx.index][adoptedOutField] = ctx.applicantParentAdoptedOut;
@@ -111,6 +114,8 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         }
         if (ctx.applicantParentAdoptedOut === 'optionYes') {
             ctx.hasCoApplicant = 'optionYes';
+        } else if (ctx.applicantParentAdoptedOut === 'optionNo' && checkAllExecutorsHaveValidDetails) {
+            ctx.hasCoApplicant = 'optionNo';
         }
         return [ctx, errors];
     }

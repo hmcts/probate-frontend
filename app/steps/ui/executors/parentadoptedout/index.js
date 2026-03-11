@@ -109,8 +109,12 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
                 formdata.executors.list[ctx.index][adoptedOutField] = ctx.applicantParentAdoptedOut;
             }
         }
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const checkAllExecutorsHaveValidDetails = executorsWrapper.checkAllExecutorsHaveValidDetails();
         if (ctx.applicantParentAdoptedOut === 'optionYes') {
             ctx.hasCoApplicant = 'optionYes';
+        } else if (ctx.applicantParentAdoptedOut === 'optionNo' && checkAllExecutorsHaveValidDetails) {
+            ctx.hasCoApplicant = 'optionNo';
         }
         return [ctx, errors];
     }

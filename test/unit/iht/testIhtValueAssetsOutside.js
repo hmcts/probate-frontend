@@ -31,7 +31,7 @@ describe('ValueAssetsOutside', () => {
             };
 
             ctx = ValueAssetsOutside.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(250000);
+            expect(ctx.assetsThreshold).to.equal(250000);
             done();
         });
     });
@@ -103,7 +103,7 @@ describe('ValueAssetsOutside', () => {
     describe('action()', () => {
         it('test it cleans up formdata if netValue + netValueAssetsOutside is less than or equal to the IHT threshold', () => {
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 netValue: 150000,
                 netValueAssetsOutside: 80000
             };

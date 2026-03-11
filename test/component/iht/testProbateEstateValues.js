@@ -230,8 +230,8 @@ describe('Tests for Probate Estate Values ', () => {
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(250000);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(false);
+            expect(ctx.assetsThreshold).to.equal(250000);
+            expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(false);
             done();
         });
         it('should return false with the IHT threshold for died after 2020', (done) => {
@@ -251,8 +251,8 @@ describe('Tests for Probate Estate Values ', () => {
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(270000);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            expect(ctx.assetsThreshold).to.equal(270000);
+            expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(true);
             done();
         });
         it('should return true for DOD after 2022', (done) => {
@@ -272,7 +272,7 @@ describe('Tests for Probate Estate Values ', () => {
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(true);
             done();
         });
     });
@@ -284,9 +284,9 @@ describe('Tests for Probate Estate Values ', () => {
             const result = ProbateEstateValues.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'lessThanOrEqualToIhtThreshold',
+                    key: 'lessThanOrEqualToAssetsThreshold',
                     value: true,
-                    choice: 'lessThanOrEqualToIhtThreshold'
+                    choice: 'lessThanOrEqualToAssetsThreshold'
                 }]
             });
             done();

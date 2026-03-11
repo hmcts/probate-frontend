@@ -31,7 +31,7 @@ describe('IhtValue', () => {
             };
 
             ctx = IhtValue.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(250000);
+            expect(ctx.assetsThreshold).to.equal(250000);
             done();
         });
     });
@@ -130,9 +130,9 @@ describe('IhtValue', () => {
             const result = IhtValue.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'lessThanOrEqualToIhtThreshold',
+                    key: 'lessThanOrEqualToAssetsThreshold',
                     value: true,
-                    choice: 'lessThanOrEqualToIhtThreshold'
+                    choice: 'lessThanOrEqualToAssetsThreshold'
                 }]
             });
             done();
@@ -142,9 +142,9 @@ describe('IhtValue', () => {
     describe('action()', () => {
         it('test it cleans up context when netValue is more than the IHT threshold', () => {
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 netValue: 400000,
-                lessThanOrEqualToIhtThreshold: false,
+                lessThanOrEqualToAssetsThreshold: false,
                 assetsOutside: 'optionYes',
                 netValueAssetsOutsideField: '600000',
                 netValueAssetsOutside: 600000
@@ -160,9 +160,9 @@ describe('IhtValue', () => {
 
         it('test it cleans up context and formdata when netValue is less than or equal to the IHT threshold', () => {
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 netValue: 200000,
-                lessThanOrEqualToIhtThreshold: true
+                lessThanOrEqualToAssetsThreshold: true
             };
             const formdata = {
                 deceased: {

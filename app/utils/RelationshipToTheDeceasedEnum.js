@@ -76,7 +76,7 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionParent':
                     return 'rhiant';
                 case 'optionWholeBloodNieceOrNephew':
-                    return 'niece or nephew';
+                    return 'nith neu nai';
                 case 'optionHalfBloodNieceOrNephew':
                     return 'hanner nith neu hanner nai';
                 default:

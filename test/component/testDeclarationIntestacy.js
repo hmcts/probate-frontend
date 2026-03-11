@@ -465,6 +465,7 @@ describe('declaration, intestacy', () => {
                 'intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateMoreThanIhtThresholdHasNoSiblingsIsNotAdopted',
                 'intestacyDeceasedMarriedSpouseApplyingHadChildren',
                 'intestacyDeceasedMarriedSpouseApplyingHadNoChildrenOrEstateLessThanIhtThreshold',
+                'intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted',
                 'deceasedOtherNames',
                 'applicantName',
                 'applicantName-alias',

@@ -167,8 +167,11 @@ class Executors {
 
     getNextIndex() {
         const stopPageIndex = this.getStopPageIndex();
+        const adoptionPageIndex = this.getAdoptionPageIndex();
         if (stopPageIndex !== -1) {
             return stopPageIndex;
+        } else if (adoptionPageIndex !== -1) {
+            return adoptionPageIndex;
         }
         const lastIndex = this.executorsList.length - 1;
         const lastExec = this.executorsList[lastIndex];
@@ -182,6 +185,9 @@ class Executors {
         return executor?.fullName &&
             executor?.email &&
             executor?.address?.formattedAddress;
+    }
+    checkAllExecutorsHaveValidDetails() {
+        return this.executorsList.filter(executor => !executor.isApplicant).every(executor => this.isValid(executor));
     }
 
     hasStopCondition(executor) {
@@ -212,9 +218,56 @@ class Executors {
             optionYesFields.some(field => executor[field] === 'optionYes')
         );
     }
+    hasRelevantAdoptionDetails(executor) {
+        const relationship = executor?.coApplicantRelationshipToDeceased;
+        if (relationship === 'optionGrandchild') {
+            const hasGrandchildFields = (executor.grandchildAdoptedIn === 'optionYes' || executor.grandchildAdoptedIn === 'optionNo')? (executor.grandchildAdoptionInEnglandOrWales === 'optionYes' || executor.grandchildAdoptedOut === 'optionNo') : false;
+
+            const hasGrandchildParentFields =
+                (executor.grandchildParentAdoptedIn === 'optionYes' || executor.grandchildParentAdoptedIn === 'optionNo')? (executor.grandchildParentAdoptionInEnglandOrWales === 'optionYes' || executor.grandchildParentAdoptedOut === 'optionNo'): false;
+
+            return hasGrandchildFields && hasGrandchildParentFields;
+        }
+        const fieldsByRelationship = {
+            optionChild: [
+                'childAdoptionInEnglandOrWales',
+                'childAdoptedOut'
+            ],
+            optionWholeBloodSibling: [
+                'wholeBloodSiblingAdoptionInEnglandOrWales',
+                'wholeBloodSiblingAdoptedOut'
+            ],
+            optionHalfBloodSibling: [
+                'halfBloodSiblingAdoptionInEnglandOrWales',
+                'halfBloodSiblingAdoptedOut'
+            ],
+            optionWholeBloodNieceOrNephew: [
+                'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+                'wholeBloodNieceOrNephewAdoptedOut'
+            ],
+            optionHalfBloodNieceOrNephew: [
+                'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
+                'halfBloodNieceOrNephewAdoptedOut'
+            ]
+        };
+        const fields = relationship ? fieldsByRelationship[relationship] : [];
+        return fields.some(field => executor[field] === 'optionYes' || executor[field] === 'optionNo');
+    }
+
     getStopPageIndex() {
         return this.executorsList.findIndex(executor =>
             this.hasStopCondition(executor)
+        );
+    }
+
+    getAdoptionPageIndex() {
+        return this.executorsList.findIndex(executor => !executor.isApplicant &&
+            !this.hasRelevantAdoptionDetails(executor)
+        );
+    }
+
+    hasAdoptionDetails() {
+        return this.executorsList.every(executor => !executor.isApplicant && this.hasRelevantAdoptionDetails(executor)
         );
     }
 

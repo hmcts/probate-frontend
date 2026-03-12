@@ -3187,6 +3187,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"agent-base@npm:8.0.0":
+  version: 8.0.0
+  resolution: "agent-base@npm:8.0.0"
+  checksum: 10/a660ae60d389c4ce0f5a178efd5e6ebeefeddf0f6defbb105c638056ec0ebd3828d00d029cf5b26e3ce52d09c393735bf9c187ed1000a0be2c6cf5d95ac15bff
+  languageName: node
+  linkType: hard
+
 "agent-base@npm:^7.1.0, agent-base@npm:^7.1.2":
   version: 7.1.3
   resolution: "agent-base@npm:7.1.3"
@@ -8409,7 +8416,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"https-proxy-agent@npm:5, https-proxy-agent@npm:^5.0.0, https-proxy-agent@npm:^5.0.1":
+"https-proxy-agent@npm:5, https-proxy-agent@npm:^5.0.0":
   version: 5.0.1
   resolution: "https-proxy-agent@npm:5.0.1"
   dependencies:
@@ -8426,6 +8433,16 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10/784b628cbd55b25542a9d85033bdfd03d4eda630fb8b3c9477959367f3be95dc476ed2ecbb9836c359c7c698027fc7b45723a302324433590f45d6c1706e8c13
+  languageName: node
+  linkType: hard
+
+"https-proxy-agent@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "https-proxy-agent@npm:8.0.0"
+  dependencies:
+    agent-base: "npm:8.0.0"
+    debug: "npm:^4.3.4"
+  checksum: 10/0de830cb33a47d521783479ef6d1ff256c7bfcee7109bbda279c66bb1ba220ef025a2f25b73e187d9cbf5691a2dd9336a779b389f9fdd29ad772f1dbc51aaaf0
   languageName: node
   linkType: hard
 
@@ -12629,7 +12646,7 @@ __metadata:
     helmet: "npm:^8.0.0"
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
-    https-proxy-agent: "npm:^5.0.1"
+    https-proxy-agent: "npm:^8.0.0"
     i18next: "npm:^25.0.0"
     if-env: "npm:^1.0.4"
     ioredis: "npm:^5.0.0"

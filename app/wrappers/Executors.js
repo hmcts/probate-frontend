@@ -284,7 +284,7 @@ class Executors {
     }
 
     hasAdoptionDetails() {
-        return this.executorsList.every(executor => !executor.isApplicant && this.hasRelevantAdoptionDetails(executor)
+        return this.executorsList.filter(executor => executor.isApplicant !== true).every(executor => this.hasRelevantAdoptionDetails(executor)
         );
     }
 

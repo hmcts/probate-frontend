@@ -203,6 +203,16 @@ describe('CoApplicantAdoptedOut', () => {
     });
 
     describe('CoApplicantAdoptedOut handlePost', () => {
+        const req= {
+            form: {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1'},
+                        {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild'}
+                    ]
+                }
+            }
+        };
         it('should adoptedOut = optionNo if coApplicantRelationshipToDeceased is Child', () => {
             const ctx = {
                 index: '1',
@@ -214,7 +224,7 @@ describe('CoApplicantAdoptedOut', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptedOut.handlePost(ctx, errors);
+            CoApplicantAdoptedOut.handlePost(ctx, errors, req.form);
             expect(ctx.list[1]).to.deep.equal({'childAdoptedOut': 'optionNo',
                 coApplicantRelationshipToDeceased: 'optionChild'});
         });
@@ -229,7 +239,7 @@ describe('CoApplicantAdoptedOut', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptedOut.handlePost(ctx, errors);
+            CoApplicantAdoptedOut.handlePost(ctx, errors, req.form);
             expect(ctx.list[2]).to.deep.equal({'grandchildAdoptedOut': 'optionNo',
                 coApplicantRelationshipToDeceased: 'optionGrandchild'});
         });

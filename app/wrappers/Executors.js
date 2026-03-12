@@ -230,28 +230,23 @@ class Executors {
         }
         const fieldsByRelationship = {
             optionChild: [
-                'childAdoptionInEnglandOrWales',
-                'childAdoptedOut'
+                {adoptedInEngOrWales: 'childAdoptionInEnglandOrWales', adoptedOut: 'childAdoptedOut'}
             ],
             optionWholeBloodSibling: [
-                'wholeBloodSiblingAdoptionInEnglandOrWales',
-                'wholeBloodSiblingAdoptedOut'
+                {adoptedInEngOrWales: 'wholeBloodSiblingAdoptionInEnglandOrWales', adoptedOut: 'wholeBloodSiblingAdoptedOut'}
             ],
             optionHalfBloodSibling: [
-                'halfBloodSiblingAdoptionInEnglandOrWales',
-                'halfBloodSiblingAdoptedOut'
+                {adoptedInEngOrWales: 'halfBloodSiblingAdoptionInEnglandOrWales', adoptedOut: 'halfBloodSiblingAdoptedOut'}
             ],
             optionWholeBloodNieceOrNephew: [
-                'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
-                'wholeBloodNieceOrNephewAdoptedOut'
+                {adoptedInEngOrWales: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales', adoptedOut: 'wholeBloodNieceOrNephewAdoptedOut'}
             ],
             optionHalfBloodNieceOrNephew: [
-                'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-                'halfBloodNieceOrNephewAdoptedOut'
+                {adoptedInEngOrWales: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales', adoptedOut: 'halfBloodNieceOrNephewAdoptedOut'}
             ]
         };
         const fields = relationship ? fieldsByRelationship[relationship] : [];
-        return fields.some(field => executor[field] === 'optionYes' || executor[field] === 'optionNo');
+        return fields.every(field => executor[field.adoptedInEngOrWales] === 'optionYes' || executor[field.adoptedOut] === 'optionNo');
     }
 
     getStopPageIndex() {

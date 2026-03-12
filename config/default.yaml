@@ -219,7 +219,7 @@ links:
   wcag21Link: 'https://www.w3.org/TR/WCAG21/'
   ihtChecker: 'https://www.gov.uk/valuing-estate-of-someone-who-died/estimate-estate-value'
   ihtTaxChecker: 'https://www.gov.uk/valuing-estate-of-someone-who-died/estimate-estate-value#use-the-online-inheritance-tax-checker'
-  ihtThreshold: 'https://www.gov.uk/inheritance-tax'
+  assetsThreshold: 'https://www.gov.uk/inheritance-tax'
   ihtTransferOfThreshold: 'https://www.gov.uk/guidance/inheritance-tax-transfer-of-threshold'
   ihtNoInheritanceTax: 'https://www.gov.uk/valuing-estate-of-someone-who-died/check-type-of-estate'
   ihtGifts: 'https://www.gov.uk/inheritance-tax/gifts'

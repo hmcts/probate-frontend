@@ -140,8 +140,8 @@ describe('RelationshipToDeceased', () => {
             const nextStepOptions = RelationshipToDeceased.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'spousePartnerLessThanAssetsThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
-                    {key: 'spousePartnerMoreThanAssetsThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
+                    {key: 'spousePartnerLessThanAssetsThreshold', value: true, choice: 'spousePartnerLessThanAssetsThreshold'},
+                    {key: 'spousePartnerMoreThanAssetsThreshold', value: true, choice: 'spousePartnerMoreThanAssetsThreshold'},
                     {key: 'childDeceasedMarried', value: true, choice: 'childDeceasedMarried'},
                     {key: 'childDeceasedNotMarried', value: true, choice: 'childDeceasedNotMarried'},
                     {key: 'relationshipToDeceased', value: 'optionAdoptedChild', choice: 'adoptedChild'},
@@ -154,7 +154,7 @@ describe('RelationshipToDeceased', () => {
     describe('action()', () => {
         it('test it cleans up context and formdata', () => {
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 assetsValue: 450000,
                 deceasedMaritalStatus: 'optionMarried',
                 spousePartnerLessThanAssetsThreshold: true,

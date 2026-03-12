@@ -2,7 +2,7 @@
 
 const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/AssetsThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 
 class IntestacyDeclarationFactory {
 

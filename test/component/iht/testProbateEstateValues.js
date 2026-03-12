@@ -213,7 +213,7 @@ describe('Tests for Probate Estate Values ', () => {
         let ctx;
         let req;
 
-        it('should return the context with the IHT threshold', (done) => {
+        it('should return the context with the assets threshold', (done) => {
             req = {
                 session: {
                     form: {
@@ -234,7 +234,7 @@ describe('Tests for Probate Estate Values ', () => {
             expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(false);
             done();
         });
-        it('should return false with the IHT threshold for died after 2020', (done) => {
+        it('should return false with the assets threshold for died after 2020', (done) => {
             req = {
                 session: {
                     form: {

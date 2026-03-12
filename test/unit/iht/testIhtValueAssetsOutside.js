@@ -19,7 +19,7 @@ describe('ValueAssetsOutside', () => {
         let ctx;
         let req;
 
-        it('should return the context with the IHT threshold', (done) => {
+        it('should return the context with the assets threshold', (done) => {
             req = {
                 session: {
                     form: {
@@ -101,7 +101,7 @@ describe('ValueAssetsOutside', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up formdata if netValue + netValueAssetsOutside is less than or equal to the IHT threshold', () => {
+        it('test it cleans up formdata if netValue + netValueAssetsOutside is less than or equal to the assets threshold', () => {
             const ctx = {
                 assetsThreshold: 250000,
                 netValue: 150000,

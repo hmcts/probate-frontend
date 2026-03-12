@@ -93,7 +93,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         const newRelationship = ctx.coApplicantRelationshipToDeceased;
         const previousRelationship = formdata.executors?.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
 
-        if (formdata.executors && formdata.executors.list && newRelationship !== previousRelationship) {
+        if (formdata.executors && formdata.executors.list && formdata.executors.list[ctx.index] && newRelationship !== previousRelationship) {
             this.clearRelationshipFields(ctx, formdata);
             ctx.hasCoApplicant = 'optionYes';
         }

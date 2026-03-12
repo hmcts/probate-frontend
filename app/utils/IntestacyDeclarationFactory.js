@@ -2,14 +2,14 @@
 
 const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 
 class IntestacyDeclarationFactory {
 
     static build(ctx, content, formdata) {
         const legalStatement = {};
         const declaration = {};
-        const ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        const assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
 
         legalStatement.en = {
             intro: content.en.intro,
@@ -36,7 +36,7 @@ class IntestacyDeclarationFactory {
             applying: content.en.intestacyLettersOfAdministration
                 .replace('{deceasedName}', formdata.deceasedName)
         };
-        legalStatement.en.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.en, ihtThreshold);
+        legalStatement.en.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.en, assetsThreshold);
         declaration.en = {
             confirm: content.en.declarationConfirm
                 .replace('{deceasedName}', formdata.deceasedName),
@@ -78,7 +78,7 @@ class IntestacyDeclarationFactory {
             applying: content.cy.intestacyLettersOfAdministration
                 .replace('{deceasedName}', formdata.deceasedName)
         };
-        legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy, ihtThreshold);
+        legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy, assetsThreshold);
         declaration.cy = {
             confirm: content.cy.declarationConfirm
                 .replace('{deceasedName}', formdata.deceasedName),

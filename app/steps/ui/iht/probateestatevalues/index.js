@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 const {get} = require('lodash');
 const featureToggle = require('app/utils/FeatureToggle');
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
@@ -25,10 +25,10 @@ class ProbateEstateValues extends ValidationStep {
             ctx.netValue = parseFloat(numeral(ctx.netValueField).format('0.00'));
             const formdata = req.session.form;
             if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.afterEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
-                ctx.lessThanOrEqualToIhtThreshold = true;
+                ctx.lessThanOrEqualToAssetsThreshold = true;
             } else if (featureToggle.isEnabled(req.session.featureToggles, 'ft_excepted_estates') && ExceptedEstateDod.beforeEeDodThreshold(get(formdata, 'deceased.dod-date'))) {
-                ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
-                ctx.lessThanOrEqualToIhtThreshold = ctx.netValue <= ctx.ihtThreshold;
+                ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
+                ctx.lessThanOrEqualToAssetsThreshold = ctx.netValue <= ctx.assetsThreshold;
             }
         }
         return ctx;
@@ -54,7 +54,7 @@ class ProbateEstateValues extends ValidationStep {
     nextStepOptions() {
         return {
             options: [
-                {key: 'lessThanOrEqualToIhtThreshold', value: true, choice: 'lessThanOrEqualToIhtThreshold'}
+                {key: 'lessThanOrEqualToAssetsThreshold', value: true, choice: 'lessThanOrEqualToAssetsThreshold'}
             ]
         };
     }

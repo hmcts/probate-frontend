@@ -66,7 +66,7 @@ class JointApplication extends ValidationStep {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionYes' && ctx.isStopPage) {
             return [true, 'inProgress'];
-        } else if (ctx.hasCoApplicant === 'optionYes' && !ctx.hasAdoptionDetails) {
+        } else if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !ctx.hasAdoptionDetails) {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionNo') {
             return [true, 'inProgress'];

@@ -19,7 +19,7 @@ describe('IhtValue', () => {
         let ctx;
         let req;
 
-        it('should return the context with the IHT threshold', (done) => {
+        it('should return the context with the assets threshold', (done) => {
             req = {
                 session: {
                     form: {

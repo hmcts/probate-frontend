@@ -1,7 +1,7 @@
 {{checkanswer(
     items = [
         {
-            question: content.RelationshipToDeceased.question,
+            question: fields.summary.relationshipToDeceasedQuestion.value,
             answer: content.RelationshipToDeceased[fields.applicant.relationshipToDeceased.value],
             visible: true
         }
@@ -27,11 +27,26 @@
 {{checkanswer(
     items = [
         {
+            question: fields.summary.anyOtherParentAlive.value,
+            answer: content.AnyOtherParentAlive[fields.deceased.anyOtherParentAlive.value],
+            visible: fields.applicant.relationshipToDeceased.value == "optionParent"
+        }
+    ],
+    url = content.AnyOtherParentAlive.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedSpouseNotApplyingReasonQuestion.value,
             answer: content.SpouseNotApplyingReason[fields.applicant.spouseNotApplyingReason.value],
             visible:
             (
                 fields.applicant.relationshipToDeceased.value == "optionChild"
+                or
+                fields.applicant.relationshipToDeceased.value == "optionGrandchild"
                 or
                 (
                     fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
@@ -56,6 +71,8 @@
             visible:
             (
                 (
+                    fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                    or
                     fields.applicant.relationshipToDeceased.value == "optionChild"
                     or
                     (
@@ -111,6 +128,8 @@
                     fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                     or
                     fields.applicant.relationshipToDeceased.value == "optionChild"
+                    or
+                    fields.applicant.relationshipToDeceased.value == "optionGrandchild"
                 )
                 and
                 fields.deceased.anyOtherChildren.value == "optionYes"
@@ -133,8 +152,8 @@
 {{checkanswer(
     items = [
         {
-            question: fields.summary.deceasedAnyDeceasedChildrenQuestion.value,
-            answer: content.AnyDeceasedChildren[fields.deceased.anyDeceasedChildren.value],
+            question: fields.summary.deceasedAnyPredeceasedChildrenQuestion.value,
+            answer: content.AnyPredeceasedChildren[fields.deceased.anyPredeceasedChildren.value],
             visible:
             (
                 (
@@ -142,6 +161,8 @@
                         fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                         or
                         fields.applicant.relationshipToDeceased.value == "optionChild"
+                        or
+                        fields.applicant.relationshipToDeceased.value == "optionGrandchild"
                     )
                     and
                     fields.deceased.anyOtherChildren.value == "optionYes"
@@ -159,7 +180,7 @@
             fields.deceased.allChildrenOver18.value == "optionYes"
         }
     ],
-    url = content.AnyDeceasedChildren.url,
+    url = content.AnyPredeceasedChildren.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -192,10 +213,195 @@
             and
             fields.deceased.allChildrenOver18.value == "optionYes"
             and
-            fields.deceased.anyDeceasedChildren.value == "optionYes"
+            fields.deceased.anyPredeceasedChildren.value == "optionYes"
         }
     ],
     url = content.AnyGrandchildrenUnder18.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+{# Siblings #}
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.sameParents.value,
+            answer: content.SameParents[fields.applicant.sameParents.value],
+            visible: fields.applicant.relationshipToDeceased.value == "optionSibling"
+        }
+    ],
+    url = content.SameParents.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{# Whole Siblings Specific #}
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.anyOtherWholeSiblings.value,
+            answer: content.AnyOtherWholeSiblings[fields.applicant.anyOtherWholeSiblings.value],
+            visible: fields.applicant.sameParents.value == "optionBothParentsSame" and fields.applicant.relationshipToDeceased.value == "optionSibling"
+        }
+    ],
+    url = content.AnyOtherWholeSiblings.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.anyPredeceasedWholeSiblings.value,
+            answer: content.AnyPredeceasedWholeSiblings[fields.applicant.anyPredeceasedWholeSiblings.value],
+            visible: fields.applicant.anyOtherWholeSiblings.value == "optionYes" and fields.applicant.relationshipToDeceased.value == "optionSibling"
+        }
+    ],
+    url = content.AnyPredeceasedWholeSiblings.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.allWholeSiblingsOver18.value,
+            answer: content.AllWholeSiblingsOver18[fields.applicant.allWholeSiblingsOver18.value],
+            visible: (fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionNo" and fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome" and fields.applicant.sameParents.value == "optionBothParentsSame")
+                     or
+                     (fields.applicant.allWholeNiecesAndWholeNephewsOver18.value == "optionNo" and fields.applicant.anyPredeceasedWholeSiblings.value == "optionYes")
+                     or
+                     (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome" and fields.applicant.sameParents.value == "optionBothParentsSame")
+        }
+    ],
+    url = content.AllWholeSiblingsOver18.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.anySurvivingWholeNiecesAndWholeNephews.value,
+            answer: content.AnySurvivingWholeNiecesAndWholeNephews[fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value],
+            visible: ((fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome" or fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll")
+                        and fields.applicant.sameParents.value == "optionBothParentsSame") or
+                        (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" and fields.applicant.sameParents.value == "optionOneParentsSame")
+        }
+    ],
+    url = content.AnySurvivingWholeNiecesAndWholeNephews.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.allWholeNiecesAndWholeNephewsOver18.value,
+            answer: content.AllWholeNiecesAndWholeNephewsOver18[fields.applicant.allWholeNiecesAndWholeNephewsOver18.value],
+            visible: fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionYes" and fields.applicant.sameParents.value == "optionBothParentsSame"
+                     and (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" or fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome")
+        }
+    ],
+    url = content.AllWholeNiecesAndWholeNephewsOver18.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{# Half Sibling Specific #}
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.anyOtherHalfSiblings.value,
+            answer: content.AnyOtherHalfSiblings[fields.applicant.anyOtherHalfSiblings.value],
+            visible: fields.applicant.sameParents.value == "optionOneParentsSame" and fields.applicant.relationshipToDeceased.value == "optionSibling"
+        }
+    ],
+    url = content.AnyOtherHalfSiblings.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.anyPredeceasedHalfSiblings.value,
+            answer: content.AnyPredeceasedHalfSiblings[fields.applicant.anyPredeceasedHalfSiblings.value],
+            visible: fields.applicant.sameParents.value == "optionOneParentsSame" and fields.applicant.anyOtherHalfSiblings.value == "optionYes"
+        }
+    ],
+    url = content.AnyPredeceasedHalfSiblings.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.allHalfSiblingsOver18.value,
+            answer: content.AllHalfSiblingsOver18[fields.applicant.allHalfSiblingsOver18.value],
+            visible: (fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesAll")
+                     or
+                     (fields.applicant.anyPredeceasedHalfSiblings.value == 'optionNo' and fields.applicant.sameParents.value == 'optionOneParentsSame')
+                     or
+                     (fields.applicant.allHalfNiecesAndHalfNephewsOver18.value == 'optionYes' and fields.applicant.anyPredeceasedHalfSiblings.value == 'optionYesSome')
+        }
+    ],
+    url = content.AllHalfSiblingsOver18.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.anySurvivingHalfNiecesAndHalfNephews.value,
+            answer: content.AnySurvivingHalfNiecesAndHalfNephews[fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value],
+            visible: fields.applicant.sameParents.value == "optionOneParentsSame" and (fields.applicant.anyPredeceasedHalfSiblings == "optionYesSome" or anyPredeceasedHalfSiblings == "optionYesAll")
+        }
+    ],
+    url = content.AnySurvivingHalfNiecesAndHalfNephews.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.allHalfNiecesAndHalfNephewsOver18.value,
+            answer: content.AllHalfNiecesAndHalfNephewsOver18[fields.applicant.allHalfNiecesAndHalfNephewsOver18.value],
+            visible: fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesSome"
+        }
+    ],
+    url = content.AllHalfNiecesAndHalfNephewsOver18.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{# Grandchild #}
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.grandchildParentHasOtherChildren.value,
+            answer: content.GrandchildParentHasOtherChildren[fields.deceased.grandchildParentHasOtherChildren.value],
+            visible: fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+        }
+    ],
+    url = content.GrandchildParentHasOtherChildren.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.grandchildParentHasAllChildrenOver18.value,
+            answer: content.GrandchildParentHasAllChildrenOver18[fields.deceased.grandchildParentHasAllChildrenOver18.value],
+            visible: fields.applicant.relationshipToDeceased.value == "optionGrandchild" and fields.deceased.grandchildParentHasOtherChildren.value == "optionYes"
+        }
+    ],
+    url = content.GrandchildParentHasAllChildrenOver18.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+

@@ -65,6 +65,8 @@ const getAnyOtherChildrenAboveThreshold = (formdata, content) => {
 const getNotMarried = (formdata, content) => {
     if (formdata.anyOtherChildren === 'optionYes') {
         return getNotMarriedAndOtherChildren(formdata, content);
+    } else if (formdata.relationshipToDeceased === 'optionParent') {
+        return '';
     }
     return getNotMarriedAndNoOtherChildren(formdata, content);
 };
@@ -72,15 +74,17 @@ const getNotMarried = (formdata, content) => {
 const getNotMarriedAndOtherChildren = (formdata, content) => {
     if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
         return content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsAdopted;
-    }
-    return content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
+    } else if (formdata.relationshipToDeceased !== 'optionGrandchild') {
+        return content.intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted;
+    } return '';
 };
 
 const getNotMarriedAndNoOtherChildren = (formdata, content) => {
     if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
         return content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
-    }
-    return content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
+    } else if (formdata.relationshipToDeceased !== 'optionChild') {
+        return content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
+    } return '';
 };
 
 module.exports = Applicant2NameFactory;

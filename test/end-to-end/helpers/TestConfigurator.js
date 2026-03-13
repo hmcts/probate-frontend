@@ -27,12 +27,17 @@ class TestConfigurator {
         this.retryScenarios = testConfig.TestRetryScenarios;
         this.testUseProxy = testConfig.TestUseProxy;
         this.testProxy = testConfig.TestProxy;
-        this.launchDarkly = null;
+        Object.defineProperty(this, 'launchDarkly', {
+            value: null,
+            writable: true,
+            enumerable: false,
+            configurable: true
+        });
     }
 
-    async initLaunchDarkly() {
+    initLaunchDarkly() {
         console.log('Opening LaunchDarkly connection...');
-        this.launchDarkly = await new LaunchDarkly();
+        this.launchDarkly = new LaunchDarkly();
         console.log('LaunchDarkly connection opened.');
     }
 
@@ -99,6 +104,18 @@ class TestConfigurator {
         return this.testBaseUrl + this.testDeleteUserUrl;
     }
 
+    getTestUserDetails() {
+        const name = this.getTestCitizenName();
+        return {
+            email: this.getTestCitizenEmail(),
+            forename: name,
+            surname: name,
+            password: this.getTestCitizenPassword(),
+            roles: [{code: this.getTestRole()}],
+            userGroup: {code: this.getTestIdamUserGroup()}
+        };
+    }
+
     idamInUseText(scenarioText) {
         return (this.useIdam === 'true') ? scenarioText + ' - With Idam' : scenarioText + ' - Without Idam';
     }
@@ -113,8 +130,8 @@ class TestConfigurator {
                     proxy: this.getUseProxy() === 'true' ? this.getProxy() : null,
                     method: 'DELETE'
                 });
-                if (response.statusCode > 204) {
-                    console.log(`Delete IDAM test user '${email}' result: ${response.statusCode}, ${response.statusMessage}`);
+                if (response.status > 204) {
+                    console.log(`Delete IDAM test user '${email}' result: ${response.status}, ${response.statusText}`);
                 }
             } catch (err) {
                 console.error(`IDAM test user deletion unsuccessful: ${err.message}`);

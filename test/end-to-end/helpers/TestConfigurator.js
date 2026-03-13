@@ -131,7 +131,7 @@ class TestConfigurator {
                     method: 'DELETE'
                 });
                 if (response.status > 204) {
-                    console.log(`Delete IDAM test user '${email}' result: ${response.status}, ${response.status}`);
+                    console.log(`Delete IDAM test user '${email}' result: ${response.status}, ${response.statusText}`);
                 }
             } catch (err) {
                 console.error(`IDAM test user deletion unsuccessful: ${err.message}`);

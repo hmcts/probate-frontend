@@ -52,7 +52,13 @@ describe('AssetsThreshold.js', () => {
         });
 
         it('should return the correct assets threshold for dates after 26 July 2023', (done) => {
-            const date = '2025-07-27';
+            const date = '2023-07-27';
+            expect(AssetsThreshold.getAssetsThreshold(date)).to.equal(322000);
+            done();
+        });
+
+        it('should return the correct assets threshold for dates after 27 July 2030', (done) => {
+            const date = '2030-07-27';
             expect(AssetsThreshold.getAssetsThreshold(date)).to.equal(322000);
             done();
         });

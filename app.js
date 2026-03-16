@@ -3,7 +3,7 @@
 
 'use strict';
 
-const logger = require('app/components/logger');
+con logger = require('app/components/logger');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');

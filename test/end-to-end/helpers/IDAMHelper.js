@@ -12,15 +12,7 @@ class IDAMHelper extends Helper {
         if (config.TestUseIdam === 'true') {
             console.log(`Creating user: ${options.getTestCitizenEmail()}`);
             const httpReq = util.promisify(request);
-            options.userDetails =
-                {
-                    'email': options.getTestCitizenEmail(),
-                    'forename': options.getTestCitizenName(),
-                    'surname': options.getTestCitizenName(),
-                    'password': options.getTestCitizenPassword(),
-                    'roles': [{'code': options.getTestRole()}],
-                    'userGroup': {'code': options.getTestIdamUserGroup()}
-                };
+            const userDetails = options.getTestUserDetails();
 
             try {
                 const response = await httpReq({
@@ -28,7 +20,7 @@ class IDAMHelper extends Helper {
                     proxy: options.getUseProxy() === 'true' ? options.getProxy() : null,
                     method: 'POST',
                     json: true, // <--Very important!!!
-                    body: options.userDetails
+                    body: userDetails
                 });
                 if (!response) {
                     throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');

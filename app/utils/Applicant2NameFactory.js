@@ -82,7 +82,7 @@ const getNotMarriedAndOtherChildren = (formdata, content) => {
 const getNotMarriedAndNoOtherChildren = (formdata, content) => {
     if (formdata.relationshipToDeceased === 'optionAdoptedChild') {
         return content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted;
-    } else if (formdata.relationshipToDeceased !== 'optionChild') {
+    } else if (formdata.relationshipToDeceased === 'optionChild') {
         return content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted;
     } return '';
 };

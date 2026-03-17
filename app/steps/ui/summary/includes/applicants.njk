@@ -340,11 +340,14 @@
         {
             question: fields.summary.allHalfSiblingsOver18.value,
             answer: content.AllHalfSiblingsOver18[fields.applicant.allHalfSiblingsOver18.value],
-            visible: (fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesAll")
-                     or
-                     (fields.applicant.anyPredeceasedHalfSiblings.value == 'optionNo' and fields.applicant.sameParents.value == 'optionOneParentsSame')
-                     or
-                     (fields.applicant.allHalfNiecesAndHalfNephewsOver18.value == 'optionYes' and fields.applicant.anyPredeceasedHalfSiblings.value == 'optionYesSome')
+            visible: fields.applicant.anyOtherHalfSiblings.value == "optionYes"
+                     and (
+                           (fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesAll")
+                           or
+                           (fields.applicant.anyPredeceasedHalfSiblings.value == 'optionNo' and fields.applicant.sameParents.value == 'optionOneParentsSame')
+                           or
+                           (fields.applicant.allHalfNiecesAndHalfNephewsOver18.value == 'optionYes' and fields.applicant.anyPredeceasedHalfSiblings.value == 'optionYesSome')
+                     )
         }
     ],
     url = content.AllHalfSiblingsOver18.url,
@@ -404,4 +407,3 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
-

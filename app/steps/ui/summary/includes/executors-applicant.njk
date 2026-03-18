@@ -113,3 +113,31 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+{% if fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionSibling" %}
+    {{checkanswer(
+        items = [
+            {
+                question: content.AdoptedIn.wholeBloodSiblingQuestion,
+                answer: content.AdoptedIn[fields.applicant.adoptedIn.value],
+                visible: true
+            }
+        ],
+        url = content.AdoptedIn.url,
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+
+        {{checkanswer(
+            items = [
+                {
+                    question: content.AdoptedOut.wholeBloodSiblingQuestion,
+                    answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
+                    visible: true
+                }
+            ],
+            url = content.AdoptedOut.url,
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+{% endif %}

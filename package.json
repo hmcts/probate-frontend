@@ -209,7 +209,7 @@
     "async": "^3.2.6",
     "blob": "^13.0.1",
     "braces": "^3.0.3",
-    "codeceptjs": "3.7.6",
+    "codeceptjs": "3.7.7",
     "cookie": "^1.0.2",
     "cookiejar": ">=2.1.4",
     "cross-spawn": "^7.0.6",
@@ -235,5 +235,5 @@
     "webdriverio": "^9.23.3",
     "yauzl": "^3.2.1"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.13.0"
 }

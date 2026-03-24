@@ -25,11 +25,13 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
         ctx.allGrandchildrenOver18AndSomePredeceasedChildren = ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
         ctx.childAndGrandchildrenOver18AndAllPredeceasedChildren = ctx.relationshipToDeceased === 'optionChild' && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
         ctx.grandchildAndGrandchildrenOver18AndAllPredeceasedChildren = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.spouseAndGrandchildrenOver18 = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.anyGrandchildrenUnder18 === 'optionNo';
         return {
             options: [
                 {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
                 {key: 'childAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'childAndGrandchildrenOver18AndAllPredeceasedChildren'},
-                {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'}
+                {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'},
+                {key: 'spouseAndGrandchildrenOver18', value: true, choice: 'spouseAndGrandchildrenOver18'}
             ]
         };
     }

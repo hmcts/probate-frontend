@@ -1,6 +1,7 @@
 {
   "title": "Any deceased children",
   "question": "Did any of these children die before {deceasedName}?",
+  "spouseQuestion": "Did any of {deceasedName}&rsquo;s children die before {deceasedName}?",
   "optionYesAll": "Yes, all of them",
   "optionYesSome": "Yes, some of them",
   "optionNo": "No",

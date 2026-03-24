@@ -20,14 +20,15 @@ class AnySurvivingGrandchildren extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.hadOtherChildrenAndHadNoSurvivingGrandchildren = ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
-        ctx.childAndNoOtherChildrenAndHadNoSurvivingGrandchildren = ctx.relationshipToDeceased === 'optionChild' && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
-        ctx.grandchildAndNoSurvivingGrandchildrenOfOtherChildren = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.hadOtherChildrenAndHadNoSurvivingGrandchildren = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
+        ctx.childOrSpouseAndHadNoOtherChildrenAndHadNoSurvivingGrandchildren = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionSpousePartner') && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.spouseAndHadOtherChildrenAndHadNoSurvivingGrandchildren = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.anySurvivingGrandchildren === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
         return {
             options: [
                 {key: 'anySurvivingGrandchildren', value: 'optionYes', choice: 'hadSurvivingGrandchildren'},
                 {key: 'hadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadOtherChildrenAndHadNoSurvivingGrandchildren'},
-                {key: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren'},
+                {key: 'childOrSpouseAndHadNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childOrSpouseAndHadNoOtherChildrenAndHadNoSurvivingGrandchildren'},
+                {key: 'spouseAndHadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'spouseAndHadOtherChildrenAndHadNoSurvivingGrandchildren'}
             ]
         };
     }

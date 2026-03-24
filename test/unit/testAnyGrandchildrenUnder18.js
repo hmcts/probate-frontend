@@ -105,7 +105,8 @@ describe('AnyGrandchildrenUnder18', () => {
                 options: [
                     {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
                     {key: 'childAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'childAndGrandchildrenOver18AndAllPredeceasedChildren'},
-                    {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'}
+                    {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'},
+                    {key: 'spouseAndGrandchildrenOver18', value: true, choice: 'spouseAndGrandchildrenOver18'}
                 ]
             });
             done();

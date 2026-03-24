@@ -11,7 +11,7 @@
         name: "anyPredeceasedChildren",
         fieldset: {
             legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                text: (content.spouseQuestion if fields.relationshipToDeceased.value === "optionSpousePartner" else content.question ) | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

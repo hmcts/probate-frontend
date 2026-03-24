@@ -40,6 +40,7 @@ describe('AnyPredeceasedChildren', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'hadSomeOrAllPredeceasedChildren', value: true, choice: 'hadSomeOrAllPredeceasedChildren'},
+                    {key: 'spouseAndNoPredeceasedChildren', value: true, choice: 'spouseAndNoPredeceasedChildren'},
                 ]
             });
             done();

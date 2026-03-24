@@ -14,6 +14,7 @@ class AnyPredeceasedChildren extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
         ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.relationshipToDeceased = formdata.applicant && formdata.applicant.relationshipToDeceased;
         ctx.list = formdata.executors?.list;
         return ctx;
     }
@@ -28,9 +29,11 @@ class AnyPredeceasedChildren extends ValidationStep {
 
     nextStepOptions(ctx) {
         ctx.hadSomeOrAllPredeceasedChildren = ctx.anyPredeceasedChildren === 'optionYesSome' || ctx.anyPredeceasedChildren === 'optionYesAll';
+        ctx.spouseAndNoPredeceasedChildren = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.anyPredeceasedChildren === 'optionNo';
         return {
             options: [
                 {key: 'hadSomeOrAllPredeceasedChildren', value: true, choice: 'hadSomeOrAllPredeceasedChildren'},
+                {key: 'spouseAndNoPredeceasedChildren', value: true, choice: 'spouseAndNoPredeceasedChildren'},
             ]
         };
     }

@@ -79,15 +79,20 @@ class JointApplication extends ValidationStep {
         return executor?.isApplicant !== true && executor?.coApplicantRelationshipToDeceased && executor?.fullName &&
             executor?.email && executor?.address?.formattedAddress;
     }
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).getUrlWithContext(ctx, 'noJointApplicationApplicable');
+    }
     nextStepOptions(ctx) {
-        ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.hasCoApplicant === 'optionYes';
+        ctx.isJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.applicantRelationshipToDeceased !== 'optionSpousePartner' && ctx.hasCoApplicant === 'optionYes';
         ctx.isParentJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.applicantRelationshipToDeceased === 'optionParent' &&
             ctx.hasCoApplicant === 'optionYes' && ctx.deceased.anyOtherParentAlive === 'optionYes';
-        ctx.notJointApplication = ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo';
+        ctx.isSpouseAndNoJointApplication = ctx.applicantRelationshipToDeceased === 'optionSpousePartner' && ctx.hasCoApplicant === 'optionNo';
+        ctx.notJointApplication = ctx.applicantRelationshipToDeceased !== 'optionSpousePartner' && ctx.hasCoApplicant === 'optionNo';
         return {
             options: [
                 {key: 'isJointApplication', value: true, choice: 'isJointApplication'},
                 {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
+                {key: 'isSpouseAndNoJointApplication', value: true, choice: 'isSpouseAndNoJointApplication'},
                 {key: 'notJointApplication', value: true, choice: 'notJointApplication'}
 
             ]

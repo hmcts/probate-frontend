@@ -235,6 +235,7 @@ const stepList = {
     AllChildrenOver18: {
         childAndAllChildrenOver18: 'ApplicantName',
         grandchildAndAllChildrenOver18: 'GrandchildParentHasOtherChildren',
+        spouseAndAllChildrenOver18: 'AnyPredeceasedChildren',
         otherwise: 'StopPage'
     },
     GrandchildParentHasOtherChildren: {
@@ -247,18 +248,21 @@ const stepList = {
     },
     AnyPredeceasedChildren: {
         hadSomeOrAllPredeceasedChildren: 'AnySurvivingGrandchildren',
+        spouseAndNoPredeceasedChildren: 'JointApplication',
         otherwise: 'AllChildrenOver18'
     },
     AnySurvivingGrandchildren: {
         hadSurvivingGrandchildren: 'AnyGrandchildrenUnder18',
         hadOtherChildrenAndHadNoSurvivingGrandchildren: 'AllChildrenOver18',
-        childAndNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
+        childOrSpouseAndHadNoOtherChildrenAndHadNoSurvivingGrandchildren: 'ApplicantName',
+        spouseAndHadOtherChildrenAndHadNoSurvivingGrandchildren: 'JointApplication',
         otherwise: 'GrandchildParentHasOtherChildren'
     },
     AnyGrandchildrenUnder18: {
         allGrandchildrenOver18AndSomePredeceasedChildren: 'AllChildrenOver18',
         childAndGrandchildrenOver18AndAllPredeceasedChildren: 'ApplicantName',
         grandchildAndGrandchildrenOver18AndAllPredeceasedChildren: 'GrandchildParentHasOtherChildren',
+        spouseAndGrandchildrenOver18: 'JointApplication',
         otherwise: 'StopPage'
     },
     AnyOtherWholeSiblings: {
@@ -313,8 +317,9 @@ const stepList = {
     JointApplication: {
         isJointApplication: 'CoApplicantRelationshipToDeceased',
         isParentJointApplication: 'CoApplicantName',
+        isSpouseAndNoJointApplication: 'ApplicantName',
         notJointApplication: 'Equality',
-        otherwise: 'TaskList'
+        otherwise: 'StopPage'
     },
     CoApplicantRelationshipToDeceased: {
         childOrSibling: 'CoApplicantName',

@@ -88,7 +88,8 @@ describe('AllChildrenOver18', () => {
             expect(nextStepOptions).to.deep.equal({
                 options: [
                     {key: 'childAndAllChildrenOver18', value: true, choice: 'childAndAllChildrenOver18'},
-                    {key: 'grandchildAndAllChildrenOver18', value: true, choice: 'grandchildAndAllChildrenOver18'}
+                    {key: 'grandchildAndAllChildrenOver18', value: true, choice: 'grandchildAndAllChildrenOver18'},
+                    {key: 'spouseAndAllChildrenOver18', value: true, choice: 'spouseAndAllChildrenOver18'}
                 ]
             });
             done();

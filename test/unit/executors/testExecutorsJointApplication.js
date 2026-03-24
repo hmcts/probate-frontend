@@ -23,6 +23,7 @@ describe('JointApplication', () => {
                 options: [
                     {key: 'isJointApplication', value: true, choice: 'isJointApplication'},
                     {key: 'isParentJointApplication', value: true, choice: 'isParentJointApplication'},
+                    {key: 'isSpouseAndNoJointApplication', value: true, choice: 'isSpouseAndNoJointApplication'},
                     {key: 'notJointApplication', value: true, choice: 'notJointApplication'}
                 ]
             });

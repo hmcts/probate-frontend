@@ -15,7 +15,7 @@
             isPageHeading: true
         }
     }) %}
-{% if fields.applicantRelationshipToDeceased.value !== "optionParent" %}
+{% if fields.applicantRelationshipToDeceased.value !== "optionParent" and fields.applicantRelationshipToDeceased.value !== "optionSpousePartner" %}
   {% set summaryListRows = [] %}
     {% for executor in fields.list.value %}
       {% if loop.index0 == 0 %}
@@ -45,20 +45,38 @@
   rows: summaryListRows
   }) }}
 {% endif %}
-    <p class="govuk-body">{{ ( content.paragraph1Parent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.paragraph1 ) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
-    <p class="govuk-body">{{ ( content.paragraph2Parent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.paragraph2 ) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% if fields.applicantRelationshipToDeceased.value === "optionParent" %}
+      <p class="govuk-body">{{ content.paragraph1Parent | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% elif fields.applicantRelationshipToDeceased.value === "optionSpousePartner" %}
+      <p class="govuk-body">{{ content.paragraph1Spouse | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% else %}
+      <p class="govuk-body">{{ content.paragraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% endif %}
+
+    {% if fields.applicantRelationshipToDeceased.value === "optionParent" %}
+      <p class="govuk-body">{{ content.paragraph2Parent | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% elif fields.applicantRelationshipToDeceased.value === "optionSpousePartner" %}
+      <p class="govuk-body">{{ content.paragraph2Spouse | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% else %}
+      <p class="govuk-body">{{ content.paragraph2 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% endif %}
+
+    {% if fields.applicantRelationshipToDeceased.value === "optionSpousePartner" %}
+      <p class="govuk-body">{{ content.paragraph2Parent | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {% endif %}
     <ul class="govuk-list govuk-list--bullet">
       <li>{{ content.bullet1 | safe }}</li>
       <li>{{ content.bullet2 | safe }}</li>
       <li>{{ content.bullet3 | safe }}</li>
     </ul>
     <p class="govuk-body">{{ content.paragraph3Parent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.paragraph3 | safe }}</p>
+<p class="govuk-body">{{ ( content.paragraph4Spouse if fields.applicantRelationshipToDeceased.value === "optionSpousePartner") | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
     <h2 class="govuk-heading-m">{{ ( content.questionParent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.question ) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</h2>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "hasCoApplicant",
         name: "hasCoApplicant",
-        errorMessage: { text: fields.hasCoApplicant.errorMessage | replace("{deceasedName}", fields.deceasedName.value)  | safe } if fields.hasCoApplicant.errorMessage,
+        errorMessage: { text: fields.hasCoApplicant.errorMessage | replace("{applicationFormPA1A}", globals.links.applicationFormPA1A)  | safe } if fields.hasCoApplicant.errorMessage,
     items: [{
             value: "optionYes",
             text: content["optionYes"] | safe

@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantRelationship = require('app/steps/ui/executors/relationshiptodeceased');
+const ApplicantName = require('app/steps/ui/applicant/name');
 const Equality = require('app/steps/ui/equality');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
@@ -10,6 +11,7 @@ describe('joint-application', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantRelationship = CoApplicantRelationship.getUrl('*');
     const expectedNextUrlForEquality = Equality.getUrl();
+    const expectedNextUrlForApplicantNameUrl = ApplicantName.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('JointApplication');
@@ -82,8 +84,51 @@ describe('joint-application', () => {
                 });
         });
 
+        it('test redirection to stop page when relationship to deceased is spouse and they want to do joint application', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {list: [{'fullName': 'Jeff Exec Two', 'isApplying': true}],
+                        hasCoApplicant: 'optionYes',
+                        hasCoApplicantChecked: true};
+
+                    testWrapper.testRedirect(done, data, '/intestacy/stop-page/noJointApplicationApplicable');
+                });
+        });
+
+        it('test redirection to Applicant name when selecting no', (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {list: [{'fullName': 'Jeff Exec Two', 'isApplying': true}],
+                        hasCoApplicant: 'optionNo',
+                        hasCoApplicantChecked: true};
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantNameUrl}`);
+                });
+        });
+
         it('test correct content loaded on the page', (done) => {
-            const contentToExclude = ['titleParent', 'questionParent', 'paragraph1Parent', 'paragraph2Parent', 'paragraph3Parent'];
+            const contentToExclude = ['titleParent', 'questionParent', 'paragraph1Parent', 'paragraph2Parent', 'paragraph3Parent', 'paragraph1Spouse', 'paragraph2Spouse', 'paragraph4Spouse'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -94,8 +139,20 @@ describe('joint-application', () => {
                 });
         });
         it('test correct content loaded on the page for relationshipToDeceased is Parent', (done) => {
-            const contentToExclude = ['title', 'question', 'paragraph1', 'paragraph2', 'paragraph3', 'applicantExecutor'];
+            const contentToExclude = ['title', 'question', 'paragraph1', 'paragraph2', 'paragraph3', 'applicantExecutor', 'paragraph1Spouse', 'paragraph2Spouse', 'paragraph4Spouse'];
             sessionData.applicant.relationshipToDeceased = 'optionParent';
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        deceasedName: 'John Doe'
+                    };
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+        it('test correct content loaded on the page for relationshipToDeceased is spouse', (done) => {
+            const contentToExclude = ['paragraph1', 'paragraph2', 'paragraph3', 'applicantExecutor', 'paragraph1Spouse', 'paragraph2Spouse', 'paragraph4Spouse', 'titleParent', 'questionParent', 'paragraph1Parent', 'paragraph2Parent', 'paragraph3Parent'];
+            sessionData.applicant.relationshipToDeceased = 'optionSpousePartner';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {

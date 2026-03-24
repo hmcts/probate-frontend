@@ -5,6 +5,7 @@ const AnyGrandchildrenUnder18 = require('app/steps/ui/deceased/anygrandchildrenu
 const GrandchildParentHasOtherChildren = require('app/steps/ui/deceased/grandchildparenthasotherchildren/index');
 const AllChildrenOver18 = require('app/steps/ui/deceased/allchildrenover18/index');
 const ApplicantName = require('app/steps/ui/applicant/name/index');
+const JointApplication = require('app/steps/ui/executors/jointapplication/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -14,6 +15,7 @@ describe('any-surviving-grandchildren', () => {
     const expectedNextUrlForAllChildrenOver18 = AllChildrenOver18.getUrl();
     const expectedNextUrlForGrandchildParentHasOtherChildren = GrandchildParentHasOtherChildren.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
+    const expectedNextUrlForJointApplication = JointApplication.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnySurvivingGrandchildren');
@@ -69,7 +71,8 @@ describe('any-surviving-grandchildren', () => {
         });
         it(`test it redirects to grandchild over 18 page if some children are predeceased: /intestacy${expectedNextUrlForAllChildrenOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({caseType: caseTypes.INTESTACY,
+                    applicant: {relationshipToDeceased: 'optionChild'}})
                 .end(() => {
                     const data = {
                         anyPredeceasedChildren: 'optionYesSome',
@@ -77,6 +80,37 @@ describe('any-surviving-grandchildren', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllChildrenOver18}`);
+                });
+        });
+        it(`test it redirects to Joint application page if some children are predeceased: /intestacy${expectedNextUrlForJointApplication}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY,
+                    applicant: {relationshipToDeceased: 'optionSpousePartner'}})
+                .end(() => {
+                    const data = {
+                        anyPredeceasedChildren: 'optionYesSome',
+                        anySurvivingGrandchildren: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForJointApplication}`);
+                });
+        });
+        it(`test it redirects to Applicant name page if all children are predeceased and applicant is spouse: /intestacy${expectedNextUrlForApplicantName}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        anyPredeceasedChildren: 'optionYesAll',
+                        anySurvivingGrandchildren: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForApplicantName}`);
                 });
         });
         it(`test it redirects to Applicant name page if all children are predeceased and applicant is child: /intestacy${expectedNextUrlForApplicantName}`, (done) => {

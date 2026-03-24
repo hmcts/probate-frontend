@@ -3,6 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const AllChildrenOver18 = require('app/steps/ui/deceased/allchildrenover18/index');
 const AnySurvivingGrandchildren = require('app/steps/ui/deceased/anysurvivinggrandchildren/index');
+const JointApplication = require('app/steps/ui/executors/jointapplication/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
@@ -10,6 +11,7 @@ describe('any-deceased-children', () => {
     let testWrapper;
     const expectedNextUrlForAllChildrenOver18 = AllChildrenOver18.getUrl();
     const expectedNextUrlForAnySurvivingGrandchildren = AnySurvivingGrandchildren.getUrl();
+    const expectedNextUrlForJointApplication = JointApplication.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('AnyPredeceasedChildren');
@@ -22,7 +24,7 @@ describe('any-deceased-children', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('AnyPredeceasedChildren', null, null, [], false, {type: caseTypes.INTESTACY});
 
-        it('test content loaded on the page', (done) => {
+        it('test content loaded on the page if relationship to deceased is child', (done) => {
             const sessionData = {
                 type: caseTypes.INTESTACY,
                 ccdCase: {
@@ -36,9 +38,42 @@ describe('any-deceased-children', () => {
                     'dod-month': 10,
                     'dod-year': 2018,
                     'dod-formattedDate': '13 October 2018'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
                 }
             };
-            const contentToExclude = ['theDeceased'];
+            const contentToExclude = ['theDeceased', 'spouseQuestion'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {deceasedName: 'John Doe'};
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test content loaded on the page if relationship to deceased is spouse', (done) => {
+            const sessionData = {
+                type: caseTypes.INTESTACY,
+                ccdCase: {
+                    state: 'Pending',
+                    id: 1234567890123456
+                },
+                deceased: {
+                    'firstName': 'John',
+                    'lastName': 'Doe',
+                    'dod-day': 13,
+                    'dod-month': 10,
+                    'dod-year': 2018,
+                    'dod-formattedDate': '13 October 2018'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionSpousePartner'
+                }
+            };
+            const contentToExclude = ['theDeceased', 'question'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -62,6 +97,18 @@ describe('any-deceased-children', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAllChildrenOver18}`);
+                });
+        });
+        it(`test it redirects to Joint Application page if no predeceased children: ${expectedNextUrlForJointApplication}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.INTESTACY,
+                    applicant: {relationshipToDeceased: 'optionSpousePartner'}})
+                .end(() => {
+                    const data = {
+                        anyPredeceasedChildren: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForJointApplication}`);
                 });
         });
         it(`test it redirects to Any surviving grandchildren page if some children are predeceased: /intestacy${expectedNextUrlForAnySurvivingGrandchildren}`, (done) => {

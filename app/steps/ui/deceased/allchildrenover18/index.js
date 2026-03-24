@@ -24,10 +24,12 @@ class AllChildrenOver18 extends ValidationStep {
     nextStepOptions(ctx) {
         ctx.childAndAllChildrenOver18 = ctx.relationshipToDeceased === 'optionChild' && ctx.allChildrenOver18 === 'optionYes';
         ctx.grandchildAndAllChildrenOver18 = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.allChildrenOver18 === 'optionYes';
+        ctx.spouseAndAllChildrenOver18 = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.allChildrenOver18 === 'optionYes';
         return {
             options: [
                 {key: 'childAndAllChildrenOver18', value: true, choice: 'childAndAllChildrenOver18'},
-                {key: 'grandchildAndAllChildrenOver18', value: true, choice: 'grandchildAndAllChildrenOver18'}
+                {key: 'grandchildAndAllChildrenOver18', value: true, choice: 'grandchildAndAllChildrenOver18'},
+                {key: 'spouseAndAllChildrenOver18', value: true, choice: 'spouseAndAllChildrenOver18'}
             ]
         };
     }

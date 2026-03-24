@@ -209,7 +209,8 @@ describe('AnySurvivingGrandchildren', () => {
                 options: [
                     {key: 'anySurvivingGrandchildren', value: 'optionYes', choice: 'hadSurvivingGrandchildren'},
                     {key: 'hadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'hadOtherChildrenAndHadNoSurvivingGrandchildren'},
-                    {key: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childAndNoOtherChildrenAndHadNoSurvivingGrandchildren'},
+                    {key: 'childOrSpouseAndHadNoOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'childOrSpouseAndHadNoOtherChildrenAndHadNoSurvivingGrandchildren'},
+                    {key: 'spouseAndHadOtherChildrenAndHadNoSurvivingGrandchildren', value: true, choice: 'spouseAndHadOtherChildrenAndHadNoSurvivingGrandchildren'}
                 ]
             });
             done();

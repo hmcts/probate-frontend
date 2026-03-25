@@ -19,6 +19,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'gop',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -50,13 +53,17 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
                         {text: 'the original will (by law, we must keep your original will as it becomes a public document)', type: 'textOnly'}],
+                    checkListItemsWelsh: [
+                        {text: 'yr ewyllys wreiddiol (yn ôl y gyfraith, rhaid i ni gadw\'r ewyllys wreiddiol wrth iddi ddod yn ddogfen gyhoeddus)', type: 'textOnly'}],
                     noDocumentsRequired: false,
-                    noDocumentsRequiredText: null
+                    noDocumentsRequiredText: null,
+                    noDocumentsRequiredTextWelsh: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -69,6 +76,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'intestacy',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -106,6 +116,7 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
@@ -113,8 +124,13 @@ describe('CoverSheetPdfService', () => {
                         {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will', beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
                         {text: 'Give up probate administrator rights paper form', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: '', afterLinkText: ' - Form PA16'}
                     ],
+                    checkListItemsWelsh: [
+                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will', beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
+                        {text: 'ffurflen bapur rhoi\'r gorau i bob hawl i weithredu fel gweinyddwr profiant', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: '', afterLinkText: ' - Ffurflen PA16'}
+                    ],
                     noDocumentsRequired: false,
-                    noDocumentsRequiredText: null
+                    noDocumentsRequiredText: null,
+                    noDocumentsRequiredTextWelsh: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -126,6 +142,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'gop',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -168,6 +187,7 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
@@ -178,8 +198,16 @@ describe('CoverSheetPdfService', () => {
                         {text: 'the English translation of the foreign death certificate', type: 'textOnly'},
                         {text: 'Foreign death certificate form (opens in a new tab)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company', beforeLinkText: 'either a completed PA19 - ', afterLinkText: ' or a certificate from the translator confirming the translation\'s validity'}
                     ],
+                    checkListItemsWelsh: [
+                        {text: 'yr ewyllys wreiddiol ac unrhyw godisiliau (yn ôl y gyfraith, rhaid i ni gadw&rsquo;r ewyllys wreiddiol wrth iddi ddod yn ddogfen gyhoeddus)', type: 'textOnly'},
+                        {text: 'unrhyw ddymuniadau ysgrifenedig', type: 'textOnly'},
+                        {text: 'y dystysgrif marwolaeth dros dro', type: 'textOnly'},
+                        {text: 'cyfieithiad Saesneg o’r dystysgrif marwolaeth dramor', type: 'textOnly'},
+                        {text: 'wedi ei llenwi (yn agor mewn tab newydd)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa19-apply-for-a-grant-of-representation-with-a-foreign-death-certificate-not-translated-by-a-licensed-company', beforeLinkText: 'naill ai ffurflen dystysgrif marwolaeth dramor PA19 - ', afterLinkText: ' neu dystysgrif gan gyfieithydd yn cadarnhau dilysrwydd y cyfieithiad'}
+                    ],
                     noDocumentsRequired: false,
-                    noDocumentsRequiredText: null
+                    noDocumentsRequiredText: null,
+                    noDocumentsRequiredTextWelsh: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -191,6 +219,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'gop',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -240,6 +271,7 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
@@ -250,8 +282,16 @@ describe('CoverSheetPdfService', () => {
                         {text: 'copy of the deed poll document for Executor current Name 1', type: 'textOnly'},
                         {text: 'copy of the deed poll document for Executor current Name 3', type: 'textOnly'}
                     ],
+                    checkListItemsWelsh: [
+                        {text: 'yr ewyllys wreiddiol (yn ôl y gyfraith, rhaid i ni gadw\'r ewyllys wreiddiol wrth iddi ddod yn ddogfen gyhoeddus)', type: 'textOnly'},
+                        {text: 'y dystysgrif marwolaeth dramor wreiddiol', type: 'textOnly'},
+                        {text: 'y ffurflen treth etifeddiant IHT205 wedi ei llenwi', type: 'textOnly'},
+                        {text: 'copi o&rsquo;r ddogfen gweithred newid enw ar gyfer Executor current Name 1', type: 'textOnly'},
+                        {text: 'copi o&rsquo;r ddogfen gweithred newid enw ar gyfer Executor current Name 3', type: 'textOnly'}
+                    ],
                     noDocumentsRequired: false,
-                    noDocumentsRequiredText: null
+                    noDocumentsRequiredText: null,
+                    noDocumentsRequiredTextWelsh: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -264,6 +304,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'intestacy',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -304,14 +347,19 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
                         {text: 'the interim death certificate', type: 'textOnly'}
                     ],
+                    checkListItemsWelsh: [
+                        {text: 'y dystysgrif marwolaeth dros dro', type: 'textOnly'}
+                    ],
                     noDocumentsRequired: false,
-                    noDocumentsRequiredText: null
+                    noDocumentsRequiredText: null,
+                    noDocumentsRequiredTextWelsh: null
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);

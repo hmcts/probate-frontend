@@ -109,7 +109,7 @@ class JointApplication extends ValidationStep {
                 errors.push(FieldError('hasCoApplicant', 'requiredParent', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             } else if (hasCoApplicantChecked === false && ctx.applicantRelationshipToDeceased === 'optionSpousePartner') {
-                errors.push(FieldError('hasCoApplicant', 'requiredParent', this.resourcePath,
+                errors.push(FieldError('hasCoApplicant', 'requiredSpouse', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             } else if (ctx.list.length > 3 && ctx.hasCoApplicant === 'optionYes') {
                 errors.push(FieldError('hasCoApplicant', 'invalid', this.resourcePath,

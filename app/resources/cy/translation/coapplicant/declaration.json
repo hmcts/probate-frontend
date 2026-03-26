@@ -24,6 +24,9 @@
   "optionNoText": "Os nad ydych yn si&wcirc;r am unrhyw wybodaeth sydd yn y datganiad cyfreithiol, dylech gysylltu &acirc; {mainApplicantName} cyn arbed y cais a pharhau.",
   "submit": "Cyflwyno eich ymateb",
   "warning": "Rhybudd",
+  "intestacyDeceasedChildren": "Nid oes gan blant dan 18 oed hawl i&rsquo;r ystad.",
+  "intestacyLettersOfAdministration": "Rwy&rsquo;n gwneud cais am lythyrau gweinyddu. Rwyf wedi darparu&rsquo;r hyn a gredaf i fod yn wybodaeth gywir a gwir am {deceasedName}.",
+  "intestacyLettersOfAdministrationMultipleApplicants": "Rydym yn gwneud cais am lythyrau gweinyddu. Rydym wedi darparu’r hyn a gredwn i fod yn wybodaeth gywir a gwir am {deceasedName}.",
 
   "errors": {
     "agreement": {

@@ -24,6 +24,9 @@
   "optionNoText": "If you&rsquo;re not sure about any of the information in the legal statement, you should contact {mainApplicantName} before saving and continuing.",
   "submit": "Submit your response",
   "warning": "Warning",
+  "intestacyDeceasedChildren": "No children under 18 are entitled to the estate.",
+  "intestacyLettersOfAdministration": "I am applying for letters of administration. I have provided what I believe to be true and accurate information about {deceasedName}.",
+  "intestacyLettersOfAdministrationMultipleApplicants": "We are applying for letters of administration. We have provided what we believe to be true and accurate information about {deceasedName}.",
 
   "errors": {
     "agreement": {

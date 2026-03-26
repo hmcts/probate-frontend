@@ -71,7 +71,7 @@ govPayTestCardDetails:
 environment: local
 
 configFeatureToggles:
-  webchatEnabled: true
+  webchatEnabled: false
 
 webchat:
   kerv:

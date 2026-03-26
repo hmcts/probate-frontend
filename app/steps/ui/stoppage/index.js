@@ -104,7 +104,7 @@ class StopPage extends Step {
         case 'anyoneUnder18':
         case 'hasOtherSiblingsWithSameParents':
         case 'hasSurvivingChildrenWithOneParent':
-        case 'noJointApplication':
+        case 'noJointApplicationApplicable':
             pageHeader = 'cannotApplyByOnlineHeader';
             break;
         case 'otherCoApplicantRelationship':

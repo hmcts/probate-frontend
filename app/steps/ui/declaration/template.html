@@ -77,7 +77,22 @@
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
+                {% if ((fields.relationshipToDeceased.value == "optionChild"
+                    or fields.relationshipToDeceased.value == "optionAdoptedChild"
+                    or fields.relationshipToDeceased.value == "optionGrandchild")
+                    and (fields.allChildrenOver18.value == "optionYes"))
+
+                    or
+
+                    (fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
+                    and
+                    fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
+                    and
+                    fields.deceased.anyChildren.value == "optionYes")
+                %}
+                  <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
+                {% endif %}
+
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant2 | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
 
@@ -156,7 +171,22 @@
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
+                {% if ((fields.relationshipToDeceased.value == "optionChild"
+                    or fields.relationshipToDeceased.value == "optionAdoptedChild"
+                    or fields.relationshipToDeceased.value == "optionGrandchild")
+                    and (fields.allChildrenOver18.value == "optionYes"))
+
+                    or
+
+                    (fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
+                    and
+                    fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
+                    and
+                    fields.deceased.anyChildren.value == "optionYes")
+                %}
+                  <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
+                {% endif %}
+
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applicant2 | safe }}</p>
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>
 

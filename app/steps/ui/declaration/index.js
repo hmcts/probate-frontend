@@ -177,6 +177,8 @@ class Declaration extends ValidationStep {
             ctx.hasMultipleApplicants = ctx.executorsWrapper.hasMultipleApplicants();
             ctx.executorsEmailChanged = ctx.executorsWrapper.hasExecutorsEmailChanged();
             ctx.hasExecutorsToNotify = ctx.executorsWrapper.hasExecutorsToNotify() && ctx.invitesSent;
+            ctx.relationshipToDeceased = formdata.applicant.relationshipToDeceased;
+            ctx.allChildrenOver18 = formdata.deceased.allChildrenOver18;
 
             const multipleApplicantSuffix = this.multipleApplicantSuffix(ctx.hasMultipleApplicants);
 
@@ -391,6 +393,8 @@ class Declaration extends ValidationStep {
         delete ctx.showNetValueAssetsOutside;
         delete ctx.ihtNetValueAssetsOutside;
         delete ctx.hasMultipleApplicants;
+        delete ctx.relationshipToDeceased;
+        delete ctx.allChildrenOver18;
 
         delete ctx.executorsWrapper;
         delete ctx.hasDataChanged;

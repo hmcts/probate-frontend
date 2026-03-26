@@ -22,7 +22,7 @@ class AnyGrandchildrenUnder18 extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.allGrandchildrenOver18AndSomePredeceasedChildren = ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
+        ctx.allGrandchildrenOver18AndSomePredeceasedChildren = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesSome';
         ctx.childAndGrandchildrenOver18AndAllPredeceasedChildren = ctx.relationshipToDeceased === 'optionChild' && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
         ctx.grandchildAndGrandchildrenOver18AndAllPredeceasedChildren = ctx.relationshipToDeceased === 'optionGrandchild' && ctx.anyGrandchildrenUnder18 === 'optionNo' && ctx.anyPredeceasedChildren === 'optionYesAll';
         ctx.spouseAndGrandchildrenOver18 = ctx.relationshipToDeceased === 'optionSpousePartner' && ctx.anyGrandchildrenUnder18 === 'optionNo';

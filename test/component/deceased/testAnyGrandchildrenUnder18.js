@@ -94,7 +94,10 @@ describe('any-grandchildren-under-18', () => {
 
         it(`test it redirects to All children over 18 page if no grandchildren are under 18 and have some predeceased children: /intestacy${expectedNextUrlForAllChildrenOver18}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionGrandchild'
+                    }})
                 .end(() => {
                     const data = {
                         anyGrandchildrenUnder18: 'optionNo',

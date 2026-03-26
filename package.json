@@ -101,7 +101,6 @@
     "@hmcts/properties-volume": "^1.0.0",
     "@launchdarkly/node-server-sdk": "^9.0.0",
     "@wdio/cli": "^9.20.0",
-    "@wdio/selenium-standalone-service": "^8.10.4",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
     "applicationinsights": "^2.5.0",

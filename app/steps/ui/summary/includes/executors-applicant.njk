@@ -114,30 +114,83 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
-{% if fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionSibling" %}
-    {{checkanswer(
+{% if fields.summary.caseType.value == "intestacy" %}
+   {% if fields.applicant.relationshipToDeceased.value == "optionSibling" %}
+      {{checkanswer(
+          items = [
+              {
+                  question: content.AdoptedIn.wholeBloodSiblingQuestion,
+                  answer: content.AdoptedIn[fields.applicant.adoptedIn.value],
+                  visible: true
+              }
+          ],
+          url = content.AdoptedIn.url,
+          common = common,
+          alreadyDeclared = fields.summary.alreadyDeclared.value
+      )}}
+      {{checkanswer(
         items = [
-            {
-                question: content.AdoptedIn.wholeBloodSiblingQuestion,
-                answer: content.AdoptedIn[fields.applicant.adoptedIn.value],
-                visible: true
-            }
-        ],
-        url = content.AdoptedIn.url,
-        common = common,
-        alreadyDeclared = fields.summary.alreadyDeclared.value
-    )}}
+                  {
+                      question: content.AdoptedOut.wholeBloodSiblingQuestion,
+                      answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
+                      visible: true
+                  }
+              ],
+              url = content.AdoptedOut.url,
+              common = common,
+              alreadyDeclared = fields.summary.alreadyDeclared.value
+          )}}
+   {% elseif fields.applicant.relationshipToDeceased.value == "optionChild" %}
+      {{checkanswer(
+          items = [
+              {
+                  question: content.AdoptedIn.childQuestion | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+                  answer: content.AdoptedIn[fields.applicant.adoptedIn.value],
+                  visible: true
+              }
+          ],
+          url = content.AdoptedIn.url,
+          common = common,
+          alreadyDeclared = fields.summary.alreadyDeclared.value
+      )}}
 
-        {{checkanswer(
-            items = [
-                {
-                    question: content.AdoptedOut.wholeBloodSiblingQuestion,
-                    answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
-                    visible: true
-                }
-            ],
-            url = content.AdoptedOut.url,
-            common = common,
-            alreadyDeclared = fields.summary.alreadyDeclared.value
-        )}}
+          {{checkanswer(
+              items = [
+                  {
+                      question: content.AdoptedOut.childQuestion | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+                      answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
+                      visible: true
+                  }
+              ],
+              url = content.AdoptedOut.url,
+              common = common,
+              alreadyDeclared = fields.summary.alreadyDeclared.value
+          )}}
+   {% elseif fields.applicant.relationshipToDeceased.value == "optionGrandchild" %}
+      {{checkanswer(
+          items = [
+              {
+                  question: content.AdoptedIn.grandchildQuestion | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+                  answer: content.AdoptedIn[fields.applicant.adoptedIn.value],
+                  visible: true
+              }
+          ],
+          url = content.AdoptedIn.url,
+          common = common,
+          alreadyDeclared = fields.summary.alreadyDeclared.value
+      )}}
+
+          {{checkanswer(
+              items = [
+                  {
+                      question: content.AdoptedOut.childQuestion | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+                      answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
+                      visible: true
+                  }
+              ],
+              url = content.AdoptedOut.url,
+              common = common,
+              alreadyDeclared = fields.summary.alreadyDeclared.value
+          )}}
+    {% endif %}
 {% endif %}

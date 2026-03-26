@@ -32,6 +32,9 @@ class ExecutorAddress extends AddressStep {
                 throw new Error(`Unknown case type: ${ctx.caseType}`);
             }
             ctx.redirect = `${pageUrl}/${ctx.index}`;
+        } else if (ctx.caseType === caseTypes.INTESTACY) {
+            req.log.info('recalculating index for intestacy');
+            ctx.index = this.recalcIntestacyIndex(ctx, formdata);
         }
         if (ctx.list[ctx.index]) {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;

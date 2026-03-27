@@ -102,7 +102,7 @@ class JointApplication extends ValidationStep {
         const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
         if (!isSaveAndClose) {
             const hasCoApplicantChecked = ctx.hasCoApplicantChecked === 'true';
-            if (hasCoApplicantChecked === false && ctx.applicantRelationshipToDeceased !== 'optionParent') {
+            if (hasCoApplicantChecked === false && ctx.applicantRelationshipToDeceased !== 'optionParent' && ctx.applicantRelationshipToDeceased !== 'optionSpousePartner') {
                 errors.push(FieldError('hasCoApplicant', 'required', this.resourcePath,
                     this.generateContent({}, {}, session.language), session.language));
             } else if (hasCoApplicantChecked === false && ctx.applicantRelationshipToDeceased === 'optionParent') {

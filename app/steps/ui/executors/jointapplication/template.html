@@ -76,7 +76,7 @@
         classes: "govuk-radios--inline",
         idPrefix: "hasCoApplicant",
         name: "hasCoApplicant",
-        errorMessage: { text: fields.hasCoApplicant.errorMessage | replace("{applicationFormPA1A}", globals.links.applicationFormPA1A)  | safe } if fields.hasCoApplicant.errorMessage,
+        errorMessage: { text: fields.hasCoApplicant.errorMessage | replace("{deceasedName}", fields.deceasedName.value)  | safe } if fields.hasCoApplicant.errorMessage,
     items: [{
             value: "optionYes",
             text: content["optionYes"] | safe

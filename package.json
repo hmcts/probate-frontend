@@ -230,7 +230,8 @@
     "undici": "^7.18.2",
     "is-async-function": "2.1.0",
     "webdriverio": "^9.23.3",
-    "yauzl": "^3.2.1"
+    "yauzl": "^3.2.1",
+    "brace-expansion": "^5.0.5"
   },
   "packageManager": "yarn@4.13.0"
 }

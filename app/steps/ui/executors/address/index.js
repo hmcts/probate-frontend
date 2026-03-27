@@ -33,7 +33,6 @@ class ExecutorAddress extends AddressStep {
             }
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         } else if (ctx.caseType === caseTypes.INTESTACY) {
-            req.log.info('recalculating index for intestacy');
             ctx.index = this.recalcIntestacyIndex(ctx, formdata);
         }
         if (ctx.list[ctx.index]) {

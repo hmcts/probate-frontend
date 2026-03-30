@@ -247,11 +247,11 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^5.0.0":
-  version: 5.6.1
-  resolution: "@azure/msal-browser@npm:5.6.1"
+  version: 5.6.2
+  resolution: "@azure/msal-browser@npm:5.6.2"
   dependencies:
     "@azure/msal-common": "npm:16.4.0"
-  checksum: 10/9a98092d687e8aa342ffcbc75b01623630890cebcf67e34ea438aedab125b7e7fa3288240da740d904182d34fc2e0b3df30340db3225b0ebfeb19a94db43d5ca
+  checksum: 10/c87c2a7a081df2118edd36a1081e796fe8aff5f3db89cf0f147d88042adec62a28b879235bc8777023fcc8a8eea6881a4c90e194167c6c71577a5f0b21c8baf3
   languageName: node
   linkType: hard
 

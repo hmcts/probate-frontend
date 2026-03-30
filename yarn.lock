@@ -8299,9 +8299,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^25.0.0":
-  version: 25.10.9
-  resolution: "i18next@npm:25.10.9"
+"i18next@npm:^26.0.0":
+  version: 26.0.2
+  resolution: "i18next@npm:26.0.2"
   dependencies:
     "@babel/runtime": "npm:^7.29.2"
   peerDependencies:
@@ -8309,7 +8309,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/1e9e6b9506b1c362e222478698aadb0dfe8a68aab03eb69d366311794966c2cc6244b6adf8ccfee8a9c32d12f47f37e6eac046f6744c04c41069827af63f69f8
+  checksum: 10/16c3b264810d386c6f0ba9e1a42416369bf34acf89e212e222c07c7351d278f7aee008f9a0c70990144b966f85a9123303809313658044001bc858e9af1062a7
   languageName: node
   linkType: hard
 
@@ -12478,7 +12478,7 @@ __metadata:
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
     https-proxy-agent: "npm:^5.0.1"
-    i18next: "npm:^25.0.0"
+    i18next: "npm:^26.0.0"
     if-env: "npm:^1.0.4"
     ioredis: "npm:^5.0.0"
     ip: "npm:^2.0.1"

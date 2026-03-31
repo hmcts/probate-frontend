@@ -239,6 +239,13 @@ describe('DetectDataChange.js', () => {
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
                 done();
             });
+
+            it('when the declarationCheckbox is true, and a data change has already been flagged', (done) => {
+                req.session.form.declaration.declarationCheckbox = 'true';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
         });
 
         describe('should return false', () => {
@@ -298,7 +305,7 @@ describe('DetectDataChange.js', () => {
                 done();
             });
 
-            it('when a data change has already been flagged', (done) => {
+            it('when a data change has already been flagged, and the declarationCheckbox does not exist', (done) => {
                 req.session.form.declaration.hasDataChanged = true;
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(false);

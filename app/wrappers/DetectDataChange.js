@@ -22,7 +22,7 @@ class DetectDataChanges {
             step.schemaFile.id !== executorsInviteSchema.$id &&
             formdata[step.section] &&
             formdata.declaration &&
-            (!formdata.declaration.hasDataChanged || formdata.declaration.hasDataChanged === 'false')
+            (formdata.declaration.declarationCheckbox === 'true' || !formdata.declaration.hasDataChanged || formdata.declaration.hasDataChanged === 'false')
         ) {
             if (step.section === 'executors') {
                 const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
@@ -41,13 +41,13 @@ class DetectDataChanges {
                     const executorsWhoDied = executorsWrapper.deadExecutors().map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
+                return this.hasChanged(req.body, formdata[step.section].list[index]);
             }
             if (Object.keys(req.body).includes('addressLine1')) {
                 req.body.address = this.sanitiseAddressObject(req.body);
             }
             return this.hasChanged(req.body, formdata[step.section]);
         }
-
         return false;
     }
 

@@ -177,6 +177,14 @@ class Summary extends Step {
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.GrandchildParentHasOtherChildren.theDeceased);
             ctx.grandchildParentHasAllChildrenOver18 = content.GrandchildParentHasAllChildrenOver18.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.GrandchildParentHasAllChildrenOver18.theDeceased);
+            ctx.deceasedParentsLegallyAdoptedIn = content.DeceasedAdoptedIn.siblingQuestion
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAdoptedIn.theDeceased); //Sibling Journey
+            ctx.deceasedParentsLegallyAdoptedOut = content.DeceasedAdoptedOut.siblingQuestion
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAdoptedOut.theDeceased); //Sibling Journey
+            ctx.deceasedSiblingLegallyAdoptedIn = content.DeceasedAdoptedIn.parentQuestion
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAdoptedIn.theDeceased); //Parent Journey
+            ctx.deceasedSiblingLegallyAdoptedOut = content.DeceasedAdoptedOut.parentQuestion
+                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedAdoptedOut.theDeceased); //Parent Journey
             ctx.executorSummary = [];
             if (executors && Array.isArray(executors.list)) {
                 executors.list.forEach((exec) => {

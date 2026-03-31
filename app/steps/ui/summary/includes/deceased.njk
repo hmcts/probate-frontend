@@ -256,3 +256,30 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+
+{# intestacy sibling questions #}
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedParentsLegallyAdoptedIn.value,
+            answer: content.DeceasedAdoptedIn[fields.applicant.deceasedAdoptedIn.value],
+            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionSibling"
+        }
+    ],
+    url = content.DeceasedAdoptedIn.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedParentsLegallyAdoptedOut.value,
+            answer: content.DeceasedAdoptedOut[fields.applicant.deceasedAdoptedOut.value],
+            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionSibling"
+        }
+    ],
+    url = content.DeceasedAdoptedOut.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

@@ -77,23 +77,24 @@
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
 
-                {% if ((fields.relationshipToDeceased.value == "optionChild"
+                {% if fields.relationshipToDeceased.value == "optionChild"
                     or fields.relationshipToDeceased.value == "optionAdoptedChild"
-                    or fields.relationshipToDeceased.value == "optionGrandchild")
-                    and (fields.allChildrenOver18.value == "optionYes"))
-
-                    or
-
-                    (fields.relationshipToDeceased.value == "optionSpousePartner"
-                    and
-                    fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
-                    and
-                    fields.deceased.anyChildren.value == "optionYes")
+                    or fields.relationshipToDeceased.value == "optionGrandchild"
+                    or (
+                          (fields.relationshipToDeceased.value == "optionSibling")
+                          and
+                          (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" or fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome")
+                          and
+                          (fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionYes")
+                          and
+                          (fields.applicant.allWholeNiecesAndWholeNephewsOver18.value == "optionYes")
+                    )
                 %}
                   <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
                 {% endif %}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applicant2 | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.renouncingText | safe }}</p>
+
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
 
                     {{ lists(content.cy, fields.declaration.value.cy) }}
@@ -171,23 +172,24 @@
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
 
-                {% if ((fields.relationshipToDeceased.value == "optionChild"
+                {% if fields.relationshipToDeceased.value == "optionChild"
                     or fields.relationshipToDeceased.value == "optionAdoptedChild"
-                    or fields.relationshipToDeceased.value == "optionGrandchild")
-                    and (fields.allChildrenOver18.value == "optionYes"))
-
-                    or
-
-                    (fields.relationshipToDeceased.value == "optionSpousePartner"
-                    and
-                    fields.summary.ihtTotalNetValueGreaterThanIhtThreshold.value == "true"
-                    and
-                    fields.deceased.anyChildren.value == "optionYes")
+                    or fields.relationshipToDeceased.value == "optionGrandchild"
+                    or (
+                          (fields.relationshipToDeceased.value == "optionSibling")
+                          and
+                          (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" or fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome")
+                          and
+                          (fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionYes")
+                          and
+                          (fields.applicant.allWholeNiecesAndWholeNephewsOver18.value == "optionYes")
+                    )
                 %}
                   <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
                 {% endif %}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applicant2 | safe }}</p>
+                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.renouncingText | safe }}</p>
+
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>
 
                 {{ lists(content.en, fields.declaration.value.en) }}

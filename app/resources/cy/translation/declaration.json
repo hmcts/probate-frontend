@@ -87,6 +87,7 @@
   "intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted": "Fi yw plentyn {deceasedName} ac rwy&rsquo;n un o&rsquo;r bobl sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted": "Fi yw plentyn a fabwysiadwyd yn gyfreithiol {deceasedName} a&rsquo;r unig unigolyn sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
   "intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted": "Fi yw plentyn {deceasedName} a&rsquo;r unig unigolyn sydd nawr &acirc; hawl i gyfran o&rsquo;r ystad.",
+  "intestacyDeceasedMarriedSpouseRenouncingText": "Mae g&wcirc;r/gwraig neu bartner sifil {deceasedName} wedi rhoi fyny yr hawl i wneud cais am lythyrau gweinyddu nawr ac yn y dyfodol.",
   "intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted": "Mae g&wcirc;r/gwraig neu bartner sifil {deceasedName} wedi rhoi fyny yr hawl i wneud cais am lythyrau gweinyddu nawr ac yn y dyfodol.",
   "intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted": "Mae g&wcirc;r/gwraig neu bartner sifil {deceasedName} wedi rhoi fyny yr hawl i wneud cais am lythyrau gweinyddu nawr ac yn y dyfodol.",
   "intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted": "Mae g&wcirc;r/gwraig neu bartner sifil {deceasedName} wedi rhoi fyny yr hawl i wneud cais am lythyrau gweinyddu nawr ac yn y dyfodol.",

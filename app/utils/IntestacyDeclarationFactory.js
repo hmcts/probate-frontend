@@ -1,8 +1,6 @@
 'use strict';
 
-const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
 const FormatName = require('./FormatName');
 
 class IntestacyDeclarationFactory {
@@ -10,7 +8,6 @@ class IntestacyDeclarationFactory {
     static build(ctx, content, formdata, multipleApplicantSuffix, executorsApplying, executorsApplyingText) {
         const legalStatement = {};
         const declaration = {};
-        const ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
 
         /*
         - This json object takes the content from our typical en and cy json content files and then populates the
@@ -47,7 +44,7 @@ class IntestacyDeclarationFactory {
                 .replace('{deceasedName}', formdata.deceasedName),
 
         };
-        legalStatement.en.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.en, ihtThreshold);
+        legalStatement.en.renouncingText = this.getRenouncingText(formdata, content.en);
         declaration.en = {
             confirm: content.en[`declarationConfirm${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
@@ -92,7 +89,7 @@ class IntestacyDeclarationFactory {
             applying: content.cy[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
         };
-        legalStatement.cy.applicant2 = applicant2NameFactory.getApplicant2Name(formdata, content.cy, ihtThreshold);
+        legalStatement.cy.renouncingText = this.getRenouncingText(formdata, content.en);
         declaration.cy = {
             confirm: content.cy[`declarationConfirm${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
@@ -115,6 +112,15 @@ class IntestacyDeclarationFactory {
 
     static getMaritalStatus(formdata, content) {
         return get(content, get(formdata.deceased, 'maritalStatus', ''), '').toLowerCase();
+    }
+
+    static getRenouncingText(formdata, content) {
+        let renouncingText = '';
+        if ((formdata.relationshipToDeceased === 'optionChild' || formdata.relationshipToDeceased === 'optionGrandchild') &&
+            (formdata.applicant.spouseNotApplyingReason === 'optionRenouncing')) {
+            renouncingText = content.intestacyDeceasedMarriedSpouseRenouncingText;
+        }
+        return renouncingText.replace(/{deceasedName}/g, formdata.deceasedName);
     }
 }
 

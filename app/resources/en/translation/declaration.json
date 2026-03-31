@@ -87,6 +87,7 @@
   "intestacyDeceasedNotMarriedChildApplyingHasSiblingsIsNotAdopted": "I am the child of {deceasedName} and one of the people now entitled to share in the estate.",
   "intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsAdopted": "I am the lawfully adopted child of {deceasedName} and the only person now entitled to the estate.",
   "intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted": "I am the child of {deceasedName} and the only person now entitled to the estate.",
+  "intestacyDeceasedMarriedSpouseRenouncingText": "{deceasedName}&rsquo;s spouse or civil partner has given up the right to apply for letters of administration now or in the future.",
   "intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsAdopted": "{deceasedName}&rsquo;s spouse or civil partner has given up the right to apply for letters of administration now or in the future.",
   "intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasSiblingsIsNotAdopted": "{deceasedName}&rsquo;s spouse or civil partner has given up the right to apply for letters of administration now or in the future.",
   "intestacyDeceasedMarriedSpouseRenouncingChildApplyingEstateLessThanIhtThresholdHasNoSiblingsIsAdopted": "{deceasedName}&rsquo;s spouse or civil partner has given up the right to apply for letters of administration now or in the future.",

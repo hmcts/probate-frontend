@@ -247,11 +247,11 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^5.0.0":
-  version: 5.6.1
-  resolution: "@azure/msal-browser@npm:5.6.1"
+  version: 5.6.2
+  resolution: "@azure/msal-browser@npm:5.6.2"
   dependencies:
     "@azure/msal-common": "npm:16.4.0"
-  checksum: 10/9a98092d687e8aa342ffcbc75b01623630890cebcf67e34ea438aedab125b7e7fa3288240da740d904182d34fc2e0b3df30340db3225b0ebfeb19a94db43d5ca
+  checksum: 10/c87c2a7a081df2118edd36a1081e796fe8aff5f3db89cf0f147d88042adec62a28b879235bc8777023fcc8a8eea6881a4c90e194167c6c71577a5f0b21c8baf3
   languageName: node
   linkType: hard
 
@@ -3507,7 +3507,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.13.6, axios@npm:^1.12.2, axios@npm:^1.8.4":
+"axios@npm:1.13.6":
   version: 1.13.6
   resolution: "axios@npm:1.13.6"
   dependencies:
@@ -3515,6 +3515,17 @@ __metadata:
     form-data: "npm:^4.0.5"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10/a7ed83c2af3ef21d64609df0f85e76893a915a864c5934df69241001d0578082d6521a0c730bf37518ee458821b5695957cb10db9fc705f2a8996c8686ea7a89
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.12.2, axios@npm:^1.8.4":
+  version: 1.14.0
+  resolution: "axios@npm:1.14.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.11"
+    form-data: "npm:^4.0.5"
+    proxy-from-env: "npm:^2.1.0"
+  checksum: 10/c3444e9e3da1714916e4ddd7cda05bb41a5d5d80e3e27b099a116439684c63f2280c88503d1acd65841698b63af0b542b4d5780454e28fd0aed2d783ef90943e
   languageName: node
   linkType: hard
 
@@ -8288,9 +8299,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^25.0.0":
-  version: 25.10.9
-  resolution: "i18next@npm:25.10.9"
+"i18next@npm:^26.0.0":
+  version: 26.0.3
+  resolution: "i18next@npm:26.0.3"
   dependencies:
     "@babel/runtime": "npm:^7.29.2"
   peerDependencies:
@@ -8298,7 +8309,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/1e9e6b9506b1c362e222478698aadb0dfe8a68aab03eb69d366311794966c2cc6244b6adf8ccfee8a9c32d12f47f37e6eac046f6744c04c41069827af63f69f8
+  checksum: 10/5f7286d863fc9385a36f27195dc21365f29d09feefdefcf89a5bdd85f7ccd45bd67f8f1067627c1cede9762b52cacf53d2b81d3b2ecfc7ba112042c4e29d222b
   languageName: node
   linkType: hard
 
@@ -9748,9 +9759,9 @@ __metadata:
   linkType: hard
 
 "libphonenumber-js@npm:^1.11.17":
-  version: 1.12.40
-  resolution: "libphonenumber-js@npm:1.12.40"
-  checksum: 10/d9883aa02cd6a19b37a6681c08e86e0fb3447ba952e1037bd0274cefa1982a57820cafed1fc70cb5f3cff70c5b1807847e0de34dc3a3762ca423d822bf58c32f
+  version: 1.12.41
+  resolution: "libphonenumber-js@npm:1.12.41"
+  checksum: 10/6819b26db24063a0cedd7cb5523b67182c71b9d92b7c29205088b5b8be0303810ee2a554527ca7d084caa0f8934dca24cb435228b606368f434e83170e149973
   languageName: node
   linkType: hard
 
@@ -12143,9 +12154,9 @@ __metadata:
   linkType: hard
 
 "path-to-regexp@npm:^0.1.12":
-  version: 0.1.12
-  resolution: "path-to-regexp@npm:0.1.12"
-  checksum: 10/2e30f6a0144679c1f95c98e166b96e6acd1e72be9417830fefc8de7ac1992147eb9a4c7acaa59119fb1b3c34eec393b2129ef27e24b2054a3906fc4fb0d1398e
+  version: 0.1.13
+  resolution: "path-to-regexp@npm:0.1.13"
+  checksum: 10/f1e4bdedc4fd41a3b8dd76e8b2e1183105348c6b205badc072581ca63dc6aa7976a8a67feaffcf0e505f51ac12cb1a2de7f3fef3e9085b6849e76232d73ddcba
   languageName: node
   linkType: hard
 
@@ -12467,7 +12478,7 @@ __metadata:
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
     https-proxy-agent: "npm:^5.0.1"
-    i18next: "npm:^25.0.0"
+    i18next: "npm:^26.0.0"
     if-env: "npm:^1.0.4"
     ioredis: "npm:^5.0.0"
     ip: "npm:^2.0.1"
@@ -12721,6 +12732,13 @@ __metadata:
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: 10/f0bb4a87cfd18f77bc2fba23ae49c3b378fb35143af16cc478171c623eebe181678f09439707ad80081d340d1593cd54a33a0113f3ccb3f4bc9451488780ee23
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "proxy-from-env@npm:2.1.0"
+  checksum: 10/fbbaf4dab2a6231dc9e394903a5f66f20475e36b734335790b46feb9da07c37d6b32e2c02e3e2ea4d4b23774c53d8562e5b7cc73282cb43f4a597b7eacaee2ee
   languageName: node
   linkType: hard
 

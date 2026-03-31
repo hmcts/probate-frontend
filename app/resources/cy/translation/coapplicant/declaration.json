@@ -27,6 +27,7 @@
   "intestacyDeceasedChildren": "Nid oes gan blant dan 18 oed hawl i&rsquo;r ystad.",
   "intestacyLettersOfAdministration": "Rwy&rsquo;n gwneud cais am lythyrau gweinyddu. Rwyf wedi darparu&rsquo;r hyn a gredaf i fod yn wybodaeth gywir a gwir am {deceasedName}.",
   "intestacyLettersOfAdministrationMultipleApplicants": "Rydym yn gwneud cais am lythyrau gweinyddu. Rydym wedi darparu’r hyn a gredwn i fod yn wybodaeth gywir a gwir am {deceasedName}.",
+  "intestacyDeceasedMarriedSpouseRenouncingText": "Mae g&wcirc;r/gwraig neu bartner sifil {deceasedName} wedi rhoi fyny yr hawl i wneud cais am lythyrau gweinyddu nawr ac yn y dyfodol.",
 
   "errors": {
     "agreement": {

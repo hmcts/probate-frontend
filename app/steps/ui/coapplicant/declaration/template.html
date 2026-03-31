@@ -9,7 +9,8 @@
 
 {% set hideNavigation = true %}
 {% set title = content[fields.language.value].title | safe %}
-
+{% set multipleExecutorsApplying = fields.legalStatement.value.en.executorsApplying.length > 1 %}
+{% set singleExecutorsApplying = fields.legalStatement.value.en.executorsApplying.length == 1 %}
 
 {% block form_content %}
 {% set caseType = fields.caseType.value %}
@@ -26,6 +27,7 @@
 
             <h3 class="govuk-heading-s">{{ content.cy.deceasedHeader | safe }}</h3>
             <p class="govuk-body">{{ fields.legalStatement.value.cy.deceased | safe }} {{ fields.legalStatement.value.cy.deceasedOtherNames | safe }}</p>
+            <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedMaritalStatus | safe }}</p>
 
             <h3 class="govuk-heading-s">{{ content.cy.deceasedEstateHeader | safe }}</h3>
             <p class="govuk-body">{{ fields.legalStatement.value.cy.deceasedEstateValue | safe }}</p>
@@ -42,6 +44,35 @@
                 {% for executor in fields.legalStatement.value.cy.executorsNotApplying %}
                     <p class="govuk-body">{{ executor | safe }}</p>
                 {% endfor %}
+            {% endif %}
+
+            {% if caseType == "intestacy" %}
+              {% if fields.applicant.value.relationshipToDeceased == "optionChild"
+                or fields.applicant.value.relationshipToDeceased == "optionAdoptedChild"
+                or fields.applicant.value.relationshipToDeceased == "optionGrandchild"
+                or (
+                      (fields.applicant.value.relationshipToDeceased == "optionSibling")
+                      and
+                      (fields.applicant.value.anyPredeceasedWholeSiblings == "optionYesAll" or fields.applicant.value.anyPredeceasedWholeSiblings == "optionYesSome")
+                      and
+                      (fields.applicant.value.anySurvivingWholeNiecesAndWholeNephews == "optionYes")
+                      and
+                      (fields.applicant.value.allWholeNiecesAndWholeNephewsOver18 == "optionYes")
+                )
+              %}
+                <p class="govuk-body declaration-item">{{ content.cy.intestacyDeceasedChildren | safe }}</p>
+              {% endif %}
+
+              {% if fields.applicant.value.relationshipToDeceased == "optionChild" or fields.applicant.value.relationshipToDeceased == "optionGrandchild"
+              and fields.applicant.value.spouseNotApplyingReason == 'optionRenouncing'%}
+                <p class="govuk-body declaration-item">{{ content.cy.intestacyDeceasedMarriedSpouseRenouncingText | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+              {% endif %}
+
+              {% if multipleExecutorsApplying %}
+                <p class="govuk-body">{{ content.cy.intestacyLettersOfAdministrationMultipleApplicants | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+              {% elseif singleExecutorApplying %}
+                <p class="govuk-body">{{ content.cy.intestacyLettersOfAdministration | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+              {% endif %}
             {% endif %}
 
             <h2 class="govuk-heading-l">{{ content.cy.declarationHeader | safe }}</h2>
@@ -90,6 +121,7 @@
 
         <h3 class="govuk-heading-s">{{ content.en.deceasedHeader | safe }}</h3>
         <p class="govuk-body">{{ fields.legalStatement.value.en.deceased | safe }} {{ fields.legalStatement.value.en.deceasedOtherNames | safe }}</p>
+        <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedMaritalStatus | safe }}</p>
 
         <h3 class="govuk-heading-s">{{ content.en.deceasedEstateHeader | safe }}</h3>
         <p class="govuk-body">{{ fields.legalStatement.value.en.deceasedEstateValue | safe }}</p>
@@ -107,6 +139,36 @@
                 <p class="govuk-body">{{ executor | safe }}</p>
             {% endfor %}
         {% endif %}
+
+      {% if caseType == "intestacy" %}
+        {% if fields.applicant.value.relationshipToDeceased == "optionChild"
+          or fields.applicant.value.relationshipToDeceased == "optionAdoptedChild"
+          or fields.applicant.value.relationshipToDeceased == "optionGrandchild"
+          or (
+                (fields.applicant.value.relationshipToDeceased == "optionSibling")
+                and
+                (fields.applicant.value.anyPredeceasedWholeSiblings == "optionYesAll" or fields.applicant.value.anyPredeceasedWholeSiblings == "optionYesSome")
+                and
+                (fields.applicant.value.anySurvivingWholeNiecesAndWholeNephews == "optionYes")
+                and
+                (fields.applicant.value.allWholeNiecesAndWholeNephewsOver18 == "optionYes")
+          )
+        %}
+          <p class="govuk-body declaration-item">{{ content.en.intestacyDeceasedChildren | safe }}</p>
+        {% endif %}
+
+        {% if fields.applicant.value.relationshipToDeceased == "optionChild" or fields.applicant.value.relationshipToDeceased == "optionGrandchild"
+        and fields.applicant.value.spouseNotApplyingReason == 'optionRenouncing'%}
+          <p class="govuk-body declaration-item">{{ content.en.intestacyDeceasedMarriedSpouseRenouncingText | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+        {% endif %}
+
+
+        {% if multipleExecutorsApplying %}
+          <p class="govuk-body">{{ content.en.intestacyLettersOfAdministrationMultipleApplicants | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+        {% elseif singleExecutorApplying %}
+          <p class="govuk-body">{{ content.en.intestacyLettersOfAdministration | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+        {% endif %}
+      {% endif %}
 
         <h2 class="govuk-heading-l">{{ content.en.declarationHeader | safe }}</h2>
         <p class="govuk-body">{{ fields.declaration.value.en.confirm | safe }}</p>

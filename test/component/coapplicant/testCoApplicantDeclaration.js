@@ -65,7 +65,11 @@ describe('co-applicant-declaration', () => {
                 'executorNotApplyingHeader',
                 'intestacyHeader',
                 'intestacyAgreementParagraph1',
-                'intestacyAgreementParagraph2'
+                'intestacyAgreementParagraph2',
+                'intestacyDeceasedChildren',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministrationMultipleApplicants',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
 
             testWrapper.agent.post('/prepare-session/form')
@@ -79,7 +83,7 @@ describe('co-applicant-declaration', () => {
                 });
         });
 
-        it('test right instestacycontent loaded on the page', (done) => {
+        it('test right intestacy content loaded on the page', (done) => {
             const contentToExclude = [
                 'executorNotApplyingHeader',
                 'probateHeader',
@@ -87,7 +91,11 @@ describe('co-applicant-declaration', () => {
                 'agreementItem1',
                 'agreementItem2',
                 'agreementItem3',
-                'optionNoText'
+                'optionNoText',
+                'intestacyDeceasedChildren',
+                'intestacyLettersOfAdministration',
+                'intestacyLettersOfAdministrationMultipleApplicants',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.caseType = caseTypes.INTESTACY;
             testWrapper.agent.post('/prepare-session/form')

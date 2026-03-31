@@ -138,7 +138,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.deceased.otherNames = {
                 name_0: {
@@ -232,7 +233,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             delete sessionData.applicant.alias;
             delete sessionData.applicant.aliasReason;
@@ -331,7 +333,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
@@ -423,7 +426,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.deceased.otherNames = {
                 name_0: {firstName: 'James', lastName: 'Miller'},
@@ -517,7 +521,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             delete contentData.deceasedOtherNames;
 
@@ -605,7 +610,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             delete contentData.deceasedOtherNames;
             sessionData.iht.estateValueCompleted = 'optionNo';
@@ -694,7 +700,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 3;
@@ -786,7 +793,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             const executor = {
                 fullName: 'James Miller',
@@ -882,7 +890,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             const executor = {
                 fullName: 'Joe Smith',
@@ -982,7 +991,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             const executor = {
                 fullName: 'Ed Brown',
@@ -1081,7 +1091,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             const executor = {
                 fullName: 'Fred Jones',
@@ -1182,7 +1193,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 4;
@@ -1286,7 +1298,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.applicant.nameAsOnTheWill = 'optionNo';
@@ -1387,7 +1400,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.will.codicils = 'optionYes';
             sessionData.will.codicilsNumber = 1;
@@ -1497,7 +1511,8 @@ describe('declaration, single applicant', () => {
                 'peopleApplyingHeader',
                 'intestacyPersonApplying',
                 'intestacyPeopleApplying',
-                'intestacyFurtherPeopleApplying'
+                'intestacyFurtherPeopleApplying',
+                'intestacyDeceasedMarriedSpouseRenouncingText'
             ];
             sessionData.will.codicils = 'optionNo';
             sessionData.applicant.nameAsOnTheWill = 'optionNo';

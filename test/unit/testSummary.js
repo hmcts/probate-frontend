@@ -230,6 +230,10 @@ describe('Summary', () => {
                 anyOtherParentAlive: 'Is Dee Ceased’s other parent alive?',
                 grandchildParentHasAllChildrenOver18: 'Are all of these children 18 or older?',
                 grandchildParentHasOtherChildren: 'Did your parent (Dee Ceased’s child) have any other children?',
+                deceasedParentsLegallyAdoptedIn: 'Did Dee Ceased’s parents legally adopt them into their family?',
+                deceasedParentsLegallyAdoptedOut: 'Did Dee Ceased&rsquo;s parents legally adopt them out of their family (give them up for adoption)?',
+                deceasedSiblingLegallyAdoptedIn: 'Did you legally adopt Dee Ceased into your family?',
+                deceasedSiblingLegallyAdoptedOut: 'Did you legally adopt Dee Ceased out of your family (give them up for adoption)?',
                 session: {
                     language: 'en',
                     form: {

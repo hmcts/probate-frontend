@@ -1,6 +1,5 @@
 'use strict';
 
-const applicant2NameFactory = require('app/utils/Applicant2NameFactory');
 const FormatName = require('app/utils/FormatName');
 const {get} = require('lodash');
 const expect = require('chai').expect;
@@ -72,7 +71,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                             .replace('{deceasedDob}', formdata.dobFormattedDate.en)
                             .replace('{deceasedDod}', formdata.dodFormattedDate.en),
-                        applicant2: applicant2NameFactory.getApplicant2Name(formdata, content.en),
+                        renouncingText: intestacyDeclarationFactory.getRenouncingText(formdata, content.en),
                         deceasedOtherNames: '',
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
                             .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
@@ -101,7 +100,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                             .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
                             .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
-                        applicant2: applicant2NameFactory.getApplicant2Name(formdata, content.cy),
+                        renouncingText: intestacyDeclarationFactory.getRenouncingText(formdata, content.cy),
                         deceasedOtherNames: '',
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
                             .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
@@ -180,7 +179,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                             .replace('{deceasedDob}', formdata.dobFormattedDate.en)
                             .replace('{deceasedDod}', formdata.dodFormattedDate.en),
-                        applicant2: applicant2NameFactory.getApplicant2Name(formdata, content.en),
+                        renouncingText: intestacyDeclarationFactory.getRenouncingText(formdata, content.en),
                         deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.en) ? content.en.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.en) : '',
                         deceasedMaritalStatus: content.en.intestacyDeceasedMaritalStatus
                             .replace('{deceasedMaritalStatus}', content.en[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
@@ -209,7 +208,7 @@ describe('IntestacyDeclarationFactory', () => {
                             .replace('{deceasedAddress}', formdata.deceasedAddress.formattedAddress)
                             .replace('{deceasedDob}', formdata.dobFormattedDate.cy)
                             .replace('{deceasedDod}', formdata.dodFormattedDate.cy),
-                        applicant2: applicant2NameFactory.getApplicant2Name(formdata, content.cy),
+                        renouncingText: intestacyDeclarationFactory.getRenouncingText(formdata, content.cy),
                         deceasedOtherNames: (formdata.deceasedOtherNames && formdata.deceasedOtherNames.cy) ? content.cy.deceasedOtherNames.replace('{deceasedOtherNames}', formdata.deceasedOtherNames.cy) : '',
                         deceasedMaritalStatus: content.cy.intestacyDeceasedMaritalStatus
                             .replace('{deceasedMaritalStatus}', content.cy[get(formdata.deceased, 'maritalStatus', '')].toLowerCase()),
@@ -271,6 +270,33 @@ describe('IntestacyDeclarationFactory', () => {
             const maritalStatus = intestacyDeclarationFactory.getMaritalStatus(formdata, content.en);
 
             expect(maritalStatus).to.equal('married or in a civil partnership');
+
+            done();
+        });
+    });
+
+    describe('getRenouncingText()', () => {
+        it('should return renouncing text for main applicant', (done) => {
+            formdata.relationshipToDeceased = 'optionChild';
+            formdata.applicant.spouseNotApplyingReason = 'optionRenouncing';
+            formdata.deceasedName = 'John Doe';
+
+            const renouncingText = intestacyDeclarationFactory.getRenouncingText(formdata, content.en);
+
+            expect(renouncingText).to.equal('John Doe&rsquo;s spouse or civil partner has given up the right to apply for letters of administration now or in the future.');
+
+            done();
+        });
+    });
+
+    describe('getRenouncingText()', () => {
+        it('should return empty string for main applicant', (done) => {
+            formdata.relationshipToDeceased = 'optionSibling';
+            formdata.deceasedName = 'John Doe';
+
+            const renouncingText = intestacyDeclarationFactory.getRenouncingText(formdata, content.en);
+
+            expect(renouncingText).to.equal('');
 
             done();
         });

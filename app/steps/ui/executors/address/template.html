@@ -15,6 +15,7 @@
 
             <form class="form" method="post" autocomplete="off" action="/find-address" novalidate>
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <input type="hidden" name="_index" value="{{ fields.index.value }}">
                 {% call govukFieldset({
                     legend: {
                         text: content.question | replace("{executorName}", fields.otherExecName.value) | safe,

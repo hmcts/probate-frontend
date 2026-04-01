@@ -210,7 +210,9 @@
         {
             question: fields.summary.deceasedSiblingLegallyAdoptedOut.value,
             answer: content.DeceasedAdoptedOut[fields.applicant.deceasedAdoptedOut.value],
-            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionParent"
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionParent"
+                     and fields.applicant.deceasedAdoptedIn.value == "optionNo"
         }
     ],
     url = content.DeceasedAdoptedOut.url,

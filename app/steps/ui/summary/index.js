@@ -10,7 +10,7 @@ const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
 const CheckAnswersSummaryJSONObjectBuilder = require('app/utils/CheckAnswersSummaryJSONObjectBuilder');
 const checkAnswersSummaryJSONObjBuilder = new CheckAnswersSummaryJSONObjectBuilder();
-const IhtThreshold = require('app/utils/IhtThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 const featureToggle = require('app/utils/FeatureToggle');
 const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
@@ -119,7 +119,7 @@ class Summary extends Step {
             ctx.aliasNameOnWill = FormatName.formatAliasNameOnWIll(formdata.deceased);
             ctx.codicilPresent = hasCodicils;
         } else {
-            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+            ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
             ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
             ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
@@ -139,7 +139,7 @@ class Summary extends Step {
             if (ctx.caseType === caseTypes.INTESTACY && formdata.iht && formdata.iht.assetsOutside === 'optionYes') {
                 ctx.ihtTotalNetValue += formdata.iht.netValueAssetsOutside;
             }
-            ctx.ihtTotalNetValueGreaterThanIhtThreshold = (ctx.ihtTotalNetValue > ctx.ihtThreshold);
+            ctx.ihtTotalNetValueGreaterThanAssetsThreshold = (ctx.ihtTotalNetValue > ctx.assetsThreshold);
         }
 
         if (formdata.documents && formdata.documents.uploads) {

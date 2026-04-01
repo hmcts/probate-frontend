@@ -5,7 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 
 class IhtPaper extends ValidationStep {
 
@@ -16,7 +16,7 @@ class IhtPaper extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
         return ctx;
     }
 
@@ -46,11 +46,11 @@ class IhtPaper extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.lessThanOrEqualToIhtThreshold = ctx.netValue <= ctx.ihtThreshold;
+        ctx.lessThanOrEqualToAssetsThreshold = ctx.netValue <= ctx.assetsThreshold;
 
         return {
             options: [
-                {key: 'lessThanOrEqualToIhtThreshold', value: true, choice: 'lessThanOrEqualToIhtThreshold'}
+                {key: 'lessThanOrEqualToAssetsThreshold', value: true, choice: 'lessThanOrEqualToAssetsThreshold'}
             ]
         };
     }
@@ -69,22 +69,22 @@ class IhtPaper extends ValidationStep {
         super.action(ctx, formdata);
         delete ctx.grossValuePaper;
         delete ctx.netValuePaper;
-        delete ctx.lessThanOrEqualToIhtThreshold;
+        delete ctx.lessThanOrEqualToAssetsThreshold;
 
-        if (ctx.netValue > ctx.ihtThreshold) {
+        if (ctx.netValue > ctx.assetsThreshold) {
             delete ctx.assetsOutside;
             delete ctx.netValueAssetsOutsideField;
             delete ctx.netValueAssetsOutside;
         }
 
-        if (formdata.deceased && ctx.netValue <= ctx.ihtThreshold) {
+        if (formdata.deceased && ctx.netValue <= ctx.assetsThreshold) {
             delete formdata.deceased.anyChildren;
             delete formdata.deceased.allChildrenOver18;
             delete formdata.deceased.anyDeceasedChildren;
             delete formdata.deceased.anyGrandchildrenUnder18;
         }
 
-        delete ctx.ihtThreshold;
+        delete ctx.assetsThreshold;
 
         return [ctx, formdata];
     }

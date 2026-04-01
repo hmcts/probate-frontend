@@ -213,7 +213,7 @@ describe('Tests for Probate Estate Values ', () => {
         let ctx;
         let req;
 
-        it('should return the context with the IHT threshold', (done) => {
+        it('should return the context with the assets threshold', (done) => {
             req = {
                 session: {
                     form: {
@@ -230,11 +230,11 @@ describe('Tests for Probate Estate Values ', () => {
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(250000);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(false);
+            expect(ctx.assetsThreshold).to.equal(250000);
+            expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(false);
             done();
         });
-        it('should return false with the IHT threshold for died after 2020', (done) => {
+        it('should return false with the assets threshold for died after 2020', (done) => {
             req = {
                 session: {
                     form: {
@@ -251,8 +251,8 @@ describe('Tests for Probate Estate Values ', () => {
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(270000);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            expect(ctx.assetsThreshold).to.equal(270000);
+            expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(true);
             done();
         });
         it('should return true for DOD after 2022', (done) => {
@@ -272,7 +272,7 @@ describe('Tests for Probate Estate Values ', () => {
                 }
             };
             ctx = ProbateEstateValues.getContextData(req);
-            expect(ctx.lessThanOrEqualToIhtThreshold).to.equal(true);
+            expect(ctx.lessThanOrEqualToAssetsThreshold).to.equal(true);
             done();
         });
     });
@@ -284,9 +284,9 @@ describe('Tests for Probate Estate Values ', () => {
             const result = ProbateEstateValues.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'lessThanOrEqualToIhtThreshold',
+                    key: 'lessThanOrEqualToAssetsThreshold',
                     value: true,
-                    choice: 'lessThanOrEqualToIhtThreshold'
+                    choice: 'lessThanOrEqualToAssetsThreshold'
                 }]
             });
             done();

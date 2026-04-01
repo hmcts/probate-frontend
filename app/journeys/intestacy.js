@@ -110,7 +110,7 @@ const stepList = {
     WaitingForHmrc: 'TaskList',
     IhtUnusedAllowanceClaimed: 'ProbateEstateValues',
     ProbateEstateValues: {
-        lessThanOrEqualToIhtThreshold: 'AssetsOutside',
+        lessThanOrEqualToAssetsThreshold: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     EnglishForeignDeathCert: {
@@ -125,11 +125,11 @@ const stepList = {
     },
     IhtIdentifier: 'IhtValue',
     IhtValue: {
-        lessThanOrEqualToIhtThreshold: 'AssetsOutside',
+        lessThanOrEqualToAssetsThreshold: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     IhtPaper: {
-        lessThanOrEqualToIhtThreshold: 'AssetsOutside',
+        lessThanOrEqualToAssetsThreshold: 'AssetsOutside',
         otherwise: 'DeceasedAlias'
     },
     AssetsOutside: {
@@ -156,8 +156,8 @@ const stepList = {
         childDeceasedMarried: 'SpouseNotApplyingReason',
         childDeceasedNotMarried: 'AnyOtherChildren',
         adoptedChild: 'AdoptionPlace',
-        spousePartnerLessThanIhtThreshold: 'ApplicantName',
-        spousePartnerMoreThanIhtThreshold: 'AnyChildren',
+        spousePartnerLessThanAssetsThreshold: 'ApplicantName',
+        spousePartnerMoreThanAssetsThreshold: 'AnyChildren',
         otherwise: 'StopPage'
     },
     SpouseNotApplyingReason: {

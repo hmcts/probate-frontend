@@ -132,7 +132,9 @@
         {
             question: content.AdoptedOut.wholeBloodSiblingQuestion,
             answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
-            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionSibling"
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionSibling"
+                     and fields.applicant.adoptedIn.value == "optionNo"
         }
     ],
     url = content.AdoptedOut.url,
@@ -158,7 +160,9 @@
         {
             question: content.AdoptedOut.childQuestion | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
             answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
-            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionChild"
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionChild"
+                     and fields.applicant.adoptedIn.value == "optionNo"
         }
     ],
     url = content.AdoptedOut.url,
@@ -184,10 +188,29 @@
         {
             question: content.AdoptedOut.childQuestion | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
             answer: content.AdoptedOut[fields.applicant.adoptedOut.value],
-            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                     and fields.applicant.adoptedIn.value == "optionNo"
         }
     ],
     url = content.AdoptedOut.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.AdoptionPlace.question,
+            answer: content.AdoptionPlace[fields.applicant.adoptionPlace.value],
+            visible: fields.summary.caseType.value == "intestacy" and fields.applicant.adoptedIn.value == "optionYes"
+                     and
+                     (fields.applicant.relationshipToDeceased.value == "optionSibling"
+                      or fields.applicant.relationshipToDeceased.value == "optionChild"
+                      or fields.applicant.relationshipToDeceased.value == "optionGrandchild")
+        }
+    ],
+    url = content.adoptionPlace.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
@@ -216,6 +239,21 @@
         }
     ],
     url = content.DeceasedAdoptedOut.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.DeceasedAdoptionPlace.question,
+            answer: content.DeceasedAdoptionPlace[fields.applicant.deceasedAdoptionPlace.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionParent"
+                     and fields.applicant.deceasedAdoptedIn.value == "optionYes"
+        }
+    ],
+    url = content.deceasedAdoptionPlace.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

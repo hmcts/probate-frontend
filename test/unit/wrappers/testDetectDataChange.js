@@ -127,7 +127,12 @@ describe('DetectDataChange.js', () => {
                                     postCode: 'L21 1LL',
                                     country: 'United Kingdom',
                                     formattedAddress: '11 Red Street London L21 1LL United Kingdom'},
-                                email: 'jamesmiller@example.com'
+                                email: 'jamesmiller@example.com',
+                                hasOtherName: 'optionYes',
+                                currentName: 'James Miller alias',
+                                currentNameReason: 'optionOther',
+                                otherReason: 'Stage Name',
+                                diedbefore: 'optionYes',
                             }, {
                                 isApplying: true,
                                 fullName: 'Ed Brown',
@@ -234,6 +239,56 @@ describe('DetectDataChange.js', () => {
             it('when executors whoDied tick boxes have been changed', (done) => {
                 step.section = 'executors';
                 req.body = {executorsWhoDied: ['James Miller']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
+
+            it('when executors alias have been changed', (done) => {
+                step.section = 'executors';
+                req.params[0] = 1;
+                req.body = {alias: 'optionNo'};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
+
+            it('when executors current name have been changed', (done) => {
+                step.section = 'executors';
+                req.params[0] = 1;
+                req.body = {currentName: ['James new alias']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
+
+            it('when executors current name reason have been changed', (done) => {
+                step.section = 'executors';
+                req.params[0] = 1;
+                req.body = {currentNameReason: ['optionMarriage']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
+
+            it('when executors current name other reason have been changed', (done) => {
+                step.section = 'executors';
+                req.params[0] = 1;
+                req.body = {otherReason: ['new other reason']};
+                req.session.haveAllExecutorsDeclared = 'false';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
+
+            it('when executors died before deceased have been changed', (done) => {
+                step.section = 'executors';
+                req.params[0] = 1;
+                req.body = {diedbefore: 'optionNo'};
                 req.session.haveAllExecutorsDeclared = 'false';
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);

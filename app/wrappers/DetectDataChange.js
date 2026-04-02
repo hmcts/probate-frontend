@@ -26,22 +26,38 @@ class DetectDataChanges {
         ) {
             if (step.section === 'executors') {
                 const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
-                if (Object.keys(req.body).includes('email')) {
+                const bodyKeys = Object.keys(req.body);
+                if (
+                    bodyKeys.includes('email') ||
+                    bodyKeys.includes('currentName') ||
+                    bodyKeys.includes('currentNameReason') ||
+                    bodyKeys.includes('executorNotified') ||
+                    bodyKeys.includes('notApplyingReason') ||
+                    bodyKeys.includes('otherReason') ||
+                    bodyKeys.includes('diedbefore')
+                ) {
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
-                } else if (Object.keys(req.body).includes('addressLine1')) {
+                }
+                if (bodyKeys.includes('addressLine1')) {
                     req.body.address = this.sanitiseAddressObject(req.body);
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
-                } else if (req.body.executorName) {
+                }
+                if (bodyKeys.includes('alias')) {
+                    const hasOtherName = formdata[step.section].list[index].hasOtherName || false;
+                    return this.isNotEqual(req.body.alias, hasOtherName);
+                }
+                if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorName, currentExecutors);
-                } else if (req.body.executorsApplying) {
+                }
+                if (req.body.executorsApplying) {
                     const executorsApplying = executorsWrapper.executorsApplying(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorsApplying, executorsApplying);
-                } else if (req.body.executorsWhoDied) {
+                }
+                if (req.body.executorsWhoDied) {
                     const executorsWhoDied = executorsWrapper.deadExecutors().map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
-                return this.hasChanged(req.body, formdata[step.section].list[index]);
             }
             if (Object.keys(req.body).includes('addressLine1')) {
                 req.body.address = this.sanitiseAddressObject(req.body);

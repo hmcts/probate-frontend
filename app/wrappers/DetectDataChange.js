@@ -25,6 +25,10 @@ class DetectDataChanges {
             (formdata.declaration.declarationCheckbox === 'true' || !formdata.declaration.hasDataChanged || formdata.declaration.hasDataChanged === 'false')
         ) {
             if (step.section === 'executors') {
+                const executorsNumberChanged = ctx.executorsNumber !== formdata[step.section].executorsNumber;
+                if (executorsNumberChanged) {
+                    return true;
+                }
                 const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
                 const bodyKeys = Object.keys(req.body);
                 if (

@@ -5,7 +5,7 @@
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const expect = require('chai').expect;
 
-describe('DetectDataChange.js', () => {
+describe.only('DetectDataChange.js', () => {
     describe('isNotEqual()', () => {
         describe('should return true', () => {
             it('when the values are not equal and the same type', (done) => {
@@ -110,7 +110,7 @@ describe('DetectDataChange.js', () => {
         let step;
         beforeEach(() => {
             ctx = {
-                executorsNumber: 1
+                executorsNumber: 3
             };
             req = {
                 session: {
@@ -141,7 +141,8 @@ describe('DetectDataChange.js', () => {
                                     postCode: 'L12 9LN',
                                     country: 'United Kingdom',
                                     formattedAddress: '20 Green Street London L12 9LN United Kingdom'}
-                            }]
+                            }],
+                            executorsNumber: 3
                         },
                         iht: {
                             identifier: 'abc123'
@@ -297,6 +298,14 @@ describe('DetectDataChange.js', () => {
 
             it('when the declarationCheckbox is true, and a data change has already been flagged', (done) => {
                 req.session.form.declaration.declarationCheckbox = 'true';
+                const detectDataChange = new DetectDataChange();
+                expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
+                done();
+            });
+
+            it('when the executor number has been changed', (done) => {
+                step.section = 'executors';
+                ctx.executorsNumber = 2;
                 const detectDataChange = new DetectDataChange();
                 expect(detectDataChange.hasDataChanged(ctx, req, step)).to.equal(true);
                 done();

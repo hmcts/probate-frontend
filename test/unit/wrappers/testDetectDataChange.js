@@ -5,7 +5,7 @@
 const DetectDataChange = require('app/wrappers/DetectDataChange');
 const expect = require('chai').expect;
 
-describe.only('DetectDataChange.js', () => {
+describe('DetectDataChange.js', () => {
     describe('isNotEqual()', () => {
         describe('should return true', () => {
             it('when the values are not equal and the same type', (done) => {

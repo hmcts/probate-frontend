@@ -227,7 +227,7 @@
     "tar": "^7.5.9",
     "tar-fs": "^3.0.10",
     "tmp": "0.2.5",
-    "undici": "^7.18.2",
+    "undici": "^8.0.0",
     "is-async-function": "2.1.0",
     "webdriverio": "^9.23.3",
     "yauzl": "^3.2.1",

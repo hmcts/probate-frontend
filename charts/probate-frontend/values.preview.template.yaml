@@ -8,7 +8,7 @@ nodejs:
   autoscaling:
     enabled: false
   environment:
-    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_HOST: ${SERVICE_NAME}-hmcts-redis-master
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
     LAUNCHDARKLY_ENABLED: true
@@ -60,12 +60,22 @@ nodejs:
         - name: webchat-kerv-api-key
           alias: webchat-kerv-api-key
 
-redis:
+hmcts-redis:
   enabled: true
   serviceAccount:
     create: false
     name: "probate"
     automountServiceAccountToken: true
+  architecture: standalone
+  image:
+    registry: hmctsprod.azurecr.io
+    repository: imported/redis
+    tag: 8.2.1
+  master:
+    persistence:
+      enabled: false
+  auth:
+    enabled: false
 
 global:
   security:

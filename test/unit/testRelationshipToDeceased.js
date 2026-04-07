@@ -183,7 +183,7 @@ describe('RelationshipToDeceased', () => {
                     journey: journey
                 }
             };
-            const ctx = {assetsValue: 250000, relationshipToDeceased: 'optionSpousePartner', assetsValue: 200000};
+            const ctx = {assetsThreshold: 250000, relationshipToDeceased: 'optionSpousePartner', assetsValue: 200000};
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
             done();

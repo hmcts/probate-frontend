@@ -47,8 +47,9 @@ class DetectDataChanges {
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
                 }
                 if (bodyKeys.includes('alias')) {
-                    const hasOtherName = formdata[step.section].list[index].hasOtherName || false;
-                    return this.isNotEqual(req.body.alias, hasOtherName);
+                    const hasOtherName = Boolean(formdata[step.section].list[index].hasOtherName);
+                    const aliasIsYes = req.body.alias === 'optionYes';
+                    return aliasIsYes !== hasOtherName;
                 }
                 if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);
@@ -94,19 +95,14 @@ class DetectDataChanges {
         const sanitisedAddress = {...address};
         delete sanitisedAddress._csrf;
         delete sanitisedAddress.isSaveAndClose;
-        sanitisedAddress.formattedAddress = this.getFormattedAddress(address);
+        sanitisedAddress.formattedAddress = this.getFormattedAddress(sanitisedAddress);
         return sanitisedAddress;
     }
 
     getFormattedAddress(paramsKey) {
-        let formattedAddress = '';
-        Object.values(paramsKey).forEach((value) => {
-            if (value) {
-                formattedAddress = `${formattedAddress}${value} `;
-            }
-        });
-
-        return formattedAddress;
+        return Object.values(paramsKey)
+            .filter(value => value !== null && value !== '')
+            .join(' ');
     }
 }
 

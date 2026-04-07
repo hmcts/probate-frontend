@@ -35,7 +35,7 @@ describe('RelationshipToDeceased', () => {
             };
 
             ctx = RelationshipToDeceased.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(250000);
+            expect(ctx.assetsThreshold).to.equal(250000);
             expect(ctx.deceasedMaritalStatus).to.equal('optionMarried');
             expect(ctx.assetsValue).to.equal(350000);
             done();
@@ -183,7 +183,7 @@ describe('RelationshipToDeceased', () => {
                     journey: journey
                 }
             };
-            const ctx = {ihtThreshold: 250000, relationshipToDeceased: 'optionSpousePartner', assetsValue: 200000};
+            const ctx = {assetsValue: 250000, relationshipToDeceased: 'optionSpousePartner', assetsValue: 200000};
             const nextStepUrl = RelationshipToDeceased.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
             done();
@@ -196,7 +196,7 @@ describe('RelationshipToDeceased', () => {
                 }
             };
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 relationshipToDeceased: 'optionSpousePartner',
                 assetsValue: 450000
             };
@@ -253,8 +253,8 @@ describe('RelationshipToDeceased', () => {
             const nextStepOptions = RelationshipToDeceased.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'spousePartnerLessThanIhtThreshold', value: true, choice: 'spousePartnerLessThanIhtThreshold'},
-                    {key: 'spousePartnerMoreThanIhtThreshold', value: true, choice: 'spousePartnerMoreThanIhtThreshold'},
+                    {key: 'spousePartnerLessThanAssetsThreshold', value: true, choice: 'spousePartnerLessThanAssetsThreshold'},
+                    {key: 'spousePartnerMoreThanAssetsThreshold', value: true, choice: 'spousePartnerMoreThanAssetsThreshold'},
                     {key: 'childOrGrandchildDeceasedMarried', value: true, choice: 'childOrGrandchildDeceasedMarried'},
                     {key: 'parentSiblingNotMarried', value: true, choice: 'parentSiblingNotMarried'},
                     {key: 'childAndDeceasedNotMarried', value: true, choice: 'childAndDeceasedNotMarried'},
@@ -268,11 +268,11 @@ describe('RelationshipToDeceased', () => {
 
     describe('action()', () => {
         it('test it cleans up context and formdata', () => {
-            const ctx = {ihtThreshold: 250000,
+            const ctx = {assetsThreshold: 250000,
                 assetsValue: 450000,
                 deceasedMaritalStatus: 'optionMarried',
-                spousePartnerLessThanIhtThreshold: true,
-                spousePartnerMoreThanIhtThreshold: true,
+                spousePartnerLessThanAssetsThreshold: true,
+                spousePartnerMoreThanAssetsThreshold: true,
                 childDeceasedMarried: true,
                 childDeceasedNotMarried: true,
                 relationshipToDeceased: 'optionChild',
@@ -295,8 +295,8 @@ describe('RelationshipToDeceased', () => {
             RelationshipToDeceased.action(ctx, formdata);
 
             assert.isUndefined(ctx.assetsValue);
-            assert.isUndefined(ctx.spousePartnerLessThanIhtThreshold);
-            assert.isUndefined(ctx.spousePartnerMoreThanIhtThreshold);
+            assert.isUndefined(ctx.spousePartnerLessThanAssetsThreshold);
+            assert.isUndefined(ctx.spousePartnerMoreThanAssetsThreshold);
             assert.isUndefined(ctx.childDeceasedMarried);
             assert.isUndefined(ctx.childDeceasedNotMarried);
             assert.isUndefined(ctx.spouseNotApplyingReason);

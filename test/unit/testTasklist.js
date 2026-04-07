@@ -768,7 +768,7 @@ describe('Tasklist', () => {
                 ctx = taskList.getContextData(req);
 
                 const nextUrlCtx = formdata.applicant;
-                nextUrlCtx.ihtThreshold = 250000;
+                nextUrlCtx.assetsThreshold = 250000;
 
                 assert.equal(ctx.ApplicantsTask.checkYourAnswersLink, steps.Summary.getUrlWithContext(ctx));
                 assert.equal(ctx.DeceasedTask.status, 'complete');

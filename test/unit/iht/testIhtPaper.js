@@ -19,7 +19,7 @@ describe('IhtPaper', () => {
         let ctx;
         let req;
 
-        it('should return the context with the IHT threshold', (done) => {
+        it('should return the context with the assets threshold', (done) => {
             req = {
                 session: {
                     form: {
@@ -31,7 +31,7 @@ describe('IhtPaper', () => {
             };
 
             ctx = IhtPaper.getContextData(req);
-            expect(ctx.ihtThreshold).to.equal(250000);
+            expect(ctx.assetsThreshold).to.equal(250000);
             done();
         });
     });
@@ -150,9 +150,9 @@ describe('IhtPaper', () => {
             const result = IhtPaper.nextStepOptions(ctx);
             expect(result).to.deep.equal({
                 options: [{
-                    key: 'lessThanOrEqualToIhtThreshold',
+                    key: 'lessThanOrEqualToAssetsThreshold',
                     value: true,
-                    choice: 'lessThanOrEqualToIhtThreshold'
+                    choice: 'lessThanOrEqualToAssetsThreshold'
                 }]
             });
             done();
@@ -160,11 +160,11 @@ describe('IhtPaper', () => {
     });
 
     describe('action()', () => {
-        it('test it cleans up context when netValue is more than the IHT threshold', () => {
+        it('test it cleans up context when netValue is more than the assets threshold', () => {
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 netValue: 400000,
-                lessThanOrEqualToIhtThreshold: false,
+                lessThanOrEqualToAssetsThreshold: false,
                 grossValuePaper: 500000,
                 netValuePaper: 400000,
                 assetsOutside: 'optionYes',
@@ -180,11 +180,11 @@ describe('IhtPaper', () => {
             });
         });
 
-        it('test it cleans up context and formdata when netValue is less than or equal to the IHT threshold', () => {
+        it('test it cleans up context and formdata when netValue is less than or equal to the assets threshold', () => {
             const ctx = {
-                ihtThreshold: 250000,
+                assetsThreshold: 250000,
                 netValue: 200000,
-                lessThanOrEqualToIhtThreshold: true,
+                lessThanOrEqualToAssetsThreshold: true,
                 grossValuePaper: 300000,
                 netValuePaper: 200000
             };

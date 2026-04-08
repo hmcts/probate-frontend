@@ -1,8 +1,18 @@
+{% macro executorsNamedAnswer(language, executorsList) %}
+    {% if language == 'en' %}
+        {{ 'Yes' if executorsList and (executorsList | length) > 1 else 'No' }}
+    {% elif language == 'cy' %}
+        {{ 'Oedd' if executorsList and (executorsList | length) > 1 else 'Do' }}
+    {% else %}
+        {{ '' }}
+    {% endif %}
+{% endmacro %}
+
 {{checkanswer(
     items = [
         {
             question: content.ExecutorsNamed.question,
-            answer: content.ExecutorsNamed[fields.executors.executorsNamed.value],
+            answer: executorsNamedAnswer(fields.summary.language.value, fields.executors.list.value),
             visible: true
         }
     ],

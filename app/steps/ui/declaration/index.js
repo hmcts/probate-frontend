@@ -19,7 +19,7 @@ const ServiceMapper = require('app/utils/ServiceMapper');
 const FieldError = require('app/components/error');
 const utils = require('app/components/step-utils');
 const moment = require('moment');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const {sanitizeInput} = require('../../../utils/Sanitize');
 
@@ -166,8 +166,8 @@ class Declaration extends ValidationStep {
         const formDataForTemplate = this.getFormDataForTemplate(content, formdata);
         ctx.exceptedEstate = formdata.iht && formdata.iht.estateValueCompleted === 'optionNo';
         if (ctx.caseType === caseTypes.INTESTACY && formdata.iht) {
-            ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
-            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > ctx.ihtThreshold)).toString();
+            ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
+            ctx.showNetValueAssetsOutside = ((formdata.iht.assetsOutside === 'optionYes' && (formdata.iht.netValue + formdata.iht.netValueAssetsOutside) > ctx.assetsThreshold)).toString();
             if (ctx.showNetValueAssetsOutside) {
                 ctx.ihtNetValueAssetsOutside = formDataForTemplate.ihtNetValueAssetsOutside;
             }

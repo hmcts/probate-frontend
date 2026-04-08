@@ -5,29 +5,27 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@asamuzakjp/css-color@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "@asamuzakjp/css-color@npm:5.0.1"
+"@asamuzakjp/css-color@npm:^5.1.5":
+  version: 5.1.6
+  resolution: "@asamuzakjp/css-color@npm:5.1.6"
   dependencies:
     "@csstools/css-calc": "npm:^3.1.1"
     "@csstools/css-color-parser": "npm:^4.0.2"
     "@csstools/css-parser-algorithms": "npm:^4.0.0"
     "@csstools/css-tokenizer": "npm:^4.0.0"
-    lru-cache: "npm:^11.2.6"
-  checksum: 10/941ee630cd037b35d1d95db03ea9e483958e0a444bde61b1f4a7f84a787df5abfa83be7b4dd33f742811c6f194aeedf81ce70fa5ca2713d5c9eeacac0930e64b
+  checksum: 10/5151369d9369e478e03c0eee0f171b8f86306ebbdf5b352544cd745c360d97343f437bdd0690ff658e47d2876b466bffc8811fcef7f0347cb243c6483a7e95a0
   languageName: node
   linkType: hard
 
-"@asamuzakjp/dom-selector@npm:^7.0.3":
-  version: 7.0.4
-  resolution: "@asamuzakjp/dom-selector@npm:7.0.4"
+"@asamuzakjp/dom-selector@npm:^7.0.6":
+  version: 7.0.7
+  resolution: "@asamuzakjp/dom-selector@npm:7.0.7"
   dependencies:
     "@asamuzakjp/nwsapi": "npm:^2.3.9"
     bidi-js: "npm:^1.0.3"
     css-tree: "npm:^3.2.1"
     is-potential-custom-element-name: "npm:^1.0.1"
-    lru-cache: "npm:^11.2.7"
-  checksum: 10/3727a5ce2d76a2dcb28aeae95a5615529fef5c70c5cef7cfe19fd531a1fa40c1ef437e00d590baa0b166d3d289cbcd445388e51eac9068ff774e60930b935b90
+  checksum: 10/18f40def8c775c6008c8fcd75d7d049ff92d99a494929ab2bf742341b348c78cbf4808d29c13b9cd87ca4fd272773cf5aa9e58fee48603c286df48148be8cb67
   languageName: node
   linkType: hard
 
@@ -247,29 +245,29 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^5.0.0":
-  version: 5.6.1
-  resolution: "@azure/msal-browser@npm:5.6.1"
+  version: 5.6.3
+  resolution: "@azure/msal-browser@npm:5.6.3"
   dependencies:
-    "@azure/msal-common": "npm:16.4.0"
-  checksum: 10/9a98092d687e8aa342ffcbc75b01623630890cebcf67e34ea438aedab125b7e7fa3288240da740d904182d34fc2e0b3df30340db3225b0ebfeb19a94db43d5ca
+    "@azure/msal-common": "npm:16.4.1"
+  checksum: 10/daff4a2588aac4377f00d9457108a70ec5c9776616257353bab5fb1f4984ddfdf8a65f739e4ea11a0b5bb034403ac7d086ee3f0841444807c6ed018f24e8b2d0
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:16.4.0":
-  version: 16.4.0
-  resolution: "@azure/msal-common@npm:16.4.0"
-  checksum: 10/0e479175648206cf4212d6f4e6883fb49a53cf24152f22b23229f234bbec57588f72dbc51730751f765786d4d11a0804b485ca17b143c07ad62eb29bed1ebe20
+"@azure/msal-common@npm:16.4.1":
+  version: 16.4.1
+  resolution: "@azure/msal-common@npm:16.4.1"
+  checksum: 10/0c9a0c06a3e52a7fe95fef9939124287df926a2c8dc613033a645dd4a15218d65b59b1b25b29fcc7ad0a7984e6d33cf7844e3489da182c54b3f8c4bd7caabb05
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^5.0.0":
-  version: 5.1.1
-  resolution: "@azure/msal-node@npm:5.1.1"
+  version: 5.1.2
+  resolution: "@azure/msal-node@npm:5.1.2"
   dependencies:
-    "@azure/msal-common": "npm:16.4.0"
+    "@azure/msal-common": "npm:16.4.1"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/01f3b870de2b23094c8ae1102b265018fbe800f493f8dd3024a6afa5e5c931640c3919fb0ab453c3cfe556d7ee4548e21825a3d1f1c2c551dadb0348456ed2f8
+  checksum: 10/23bf45220267762c9dc9b6cba9a1cdbf09d077487400d081fb96ef7e9e7402bb055026f41402a901764caa1828d992c5a4e420444611e9b31b1fb291724e3e93
   languageName: node
   linkType: hard
 
@@ -1170,15 +1168,15 @@ __metadata:
   linkType: hard
 
 "@hmcts/properties-volume@npm:^1.0.0":
-  version: 1.3.1
-  resolution: "@hmcts/properties-volume@npm:1.3.1"
+  version: 1.3.2
+  resolution: "@hmcts/properties-volume@npm:1.3.2"
   dependencies:
     "@azure/identity": "npm:^4.13.0"
     "@azure/keyvault-secrets": "npm:^4.10.0"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     js-yaml: "npm:^4.1.1"
-    lodash: "npm:^4.17.23"
-  checksum: 10/ec3a8be6010221dd66016056eac876a65f2eca6e94d4e382b4d47db6603e8d27ef1699762cc6b9fed2cf7ce180f03561e35e4e029ea1c14e7ae9163e071b1ad6
+    lodash: "npm:^4.18.0"
+  checksum: 10/87f75cd0630044aad12f55e4a4e4dfaf34fb711e202adfe9c70e2795408e2f5abdc0b71faa0023aba4acae17e0790b3a546c52b3a7e7fb4fcbd78c866e40f939
   languageName: node
   linkType: hard
 
@@ -2271,13 +2269,13 @@ __metadata:
   linkType: hard
 
 "@playwright/test@npm:^1.41.2":
-  version: 1.58.2
-  resolution: "@playwright/test@npm:1.58.2"
+  version: 1.59.1
+  resolution: "@playwright/test@npm:1.59.1"
   dependencies:
-    playwright: "npm:1.58.2"
+    playwright: "npm:1.59.1"
   bin:
     playwright: cli.js
-  checksum: 10/58bf90139280a0235eeeb6049e9fb4db6425e98be1bf0cc17913b068eef616cf67be57bfb36dc4cb56bcf116f498ffd0225c4916e85db404b343ea6c5efdae13
+  checksum: 10/27a894c4d4216b51cddc96e18fd0638a9e2e0a3f0b7ee32a56121fb61df395ec43529f5dcdca32578af8a34a04722ee3767f99f0ae4d39fa8edceda89a96014c
   languageName: node
   linkType: hard
 
@@ -8299,9 +8297,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^25.0.0":
-  version: 25.10.9
-  resolution: "i18next@npm:25.10.9"
+"i18next@npm:^26.0.0":
+  version: 26.0.3
+  resolution: "i18next@npm:26.0.3"
   dependencies:
     "@babel/runtime": "npm:^7.29.2"
   peerDependencies:
@@ -8309,7 +8307,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/1e9e6b9506b1c362e222478698aadb0dfe8a68aab03eb69d366311794966c2cc6244b6adf8ccfee8a9c32d12f47f37e6eac046f6744c04c41069827af63f69f8
+  checksum: 10/5f7286d863fc9385a36f27195dc21365f29d09feefdefcf89a5bdd85f7ccd45bd67f8f1067627c1cede9762b52cacf53d2b81d3b2ecfc7ba112042c4e29d222b
   languageName: node
   linkType: hard
 
@@ -9448,11 +9446,11 @@ __metadata:
   linkType: hard
 
 "jsdom@npm:^29.0.0":
-  version: 29.0.1
-  resolution: "jsdom@npm:29.0.1"
+  version: 29.0.2
+  resolution: "jsdom@npm:29.0.2"
   dependencies:
-    "@asamuzakjp/css-color": "npm:^5.0.1"
-    "@asamuzakjp/dom-selector": "npm:^7.0.3"
+    "@asamuzakjp/css-color": "npm:^5.1.5"
+    "@asamuzakjp/dom-selector": "npm:^7.0.6"
     "@bramus/specificity": "npm:^2.4.2"
     "@csstools/css-syntax-patches-for-csstree": "npm:^1.1.1"
     "@exodus/bytes": "npm:^1.15.0"
@@ -9477,7 +9475,7 @@ __metadata:
   peerDependenciesMeta:
     canvas:
       optional: true
-  checksum: 10/93d6b4e17f8ed6428beab09aecb43737325be658b58f474df4fcc46ef391826e98b3fbf30c51cd5ead5d05de2c85a932be87fdeada064adb5617322e0c8476ea
+  checksum: 10/3ad1d9a5b6aba067427bc43be98e1c51fab489bf689a6530e596278c6326fe053c94fc47a9c133f126fbe914f421283ae723fb92214dfe4959ca6cf2ee1666f6
   languageName: node
   linkType: hard
 
@@ -10001,9 +9999,9 @@ __metadata:
   linkType: hard
 
 "lodash@npm:^4.17.23":
-  version: 4.17.23
-  resolution: "lodash@npm:4.17.23"
-  checksum: 10/82504c88250f58da7a5a4289f57a4f759c44946c005dd232821c7688b5fcfbf4a6268f6a6cdde4b792c91edd2f3b5398c1d2a0998274432cff76def48735e233
+  version: 4.18.1
+  resolution: "lodash@npm:4.18.1"
+  checksum: 10/306fea53dfd39dad1f03d45ba654a2405aebd35797b673077f401edb7df2543623dc44b9effbb98f69b32152295fff725a4cec99c684098947430600c6af0c3f
   languageName: node
   linkType: hard
 
@@ -10088,7 +10086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.6, lru-cache@npm:^11.2.7":
+"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.7":
   version: 11.2.7
   resolution: "lru-cache@npm:11.2.7"
   checksum: 10/fbff4b8dee8189dde9b52cdfb3ea89b4c9cec094c1538cd30d1f47299477ff312efdb35f7994477ec72328f8e754e232b26a143feda1bd1f79ff22da6664d2c5
@@ -12340,27 +12338,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.58.2":
-  version: 1.58.2
-  resolution: "playwright-core@npm:1.58.2"
+"playwright-core@npm:1.59.1":
+  version: 1.59.1
+  resolution: "playwright-core@npm:1.59.1"
   bin:
     playwright-core: cli.js
-  checksum: 10/8a98fcf122167e8703d525db2252de0e3da4ab9110ab6ea9951247e52d846310eb25ea2c805e1b7ccb54b4010c44e5adc3a76aae6da02f34324ccc3e76683bb1
+  checksum: 10/d27857a6701587c2a9bfa26fed9a5d8c617a392299b99b187f2ddc198d012a1e296449806bc907220debea938152677e8b4d91d304ed00645f762f778de3abec
   languageName: node
   linkType: hard
 
-"playwright@npm:1.58.2":
-  version: 1.58.2
-  resolution: "playwright@npm:1.58.2"
+"playwright@npm:1.59.1":
+  version: 1.59.1
+  resolution: "playwright@npm:1.59.1"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.58.2"
+    playwright-core: "npm:1.59.1"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10/d89d6c8a32388911b9aff9ee0f1a90076219f15c804f2b287db048b9e9cde182aea3131fac1959051d25189ed4218ec4272b137c83cd7f9cd24781cbc77edd86
+  checksum: 10/17b2df42effa362adc6aa3192b625bd80f26b91a0c253a2375ac89ace68407b746dd87b4081629c50c58c3cb031c5b837a32fef43a3c98c60ea504e0b001e5fa
   languageName: node
   linkType: hard
 
@@ -12478,7 +12476,7 @@ __metadata:
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.0.0"
     https-proxy-agent: "npm:^5.0.1"
-    i18next: "npm:^25.0.0"
+    i18next: "npm:^26.0.0"
     if-env: "npm:^1.0.4"
     ioredis: "npm:^5.0.0"
     ip: "npm:^2.0.1"
@@ -13730,8 +13728,8 @@ __metadata:
   linkType: hard
 
 "sass@npm:^1.89.2":
-  version: 1.98.0
-  resolution: "sass@npm:1.98.0"
+  version: 1.99.0
+  resolution: "sass@npm:1.99.0"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -13742,7 +13740,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/37d134d07639dc8fc8557495c3b98801bb736f0d1fc5fbfb2e0dba3c21200f447cf3e6166cd285603c922171366696c1d2e766af2c4cf82d882a3dc4d4e39f00
+  checksum: 10/93f9d5c3b3e4659fb68a8e90d9637818581b0152dfb543ac159d57bb1e384f6b2009b7ac35ef88883f441cddfabd248fdcbba3fe814f4f23e3bfe58c917787a6
   languageName: node
   linkType: hard
 
@@ -15511,10 +15509,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^7.18.2":
-  version: 7.24.6
-  resolution: "undici@npm:7.24.6"
-  checksum: 10/9c8df674284b1e9b8c3fee543883ad71c20d5fb3b6f6595330342f3dad30de944c2d55ff15aa59e7a088af272ce73be6e93baad9ab817b1b82e5c83298c23d8e
+"undici@npm:^8.0.0":
+  version: 8.0.2
+  resolution: "undici@npm:8.0.2"
+  checksum: 10/1891b1fb36a01f293a6f26e5c34831e3e0e6e1fa319ed7b31ed2a3b66e6132a2bd7adde7fe57aeb6a910e354ab20d72adab191206f899e3cecb9f518bc5b7876
   languageName: node
   linkType: hard
 
@@ -15712,9 +15710,9 @@ __metadata:
   linkType: hard
 
 "validator@npm:^13.15.20":
-  version: 13.15.26
-  resolution: "validator@npm:13.15.26"
-  checksum: 10/22488ae718ca724eda81b7c8bf505005d4d70cb6ff9a319f48fd897a31d40fd9a2971af4a3288667a04c56b4f95912555495519d54a5d8d63c2572bf4970081a
+  version: 13.15.35
+  resolution: "validator@npm:13.15.35"
+  checksum: 10/62f25728064d5dedaabb10a53647cbb4f9aa762a2a53e16642469d4839ad235e467e9f18d0992c492ec1d35e1d5034956fdc680953fc7d8f764cc6d4c83cf2ae
   languageName: node
   linkType: hard
 
@@ -16363,12 +16361,12 @@ __metadata:
   linkType: hard
 
 "yauzl@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "yauzl@npm:3.2.1"
+  version: 3.3.0
+  resolution: "yauzl@npm:3.3.0"
   dependencies:
     buffer-crc32: "npm:~0.2.3"
     pend: "npm:~1.2.0"
-  checksum: 10/15dfae75fbfe59c6a1b7a2cb27a995cda0ee70549d32d6b19937e84897436170f169f6bbefc34b9e9beb9c9114a1b8a8a40e7687a907909a19681ebcbf35a1f3
+  checksum: 10/ac8ae5276a3fb89b80464fc828aadcb5f888af7306a7920e699b9de05aead0490ac6698bc71952ea867c3f2a2c73ed8df91f18f5b6a67ce3231065327817c08f
   languageName: node
   linkType: hard
 

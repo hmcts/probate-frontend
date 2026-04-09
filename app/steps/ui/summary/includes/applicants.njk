@@ -373,7 +373,9 @@
         {
             question: fields.summary.allHalfNiecesAndHalfNephewsOver18.value,
             answer: content.AllHalfNiecesAndHalfNephewsOver18[fields.applicant.allHalfNiecesAndHalfNephewsOver18.value],
-            visible: fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionNo" and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesSome"
+            visible: fields.applicant.sameParents.value == "optionOneParentsSame"
+                     and fields.applicant.anySurvivingHalfNiecesAndHalfNephews.value == "optionYes"
+                     and fields.applicant.anyPredeceasedHalfSiblings.value == "optionYesSome"
         }
     ],
     url = content.AllHalfNiecesAndHalfNephewsOver18.url,

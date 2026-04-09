@@ -746,7 +746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cucumber/cucumber-expressions@npm:19":
+"@cucumber/cucumber-expressions@npm:^19.0.0":
   version: 19.0.0
   resolution: "@cucumber/cucumber-expressions@npm:19.0.0"
   dependencies:
@@ -2991,10 +2991,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xmldom/xmldom@npm:0.9.8":
-  version: 0.9.8
-  resolution: "@xmldom/xmldom@npm:0.9.8"
-  checksum: 10/5f88d27a50bb624b0b46b8359853e1a3501217e743b132c5cbe76115646bb4b7a2128c1f0c32f045c7b452689f5206e9bba7d7292c6c13a81eed5e43c2e5ec7c
+"@xmldom/xmldom@npm:0.9.9":
+  version: 0.9.9
+  resolution: "@xmldom/xmldom@npm:0.9.9"
+  checksum: 10/292e4a25e7c6c87001475184f413cd38cb07b25d013d33294cf2eacec72c450ccd3f58a0140e0a72462647dc78d808263006aae1952d6a00a3fd521b0bdb11b0
   languageName: node
   linkType: hard
 
@@ -3516,7 +3516,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.12.2, axios@npm:^1.8.4":
+"axios@npm:1.14.0, axios@npm:^1.12.2, axios@npm:^1.8.4":
   version: 1.14.0
   resolution: "axios@npm:1.14.0"
   dependencies:
@@ -4408,7 +4408,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cheerio@npm:^1.0.0, cheerio@npm:^1.0.0-rc.12":
+"cheerio@npm:^1.0.0-rc.12, cheerio@npm:^1.2.0":
   version: 1.2.0
   resolution: "cheerio@npm:1.2.0"
   dependencies:
@@ -4657,22 +4657,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codeceptjs@npm:3.7.7":
-  version: 3.7.7
-  resolution: "codeceptjs@npm:3.7.7"
+"codeceptjs@npm:3.7.8":
+  version: 3.7.8
+  resolution: "codeceptjs@npm:3.7.8"
   dependencies:
     "@codeceptjs/configure": "npm:1.0.6"
     "@codeceptjs/detox-helper": "npm:1.1.14"
     "@codeceptjs/helper": "npm:2.0.4"
-    "@cucumber/cucumber-expressions": "npm:19"
+    "@cucumber/cucumber-expressions": "npm:^19.0.0"
     "@cucumber/gherkin": "npm:39.0.0"
     "@cucumber/messages": "npm:32.2.0"
-    "@xmldom/xmldom": "npm:0.9.8"
+    "@xmldom/xmldom": "npm:0.9.9"
     acorn: "npm:8.16.0"
     arrify: "npm:3.0.0"
-    axios: "npm:1.13.6"
+    axios: "npm:1.14.0"
     chalk: "npm:4.1.2"
-    cheerio: "npm:^1.0.0"
+    cheerio: "npm:^1.2.0"
     chokidar: "npm:^4.0.3"
     commander: "npm:11.1.0"
     cross-spawn: "npm:7.0.6"
@@ -4683,11 +4683,11 @@ __metadata:
     figures: "npm:3.2.0"
     fn-args: "npm:4.0.0"
     fs-extra: "npm:11.3.4"
-    fuse.js: "npm:^7.0.0"
-    glob: "npm:>=9.0.0 <12"
+    fuse.js: "npm:^7.3.0"
+    glob: "npm:^11.1.0"
     html-minifier-terser: "npm:7.2.0"
     inquirer: "npm:^8.2.7"
-    invisi-data: "npm:^1.0.0"
+    invisi-data: "npm:^1.2.0"
     joi: "npm:18.0.2"
     js-beautify: "npm:1.15.4"
     lodash.clonedeep: "npm:4.5.0"
@@ -4696,7 +4696,7 @@ __metadata:
     mocha: "npm:11.7.5"
     monocart-coverage-reports: "npm:2.12.9"
     ms: "npm:2.1.3"
-    multer: "npm:^2.0.2"
+    multer: "npm:^2.1.1"
     ora-classic: "npm:5.4.2"
     parse-function: "npm:5.6.10"
     parse5: "npm:7.3.0"
@@ -4709,7 +4709,7 @@ __metadata:
       optional: true
   bin:
     codeceptjs: bin/codecept.js
-  checksum: 10/432b77aa33ffe157d5221dae52dd57781c3f44136895ff8598fad33d8194772be6d6c2665d5306e7bb6f0f78f2443d6af1e712737dca47b10be057718ecb4286
+  checksum: 10/5a3cadfa83097cc6e90a77a0d5c79d974ae768df674660346077119f54d16331c0e2f69b182a7664a42565aed6493b927e33b8390cab277593cc22e61b944143
   languageName: node
   linkType: hard
 
@@ -7510,10 +7510,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fuse.js@npm:^7.0.0":
-  version: 7.1.0
-  resolution: "fuse.js@npm:7.1.0"
-  checksum: 10/9f9105e54372897a46cb3e04074f0db5bd0a428320d4618276a57e6142d7502235a556f05cf87aa3c5d6d9c6fdfa06b901b78379c48aa0951672ccbc4a1bfe70
+"fuse.js@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "fuse.js@npm:7.3.0"
+  checksum: 10/b2cdc39e46acb9524fe900356af74c987ecb1dbc67412df651a5291fa072d212e6d74457f0b5d1c39baf79539481f62b613ac792afd8995dd1fc3d20b5354914
   languageName: node
   linkType: hard
 
@@ -7713,7 +7713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:>=9.0.0 <12, glob@npm:^10.0.0, glob@npm:^10.2.2, glob@npm:^10.4.2, glob@npm:^10.4.5":
+"glob@npm:^10.0.0, glob@npm:^10.2.2, glob@npm:^10.4.2, glob@npm:^10.4.5, glob@npm:^11.1.0":
   version: 11.1.0
   resolution: "glob@npm:11.1.0"
   dependencies:
@@ -8532,10 +8532,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invisi-data@npm:^1.0.0":
-  version: 1.1.2
-  resolution: "invisi-data@npm:1.1.2"
-  checksum: 10/e4005de166ec9a24233cb31ba42e03b5ef1847bf8bf7646f6256a9f601945783a2b8297aeaa7eb3b1ccf28027352bfd2b898d11f366c046a329b676789c5101a
+"invisi-data@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "invisi-data@npm:1.2.0"
+  checksum: 10/634ebb90ed552eaa3f50813a812af1ef4efa7a276834380aa94190d0dcaab1b0d75cb15cb1897b575fe3fa424f8bc201920898127194e17c3772cf44e0b592d3
   languageName: node
   linkType: hard
 
@@ -10948,7 +10948,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"multer@npm:2.1.1, multer@npm:^2.0.2":
+"multer@npm:2.1.1, multer@npm:^2.1.1":
   version: 2.1.1
   resolution: "multer@npm:2.1.1"
   dependencies:

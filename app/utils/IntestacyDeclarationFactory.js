@@ -42,9 +42,9 @@ class IntestacyDeclarationFactory {
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             applying: content.en[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
-
+            renouncingText: content.en.intestacyDeceasedMarriedSpouseRenouncingText
+                .replace('{deceasedName}', formdata.deceasedName)
         };
-        legalStatement.en.renouncingText = this.getRenouncingText(formdata, content.en);
         declaration.en = {
             confirm: content.en[`declarationConfirm${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
@@ -88,8 +88,9 @@ class IntestacyDeclarationFactory {
                 .replace(/{deceasedName}/g, formdata.deceasedName),
             applying: content.cy[`intestacyLettersOfAdministration${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
+            renouncingText: content.cy.intestacyDeceasedMarriedSpouseRenouncingText
+                .replace('{deceasedName}', formdata.deceasedName)
         };
-        legalStatement.cy.renouncingText = this.getRenouncingText(formdata, content.en);
         declaration.cy = {
             confirm: content.cy[`declarationConfirm${multipleApplicantSuffix}`]
                 .replace('{deceasedName}', formdata.deceasedName),
@@ -112,15 +113,6 @@ class IntestacyDeclarationFactory {
 
     static getMaritalStatus(formdata, content) {
         return get(content, get(formdata.deceased, 'maritalStatus', ''), '').toLowerCase();
-    }
-
-    static getRenouncingText(formdata, content) {
-        let renouncingText = '';
-        if ((formdata.relationshipToDeceased === 'optionChild' || formdata.relationshipToDeceased === 'optionGrandchild') &&
-            (formdata.applicant.spouseNotApplyingReason === 'optionRenouncing')) {
-            renouncingText = content.intestacyDeceasedMarriedSpouseRenouncingText;
-        }
-        return renouncingText.replace(/{deceasedName}/g, formdata.deceasedName);
     }
 }
 

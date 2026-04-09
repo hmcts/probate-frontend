@@ -71,8 +71,6 @@
 
                 <h3 class="govuk-heading-s declaration-subheader">{{ content.cy.peopleApplyingHeader | safe }}</h3>
 
-                <p class="govuk-body declaration-item">{{fields.legalStatement.value.cy.executorsApplying.name | safe}}</p>
-
                 {% for applicant in fields.legalStatement.value.cy.executorsApplying %}
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
@@ -93,11 +91,16 @@
                   <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
                 {% endif %}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.renouncingText | safe }}</p>
+                  {% if (fields.relationshipToDeceased == "optionChild" or fields.relationshipToDeceased == "optionGrandchild")
+                        and
+                        (fields.applicant.spouseNotApplyingReason == "optionRenouncing")
+                  %}
+                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.renouncingText | safe }}</p>
+                  {% endif %}
 
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
 
-                    {{ lists(content.cy, fields.declaration.value.cy) }}
+                {{ lists(content.cy, fields.declaration.value.cy) }}
                 </div>
                 {{ download('cy', content.cy) }}
             </div>
@@ -188,7 +191,12 @@
                   <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
                 {% endif %}
 
-                <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.renouncingText | safe }}</p>
+                {% if ((fields.relationshipToDeceased == "optionChild" or fields.relationshipToDeceased == "optionGrandchild")
+                       and
+                       (fields.applicant.spouseNotApplyingReason == "optionRenouncing"))
+                %}
+                  <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.renouncingText | safe }}</p>
+                {% endif %}
 
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>
 

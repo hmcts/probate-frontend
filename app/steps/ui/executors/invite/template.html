@@ -62,7 +62,10 @@
                     </div>
                     <div class="govuk-grid-column-one-quarter">
                         <p class="govuk-body">
-                            <a href="/executor-contact-details/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
+                          {% if fields.caseType.value == 'intestacy' %}
+                            <a href="/intestacy/coapplicant-email/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
+                          {% endif %}
+                          <a href="/executor-contact-details/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
                         </p>
                     </div>
                 </div>

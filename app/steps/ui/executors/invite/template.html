@@ -64,8 +64,9 @@
                         <p class="govuk-body">
                           {% if fields.caseType.value == 'intestacy' %}
                             <a href="/intestacy/coapplicant-email/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
+                          {% elseif fields.caseType.value == 'gop' %}
+                            <a href="/executor-contact-details/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
                           {% endif %}
-                          <a href="/executor-contact-details/{{ loop.index - 1 }}" class="govuk-link">{{ content.changeLink | safe }}</a>
                         </p>
                     </div>
                 </div>

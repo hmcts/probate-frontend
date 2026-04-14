@@ -2,8 +2,8 @@
 
 const config = require('config');
 
-class IhtThreshold {
-    static getIhtThreshold(date) {
+class AssetsThreshold {
+    static getAssetsThreshold(date) {
         const ranges = config.assetsValueThreshold;
         date = new Date(date);
         let threshold = null;
@@ -24,4 +24,4 @@ class IhtThreshold {
     }
 }
 
-module.exports = IhtThreshold;
+module.exports = AssetsThreshold;

@@ -1,4 +1,4 @@
-{% macro executorsNamedAnswer(language, executorsList) %}
+{% macro executorsNamedAnswer(executorsList) %}
         {{ common.yes if executorsList and (executorsList | length) > 1 else common.no }}
 {% endmacro %}
 
@@ -6,7 +6,7 @@
     items = [
         {
             question: content.ExecutorsNamed.question,
-            answer: executorsNamedAnswer(fields.summary.language.value, fields.executors.list.value),
+            answer: executorsNamedAnswer(fields.executors.list.value),
             visible: true
         }
     ],

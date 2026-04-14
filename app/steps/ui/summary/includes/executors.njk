@@ -1,11 +1,5 @@
 {% macro executorsNamedAnswer(language, executorsList) %}
-    {% if language == 'en' %}
-        {{ 'Yes' if executorsList and (executorsList | length) > 1 else 'No' }}
-    {% elif language == 'cy' %}
-        {{ 'Oedd' if executorsList and (executorsList | length) > 1 else 'Do' }}
-    {% else %}
-        {{ '' }}
-    {% endif %}
+        {{ common.yes if executorsList and (executorsList | length) > 1 else common.no }}
 {% endmacro %}
 
 {{checkanswer(

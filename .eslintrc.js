@@ -320,7 +320,8 @@ module.exports = {
         {
             'files': ['app/journeys/intestacy.js',
                 'test/unit/testRelationshipToDeceased.js',
-                'test/component/testStopPage.js'],
+                'test/component/testStopPage.js',
+                'test/unit/services/coversheet/testCoverSheetPdf.js'],
             'rules': {
                 'max-lines': 'off'
             }

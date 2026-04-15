@@ -40,6 +40,9 @@ describe('Pact ProbateCoverSheetPdf', () => {
         authToken: 'authToken',
         session: {
             form: {
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     address: {
                         formattedAddress: 'addressLine1',
@@ -60,6 +63,9 @@ describe('Pact ProbateCoverSheetPdf', () => {
         authToken: 'authToken',
         session: {
             form: {
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     address: {
                         formattedAddress: '',
@@ -81,6 +87,9 @@ describe('Pact ProbateCoverSheetPdf', () => {
         authToken: 'authToken',
         session: {
             form: {
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     address: {
                         formattedAddress: 'addressLine1',

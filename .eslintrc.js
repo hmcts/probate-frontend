@@ -316,6 +316,14 @@ module.exports = {
             'never'
         ]
     },
+    'overrides': [
+        {
+            'files': ['test/unit/services/coversheet/testCoverSheetPdf.js'],
+            'rules': {
+                'max-lines': 'off'
+            }
+        }
+    ],
     'globals': {
         'actor': true,
         'Feature': true,

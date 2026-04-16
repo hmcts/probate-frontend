@@ -39,3 +39,12 @@ dump.rdb
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+test/playwrightTest/.env
+test/playwrightTest/.env.*
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+config/custom-environment-variables.yaml

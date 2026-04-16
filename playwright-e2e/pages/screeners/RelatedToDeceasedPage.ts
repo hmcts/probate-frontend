@@ -1,15 +1,14 @@
-import { expect, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { BasePage } from '../BasePage';
 
 export class RelatedToDeceasedPage extends BasePage {
+  private readonly pageUrl = /related-to-deceased/;
+
   constructor(page: Page) {
     super(page);
   }
 
-  async selectYes(): Promise<void> {
-    const yesOption = this.page.getByLabel(/^yes$/i);
-    await expect(yesOption).toBeVisible();
-    await yesOption.check();
-    await this.clickContinue();
+  async selectChild(): Promise<void> {
+    await this.selectRadioByIdAndContinue(this.pageUrl, 'related-2');
   }
 }

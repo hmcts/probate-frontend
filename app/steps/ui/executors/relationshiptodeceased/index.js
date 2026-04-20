@@ -89,8 +89,10 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
+        if (formdata.executors && formdata.executors.list &&
+            formdata.executors.list[ctx.index] && ctx.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
             this.clearRelationshipFields(ctx, formdata);
+            ctx.hasCoApplicant = 'optionYes';
         }
         if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' ||
             ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||

@@ -1,0 +1,14 @@
+{
+  "title": "A wnaethoch chi fabwysiadu yr unigolyn sydd wedi marw yn gyfreithiol i&rsquo;ch teulu?",
+  "parentQuestion": "A wnaethoch chi fabwysiadu {deceasedName} yn gyfreithiol i&rsquo;ch teulu?",
+  "siblingQuestion": "A wnaeth rhieni {deceasedName} ei fabwysiadu/mabwysiadau&rsquo;n gyfreithlon i mewn i&rsquo;w teulu nhw?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "deceasedAdoptedIn": {
+      "requiredParent": "Dewiswch &lsquo;Do&rsquo; os wnaethoch chi fabwysiadu {deceasedName} yn gyfreithiol",
+      "requiredSibling": "Dewiswch &lsquo;Do&rsquo; os yw unrhyw un o rieni {deceasedName} yn fyw"
+    }
+  }
+}

@@ -318,7 +318,10 @@ module.exports = {
     },
     'overrides': [
         {
-            'files': ['test/unit/services/coversheet/testCoverSheetPdf.js'],
+            'files': ['app/journeys/intestacy.js',
+                'test/unit/testRelationshipToDeceased.js',
+                'test/component/testStopPage.js',
+                'test/unit/services/coversheet/testCoverSheetPdf.js'],
             'rules': {
                 'max-lines': 'off'
             }

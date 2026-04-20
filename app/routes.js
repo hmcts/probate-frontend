@@ -69,6 +69,7 @@ router.use(journeyCheck);
 router.use(documentDownload);
 router.use(paymentFees);
 router.post('/payment-breakdown', lockPaymentAttempt);
+router.post('/intestacy/payment-breakdown', lockPaymentAttempt);
 
 router.get('/start-apply', (req, res, next) => {
     if (config.app.useIDAM === 'true' && req.userLoggedIn) {
@@ -245,6 +246,7 @@ const allSteps = {
 const allPageUrls = [];
 Object.entries(allSteps.en).forEach(([, step]) => {
     const stepUrl = step.constructor.getUrl();
+    const intestacyUrl = `/intestacy${stepUrl}`;
     const cleanStepUrl = FormatUrl.getCleanPageUrl(stepUrl, 1);
     if (!allPageUrls.includes(cleanStepUrl)) {
         allPageUrls.push(cleanStepUrl);
@@ -252,6 +254,8 @@ Object.entries(allSteps.en).forEach(([, step]) => {
 
     router.get(stepUrl, step.runner().GET(step));
     router.post(stepUrl, step.runner().POST(step));
+    router.get(intestacyUrl, step.runner().GET(step));
+    router.post(intestacyUrl, step.runner().POST(step));
 });
 
 module.exports = router;

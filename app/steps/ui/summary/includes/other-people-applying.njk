@@ -1,0 +1,16 @@
+{% macro jointApplicationAnswer(executorsList) %}
+        {{ common.yes if executorsList and (executorsList | length) > 1 else common.no }}
+{% endmacro %}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.JointApplication.question,
+            answer: jointApplicationAnswer(fields.executors.list.value),
+            visible: true
+        }
+    ],
+    url = content.JointApplication.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

@@ -13,7 +13,15 @@
   "paragraph6": "They can always see the most up to date version of the legal statement using the link we email them.",
   "changeLink": "Change",
   "sendInvites": "Notify the other executors who are applying",
-
+  "intestacyQuestion": "Notify the other applicants",
+  "intestacyParagraph1": "We will send the other applicants an email asking them to confirm the information you have provided and make their declaration.",
+  "intestacyParagraph2": "If the other applicants do not agree with the information provided, or if they no longer want to apply, we will ask them to contact you to discuss the application.",
+  "intestacyParagraph3": "You can continue to make changes to the application until all applicants have their declaration.",
+  "intestacyParagraph4": "If you make any changes to your application, you will need to contact the other applicants to let them know the legal statement has been updated.",
+  "intestacyParagraph5": "You will not be able to submit your application until all applicants have made their declaration.",
+  "intestacyHeading1": "If the other applicants do not agree with the information",
+  "intestacyHeading2": "If you change the information on your application",
+  "intestacyHeading3": "Other applicants",
   "errors": {
     "getUrl(index": {
       "invalid": "There was a problem with sending the emails, please try again later"

@@ -12,6 +12,11 @@ class TaskList extends Step {
         return '/task-list';
     }
 
+    // eslint-disable-next-line no-unused-vars
+    getUrlWithContext(ctx, unused) {
+        return this.constructor.getUrl();
+    }
+
     previousTaskStatus(previousTasks) {
         const allPreviousTasksComplete = previousTasks.every((task) => {
             return task && task.status === 'complete';
@@ -20,17 +25,14 @@ class TaskList extends Step {
     }
 
     paymentPreviousTaskStatus(session, ctx) {
+        if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
+            return 'locked';
+        }
         if (ctx.caseType === caseTypes.GOP) {
-            if (ctx.hasMultipleApplicants && session.haveAllExecutorsDeclared === 'false') {
-                return 'locked';
-            }
-
             return this.previousTaskStatus([ctx.DeceasedTask, ctx.ExecutorsTask, ctx.ReviewAndConfirmTask]);
         }
-
         return this.previousTaskStatus([ctx.DeceasedTask, ctx.ApplicantsTask, ctx.ReviewAndConfirmTask]);
     }
-
     getContextData(req, res) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
@@ -45,12 +47,10 @@ class TaskList extends Step {
         } else {
             ctx.daysToDeleteText = daysToDelete > 1 ? daysToDelete + ' days' : daysToDelete + ' day';
         }
-
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
+        ctx.declarationStatuses = formdata.executorsDeclarations || [];
         if (ctx.caseType === caseTypes.GOP) {
-            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-            ctx.hasMultipleApplicants = executorsWrapper.hasMultipleApplicants();
-            ctx.declarationStatuses = formdata.executorsDeclarations || [];
-
             ctx.previousTaskStatus = {
                 DeceasedTask: ctx.DeceasedTask.status,
                 ExecutorsTask: ctx.DeceasedTask.status,

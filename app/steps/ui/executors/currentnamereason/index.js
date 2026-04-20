@@ -81,13 +81,6 @@ class ExecutorCurrentNameReason extends ValidationStep {
         return findIndex(ctx.list, o => o.isApplying, index + 1);
     }
 
-    nextStepUrl(req, ctx) {
-        if (ctx.index === -1) {
-            return this.next(req, ctx).constructor.getUrl();
-        }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
-    }
-
     nextStepOptions(ctx) {
         ctx.continue = get(ctx, 'index', -1) !== -1;
         return {

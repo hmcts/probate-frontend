@@ -1,0 +1,13 @@
+{
+  "title": "A yw pob un o’r plant hyn yn 18 oed neu’n hŷn?",
+  "question": "A yw pob un o’r plant hyn yn 18 oed neu’n hŷn?",
+  "paragraph": "Nhw fyddai nithoedd a neiaint {deceasedName}.",
+  "optionYes": "Ydyn",
+  "optionNo": "Nac ydyn",
+
+  "errors": {
+    "allWholeNiecesAndWholeNephewsOver18": {
+      "required": "Dewiswch &lsquo;Ydyn&rsquo; os ydy’r holl blant hyn yn 18 oed neu’n hŷn"
+    }
+  }
+}

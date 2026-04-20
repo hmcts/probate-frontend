@@ -7,6 +7,7 @@ class OptionGetRunner extends UIStepRunner {
     handleGet(step, req, res) {
         if (req.params[0] === 'redirect') {
             const ctx = step.getContextData(req);
+            // should this be taking (req, ctx) as seemingly every other use does?
             res.redirect(step.nextStepUrl(ctx));
         } else {
             super.handleGet(step, req, res);

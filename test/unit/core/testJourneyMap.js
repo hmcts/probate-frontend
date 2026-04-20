@@ -1,6 +1,6 @@
 'use strict';
 
-const expect = require('chai').expect;
+const {assert, expect} = require('chai');
 const rewire = require('rewire');
 const JourneyMap = rewire('app/core/JourneyMap');
 
@@ -58,8 +58,15 @@ describe('JourneyMap.js', () => {
                     ExecutorAddress: {
                         allExecsApplying: 'DeceasedName',
                         otherwise: 'ExecutorRoles'
-                    }
-                }
+                    },
+                    InvalidDirect: 'InvalidNext',
+                    InvalidIndirect: {
+                        actualKey: 'InvalidNext',
+                    },
+                    InvalidIndirectOtherwise: {
+                        otherwise: 'InvalidNext',
+                    },
+                },
             };
         });
 
@@ -84,6 +91,36 @@ describe('JourneyMap.js', () => {
             const journeyMap = new JourneyMap(journey);
             const nextStep = journeyMap.nextStep(currentStep, ctx);
             expect(nextStep).to.deep.equal({name: 'DeceasedName'});
+            done();
+        });
+
+        it('should throw if nextOptionStep returns a value not in the configured next step options', (done) => {
+            currentStep.name = 'InvalidIndirect';
+            const ctx = {};
+            const journeyMap = new JourneyMap(journey);
+            assert.throws(
+                () => journeyMap.nextStep(currentStep, ctx),
+                /for .* nextStepId .* not in options - options are \[.*\]/);
+            done();
+        });
+
+        it('should throw if nextOptionStep returns a value not in steps', (done) => {
+            currentStep.name = 'InvalidIndirectOtherwise';
+            const ctx = {};
+            const journeyMap = new JourneyMap(journey);
+            assert.throws(
+                () => journeyMap.nextStep(currentStep, ctx),
+                /for .* nextStepId .* gave .* which is not found in steps/);
+            done();
+        });
+
+        it('should throw if direct next step is a value not in steps', (done) => {
+            currentStep.name = 'InvalidDirect';
+            const ctx = {};
+            const journeyMap = new JourneyMap(journey);
+            assert.throws(
+                () => journeyMap.nextStep(currentStep, ctx),
+                /for .* got non-object .* which is not found in steps/);
             done();
         });
     });

@@ -29,8 +29,9 @@ class UIStepRunner {
             } else {
                 const featureToggles = session.featureToggles;
                 [ctx, errors] = yield step.handleGet(ctx, formdata, featureToggles, session.language);
+                const stepUrl = step.getUrlWithContext(ctx);
                 forEach(errors, (error) =>
-                    req.log.info({type: 'Validation Message', url: step.constructor.getUrl()}, JSON.stringify(error))
+                    req.log.info({type: 'Validation Message', url: stepUrl}, JSON.stringify(error))
                 );
 
                 ctx.showBackLink = step.shouldHaveBackLink();
@@ -40,8 +41,8 @@ class UIStepRunner {
                 const fields = step.generateFields(session.language, ctx, errors, formdata);
                 if (req.query.source === 'back') {
                     session.back.pop();
-                } else if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                    session.back.push(step.constructor.getUrl());
+                } else if (session.back && session.back[session.back.length - 1] !== stepUrl) {
+                    session.back.push(stepUrl);
                 }
                 const common = step.commonContent(session.language);
                 common.SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
@@ -56,7 +57,7 @@ class UIStepRunner {
             }
         }).catch((error) => {
             const maybeCaseId = req?.session?.form?.ccdCase?.id;
-            req.log.error(`Error in GET for case ${maybeCaseId} error: ${error}`);
+            req.log.error(`Error in GET for case ${maybeCaseId} error: `, error);
             res.status(500).render('errors/500', {common: commonContent, userLoggedIn: req.userLoggedIn});
         });
     }
@@ -70,7 +71,8 @@ class UIStepRunner {
             let ctx = step.getContextData(req, res);
             const isSaveAndClose = typeof get(ctx, 'isSaveAndClose') !== 'undefined' && get(ctx, 'isSaveAndClose') === 'true';
             let [isValid, errors] = [];
-            formdata.eventDescription = config.eventDescriptionPrefix + (step.constructor.getUrl()).replace('/', '');
+            const stepUrl = step.getUrlWithContext(ctx);
+            formdata.eventDescription = config.eventDescriptionPrefix + (stepUrl).replace('/', '');
 
             let isEmptyForm = true;
             if (req.body) {
@@ -118,8 +120,8 @@ class UIStepRunner {
                         }
                     }
 
-                    if (session.back[session.back.length - 1] !== step.constructor.getUrl()) {
-                        session.back.push(step.constructor.getUrl());
+                    if (session.back && session.back[session.back.length - 1] !== stepUrl) {
+                        session.back.push(stepUrl);
                     }
                     if (errorOccurred === false) {
                         if (isSaveAndClose) {
@@ -139,7 +141,7 @@ class UIStepRunner {
                     forEach(errors, (error) =>
                         req.log.info({
                             type: 'Validation Message',
-                            url: step.constructor.getUrl()
+                            url: stepUrl,
                         }, JSON.stringify(error))
                     );
                     const content = step.generateContent(ctx, formdata, session.language);
@@ -150,7 +152,7 @@ class UIStepRunner {
             }
         }).catch((error) => {
             const maybeCaseId = req?.session?.form?.ccdCase?.id;
-            req.log.error(`Error in POST for case ${maybeCaseId} error: ${error}`);
+            req.log.error(`Error in POST for case ${maybeCaseId} error:`, error);
             const ctx = step.getContextData(req, res);
             const fields = step.generateFields(req.session.language, ctx, [], {});
             res.status(500).render('errors/500', {fields, common: commonContent, userLoggedIn: req.userLoggedIn});

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "same-parents",
+  "type": "object",
+  "properties": {
+    "sameParents": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "sameParents"
+  ]
+}

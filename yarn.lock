@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 9
   cacheKey: 10
 
 "@asamuzakjp/css-color@npm:^5.1.5":
@@ -12826,7 +12826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:^24.10.2":
+"puppeteer@npm:^24.37.5":
   version: 24.41.0
   resolution: "puppeteer@npm:24.41.0"
   dependencies:

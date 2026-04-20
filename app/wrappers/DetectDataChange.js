@@ -22,22 +22,44 @@ class DetectDataChanges {
             step.schemaFile.id !== executorsInviteSchema.$id &&
             formdata[step.section] &&
             formdata.declaration &&
-            (!formdata.declaration.hasDataChanged || formdata.declaration.hasDataChanged === 'false')
+            (formdata.declaration.declarationCheckbox === 'true' || !formdata.declaration.hasDataChanged || formdata.declaration.hasDataChanged === 'false')
         ) {
             if (step.section === 'executors') {
+                const executorsNumberChanged = ctx.executorsNumber !== formdata[step.section].executorsNumber;
+                if (executorsNumberChanged) {
+                    return true;
+                }
                 const index = (req.params && !isNaN(req.params[0])) ? req.params[0] : req.session.indexPosition;
-                if (Object.keys(req.body).includes('email')) {
+                const bodyKeys = Object.keys(req.body);
+                if (
+                    bodyKeys.includes('email') ||
+                    bodyKeys.includes('currentName') ||
+                    bodyKeys.includes('currentNameReason') ||
+                    bodyKeys.includes('executorNotified') ||
+                    bodyKeys.includes('notApplyingReason') ||
+                    bodyKeys.includes('otherReason') ||
+                    bodyKeys.includes('diedbefore')
+                ) {
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
-                } else if (Object.keys(req.body).includes('addressLine1')) {
+                }
+                if (bodyKeys.includes('addressLine1')) {
                     req.body.address = this.sanitiseAddressObject(req.body);
                     return this.hasChanged(req.body, formdata[step.section].list[index]);
-                } else if (req.body.executorName) {
+                }
+                if (bodyKeys.includes('alias')) {
+                    const hasOtherName = Boolean(formdata[step.section].list[index].hasOtherName);
+                    const aliasIsYes = req.body.alias === 'optionYes';
+                    return aliasIsYes !== hasOtherName;
+                }
+                if (req.body.executorName) {
                     const currentExecutors = executorsWrapper.executors(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorName, currentExecutors);
-                } else if (req.body.executorsApplying) {
+                }
+                if (req.body.executorsApplying) {
                     const executorsApplying = executorsWrapper.executorsApplying(true).map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorsApplying, executorsApplying);
-                } else if (req.body.executorsWhoDied) {
+                }
+                if (req.body.executorsWhoDied) {
                     const executorsWhoDied = executorsWrapper.deadExecutors().map(executor => executor.fullName);
                     return this.isNotEqual(req.body.executorsWhoDied, executorsWhoDied);
                 }
@@ -47,7 +69,6 @@ class DetectDataChanges {
             }
             return this.hasChanged(req.body, formdata[step.section]);
         }
-
         return false;
     }
 
@@ -74,19 +95,14 @@ class DetectDataChanges {
         const sanitisedAddress = {...address};
         delete sanitisedAddress._csrf;
         delete sanitisedAddress.isSaveAndClose;
-        sanitisedAddress.formattedAddress = this.getFormattedAddress(address);
+        sanitisedAddress.formattedAddress = this.getFormattedAddress(sanitisedAddress);
         return sanitisedAddress;
     }
 
     getFormattedAddress(paramsKey) {
-        let formattedAddress = '';
-        Object.values(paramsKey).forEach((value) => {
-            if (value) {
-                formattedAddress = `${formattedAddress}${value} `;
-            }
-        });
-
-        return formattedAddress;
+        return Object.values(paramsKey)
+            .filter(value => value !== null && value !== '')
+            .join(' ');
     }
 }
 

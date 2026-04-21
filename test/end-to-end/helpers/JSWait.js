@@ -133,6 +133,7 @@ class JSWait extends codecept_helper {
         const helper = this.helpers.WebDriver || this.helpers.Playwright;
         try {
             await helper.waitForText(text, timeout);
+            // eslint-disable-next-line no-unused-vars
         } catch (e) {
             console.log(`Text "${text}" not found on page.`);
             return false;

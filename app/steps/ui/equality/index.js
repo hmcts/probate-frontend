@@ -17,7 +17,6 @@ class Equality extends ValidationStep {
         return '/equality-and-diversity';
     }
 
-    // eslint-disable-next-line no-unused-vars
     runnerOptions(ctx, session, host) {
         const params = {
             serviceId: 'PROBATE',

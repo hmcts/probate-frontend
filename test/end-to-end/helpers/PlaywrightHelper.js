@@ -37,14 +37,14 @@ class PlaywrightHelper extends Helper {
 
     async memoryLeakTestBefore(pageName) {
         const page = this.helpers[helperName].page;
-        // eslint-disable-next-line no-undef
+
         const numberOfObjectsBefore = await countObjects(page);
         console.log(`${pageName}>>>>`, numberOfObjectsBefore);
     }
 
     async memoryLeakTestAfter(pageName) {
         const page = this.helpers[helperName].page;
-        // eslint-disable-next-line no-undef
+
         const numberOfObjectsAfter = await countObjects(page);
         console.log(`${pageName}>>>>`, numberOfObjectsAfter);
     }

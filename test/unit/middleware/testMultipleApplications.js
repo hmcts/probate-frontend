@@ -1053,7 +1053,7 @@ describe('multipleApplicationsMiddleware', () => {
             const next = sinon.spy();
 
             multipleApplicationsMiddleware.renderTaskList(req, res, result, next);
-            // eslint-disable-next-line no-unused-expressions
+
             setTimeout(() => {
                 expect(asyncFetchStub.calledOnce).to.equal(true);
                 expect(redirectSpy.calledOnce).to.equal(true);

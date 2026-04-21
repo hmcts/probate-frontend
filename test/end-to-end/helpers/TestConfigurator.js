@@ -7,7 +7,7 @@ const LaunchDarkly = require('test/end-to-end/helpers/LaunchDarkly');
 const setupSecrets = require('../../../app/setupSecrets');
 
 /* eslint no-console: 0 no-unused-vars: 0 */
-/* eslint-disable no-undef */
+
 class TestConfigurator {
 
     constructor() {

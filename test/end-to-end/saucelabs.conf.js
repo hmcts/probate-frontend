@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 
 const supportedBrowsers = require('../crossbrowser/supportedBrowsers.js');
 const testConfig = require('config');

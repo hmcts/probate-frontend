@@ -7,11 +7,11 @@ module.exports = async function(language = 'en', totalExecutors = null, answer =
     if (totalExecutors === 1) {
         await I.checkInUrl('/executors-named');
         const addLocator = {css: `#executorsNamed${answer}`};
-        // eslint-disable-next-line no-await-in-loop
+
         await I.waitForEnabled(addLocator);
-        // eslint-disable-next-line no-await-in-loop
+
         await I.click(addLocator);
-        // eslint-disable-next-line no-await-in-loop
+
         await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
     } else {
         // await I.checkInUrl('/executors-names');

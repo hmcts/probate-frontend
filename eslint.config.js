@@ -191,16 +191,12 @@ module.exports = defineConfig([
             }],
 
             'n/no-process-env': 'off',
-
             'n/no-process-exit': 'error',
-
+            'n/no-restricted-require': 'error',
             'no-proto': 'error',
             'no-prototype-builtins': 'error',
             'no-restricted-globals': 'error',
             'no-restricted-imports': 'error',
-
-            '@/no-restricted-modules': 'error',
-
             'no-restricted-properties': 'error',
             'no-restricted-syntax': 'error',
             'no-return-assign': 'error',

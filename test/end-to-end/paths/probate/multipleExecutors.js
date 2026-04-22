@@ -189,10 +189,10 @@ getTestLanguages().forEach(language => {
             await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
             await I.waitForElement('pre');
 
-            const grabPins = await I.grabTextFrom('pre');
+            const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
             const pinList = JSON.parse(grabPins);
 
-            await I.clickBrowserBackButton();
+            await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
 
             await I.enterPinCode(pinList.pin.toString());
             await I.seeCoApplicantStartPage(language);

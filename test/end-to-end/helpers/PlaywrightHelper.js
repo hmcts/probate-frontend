@@ -37,14 +37,12 @@ class PlaywrightHelper extends Helper {
 
     async memoryLeakTestBefore(pageName) {
         const page = this.helpers[helperName].page;
-
         const numberOfObjectsBefore = await countObjects(page);
         console.log(`${pageName}>>>>`, numberOfObjectsBefore);
     }
 
     async memoryLeakTestAfter(pageName) {
         const page = this.helpers[helperName].page;
-
         const numberOfObjectsAfter = await countObjects(page);
         console.log(`${pageName}>>>>`, numberOfObjectsAfter);
     }

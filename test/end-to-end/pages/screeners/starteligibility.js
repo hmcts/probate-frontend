@@ -1,6 +1,5 @@
 'use strict';
 /* eslint no-console: 0 no-unused-vars: 0 */
-
 const config = require('config');
 
 module.exports = async function(language, checkCookies = false) {

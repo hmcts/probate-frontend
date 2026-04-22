@@ -133,7 +133,7 @@ describe('ProvideInformation', () => {
                 }
             };
             ProvideInformation.handlePost(ctx, errors, formdata, session);
-
+            // eslint-disable-next-line no-undefined
             expect(errors).to.deep
                 .equal([{field: 'file', href: '#file', msg: content.errors.file.nothingUploaded}]);
             done();

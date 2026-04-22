@@ -8,7 +8,7 @@ const os = require('os');
 
 const healthOptions = message => {
     return {
-        callback: (error, res) => {
+        callback: (error, res) => { // eslint id-denylist: ["error"]
             if (error) {
                 logger.error(null, 'health_check_error', message, error);
             }

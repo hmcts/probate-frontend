@@ -5,9 +5,7 @@ export class DeathCertificatePage extends BasePage {
   private readonly pageUrl = /\/death-certificate$/;
   private readonly nextPageUrl = /\/death-certificate-english$/;
 
-  constructor(page: Page) {
-    super(page);
-  }
+  
 
   async selectYes(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

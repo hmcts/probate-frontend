@@ -4,10 +4,7 @@ import { BasePage } from '../../base/BasePage';
 export class StartEligibilityPage extends BasePage {
   private readonly pageUrl = /\/start-eligibility$/;
   private readonly nextPageUrl = /\/death-certificate$/;
-
-  constructor(page: Page) {
-    super(page);
-  }
+  
 
   async continue(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

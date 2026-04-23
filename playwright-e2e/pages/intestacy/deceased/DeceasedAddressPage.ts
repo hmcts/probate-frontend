@@ -3,10 +3,7 @@ import { BasePage } from '../../base/BasePage';
 
 export class DeceasedAddressPage extends BasePage {
   private readonly pageUrl = /\/intestacy\/deceased-address$/;
-
-  constructor(page: Page) {
-    super(page);
-  }
+  
 
   async enterManualAddressAndContinue(
     addressLine1: string,

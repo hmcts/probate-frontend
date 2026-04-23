@@ -220,6 +220,7 @@
     "diff": "^8.0.4",
     "express": "^4.21.2",
     "flatted": "^3.4.2",
+    "fast-xml-parser": "^5.7.1",
     "follow-redirects": "^1.16.0",
     "formidable": "^3.5.4",
     "form-data": "^4.0.4",

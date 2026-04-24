@@ -15,51 +15,103 @@ const {get} = require('lodash');
 
 class DocumentPageUtil {
 
+    static isStrictIntestacyChildSpouseRenunciationScenario(caseType, formData) {
+        const applicantWrapper = new ApplicantWrapper(formData);
+        const deceasedWrapper = new DeceasedWrapper(formData.deceased);
+        // #4963: detect the single in-scope UI scenario only.
+        // In this case we keep the existing spouse renunciation sentence, but its link
+        // must point to PA16 and the separate PA16 checklist item must not be shown.
+        // "Child" here follows intestacy rules, so an adopted child is included too.
+        const result = caseType === caseTypes.INTESTACY &&
+            deceasedWrapper.hasMarriedStatus() &&
+            Boolean(formData.applicant) &&
+            applicantWrapper.isApplicantChild() &&
+            applicantWrapper.isSpouseRenouncing();
+        console.log('[DTSPB-4963] isStrictIntestacyChildSpouseRenunciationScenario:', {
+            caseType,
+            hasMarriedStatus: deceasedWrapper.hasMarriedStatus(),
+            hasApplicant: Boolean(formData.applicant),
+            isApplicantChild: applicantWrapper.isApplicantChild(),
+            isSpouseRenouncing: applicantWrapper.isSpouseRenouncing(),
+            result
+        });
+        return result;
+    }
+
     static getCheckListItems(ctx, content) {
+        console.log('[DTSPB-4963] getCheckListItems called with ctx:', ctx);
         const checkListItems = [];
         if (ctx.ccdReferenceNumber) {
             checkListItems.push(content['checklist-item1-application-coversheet'].replace('{ccdReferenceNumber}', ctx.ccdReferenceNumber));
+            console.log('[DTSPB-4963] Added checklist-item1-application-coversheet');
         }
         if (ctx.caseType === caseTypes.GOP) {
             if (ctx.hasCodicils && ctx.codicilsNumber > 0) {
                 checkListItems.push(content['checklist-item2-codicils']);
+                console.log('[DTSPB-4963] Added checklist-item2-codicils');
             } else {
                 checkListItems.push(content['checklist-item2-no-codicils']);
+                console.log('[DTSPB-4963] Added checklist-item2-no-codicils');
             }
         }
         if (ctx.deceasedWrittenWishes==='optionYes') {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
+            console.log('[DTSPB-4963] Added checklist-item3-codicils-written-wishes');
         }
         if (ctx.interimDeathCertificate) {
             checkListItems.push(content['checklist-item4-interim-death-cert']);
+            console.log('[DTSPB-4963] Added checklist-item4-interim-death-cert');
         }
         if (ctx.foreignDeathCertificate) {
             checkListItems.push(content['checklist-item4-foreign-death-cert']);
+            console.log('[DTSPB-4963] Added checklist-item4-foreign-death-cert');
         }
         if (ctx.foreignDeathCertTranslatedSeparately) {
             checkListItems.push(content['checklist-item4-foreign-death-cert-translation']);
             checkListItems.push(content['checklist-item5-foreign-death-cert-PA19'].replace('{applicationFormPA19}', config.links.applicationFormPA19));
+            console.log('[DTSPB-4963] Added checklist-item4-foreign-death-cert-translation and checklist-item5-foreign-death-cert-PA19');
         }
         if (ctx.is205) {
             checkListItems.push(content['checklist-item7-iht205']);
+            console.log('[DTSPB-4963] Added checklist-item7-iht205');
         }
         if (ctx.is207) {
             checkListItems.push(content['checklist-item10-iht207']);
+            console.log('[DTSPB-4963] Added checklist-item10-iht207');
         }
         if (ctx.hasRenunciated) {
-            checkListItems.push(content['checklist-item8-renunciated'].replace('{applicationFormPA15}', config.links.applicationFormPA15).replace('{applicationFormPA17}', config.links.applicationFormPA17));
+            checkListItems.push(
+                content['checklist-item8-renunciated']
+                    .replace('{applicationFormPA15}', config.links.applicationFormPA15)
+                    .replace('{applicationFormPA17}', config.links.applicationFormPA17)
+            );
+            console.log('[DTSPB-4963] Added checklist-item8-renunciated');
         }
         if (ctx.executorsNameChangedByDeedPollList && ctx.executorsNameChangedByDeedPollList.length > 0) {
             ctx.executorsNameChangedByDeedPollList.forEach(executor => {
-                checkListItems.push(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor));
+                checkListItems.push(
+                    content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)
+                );
+                console.log('[DTSPB-4963] Added checklist-item9-deed-poll for executor:', executor);
             });
         }
         if (ctx.spouseRenouncing) {
-            checkListItems.push(content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', config.links.renunciationForm));
+            // #4963: for the strict intestacy child/spouse-renounces scenario, keep the
+            // existing item 6 wording exactly as-is but swap only the link target to PA16
+            const renunciationFormLink = ctx.usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
+            checkListItems.push(
+                content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', renunciationFormLink)
+            );
+            console.log('[DTSPB-4963] Added checklist-item6-spouse-renouncing with link:', renunciationFormLink);
         }
         if (ctx.isSpouseGivingUpAdminRights) {
-            checkListItems.push(content['checklist-item11-spouse-giving-up-admin-rights-PA16'].replace('{spouseGivingUpAdminRightsPA16Link}', config.links.spouseGivingUpAdminRightsPA16Link));
+            checkListItems.push(
+                content['checklist-item11-spouse-giving-up-admin-rights-PA16']
+                    .replace('{spouseGivingUpAdminRightsPA16Link}', config.links.spouseGivingUpAdminRightsPA16Link)
+            );
+            console.log('[DTSPB-4963] Added checklist-item11-spouse-giving-up-admin-rights-PA16');
         }
+        console.log('[DTSPB-4963] Final checklist items:', checkListItems);
         return checkListItems;
     }
 

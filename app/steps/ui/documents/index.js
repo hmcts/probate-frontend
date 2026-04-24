@@ -63,9 +63,20 @@ class Documents extends ValidationStep {
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
             ctx.spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
-            ctx.isSpouseGivingUpAdminRights = ctx.spouseRenouncing && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren();
-        }
 
+            //#4963: mark the one child/intestacy/spouse-renounces scenario where the
+            // existing renunication sentence should link to PA16 instead of PA15.
+            // Under intestacy rules, "child" includes adopted children.
+
+            ctx.usePa16RenunciationLink = DocumentPageUtil.isStrictIntestacyChildSpouseRenunciationScenario(
+                ctx.caseType,
+                formdata,
+            );
+            ctx.isSpouseGivingUpAdminRights = ctx.spouseRenouncing &&
+                applicantWrapper.isSpouseRenouncing() &&
+                !deceasedWrapper.hasAnyOtherChildren() &&
+                !ctx.usePa16RenunciationLink;
+        }
         if (formdata.will && formdata.will.deceasedWrittenWishes) {
             ctx.deceasedWrittenWishes = formdata.will.deceasedWrittenWishes;
         }

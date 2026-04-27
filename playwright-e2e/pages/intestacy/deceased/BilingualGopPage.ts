@@ -6,13 +6,11 @@ export class BilingualGopPage extends BasePage {
 
   async selectNo(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioById('bilingual-2');
-    await this.clickSaveAndContinue(this.nextPageUrl);
+    await this.selectRadioByIdAndContinue('bilingual-2', this.nextPageUrl);
   }
 
   async selectYes(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioById('bilingual');
-    await this.clickSaveAndContinue(this.nextPageUrl);
+    await this.selectRadioByIdAndContinue('bilingual', this.nextPageUrl);
   }
 }

@@ -7,8 +7,6 @@ const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const DocumentsWrapper = require('app/wrappers/Documents');
-const ApplicantWrapper = require('app/wrappers/Applicant');
-const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const caseTypes = require('app/utils/CaseTypes');
 const DocumentPageUtil = require('app/utils/DocumentPageUtil');
@@ -45,8 +43,6 @@ class Documents extends ValidationStep {
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
-        const applicantWrapper = new ApplicantWrapper(formdata);
-        const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
         const content = this.generateContent(ctx, formdata, language);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
@@ -62,17 +58,17 @@ class Documents extends ValidationStep {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-
             //#4963: mark the one child/intestacy/spouse-renounces scenario where the
             // existing renunication sentence should link to PA16 instead of PA15.
             // Under intestacy rules, "child" includes adopted children.
 
-            ctx.usePa16RenunciationLink = DocumentPageUtil.isStrictIntestacyChildSpouseRenunciationScenario(
+            const renunciationChecklistContext = DocumentPageUtil.getRenunciationCheckListContext(
                 ctx.caseType,
                 formdata,
             );
 
-            ctx.spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
+            ctx.spouseRenouncing = renunciationChecklistContext.spouseRenouncing;
+            ctx.usePa16RenunciationLink = renunciationChecklistContext.usePa16RenunciationLink;
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

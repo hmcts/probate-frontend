@@ -1,6 +1,6 @@
 import { BasePage } from '../../base/BasePage';
 
-export type RelationshipToDeceased =
+export type EligibilityRelationshipToDeceased =
   | 'partner'
   | 'child'
   | 'grandchild'
@@ -12,7 +12,7 @@ export class RelatedToDeceasedPage extends BasePage {
   private readonly pageUrl = /\/related-to-deceased$/;
   private readonly nextPageUrl = /\/task-list$/;
 
-  private readonly relationshipRadioIds: Record<RelationshipToDeceased, string> = {
+  private readonly relationshipRadioIds: Record<EligibilityRelationshipToDeceased, string> = {
     partner: 'related',
     child: 'related-2',
     grandchild: 'related-3',
@@ -21,7 +21,7 @@ export class RelatedToDeceasedPage extends BasePage {
     none: 'related-7',
   };
 
-  async selectRelationship(relationship: RelationshipToDeceased): Promise<void> {
+  async selectRelationship(relationship: EligibilityRelationshipToDeceased): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
     await this.selectRadioByIdAndContinue(this.relationshipRadioIds[relationship], this.nextPageUrl, 'Continue');
   }

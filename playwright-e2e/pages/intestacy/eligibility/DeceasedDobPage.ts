@@ -6,9 +6,7 @@ export class DeceasedDobPage extends BasePage {
 
   async fillDobAndContinue(day: string, month: string, year: string): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.getInputById('dob-date-day').fill(day);
-    await this.getInputById('dob-date-month').fill(month);
-    await this.getInputById('dob-date-year').fill(year);
+    await this.fillDateByIdPrefix('dob-date', day, month, year);
     await this.clickSaveAndContinue(this.nextPageUrl);
   }
 }

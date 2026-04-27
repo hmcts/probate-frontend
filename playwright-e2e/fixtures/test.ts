@@ -25,6 +25,30 @@ import { ProbateEstateValuesPage } from '../pages/intestacy/deceased/ProbateEsta
 import { AssetsOutsideEnglandWalesPage } from '../pages/intestacy/deceased/AssetsOutsideEnglandWalesPage';
 import { DeceasedAliasPage } from '../pages/intestacy/deceased/DeceasedAliasPage';
 import { DeceasedMaritalStatusPage } from '../pages/intestacy/deceased/DeceasedMaritalStatusPage';
+import { RelationshipToDeceasedPage } from '../pages/intestacy/applicant/RelationshipToDeceasedPage';
+import { SpouseNotApplyingReasonPage } from '../pages/intestacy/applicant/SpouseNotApplyingReasonPage';
+import { MainApplicantAdoptedInPage } from '../pages/intestacy/applicant/MainApplicantAdoptedInPage';
+import { AdoptedInEnglandOrWalesPage } from '../pages/intestacy/applicant/AdoptedInEnglandOrWalesPage';
+import { AnyOtherChildrenPage } from '../pages/intestacy/applicant/AnyOtherChildrenPage';
+import { AnyPredeceasedChildrenPage } from '../pages/intestacy/applicant/AnyPredeceasedChildrenPage';
+import { AnySurvivingGrandchildrenPage } from '../pages/intestacy/applicant/AnySurvivingGrandchildrenPage';
+import { AnyGrandchildrenUnder18Page } from '../pages/intestacy/applicant/AnyGrandchildrenUnder18Page';
+import { AllChildrenOver18Page } from '../pages/intestacy/applicant/AllChildrenOver18Page';
+import { ApplicantNamePage } from '../pages/intestacy/applicant/ApplicantNamePage';
+import { ApplicantPhonePage } from '../pages/intestacy/applicant/ApplicantPhonePage';
+import { MainApplicantAddressPage } from '../pages/intestacy/applicant/MainApplicantAddressPage';
+import { JointApplicationPage } from '../pages/intestacy/applicant/JointApplicationPage';
+import { EqualityAndDiversityPage } from '../pages/common/pcq/EqualityAndDiversityPage';
+import { DeclarationPage } from '../pages/summary/DeclarationPage';
+import { SummaryDeclarationPage } from '../pages/summary/SummaryDeclarationPage';
+import { CopiesUkPage } from '../pages/intestacy/payment/CopiesUKPage';
+import { PaymentBreakdownPage } from '../pages/intestacy/payment/PaymentBreakdownPage';
+import { CopiesSummaryPage } from '../pages/intestacy/payment/CopiesSummaryPage';
+import { CopiesOverseasPage } from '../pages/intestacy/payment/CopiesOverseasPage';
+import { AssetsOverseasPage } from '../pages/intestacy/assets/AssetsOverseasPage';
+import { CardDetailsPage } from '../pages/intestacy/payment/CardDetailsPage';
+import { CardConfirmPage } from '../pages/intestacy/payment/CardConfirmPage';
+import { ThankYouPage } from '../pages/common/payment/ThankYouPage';
 
 type Pages = {
   deathCertificatePage: DeathCertificatePage;
@@ -53,6 +77,31 @@ type Pages = {
   assetsOutsideEnglandWalesPage: AssetsOutsideEnglandWalesPage;
   deceasedAliasPage: DeceasedAliasPage;
   deceasedMaritalStatusPage: DeceasedMaritalStatusPage;
+  relationshipToDeceasedPage: RelationshipToDeceasedPage;
+  spouseNotApplyingReasonPage: SpouseNotApplyingReasonPage;
+  mainApplicantAdoptedInPage: MainApplicantAdoptedInPage;
+  adoptedInEnglandOrWalesPage: AdoptedInEnglandOrWalesPage;
+  anyOtherChildrenPage: AnyOtherChildrenPage;
+  anyPredeceasedChildrenPage: AnyPredeceasedChildrenPage;
+  anySurvivingGrandchildrenPage: AnySurvivingGrandchildrenPage;
+  anyGrandchildrenUnder18Page: AnyGrandchildrenUnder18Page;
+  allChildrenOver18Page: AllChildrenOver18Page;
+  applicantNamePage: ApplicantNamePage;
+  applicantPhonePage: ApplicantPhonePage;
+  mainApplicantAddressPage: MainApplicantAddressPage;
+  jointApplicationPage: JointApplicationPage;
+  equalityAndDiversityPage: EqualityAndDiversityPage;
+  summaryDeclarationPage: SummaryDeclarationPage;
+  declarationPage: DeclarationPage;
+  copiesUkPage: CopiesUkPage;
+  assetsOverseasPage: AssetsOverseasPage;
+  copiesOverseasPage: CopiesOverseasPage;
+  copiesSummaryPage: CopiesSummaryPage;
+  paymentBreakdownPage: PaymentBreakdownPage;
+  cardDetailsPage: CardDetailsPage;
+  cardConfirmPage: CardConfirmPage;
+  thankYouPage: ThankYouPage;
+
 };
 
 export const test = base.extend<Pages>({
@@ -150,6 +199,92 @@ export const test = base.extend<Pages>({
   deceasedMaritalStatusPage: async ({ page }: { page: Page }, use) => {
     await use(new DeceasedMaritalStatusPage(page));
   },
+  relationshipToDeceasedPage: async ({ page }, use) => {
+    await use(new RelationshipToDeceasedPage(page));
+  },
+  spouseNotApplyingReasonPage: async ({ page }, use) => {
+    await use(new SpouseNotApplyingReasonPage(page));
+  },
+
+  mainApplicantAdoptedInPage: async ({ page }, use) => {
+    await use(new MainApplicantAdoptedInPage(page));
+  },
+  adoptedInEnglandOrWalesPage: async ({ page }, use) => {
+    await use(new AdoptedInEnglandOrWalesPage(page));
+  },
+  anyOtherChildrenPage: async ({ page }, use) => {
+    await use(new AnyOtherChildrenPage(page));
+  },
+  anyPredeceasedChildrenPage: async ({ page }, use) => {
+    await use(new AnyPredeceasedChildrenPage(page));
+  },
+  anySurvivingGrandchildrenPage: async ({ page }, use) => {
+    await use(new AnySurvivingGrandchildrenPage(page));
+  },
+  anyGrandchildrenUnder18Page: async ({ page }, use) => {
+    await use(new AnyGrandchildrenUnder18Page(page));
+  },
+  allChildrenOver18Page: async ({ page }, use) => {
+    await use(new AllChildrenOver18Page(page));
+  },
+  applicantNamePage: async ({ page }, use) => {
+    await use(new ApplicantNamePage(page));
+  },
+  applicantPhonePage: async ({ page }, use) => {
+    await use(new ApplicantPhonePage(page));
+  },
+  mainApplicantAddressPage: async ({ page }, use) => {
+    await use(new MainApplicantAddressPage(page));
+  },
+
+  jointApplicationPage: async ({ page }, use) => {
+  await use(new JointApplicationPage(page));
+},
+
+equalityAndDiversityPage: async ({ page }, use) => {
+  await use(new EqualityAndDiversityPage(page));
+},
+
+summaryDeclarationPage: async ({ page }, use) => {
+  await use(new SummaryDeclarationPage(page));
+},
+
+declarationPage: async ({ page }, use) => {
+  await use(new DeclarationPage(page));
+},
+
+copiesUkPage: async ({ page }, use) => {
+  await use(new CopiesUkPage(page));
+},
+
+assetsOverseasPage: async ({ page }, use) => {
+  await use(new AssetsOverseasPage(page));
+},
+
+copiesOverseasPage: async ({ page }, use) => {
+  await use(new CopiesOverseasPage(page));
+},
+
+copiesSummaryPage: async ({ page }, use) => {
+  await use(new CopiesSummaryPage(page));
+},
+
+paymentBreakdownPage: async ({ page }, use) => {
+  await use(new PaymentBreakdownPage(page));
+},
+
+cardDetailsPage: async ({ page }, use) => {
+  await use(new CardDetailsPage(page));
+},
+
+cardConfirmPage: async ({ page }, use) => {
+  await use(new CardConfirmPage(page));
+},
+
+thankYouPage: async ({ page }, use) => {
+  await use(new ThankYouPage(page));
+},
+
 });
 
 export { expect };

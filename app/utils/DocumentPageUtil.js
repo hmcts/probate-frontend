@@ -15,27 +15,16 @@ const {get} = require('lodash');
 
 class DocumentPageUtil {
 
-    static isStrictIntestacyChildSpouseRenunciationScenario(caseType, formData) {
+    static getRenunciationCheckListContext(caseType, formData) {
         const applicantWrapper = new ApplicantWrapper(formData);
         const deceasedWrapper = new DeceasedWrapper(formData.deceased);
-        // #4963: detect the single in-scope UI scenario only.
-        // In this case we keep the existing spouse renunciation sentence, but its link
-        // must point to PA16 and the separate PA16 checklist item must not be shown.
-        // "Child" here follows intestacy rules, so an adopted child is included too.
-        const result = caseType === caseTypes.INTESTACY &&
-            deceasedWrapper.hasMarriedStatus() &&
-            Boolean(formData.applicant) &&
-            applicantWrapper.isApplicantChild() &&
-            applicantWrapper.isSpouseRenouncing();
-        console.log('[DTSPB-4963] isStrictIntestacyChildSpouseRenunciationScenario:', {
-            caseType,
-            hasMarriedStatus: deceasedWrapper.hasMarriedStatus(),
-            hasApplicant: Boolean(formData.applicant),
-            isApplicantChild: applicantWrapper.isApplicantChild(),
-            isSpouseRenouncing: applicantWrapper.isSpouseRenouncing(),
-            result
-        });
-        return result;
+        const spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
+
+        return {
+            spouseRenouncing,
+            usePa16RenunciationLink: spouseRenouncing && caseType === caseTypes.INTESTACY &&
+                applicantWrapper.isSpouseRenouncing()
+        };
     }
 
     static getCheckListItems(ctx, content) {
@@ -54,7 +43,7 @@ class DocumentPageUtil {
                 console.log('[DTSPB-4963] Added checklist-item2-no-codicils');
             }
         }
-        if (ctx.deceasedWrittenWishes==='optionYes') {
+        if (ctx.deceasedWrittenWishes === 'optionYes') {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
             console.log('[DTSPB-4963] Added checklist-item3-codicils-written-wishes');
         }
@@ -110,8 +99,6 @@ class DocumentPageUtil {
 
     static getCheckListItemsCoversheet(formdata, language = 'en') {
         const content = require(`app/resources/${language}/translation/documents`);
-        const applicantWrapper = new ApplicantWrapper(formdata);
-        const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
@@ -158,10 +145,10 @@ class DocumentPageUtil {
         }
 
         // #4963 BEGIN: coversheet uses item 6 only for PA16 Scenario
-        const usePa16RenunciationLink = this.isStrictIntestacyChildSpouseRenunciationScenario(formdata.caseType, formdata);
+        const renunciationCheckListContext = this.getRenunciationCheckListContext(formdata.caseType, formdata);
 
-        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild()) {
-            const renunciationFormLink = usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
+        if (renunciationCheckListContext.spouseRenouncing) {
+            const renunciationFormLink = renunciationCheckListContext.usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
 
             checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], renunciationFormLink));
         }

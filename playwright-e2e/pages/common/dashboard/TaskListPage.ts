@@ -1,37 +1,62 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
 
 export class TaskListPage extends BasePage {
-  private readonly pageUrl = /\/task-list$/;
-  private readonly deceasedAddressUrl = /\/intestacy\/deceased-address$/;
-  private readonly bilingualGopUrl = /\/intestacy\/bilingual-gop$/;
-  private readonly deceasedNameUrl = /\/intestacy\/deceased-name$/;
-
-  constructor(page: Page) {
-    super(page);
-  }
-
-  private get tellUsAboutThePersonWhoHasDiedLink(): Locator {
-    return this.page.getByRole('link', {
-      name: /tell us about the person who has died/i,
-    });
-  }
+  protected readonly pageUrl = /\/task-list$/;
 
   async expectLoaded(): Promise<void> {
-    await expect(this.page).toHaveURL(this.pageUrl);
+    await this.waitForPageUrl(this.pageUrl);
   }
 
   async clickTellUsAboutThePersonWhoHasDied(): Promise<void> {
-    await this.expectLoaded();
-    await expect(this.tellUsAboutThePersonWhoHasDiedLink).toBeVisible();
+    await this.waitForPageUrl(this.pageUrl);
 
-    await this.tellUsAboutThePersonWhoHasDiedLink.click();
+    const link = this.page.getByRole('link', {
+      name: 'Tell us about the person who has died',
+    });
 
-    await this.page.waitForURL(
-      new RegExp(
-        `${this.bilingualGopUrl.source}|${this.deceasedNameUrl.source}|${this.deceasedAddressUrl.source}`,
-      ),
-      { waitUntil: 'domcontentloaded', timeout: 60000 },
-    );
+    await expect(link).toBeVisible();
+    await link.click();
+  }
+
+  async clickGiveDetailsAboutThePeopleApplying(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+
+    const link = this.page.getByRole('link', {
+      name: 'Give details about the people applying',
+    });
+
+    await expect(link).toBeVisible();
+    await link.click();
+  }
+
+  async goToDeclaration(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+
+    const link = this.page.getByRole('link', {
+      name: 'Check your answers and make your legal declaration',
+    });
+
+    await expect(link).toBeVisible();
+
+    await Promise.all([
+      this.page.waitForURL(/\/summary\/declaration$/, { waitUntil: 'domcontentloaded' }),
+      link.click(),
+    ]);
+  }
+
+  async goToPayAndSubmit(): Promise<void> {
+  await this.waitForPageUrl(this.pageUrl);
+
+  const link = this.page.getByRole('link', {
+    name: 'Pay and submit your application',
+  });
+
+  await expect(link).toBeVisible();
+
+  await Promise.all([
+    this.page.waitForURL(/\/intestacy\/copies-uk$/, { waitUntil: 'domcontentloaded' }),
+    link.click(),
+  ]);
   }
 }

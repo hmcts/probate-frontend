@@ -1,5 +1,5 @@
 import { test } from '../../../fixtures/test';
-import { deceased } from '../../../data/intestacy/sole/child.scenarios';
+import { deceased, mainApplicant, paymentDetails } from '../../../data/intestacy/sole/child.scenarios';
 
 test.describe('Intestacy sole child journey', () => {
   test('Go to death-certificate page and complete deceased details', async ({
@@ -28,6 +28,31 @@ test.describe('Intestacy sole child journey', () => {
     assetsOutsideEnglandWalesPage,
     deceasedAliasPage,
     deceasedMaritalStatusPage,
+    relationshipToDeceasedPage,
+    spouseNotApplyingReasonPage,
+    mainApplicantAdoptedInPage,
+    adoptedInEnglandOrWalesPage,
+    anyOtherChildrenPage,
+    anyPredeceasedChildrenPage,
+    anySurvivingGrandchildrenPage,
+    anyGrandchildrenUnder18Page,
+    allChildrenOver18Page,
+    applicantNamePage,
+    applicantPhonePage,
+    mainApplicantAddressPage,
+    jointApplicationPage,
+    equalityAndDiversityPage,
+    summaryDeclarationPage,
+    declarationPage,
+    copiesUkPage,
+    assetsOverseasPage,
+    copiesOverseasPage,
+    copiesSummaryPage,
+    paymentBreakdownPage,
+    cardDetailsPage,
+    cardConfirmPage,
+    thankYouPage,
+
 
   }) => {
     await page.goto('/death-certificate');
@@ -75,5 +100,41 @@ test.describe('Intestacy sole child journey', () => {
     await assetsOutsideEnglandWalesPage.selectNo();
     await deceasedAliasPage.selectNo();
     await deceasedMaritalStatusPage.selectMarried();
+    await taskListPage.clickGiveDetailsAboutThePeopleApplying();
+    await relationshipToDeceasedPage.selectChild();
+    await spouseNotApplyingReasonPage.selectGivingUpRightToApply();
+    await mainApplicantAdoptedInPage.selectYes();
+    await adoptedInEnglandOrWalesPage.selectYes();
+    await anyOtherChildrenPage.selectYes();
+    await anyPredeceasedChildrenPage.selectYesSome();
+    await anySurvivingGrandchildrenPage.selectYes();
+    await anyGrandchildrenUnder18Page.selectNo();
+    await allChildrenOver18Page.selectYes();
+    await applicantNamePage.enterApplicantName(mainApplicant.firstName, mainApplicant.lastName);
+    await applicantPhonePage.enterPhoneNumber(mainApplicant.phoneNumber);
+    await mainApplicantAddressPage.enterManualAddressAndContinue(
+      mainApplicant.address.line1,
+      mainApplicant.address.line2,
+      mainApplicant.address.line3,
+      mainApplicant.address.town,
+      mainApplicant.address.postcode,
+      mainApplicant.address.country,
+    );
+    await jointApplicationPage.selectNo();
+    await equalityAndDiversityPage.optOut();
+    await taskListPage.goToDeclaration();
+    await summaryDeclarationPage.saveAndContinue();
+    await declarationPage.confirmDeclarationAndContinue();
+    await taskListPage.goToPayAndSubmit();
+    await copiesUkPage.enterExtraOfficialCopiesAndContinue('1');
+    await assetsOverseasPage.selectYes();
+    await copiesOverseasPage.enterExtraCertifiedCopiesAndContinue('1');
+    await copiesSummaryPage.saveAndContinue();
+    await paymentBreakdownPage.payAndSubmitApplication();
+    await cardDetailsPage.fillCardDetailsAndContinue(paymentDetails);
+    await cardConfirmPage.confirmPayment();
+    await thankYouPage.expectApplicationSubmitted();
+    await thankYouPage.printCaseId();
+
   });
 });

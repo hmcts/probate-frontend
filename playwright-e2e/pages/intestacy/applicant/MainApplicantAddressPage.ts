@@ -1,9 +1,9 @@
 import { expect, Page } from '@playwright/test';
-import { BasePage } from '../../base/BasePage';
+import { DeceasedAddressPage } from '../deceased/DeceasedAddressPage';
 
-export class DeceasedAddressPage extends BasePage {
-  protected readonly pageUrl = /\/intestacy\/deceased-address$/;
-
+export class MainApplicantAddressPage extends DeceasedAddressPage {
+  protected readonly pageUrl = /\/intestacy\/applicant-address$/;
+  
 
   async enterManualAddressAndContinue(
     addressLine1: string,

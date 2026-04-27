@@ -21,3 +21,33 @@ export const deceased = {
     country: 'United Kingdom',
   },
 };
+
+  export const mainApplicant = {
+  firstName: 'Ellie Main',
+  lastName: 'Applicant',
+  phoneNumber: '07771 900 900',
+  address: {
+    line1: '22 Applicant Road',
+    line2: 'Flat 4',
+    line3: '',
+    town: 'Croydon',
+    postcode: 'CR0 2AA',
+    country: 'United Kingdom',
+  },
+};
+
+export const paymentDetails = {
+  cardNumber: '4242424242424242',
+  expiryMonth: '10',
+  expiryYear: '2028',
+  cardholderName: 'Name',
+  cvc: '123',
+  address: {
+    line1: 'Buckingham Palace',
+    line2: '',
+    city: 'London',
+    country: 'United Kingdom',
+    postcode: 'SW1A 1AA',
+  },
+  email: '24042026ITHCAN1@mailinator.com',
+};

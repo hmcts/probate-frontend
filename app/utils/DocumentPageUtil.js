@@ -10,7 +10,7 @@ const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const caseTypes = require('app/utils/CaseTypes');
-const ExceptedEstateDod = require('./ExceptedEstateDod');
+const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const {get} = require('lodash');
 
 class DocumentPageUtil {
@@ -156,12 +156,16 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)));
             });
         }
+
+        // #4963 BEGIN: coversheet uses item 6 only for PA16 Scenario
+        const usePa16RenunciationLink = this.isStrictIntestacyChildSpouseRenunciationScenario(formdata.caseType, formdata);
+
         if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], config.links.renunciationForm));
+            const renunciationFormLink = usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
+
+            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], renunciationFormLink));
         }
-        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild() && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item11-spouse-giving-up-admin-rights-PA16'], config.links.spouseGivingUpAdminRightsPA16Link));
-        }
+        // #4963 END: coversheet uses item 6 only for PA16 Scenario
 
         return checkListItems;
     }

@@ -47,7 +47,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -86,7 +86,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -144,7 +144,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -204,7 +204,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -242,7 +242,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -283,7 +283,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];

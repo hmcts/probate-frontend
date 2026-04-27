@@ -23,7 +23,6 @@
   "checklist-item8-renunciated": "Ffurflen ymwrthod - naill ai <a href=\"{applicationFormPA15}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod PA15 (yn agor mewn ffenestr newydd)\">ffurflen ymwrthod PA15 (yn agor mewn ffenestr newydd)</a> wedi'i llenwi gan unrhyw ysgutorion sy'n ildio eu hawl yn barhaol i wneud y cais hwn am brofiant, neu <a href=\"{applicationFormPA17}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"ffurflen ymwrthod PA17 (yn agor mewn ffenestr newydd)\">ffurflen ymwrthod PA17 (yn agor mewn ffenestr newydd)</a> os yw ymarferydd profiant yn ildio eu hawl yn barhaol i wneud y cais hwn am brofiant.",
   "checklist-item9-deed-poll": "copi o&rsquo;r ddogfen gweithred newid enw ar gyfer {executorCurrentName}",
   "checklist-item10-iht207": "anfonwch y ffurflen IHT207 atom",
-  "checklist-item11-spouse-giving-up-admin-rights-PA16": "<a href=\"{spouseGivingUpAdminRightsPA16Link}\" target=\"_blank\" class=\"govuk-link\" rel=\"external noopener\" aria-label=\"Ffurflen bapur rhoi'r gorau i bob hawl i weithredu fel gweinyddwr profiant\">ffurflen bapur rhoi'r gorau i bob hawl i weithredu fel gweinyddwr profiant</a> - Ffurflen PA16",
   "no-docs-required": "Yn seiliedig ar y manylion yn y cais, nid oes angen unrhyw ddogfennau eraill. Fodd bynnag, os gofynnir am dogfennau gennych yn y dyfodol, anfonwch nhw i’r cyfeiriad isod gyda’r ddalen flaen hon, os gwelwch yn dda",
 
   "errors": {

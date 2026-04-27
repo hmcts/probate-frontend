@@ -71,7 +71,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -101,7 +100,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -134,7 +132,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -167,7 +164,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
                         contentData.applicationFormPA15 = config.links.applicationFormPA15;
@@ -200,7 +196,6 @@ describe('documents', () => {
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
                             'address',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -230,7 +225,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -260,7 +254,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -289,7 +282,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -319,7 +311,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -349,7 +340,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -399,7 +389,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
                         contentData.executorCurrentName = 'eddie jones';
@@ -451,7 +440,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
                         contentData.executorCurrentName = [
@@ -485,7 +473,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -514,7 +501,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -544,7 +530,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -575,7 +560,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -615,7 +599,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -658,7 +641,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -699,7 +681,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -739,7 +720,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -779,7 +759,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -813,47 +792,6 @@ describe('documents', () => {
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
                             'checklist-item4-interim-death-cert',
-                            'checklist-item4-foreign-death-cert-translation',
-                            'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item6-spouse-renouncing',
-                            'checklist-item7-iht205',
-                            'checklist-item8-renunciated',
-                            'checklist-item9-deed-poll',
-                            'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
-                            'no-docs-required'
-                        ];
-
-                        testWrapper.testContent(done, contentData, contentToExclude);
-                    });
-            });
-
-            it('test correct content loaded on the page when spouse is giving up admin rights and applicant is child', (done) => {
-                sessionData.deceased = {
-                    maritalStatus: 'optionMarried',
-                    anyOtherChildren: 'optionNo'
-                };
-                sessionData.applicant = {
-                    relationshipToDeceased: 'optionAdoptedChild',
-                    spouseNotApplyingReason: 'optionRenouncing'
-                };
-                sessionData.caseType = caseTypes.INTESTACY;
-
-                contentData.spouseGivingUpAdminRightsPA16Link = config.links.spouseGivingUpAdminRightsPA16Link;
-
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        const contentToExclude = [
-                            'header',
-                            'HelpHeading',
-                            'helpfulParagraph',
-                            'documentsParagraph4',
-                            'checklist-item2-codicils',
-                            'checklist-item2-no-codicils',
-                            'checklist-item3-codicils-written-wishes',
-                            'checklist-item4-interim-death-cert',
-                            'checklist-item4-foreign-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item6-spouse-renouncing',

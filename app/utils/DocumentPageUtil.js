@@ -104,13 +104,6 @@ class DocumentPageUtil {
             );
             console.log('[DTSPB-4963] Added checklist-item6-spouse-renouncing with link:', renunciationFormLink);
         }
-        if (ctx.isSpouseGivingUpAdminRights) {
-            checkListItems.push(
-                content['checklist-item11-spouse-giving-up-admin-rights-PA16']
-                    .replace('{spouseGivingUpAdminRightsPA16Link}', config.links.spouseGivingUpAdminRightsPA16Link)
-            );
-            console.log('[DTSPB-4963] Added checklist-item11-spouse-giving-up-admin-rights-PA16');
-        }
         console.log('[DTSPB-4963] Final checklist items:', checkListItems);
         return checkListItems;
     }

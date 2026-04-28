@@ -15,7 +15,7 @@ const {get} = require('lodash');
 
 class ThankYou extends Step {
 
-    static getUrl () {
+    static getUrl() {
         return '/thank-you';
     }
 
@@ -49,18 +49,13 @@ class ThankYou extends Step {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-
-            //#4963: mark the one child/intestacy/spouse-renounces scenario where the
-            // existing renunication sentence should link to PA16 instead of PA15.
-            // Under intestacy rules, "child" includes adopted children.
-
-            const renunciationChecklistContext = DocumentPageUtil.getRenunciationCheckListContext(
+            const renunciationCheckListContext = DocumentPageUtil.getRenunciationCheckListContext(
                 ctx.caseType,
-                formdata,
+                formdata
             );
 
-            ctx.spouseRenouncing = renunciationChecklistContext.spouseRenouncing;
-            ctx.usePa16RenunciationLink = renunciationChecklistContext.usePa16RenunciationLink;
+            ctx.showSpouseRenunciationItem = renunciationCheckListContext.showSpouseRenunciationItem;
+            ctx.usePa16RenunciationLink = renunciationCheckListContext.usePa16RenunciationLink;
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

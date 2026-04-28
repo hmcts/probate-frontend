@@ -18,55 +18,45 @@ class DocumentPageUtil {
     static getRenunciationCheckListContext(caseType, formData) {
         const applicantWrapper = new ApplicantWrapper(formData);
         const deceasedWrapper = new DeceasedWrapper(formData.deceased);
-        const spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
+        const showSpouseRenunciationItem = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
 
         return {
-            spouseRenouncing,
-            usePa16RenunciationLink: spouseRenouncing && caseType === caseTypes.INTESTACY &&
+            showSpouseRenunciationItem,
+            usePa16RenunciationLink: showSpouseRenunciationItem && caseType === caseTypes.INTESTACY &&
                 applicantWrapper.isSpouseRenouncing()
         };
     }
 
     static getCheckListItems(ctx, content) {
-        console.log('[DTSPB-4963] getCheckListItems called with ctx:', ctx);
         const checkListItems = [];
         if (ctx.ccdReferenceNumber) {
             checkListItems.push(content['checklist-item1-application-coversheet'].replace('{ccdReferenceNumber}', ctx.ccdReferenceNumber));
-            console.log('[DTSPB-4963] Added checklist-item1-application-coversheet');
         }
         if (ctx.caseType === caseTypes.GOP) {
             if (ctx.hasCodicils && ctx.codicilsNumber > 0) {
                 checkListItems.push(content['checklist-item2-codicils']);
-                console.log('[DTSPB-4963] Added checklist-item2-codicils');
             } else {
                 checkListItems.push(content['checklist-item2-no-codicils']);
-                console.log('[DTSPB-4963] Added checklist-item2-no-codicils');
             }
         }
         if (ctx.deceasedWrittenWishes === 'optionYes') {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
-            console.log('[DTSPB-4963] Added checklist-item3-codicils-written-wishes');
         }
         if (ctx.interimDeathCertificate) {
             checkListItems.push(content['checklist-item4-interim-death-cert']);
-            console.log('[DTSPB-4963] Added checklist-item4-interim-death-cert');
         }
         if (ctx.foreignDeathCertificate) {
             checkListItems.push(content['checklist-item4-foreign-death-cert']);
-            console.log('[DTSPB-4963] Added checklist-item4-foreign-death-cert');
         }
         if (ctx.foreignDeathCertTranslatedSeparately) {
             checkListItems.push(content['checklist-item4-foreign-death-cert-translation']);
             checkListItems.push(content['checklist-item5-foreign-death-cert-PA19'].replace('{applicationFormPA19}', config.links.applicationFormPA19));
-            console.log('[DTSPB-4963] Added checklist-item4-foreign-death-cert-translation and checklist-item5-foreign-death-cert-PA19');
         }
         if (ctx.is205) {
             checkListItems.push(content['checklist-item7-iht205']);
-            console.log('[DTSPB-4963] Added checklist-item7-iht205');
         }
         if (ctx.is207) {
             checkListItems.push(content['checklist-item10-iht207']);
-            console.log('[DTSPB-4963] Added checklist-item10-iht207');
         }
         if (ctx.hasRenunciated) {
             checkListItems.push(
@@ -74,26 +64,20 @@ class DocumentPageUtil {
                     .replace('{applicationFormPA15}', config.links.applicationFormPA15)
                     .replace('{applicationFormPA17}', config.links.applicationFormPA17)
             );
-            console.log('[DTSPB-4963] Added checklist-item8-renunciated');
         }
         if (ctx.executorsNameChangedByDeedPollList && ctx.executorsNameChangedByDeedPollList.length > 0) {
             ctx.executorsNameChangedByDeedPollList.forEach(executor => {
                 checkListItems.push(
                     content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)
                 );
-                console.log('[DTSPB-4963] Added checklist-item9-deed-poll for executor:', executor);
             });
         }
-        if (ctx.spouseRenouncing) {
-            // #4963: for the strict intestacy child/spouse-renounces scenario, keep the
-            // existing item 6 wording exactly as-is but swap only the link target to PA16
+        if (ctx.showSpouseRenunciationItem) {
             const renunciationFormLink = ctx.usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
             checkListItems.push(
                 content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', renunciationFormLink)
             );
-            console.log('[DTSPB-4963] Added checklist-item6-spouse-renouncing with link:', renunciationFormLink);
         }
-        console.log('[DTSPB-4963] Final checklist items:', checkListItems);
         return checkListItems;
     }
 
@@ -115,7 +99,7 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-no-codicils']));
             }
         }
-        if (formdata.will && formdata.will.deceasedWrittenWishes==='optionYes') {
+        if (formdata.will && formdata.will.deceasedWrittenWishes === 'optionYes') {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item3-codicils-written-wishes']));
         }
         if (deathCertWrapper.hasInterimDeathCertificate()) {
@@ -144,15 +128,13 @@ class DocumentPageUtil {
             });
         }
 
-        // #4963 BEGIN: coversheet uses item 6 only for PA16 Scenario
         const renunciationCheckListContext = this.getRenunciationCheckListContext(formdata.caseType, formdata);
 
-        if (renunciationCheckListContext.spouseRenouncing) {
+        if (renunciationCheckListContext.showSpouseRenunciationItem) {
             const renunciationFormLink = renunciationCheckListContext.usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
 
             checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], renunciationFormLink));
         }
-        // #4963 END: coversheet uses item 6 only for PA16 Scenario
 
         return checkListItems;
     }
@@ -171,11 +153,12 @@ class DocumentPageUtil {
         for (let i = 0; i < splitContentItem.length; i++) {
             if (splitContentItem[i].includes('href')) {
                 const linkText = splitContentItem[i].split('>')[1];
-                return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i-1], afterLinkText: splitContentItem[i+1]};
+                return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i - 1], afterLinkText: splitContentItem[i + 1]};
             }
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
+
     static getCheckListItemTextWithMultipleLinks(contentCheckListItem, links) {
         if (!Array.isArray(links) || links.length === 0) {
             throw new Error('Please pass in a valid array of URLs');
@@ -203,6 +186,7 @@ class DocumentPageUtil {
             segments: segments
         };
     }
+
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
         return !documentsWrapper.documentsRequired();

@@ -420,7 +420,7 @@ describe('Documents', () => {
                 };
             });
 
-            it('should return true when spouse is giving up rights as administrator and applicant is child', (done) => {
+            it('should return the PA16 override flags when applicant is child', (done) => {
                 const formdata = {
                     deceased: {
                         maritalStatus: 'optionMarried',
@@ -432,10 +432,31 @@ describe('Documents', () => {
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
-                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                expect(ctx.showSpouseRenunciationItem).to.equal(true);
+                expect(ctx.usePa16RenunciationLink).to.equal(true);
+                assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
-            it('should return true when spouse is giving up rights as administrator and applicant is adopted child', (done) => {
+
+            it('should return the PA16 override flags when applicant is child and other children exist', (done) => {
+                const formdata = {
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                        anyOtherChildren: 'optionYes'
+                    },
+                    applicant: {
+                        relationshipToDeceased: 'optionChild',
+                        spouseNotApplyingReason: 'optionRenouncing'
+                    }
+                };
+                const [ctx] = Documents.handleGet(ctxToTest, formdata);
+                expect(ctx.showSpouseRenunciationItem).to.equal(true);
+                expect(ctx.usePa16RenunciationLink).to.equal(true);
+                assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
+                done();
+            });
+
+            it('should return the PA16 override flags when applicant is adopted child', (done) => {
                 const formdata = {
                     deceased: {
                         maritalStatus: 'optionMarried',
@@ -447,9 +468,12 @@ describe('Documents', () => {
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
-                expect(ctx.isSpouseGivingUpAdminRights).to.equal(true);
+                expect(ctx.showSpouseRenunciationItem).to.equal(true);
+                expect(ctx.usePa16RenunciationLink).to.equal(true);
+                assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
+
             it('should return false when deceased is not married but is child of the deceased', (done) => {
                 const formdata = {
                     deceased: {
@@ -462,7 +486,9 @@ describe('Documents', () => {
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
-                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                expect(ctx.showSpouseRenunciationItem).to.equal(false);
+                expect(ctx.usePa16RenunciationLink).to.equal(false);
+                assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
             it('should return false when deceased is married but applicant is not a child of the deceased', (done) => {
@@ -477,7 +503,9 @@ describe('Documents', () => {
                     }
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
-                expect(ctx.isSpouseGivingUpAdminRights).to.equal(false);
+                expect(ctx.showSpouseRenunciationItem).to.equal(false);
+                expect(ctx.usePa16RenunciationLink).to.equal(false);
+                assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
         });

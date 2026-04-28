@@ -135,4 +135,58 @@ describe('DocumentPageUtil.js', () => {
             done();
         });
     });
+
+    describe('getRenunciationCheckListContext', () => {
+        it('should return showSpouseRenunciationItem and usePa16RenunciationLink for the strict scenario', (done) => {
+            const formdata = {
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            expect(DocumentPageUtil.getRenunciationCheckListContext('intestacy', formdata)).to.deep.equal({
+                showSpouseRenunciationItem: true,
+                usePa16RenunciationLink: true
+            });
+            done();
+        });
+
+        it('should return showSpouseRenunciationItem with usePa16RenunciationLink false for non-strict child spouse scenarios', (done) => {
+            const formdata = {
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionNotApplying'
+                }
+            };
+            expect(DocumentPageUtil.getRenunciationCheckListContext('intestacy', formdata)).to.deep.equal({
+                showSpouseRenunciationItem: true,
+                usePa16RenunciationLink: false
+            });
+            done();
+        });
+
+        it('should return the PA16 override for adopted child', (done) => {
+            const formdata = {
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            expect(DocumentPageUtil.getRenunciationCheckListContext('intestacy', formdata)).to.deep.equal({
+                showSpouseRenunciationItem: true,
+                usePa16RenunciationLink: true
+            });
+            done();
+        });
+    });
 });

@@ -32,10 +32,9 @@ describe('documents', () => {
             }
         };
         contentData = {
-            ccdReferenceNumber: '1234-1235-1236-1237',
+            ccdReferenceNumber: '1234-1235-1236-1237'
         };
         testWrapper = new TestWrapper('Documents');
-
     });
 
     afterEach(() => {
@@ -691,7 +690,7 @@ describe('documents', () => {
             it('test correct content loaded on the page with english foreign death cert', (done) => {
                 sessionData.deceased = {
                     maritalStatus: 'optionDivorced',
-                    diedEngOrWales: 'optionNo',
+                    diedEngOrWales: 'optionNo'
                 };
 
                 sessionData.applicant = {
@@ -795,6 +794,83 @@ describe('documents', () => {
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll',
+                            'checklist-item10-iht207',
+                            'no-docs-required'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            //#4963
+            it('test correct content loaded on the page when spouse renounces and applicant is child', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                };
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.spouseGivingUpAdminRightsPA16Link;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll',
+                            'checklist-item10-iht207',
+                            'no-docs-required'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page when spouse renounces and applicant is adopted child', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                };
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.spouseGivingUpAdminRightsPA16Link;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',

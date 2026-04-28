@@ -121,12 +121,10 @@ describe('CoverSheetPdfService', () => {
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
-                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will', beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
-                        {text: 'Give up probate administrator rights paper form', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: '', afterLinkText: ' - Form PA16'}
+                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
                     ],
                     checkListItemsWelsh: [
-                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will', beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
-                        {text: 'ffurflen bapur rhoi\'r gorau i bob hawl i weithredu fel gweinyddwr profiant', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: '', afterLinkText: ' - Ffurflen PA16'}
+                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
                     ],
                     noDocumentsRequired: false,
                     noDocumentsRequiredText: null,
@@ -138,6 +136,72 @@ describe('CoverSheetPdfService', () => {
             postStub.restore();
             done();
         });
+
+        it('should call super.post() and call with relevant checklist items when applicant is adopted child and other children exist', (done) => {
+            const endpoint = 'http://localhost';
+            const formdata = {
+                caseType: 'intestacy',
+                language: {
+                    bilingual: 'optionNo'
+                },
+                applicant: {
+                    firstName: 'Joe',
+                    lastName: 'Bloggs',
+                    address: {
+                        formattedAddress: '1 Red Road, London, L1 1LL'
+                    },
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                },
+                ccdCase: {
+                    id: 'ccd123'
+                },
+                registry: {
+                    address: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY'
+                },
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                },
+            };
+            const coverSheetPdf = new CoverSheetPdf(endpoint, 'abc123');
+            postStub = sinon.stub(Pdf.prototype, 'post');
+
+            const req = {
+                session: {
+                    form: formdata,
+                    language: 'en'
+                }
+            };
+
+            coverSheetPdf.post(req);
+
+            expect(postStub.calledOnce).to.equal(true);
+            expect(postStub.calledWith(
+                config.pdf.template.coverSheet,
+                {
+                    applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
+                    applicantName: 'Joe Bloggs',
+                    caseReference: 'ccd123',
+                    submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
+                    checkListItems: [
+                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
+                    ],
+                    checkListItemsWelsh: [
+                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
+                    ],
+                    noDocumentsRequired: false,
+                    noDocumentsRequiredText: null,
+                    noDocumentsRequiredTextWelsh: null
+                },
+                'Post cover sheet pdf'
+            )).to.equal(true);
+
+            postStub.restore();
+            done();
+        });
+
         it('should call super.post() and call with Codicils checklist items', (done) => {
             const endpoint = 'http://localhost';
             const formdata = {

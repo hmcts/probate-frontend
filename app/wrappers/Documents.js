@@ -25,6 +25,14 @@ class Documents {
         return this.intestacyDocumentsRequired();
     }
 
+    spouseRenunciationRequired() {
+        return this.deceasedWrapper.hasMarriedStatus() && this.applicantWrapper.isApplicantChild();
+    }
+
+    spouseRenunciationPa16FormRequired() {
+        return this.spouseRenunciationRequired() && this.formdata.caseType === caseTypes.INTESTACY && this.applicantWrapper.isSpouseRenouncing();
+    }
+
     intestacyDocumentsRequired() {
         const deceasedMarried = this.deceasedWrapper.hasMarriedStatus();
         const applicantIsChild = this.applicantWrapper.isApplicantChild();

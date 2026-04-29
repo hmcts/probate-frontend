@@ -420,7 +420,7 @@ describe('Documents', () => {
                 };
             });
 
-            it('should return the PA16 override flags when applicant is child', (done) => {
+            it('should return renunciation flags when applicant is child', (done) => {
                 const formdata = {
                     deceased: {
                         maritalStatus: 'optionMarried',
@@ -438,7 +438,7 @@ describe('Documents', () => {
                 done();
             });
 
-            it('should return the PA16 override flags when applicant is child and other children exist', (done) => {
+            it('should return renunciation flags when applicant is child and other children exist', (done) => {
                 const formdata = {
                     deceased: {
                         maritalStatus: 'optionMarried',
@@ -456,7 +456,7 @@ describe('Documents', () => {
                 done();
             });
 
-            it('should return the PA16 override flags when applicant is adopted child', (done) => {
+            it('should return renunciation flags when applicant is adopted child', (done) => {
                 const formdata = {
                     deceased: {
                         maritalStatus: 'optionMarried',

@@ -307,6 +307,6 @@ module.exports = defineConfig([
         '**/coverage',
         '**/output',
         '**/mochawesome-report',
-        '.yarn/releases/yarn-4.13.0.cjs'
+        '.yarn/releases/*'
     ])
 ]);

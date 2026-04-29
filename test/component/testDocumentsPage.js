@@ -805,7 +805,6 @@ describe('documents', () => {
                     });
             });
 
-            //#4963
             it('test correct content loaded on the page when spouse renounces and applicant is child', (done) => {
                 sessionData.deceased = {
                     maritalStatus: 'optionMarried',
@@ -830,6 +829,7 @@ describe('documents', () => {
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
+                            'checklist-item4-foreign-death-cert',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
@@ -868,6 +868,7 @@ describe('documents', () => {
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
+                            'checklist-item4-foreign-death-cert',
                             'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',

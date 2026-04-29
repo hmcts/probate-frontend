@@ -8,7 +8,7 @@ nodejs:
   autoscaling:
     enabled: false
   environment:
-    REDIS_HOST: ${SERVICE_NAME}-redis-master
+    REDIS_HOST: ${SERVICE_NAME}-hmcts-redis-master
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
     LAUNCHDARKLY_ENABLED: true
@@ -47,12 +47,6 @@ nodejs:
           alias: launchdarklyUserkeyFrontend
         - name: pcq-token-key
           alias: pcq-token-key
-        - name: webchat-avaya-url
-          alias: webchat-avaya-url
-        - name: webchat-avaya-client-url
-          alias: webchat-avaya-client-url
-        - name: webchat-avaya-service
-          alias: webchat-avaya-service
         - name: webchat-kerv-deployment-en
           alias: webchat-kerv-deployment-en
         - name: webchat-kerv-deployment-cy
@@ -66,18 +60,22 @@ nodejs:
         - name: webchat-kerv-api-key
           alias: webchat-kerv-api-key
 
-redis:
+hmcts-redis:
   enabled: true
   serviceAccount:
     create: false
     name: "probate"
     automountServiceAccountToken: true
-
-idam-pr:
-  enabled: true
-  redirect_uris:
-    Probate:
-      - https://${SERVICE_FQDN}/oauth2/callback
+  architecture: standalone
+  image:
+    registry: hmctsprod.azurecr.io
+    repository: imported/redis
+    tag: 8.2.1
+  master:
+    persistence:
+      enabled: false
+  auth:
+    enabled: false
 
 global:
   security:

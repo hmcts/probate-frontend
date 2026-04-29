@@ -5,7 +5,7 @@ const validator = require('validator');
 const numeral = require('numeral');
 const FieldError = require('app/components/error');
 const {get} = require('lodash');
-const IhtThreshold = require('app/utils/IhtThreshold');
+const AssetsThreshold = require('app/utils/AssetsThreshold');
 
 class ValueAssetsOutside extends ValidationStep {
 
@@ -16,7 +16,7 @@ class ValueAssetsOutside extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.ihtThreshold = IhtThreshold.getIhtThreshold(new Date(get(formdata, 'deceased.dod-date')));
+        ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
         return ctx;
     }
 
@@ -33,14 +33,14 @@ class ValueAssetsOutside extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
-        if (formdata.deceased && (ctx.netValue + ctx.netValueAssetsOutside) <= ctx.ihtThreshold) {
+        if (formdata.deceased && (ctx.netValue + ctx.netValueAssetsOutside) <= ctx.assetsThreshold) {
             delete formdata.deceased.anyChildren;
             delete formdata.deceased.allChildrenOver18;
             delete formdata.deceased.anyDeceasedChildren;
             delete formdata.deceased.anyGrandchildrenUnder18;
         }
 
-        delete ctx.ihtThreshold;
+        delete ctx.assetsThreshold;
 
         return [ctx, formdata];
     }

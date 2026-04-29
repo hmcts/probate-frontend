@@ -4,7 +4,7 @@
 
 {% block form_content %}
 
-<h1 class="govuk-fieldset__legend--l">{{ content.question }}</h1>
+<h1 class="govuk-heading-l">{{ content.question }}</h1>
 
 <p class="govuk-body">{{content.line1 | safe }}</p>
 
@@ -22,10 +22,13 @@
 
 <div class="govuk-form-group">
   {{ govukButton({
-  text: common.saveAndContinue | safe,
-  preventDoubleClick: true
+    text: common.saveAndClose | safe,
+    preventDoubleClick: true,
+    id: "saveAndClose"
   }) }}
 </div>
 
+{% endblock %}
 
+{% block save_and_close %}
 {% endblock %}

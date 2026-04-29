@@ -3,8 +3,6 @@
 'use strict';
 
 const config = require('config');
-const ApplicantWrapper = require('app/wrappers/Applicant');
-const DeceasedWrapper = require('app/wrappers/Deceased');
 const WillWrapper = require('app/wrappers/Will');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExecutorsWrapper = require('app/wrappers/Executors');
@@ -14,18 +12,6 @@ const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const {get} = require('lodash');
 
 class DocumentPageUtil {
-
-    static getRenunciationCheckListContext(caseType, formData) {
-        const applicantWrapper = new ApplicantWrapper(formData);
-        const deceasedWrapper = new DeceasedWrapper(formData.deceased);
-        const showSpouseRenunciationItem = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
-
-        return {
-            showSpouseRenunciationItem,
-            usePa16RenunciationLink: showSpouseRenunciationItem && caseType === caseTypes.INTESTACY &&
-                applicantWrapper.isSpouseRenouncing()
-        };
-    }
 
     static getCheckListItems(ctx, content) {
         const checkListItems = [];
@@ -86,6 +72,7 @@ class DocumentPageUtil {
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const documentsWrapper = new DocumentsWrapper(formdata);
         const checkListItems = [];
 
         if (this.noDocsRequired(formdata)) {
@@ -127,12 +114,8 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)));
             });
         }
-
-        const renunciationCheckListContext = this.getRenunciationCheckListContext(formdata.caseType, formdata);
-
-        if (renunciationCheckListContext.showSpouseRenunciationItem) {
-            const renunciationFormLink = renunciationCheckListContext.usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
-
+        if (documentsWrapper.spouseRenunciationRequired()) {
+            const renunciationFormLink = documentsWrapper.spouseRenunciationPa16FormRequired() ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
             checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], renunciationFormLink));
         }
 

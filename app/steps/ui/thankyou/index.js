@@ -49,13 +49,8 @@ class ThankYou extends Step {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            const renunciationCheckListContext = DocumentPageUtil.getRenunciationCheckListContext(
-                ctx.caseType,
-                formdata
-            );
-
-            ctx.showSpouseRenunciationItem = renunciationCheckListContext.showSpouseRenunciationItem;
-            ctx.usePa16RenunciationLink = renunciationCheckListContext.usePa16RenunciationLink;
+            ctx.showSpouseRenunciationItem = documentsWrapper.spouseRenunciationRequired();
+            ctx.usePa16RenunciationLink = documentsWrapper.spouseRenunciationPa16FormRequired();
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

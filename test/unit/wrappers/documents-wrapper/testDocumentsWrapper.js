@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint max-lines: ["error", 400] */
+
 const DocumentsWrapper = require('app/wrappers/Documents');
 const expect = require('chai').expect;
 const caseTypes = require('app/utils/CaseTypes');
@@ -200,7 +202,69 @@ describe('Documents.js', () => {
         });
     });
 
-    //DTSPB-529 Tests duplicated for new probate death cert flow.
+    describe('spouseRenunciationRequired()', () => {
+        it('should return true when deceased is married and applicant is child', (done) => {
+            const data = {
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.spouseRenunciationRequired()).to.equal(true);
+            done();
+        });
+        it('should return false when deceased is not married', (done) => {
+            const data = {
+                deceased: {
+                    maritalStatus: 'optionDivorced'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.spouseRenunciationRequired()).to.equal(false);
+            done();
+        });
+
+    });
+
+    describe('spouseRenunciationPa16FormRequired()', () => {
+        it('should return true when intestacy spouse renunciation conditions are met', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.spouseRenunciationPa16FormRequired()).to.equal(true);
+            done();
+        });
+        it('should return false when case is not intestacy', (done) => {
+            const data = {
+                caseType: caseTypes.GOP,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.spouseRenunciationPa16FormRequired()).to.equal(false);
+            done();
+        });
+    });
+
     describe('documentsRequired_new_death_cert_flow()', () => {
         const ftValue = {
             'ft_new_deathcert_flow': true

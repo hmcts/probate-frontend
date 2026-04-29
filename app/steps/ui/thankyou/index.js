@@ -49,15 +49,13 @@ class ThankYou extends Step {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            const renunciationCheckListContext = DocumentPageUtil.getRenunciationCheckListContext(
+            const renunciationFlags = DocumentPageUtil.getRenunciationCheckListContext(
                 ctx.caseType,
                 formdata
             );
-
-            ctx.showSpouseRenunciationItem = renunciationCheckListContext.showSpouseRenunciationItem;
-            ctx.usePa16RenunciationLink = renunciationCheckListContext.usePa16RenunciationLink;
+            ctx.showSpouseRenunciationItem = renunciationFlags.showSpouseRenunciationItem;
+            ctx.usePa16RenunciationLink = renunciationFlags.usePa16RenunciationLink;
         }
-
         if (formdata.will && formdata.will.deceasedWrittenWishes) {
             ctx.deceasedWrittenWishes = formdata.will.deceasedWrittenWishes;
         }

@@ -62,7 +62,6 @@ class Documents extends ValidationStep {
                 ctx.caseType,
                 formdata
             );
-
             ctx.showSpouseRenunciationItem = renunciationCheckListContext.showSpouseRenunciationItem;
             ctx.usePa16RenunciationLink = renunciationCheckListContext.usePa16RenunciationLink;
         }

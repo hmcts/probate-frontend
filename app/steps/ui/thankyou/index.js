@@ -1,8 +1,5 @@
 'use strict';
 
-const Step = require('app/core/steps/Step');
-const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
-const DocumentsWrapper = require('app/wrappers/Documents');
 const caseTypes = require('../../../utils/CaseTypes');
 const CaseProgress = require('app/utils/CaseProgress');
 const DocumentPageUtil = require('app/utils/DocumentPageUtil');
@@ -11,6 +8,9 @@ const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
+const Step = require('app/core/steps/Step');
+const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
+const DocumentsWrapper = require('app/wrappers/Documents');
 const {get} = require('lodash');
 
 class ThankYou extends Step {

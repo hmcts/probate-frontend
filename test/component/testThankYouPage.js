@@ -275,7 +275,7 @@ describe('thank-you', () => {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried',
-                    anyOtherNames: 'optionYes'
+                    anyOtherChildren: 'optionYes'
                 },
                 applicant: {
                     relationshipToDeceased: 'optionChild',
@@ -299,7 +299,8 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        findOutNext: config.links.findOutNext
+                        findOutNext: config.links.findOutNext,
+                        renunciationFormLink: config.links.spouseGivingUpAdminRightsPA16Link
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -312,10 +313,16 @@ describe('thank-you', () => {
                     id: 1234567890123456,
                     state: 'CasePrinted'
                 },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
                 caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried',
-                    anyOtherNames: 'optionYes'
+                    anyOtherChildren: 'optionYes'
                 },
                 applicant: {
                     relationshipToDeceased: 'optionAdoptedChild',
@@ -382,7 +389,6 @@ describe('thank-you', () => {
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        renunciationFormLink: config.links.spouseGivingUpAdminRightsPA16Link
                     };
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });

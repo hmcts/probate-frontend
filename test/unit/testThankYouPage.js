@@ -212,7 +212,7 @@ describe('ThankYou', () => {
             expect(ctx.deceasedWrittenWishes).to.deep.equal('optionYes');
         });
 
-        it('should return the PA16 override flags when applicant is child', (done) => {
+        it('should return renunciation flags when applicant is child', (done) => {
             const formdata = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -231,7 +231,7 @@ describe('ThankYou', () => {
             done();
         });
 
-        it('should return the PA16 override flags when applicant is child and other children exist', (done) => {
+        it('should return renunciation flags when applicant is child and other children exist', (done) => {
             const formdata = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -250,7 +250,7 @@ describe('ThankYou', () => {
             done();
         });
 
-        it('should return the PA16 override flags when applicant is adopted child', (done) => {
+        it('should return renunciation flags when applicant is adopted child', (done) => {
             const formdata = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {

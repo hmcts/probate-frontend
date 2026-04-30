@@ -422,6 +422,7 @@ describe('Documents', () => {
 
             it('should return renunciation flags when applicant is child', (done) => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: {
                         maritalStatus: 'optionMarried',
                         anyOtherChildren: 'optionNo'
@@ -440,6 +441,7 @@ describe('Documents', () => {
 
             it('should return renunciation flags when applicant is child and other children exist', (done) => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: {
                         maritalStatus: 'optionMarried',
                         anyOtherChildren: 'optionYes'
@@ -458,6 +460,7 @@ describe('Documents', () => {
 
             it('should return renunciation flags when applicant is adopted child', (done) => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: {
                         maritalStatus: 'optionMarried',
                         anyOtherChildren: 'optionNo'
@@ -476,6 +479,7 @@ describe('Documents', () => {
 
             it('should return false when deceased is not married but is child of the deceased', (done) => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: {
                         maritalStatus: 'optionNotMarried',
                         anyOtherChildren: 'optionNo'
@@ -493,6 +497,7 @@ describe('Documents', () => {
             });
             it('should return false when deceased is married but applicant is not a child of the deceased', (done) => {
                 const formdata = {
+                    caseType: caseTypes.INTESTACY,
                     deceased: {
                         maritalStatus: 'optionMarried',
                         anyOtherChildren: 'optionNo'

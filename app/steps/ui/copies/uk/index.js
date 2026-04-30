@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const featureToggle = require('app/utils/FeatureToggle');
 const config = require('config');
 
 class CopiesUk extends ValidationStep {
@@ -16,7 +15,7 @@ class CopiesUk extends ValidationStep {
         return ctx;
     }
 
-    handleGet(ctx, formdata) {
+    handleGet(ctx) {
         ctx.copiesUKFee = config.fee.copiesUKFee;
         return [ctx];
     }

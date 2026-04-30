@@ -171,6 +171,9 @@ describe('ThankYou', () => {
                     documentsRequired() {
                         return true;
                     }
+                    spouseRenunciationRequired() {
+                        return false;
+                    }
                 }
             });
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
@@ -187,6 +190,9 @@ describe('ThankYou', () => {
             const revertDocumentsWrapper = ThankYou.__set__({
                 DocumentsWrapper: class {
                     documentsRequired() {
+                        return false;
+                    }
+                    spouseRenunciationRequired() {
                         return false;
                     }
                 }

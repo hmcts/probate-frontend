@@ -174,6 +174,9 @@ describe('ThankYou', () => {
                     spouseRenunciationRequired() {
                         return false;
                     }
+                    spouseRenunciationPa16FormRequired() {
+                        return false;
+                    }
                 }
             });
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
@@ -193,6 +196,9 @@ describe('ThankYou', () => {
                         return false;
                     }
                     spouseRenunciationRequired() {
+                        return false;
+                    }
+                    spouseRenunciationPa16FormRequired() {
                         return false;
                     }
                 }

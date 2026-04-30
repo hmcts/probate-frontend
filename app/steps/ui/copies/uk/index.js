@@ -16,9 +16,8 @@ class CopiesUk extends ValidationStep {
         return ctx;
     }
 
-    handleGet(ctx, formdata, featureToggles) {
-        const isFtFeesIncrease2025 = featureToggle.isEnabled(featureToggles, 'ft_probate_fee_increase_2025');
-        ctx.copiesUKFee = isFtFeesIncrease2025 ? config.fee.copiesUKFee2025 : config.fee.copiesUKFee;
+    handleGet(ctx, formdata) {
+        ctx.copiesUKFee = config.fee.copiesUKFee;
         return [ctx];
     }
 

@@ -25,8 +25,8 @@ describe('copies-uk', () => {
     });
 
     describe('Verify Content, Errors and Redirection - Feature toggles', () => {
-        it('test right content loaded on the page with the ft_probate_fee_increase_2025 toggle ON', (done) => {
-            testWrapper = new TestWrapper('CopiesUk', {ft_probate_fee_increase_2025: true});
+        it('test right content loaded on the page', (done) => {
+            testWrapper = new TestWrapper('CopiesUk');
 
             invitesAllAgreedNock();
 
@@ -45,25 +45,6 @@ describe('copies-uk', () => {
                 });
         });
 
-        it('test right content loaded on the page with the ft_probate_fee_increase_2025 toggle OFF', (done) => {
-            testWrapper = new TestWrapper('CopiesUk', {ft_probate_fee_increase_2025: false});
-
-            invitesAllAgreedNock();
-
-            const sessionData = require('test/data/copiesUk');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    delete require.cache[require.resolve('test/data/copiesUk')];
-                    const contentData = {copiesUKFee: '1.50'};
-                    testWrapper.testContent(done, contentData);
-                });
-        });
     });
 
     describe('Verify Content, Errors and Redirection', () => {

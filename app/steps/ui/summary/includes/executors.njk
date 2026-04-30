@@ -1,8 +1,12 @@
+{% macro executorsNamedAnswer(executorsList) %}
+        {{ common.yes if executorsList and (executorsList | length) > 1 else common.no }}
+{% endmacro %}
+
 {{checkanswer(
     items = [
         {
             question: content.ExecutorsNamed.question,
-            answer: content.ExecutorsNamed[fields.executors.executorsNamed.value],
+            answer: executorsNamedAnswer(fields.executors.list.value),
             visible: true
         }
     ],

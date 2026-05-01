@@ -3,29 +3,9 @@
   "$id": "deceased-dod",
   "type": "object",
   "properties": {
-    "dod-day": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 31
-    },
-    "dod-month": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 12
-    },
-    "dod-year": {
-      "type": "integer",
-      "minimum": 1000,
-      "maximum": 9999
-    },
     "dod-date": {
       "type": "string",
       "format": "date-time"
     }
-  },
-  "required": [
-    "dod-day",
-    "dod-month",
-    "dod-year"
-  ]
+  }
 }

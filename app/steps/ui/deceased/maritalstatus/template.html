@@ -15,17 +15,25 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.maritalStatus.errorMessage | safe } if fields.maritalStatus.errorMessage,
+        errorMessage: { text: fields.maritalStatus.errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe} if fields.maritalStatus.errorMessage,
         items: [
             {
                 value: "optionMarried",
                 text: content["optionMarried"] | safe,
-                checked: true if fields.maritalStatus.value == "optionMarried"
+                checked: true if fields.maritalStatus.value == "optionMarried",
+                hint: {
+                    text: content["hintTextMarried"] | safe
+                }
             },
             {
                 value: "optionDivorced",
                 text: content["optionDivorced"] | safe,
                 checked: true if fields.maritalStatus.value == "optionDivorced"
+            },
+            {
+                value: "optionSeparated",
+                text: content["optionSeparated"] | safe,
+                checked: true if fields.maritalStatus.value == "optionSeparated"
             },
             {
                 value: "optionWidowed",
@@ -36,11 +44,6 @@
                 value: "optionNotMarried",
                 text: content["optionNotMarried"] | safe,
                 checked: true if fields.maritalStatus.value == "optionNotMarried"
-            },
-            {
-                value: "optionSeparated",
-                text: content["optionSeparated"] | safe,
-                checked: true if fields.maritalStatus.value == "optionSeparated"
             }
         ]
     }) }}

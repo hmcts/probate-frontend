@@ -25,7 +25,7 @@
         classes: "govuk-radios--inline",
         idPrefix: "alias",
         name: "alias",
-        errorMessage: { text: fields.alias.errorMessage | safe } if fields.alias.errorMessage,
+        errorMessage: { text: fields.alias.errorMessage | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.alias.errorMessage,
         items: [
             {
                 value: "optionYes",

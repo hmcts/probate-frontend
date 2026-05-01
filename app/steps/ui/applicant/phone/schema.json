@@ -4,7 +4,9 @@
   "type": "object",
   "properties": {
     "phoneNumber": {
-      "type": "string"
+      "type": "string",
+      "minLength": 11,
+      "maxLength": 16
     }
   },
   "required": [

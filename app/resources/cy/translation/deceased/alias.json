@@ -10,7 +10,7 @@
   "warningText": "Os oes unrhyw asedau yn cael eu cadw mewn enwau nad ydynt wedi’u rhestru ar y grant profiant, efallai y byddwch yn cael trafferth cael mynediad atynt.",
   "errors": {
     "alias": {
-      "required": "Atebwch &lsquo;oedd&rsquo; os oedd gan yr unigolyn sydd wedi marw asedau mewn enw arall"
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oedd gan {deceasedName} asedau mewn enw arall"
     }
   }
 }

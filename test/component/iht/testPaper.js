@@ -113,7 +113,7 @@ describe('iht-paper', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
         });
 
-        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD between 1 Oct 2014 and 5 Feb 2020: /intestacy${expectedNextUrlForDeceasedAlias}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -129,11 +129,11 @@ describe('iht-paper', () => {
                         grossValueFieldIHT205: '300000',
                         netValueFieldIHT205: '260000'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedAlias}`);
                 });
         });
 
-        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD after 5 Feb 2020: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+        it(`[INTESTACY] test it redirects to Deceased Alias page for DoD after 5 Feb 2020: /intestacy${expectedNextUrlForDeceasedAlias}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -149,11 +149,11 @@ describe('iht-paper', () => {
                         grossValueFieldIHT205: '300000',
                         netValueFieldIHT205: '280000'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedAlias}`);
                 });
         });
 
-        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD between 1 Oct 2014 and 5 Feb 2020: ${expectedNextUrlForAssetsOutside}`, (done) => {
+        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD between 1 Oct 2014 and 5 Feb 2020: /intestacy${expectedNextUrlForAssetsOutside}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -169,11 +169,11 @@ describe('iht-paper', () => {
                         grossValueFieldIHT205: '300000',
                         netValueFieldIHT205: '240000'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOutside);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAssetsOutside}`);
                 });
         });
 
-        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD after 5 Feb 2020: ${expectedNextUrlForAssetsOutside}`, (done) => {
+        it(`[INTESTACY] test it redirects to Assets Outside UK page for DoD after 5 Feb 2020: /intestacy${expectedNextUrlForAssetsOutside}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -189,7 +189,7 @@ describe('iht-paper', () => {
                         grossValueFieldIHT205: '300000',
                         netValueFieldIHT205: '260000'
                     };
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAssetsOutside);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAssetsOutside}`);
                 });
         });
     });

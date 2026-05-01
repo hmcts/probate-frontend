@@ -1,0 +1,45 @@
+{
+  "title": "Do you know the date the {legalProcess} took place?",
+  "question": "Do you know the date the {legalProcess} took place?",
+  "divorcedParagraph1": "You can find the date on the decree absolute or final order.",
+  "divorcedParagraph2": "If you do not have this, you can <a href=\"https://www.gov.uk/copy-decree-absolute-final-order\" class=\"govuk-link\" target=\"_blank\" aria-label=\"get an official copy of the decree absolute or final order (opens in a new tab)\">get an official copy of the decree absolute or final order (opens in a new tab)</a>.",
+  "separatedParagraph1": "You can find the date  in the legal separation document.",
+  "separatedParagraph2": "If you do not have this, you can <a href=\"https://www.gov.uk/copy-decree-absolute-final-order\" class=\"govuk-link\" target=\"_blank\" aria-label=\"get an official copy of the legal separation document (opens in a new tab)\">get an official copy of the legal separation document (opens in a new tab)</a>.",
+  "optionYes": "Yes, I know the date",
+  "optionNo": "No, I do not know the date",
+  "optionNoHint": "A caseworker will need to ask you for more information which may delay your application",
+  "dayName": "Day",
+  "monthName": "Month",
+  "yearName": "Year",
+  "date": "Date of {legalProcess}",
+  "errors": {
+    "divorceDateKnown": {
+      "requiredDivorced": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}",
+      "requiredSeparated": "Select &lsquo;Yes&rsquo; if you know the date of the {legalProcess}"
+    },
+    "divorceDate-year": {
+      "required": "Date of {legalProcessDifferentText} must include a year"
+    },
+    "divorceDate-month": {
+      "requiredDivorced": "Date of {legalProcessDifferentText} must include a month",
+      "requiredSeparated": "Date of {legalProcessDifferentText} must include a month"
+    },
+    "divorceDate-day": {
+      "required": "Date of {legalProcess} must include a day"
+    },
+    "divorceDate-day-month": {
+      "required": "Date of {legalProcessDifferentText} must include a day and month"
+    },
+    "divorceDate-month-year": {
+      "required": "Date of {legalProcessDifferentText} must include a month and year"
+    },
+    "divorceDate-day-year": {
+      "required": "Date of {legalProcessDifferentText} must include a day and year"
+    },
+    "divorceDate": {
+      "required": "Enter the date the {legalProcess} took place",
+      "invalid": "Date of {legalProcessDifferentText} must be a real date",
+      "divorceDateAfterDod": "The date of {legalProcessDifferentText} must be before {deceasedName}’s date of death"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Dyddiad marwolaeth yr unigolyn sydd wedi marw",
+  "question": "Beth oedd y dyddiad pan fu {deceasedName} farw?",
+  "questionHint": "Defnyddiwch y dyddiad sydd ar y dystysgrif marwolaeth. Er enghraifft, 30 01 2025",
+  "dayName": "Diwrnod",
+  "monthName": "Mis",
+  "yearName": "Blwyddyn",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+  "noInfoHeading": "Nid oes gennyf yr wybodaeth hon",
+  "noInfoDetails": "Gallwch ddod o hyd i ddyddiad y farwolaeth ar y dystysgrif marwolaeth. Os nad oes gennych hon, gofynnwch i {applicantName}  ddweud wrthych.",
+
+  "errors": {
+    "dod-day": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod",
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys"
+    },
+    "dod-month": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys mis",
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys"
+    },
+    "dod-year": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys blwyddyn",
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys"
+    },
+    "dod-day-month": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod a mis"
+    },
+    "dod-month-year": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys mis a blwyddyn"
+    },
+    "dod-day-year": {
+      "required": "Rhaid i ddyddiad y farwolaeth gynnwys diwrnod a blwyddyn"
+    },
+    "dod-date": {
+      "required": "Nodwch y dyddiad pan fu {deceasedName} farw",
+      "invalid": "Rhaid i ddyddiad y farwolaeth fod yn ddyddiad dilys",
+      "dateInFuture": "Rhaid i ddyddiad y farwolaeth fod yn y gorffennol",
+      "dodNotMatch": "Nid yw dyddiad y farwolaeth yn cyfateb i’r dyddiad y mae {applicantName} wedi'i roi"
+    }
+  }
+}

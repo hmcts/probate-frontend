@@ -1,7 +1,6 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const featureToggle = require('app/utils/FeatureToggle');
 const config = require('config');
 
 class CopiesUk extends ValidationStep {
@@ -16,9 +15,8 @@ class CopiesUk extends ValidationStep {
         return ctx;
     }
 
-    handleGet(ctx, formdata, featureToggles) {
-        const isFtFeesIncrease2025 = featureToggle.isEnabled(featureToggles, 'ft_probate_fee_increase_2025');
-        ctx.copiesUKFee = isFtFeesIncrease2025 ? config.fee.copiesUKFee2025 : config.fee.copiesUKFee;
+    handleGet(ctx) {
+        ctx.copiesUKFee = config.fee.copiesUKFee;
         return [ctx];
     }
 

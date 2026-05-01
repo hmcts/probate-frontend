@@ -17,7 +17,7 @@ const taskList = {
         summary: 'Summary'
     },
     PaymentTask: {
-        firstStep: 'CopiesStart',
+        firstStep: 'CopiesUk',
         lastStep: 'TaskList',
         summary: 'Summary'
     },

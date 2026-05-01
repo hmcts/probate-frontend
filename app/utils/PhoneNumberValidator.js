@@ -8,6 +8,7 @@ class PhoneNumberValidator {
                 return {isValid: true};
             }
             return {isValid: false, errorType: 'invalid'};
+            // eslint-disable-next-line no-unused-vars
         } catch (error) {
             return {isValid: false, errorType: 'invalid'};
         }

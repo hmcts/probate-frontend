@@ -300,7 +300,7 @@ describe('thank-you', () => {
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        renunciationFormLink: config.links.spouseGivingUpAdminRightsPA16Link
+                        renunciationFormLink: config.links.pa16GiveUpAdminRightsFormLink,
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -347,7 +347,7 @@ describe('thank-you', () => {
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
-                        renunciationFormLink: config.links.spouseGivingUpAdminRightsPA16Link
+                        renunciationFormLink: config.links.pa16GiveUpAdminRightsFormLink,
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);

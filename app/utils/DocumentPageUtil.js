@@ -58,10 +58,9 @@ class DocumentPageUtil {
                 );
             });
         }
-        if (ctx.showSpouseRenunciationItem) {
-            const renunciationFormLink = ctx.usePa16RenunciationLink ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
+        if (ctx.spouseRenunciationPa16FormRequired) {
             checkListItems.push(
-                content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', renunciationFormLink)
+                content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', config.links.pa16GiveUpAdminRightsFormLink)
             );
         }
         return checkListItems;
@@ -114,9 +113,8 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)));
             });
         }
-        if (documentsWrapper.spouseRenunciationRequired()) {
-            const renunciationFormLink = documentsWrapper.spouseRenunciationPa16FormRequired() ? config.links.spouseGivingUpAdminRightsPA16Link : config.links.renunciationForm;
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], renunciationFormLink));
+        if (documentsWrapper.spouseRenunciationPa16FormRequired()) {
+            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], config.links.pa16GiveUpAdminRightsFormLink));
         }
 
         return checkListItems;

@@ -3,14 +3,12 @@
 'use strict';
 
 const config = require('config');
-const ApplicantWrapper = require('app/wrappers/Applicant');
-const DeceasedWrapper = require('app/wrappers/Deceased');
 const WillWrapper = require('app/wrappers/Will');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const caseTypes = require('app/utils/CaseTypes');
-const ExceptedEstateDod = require('./ExceptedEstateDod');
+const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const {get} = require('lodash');
 
 class DocumentPageUtil {
@@ -27,7 +25,7 @@ class DocumentPageUtil {
                 checkListItems.push(content['checklist-item2-no-codicils']);
             }
         }
-        if (ctx.deceasedWrittenWishes==='optionYes') {
+        if (ctx.deceasedWrittenWishes === 'optionYes') {
             checkListItems.push(content['checklist-item3-codicils-written-wishes']);
         }
         if (ctx.interimDeathCertificate) {
@@ -47,29 +45,33 @@ class DocumentPageUtil {
             checkListItems.push(content['checklist-item10-iht207']);
         }
         if (ctx.hasRenunciated) {
-            checkListItems.push(content['checklist-item8-renunciated'].replace('{applicationFormPA15}', config.links.applicationFormPA15).replace('{applicationFormPA17}', config.links.applicationFormPA17));
+            checkListItems.push(
+                content['checklist-item8-renunciated']
+                    .replace('{applicationFormPA15}', config.links.applicationFormPA15)
+                    .replace('{applicationFormPA17}', config.links.applicationFormPA17)
+            );
         }
         if (ctx.executorsNameChangedByDeedPollList && ctx.executorsNameChangedByDeedPollList.length > 0) {
             ctx.executorsNameChangedByDeedPollList.forEach(executor => {
-                checkListItems.push(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor));
+                checkListItems.push(
+                    content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)
+                );
             });
         }
-        if (ctx.spouseRenouncing) {
-            checkListItems.push(content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', config.links.renunciationForm));
-        }
-        if (ctx.isSpouseGivingUpAdminRights) {
-            checkListItems.push(content['checklist-item11-spouse-giving-up-admin-rights-PA16'].replace('{spouseGivingUpAdminRightsPA16Link}', config.links.spouseGivingUpAdminRightsPA16Link));
+        if (ctx.spouseRenunciationPa16FormRequired) {
+            checkListItems.push(
+                content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', config.links.pa16GiveUpAdminRightsFormLink)
+            );
         }
         return checkListItems;
     }
 
     static getCheckListItemsCoversheet(formdata, language = 'en') {
         const content = require(`app/resources/${language}/translation/documents`);
-        const applicantWrapper = new ApplicantWrapper(formdata);
-        const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const documentsWrapper = new DocumentsWrapper(formdata);
         const checkListItems = [];
 
         if (this.noDocsRequired(formdata)) {
@@ -83,7 +85,7 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item2-no-codicils']));
             }
         }
-        if (formdata.will && formdata.will.deceasedWrittenWishes==='optionYes') {
+        if (formdata.will && formdata.will.deceasedWrittenWishes === 'optionYes') {
             checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item3-codicils-written-wishes']));
         }
         if (deathCertWrapper.hasInterimDeathCertificate()) {
@@ -111,11 +113,8 @@ class DocumentPageUtil {
                 checkListItems.push(this.getCheckListItemTextOnly(content['checklist-item9-deed-poll'].replace('{executorCurrentName}', executor)));
             });
         }
-        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], config.links.renunciationForm));
-        }
-        if (deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild() && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren()) {
-            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item11-spouse-giving-up-admin-rights-PA16'], config.links.spouseGivingUpAdminRightsPA16Link));
+        if (documentsWrapper.spouseRenunciationPa16FormRequired()) {
+            checkListItems.push(this.getCheckListItemTextWithLink(content['checklist-item6-spouse-renouncing'], config.links.pa16GiveUpAdminRightsFormLink));
         }
 
         return checkListItems;
@@ -135,11 +134,12 @@ class DocumentPageUtil {
         for (let i = 0; i < splitContentItem.length; i++) {
             if (splitContentItem[i].includes('href')) {
                 const linkText = splitContentItem[i].split('>')[1];
-                return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i-1], afterLinkText: splitContentItem[i+1]};
+                return {text: linkText, type: 'textWithLink', url: link, beforeLinkText: splitContentItem[i - 1], afterLinkText: splitContentItem[i + 1]};
             }
         }
         throw new Error(`there is no link in content item: "${contentCheckListItem}"`);
     }
+
     static getCheckListItemTextWithMultipleLinks(contentCheckListItem, links) {
         if (!Array.isArray(links) || links.length === 0) {
             throw new Error('Please pass in a valid array of URLs');
@@ -167,6 +167,7 @@ class DocumentPageUtil {
             segments: segments
         };
     }
+
     static noDocsRequired(formdata) {
         const documentsWrapper = new DocumentsWrapper(formdata);
         return !documentsWrapper.documentsRequired();

@@ -7,8 +7,6 @@ const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
 const DocumentsWrapper = require('app/wrappers/Documents');
-const ApplicantWrapper = require('app/wrappers/Applicant');
-const DeceasedWrapper = require('app/wrappers/Deceased');
 const FormatCcdCaseId = require('app/utils/FormatCcdCaseId');
 const caseTypes = require('app/utils/CaseTypes');
 const DocumentPageUtil = require('app/utils/DocumentPageUtil');
@@ -45,8 +43,6 @@ class Documents extends ValidationStep {
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
-        const applicantWrapper = new ApplicantWrapper(formdata);
-        const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
         const content = this.generateContent(ctx, formdata, language);
 
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
@@ -62,8 +58,7 @@ class Documents extends ValidationStep {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            ctx.spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
-            ctx.isSpouseGivingUpAdminRights = ctx.spouseRenouncing && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren();
+            ctx.showSpouseRenunciationItem = documentsWrapper.spouseRenunciationPa16FormRequired();
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

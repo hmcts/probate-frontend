@@ -10,14 +10,12 @@ const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const RegistryWrapper = require('app/wrappers/Registry');
 const DeathCertificateWrapper = require('app/wrappers/DeathCertificate');
-const ApplicantWrapper = require('app/wrappers/Applicant');
-const DeceasedWrapper = require('app/wrappers/Deceased');
 const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const {get} = require('lodash');
 
 class ThankYou extends Step {
 
-    static getUrl () {
+    static getUrl() {
         return '/thank-you';
     }
 
@@ -37,8 +35,6 @@ class ThankYou extends Step {
         const willWrapper = new WillWrapper(formdata.will);
         const deathCertWrapper = new DeathCertificateWrapper(formdata.deceased);
         const registryAddress = (new RegistryWrapper(formdata.registry)).address();
-        const applicantWrapper = new ApplicantWrapper(formdata);
-        const deceasedWrapper = new DeceasedWrapper(formdata.deceased);
 
         const content = this.generateContent(ctx, formdata, language);
         ctx.registryAddress = registryAddress ? registryAddress : content.address;
@@ -53,8 +49,7 @@ class ThankYou extends Step {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            ctx.spouseRenouncing = deceasedWrapper.hasMarriedStatus() && applicantWrapper.isApplicantChild();
-            ctx.isSpouseGivingUpAdminRights = ctx.spouseRenouncing && applicantWrapper.isSpouseRenouncing() && !deceasedWrapper.hasAnyOtherChildren();
+            ctx.showSpouseRenunciationItem = documentsWrapper.spouseRenunciationPa16FormRequired();
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

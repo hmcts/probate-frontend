@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
@@ -47,7 +49,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -86,7 +88,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -144,7 +146,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -153,7 +155,7 @@ describe('thank-you', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {
-                        findOutNext: config.links.findOutNext,
+                        findOutNext: config.links.findOutNext
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -204,7 +206,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -242,7 +244,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];
@@ -252,6 +254,100 @@ describe('thank-you', () => {
                 .end(() => {
                     const contentData = {
                         findOutNext: config.links.findOutNext,
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test content loaded on the page when spouse renounces and applicant is child', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'CasePrinted'
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'referenceNumber',
+                'declarationPdf', 'checkAnswersPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
+                'applicationProgressBarListItems'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        findOutNext: config.links.findOutNext,
+                        renunciationFormLink: config.links.pa16GiveUpAdminRightsFormLink,
+                    };
+
+                    testWrapper.testContent(done, contentData, contentToExclude);
+                });
+        });
+
+        it('test content loaded on the page when spouse renounces and applicant is adopted child', (done) => {
+            const sessionData = {
+                ccdCase: {
+                    id: 1234567890123456,
+                    state: 'CasePrinted'
+                },
+                declaration: {
+                    declarationCheckbox: 'true'
+                },
+                payment: {
+                    total: 0
+                },
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const contentToExclude = ['documentsParagraph1', 'intestacyDocumentsParagraph1',
+                'successParagraph1NoDocumentsRequired', 'successParagraph2NoDocumentsRequired', 'referenceNumber',
+                'declarationPdf', 'checkAnswersPdf',
+                'checklist-item1-application-coversheet', 'checklist-item2-no-codicils', 'checklist-item2-codicils',
+                'checklist-item3-codicils-written-wishes', 'checklist-item4-interim-death-cert',
+                'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
+                'checklist-item5-foreign-death-cert-PA19', 'checklist-item7-iht205',
+                'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
+                'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
+                'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
+                'applicationProgressBarListItems'];
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const contentData = {
+                        findOutNext: config.links.findOutNext,
+                        renunciationFormLink: config.links.pa16GiveUpAdminRightsFormLink,
                     };
 
                     testWrapper.testContent(done, contentData, contentToExclude);
@@ -283,7 +379,7 @@ describe('thank-you', () => {
                 'checklist-item4-foreign-death-cert', 'checklist-item4-foreign-death-cert-translation',
                 'checklist-item5-foreign-death-cert-PA19', 'checklist-item6-spouse-renouncing', 'checklist-item7-iht205',
                 'checklist-item8-renunciated', 'checklist-item9-deed-poll', 'checklist-item10-iht207',
-                'checklist-item11-spouse-giving-up-admin-rights-PA16', 'progressBarStep1Done', 'progressBarStep2Done',
+                'progressBarStep1Done', 'progressBarStep2Done',
                 'progressBarStep3Done', 'progressBarStep4Done', 'progressBarStep2NotDone', 'progressBarStep3NotDone',
                 'progressBarStep4NotDone', 'progressBarStep3Reviewed', 'applicationProgressBar',
                 'applicationProgressBarListItems'];

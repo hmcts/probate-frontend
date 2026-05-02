@@ -32,10 +32,9 @@ describe('documents', () => {
             }
         };
         contentData = {
-            ccdReferenceNumber: '1234-1235-1236-1237',
+            ccdReferenceNumber: '1234-1235-1236-1237'
         };
         testWrapper = new TestWrapper('Documents');
-
     });
 
     afterEach(() => {
@@ -71,7 +70,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -101,7 +99,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -134,7 +131,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -167,7 +163,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
                         contentData.applicationFormPA15 = config.links.applicationFormPA15;
@@ -200,7 +195,6 @@ describe('documents', () => {
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
                             'address',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -230,7 +224,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -260,7 +253,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -289,7 +281,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -319,7 +310,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -349,7 +339,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -399,7 +388,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
                         contentData.executorCurrentName = 'eddie jones';
@@ -451,7 +439,6 @@ describe('documents', () => {
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
                         contentData.executorCurrentName = [
@@ -485,7 +472,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -514,7 +500,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -544,7 +529,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -575,7 +559,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -593,8 +576,6 @@ describe('documents', () => {
                     relationshipToDeceased: 'optionChild'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
-
-                contentData.renunciationFormLink = config.links.renunciationForm;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -615,7 +596,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -637,8 +617,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
-
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
@@ -658,7 +636,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -678,8 +655,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
-
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
@@ -699,7 +674,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -710,15 +684,13 @@ describe('documents', () => {
             it('test correct content loaded on the page with english foreign death cert', (done) => {
                 sessionData.deceased = {
                     maritalStatus: 'optionDivorced',
-                    diedEngOrWales: 'optionNo',
+                    diedEngOrWales: 'optionNo'
                 };
 
                 sessionData.applicant = {
                     relationshipToDeceased: 'optionChild'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
-
-                contentData.renunciationFormLink = config.links.renunciationForm;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -739,7 +711,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -759,7 +730,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
                 contentData.applicationFormPA19 = config.links.applicationFormPA19;
 
                 testWrapper.agent.post('/prepare-session/form')
@@ -779,7 +749,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -798,8 +767,6 @@ describe('documents', () => {
                     relationshipToDeceased: 'optionChild'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
-
-                contentData.renunciationFormLink = config.links.renunciationForm;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -820,7 +787,6 @@ describe('documents', () => {
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',
                             'checklist-item10-iht207',
-                            'checklist-item11-spouse-giving-up-admin-rights-PA16',
                             'no-docs-required'
                         ];
 
@@ -828,18 +794,18 @@ describe('documents', () => {
                     });
             });
 
-            it('test correct content loaded on the page when spouse is giving up admin rights and applicant is child', (done) => {
+            it('test correct content loaded on the page when spouse renounces and applicant is child', (done) => {
                 sessionData.deceased = {
                     maritalStatus: 'optionMarried',
-                    anyOtherChildren: 'optionNo'
+                    anyOtherChildren: 'optionYes'
                 };
                 sessionData.applicant = {
-                    relationshipToDeceased: 'optionAdoptedChild',
+                    relationshipToDeceased: 'optionChild',
                     spouseNotApplyingReason: 'optionRenouncing'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.spouseGivingUpAdminRightsPA16Link = config.links.spouseGivingUpAdminRightsPA16Link;
+                contentData.renunciationFormLink = config.links.pa16GiveUpAdminRightsFormLink;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -852,11 +818,49 @@ describe('documents', () => {
                             'checklist-item2-codicils',
                             'checklist-item2-no-codicils',
                             'checklist-item3-codicils-written-wishes',
-                            'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert',
+                            'checklist-item4-interim-death-cert',
                             'checklist-item4-foreign-death-cert-translation',
                             'checklist-item5-foreign-death-cert-PA19',
-                            'checklist-item6-spouse-renouncing',
+                            'checklist-item7-iht205',
+                            'checklist-item8-renunciated',
+                            'checklist-item9-deed-poll',
+                            'checklist-item10-iht207',
+                            'no-docs-required'
+                        ];
+
+                        testWrapper.testContent(done, contentData, contentToExclude);
+                    });
+            });
+
+            it('test correct content loaded on the page when spouse renounces and applicant is adopted child', (done) => {
+                sessionData.deceased = {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                };
+                sessionData.applicant = {
+                    relationshipToDeceased: 'optionAdoptedChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                };
+                sessionData.caseType = caseTypes.INTESTACY;
+
+                contentData.renunciationFormLink = config.links.pa16GiveUpAdminRightsFormLink;
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const contentToExclude = [
+                            'header',
+                            'HelpHeading',
+                            'helpfulParagraph',
+                            'documentsParagraph4',
+                            'checklist-item2-codicils',
+                            'checklist-item2-no-codicils',
+                            'checklist-item3-codicils-written-wishes',
+                            'checklist-item4-foreign-death-cert',
+                            'checklist-item4-interim-death-cert',
+                            'checklist-item4-foreign-death-cert-translation',
+                            'checklist-item5-foreign-death-cert-PA19',
                             'checklist-item7-iht205',
                             'checklist-item8-renunciated',
                             'checklist-item9-deed-poll',

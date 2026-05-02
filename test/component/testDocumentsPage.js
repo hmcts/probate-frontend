@@ -577,8 +577,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
-
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
@@ -619,8 +617,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
-
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
@@ -659,8 +655,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
-
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
@@ -697,8 +691,6 @@ describe('documents', () => {
                     relationshipToDeceased: 'optionChild'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
-
-                contentData.renunciationFormLink = config.links.renunciationForm;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -738,7 +730,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
                 contentData.applicationFormPA19 = config.links.applicationFormPA19;
 
                 testWrapper.agent.post('/prepare-session/form')
@@ -777,8 +768,6 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.renunciationForm;
-
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
@@ -816,7 +805,7 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.spouseGivingUpAdminRightsPA16Link;
+                contentData.renunciationFormLink = config.links.pa16GiveUpAdminRightsFormLink;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
@@ -855,7 +844,7 @@ describe('documents', () => {
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
 
-                contentData.renunciationFormLink = config.links.spouseGivingUpAdminRightsPA16Link;
+                contentData.renunciationFormLink = config.links.pa16GiveUpAdminRightsFormLink;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)

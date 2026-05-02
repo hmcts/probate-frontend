@@ -202,9 +202,25 @@ describe('Documents.js', () => {
         });
     });
 
-    describe('spouseRenunciationRequired()', () => {
-        it('should return true when deceased is married and applicant is child', (done) => {
+    describe('spouseRenunciationPa16FormRequired()', () => {
+        it('should return true when intestacy spouse renunciation conditions are met', (done) => {
             const data = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.spouseRenunciationPa16FormRequired()).to.equal(true);
+            done();
+        });
+        it('should return false when spouse renunciation reason is missing', (done) => {
+            const data = {
+                caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionMarried'
                 },
@@ -213,23 +229,39 @@ describe('Documents.js', () => {
                 }
             };
             const documentsWrapper = new DocumentsWrapper(data);
-            expect(documentsWrapper.spouseRenunciationRequired()).to.equal(true);
+            expect(documentsWrapper.spouseRenunciationPa16FormRequired()).to.equal(false);
             done();
         });
         it('should return false when deceased is not married', (done) => {
             const data = {
+                caseType: caseTypes.INTESTACY,
                 deceased: {
                     maritalStatus: 'optionDivorced'
                 },
                 applicant: {
-                    relationshipToDeceased: 'optionChild'
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
                 }
             };
             const documentsWrapper = new DocumentsWrapper(data);
-            expect(documentsWrapper.spouseRenunciationRequired()).to.equal(false);
+            expect(documentsWrapper.spouseRenunciationPa16FormRequired()).to.equal(false);
             done();
         });
-
+        it('should return false when case is not intestacy', (done) => {
+            const data = {
+                caseType: caseTypes.GOP,
+                deceased: {
+                    maritalStatus: 'optionMarried'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const documentsWrapper = new DocumentsWrapper(data);
+            expect(documentsWrapper.spouseRenunciationPa16FormRequired()).to.equal(false);
+            done();
+        });
     });
 
     describe('spouseRenunciationPa16FormRequired()', () => {

@@ -434,7 +434,6 @@ describe('Documents', () => {
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.showSpouseRenunciationItem).to.equal(true);
-                expect(ctx.usePa16RenunciationLink).to.equal(true);
                 assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
@@ -453,7 +452,6 @@ describe('Documents', () => {
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.showSpouseRenunciationItem).to.equal(true);
-                expect(ctx.usePa16RenunciationLink).to.equal(true);
                 assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
@@ -472,7 +470,6 @@ describe('Documents', () => {
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.showSpouseRenunciationItem).to.equal(true);
-                expect(ctx.usePa16RenunciationLink).to.equal(true);
                 assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
@@ -491,7 +488,6 @@ describe('Documents', () => {
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.showSpouseRenunciationItem).to.equal(false);
-                expect(ctx.usePa16RenunciationLink).to.equal(false);
                 assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });
@@ -509,7 +505,6 @@ describe('Documents', () => {
                 };
                 const [ctx] = Documents.handleGet(ctxToTest, formdata);
                 expect(ctx.showSpouseRenunciationItem).to.equal(false);
-                expect(ctx.usePa16RenunciationLink).to.equal(false);
                 assert.isUndefined(ctx.isSpouseGivingUpAdminRights);
                 done();
             });

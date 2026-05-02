@@ -195,9 +195,7 @@ describe('ThankYou', () => {
                     documentsRequired() {
                         return false;
                     }
-                    spouseRenunciationRequired() {
-                        return false;
-                    }
+
                     spouseRenunciationPa16FormRequired() {
                         return false;
                     }
@@ -239,7 +237,6 @@ describe('ThankYou', () => {
             const thankYou = steps.ThankYou;
             const [ctx] = thankYou.handleGet({caseType: caseTypes.INTESTACY}, formdata);
             expect(ctx.showSpouseRenunciationItem).to.deep.equal(true);
-            expect(ctx.usePa16RenunciationLink).to.deep.equal(true);
             done();
         });
 
@@ -258,7 +255,6 @@ describe('ThankYou', () => {
             const thankYou = steps.ThankYou;
             const [ctx] = thankYou.handleGet({caseType: caseTypes.INTESTACY}, formdata);
             expect(ctx.showSpouseRenunciationItem).to.deep.equal(true);
-            expect(ctx.usePa16RenunciationLink).to.deep.equal(true);
             done();
         });
 
@@ -277,7 +273,6 @@ describe('ThankYou', () => {
             const thankYou = steps.ThankYou;
             const [ctx] = thankYou.handleGet({caseType: caseTypes.INTESTACY}, formdata);
             expect(ctx.showSpouseRenunciationItem).to.deep.equal(true);
-            expect(ctx.usePa16RenunciationLink).to.deep.equal(true);
             done();
         });
 

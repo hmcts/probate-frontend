@@ -58,8 +58,7 @@ class Documents extends ValidationStep {
             ctx.hasRenunciated = executorsWrapper.hasRenunciated();
             ctx.executorsNameChangedByDeedPollList = executorsWrapper.executorsNameChangedByDeedPoll();
         } else {
-            ctx.showSpouseRenunciationItem = documentsWrapper.spouseRenunciationRequired();
-            ctx.usePa16RenunciationLink = documentsWrapper.spouseRenunciationPa16FormRequired();
+            ctx.showSpouseRenunciationItem = documentsWrapper.spouseRenunciationPa16FormRequired();
         }
 
         if (formdata.will && formdata.will.deceasedWrittenWishes) {

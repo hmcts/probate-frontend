@@ -3566,14 +3566,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.15.2, axios@npm:^1.8.4":
-  version: 1.15.2
-  resolution: "axios@npm:1.15.2"
+"axios@npm:^1.8.4":
+  version: 1.16.0
+  resolution: "axios@npm:1.16.0"
   dependencies:
-    follow-redirects: "npm:^1.15.11"
+    follow-redirects: "npm:^1.16.0"
     form-data: "npm:^4.0.5"
     proxy-from-env: "npm:^2.1.0"
-  checksum: 10/eebbd8cb777316d4252cd994a06ec9fb956ef519214a62dab6c5443ae8b753b5116e9a770502316789e6cdef1101e6aae53b6936d6a3791b2d66d75f4d7d2462
+  checksum: 10/cf8b521ff732c21550b38c8739aef556ea5e14b268468bb89e4307416ab262b462e582474e810963a3d61c2392ab47ad35c11d05eff027de7c97113bc7411623
   languageName: node
   linkType: hard
 
@@ -12309,7 +12309,6 @@ __metadata:
     ajv: "npm:^6.15.0"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.9.8"
-    axios: "npm:^1.15.2"
     basic-auth: "npm:^2.0.1"
     body-parser: "npm:^2.2.2"
     chai: "npm:^4.3.7"

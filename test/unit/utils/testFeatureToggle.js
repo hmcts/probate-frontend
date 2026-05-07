@@ -3,9 +3,7 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const rewire = require('rewire');
 const FeatureToggle = require('app/utils/FeatureToggle');
-const RewiredFeatureToggle = rewire('app/utils/FeatureToggle');
 
 describe('FeatureToggle', () => {
     describe('togglePage()', () => {

@@ -43,7 +43,6 @@ class ExecutorCurrentNameReason extends ValidationStep {
                 }
                 return executor;
             });
-            // return merge(ctx, {list: sanitizeInput(list)});
             ctx.list = sanitizeInput(list);
         }
         return ctx;

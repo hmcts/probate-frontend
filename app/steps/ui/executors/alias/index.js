@@ -40,9 +40,8 @@ class ExecutorsAlias extends ValidationStep {
                 return executor;
             });
 
-            // return merge(ctx, {list: sanitizeInput(list)}); OR
+            //return merge(ctx, {list: sanitizeInput(list)});
             ctx.list = sanitizeInput(list);
-            return ctx;
         }
         return ctx;
     }

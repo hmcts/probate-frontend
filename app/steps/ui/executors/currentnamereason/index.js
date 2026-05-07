@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {findIndex, get, startsWith} = require('lodash');
+const {findIndex, get, startsWith, merge} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const AliasData = require('app/utils/AliasData.js');
 const FieldError = require('../../../../components/error');
@@ -40,10 +40,11 @@ class ExecutorCurrentNameReason extends ValidationStep {
                 if (executor.hasOtherName) {
                     executor.hasOtherName = false;
                     delete executor.currentNameReason;
+                    delete executor.otherReason;
                 }
                 return executor;
             });
-            ctx.list = sanitizeInput(list);
+            return merge(ctx, {list: sanitizeInput(list)});
         }
         return ctx;
     }

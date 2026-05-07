@@ -68,7 +68,7 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
-        ctx = merge(ctx, Sanitize.sanitizeInput(req.body));
+        ctx = {...ctx, ...Sanitize.sanitizeInput(req.body)};
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
         ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type

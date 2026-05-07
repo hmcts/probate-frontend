@@ -12,7 +12,6 @@ java {
 // tag::repositories[]
 repositories {
     mavenLocal()
-    mavenCentral()
     maven {
         url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
     }
@@ -27,7 +26,7 @@ dependencies {
 //end::dependencies[]
 
 tasks.register('fortifyScan', JavaExec) {
-  main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+  mainClass.set("uk.gov.hmcts.fortifyclient.FortifyClientMainApp")
   classpath += sourceSets.test.runtimeClasspath
   jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }

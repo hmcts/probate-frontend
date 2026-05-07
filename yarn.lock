@@ -8159,14 +8159,14 @@ __metadata:
   linkType: hard
 
 "i18next@npm:^26.0.8":
-  version: 26.0.9
-  resolution: "i18next@npm:26.0.9"
+  version: 26.0.10
+  resolution: "i18next@npm:26.0.10"
   peerDependencies:
     typescript: ^5 || ^6
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/8954e88674fe1d5334829b450369833639a62cb8ee18419f6089a93fbbbe42a5c843327327fe6dc57862f2ee3d1ee0d787ebae1ec86a9775e6b17ee697aa1300
+  checksum: 10/0be15d84fe678e4dd0f234574084bba8a7b2d82078da0ea28050272fd1dc13f1bb22dc3bd3bb422a7a7545aef2a480b26e2033486df0a7e9afee1aa37e9eb1c4
   languageName: node
   linkType: hard
 

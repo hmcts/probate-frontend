@@ -19,7 +19,7 @@ class ExecutorContactDetails extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
+            ctx.index = parseInt(req.params[0], 10);
         } else {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;

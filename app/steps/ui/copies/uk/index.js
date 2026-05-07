@@ -12,7 +12,7 @@ class CopiesUk extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.uk = ctx.uk ? parseInt(ctx.uk): ctx.uk;
+        ctx.uk = ctx.uk ? parseInt(ctx.uk, 10): ctx.uk;
         return ctx;
     }
 

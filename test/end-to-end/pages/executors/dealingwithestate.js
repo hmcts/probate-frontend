@@ -6,7 +6,7 @@ module.exports = async function(language = 'en', executorsApplyingList = null) {
 
     await I.checkInUrl('/other-executors-applying');
     for (let i = 0; i < executorsApplyingList.length; i++) {
-        const locator = {css: `#executorsApplying-${parseInt(executorsApplyingList[i]) - 1}`};
+        const locator = {css: `#executorsApplying-${parseInt(executorsApplyingList[i], 10) - 1}`};
         // eslint-disable-next-line no-await-in-loop
         await I.waitForEnabled(locator);
         // eslint-disable-next-line no-await-in-loop

@@ -23,5 +23,3 @@ class Sanitize {
 }
 
 module.exports = Sanitize;
-
-module.exports = Sanitize;

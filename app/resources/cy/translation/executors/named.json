@@ -2,6 +2,7 @@
   "title": "Ysgutorion a enwir yn yr ewyllys",
   "titleWithCodicil": "Ysgutorion a enwir yn yr ewyllys ac unrhyw godisiliau",
   "question": "A oes unrhyw ysgutorion eraill a enwir?",
+  "questionCheckYourAnswer": "A oes unrhyw ysgutorion eraill wedi’u henwi yn yr ewyllys neu'r codisil?",
   "hintText": "Sicrhewch eich bod yn cynnwys pob ysgutor a enwir yn yr ewyllys, gan gynnwys unrhyw un sydd:",
   "hintTextWithCodicil": "Sicrhewch eich bod yn cynnwys pob ysgutor a enwir yn yr ewyllys ac unrhyw godisiliau, gan gynnwys unrhyw un sydd:",
   "executorsDied": "wedi marw",

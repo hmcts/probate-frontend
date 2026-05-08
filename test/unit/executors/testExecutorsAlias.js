@@ -96,11 +96,9 @@ describe('Executors-Alias', () => {
             expect(result.list[1]).to.not.have.property('otherReason');
         });
         it('should handle sequential: optionYes -> optionNo -> optionYes', () => {
-            // Start with optionYes
             let result = ExecutorsAlias.pruneFormData(ctx);
             // eslint-disable-next-line no-unused-expressions
             expect(result.list[0].hasOtherName).to.be.true;
-            // Change to optionNo
             ctx.alias = 'optionNo';
             ctx.list[0].hasOtherName = false;
             ctx.list[1].hasOtherName = false;
@@ -108,7 +106,6 @@ describe('Executors-Alias', () => {
             // eslint-disable-next-line no-unused-expressions
             expect(result.list[0].hasOtherName).to.be.false;
             expect(result.list[0]).to.not.have.property('currentName');
-            // Change back to optionYes, simulate user re-entering data
             ctx.alias = 'optionYes';
             ctx.list[0].hasOtherName = true;
             ctx.list[0].currentName = 'ReSteve';
@@ -126,7 +123,6 @@ describe('Executors-Alias', () => {
             let result = ExecutorsAlias.pruneFormData(ctx);
             // eslint-disable-next-line no-unused-expressions
             expect(result.list[0].hasOtherName).to.be.false;
-            // Change to optionYes
             ctx.alias = 'optionYes';
             ctx.list[0].hasOtherName = true;
             ctx.list[0].currentName = 'Danny';
@@ -138,7 +134,6 @@ describe('Executors-Alias', () => {
             expect(result.list[0].currentName).to.equal('Danny');
             expect(result.list[0].currentNameReason).to.equal('optionOther');
             expect(result.list[0].otherReason).to.equal('Test');
-            // Change back to optionNo
             ctx.alias = 'optionNo';
             ctx.list[0].hasOtherName = false;
             result = ExecutorsAlias.pruneFormData(ctx);

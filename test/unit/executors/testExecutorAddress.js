@@ -103,7 +103,6 @@ describe('ExecutorAddress', () => {
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.otherExecName).to.equal(executors.list[0].fullName);
-            expect(ctx.executorsWrapper).to.be.instanceOf(ExecutorsWrapper);
             done();
         });
     });
@@ -442,7 +441,8 @@ describe('ExecutorAddress', () => {
 
         beforeEach(() => {
             executorsList = [{
-                isApplying: true
+                isApplying: true,
+                isApplicant: true
             }, {
                 isApplying: true,
                 email: 'james.miller@example.com',
@@ -458,7 +458,6 @@ describe('ExecutorAddress', () => {
         it('returns true if all the applying executors excluding the main applicant have an email, mobile and address', (done) => {
             const testCtx = {
                 list: executorsList,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const isComplete = ExecutorAddress.isComplete(testCtx);
 
@@ -467,10 +466,9 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns true if there is one executor applying (the main applicant)', (done) => {
-            executorsList = [{isApplying: true}];
+            executorsList = [{isApplying: true, isApplicant: true}];
             const testCtx = {
                 list: executorsList,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const isComplete = ExecutorAddress.isComplete(testCtx);
 

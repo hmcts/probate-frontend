@@ -19,6 +19,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'intestacy',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -59,12 +62,15 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [],
+                    checkListItemsWelsh: [],
                     noDocumentsRequired: true,
-                    noDocumentsRequiredText: 'Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below'
+                    noDocumentsRequiredText: 'Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below',
+                    noDocumentsRequiredTextWelsh: 'Yn seiliedig ar y manylion yn y cais, nid oes angen unrhyw ddogfennau eraill. Fodd bynnag, os gofynnir am dogfennau gennych yn y dyfodol, anfonwch nhw i’r cyfeiriad isod gyda’r ddalen flaen hon, os gwelwch yn dda'
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);
@@ -77,6 +83,9 @@ describe('CoverSheetPdfService', () => {
             const endpoint = 'http://localhost';
             const formdata = {
                 caseType: 'intestacy',
+                language: {
+                    bilingual: 'optionNo'
+                },
                 applicant: {
                     firstName: 'Joe',
                     lastName: 'Bloggs',
@@ -116,12 +125,15 @@ describe('CoverSheetPdfService', () => {
                 config.pdf.template.coverSheet,
                 {
                     applicantAddress: '1 Red Road, London, L1 1LL',
+                    isBilingual: false,
                     applicantName: 'Joe Bloggs',
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [],
+                    checkListItemsWelsh: [],
                     noDocumentsRequired: true,
-                    noDocumentsRequiredText: 'Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below'
+                    noDocumentsRequiredText: 'Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below',
+                    noDocumentsRequiredTextWelsh: 'Yn seiliedig ar y manylion yn y cais, nid oes angen unrhyw ddogfennau eraill. Fodd bynnag, os gofynnir am dogfennau gennych yn y dyfodol, anfonwch nhw i’r cyfeiriad isod gyda’r ddalen flaen hon, os gwelwch yn dda'
                 },
                 'Post cover sheet pdf'
             )).to.equal(true);

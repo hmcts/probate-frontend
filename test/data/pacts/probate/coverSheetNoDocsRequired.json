@@ -1,10 +1,14 @@
 {
+"isBilingual": false,
 "applicantName": "Appfn Surname",
 "applicantAddress": "addressLine1",
 "caseReference": "123454",
 "submitAddress": "manchester",
 "checkListItems": [
 ],
+"checkListItemsWelsh": [
+],
 "noDocumentsRequired": true,
-"noDocumentsRequiredText": "Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below"
+"noDocumentsRequiredText": "Based on the details in the application no documents are required. However if documents are requested  from you  in the future, please send them along with this cover sheet to the address below",
+"noDocumentsRequiredTextWelsh": "Yn seiliedig ar y manylion yn y cais, nid oes angen unrhyw ddogfennau eraill. Fodd bynnag, os gofynnir am dogfennau gennych yn y dyfodol, anfonwch nhw i’r cyfeiriad isod gyda’r ddalen flaen hon, os gwelwch yn dda"
 }

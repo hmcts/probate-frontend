@@ -1,4 +1,5 @@
 {
+  "isBilingual": false,
   "applicantAddress": "",
   "applicantName": "Appfn Surname",
   "caseReference": "123454",
@@ -9,6 +10,13 @@
         "type": "textOnly"
     }
   ],
+  "checkListItemsWelsh": [
+    {
+      "text": "yr ewyllys wreiddiol (yn ôl y gyfraith, rhaid i ni gadw'r ewyllys wreiddiol wrth iddi ddod yn ddogfen gyhoeddus)",
+      "type": "textOnly"
+    }
+  ],
   "noDocumentsRequired": false,
-  "noDocumentsRequiredText": null
+  "noDocumentsRequiredText": null,
+  "noDocumentsRequiredTextWelsh": null
 }

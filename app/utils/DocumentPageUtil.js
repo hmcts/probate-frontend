@@ -58,7 +58,7 @@ class DocumentPageUtil {
                 );
             });
         }
-        if (ctx.spouseRenunciationPa16FormRequired) {
+        if (ctx.showSpouseRenunciationItem) {
             checkListItems.push(
                 content['checklist-item6-spouse-renouncing'].replace('{renunciationFormLink}', config.links.pa16GiveUpAdminRightsFormLink)
             );

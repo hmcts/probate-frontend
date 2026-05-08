@@ -573,9 +573,11 @@ describe('documents', () => {
                     maritalStatus: 'optionMarried'
                 };
                 sessionData.applicant = {
-                    relationshipToDeceased: 'optionChild'
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
                 };
                 sessionData.caseType = caseTypes.INTESTACY;
+                contentData.renunciationFormLink = config.links.pa16GiveUpAdminRightsFormLink;
 
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)

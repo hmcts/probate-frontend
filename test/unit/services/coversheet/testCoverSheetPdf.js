@@ -121,10 +121,10 @@ describe('CoverSheetPdfService', () => {
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
-                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
+                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: config.links.pa16GiveUpAdminRightsFormLink, beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
                     ],
                     checkListItemsWelsh: [
-                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
+                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: config.links.pa16GiveUpAdminRightsFormLink, beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
                     ],
                     noDocumentsRequired: false,
                     noDocumentsRequiredText: null,
@@ -186,10 +186,10 @@ describe('CoverSheetPdfService', () => {
                     caseReference: 'ccd123',
                     submitAddress: 'Digital Application, Oxford District Probate Registry, Combined Court Building, St Aldates, Oxford, OX1 1LY',
                     checkListItems: [
-                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
+                        {text: 'renunciation form (opens in a new tab)', type: 'textWithLink', url: config.links.pa16GiveUpAdminRightsFormLink, beforeLinkText: 'a ', afterLinkText: ' filled in by the spouse or civil partner of the deceased who is permanently giving up the right to make this application for probate'},
                     ],
                     checkListItemsWelsh: [
-                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: config.links.spouseGivingUpAdminRightsPA16Link, beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
+                        {text: 'ffurflen ymwrthod (yn agor mewn tab newydd)', type: 'textWithLink', url: config.links.pa16GiveUpAdminRightsFormLink, beforeLinkText: 'a ', afterLinkText: ' wedi&rsquo;i llenwi gan &wcirc;r/gwraig neu bartner sifil yr unigolyn sydd wedi marw sy&rsquo;n rhoi fyny yr hawl yn barhaol i wneud y cais hwn am brofiant'},
                     ],
                     noDocumentsRequired: false,
                     noDocumentsRequiredText: null,

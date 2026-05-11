@@ -172,7 +172,7 @@
     "eslint": "^9.39.4",
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-mocha": "^11.2.0",
-    "eslint-plugin-n": "^17.24.0",
+    "eslint-plugin-n": "^18.0.0",
     "globals": "^17.5.0",
     "if-env": "^1.0.4",
     "ip": "^2.0.1",

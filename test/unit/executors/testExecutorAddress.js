@@ -5,7 +5,6 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
-const ExecutorsWrapper = require('app/wrappers/Executors');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorAddress = steps.ExecutorAddress;
 const executorAddressPath = '/executor-address/';
@@ -86,7 +85,7 @@ describe('ExecutorAddress', () => {
             done();
         });
 
-        it('sets otherExecName and ExecutorsWrapper', (done) => {
+        it('sets otherExecName', (done) => {
             const req = {
                 session: {
                     form: {
@@ -287,7 +286,6 @@ describe('ExecutorAddress', () => {
                     isApplying: true
                 }],
                 index: 0,
-                executorsWrapper: new ExecutorsWrapper(),
                 addressLine1: 'line1',
                 addressLine2: 'line2',
                 addressLine3: 'line3',
@@ -367,9 +365,10 @@ describe('ExecutorAddress', () => {
                 }
             };
             const testCtx = {
-                list: [{}, {}],
+                list: [
+                    {isApplying: true},
+                ],
                 index: -1,
-                executorsWrapper: new ExecutorsWrapper(this.list)
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
@@ -386,7 +385,6 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(this.list)
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
 
@@ -399,7 +397,6 @@ describe('ExecutorAddress', () => {
         it('returns the next step options', (done) => {
             const testCtx = {
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const nextStepOptions = ExecutorAddress.nextStepOptions(testCtx);
 
@@ -426,7 +423,6 @@ describe('ExecutorAddress', () => {
                 allExecsApplying: true,
                 continue: true,
                 index: 0,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const testFormdata = {};
             const action = ExecutorAddress.action(testCtx, testFormdata);
@@ -480,7 +476,6 @@ describe('ExecutorAddress', () => {
             executorsList.push({isApplying: true});
             const testCtx = {
                 list: executorsList,
-                executorsWrapper: new ExecutorsWrapper({list: executorsList})
             };
             const isComplete = ExecutorAddress.isComplete(testCtx);
 

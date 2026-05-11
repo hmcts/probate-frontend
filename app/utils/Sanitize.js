@@ -2,7 +2,13 @@
 
 class Sanitize {
     static sanitizeInput(input) {
-        if (input === null || typeof input !== 'object' || Array.isArray(input)) {
+        if (input === null) {
+            return input;
+        }
+        if (typeof input !== 'object') {
+            return {};
+        }
+        if (Array.isArray(input)) {
             return input;
         }
 

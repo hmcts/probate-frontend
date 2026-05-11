@@ -22,6 +22,7 @@ const moment = require('moment');
 const AssetsThreshold = require('app/utils/AssetsThreshold');
 const DocumentsWrapper = require('app/wrappers/Documents');
 const {sanitizeInput} = require('../../../utils/Sanitize');
+const featureToggle = require('app/utils/FeatureToggle');
 
 class Declaration extends ValidationStep {
     static getUrl() {
@@ -59,7 +60,9 @@ class Declaration extends ValidationStep {
         if (!documentsWrapper.documentsRequired() && formdata.applicant) {
             formdata.applicant.notRequiredToSendDocuments = true;
         }
-        if (ctx.hasDataChanged && ctx.invitesSent) {
+
+        const useUpdateDraftCallback = featureToggle.isEnabled(session.featureToggles, 'ft_use_update_draft_callback');
+        if (ctx.hasDataChanged && ctx.invitesSent && !useUpdateDraftCallback) {
             const inviteData = new InviteData(config.services.orchestrator.url, ctx.sessionID);
             yield inviteData.resetAgreedFlag(ctx.ccdCase.id, ctx)
                 .then(result => {

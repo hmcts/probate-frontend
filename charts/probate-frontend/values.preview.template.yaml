@@ -4,7 +4,7 @@ nodejs:
   devcpuRequests: 10m
   devcpuLimits: 100m
   devmemoryRequests: 256Mi
-  devmemoryLimits: 512Mi
+  devmemoryLimits: 1Gi
   autoscaling:
     enabled: false
   environment:

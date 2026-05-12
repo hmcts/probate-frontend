@@ -7923,12 +7923,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hosted-git-info@npm:^9.0.0":
-  version: 9.0.3
-  resolution: "hosted-git-info@npm:9.0.3"
+"hosted-git-info@npm:^10.0.0":
+  version: 10.1.0
+  resolution: "hosted-git-info@npm:10.1.0"
   dependencies:
     lru-cache: "npm:^11.1.0"
-  checksum: 10/c5683d03a57a691c60973eb7f6e6b83e0d70903df7e8e032c9a4673fb9c70c6df70cdcd0f3bf796426c75973a3251c39b0755510ff1ec2a704239668ef1881cc
+  checksum: 10/2d6f411e3b7957332290ca386c5842d21fd96fa6ac92a9a4a0b4bab89c8d7ca10ef916d85b1c748ea998374f910d27e2714dc8511d095fabeae5151d6e6a4f4f
   languageName: node
   linkType: hard
 

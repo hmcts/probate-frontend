@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { BasePage } from '../../base/BasePage';
-import { ROUTES } from '../../../constants/routes';
+import { BasePage } from '../../base/BasePage.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 
 type PaymentDetails = {
   cardNumber: string;

@@ -1,5 +1,5 @@
-import { BasePage } from '../../base/BasePage';
-import { ROUTES } from '../../../constants/routes';
+import { BasePage } from '../../base/BasePage.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 
 export class WillLeftPage extends BasePage {
   private readonly pageUrl = ROUTES.willLeft;

@@ -1,5 +1,5 @@
 import { expect, Locator } from '@playwright/test';
-import { BasePage } from '../../base/BasePage';
+import { BasePage } from '../../base/BasePage.ts';
 
 export class DashboardPage extends BasePage {
   private readonly pageUrl = /\/dashboard$/;

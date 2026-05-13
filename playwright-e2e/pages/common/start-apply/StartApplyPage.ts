@@ -1,22 +1,19 @@
-import { expect, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class StartApplyPage extends BasePage {
-  private readonly pageUrl = /\/start-apply$/;
-  private readonly loginPageUrl = /idam-web-public\.ithc\.platform\.hmcts\.net\/login/;
-
-  constructor(page: Page) {
-    super(page);
-  }
+  private readonly pageUrl = ROUTES.startApply;
+  private readonly nextPageUrl = ROUTES.dashboard;
 
   async clickLogIn(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
 
-    const loginLink = this.page.getByRole('link', { name: /log in\.?/i });
+    const loginLink = this.page.getByRole('link', { name: 'Log in' });
     await expect(loginLink).toBeVisible();
 
     await Promise.all([
-      this.page.waitForURL(this.loginPageUrl, { waitUntil: 'domcontentloaded' }),
+      this.page.waitForURL(this.nextPageUrl, { waitUntil: 'domcontentloaded' }),
       loginLink.click(),
     ]);
   }

@@ -1,8 +1,9 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class WillLeftPage extends BasePage {
-  private readonly pageUrl = /\/will-left/;
-  private readonly nextPageUrl = /\/related-to-deceased/;
+  private readonly pageUrl = ROUTES.willLeft;
+  private readonly nextPageUrl = ROUTES.relatedToDeceased;
 
   async selectNo(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

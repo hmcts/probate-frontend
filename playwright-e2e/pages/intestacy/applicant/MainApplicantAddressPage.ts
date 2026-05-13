@@ -1,9 +1,9 @@
-import { expect, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { DeceasedAddressPage } from '../deceased/DeceasedAddressPage';
+import { ROUTES } from '../../../constants/routes';
 
 export class MainApplicantAddressPage extends DeceasedAddressPage {
-  protected readonly pageUrl = /\/intestacy\/applicant-address$/;
-  
+  protected readonly pageUrl = ROUTES.intestacyApplicantAddress;
 
   async enterManualAddressAndContinue(
     addressLine1: string,

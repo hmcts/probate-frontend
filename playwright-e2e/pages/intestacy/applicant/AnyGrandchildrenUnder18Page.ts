@@ -1,8 +1,9 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class AnyGrandchildrenUnder18Page extends BasePage {
-  private readonly pageUrl = /\/intestacy\/any-grandchildren-under-18$/;
-  private readonly nextPageUrl = /\/intestacy\/all-children-over-18$/;
+  private readonly pageUrl = ROUTES.intestacyAnyGrandchildrenUnder18;
+  private readonly nextPageUrl = ROUTES.intestacyAllChildrenOver18;
 
   async selectNo(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

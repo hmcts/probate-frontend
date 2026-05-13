@@ -1,8 +1,9 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class ApplicantNamePage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/applicant-name$/;
-  private readonly nextPageUrl = /\/intestacy\/applicant-phone$/;
+  private readonly pageUrl = ROUTES.intestacyApplicantName;
+  private readonly nextPageUrl = ROUTES.intestacyApplicantPhone;
 
   async enterApplicantName(firstName: string, lastName: string): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

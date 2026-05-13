@@ -1,5 +1,11 @@
 import { test } from '../../../fixtures/test';
-import { deceased, mainApplicant, paymentDetails } from '../../../data/intestacy/sole/child.scenarios';
+import {
+  deceased,
+  soleChildApplicant,
+  paymentDetails,
+  commonIntestacyScenario,
+} from '../../../data/intestacy/sole/scenarios';
+import { ROUTES } from '../../../constants/routes';
 
 test.describe('Intestacy sole child journey', () => {
   test('Go to death-certificate page and complete deceased details', async ({
@@ -11,7 +17,6 @@ test.describe('Intestacy sole child journey', () => {
     eeEstateValuedPage,
     willLeftPage,
     relatedToDeceasedPage,
-    dashboardPage,
     taskListPage,
     bilingualGopPage,
     deceasedNamePage,
@@ -52,11 +57,8 @@ test.describe('Intestacy sole child journey', () => {
     cardDetailsPage,
     cardConfirmPage,
     thankYouPage,
-
-
   }) => {
     await page.goto('/death-certificate');
-
     await deathCertificatePage.selectYes();
     await deathCertificateEnglishPage.selectYes();
     await deceasedDomicilePage.selectYes();
@@ -64,17 +66,20 @@ test.describe('Intestacy sole child journey', () => {
     await eeEstateValuedPage.selectYes();
     await willLeftPage.selectNo();
     await relatedToDeceasedPage.selectChild();
-    await page.goto('/dashboard');
-    await dashboardPage.continueDraftApplicationWithoutName();
-    await taskListPage.expectLoaded();
+
     await taskListPage.clickTellUsAboutThePersonWhoHasDied();
     await bilingualGopPage.selectNo();
-    await deceasedNamePage.fillDeceasedNameAndContinue(deceased.firstName, deceased.lastName);
+
+    await deceasedNamePage.fillDeceasedNameAndContinue(
+      deceased.firstName,
+      deceased.lastName,
+    );
+
     await deceasedDobPage.fillDobAndContinue(
       deceased.dob.day,
       deceased.dob.month,
       deceased.dob.year,
-);
+    );
 
     await deceasedDodPage.fillDodAndContinue(
       deceased.dod.day,
@@ -90,41 +95,52 @@ test.describe('Intestacy sole child journey', () => {
       deceased.address.postcode,
       deceased.address.country,
     );
+
     await diedEngOrWalesPage.selectYes();
     await certificateInterimPage.selectDeathCertificate();
     await calcCheckPage.selectYes();
     await newSubmittedToHmrcPage.selectYes();
     await hmrcLetterPage.selectYes();
-    await uniqueProbateCodePage.enterUniqueProbateCodeAndContinue('CTS 040523 1104 3tpp s8e9');
-    await probateEstateValuesPage.enterEstateValuesAndContinue('2500', '2000');
+    await uniqueProbateCodePage.enterUniqueProbateCodeAndContinue(commonIntestacyScenario.uniqueProbateCode);
+    await probateEstateValuesPage.enterEstateValuesAndContinue(
+      commonIntestacyScenario.probateEstateValues.grossValue,
+      commonIntestacyScenario.probateEstateValues.netValue,
+    );
     await assetsOutsideEnglandWalesPage.selectNo();
     await deceasedAliasPage.selectNo();
     await deceasedMaritalStatusPage.selectMarried();
+
     await taskListPage.clickGiveDetailsAboutThePeopleApplying();
     await relationshipToDeceasedPage.selectChild();
     await spouseNotApplyingReasonPage.selectGivingUpRightToApply();
     await mainApplicantAdoptedInPage.selectYes();
-    await adoptedInEnglandOrWalesPage.selectYes();
+    await adoptedInEnglandOrWalesPage.selectYes(ROUTES.intestacyAnyOtherChildren);
     await anyOtherChildrenPage.selectYes();
     await anyPredeceasedChildrenPage.selectYesSome();
     await anySurvivingGrandchildrenPage.selectYes();
     await anyGrandchildrenUnder18Page.selectNo();
     await allChildrenOver18Page.selectYes();
-    await applicantNamePage.enterApplicantName(mainApplicant.firstName, mainApplicant.lastName);
-    await applicantPhonePage.enterPhoneNumber(mainApplicant.phoneNumber);
-    await mainApplicantAddressPage.enterManualAddressAndContinue(
-      mainApplicant.address.line1,
-      mainApplicant.address.line2,
-      mainApplicant.address.line3,
-      mainApplicant.address.town,
-      mainApplicant.address.postcode,
-      mainApplicant.address.country,
+    await applicantNamePage.enterApplicantName(
+      soleChildApplicant.firstName,
+      soleChildApplicant.lastName,
     );
+    await applicantPhonePage.enterApplicantPhoneNumber(
+      soleChildApplicant.phoneNumber,
+    );
+    await mainApplicantAddressPage.enterManualAddressAndContinue(
+      soleChildApplicant.address.line1,
+      soleChildApplicant.address.line2,
+      soleChildApplicant.address.line3,
+      soleChildApplicant.address.town,
+      soleChildApplicant.address.postcode,
+      soleChildApplicant.address.country,
+    );
+
     await jointApplicationPage.selectNo();
     await equalityAndDiversityPage.optOut();
     await taskListPage.goToDeclaration();
-    await summaryDeclarationPage.saveAndContinue();
-    await declarationPage.confirmDeclarationAndContinue();
+    await summaryDeclarationPage.continueToDeclaration();
+    await declarationPage.confirmDeclarationAndContinue(ROUTES.taskList);
     await taskListPage.goToPayAndSubmit();
     await copiesUkPage.enterExtraOfficialCopiesAndContinue('1');
     await assetsOverseasPage.selectYes();
@@ -134,7 +150,9 @@ test.describe('Intestacy sole child journey', () => {
     await cardDetailsPage.fillCardDetailsAndContinue(paymentDetails);
     await cardConfirmPage.confirmPayment();
     await thankYouPage.expectApplicationSubmitted();
-    await thankYouPage.printCaseId();
 
+
+    const caseId = await thankYouPage.getCaseId();
+    console.log(`Case ID: ${caseId}`);
   });
 });

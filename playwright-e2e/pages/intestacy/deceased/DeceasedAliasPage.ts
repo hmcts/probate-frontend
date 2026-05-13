@@ -1,8 +1,9 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class DeceasedAliasPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/deceased-alias$/;
-  private readonly nextPageUrl = /\/intestacy\/deceased-marital-status$/;
+  private readonly pageUrl = ROUTES.intestacyDeceasedAlias;
+  private readonly nextPageUrl = ROUTES.intestacyDeceasedMaritalStatus;
 
   async selectNo(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

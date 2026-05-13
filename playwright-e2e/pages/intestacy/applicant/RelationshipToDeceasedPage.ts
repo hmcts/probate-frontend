@@ -1,44 +1,56 @@
 import { BasePage } from '../../base/BasePage';
-
-export type ApplicantRelationshipToDeceased =
-  | 'spousePartner'
-  | 'child'
-  | 'grandchild'
-  | 'none';
+import { ROUTES } from '../../../constants/routes';
 
 export class RelationshipToDeceasedPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/relationship-to-deceased$/;
-  private readonly nextPageUrl = /\/intestacy\/spouse-not-applying-reason$/;
+  private readonly pageUrl = ROUTES.intestacyRelationshipToDeceased;
 
-  private readonly relationshipRadioIds: Record<ApplicantRelationshipToDeceased, string> = {
-    spousePartner: 'relationshipToDeceased',
-    child: 'relationshipToDeceased-2',
-    grandchild: 'relationshipToDeceased-3',
-    none: 'relationshipToDeceased-5',
-  };
-
-  async selectRelationship(relationship: ApplicantRelationshipToDeceased): Promise<void> {
+  async selectSpouse(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue(
-      this.relationshipRadioIds[relationship],
-      this.nextPageUrl,
-      'Save and continue',
-    );
+    await this.page
+      .locator('input[name="relationshipToDeceased"][value="optionSpousePartner"]')
+      .setChecked(true);
+    await this.clickSaveAndContinue(ROUTES.intestacyApplicantName);
   }
 
-  async selectSpousePartner(): Promise<void> {
-    await this.selectRelationship('spousePartner');
-  }
+  async selectChild(
+    nextPageUrl: RegExp = ROUTES.intestacySpouseNotApplyingReason
+  ): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.page
+      .locator('input[name="relationshipToDeceased"][value="optionChild"]')
+      .setChecked(true);
 
-  async selectChild(): Promise<void> {
-    await this.selectRelationship('child');
+    await this.clickSaveAndContinue(nextPageUrl);
   }
 
   async selectGrandchild(): Promise<void> {
-    await this.selectRelationship('grandchild');
+    await this.waitForPageUrl(this.pageUrl);
+    await this.page
+      .locator('input[name="relationshipToDeceased"][value="optionGrandchild"]')
+      .setChecked(true);
+    await this.clickSaveAndContinue(ROUTES.intestacySpouseNotApplyingReason);
   }
 
-  async selectNoneOfTheAbove(): Promise<void> {
-    await this.selectRelationship('none');
+  async selectParent(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.page
+      .locator('input[name="relationshipToDeceased"][value="optionParent"]')
+      .setChecked(true);
+    await this.clickSaveAndContinue(ROUTES.intestacyAnyLivingDescendants);
+  }
+
+  async selectSibling(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.page
+      .locator('input[name="relationshipToDeceased"][value="optionSibling"]')
+      .setChecked(true);
+    await this.clickSaveAndContinue(ROUTES.intestacyAnyLivingDescendants);
+  }
+
+  async selectOther(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.page
+      .locator('input[name="relationshipToDeceased"][value="optionOther"]')
+      .setChecked(true);
   }
 }

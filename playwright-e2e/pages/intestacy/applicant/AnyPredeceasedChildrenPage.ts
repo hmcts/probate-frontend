@@ -1,4 +1,5 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export type AnyPredeceasedChildren =
   | 'yesSome'
@@ -6,8 +7,8 @@ export type AnyPredeceasedChildren =
   | 'no';
 
 export class AnyPredeceasedChildrenPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/any-predeceased-children$/;
-  private readonly nextPageUrl = /\/intestacy\/any-surviving-grandchildren$/;
+  private readonly pageUrl = ROUTES.intestacyAnyPredeceasedChildren;
+  private readonly nextPageUrl = ROUTES.intestacyAnySurvivingGrandchildren;
 
   private readonly predeceasedRadioIds: Record<AnyPredeceasedChildren, string> = {
     yesSome: 'anyPredeceasedChildren',

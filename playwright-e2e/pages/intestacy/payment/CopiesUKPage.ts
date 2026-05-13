@@ -1,8 +1,9 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class CopiesUkPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/copies-uk$/;
-  private readonly nextPageUrl = /\/intestacy\/assets-overseas$/;
+  private readonly pageUrl = ROUTES.intestacyCopiesUk;
+  private readonly nextPageUrl = ROUTES.intestacyAssetsOverseas;
 
   async enterExtraOfficialCopiesAndContinue(copies: string): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

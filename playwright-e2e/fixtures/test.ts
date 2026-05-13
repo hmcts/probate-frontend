@@ -49,6 +49,23 @@ import { AssetsOverseasPage } from '../pages/intestacy/assets/AssetsOverseasPage
 import { CardDetailsPage } from '../pages/intestacy/payment/CardDetailsPage';
 import { CardConfirmPage } from '../pages/intestacy/payment/CardConfirmPage';
 import { ThankYouPage } from '../pages/common/payment/ThankYouPage';
+import { MainApplicantsParentAdoptedInPage } from '../pages/intestacy/applicant/MainApplicantsParentAdoptedInPage';
+import { MainApplicantsParentAlivePage } from '../pages/intestacy/applicant/MainApplicantsParentAlivePage';
+import { ParentAdoptionPlacePage } from '../pages/intestacy/applicant/ParentAdoptionPlacePage';
+import { AllGrandchildrenOver18Page } from '../pages/intestacy/applicant/AllGrandchildrenOver18Page';
+import { MainApplicantsParentAnyOtherChildrenPage } from '../pages/intestacy/applicant/MainApplicantsParentAnyOtherChildrenPage';
+import { DeceasedAdoptionPlacePage } from '../pages/intestacy/deceased/DeceasedAdoptionPlacePage';
+import { DeceasedAdoptedInPage } from '../pages/intestacy/deceased/DeceasedAdoptedInPage';
+import { AnyLivingDescendantsPage } from '../pages/intestacy/applicant/AnyLivingDescendantsPage';
+import { AnyOtherParentAlivePage } from '../pages/intestacy/applicant/AnyOtherParentAlivePage';
+import { DeceasedSameParentsPage } from '../pages/intestacy/applicant/DeceasedSameParentsPage';
+import { AnyLivingParentsPage } from '../pages/intestacy/applicant/AnyLivingParentsPage';
+import { DeceasedOtherWholeSiblingsPage } from '../pages/intestacy/applicant/DeceasedOtherWholeSiblingsPage';
+import { DeceasedWholeSiblingsPage } from '../pages/intestacy/applicant/DeceasedWholeSiblingsPage';
+import { WholeSiblingsSurvivingChildrenPage } from '../pages/intestacy/applicant/WholeSiblingsSurvivingChildrenPage';
+import { WholeSiblingsAgePage } from '../pages/intestacy/applicant/WholeSiblingsAgePage';
+import { WholeNiecesWholeNephewsAgePage } from '../pages/intestacy/applicant/WholeNiecesWholeNephewsAgePage';
+
 
 type Pages = {
   deathCertificatePage: DeathCertificatePage;
@@ -78,10 +95,27 @@ type Pages = {
   deceasedAliasPage: DeceasedAliasPage;
   deceasedMaritalStatusPage: DeceasedMaritalStatusPage;
   relationshipToDeceasedPage: RelationshipToDeceasedPage;
+  anyLivingDescendantsPage: AnyLivingDescendantsPage;
+  anyLivingParentsPage: AnyLivingParentsPage;
+  anyOtherChildrenPage: AnyOtherChildrenPage;
+  deceasedSameParentsPage: DeceasedSameParentsPage;
+  anyOtherParentAlivePage: AnyOtherParentAlivePage;
+  deceasedAdoptedInPage: DeceasedAdoptedInPage;
+  deceasedAdoptionPlacePage: DeceasedAdoptionPlacePage;
   spouseNotApplyingReasonPage: SpouseNotApplyingReasonPage;
+  mainApplicantsParentAlivePage: MainApplicantsParentAlivePage;
+  mainApplicantsParentAdoptedInPage: MainApplicantsParentAdoptedInPage;
+  mainApplicantsParentAnyOtherChildrenPage: MainApplicantsParentAnyOtherChildrenPage;
+  allGrandchildrenOver18Page: AllGrandchildrenOver18Page;
+  parentAdoptionPlacePage: ParentAdoptionPlacePage;
   mainApplicantAdoptedInPage: MainApplicantAdoptedInPage;
   adoptedInEnglandOrWalesPage: AdoptedInEnglandOrWalesPage;
-  anyOtherChildrenPage: AnyOtherChildrenPage;
+  deceasedOtherWholeSiblingsPage: DeceasedOtherWholeSiblingsPage;
+  deceasedWholeSiblingsPage: DeceasedWholeSiblingsPage;
+  wholeSiblingsSurvivingChildrenPage: WholeSiblingsSurvivingChildrenPage;
+  wholeNiecesWholeNephewsAgePage: WholeNiecesWholeNephewsAgePage;
+  wholeSiblingsAgePage: WholeSiblingsAgePage;
+  
   anyPredeceasedChildrenPage: AnyPredeceasedChildrenPage;
   anySurvivingGrandchildrenPage: AnySurvivingGrandchildrenPage;
   anyGrandchildrenUnder18Page: AnyGrandchildrenUnder18Page;
@@ -202,37 +236,112 @@ export const test = base.extend<Pages>({
   relationshipToDeceasedPage: async ({ page }, use) => {
     await use(new RelationshipToDeceasedPage(page));
   },
+
+  anyLivingDescendantsPage: async ({ page }, use) => {
+  await use(new AnyLivingDescendantsPage(page));
+},
+
+  anyOtherParentAlivePage: async ({ page }, use) => {
+  await use(new AnyOtherParentAlivePage(page));
+},
+
+  anyLivingParentsPage: async ({ page }, use) => {
+  await use(new AnyLivingParentsPage(page));
+},
+
+  deceasedSameParentsPage: async ({ page }, use) => {
+  await use(new DeceasedSameParentsPage(page));
+},
+
+  deceasedAdoptedInPage: async ({ page }, use) => {
+  await use(new DeceasedAdoptedInPage(page));
+},
+
+  deceasedAdoptionPlacePage: async ({ page }, use) => {
+  await use(new DeceasedAdoptionPlacePage(page));
+},
+
+  wholeNiecesWholeNephewsAgePage: async ({ page }, use) => {
+    await use(new WholeNiecesWholeNephewsAgePage(page));
+  },
+
+  wholeSiblingsAgePage: async ({ page }, use) => {
+    await use(new WholeSiblingsAgePage(page));
+  },
+
+
+
   spouseNotApplyingReasonPage: async ({ page }, use) => {
     await use(new SpouseNotApplyingReasonPage(page));
   },
 
+  parentAdoptionPlacePage: async ({ page }, use) => {
+    await use(new ParentAdoptionPlacePage(page));
+  },
+
+  deceasedOtherWholeSiblingsPage: async ({ page }, use) => {
+    await use(new DeceasedOtherWholeSiblingsPage(page));
+  },
+
+  mainApplicantsParentAlivePage: async ({ page }: { page: Page }, use) => {
+  await use(new MainApplicantsParentAlivePage(page));
+},
+
+  mainApplicantsParentAdoptedInPage: async ({ page }: { page: Page }, use) => {
+  await use(new MainApplicantsParentAdoptedInPage(page));
+},
+
+  mainApplicantsParentAnyOtherChildrenPage: async ({ page }, use) => {
+  await use(new MainApplicantsParentAnyOtherChildrenPage(page));
+},
+
+  allGrandchildrenOver18Page: async ({ page }, use) => {
+  await use(new AllGrandchildrenOver18Page(page));
+},
+
   mainApplicantAdoptedInPage: async ({ page }, use) => {
     await use(new MainApplicantAdoptedInPage(page));
   },
+
   adoptedInEnglandOrWalesPage: async ({ page }, use) => {
     await use(new AdoptedInEnglandOrWalesPage(page));
   },
+
   anyOtherChildrenPage: async ({ page }, use) => {
     await use(new AnyOtherChildrenPage(page));
   },
+
   anyPredeceasedChildrenPage: async ({ page }, use) => {
     await use(new AnyPredeceasedChildrenPage(page));
   },
   anySurvivingGrandchildrenPage: async ({ page }, use) => {
     await use(new AnySurvivingGrandchildrenPage(page));
   },
+
   anyGrandchildrenUnder18Page: async ({ page }, use) => {
     await use(new AnyGrandchildrenUnder18Page(page));
   },
+
   allChildrenOver18Page: async ({ page }, use) => {
     await use(new AllChildrenOver18Page(page));
   },
+
+  deceasedWholeSiblingsPage: async ({ page }, use) => {
+    await use(new DeceasedWholeSiblingsPage(page));
+  },
+
+  wholeSiblingsSurvivingChildrenPage: async ({ page }, use) => {
+    await use(new WholeSiblingsSurvivingChildrenPage(page));
+  },
+
   applicantNamePage: async ({ page }, use) => {
     await use(new ApplicantNamePage(page));
   },
+
   applicantPhonePage: async ({ page }, use) => {
     await use(new ApplicantPhonePage(page));
   },
+
   mainApplicantAddressPage: async ({ page }, use) => {
     await use(new MainApplicantAddressPage(page));
   },

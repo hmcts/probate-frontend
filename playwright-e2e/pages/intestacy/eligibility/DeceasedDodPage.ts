@@ -1,8 +1,9 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class DeceasedDodPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/deceased-dod$/;
-  private readonly nextPageUrl = /\/intestacy\/deceased-address$/;
+  private readonly pageUrl = ROUTES.intestacyDeceasedDod;
+  private readonly nextPageUrl = ROUTES.intestacyDeceasedAddress;
 
   async fillDodAndContinue(day: string, month: string, year: string): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

@@ -1,10 +1,10 @@
-import { expect, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class StartEligibilityPage extends BasePage {
-  private readonly pageUrl = /\/start-eligibility$/;
-  private readonly nextPageUrl = /\/death-certificate$/;
-  
+  private readonly pageUrl = ROUTES.startEligibility;
+  private readonly nextPageUrl = ROUTES.deathCertificate;
 
   async continue(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

@@ -1,15 +1,28 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class AllChildrenOver18Page extends BasePage {
-  private readonly pageUrl = /\/intestacy\/all-children-over-18$/;
-  private readonly nextPageUrl = /\/intestacy\/applicant-name$/;
+  private readonly pageUrl = ROUTES.intestacyAllChildrenOver18;
 
-  async selectYes(): Promise<void> {
+  async selectYes(
+    nextPageUrl: RegExp = ROUTES.intestacyApplicantName
+  ): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
     await this.selectRadioByIdAndContinue(
       'allChildrenOver18',
-      this.nextPageUrl,
-      'Save and continue',
+      nextPageUrl,
+      'Save and continue'
+    );
+  }
+
+  async selectNo(
+    nextPageUrl: RegExp = ROUTES.intestacyApplicantName
+  ): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue(
+      'allChildrenOver18-2',
+      nextPageUrl,
+      'Save and continue'
     );
   }
 }

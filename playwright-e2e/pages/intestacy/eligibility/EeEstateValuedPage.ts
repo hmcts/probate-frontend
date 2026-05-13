@@ -1,11 +1,17 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class EeEstateValuedPage extends BasePage {
-  private readonly pageUrl = /\/ee-estate-valued/;
-  private readonly nextPageUrl = /\/will-left/;
+  private readonly pageUrl = ROUTES.eeEstateValued;
+  private readonly nextPageUrl = ROUTES.willLeft;
 
   async selectYes(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
     await this.selectRadioByIdAndContinue('eeEstateValued', this.nextPageUrl, 'Continue');
+  }
+
+  async selectNo(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue('eeEstateValued-2', this.nextPageUrl, 'Continue');
   }
 }

@@ -1,24 +1,23 @@
+import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class AdoptedInEnglandOrWalesPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/adopted-in-england-or-wales$/;
-  private readonly nextPageUrl = /\/intestacy\/any-other-children$/;
+  private readonly pageUrl = ROUTES.intestacyAdoptedInEnglandOrWales;
 
-  async selectYes(): Promise<void> {
+  async selectYes(nextPageUrl: RegExp): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue(
-      'adoptionPlace',
-      this.nextPageUrl,
-      'Save and continue',
-    );
+    const radio = this.page.getByLabel('Yes', { exact: true });
+    await expect(radio).toBeVisible();
+    await radio.click();
+    await this.clickSaveAndContinue(nextPageUrl);
   }
 
-  async selectNo(): Promise<void> {
+  async selectNo(nextPageUrl: RegExp): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue(
-      'adoptionPlace-2',
-      this.nextPageUrl,
-      'Save and continue',
-    );
+    const radio = this.page.getByLabel('No', { exact: true });
+    await expect(radio).toBeVisible();
+    await radio.click();
+    await this.clickSaveAndContinue(nextPageUrl);
   }
 }

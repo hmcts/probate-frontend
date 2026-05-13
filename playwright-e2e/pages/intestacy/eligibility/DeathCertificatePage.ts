@@ -1,19 +1,20 @@
-import { Page } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class DeathCertificatePage extends BasePage {
-  private readonly pageUrl = /\/death-certificate$/;
-  private readonly nextPageUrl = /\/death-certificate-english$/;
+  private readonly pageUrl = ROUTES.deathCertificate;
+  private readonly nextPageUrl = ROUTES.deathCertificateEnglish;
 
-  
+  private async selectOptionAndContinue(radioId: string): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue(radioId, this.nextPageUrl, 'Continue');
+  }
 
   async selectYes(): Promise<void> {
-    await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue('deathCertificate', this.nextPageUrl, 'Continue');
+    await this.selectOptionAndContinue('deathCertificate');
   }
 
   async selectNo(): Promise<void> {
-    await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue('deathCertificate-2', this.nextPageUrl, 'Continue');
+    await this.selectOptionAndContinue('deathCertificate-2');
   }
 }

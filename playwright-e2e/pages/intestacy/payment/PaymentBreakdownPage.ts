@@ -1,8 +1,9 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class PaymentBreakdownPage extends BasePage {
-  private readonly pageUrl = /\/payment-breakdown$/;
+  private readonly pageUrl = ROUTES.paymentBreakdown;
 
   async payAndSubmitApplication(nextPageUrl?: RegExp): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
@@ -11,9 +12,13 @@ export class PaymentBreakdownPage extends BasePage {
     await expect(button).toBeVisible();
     await expect(button).toBeEnabled();
 
-    await button.click();
     if (nextPageUrl) {
-      await this.page.waitForURL(nextPageUrl);
+      await Promise.all([
+        this.page.waitForURL(nextPageUrl, { waitUntil: 'domcontentloaded' }),
+        button.click(),
+      ]);
+    } else {
+      await button.click();
     }
   }
 }

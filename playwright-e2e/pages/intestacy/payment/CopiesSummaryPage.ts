@@ -1,9 +1,10 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class CopiesSummaryPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/copies-summary$/;
-  private readonly nextPageUrl = /\/payment-breakdown$/;
+  private readonly pageUrl = ROUTES.intestacyCopiesSummary;
+  private readonly nextPageUrl = ROUTES.paymentBreakdown;
 
   async saveAndContinue(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);

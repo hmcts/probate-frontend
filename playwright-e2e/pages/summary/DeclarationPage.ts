@@ -1,16 +1,32 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../base/BasePage';
+import { ROUTES } from '../../constants/routes';
 
 export class DeclarationPage extends BasePage {
-  private readonly pageUrl = /\/declaration$/;
+  private readonly pageUrl = ROUTES.declaration;
 
-  async confirmDeclarationAndContinue(nextPageUrl?: RegExp): Promise<void> {
+  async confirmDeclarationAndContinue(nextPageUrl: RegExp): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
 
-    const checkbox = this.getInputById('declarationCheckbox');
-    await expect(checkbox).toHaveCount(1);
-    await checkbox.check();
+    await expect(
+      this.page.getByRole('heading', {
+        name: 'Check the legal statement and make your declaration',
+      }),
+    ).toBeVisible();
 
-    await this.clickSaveAndContinue(nextPageUrl);
+    const checkbox = this.page.locator('#declarationCheckbox');
+    await expect(checkbox).toBeVisible();
+
+    await checkbox.check();
+    await expect(checkbox).toBeChecked();
+
+    const continueButton = this.page.getByRole('button', { name: 'Save and continue' });
+    await expect(continueButton).toBeVisible();
+    await expect(continueButton).toBeEnabled();
+
+    await Promise.all([
+      this.page.waitForURL(nextPageUrl, { waitUntil: 'domcontentloaded' }),
+      continueButton.click(),
+    ]);
   }
 }

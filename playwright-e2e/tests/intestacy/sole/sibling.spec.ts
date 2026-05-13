@@ -1,6 +1,6 @@
-import { test } from '../../../fixtures/test';
-import { deceased, paymentDetails, soleSiblingApplicant, commonIntestacyScenario, } from '../../../data/intestacy/sole/scenarios';
-import { ROUTES } from '../../../constants/routes';
+import { test } from '../../../fixtures/test.ts';
+import { deceased, paymentDetails, soleSiblingApplicant, commonIntestacyScenario, } from '../../../data/intestacy/sole/scenarios.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 import { CardDetailsPage } from '../../../pages/intestacy/payment/CardDetailsPage';
 
 test.describe('Intestacy sole sibling journey', () => {

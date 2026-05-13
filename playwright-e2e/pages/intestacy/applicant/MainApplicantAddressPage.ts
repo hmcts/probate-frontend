@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { DeceasedAddressPage } from '../deceased/DeceasedAddressPage';
-import { ROUTES } from '../../../constants/routes';
+import { DeceasedAddressPage } from '../deceased/DeceasedAddressPage.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 
 export class MainApplicantAddressPage extends DeceasedAddressPage {
   protected readonly pageUrl = ROUTES.intestacyApplicantAddress;

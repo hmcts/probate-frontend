@@ -1,6 +1,6 @@
-import { test } from '../../../fixtures/test';
-import { deceased, paymentDetails, soleParentApplicant, commonIntestacyScenario, } from '../../../data/intestacy/sole/scenarios';
-import { ROUTES } from '../../../constants/routes';
+import { test } from '../../../fixtures/test.ts';
+import { deceased, paymentDetails, soleParentApplicant, commonIntestacyScenario, } from '../../../data/intestacy/sole/scenarios.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 
 test.describe('Intestacy sole parent journey', () => {
   test('Sign in and complete deceased details as parent applicant', async ({

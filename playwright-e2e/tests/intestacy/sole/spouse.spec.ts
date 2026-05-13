@@ -1,11 +1,11 @@
-import { test } from '../../../fixtures/test';
+import { test } from '../../../fixtures/test.ts';
 import {
   deceased,
   paymentDetails,
   soleSpouseApplicant,
   commonIntestacyScenario,
-} from '../../../data/intestacy/sole/scenarios';
-import { ROUTES } from '../../../constants/routes';
+} from '../../../data/intestacy/sole/scenarios.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 
 test.describe('Intestacy sole spouse journey', () => {
   test('Go through eligibility and log in from start-apply', async ({
@@ -108,7 +108,7 @@ test.describe('Intestacy sole spouse journey', () => {
       soleSpouseApplicant.address.postcode,
       soleSpouseApplicant.address.country,
     );
-      
+
     await equalityAndDiversityPage.optOut();
     await taskListPage.goToDeclaration();
     await summaryDeclarationPage.continueToDeclaration();

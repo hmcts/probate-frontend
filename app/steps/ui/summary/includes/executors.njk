@@ -2,7 +2,7 @@
     {{
           content.ExecutorsNamed[fields.executors.executorsNamed.value] if fields.executors.executorsNamed and executorsList and (executorsList | length) === 1
           else (
-            common.yes if executorsList and (executorsList | length) > 1 else fields.executors.executorsNamed and common.no
+            common.yes if executorsList and (executorsList | length) > 1 else common.no
           )
     }}
 {% endmacro %}

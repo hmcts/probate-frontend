@@ -1,39 +1,59 @@
 'use strict';
 
 const Helper = codecept_helper;
-const request = require('request');
-const util = require('util');
+const axios = require('axios');
 const config = require('config');
 
 class IDAMHelper extends Helper {
-    // Creating a test user via a custom Helper means that CodeceptJS's .retry()
-    // can be used to retry the step if it fails.
     async createAUser(options) {
         if (config.TestUseIdam === 'true') {
             console.log(`Creating user: ${options.getTestCitizenEmail()}`);
-            const httpReq = util.promisify(request);
             const userDetails = options.getTestUserDetails();
-
             try {
-                const response = await httpReq({
+                const axiosConfig = {
                     url: options.getTestAddUserURL(),
-                    proxy: options.getUseProxy() === 'true' ? options.getProxy() : null,
                     method: 'POST',
-                    json: true, // <--Very important!!!
-                    body: userDetails
-                });
+                    data: userDetails,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    validateStatus: () => true
+                };
+
+                if (options.getUseProxy() === 'true') {
+                    axiosConfig.proxy = getAxiosProxyConfig(options.getProxy());
+                }
+
+                const response = await axios(axiosConfig);
+
                 if (!response) {
                     throw new Error('TestConfigurator.getBefore: Using proxy - ERROR. No error raised, but no response obtained.');
-                } else if (response.statusCode !== 201) {
-                    throw new Error('TestConfigurator.getBefore: Using proxy - Unable to create user.  Response from IDAM was: ' + response.statusCode);
-                } else {
-                    console.log('User created (via proxy)', options.userDetails);
                 }
+
+                if (response.status !== 201) {
+                    throw new Error(
+                        'TestConfigurator.getBefore: Using proxy - Unable to create user. Response from IDAM was: ' +
+                        response.status
+                    );
+                }
+                console.log('User created (via proxy)', userDetails);
             } catch (err) {
-                throw new Error(`TestConfigurator.getBefore: Using proxy - ERROR: ${err.message}\nError stack:\n${err.stack}`);
+                throw new Error(
+                    `TestConfigurator.getBefore: Using proxy - ERROR: ${err.message}\nError stack:\n${err.stack}`
+                );
             }
         }
     }
+}
+
+function getAxiosProxyConfig(proxyUrl) {
+    const parsedProxyUrl = new URL(proxyUrl);
+    return {
+        protocol: parsedProxyUrl.protocol.replace(':', ''),
+        host: parsedProxyUrl.hostname,
+        port: Number(parsedProxyUrl.port)
+    };
 }
 
 module.exports = IDAMHelper;

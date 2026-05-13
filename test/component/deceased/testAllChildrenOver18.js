@@ -1,14 +1,16 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
-const AnyDeceasedChildren = require('app/steps/ui/deceased/anydeceasedchildren/index');
+const ApplicantName = require('app/steps/ui/applicant/name/index');
+const GrandchildParentHasOtherChildren = require('app/steps/ui/deceased/grandchildparenthasotherchildren/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('all-children-over-18', () => {
     let testWrapper;
-    const expectedNextUrlForAnyDeceasedChildren = AnyDeceasedChildren.getUrl();
+    const expectedNextUrlForApplicantName = ApplicantName.getUrl();
+    const expectedNextUrlForGrandchildParentHasOtherChildren = GrandchildParentHasOtherChildren.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('childrenUnder18');
 
     beforeEach(() => {
@@ -32,7 +34,7 @@ describe('all-children-over-18', () => {
                 deceased: {
                     firstName: 'John',
                     lastName: 'Doe'
-                }
+                },
             };
             const contentToExclude = ['theDeceased'];
 
@@ -48,15 +50,41 @@ describe('all-children-over-18', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to Any Deceased Children page if deceased children were all over 18: ${expectedNextUrlForAnyDeceasedChildren}`, (done) => {
+        it(`test it redirects to Applicant name page if deceased children were all over 18 and child is applying: ${expectedNextUrlForApplicantName}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionChild'
+                }
+            };
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send(sessionData)
                 .end(() => {
                     const data = {
-                        allChildrenOver18: 'optionYes'
+                        relationshipToDeceased: 'optionChild',
+                        allChildrenOver18: 'optionYes',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForAnyDeceasedChildren);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForApplicantName);
+                });
+        });
+
+        it(`test it redirects to Parent has any children page if deceased children were all over 18 and grandchild is applying: ${expectedNextUrlForGrandchildParentHasOtherChildren}`, (done) => {
+            const sessionData = {
+                caseType: caseTypes.INTESTACY,
+                applicant: {
+                    relationshipToDeceased: 'optionGrandchild'
+                }
+            };
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionGrandchild',
+                        allChildrenOver18: 'optionYes',
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForGrandchildParentHasOtherChildren);
                 });
         });
 

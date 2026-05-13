@@ -5,27 +5,49 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% set questionText = '' %}
+    {% if fields.caseType.value == 'gop' %}
+        {% set questionText = content.question | safe %}
+    {% elseif fields.caseType.value == 'intestacy' %}
+        {% set questionText = content.intestacyQuestion | safe %}
+    {% endif %}
     {% call govukFieldset({
         legend: {
-            text: content.question | safe,
+            text: questionText,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
     }) %}
-        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-        {{ govukInsetText({
-            text: content.paragraph2 | safe
-        }) }}
+        {% if fields.caseType.value == 'gop' %}
+          <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+          {{ govukInsetText({
+              text: content.paragraph2 | safe
+          }) }}
 
-        <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
-        <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
-        <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
+          <h2 class="govuk-heading-m">{{ content.heading1 | safe }}</h2>
+          <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
+          <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
 
-        <h2 class="govuk-heading-m">{{ content.heading2 | safe }}</h2>
-        <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
-        <p class="govuk-body">{{ content.paragraph6 | safe }}</p>
+          <h2 class="govuk-heading-m">{{ content.heading2 | safe }}</h2>
+          <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
+          <p class="govuk-body">{{ content.paragraph6 | safe }}</p>
+          <h2 class="govuk-heading-m">{{ content["heading3" + fields.inviteSuffix.value] | safe }}</h2>
 
-        <h2 class="govuk-heading-m">{{ content["heading3" + fields.inviteSuffix.value] | safe }}</h2>
+        {% elseif fields.caseType.value == 'intestacy' %}
+          <p class="govuk-body">{{ content.intestacyParagraph1 | safe }}</p>
+          <h2 class="govuk-heading-m">{{ content.intestacyHeading1 | safe }}</h2>
+          <p class="govuk-body">{{ content.intestacyParagraph2 | safe }}</p>
+
+          <p class="govuk-body">{{ content.intestacyParagraph3 | safe }}</p>
+          <h2 class="govuk-heading-m">{{ content.intestacyHeading2 | safe }}</h2>
+          <p class="govuk-body">{{ content.intestacyParagraph4 | safe }}</p>
+          {{ govukInsetText({
+            text: content.intestacyParagraph5 | safe
+          }) }}
+
+          <h2 class="govuk-heading-m">{{ content.intestacyHeading3 | safe }}</h2>
+        {% endif %}
+
         {% for executor in fields.list.value %}
             {% if executor.isApplicant !== true and executor.isApplying %}
                 <div class="govuk-grid-row word-wrap">

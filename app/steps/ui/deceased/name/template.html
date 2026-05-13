@@ -3,6 +3,7 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block form_content %}
     {% call govukFieldset({
@@ -12,7 +13,9 @@
             isPageHeading: true
         }
     }) %}
-    <p class="govuk-body">{{ content.explanation1 | safe }}</p>
+    {{ govukInsetText({
+    text: ("<p class=\"govuk-body\">" + content.explanation1 + "</p>") | safe
+    }) }}
 
         {{ govukInput({
             label: {
@@ -22,9 +25,6 @@
             name: "firstName",
             value: fields.firstName.value | safe,
             errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage,
-            attributes: {
-                maxlength: 100
-            },
             classes: "govuk-!-width-three-quarters"
         }) }}
         {{ govukInput({
@@ -35,9 +35,6 @@
             name: "lastName",
             value: fields.lastName.value | safe,
             errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage,
-            attributes: {
-                maxlength: 100
-            },
             classes: "govuk-!-width-three-quarters"
         }) }}
     {% endcall %}

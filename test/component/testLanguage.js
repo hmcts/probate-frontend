@@ -2,14 +2,12 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedName = require('app/steps/ui/deceased/name');
-const DeceasedDetails = require('app/steps/ui/deceased/details');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('bilingual-gop', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedName = DeceasedName.getUrl();
-    const expectedNextUrlForDeceasedDetails = DeceasedDetails.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('BilingualGOP');
@@ -46,7 +44,7 @@ describe('bilingual-gop', () => {
                 });
         });
 
-        it(`test it redirects to next page for an Intestacy case: ${expectedNextUrlForDeceasedDetails}`, (done) => {
+        it(`test it redirects to next page for an Intestacy case: ${expectedNextUrlForDeceasedName}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -54,7 +52,7 @@ describe('bilingual-gop', () => {
                         bilingual: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedDetails);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedName);
                 });
         });
     });

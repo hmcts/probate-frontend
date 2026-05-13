@@ -1,0 +1,60 @@
+{% extends "includes/two_thirds_form.html" %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set conditionalGrandchildHintHtml %}
+<p class="govuk-body">{{ content.optionGrandchildHintText | safe }}</p>
+{% endset -%}
+
+{% set answers = [] %}
+{% if fields.childOnly.value == "true"%}
+    {% set answers = (answers.push({
+        value: "optionChild",
+        text: content["optionChild"] | safe,
+        checked: true if fields.coApplicantRelationshipToDeceased.value == "optionChild"
+    }), answers) %}
+{% endif %}
+
+
+{% set answers = (answers.push({
+    value: "optionGrandchild",
+    text: content["optionGrandchild"] | safe,
+    checked: true if fields.coApplicantRelationshipToDeceased.value == "optionGrandchild",
+    conditional: {
+        html: conditionalGrandchildHintHtml
+    }
+}), answers) %}
+
+{% set answers = (answers.push({
+    value: "optionOther",
+    text: content["optionOther"] | safe,
+    checked: true if fields.coApplicantRelationshipToDeceased.value == "optionOther"
+}), answers) %}
+
+{% block form_content %}
+
+    {% call govukFieldset({
+    legend: {
+    text: content.title | safe,
+    classes: "govuk-fieldset__legend--l",
+    isPageHeading: true
+    }
+    }) %}
+    {% endcall %}
+    <p class="govuk-body">{{ content.hintText | safe }}</p>
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "coApplicantRelationshipToDeceased",
+        name: "coApplicantRelationshipToDeceased",
+        errorMessage: { text: fields.coApplicantRelationshipToDeceased.errorMessage | safe } if fields.coApplicantRelationshipToDeceased.errorMessage,
+        items: answers
+    }) }}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

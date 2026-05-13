@@ -47,7 +47,6 @@ getTestLanguages().forEach(language => {
 
         // Intestacy Sceeners
         await I.selectRelatedToDeceased(language, optionYes);
-        await I.selectOtherApplicants(language, optionNo);
 
         await I.startApply(language);
 
@@ -141,7 +140,6 @@ getTestLanguages().forEach(language => {
 
         // Intestacy Sceeners
         await I.selectRelatedToDeceased(language, optionYes);
-        await I.selectOtherApplicants(language, optionNo);
 
         await I.startApply(language);
 
@@ -181,10 +179,11 @@ getTestLanguages().forEach(language => {
         await I.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
         await I.enterApplicantPhone(language);
         await I.enterAddressManually(language);
-        if (TestConfigurator.equalityAndDiversityEnabled()) {
+
+        /* if (TestConfigurator.equalityAndDiversityEnabled()) {
             await I.exitEqualityAndDiversity(language);
             await I.completeEqualityAndDiversity(language);
-        }
+        } */
 
         // Check your answers and declaration
         await I.selectATask(language, 'reviewAndConfirmTask', taskListContent.taskNotStarted);

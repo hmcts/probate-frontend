@@ -1,0 +1,93 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "widgets/checkanswer.njk" import checkanswer %}
+{% from "widgets/lists.html" import unorderedList %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: (content.titleParent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.title )| safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+{% if fields.applicantRelationshipToDeceased.value !== "optionParent" %}
+  {% set summaryListRows = [] %}
+    {% for executor in fields.list.value %}
+      {% if loop.index0 == 0 %}
+        {% set summaryListRows = (summaryListRows.push({
+        key: { text: content.applicantExecutor | safe, classes: "govuk-!-font-weight-bold" },
+        value: { text: fields.applicantName.value | safe }
+        }), summaryListRows) %}
+      {% else %}
+        {% set summaryListRows = (summaryListRows.push({
+        key: { text: content.furtherExecutor | safe, classes: "govuk-!-font-weight-bold" },
+        value: { text: executor.fullName | safe },
+        actions: {
+        items: [{
+          href: '/remove-coApplicant/' + loop.index0,
+          text: content.removeAction | safe,
+          visuallyHiddenText: executor.fullName | safe,
+          attributes: {
+            'data-executor-index': loop.index0
+          }
+        }]
+        }
+        }), summaryListRows) %}
+      {% endif %}
+    {% endfor %}
+
+  {{ govukSummaryList({
+  rows: summaryListRows
+  }) }}
+{% endif %}
+    <p class="govuk-body">{{ ( content.paragraph1Parent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.paragraph1 ) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    <p class="govuk-body">{{ ( content.paragraph2Parent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.paragraph2 ) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ content.bullet1 | safe }}</li>
+      <li>{{ content.bullet2 | safe }}</li>
+      <li>{{ content.bullet3 | safe }}</li>
+    </ul>
+    <p class="govuk-body">{{ content.paragraph3Parent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.paragraph3 | safe }}</p>
+    <h2 class="govuk-heading-m">{{ ( content.questionParent if fields.applicantRelationshipToDeceased.value === "optionParent" else content.question ) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</h2>
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "hasCoApplicant",
+        name: "hasCoApplicant",
+        errorMessage: { text: fields.hasCoApplicant.errorMessage | replace("{deceasedName}", fields.deceasedName.value)  | safe } if fields.hasCoApplicant.errorMessage,
+    items: [{
+            value: "optionYes",
+            text: content["optionYes"] | safe
+        },
+        {
+            value: "optionNo",
+            text: content["optionNo"] | safe
+        }]
+    }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+<input type="hidden" id="hasCoApplicantChecked" name="hasCoApplicantChecked" value="false">
+<script nonce="{{ globals.nonce }}">
+  document.addEventListener('DOMContentLoaded', function() {
+
+    var saveAndContinueButton = document.querySelector('.govuk-button[data-module="govuk-button"]');
+    if (saveAndContinueButton) {
+      saveAndContinueButton.addEventListener("click", function(e) {
+        var optionYes = document.querySelector('input[name="hasCoApplicant"][value="optionYes"]').checked;
+        var optionNo = document.querySelector('input[name="hasCoApplicant"][value="optionNo"]').checked;
+        document.getElementById('hasCoApplicantChecked').value = (optionYes || optionNo) ? "true" : "false";
+      });
+    }
+  });
+</script>
+{% endblock %}

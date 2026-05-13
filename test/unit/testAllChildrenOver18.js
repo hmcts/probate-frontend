@@ -35,17 +35,33 @@ describe('AllChildrenOver18', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when all children are over 18', (done) => {
+        it('should return the correct url when all children are over 18 and relationship to deceased is child', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                allChildrenOver18: 'optionYes'
+                allChildrenOver18: 'optionYes',
+                relationshipToDeceased: 'optionChild'
             };
             const nextStepUrl = AllChildrenOver18.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/any-deceased-children');
+            expect(nextStepUrl).to.equal('/applicant-name');
+            done();
+        });
+
+        it('should return the correct url when all children are over 18 and relationship to deceased is grandchild', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                allChildrenOver18: 'optionYes',
+                relationshipToDeceased: 'optionGrandchild'
+            };
+            const nextStepUrl = AllChildrenOver18.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-any-other-children');
             done();
         });
 
@@ -56,7 +72,8 @@ describe('AllChildrenOver18', () => {
                 }
             };
             const ctx = {
-                allChildrenOver18: 'optionNo'
+                allChildrenOver18: 'optionNo',
+                relationshipToDeceased: 'optionChild'
             };
             const nextStepUrl = AllChildrenOver18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/childrenUnder18');
@@ -70,7 +87,8 @@ describe('AllChildrenOver18', () => {
             const nextStepOptions = AllChildrenOver18.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'allChildrenOver18', value: 'optionYes', choice: 'allChildrenOver18'},
+                    {key: 'childAndAllChildrenOver18', value: true, choice: 'childAndAllChildrenOver18'},
+                    {key: 'grandchildAndAllChildrenOver18', value: true, choice: 'grandchildAndAllChildrenOver18'}
                 ]
             });
             done();

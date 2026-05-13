@@ -1,0 +1,42 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+    }
+    }) %}
+    <p class="govuk-body">{{ content.paragraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "anySurvivingGrandchildren",
+        name: "anySurvivingGrandchildren",
+        errorMessage: { text: fields.anySurvivingGrandchildren.errorMessage | safe } if fields.anySurvivingGrandchildren.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.anySurvivingGrandchildren.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.anySurvivingGrandchildren.value == "optionNo"
+            }
+        ]
+    }) }}
+    {% endcall %}
+
+    <div class="govuk-form-group">
+        {{ govukButton({
+            text: common.saveAndContinue | safe,
+            preventDoubleClick: true
+        }) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+  "title": "Applicant name",
+  "question": "What is the other applicant&rsquo;s name?",
+  "content1": "The name you give us will be written on the grant of probate.",
+  "content2": "Their name should match exactly what is written on their passport or other official identification document, such as a driving licence.",
+  "content3": "You should make sure that this is the same form of identification they use when they are dealing with {deceasedName}’s estate.",
+  "fullName": "Full name",
+  "warningText": "If the name on the grant does not match the identification they use, they may have difficulties dealing with the estate.",
+
+  "errors": {
+    "fullName": {
+      "required": "Enter the applicant’s full name",
+      "minLength": "Name must be 2 characters or more",
+      "maxLength": "Name must be 100 characters or less"
+    }
+  }
+}

@@ -48,7 +48,8 @@
                     fields.country.value or
                     fields.addressLine1.errorMessage or
                     fields.postTown.errorMessage or
-                    fields.newPostCode.errorMessage
+                    fields.newPostCode.errorMessage or
+                    fields.country.errorMessage
                     ) }}>
                         <summary class="govuk-details__summary">
                             <span class="govuk-details__summary-text">{{ content.enterManually | safe }}</span>
@@ -56,7 +57,7 @@
                         <div class="govuk-details__text">
                             {{ govukInput({
                                 label: {
-                                    text: content.addressLabel | safe
+                                    text: content.addressLabel1 | safe
                                 },
                                 id: "addressLine1",
                                 name: "addressLine1",
@@ -129,6 +130,7 @@
                                 id: "country",
                                 name: "country",
                                 value: fields.country.value | safe,
+                                errorMessage: { text: fields.country.errorMessage | safe } if fields.country.errorMessage,
                                 attributes: {
                                     maxlength: 50
                                 },

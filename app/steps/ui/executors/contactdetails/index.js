@@ -46,7 +46,7 @@ class ExecutorContactDetails extends ValidationStep {
         if (!emailValidator.validate(ctx.email)) {
             errors.push(FieldError('email', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
-        if (executorsWrapper.executorEmailAlreadyUsed(ctx.email, executor.fullName, formdata.applicantEmail)) {
+        if (executorsWrapper.executorEmailAlreadyUsed(ctx.email, ctx.index, formdata.applicantEmail)) {
             errors.push(FieldError('email', 'duplicate', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         if (ctx.mobile) {

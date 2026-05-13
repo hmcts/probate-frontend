@@ -4,18 +4,24 @@ import { BasePage } from '../../base/BasePage';
 export class DashboardPage extends BasePage {
   private readonly pageUrl = /\/dashboard$/;
   private readonly taskListUrl = /\/task-list$/;
-  private readonly continueLink = /continue application/i;
+  private readonly continueLinkName = /continue application/i;
+  private readonly placeholderName = 'Name not entered yet';
 
   private getDraftRowByName(name: string): Locator {
-    return this.page.locator('tr').filter({ hasText: name });
+    return this.page.locator('tr').filter({ hasText: name }).first();
   }
 
-  private getDraftRowByPlaceholderName(): Locator {
-    return this.page.locator('tr').filter({ hasText: 'Name not entered yet' });
+  private getContinueLinkFromRow(row: Locator): Locator {
+    return row.getByRole('link', { name: this.continueLinkName });
+  }
+
+  private getAnyContinueApplicationLink(): Locator {
+    return this.page.getByRole('link', { name: this.continueLinkName }).first();
   }
 
   private async navigateViaContinueLink(continueLink: Locator): Promise<void> {
     await expect(continueLink).toBeVisible();
+
     await Promise.all([
       this.page.waitForURL(this.taskListUrl, { waitUntil: 'domcontentloaded' }),
       continueLink.click(),
@@ -28,22 +34,24 @@ export class DashboardPage extends BasePage {
 
   async continueDraftApplicationByName(name: string): Promise<void> {
     await this.waitForPage();
-    await this.navigateViaContinueLink(
-      this.getDraftRowByName(name).getByRole('link', { name: this.continueLink })
-    );
+
+    const row = this.getDraftRowByName(name);
+    await expect(row).toBeVisible();
+
+    await this.navigateViaContinueLink(this.getContinueLinkFromRow(row));
   }
 
   async continueDraftApplicationWithoutName(): Promise<void> {
     await this.waitForPage();
-    await this.navigateViaContinueLink(
-      this.getDraftRowByName('Name not entered yet').first().getByRole('link', { name: this.continueLink })
-    );
+
+    const row = this.getDraftRowByName(this.placeholderName);
+    await expect(row).toBeVisible();
+
+    await this.navigateViaContinueLink(this.getContinueLinkFromRow(row));
   }
 
   async continueDraftApplication(): Promise<void> {
     await this.waitForPage();
-    await this.navigateViaContinueLink(
-      this.page.getByRole('link', { name: this.continueLink }).first()
-    );
+    await this.navigateViaContinueLink(this.getAnyContinueApplicationLink());
   }
 }

@@ -1,19 +1,21 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../base/BasePage';
+import { ROUTES } from '../../constants/routes';
 
 export class SummaryDeclarationPage extends BasePage {
-  private readonly pageUrl = /\/summary\/declaration$/;
-  private readonly nextPageUrl = /\/declaration$/;
+  private readonly pageUrl = ROUTES.summaryDeclaration;
+  private readonly nextPageUrl = ROUTES.declaration;
 
-  async saveAndContinue(): Promise<void> {
+  async continueToDeclaration(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
+    await expect(this.page.getByRole('heading', { name: 'Check your answers' })).toBeVisible();
 
-    const continueLink = this.page.getByRole('button', { name: 'Save and continue' });
-    await expect(continueLink).toBeVisible();
+    const continueButton = this.page.getByRole('button', { name: 'Save and continue' });
+    await expect(continueButton).toBeVisible();
 
     await Promise.all([
       this.page.waitForURL(this.nextPageUrl, { waitUntil: 'domcontentloaded' }),
-      continueLink.click(),
+      continueButton.click(),
     ]);
   }
 }

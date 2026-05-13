@@ -2,9 +2,6 @@ import { expect, Page } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
 
 export class SignInPage extends BasePage {
-  constructor(page: Page) {
-    super(page);
-  }
 
   async signInFromEnv(): Promise<void> {
     await this.page.locator('#username').fill(process.env.PA_USER_EMAIL ?? '');

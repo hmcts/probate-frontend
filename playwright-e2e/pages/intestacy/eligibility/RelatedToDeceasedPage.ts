@@ -1,52 +1,36 @@
 import { BasePage } from '../../base/BasePage';
-
-export type EligibilityRelationshipToDeceased =
-  | 'partner'
-  | 'child'
-  | 'grandchild'
-  | 'parent'
-  | 'sibling'
-  | 'none';
+import { ROUTES } from '../../../constants/routes';
 
 export class RelatedToDeceasedPage extends BasePage {
-  private readonly pageUrl = /\/related-to-deceased$/;
-  private readonly nextPageUrl = /\/task-list$/;
+  private readonly pageUrl = ROUTES.relatedToDeceased;
 
-  private readonly relationshipRadioIds: Record<EligibilityRelationshipToDeceased, string> = {
-    partner: 'related',
-    child: 'related-2',
-    grandchild: 'related-3',
-    parent: 'related-4',
-    sibling: 'related-5',
-    none: 'related-7',
-  };
-
-  async selectRelationship(relationship: EligibilityRelationshipToDeceased): Promise<void> {
+  async selectSpouse(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue(this.relationshipRadioIds[relationship], this.nextPageUrl, 'Continue');
-  }
-
-  async selectPartner(): Promise<void> {
-    await this.selectRelationship('partner');
+    await this.selectRadioByIdAndContinue('related', ROUTES.taskList, 'Save and continue');
   }
 
   async selectChild(): Promise<void> {
-    await this.selectRelationship('child');
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue('related-2', ROUTES.taskList, 'Save and continue');
   }
 
   async selectGrandchild(): Promise<void> {
-    await this.selectRelationship('grandchild');
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue('related-3', ROUTES.taskList, 'Save and continue');
   }
 
   async selectParent(): Promise<void> {
-    await this.selectRelationship('parent');
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue('related-4', ROUTES.taskList, 'Save and continue');
   }
 
   async selectSibling(): Promise<void> {
-    await this.selectRelationship('sibling');
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue('related-5', ROUTES.taskList, 'Save and continue');
   }
 
-  async selectNoneOfTheAbove(): Promise<void> {
-    await this.selectRelationship('none');
+  async selectOther(): Promise<void> {
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioByIdAndContinue('related-7', ROUTES.taskList, 'Save and continue');
   }
 }

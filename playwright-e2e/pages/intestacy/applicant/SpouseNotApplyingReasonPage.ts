@@ -1,12 +1,13 @@
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export type SpouseNotApplyingReason =
   | 'renouncing'
   | 'other';
 
 export class SpouseNotApplyingReasonPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/spouse-not-applying-reason$/;
-  private readonly nextPageUrl = /\/intestacy\/main-applicant-adopted-in$/;
+  private readonly pageUrl = ROUTES.intestacySpouseNotApplyingReason;
+  private readonly nextPageUrl = ROUTES.intestacyMainApplicantsParentAlive;
 
   private readonly reasonRadioIds: Record<SpouseNotApplyingReason, string> = {
     renouncing: 'spouseNotApplyingReason',
@@ -17,13 +18,15 @@ export class SpouseNotApplyingReasonPage extends BasePage {
     await this.waitForPageUrl(this.pageUrl);
     await this.selectRadioByIdAndContinue(
       this.reasonRadioIds[reason],
-      this.nextPageUrl,
+      undefined,
       'Save and continue',
     );
   }
 
   async selectGivingUpRightToApply(): Promise<void> {
-    await this.selectReason('renouncing');
+    await this.waitForPageUrl(this.pageUrl);
+    await this.selectRadioById('spouseNotApplyingReason');
+    await this.clickSaveAndContinue();
   }
 
   async selectOther(): Promise<void> {

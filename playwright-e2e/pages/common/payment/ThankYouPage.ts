@@ -1,8 +1,9 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../../base/BasePage';
+import { ROUTES } from '../../../constants/routes';
 
 export class ThankYouPage extends BasePage {
-  private readonly pageUrl = /\/intestacy\/thank-you$/;
+  private readonly pageUrl = ROUTES.intestacyThankYou;
 
   async expectApplicationSubmitted(): Promise<void> {
     await this.waitForPageUrl(this.pageUrl);
@@ -11,13 +12,11 @@ export class ThankYouPage extends BasePage {
 
   async getCaseId(): Promise<string> {
     await this.waitForPageUrl(this.pageUrl);
+
     const caseId = this.page.locator('strong[aria-label]').first();
     await expect(caseId).toBeVisible();
+    await expect(caseId).not.toHaveText('');
+
     return (await caseId.textContent())?.trim() ?? '';
   }
-
-  async printCaseId(): Promise<void> {
-  const caseId = await this.getCaseId();
-  console.log(`Case ID: ${caseId}`);
-}
 }

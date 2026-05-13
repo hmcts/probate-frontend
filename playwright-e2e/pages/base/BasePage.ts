@@ -35,21 +35,25 @@ export class BasePage {
     await button.click();
   }
 
+
   async clickSaveAndContinue(nextPageUrl?: RegExp): Promise<void> {
-    const button = this.getButtonByText('Save and continue');
-    await expect(button).toBeVisible();
-    await expect(button).toBeEnabled();
+  const button = this.page.getByRole('button', {
+    name: /^(Save and continue|Continue)$/i,
+  });
 
-    if (nextPageUrl) {
-      await Promise.all([
-        this.page.waitForURL(nextPageUrl, { waitUntil: 'domcontentloaded' }),
-        button.click(),
-      ]);
-      return;
-    }
+  await expect(button).toBeVisible();
+  await expect(button).toBeEnabled();
 
-    await button.click();
+  if (nextPageUrl) {
+    await Promise.all([
+      this.page.waitForURL(nextPageUrl, { waitUntil: 'domcontentloaded' }),
+      button.click(),
+    ]);
+    return;
   }
+
+  await button.click();
+}
 
   async selectRadioById(radioId: string): Promise<void> {
     const radio = this.getInputById(radioId);

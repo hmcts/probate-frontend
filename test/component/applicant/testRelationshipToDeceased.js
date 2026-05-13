@@ -3,7 +3,7 @@
 const TestWrapper = require('test/util/TestWrapper');
 const SpouseNotApplyingReason = require('app/steps/ui/applicant/spousenotapplyingreason');
 const AnyChildren = require('app/steps/ui/deceased/anychildren');
-const ChildAdoptedIn = require('app/steps/ui/details/childadoptedin');
+const AdoptedIn = require('app/steps/ui/applicant/adoptedin');
 const AdoptionPlace = require('app/steps/ui/applicant/adoptionplace');
 const ApplicantName = require('app/steps/ui/applicant/name');
 const StopPage = require('app/steps/ui/stoppage');
@@ -16,9 +16,9 @@ describe('relationship-to-deceased', () => {
     const expectedNextUrlForAnyChildren = AnyChildren.getUrl();
     const expectedNextUrlForAdoptionPlace = AdoptionPlace.getUrl();
     const expectedNextUrlForApplicantName = ApplicantName.getUrl();
-    const expectedNextUrlForChildAdoptedIn = ChildAdoptedIn.getUrl();
-
-    const expectedNextUrlForStopPage = StopPage.getUrl('otherRelationship');
+    const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
+    const expectedNextUrlForMarriedOtherRel = StopPage.getUrl('deceasedHadLegalPartnerAndRelationshipOther');
+    const expectedNextUrlForUnmarriedOtherRel = StopPage.getUrl('deceasedNoLegalPartnerAndRelationshipOther');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('RelationshipToDeceased');
@@ -99,7 +99,7 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForChildAdoptedIn}`, (done) => {
+        it(`test it redirects to Any Other Children page if relationship is Child and deceased was not married: ${expectedNextUrlForAdoptedIn}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -115,7 +115,7 @@ describe('relationship-to-deceased', () => {
                         deceasedMaritalStatus: 'optionDivorced'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForChildAdoptedIn);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForAdoptedIn);
                 });
         });
 
@@ -223,15 +223,37 @@ describe('relationship-to-deceased', () => {
                 });
         });
 
-        it(`test it redirects to Stop page if relationship is Other: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to Stop page if relationship is Other and deceased married: ${expectedNextUrlForMarriedOtherRel}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
-                .send({caseType: caseTypes.INTESTACY})
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    deceased: {
+                        maritalStatus: 'optionMarried',
+                    },
+                })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionOther'
+                        relationshipToDeceased: 'optionOther',
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForMarriedOtherRel);
+                });
+        });
+
+        it(`test it redirects to Stop page if relationship is Other and deceased not married: ${expectedNextUrlForUnmarriedOtherRel}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    deceased: {
+                        maritalStatus: 'optionDivorced',
+                    },
+                })
+                .end(() => {
+                    const data = {
+                        relationshipToDeceased: 'optionOther',
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForUnmarriedOtherRel);
                 });
         });
     });

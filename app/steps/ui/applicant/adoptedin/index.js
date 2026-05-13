@@ -19,7 +19,6 @@ class AdoptedIn extends ValidationStep {
         ctx.sameParents = formdata.applicant.sameParents;
         return ctx;
     }
-
     nextStepOptions() {
         return {
             options: [

@@ -1,7 +1,7 @@
 'use strict';
 
 const Step = require('app/core/steps/Step');
-const FormatName = require('../../../utils/FormatName');
+const {format} = require('../../../utils/FormatName');
 
 class StopPage extends Step {
 
@@ -11,16 +11,16 @@ class StopPage extends Step {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-
         ctx.stopReason = req.params[0];
+
         const formdata = req.session.form;
 
         ctx.stoppageHeader = this.returnStopPageHeader(ctx.stopReason);
-        console.log('ctx.stopReason-->'+ctx.stopReason);
-        ctx.deceasedName = FormatName.format(formdata.deceased);
 
+        ctx.deceasedName = format(formdata.deceased);
+        ctx.applicantName = formdata.executors?.list?.[formdata.executors.list.length - 1]?.fullName;
         const templateContent = this.generateContent(ctx, formdata, req.session.language)[ctx.stopReason];
-        console.log('ctx.templateContent-->'+ctx.templateContent);
+
         if (templateContent) {
             ctx.linkPlaceholders = this.replaceLinkPlaceholders(templateContent);
         }
@@ -46,6 +46,7 @@ class StopPage extends Step {
         return [];
     }
 
+    // eslint-disable-next-line complexity
     returnStopPageHeader(stopReason) {
         let pageHeader;
         switch (stopReason) {
@@ -65,32 +66,44 @@ class StopPage extends Step {
             pageHeader = 'eeEstateValuedHeader';
             break;
         case 'notDiedAfterOctober2014':
-            pageHeader = 'applyByPostHeader';
-            break;
-        case 'notRelated':
+        case 'notExecutor':
+        case 'mentalCapacity':
             pageHeader = 'applyByPostHeader';
             break;
         case 'notOriginal':
             pageHeader = 'notOriginalHeader';
             break;
-        case 'notExecutor':
-            pageHeader = 'applyByPostHeader';
-            break;
-        case 'mentalCapacity':
-            pageHeader = 'applyByPostHeader';
+        case 'deceasedHadLegalPartnerAndRelationshipOther':
+        case 'parentIsAlive':
+        case 'notEligibleLivingDescendants':
+        case 'notEligibleLivingParents':
+        case 'notEligibleSameParents':
+            pageHeader = 'notEntitledHeader';
             break;
         case 'divorcedNotInEnglandOrWales':
         case 'separatedNotInEnglandOrWales':
             pageHeader = 'postHeader';
             break;
-        case 'coApplicantRelationshipToDeceased':
-            pageHeader = 'coApplicantRelationshipToDeceasedHeader';
+        case 'spouseNotApplying':
+        case 'adoptionNotEnglandOrWales':
+        case 'adoptionNotInEnglandOrWales':
+        case 'adoptedOut':
+        case 'grandchildParentAdoptedOut':
+        case 'deceasedAdoptedOut':
+        case 'childrenUnder18':
+        case 'coApplicantAdoptionPlaceStop':
+        case 'coApplicantAdoptedOutStop':
+        case 'coApplicantParentAdoptedOutStop':
+        case 'grandchildrenUnder18':
+        case 'deceasedNoLegalPartnerAndRelationshipOther':
+        case 'notRelated':
+        case 'anyoneUnder18':
+        case 'hasOtherSiblingsWithSameParents':
+        case 'hasSurvivingChildrenWithOneParent':
+            pageHeader = 'cannotApplyByOnlineHeader';
             break;
         case 'otherCoApplicantRelationship':
             pageHeader = 'personCannotApplyByOnlineHeader';
-            break;
-        case 'relToDecUnmarriedOther':
-            pageHeader = 'relToDecUnmarriedOtherHeader';
             break;
         default:
             pageHeader = 'defaultHeader';

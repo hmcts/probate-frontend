@@ -1,5 +1,5 @@
 import { expect, Page } from '@playwright/test';
-import { BasePage } from '../../base/BasePage';
+import { BasePage } from '../../base/BasePage.ts';
 
 export class SignInPage extends BasePage {
 

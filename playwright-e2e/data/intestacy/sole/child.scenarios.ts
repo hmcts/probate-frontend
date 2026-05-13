@@ -1,4 +1,4 @@
-import { IntestacyEligibilityScenario } from '../../../types/journey.types';
+import { IntestacyEligibilityScenario } from '../../../types/journey.types.ts';
 
 export const soleChildScenario: IntestacyEligibilityScenario = {
   description: 'Sole applicant intestacy happy path as child',

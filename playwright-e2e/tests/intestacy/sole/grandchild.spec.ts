@@ -1,6 +1,6 @@
-import { test } from '../../../fixtures/test';
-import { deceased, paymentDetails, soleGrandchildApplicant, commonIntestacyScenario, } from '../../../data/intestacy/sole/scenarios';
-import { ROUTES } from '../../../constants/routes';
+import { test } from '../../../fixtures/test.ts';
+import { deceased, paymentDetails, soleGrandchildApplicant, commonIntestacyScenario, } from '../../../data/intestacy/sole/scenarios.ts';
+import { ROUTES } from '../../../constants/routes.ts';
 
 test.describe('Intestacy sole grandchild journey', () => {
   test('Sign in and complete deceased details as grandchild applicant', async ({
@@ -150,7 +150,7 @@ test.describe('Intestacy sole grandchild journey', () => {
     await cardDetailsPage.fillCardDetailsAndContinue(paymentDetails);
     await cardConfirmPage.confirmPayment();
     await thankYouPage.expectApplicationSubmitted();
-    
+
         const caseId = await thankYouPage.getCaseId();
         console.log(`Case ID: ${caseId}`);
   });

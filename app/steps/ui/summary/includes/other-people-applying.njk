@@ -1,12 +1,17 @@
 {% macro jointApplicationAnswer(executorsList) %}
-        {{ common.yes if executorsList and (executorsList | length) > 1 else common.no }}
+    {{
+          content.JointApplication[fields.executors.hasCoApplicant.value] if fields.executors.hasCoApplicant and executorsList and (executorsList | length) === 1
+          else (
+            common.yes if executorsList and (executorsList | length) > 1 else common.no
+          )
+    }}
 {% endmacro %}
 
 {{checkanswer(
     items = [
         {
             question: content.JointApplication.question,
-            answer: jointApplicationAnswer(fields.executors.list.value),
+            answer: content.JointApplication[fields.executors.hasCoApplicant.value] if fields.executors.hasCoApplicant === undefined else jointApplicationAnswer(fields.executors.list.value),
             visible: true
         }
     ],

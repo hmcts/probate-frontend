@@ -45,34 +45,11 @@ describe('CopiesUk', () => {
     });
 
     describe('handleGet()', () => {
-        it('should return true when the ft_probate-fee-increase_2025 toggle is set', (done) => {
+        it('should return 16.00', (done) => {
             const ctxToTest = {};
             const formdata = {};
-            const featureToggles = {
-                ft_probate_fee_increase_2025: true
-            };
-            const [ctx] = CopiesUk.handleGet(ctxToTest, formdata, featureToggles);
+            const [ctx] = CopiesUk.handleGet(ctxToTest, formdata);
             expect(ctx.copiesUKFee).to.equal('16.00');
-            done();
-        });
-
-        it('should return true when the ft_probate-fee-increase_2025 toggle is false', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {
-                ft_probate_fee_increase_2025: false
-            };
-            const [ctx] = CopiesUk.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.copiesUKFee).to.equal('1.50');
-            done();
-        });
-
-        it('should return false when the ft_probate-fee-increase_2025 toggle is not set', (done) => {
-            const ctxToTest = {};
-            const formdata = {};
-            const featureToggles = {};
-            const [ctx] = CopiesUk.handleGet(ctxToTest, formdata, featureToggles);
-            expect(ctx.copiesUKFee).to.equal('1.50');
             done();
         });
     });

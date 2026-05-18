@@ -4,12 +4,6 @@
   "paragraph1": "Order extra certified copies of the grant if you need to claim the estate outside the UK.",
   "paragraph2": "A certified copy will have the same features as the official copy and extra information confirming the details of the certification on the back of it.",
   "copies": "Number of extra certified copies",
-
-  "questionOld": "How many extra certified copies of the grant do you need for use outside the UK?",
-  "paragraph1Old": "Order extra certified copies of the grant if you need to claim the estate outside the UK.",
-  "paragraph2Old": "A certified copy will have the same features as the official copy and extra information confirming the details of the certification on the back of it.",
-  "copiesOld": "Number of extra certified copies",
-
   "errors": {
     "overseas": {
       "invalid": "Enter a valid number",

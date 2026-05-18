@@ -3,81 +3,9 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const rewire = require('rewire');
 const FeatureToggle = require('app/utils/FeatureToggle');
-const RewiredFeatureToggle = rewire('app/utils/FeatureToggle');
 
 describe('FeatureToggle', () => {
-    describe('checkToggle()', () => {
-        it('should call the callback function when the api returns successfully', (done) => {
-            const params = {
-                req: {
-                    session: {
-                        form: {}
-                    }
-                },
-                res: {},
-                next: () => true,
-                redirectPage: '/dummy-page',
-                launchDarkly: {
-                    ftValue: {'ft_fees_api': true}
-                },
-                featureToggleKey: 'ft_fees_api',
-                callback: sinon.spy()
-            };
-            const featureToggle = new FeatureToggle();
-
-            featureToggle.checkToggle(params);
-            featureToggle.checkToggle(params); // Checking a second call the ld doesn't hang
-
-            setTimeout(() => {
-                expect(params.callback.calledTwice).to.equal(true);
-                expect(params.callback.calledWith({
-                    req: params.req,
-                    res: params.res,
-                    next: params.next,
-                    redirectPage: params.redirectPage,
-                    isEnabled: true,
-                    featureToggleKey: params.featureToggleKey
-                })).to.equal(true);
-
-                done();
-            }, 1000);
-        });
-
-        it('should call next() when the api returns an error', (done) => {
-            class FeatureToggleStub {
-                getInstance() {
-                    return true;
-                }
-                variation() {
-                    throw new Error('Test error');
-                }
-            }
-            const params = {
-                req: {
-                    session: {
-                        form: {}
-                    }
-                },
-                res: {},
-                next: sinon.spy(),
-                redirectPage: '/dummy-page',
-                launchDarkly: {},
-                featureToggleKey: 'ft_fees_api',
-                callback: () => true
-            };
-            RewiredFeatureToggle.__set__('LaunchDarkly', FeatureToggleStub);
-            const featureToggle = new RewiredFeatureToggle();
-
-            featureToggle.checkToggle(params);
-
-            expect(params.next.calledOnce).to.equal(true);
-
-            done();
-        });
-    });
-
     describe('togglePage()', () => {
         it('should call next() when isEnabled is set to true', (done) => {
             const params = {

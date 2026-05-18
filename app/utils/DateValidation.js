@@ -8,7 +8,7 @@ class DateValidation {
             throw new TypeError(`no dateArray found: ${dateArray}`);
         }
         for (let i = 0; i < dateArray.length; i++) {
-            if (parseInt(dateArray[i]) < 1) {
+            if (parseInt(dateArray[i], 10) < 1) {
                 return false;
             }
         }

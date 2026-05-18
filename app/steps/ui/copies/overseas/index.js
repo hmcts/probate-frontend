@@ -11,7 +11,7 @@ class CopiesOverseas extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.overseas = ctx.overseas ? parseInt(ctx.overseas): ctx.overseas;
+        ctx.overseas = ctx.overseas ? parseInt(ctx.overseas, 10): ctx.overseas;
         return ctx;
     }
 

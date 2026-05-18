@@ -1,0 +1,13 @@
+{
+  "title": "Did the deceased have any surviving children",
+  "question": "Did any of these children have surviving children?",
+  "paragraph1": "They would be {deceasedName}’s grandchildren.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "anySurvivingGrandchildren": {
+      "required": "Select &lsquo;Yes&rsquo; if there are surviving children"
+    }
+  }
+}

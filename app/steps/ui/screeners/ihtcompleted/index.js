@@ -20,7 +20,7 @@ class IhtCompleted extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('ihtNotCompleted');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'ihtNotCompleted');
     }
 
     nextStepOptions() {

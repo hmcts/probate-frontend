@@ -2,28 +2,31 @@
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block form_content %}
+    {% call govukFieldset({
+        legend: {
+            text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+        }
+    }) %}
+    <p class="govuk-body">{{ content.paragraph1 | replace("{spouseGivingUpAdminRightsPA16Link}", globals.links.spouseGivingUpAdminRightsPA16Link) | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios",
         idPrefix: "spouseNotApplyingReason",
         name: "spouseNotApplyingReason",
-        fieldset: {
-            legend: {
-                text: content.question | replace("{deceasedName}", fields.deceasedName.value) | safe,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-            }
-        },
-        hint: {
-            text: content.hint | safe
-        },
-        errorMessage: { text: fields.spouseNotApplyingReason.errorMessage | safe } if fields.spouseNotApplyingReason.errorMessage,
+        errorMessage: { text: fields.spouseNotApplyingReason.errorMessage
+                        | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.spouseNotApplyingReason.errorMessage,
         items: [
             {
                 value: "optionRenouncing",
                 text: content["optionRenouncing"] | safe,
-                checked: true if fields.spouseNotApplyingReason.value == "optionRenouncing"
+                checked: true if fields.spouseNotApplyingReason.value == "optionRenouncing",
+                hint: {
+                    text: content.optionRenouncingHintText | safe
+                }
             },
             {
                 value: "optionOther",
@@ -32,6 +35,7 @@
             }
         ]
     }) }}
+{% endcall %}
 
     <div class="govuk-form-group">
         {{ govukButton({

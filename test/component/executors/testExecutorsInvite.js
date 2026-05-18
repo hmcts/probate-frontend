@@ -34,7 +34,18 @@ describe('executors-invite', () => {
         testCommonContent.runTest('ExecutorsInvite', null, null, [], false, {type: caseTypes.GOP});
 
         it('test correct content loaded on the page when more than 1 other executor', (done) => {
-            const contentToExclude = ['heading3'];
+            const contentToExclude = [
+                'heading3',
+                'intestacyQuestion',
+                'intestacyParagraph1',
+                'intestacyParagraph2',
+                'intestacyParagraph3',
+                'intestacyParagraph4',
+                'intestacyParagraph5',
+                'intestacyHeading1',
+                'intestacyHeading2',
+                'intestacyHeading3'
+            ];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
@@ -44,7 +55,19 @@ describe('executors-invite', () => {
         });
 
         it('test correct content loaded on the page when only 1 other executor', (done) => {
-            const contentToExclude = ['heading3-multiple'];
+            const contentToExclude = [
+                'heading3-multiple',
+                'intestacyQuestion',
+                'intestacyParagraph1',
+                'intestacyParagraph2',
+                'intestacyParagraph3',
+                'intestacyParagraph4',
+                'intestacyParagraph5',
+                'intestacyHeading1',
+                'intestacyHeading2',
+                'intestacyHeading3'
+            ];
+
             sessionData.executors.executorsNumber = 2;
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

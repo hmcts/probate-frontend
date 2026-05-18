@@ -6,7 +6,7 @@
     /* ---------------------------------------------------------------
        Config — change these in one place
     --------------------------------------------------------------- */
-    const REFERRER_PAGE    = 'Probate Site';
+    const REFERRER_PAGE      = 'Probate Site';
     {% if fields.language.value === 'en' %}
       <!-- english deployment id -->
       const DEPLOYMENT_ID    = '{{ globals.webchat.kerv.deploymentId.en }}';
@@ -14,10 +14,9 @@
       <!-- welsh deployment id -->
       const DEPLOYMENT_ID    = '{{ globals.webchat.kerv.deploymentId.cy }}';
     {% endif %}
-    const GENESYS_BASE_URL = '{{ globals.webchat.kerv.genesysBaseUrl }}';
-    const ENVIRONMENT      = '{{ globals.webchat.kerv.environment}}';
-    const KERV_BASE_URL    = '{{ globals.webchat.kerv.kervBaseUrl }}';
-    const API_KEY          = '{{ globals.webchat.kerv.apiKey }}';
+    const GENESYS_BASE_URL   = '{{ globals.webchat.kerv.genesysBaseUrl }}';
+    const ENVIRONMENT        = '{{ globals.webchat.kerv.environment}}';
+    const API_KEY            = '{{ globals.webchat.kerv.apiKey }}';
 
   /* ---------------------------------------------------------------
      Widget template — always show the launch link
@@ -38,7 +37,6 @@
 
         link.addEventListener('click', (e) => {
             e.preventDefault();
-
             const popup = window.open('', 'GenesysChatWindow', 'width=420,height=600');
             if (!popup) {
                 alert('{{ common.helpChatNeedsPopups }}');
@@ -59,181 +57,66 @@
       background: #f0f0f0;
     }
   </style>
+  <script nonce="{{ globals.nonce }}" type="text/javascript">
+    (function (g, e, n, es) {
+      g._genesysJs = e;
+      g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+      g[e].t = Date.now();
+      g[e].c = es;
+
+      /* inject the Genesys bootstrap script */
+      var s = document.createElement('script');
+      s.async = true;
+      s.src   = n;
+      document.head.appendChild(s);
+    })(window, 'Genesys',
+       '${GENESYS_BASE_URL}/genesys-bootstrap/genesys.min.js',
+       { environment: '${ENVIRONMENT}', deploymentId: '${DEPLOYMENT_ID}' });
+
+    Genesys(
+      "subscribe",
+      "Messenger.ready",
+      function () {
+        Genesys("command", "Database.set",
+          { messaging: { customAttributes: { webReferrerPage: '${REFERRER_PAGE}' } } },
+            () => { console.log("database set"); },
+            (error) => { console.log("Couldn't set database.", error); }
+        )
+      }
+    );
+    Genesys(
+      "subscribe",
+      "MessagingService.conversationCleared",
+      function () {
+        Genesys("command", "Database.set",
+          { messaging: { customAttributes: { webReferrerPage: '${REFERRER_PAGE}' } } },
+            () => { console.log("database set"); },
+            (error) => { console.log("Couldn't set database.", error); }
+        )
+      }
+    );
+
+    window.addEventListener('load', function () {
+      Genesys('subscribe', 'Messenger.ready', function () {
+        Genesys('command', 'Messenger.open');
+      });
+    });
+  <\/script>
 </head>
 <body>
-  <p id="statusMessage" class="govuk-body"><span class="spinner"></span>{{ common.helpChatCheckingAvail }}</p>
   <div id="genesys-web-messaging"></div>
-
-  <script nonce="{{ globals.nonce }}" type="text/javascript">
-    const REFERRER_PAGE    = '${REFERRER_PAGE}';
-    const DEPLOYMENT_ID    = '${DEPLOYMENT_ID}';
-    const GENESYS_BASE_URL = '${GENESYS_BASE_URL}';
-    const ENVIRONMENT      = '${ENVIRONMENT}';
-    const KERV_BASE_URL    = '${KERV_BASE_URL}';
-    const API_KEY          = '${API_KEY}';
-
-    /* ---------------------------------------------------------------
-       Availability checker (polls your service)
-    --------------------------------------------------------------- */
-    async function checkChatAvailability(maxRetries = 5, initialDelay = 1000) {
-        const URL   = KERV_BASE_URL + '?deploymentId=' + DEPLOYMENT_ID;
-        let attempt = 0;
-        let delay   = initialDelay;
-
-        while (attempt < maxRetries) {
-            try {
-                const response = await fetch(URL, {
-                    method: 'GET',
-                    headers: {
-                        'x-api': API_KEY,
-                        'Accept'   : 'application/json'
-                    }
-                });
-
-                if (response.status === 429) {
-                    console.warn('🚫 Rate‑limited; retrying in ' + delay + ' ms …');
-                    await new Promise(r => setTimeout(r, delay));
-                    delay *= 2;
-                    attempt++;
-                    continue;
-                }
-
-                if (!response.ok) throw new Error('status' + response.status);
-
-                const data = await response.json();
-                console.log(data.Status)
-                return data.Status
-            } catch (err) {
-                if (attempt >= maxRetries - 1) {
-                    console.error('❌ Final error after retries:', err);
-                    return 'Error';
-                }
-                console.warn('⚠️  Attempt ' + (attempt + 1) + ' failed; retrying in ' + delay + ' ms', err);
-                await new Promise(r => setTimeout(r, delay));
-                delay *= 2;
-                attempt++;
-            }
-        }
-        return 'Error';
-    }
-
-    function setStatusMessage(html) {
-        const statusMessage = document.getElementById('statusMessage');
-        if (statusMessage) statusMessage.outerHTML = html;
-    }
-
-    /* ---------------------------------------------------------------
-       Widget templates
-    --------------------------------------------------------------- */
-    function renderBusyNoAgentsWidget() {
-        return \`
-        <p class="govuk-body">{{ common.helpNoAgentsAvailable }}</p>\`;
-    }
-
-    function renderBusyEWTWidget() {
-        return \`
-        <p class="govuk-body">{{ common.helpAllAgentsBusy }}</p>\`;
-    }
-
-    function renderClosedWidget(reason) {
-        return \`
-        <p class="govuk-body">{{ common.helpChatClosed | replace("\n", "\\n") | replace("{chatOpeningHours}", common.helpChatOpeningHours) }}</p>\`;
-    }
-
-    function renderErrorWidget() {
-        return \`
-        <p class="govuk-body">{{ common.helpChatMaintenance }}</p>\`;
-    }
-
-    function loadGenesysMessenger() {
-      setStatusMessage('');
-
-      (function (g, e, n, es) {
-        g._genesysJs = e;
-        g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
-        g[e].t = Date.now();
-        g[e].c = es;
-
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = n;
-        document.head.appendChild(s);
-      })(window, 'Genesys',
-         GENESYS_BASE_URL + '/genesys-bootstrap/genesys.min.js',
-         { environment: ENVIRONMENT, deploymentId: DEPLOYMENT_ID });
-
-      Genesys(
-        'subscribe',
-        'Messenger.ready',
-        function () {
-          Genesys('command', 'Database.set',
-            { messaging: { customAttributes: { webReferrerPage: REFERRER_PAGE } } },
-              () => { console.log('database set'); },
-              (error) => { console.log('Could not set database.', error); }
-          );
-          Genesys('command', 'Messenger.open');
-        }
-      );
-
-      Genesys(
-        'subscribe',
-        'MessagingService.conversationCleared',
-        function () {
-          Genesys('command', 'Database.set',
-            { messaging: { customAttributes: { webReferrerPage: REFERRER_PAGE } } },
-              () => { console.log('database set'); },
-              (error) => { console.log('Could not set database.', error); }
-          );
-        }
-      );
-    }
-
-    /* ---------------------------------------------------------------
-       Switch placeholder to correct widget
-    --------------------------------------------------------------- */
-    async function startChatAfterAvailabilityCheck() {
-        try {
-            const status = await checkChatAvailability();
-
-            switch (status) {
-                case 'Open':
-                    loadGenesysMessenger();
-                    break;
-                case 'BusyNoAgents':
-                    setStatusMessage(renderBusyNoAgentsWidget());
-                    break;
-                case 'BusyEWT':
-                    setStatusMessage(renderBusyEWTWidget());
-                    break;
-                case 'Closed':
-                case 'Holiday':
-                case 'Emergency':
-                    setStatusMessage(renderClosedWidget(status));
-                    break;
-                case 'Error':
-                default:
-                    setStatusMessage(renderErrorWidget());
-                    break;
-            }
-        } catch (err) {
-            console.error('Error checking availability:', err);
-            setStatusMessage(renderErrorWidget());
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', startChatAfterAvailabilityCheck);
-  <\/script>
 </body>
 </html>`;
 
-      popup.document.open();
-      popup.document.write(genesysHTML);
-      popup.document.close();
-    });
-  }
+            popup.document.open();
+            popup.document.write(genesysHTML);
+            popup.document.close();
+        });
+    }
+
 
     /* ---------------------------------------------------------------
-       Bootstrap on DOM ready
+       Bootstrap on DOM ready - no availability pre-check here
     --------------------------------------------------------------- */
     document.addEventListener('DOMContentLoaded', () => {
         const chatContent = document.getElementById('chatContent');

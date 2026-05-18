@@ -23,7 +23,7 @@
         {% else %}
             {% set nameValue = content.statusDraftIntestacy %}
         {% endif %}
-        {% set actionLabel = actionText + " " + nameValue %}
+        {% set actionLabel = actionText + " " + (nameValue | escape) %}
 
         {% if grantIssued %}
            {% set statusValue = content.statusGrantIssued %}
@@ -37,7 +37,7 @@
             { text: nameValue | safe, classes: caseClasses },
             { text: application.dateCreated | safe, classes: caseDateClasses},
             { html: "<strong class=\"" + caseStatusClasses + "\">" + statusValue + "</strong>" },
-            { html: "<a href=\"" + actionUrl + "\" class=\"govuk-link\" aria-label=\"" + (actionLabel | escape) + "\">" + actionText + "</a>"  }
+            { html: "<a href=\"" + actionUrl + "\" class=\"govuk-link\" aria-label=\"" + actionLabel + "\">" + actionText + "</a>"  }
         ]), applicationRows) %}
     {% endfor %}
 

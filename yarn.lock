@@ -7925,11 +7925,11 @@ __metadata:
   linkType: hard
 
 "hosted-git-info@npm:^10.0.0":
-  version: 10.1.0
-  resolution: "hosted-git-info@npm:10.1.0"
+  version: 10.1.1
+  resolution: "hosted-git-info@npm:10.1.1"
   dependencies:
     lru-cache: "npm:^11.1.0"
-  checksum: 10/2d6f411e3b7957332290ca386c5842d21fd96fa6ac92a9a4a0b4bab89c8d7ca10ef916d85b1c748ea998374f910d27e2714dc8511d095fabeae5151d6e6a4f4f
+  checksum: 10/4f831bb3d23c5accb467e817856f2201647d35d1b6c9f97c2983be7498673ee24732d0ee03fa8b3b6b2514bfddf6931eae028c2593285c9b80e7c3a385bc6d79
   languageName: node
   linkType: hard
 

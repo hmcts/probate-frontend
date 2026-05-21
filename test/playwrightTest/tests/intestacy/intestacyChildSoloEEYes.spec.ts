@@ -80,7 +80,7 @@ getTestLanguages().forEach(language => {
       await signInPage.authenticateWithIdamIfAvailable(language);
 
       // Deceased Task
-      await taskListPage.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
+      await taskListPage.selectATask(language, 'deceasedTask');
       await I.chooseBiLingualGrant(language, optionNo);
       await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
       await I.enterDeceasedAddress(language);

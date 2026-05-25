@@ -88,15 +88,49 @@ describe('NewSubmittedToHmrc', () => {
         });
     });
     describe('isComplete()', () => {
-        it('should return the complete when have estateValueCompleted', (done) => {
+
+        it('should return complete when IHT400 is not required', (done) => {
             const ctx = {
-                estateValueCompleted: 'optionYes'
+                estateValueCompleted: 'optionNo'
             };
             const result = NewSubmittedToHmrc.isComplete(ctx);
             const expectedTrue = [true, 'inProgress'];
             expect(result).to.deep.equal(expectedTrue);
             done();
         });
+
+        it('should return complete when IHT400 is required and HMRC letter is received', (done) => {
+            const ctx = {
+                estateValueCompleted: 'optionYes',
+                hmrcLetterId: 'optionYes'
+            };
+            const result = NewSubmittedToHmrc.isComplete(ctx);
+            const expectedTrue = [true, 'inProgress'];
+            expect(result).to.deep.equal(expectedTrue);
+            done();
+        });
+
+        it('should return incomplete when IHT400 is required and HMRC letter is not received', (done) => {
+            const ctx = {
+                estateValueCompleted: 'optionYes',
+                hmrcLetterId: 'optionNo'
+            };
+            const result = NewSubmittedToHmrc.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+
+        it('should return incomplete when IHT400 is required and HMRC letter is unanswered', (done) => {
+            const ctx = {
+                estateValueCompleted: 'optionYes',
+            };
+            const result = NewSubmittedToHmrc.isComplete(ctx);
+            const expectedFalse = [false, 'inProgress'];
+            expect(result).to.deep.equal(expectedFalse);
+            done();
+        });
+
         it('should return complete false when no estateValueCompleted', (done) => {
             const ctx = {
             };

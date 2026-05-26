@@ -9,13 +9,10 @@ const NewSubmittedToHmrc = steps.NewSubmittedToHmrc;
 describe('NewSubmittedToHmrc', () => {
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
-            // Create a spy for the getUrl() method
             const getUrlSpy = sinon.spy(NewSubmittedToHmrc.constructor, 'getUrl');
             const url = NewSubmittedToHmrc.constructor.getUrl();
-            // Assert that the method was called
             expect(getUrlSpy.called).to.equal(true);
             expect(url).to.equal('/new-submitted-to-hmrc');
-            // Restore the spy
             getUrlSpy.restore();
             done();
         });
@@ -38,24 +35,19 @@ describe('NewSubmittedToHmrc', () => {
                 },
             };
             errors = [];
-
             NewSubmittedToHmrc.handlePost(ctx, errors, formdata, {language: 'en'});
-
-            // Assert the expected changes in ctx
             expect(ctx).to.deep.equal({
                 ihtFormEstateId: 'optionIHT400',
                 estateValueCompleted: 'optionYes', // Expected change
             });
-
-            // Assert other expectations (e.g., errors array, no string replacement)
-
-            // You may not need done() for synchronous tests
         });
 
         it('should update ctx with excepted estate for optionNo', () => {
             ctx = {
                 ihtFormEstateId: 'initialValue',
                 estateValueCompleted: 'optionNo',
+                hmrcLetterId: 'optionYes',
+                uniqueProbateCodeId: 'CTS04052311043tpps8e9',
             };
             formdata = {
                 iht: {
@@ -65,10 +57,9 @@ describe('NewSubmittedToHmrc', () => {
             };
             errors = [];
 
-            NewSubmittedToHmrc.handlePost(ctx, errors, formdata, {language: 'en'});
+            const [updatedCtx] = NewSubmittedToHmrc.handlePost(ctx, errors, formdata, {language: 'en'});
 
-            // Assert the expected changes in ctx
-            expect(ctx).to.deep.equal({
+            expect(updatedCtx).to.deep.equal({
                 ihtFormEstateId: 'initialValue',
                 estateValueCompleted: 'optionNo', // Expected change
             });

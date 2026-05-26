@@ -30,6 +30,8 @@ class NewSubmittedToHmrc extends ValidationStep {
             delete ctx.ihtNetValue;
             delete ctx.grossValueField;
             delete ctx.netValueField;
+            delete ctx.hmrcLetterId;
+            delete ctx.uniqueProbateCodeId;
         }
         return super.handlePost(ctx, errors);
     }

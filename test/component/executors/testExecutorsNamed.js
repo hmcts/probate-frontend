@@ -66,7 +66,7 @@ describe('executors-named', () => {
         });
 
         it('test correct content loaded on the page when lead applicant does not have an alias', (done) => {
-            const contentToExclude = ['titleWithCodicil', 'hintTextWithCodicil'];
+            const contentToExclude = ['titleWithCodicil', 'hintTextWithCodicil', 'questionCheckYourAnswer'];
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
@@ -75,7 +75,7 @@ describe('executors-named', () => {
         });
 
         it('test correct content loaded on the page when lead applicant does have an alias', (done) => {
-            const contentToExclude = ['titleWithCodicil', 'hintTextWithCodicil'];
+            const contentToExclude = ['titleWithCodicil', 'hintTextWithCodicil', 'questionCheckYourAnswer'];
             sessionData.executors.list[0].fullName = 'Fred Exec One';
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

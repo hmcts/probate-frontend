@@ -115,10 +115,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         directives: {
             defaultSrc: [
                 '\'self\'',
-                'webchat.ctsc.hmcts.net',
-                'webchat-client.ctsc.hmcts.net',
-                'webchat.pp.ctsc.hmcts.net',
-                'webchat-client.pp.ctsc.hmcts.net'
             ],
             fontSrc: [
                 '\'self\' data:',
@@ -131,13 +127,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
                 '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
                 '\'sha256-L7viC3kUpXu9uCOi97VqCR2bLlMwSQlmLmSuuQ93ngU=\'',
+                '\'sha256-nWZRr0RF4OANYiYcCteeOrMWiiSKIEIE+qPfFTq/WyI=\'',
                 '*.google-analytics.com',
                 'https://*.dynatrace.com',
                 '*.googletagmanager.com',
-                'webchat.ctsc.hmcts.net',
-                'webchat.pp.ctsc.hmcts.net',
-                'webchat-client.pp.ctsc.hmcts.net',
-                'webchat-client.ctsc.hmcts.net',
                 `'nonce-${nonce}'`,
                 'tagmanager.google.com',
                 config.webchat.kerv.genesysBaseUrl,
@@ -147,12 +140,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '*.google-analytics.com',
                 '*.googletagmanager.com',
                 'https://*.dynatrace.com',
-                'https://webchat.ctsc.hmcts.net',
-                'https://webchat-client.ctsc.hmcts.net',
-                'wss://webchat.ctsc.hmcts.net',
-                'wss://webchat.pp.ctsc.hmcts.net',
-                'https://webchat.pp.ctsc.hmcts.net',
-                'https://webchat-client.pp.ctsc.hmcts.net',
                 '*.g.doubleclick.net',
                 'tagmanager.google.com',
                 config.webchat.kerv.kervBaseUrl,

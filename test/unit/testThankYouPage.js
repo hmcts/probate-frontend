@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -126,40 +128,40 @@ describe('ThankYou', () => {
     describe('handleGet()', () => {
         it('test when checkAnswersSummary JSON just exists', () => {
             let ctx = {};
-            let formdata = {
+            const formdata = {
                 checkAnswersSummary: '{"test":"data"}'
             };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
-            [ctx, formdata] = thankYou.handleGet(ctx, formdata);
+            [ctx] = thankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(true);
             expect(ctx.legalDeclaration).to.deep.equal(false);
         });
         it('test when legalDeclaration JSON just exists', () => {
             let ctx = {};
-            let formdata = {
+            const formdata = {
                 legalDeclaration: '{"test":"data"}'
             };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
-            [ctx, formdata] = thankYou.handleGet(ctx, formdata);
+            [ctx] = thankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(false);
             expect(ctx.legalDeclaration).to.deep.equal(true);
         });
         it('test when no pdf variables JSON exists', () => {
             let ctx = {};
-            let formdata = {};
+            const formdata = {};
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
-            [ctx, formdata] = thankYou.handleGet(ctx, formdata);
+            [ctx] = thankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(false);
             expect(ctx.legalDeclaration).to.deep.equal(false);
         });
         it('test when all pdf variables JSON exists', () => {
             let ctx = {};
-            let formdata = {
+            const formdata = {
                 checkAnswersSummary: '{"test":"data"}',
                 legalDeclaration: '{"test":"data"}'
             };
             const thankYou = new ThankYou(steps, section, templatePath, i18next, schema);
-            [ctx, formdata] = thankYou.handleGet(ctx, formdata);
+            [ctx] = thankYou.handleGet(ctx, formdata);
             expect(ctx.checkAnswersSummary).to.deep.equal(true);
             expect(ctx.legalDeclaration).to.deep.equal(true);
         });
@@ -168,6 +170,12 @@ describe('ThankYou', () => {
                 DocumentsWrapper: class {
                     documentsRequired() {
                         return true;
+                    }
+                    spouseRenunciationRequired() {
+                        return false;
+                    }
+                    spouseRenunciationPa16FormRequired() {
+                        return false;
                     }
                 }
             });
@@ -185,6 +193,10 @@ describe('ThankYou', () => {
             const revertDocumentsWrapper = ThankYou.__set__({
                 DocumentsWrapper: class {
                     documentsRequired() {
+                        return false;
+                    }
+
+                    spouseRenunciationPa16FormRequired() {
                         return false;
                     }
                 }
@@ -209,7 +221,8 @@ describe('ThankYou', () => {
             const [ctx] = thankYou.handleGet({}, formdata);
             expect(ctx.deceasedWrittenWishes).to.deep.equal('optionYes');
         });
-        it('should return true when spouse is giving up rights as administrator and applicant is child', (done) => {
+
+        it('should return renunciation flags when applicant is child', (done) => {
             const formdata = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -222,11 +235,30 @@ describe('ThankYou', () => {
                 }
             };
             const thankYou = steps.ThankYou;
-            const [ctx] = thankYou.handleGet({}, formdata);
-            expect(ctx.isSpouseGivingUpAdminRights).to.deep.equal(true);
+            const [ctx] = thankYou.handleGet({caseType: caseTypes.INTESTACY}, formdata);
+            expect(ctx.showSpouseRenunciationItem).to.deep.equal(true);
             done();
         });
-        it('should return true when spouse is giving up rights as administrator and applicant is adopted child', (done) => {
+
+        it('should return renunciation flags when applicant is child and other children exist', (done) => {
+            const formdata = {
+                caseType: caseTypes.INTESTACY,
+                deceased: {
+                    maritalStatus: 'optionMarried',
+                    anyOtherChildren: 'optionYes'
+                },
+                applicant: {
+                    relationshipToDeceased: 'optionChild',
+                    spouseNotApplyingReason: 'optionRenouncing'
+                }
+            };
+            const thankYou = steps.ThankYou;
+            const [ctx] = thankYou.handleGet({caseType: caseTypes.INTESTACY}, formdata);
+            expect(ctx.showSpouseRenunciationItem).to.deep.equal(true);
+            done();
+        });
+
+        it('should return renunciation flags when applicant is adopted child', (done) => {
             const formdata = {
                 caseType: caseTypes.INTESTACY,
                 deceased: {
@@ -239,10 +271,11 @@ describe('ThankYou', () => {
                 }
             };
             const thankYou = steps.ThankYou;
-            const [ctx] = thankYou.handleGet({}, formdata);
-            expect(ctx.isSpouseGivingUpAdminRights).to.deep.equal(true);
+            const [ctx] = thankYou.handleGet({caseType: caseTypes.INTESTACY}, formdata);
+            expect(ctx.showSpouseRenunciationItem).to.deep.equal(true);
             done();
         });
+
         it('should return is205 on ctx', (done) => {
             const formdata = {
                 iht: {

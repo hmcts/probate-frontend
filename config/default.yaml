@@ -10,7 +10,6 @@ featureToggles:
     firstName: 'Probate'
     lastName: 'Frontend'
     key: 'LAUNCHDARKLY_USER_KEY'
-  ft_fees_api: 'probate-fees-api'
   ft_pcq: 'probate-pcq'
   ft_pcq_token: 'probate-pcq-token'
   ft_newfee_register_code: 'probate-newfee-register-code'

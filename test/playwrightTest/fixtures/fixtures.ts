@@ -1,12 +1,11 @@
-import {test as baseTest} from '@playwright/test';
-import {type PageFixtures, pageFixtures} from './pageFixtures.ts';
+import { test as baseTest } from '@playwright/test';
+import { type PageFixtures, pageFixtures } from './pageFixtures.ts';
 
-export type CustomFixtures = PageFixtures;
+export type CustomFixtures = PageFixtures & {
+  language: string;
+};
 
 export const test = baseTest.extend<CustomFixtures>({
-  language: async ({}, use) => {
-    const language = String(process.env.TEST_LANGUAGE ?? 'en');
-    await use(language);
-  },
+  language: [String(process.env.TEST_LANGUAGE ?? 'en'), { option: true }],
   ...pageFixtures,
 });

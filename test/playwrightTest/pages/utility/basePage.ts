@@ -119,4 +119,9 @@ export class BasePage {
     await this.getInputById(`${prefix}-month`).fill(month);
     await this.getInputById(`${prefix}-year`).fill(year);
   }
+
+  async seeSummaryPage(pageName: string): Promise<void> {
+    await expect(this.page).toHaveURL(new RegExp(pageName));
+  }
+
 }

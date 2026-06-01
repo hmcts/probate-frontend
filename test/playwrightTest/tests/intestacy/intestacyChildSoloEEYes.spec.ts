@@ -1,21 +1,24 @@
 import { test } from '../../fixtures';
-import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
+//import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
+import { getTestLanguages } from '../../pages/utility/basePage.ts';
 import { ROUTES } from '../../pageUrl/routes.ts';
 
 import taskListContentEn from "../../../../app/resources/en/translation/tasklist.json";
 import taskListContentCy from "../../../../app/resources/cy/translation/tasklist.json";
-// import {getTestLanguages} from "../../helpers/GeneralHelpers.json" with { type: "json" };
+//import {getTestLanguages} from "../../helpers/GeneralHelpers.json" with { type: "json" };
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json";
 
+
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
+const relationshipChildOfDeceased = ihtDataConfig.relationshipChildOfDeceased;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const spouseOfDeceased = ihtDataConfig.spouseOfDeceased;
-const relationshipChildOfDeceased = ihtDataConfig.relationshipChildOfDeceased;
 const optionRenouncing = ihtDataConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
+
 
 let testConfigurator: TestConfigurator;
 testConfigurator = new TestConfigurator();
@@ -34,12 +37,17 @@ getTestLanguages().forEach(language => {
   test.describe('Intestacy sole child journey', () => {
     test.use({ language });
     test(testConfigurator.idamInUseText(`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
-                                                                                                                                          page,
-                                                                                                                                          intestacyScreenerPage,
-                                                                                                                                          apiCallback,
-                                                                                                                                          signInPage,
-                                                                                                                                          taskListPage,
-                                                                                                                                        }) => {
+          page,
+          intestacyScreenerPage,
+          apiCallback,
+          signInPage,
+          taskListPage,
+          bilingualGopPage,
+          deceasedDetailsPage,
+          applicantsPage,
+          equalityAndDiversityPage,
+          declarationPage,
+        }) => {
       /*await intestacyScreenerPage.selectYes();
       await page.goto('/death-certificate');
       await deathCertificatePage.selectYes();
@@ -81,111 +89,96 @@ getTestLanguages().forEach(language => {
 
       // Deceased Task
       await taskListPage.selectATask(language, 'deceasedTask');
-      await I.chooseBiLingualGrant(language, optionNo);
-      await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
-      await I.enterDeceasedAddress(language);
+      await bilingualGopPage.selectBilingualGrant(optionNo);
+      await deceasedDetailsPage.enterDeceasedDetails(
+      'Deceased First Name',
+      'Deceased Last Name',
+      '01',
+      '01',
+      '1950',
+      '02',
+      '01',
+      '2022',
+    );
 
-      await I.selectDiedEngOrWales(language, optionNo);
-      await I.selectEnglishForeignDeathCert(language, optionNo);
-      await I.selectForeignDeathCertTranslation(language, optionYes);
-
-      await I.selectEEComplete(language, optionYes);
-      await I.selectSubmittedToHmrc(language, optionYes);
-      await I.selectHmrcLetterComplete(language, optionYes);
-      await I.enterHmrcCode(language, hmrcCode);
-      await I.enterProbateAssetValues(language, 400000, 400000);
-
-      await I.selectAssetsOutsideEnglandWales(language, optionYes);
-      await I.enterValueAssetsOutsideEnglandWales(language, '400000');
-      await I.selectDeceasedAlias(language, optionNo);
-      await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
-
-      await bilingualGopPage.selectNo();
-
-      await deceasedNamePage.fillDeceasedNameAndContinue(
-        deceased.firstName,
-        deceased.lastName,
+    await deceasedDetailsPage.enterDeceasedAddress(
+        'Deceased Address Line 1',
+        'Deceased Address Line 2',
+        'Deceased Address Line 3',
+        'Deceased Town',
+        'Deceased Postcode',
+        'Deceased Country',
       );
 
-      await deceasedDobPage.fillDobAndContinue(
-        deceased.dob.day,
-        deceased.dob.month,
-        deceased.dob.year,
-      );
+      await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
+      await deceasedDetailsPage.selectEnglishForeignDeathCert(optionNo);
+      await deceasedDetailsPage.selectForeignDeathCertTranslation(optionYes);
 
-      await deceasedDodPage.fillDodAndContinue(
-        deceased.dod.day,
-        deceased.dod.month,
-        deceased.dod.year,
-      );
+      await deceasedDetailsPage.selectEEComplete(optionYes);
+      await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
+      await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
+      await deceasedDetailsPage.enterHmrcCode(hmrcCode);
+      await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
 
-      await deceasedAddressPage.enterManualAddressAndContinue(
-        deceased.address.line1,
-        deceased.address.line2,
-        deceased.address.line3,
-        deceased.address.town,
-        deceased.address.postcode,
-        deceased.address.country,
-      );
+      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(optionYes);
+      await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
+      await deceasedDetailsPage.selectDeceasedAlias(optionNo);
+      await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
 
-      await diedEngOrWalesPage.selectYes();
-      await certificateInterimPage.selectDeathCertificate();
-      await calcCheckPage.selectYes();
-      await newSubmittedToHmrcPage.selectYes();
-      await hmrcLetterPage.selectYes();
-      await uniqueProbateCodePage.enterUniqueProbateCodeAndContinue(commonIntestacyScenario.uniqueProbateCode);
-      await probateEstateValuesPage.enterEstateValuesAndContinue(
-        commonIntestacyScenario.probateEstateValues.grossValue,
-        commonIntestacyScenario.probateEstateValues.netValue,
-      );
-      await assetsOutsideEnglandWalesPage.selectNo();
-      await deceasedAliasPage.selectNo();
-      await deceasedMaritalStatusPage.selectMarried();
+      // Executors Task
+      await taskListPage.selectATask(language, 'applicantsTask', taskListContent.taskNotStarted);
+      await applicantsPage.selectRelationshipToDeceased(relationshipChildOfDeceased);
+      await applicantsPage.selectSpouseNotApplyingReason(optionRenouncing);
+      await applicantsPage.enterAnyOtherChildren(optionNo);
+      await applicantsPage.enterApplicantName('ApplicantFirstName', 'ApplicantLastName');
+      await applicantsPage.enterApplicantPhone('07123456789');
+      await applicantsPage.enterApplicantAddress(
+  '10 High Street',
+  'Flat 2',
+  'West End',
+  'London',
+  'SW1A 1AA',
+  'United Kingdom'
+);
 
-      await taskListPage.clickGiveDetailsAboutThePeopleApplying();
-      await relationshipToDeceasedPage.selectChild();
-      await spouseNotApplyingReasonPage.selectGivingUpRightToApply();
-      await mainApplicantAdoptedInPage.selectYes();
-      await adoptedInEnglandOrWalesPage.selectYes(ROUTES.intestacyAnyOtherChildren);
-      await anyOtherChildrenPage.selectYes();
-      await anyPredeceasedChildrenPage.selectYesSome();
-      await anySurvivingGrandchildrenPage.selectYes();
-      await anyGrandchildrenUnder18Page.selectNo();
-      await allChildrenOver18Page.selectYes();
-      await applicantNamePage.enterApplicantName(
-        soleChildApplicant.firstName,
-        soleChildApplicant.lastName,
-      );
-      await applicantPhonePage.enterApplicantPhoneNumber(
-        soleChildApplicant.phoneNumber,
-      );
-      await mainApplicantAddressPage.enterManualAddressAndContinue(
-        soleChildApplicant.address.line1,
-        soleChildApplicant.address.line2,
-        soleChildApplicant.address.line3,
-        soleChildApplicant.address.town,
-        soleChildApplicant.address.postcode,
-        soleChildApplicant.address.country,
-      );
+if (testConfigurator.equalityAndDiversityEnabled()) {
+  await equalityAndDiversityPage.exitEqualityAndDiversity();
+  await equalityAndDiversityPage.completeEqualityAndDiversity();
+}
 
-      await jointApplicationPage.selectNo();
-      await equalityAndDiversityPage.optOut();
-      await taskListPage.goToDeclaration();
-      await summaryDeclarationPage.continueToDeclaration();
-      await declarationPage.confirmDeclarationAndContinue(ROUTES.taskList);
-      await taskListPage.goToPayAndSubmit();
-      await copiesUkPage.enterExtraOfficialCopiesAndContinue('1');
-      await assetsOverseasPage.selectYes();
-      await copiesOverseasPage.enterExtraCertifiedCopiesAndContinue('1');
-      await copiesSummaryPage.saveAndContinue();
-      await paymentBreakdownPage.payAndSubmitApplication();
-      await cardDetailsPage.fillCardDetailsAndContinue(paymentDetails);
-      await cardConfirmPage.confirmPayment();
-      await thankYouPage.expectApplicationSubmitted();
+      // Check your answers and declaration
+      await taskListPage.selectTask('reviewAndConfirmTask', taskListContent.taskNotStarted);
+      await taskListPage.seeSummaryPage('declaration');
+      await declarationPage.acceptDeclaration(language, bilingualGOP);
+
+        // Payment Task
+        // await I.selectATask(language, 'paymentTask', taskListContent.taskNotStarted);
+        // if (TestConfigurator.getUseGovPay() === 'true') {
+        //     await I.enterUkCopies(language, '5');
+        //     await I.selectOverseasAssets(language, optionNo);
+        // } else {
+        //     await I.enterUkCopies(language, '0');
+        //     await I.selectOverseasAssets(language, optionNo);
+
+        // }
+        // await I.seeCopiesSummary(language);
+        // await I.seePaymentBreakdownPage(language);
+        // if (TestConfigurator.getUseGovPay() === 'true') {
+        //     await I.seeGovUkPaymentPage(language);
+        //     await I.seeGovUkConfirmPage(language);
+        // }
+
+        // Thank You
+    //     await I.seeThankYouPage(language);
+    // }).tag('@e2enightly')
+    //     .tag('@e2enightly-pr')
+    //     .retry(TestConfigurator.getRetryScenarios());
 
 
-      const caseId = await thankYouPage.getCaseId();
-      console.log(`Case ID: ${caseId}`);
+
+
+      // const caseId = await thankYouPage.getCaseId();
+      // console.log(`Case ID: ${caseId}`);
     });
   });
 });

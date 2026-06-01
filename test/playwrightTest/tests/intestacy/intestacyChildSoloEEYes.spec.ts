@@ -32,8 +32,11 @@ const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
   test.describe('Intestacy sole child journey', () => {
+    test.describe.configure({ mode: 'serial' });
+
     test.use({ language });
     let testConfigurator: TestConfigurator;
+
     test.beforeEach(async () => {
       testConfigurator = new TestConfigurator();
       await testConfigurator.getBefore(); // creates unique user for this language
@@ -42,6 +45,7 @@ getTestLanguages().forEach(language => {
     test.afterEach(async () => {
       await testConfigurator.getAfter(); // only deletes THIS language's user
     });
+
     test((`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
       page,
       intestacyScreenerPage,
@@ -101,58 +105,28 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
       await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
 
-      await deceasedDetailsPage.selectEEComplete(language, optionYes);
-      await I.selectSubmittedToHmrc(language, optionYes);
-      await I.selectHmrcLetterComplete(language, optionYes);
-      await I.enterHmrcCode(language, hmrcCode);
-      await I.enterProbateAssetValues(language, 400000, 400000);
+      await deceasedDetailsPage.selectEEComplete(optionYes);
+      await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
+      await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
+      await deceasedDetailsPage.enterHmrcCode(hmrcCode);
+      await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
 
-      await I.selectAssetsOutsideEnglandWales(language, optionYes);
-      await I.enterValueAssetsOutsideEnglandWales(language, '400000');
-      await I.selectDeceasedAlias(language, optionNo);
-      await I.selectDeceasedMaritalStatus(language, maritalStatusMarried);
+      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
+      await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
+      await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
+      await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
 
-      await bilingualGopPage.selectNo();
-
-      await deceasedNamePage.fillDeceasedNameAndContinue(
-        deceased.firstName,
-        deceased.lastName,
-      );
-
-      await deceasedDobPage.fillDobAndContinue(
-        deceased.dob.day,
-        deceased.dob.month,
-        deceased.dob.year,
-      );
-
-      await deceasedDodPage.fillDodAndContinue(
-        deceased.dod.day,
-        deceased.dod.month,
-        deceased.dod.year,
-      );
-
-      await deceasedAddressPage.enterManualAddressAndContinue(
-        deceased.address.line1,
-        deceased.address.line2,
-        deceased.address.line3,
-        deceased.address.town,
-        deceased.address.postcode,
-        deceased.address.country,
-      );
-
-      await diedEngOrWalesPage.selectYes();
-      await certificateInterimPage.selectDeathCertificate();
-      await calcCheckPage.selectYes();
-      await newSubmittedToHmrcPage.selectYes();
-      await hmrcLetterPage.selectYes();
-      await uniqueProbateCodePage.enterUniqueProbateCodeAndContinue(commonIntestacyScenario.uniqueProbateCode);
-      await probateEstateValuesPage.enterEstateValuesAndContinue(
-        commonIntestacyScenario.probateEstateValues.grossValue,
-        commonIntestacyScenario.probateEstateValues.netValue,
-      );
-      await assetsOutsideEnglandWalesPage.selectNo();
-      await deceasedAliasPage.selectNo();
-      await deceasedMaritalStatusPage.selectMarried();
+      // Applicant Task
+      await I.selectATask(language, 'applicantsTask', taskListContent.taskNotStarted);
+      await I.selectRelationshipToDeceased(language, spouseOfDeceased);
+      await I.enterAnyChildren(language, optionNo);
+      await I.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
+      await I.enterApplicantPhone(language);
+      await I.enterAddressManually(language);
+      if (TestConfigurator.equalityAndDiversityEnabled()) {
+        await I.exitEqualityAndDiversity(language);
+        await I.completeEqualityAndDiversity(language);
+      }
 
       await taskListPage.clickGiveDetailsAboutThePeopleApplying();
       await relationshipToDeceasedPage.selectChild();

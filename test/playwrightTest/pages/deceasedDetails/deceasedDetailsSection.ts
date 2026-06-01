@@ -1,5 +1,5 @@
 import { BrowserContext, expect } from '@playwright/test';
-import {BasePage} from '../utility/basePage';
+import {BasePage, decodeHTML} from '../utility/basePage';
 import {getContent} from "../utility/contentHelper.ts";
 import ihtDataConfig from '../../data/ee/ihtData.json';
 import config from "config";
@@ -75,54 +75,133 @@ export class DeceasedDetailsSection extends BasePage {
     await expect(this.page.locator(`#diedEngOrWales${answer}`)).toBeEnabled();
     await this.page.locator(`#diedEngOrWales${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
-    // const I = this;
-    // const commonContent = require(`app/resources/${language}/translation/common`);
-
-    // await I.checkInUrl('/died-eng-or-wales');
-    // const locator = {css: `#diedEngOrWales${answer}`};
-    // await I.waitForEnabled(locator);
-    // await I.click(locator);
-    // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
   }
 
   async selectEnglishForeignDeathCert(language = 'en', answer = null) {
     const englishForeignDeathCertContent = getContent(`app/resources/${language}/translation/deceased/englishforeigndeathcert.json`);
     await this.checkInUrl('/intestacy/english-foreign-death-cert');
-    await expect(this.page.getByText(englishForeignDeathCertContent.question)).toBeVisible();
+    await expect(this.page.getByText(await decodeHTML(englishForeignDeathCertContent.question))).toBeVisible();
     await expect(this.page.locator(`#englishForeignDeathCert${answer}`)).toBeEnabled();
     await this.page.locator(`#englishForeignDeathCert${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
-    // const I = this;
-    // const commonContent = require(`app/resources/${language}/translation/common`);
-    // const englishForeignDeathCertContent = require(`app/resources/${language}/translation/deceased/englishforeigndeathcert`);
-
-    // await I.checkInUrl('/english-foreign-death-cert');
-    // await I.waitForText(englishForeignDeathCertContent.question, config.TestWaitForTextToAppear);
-
-    // const locator = `#englishForeignDeathCert${answer}`;
-    // await I.waitForEnabled(locator);
-    // await I.click(locator);
-    // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
   }
 
   async selectForeignDeathCertTranslation(language = 'en', answer = null) {
     const foreignDeathCertTranslationContent = getContent(`app/resources/${language}/translation/deceased/foreigndeathcerttranslation.json`);
     await this.checkInUrl('/intestacy/foreign-death-cert-translation');
-    await expect(this.page.getByText(foreignDeathCertTranslationContent.question)).toBeVisible();
+    await expect(this.page.getByText(await decodeHTML(foreignDeathCertTranslationContent.question))).toBeVisible();
     await expect(this.page.locator(`#foreignDeathCertTranslation${answer}`)).toBeEnabled();
     await this.page.locator(`#foreignDeathCertTranslation${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectEEComplete(answer = null) {
+    await this.checkInUrl('/intestacy/calc-check');
+    await expect(this.page.locator(`#calcCheckCompleted${answer}`)).toBeEnabled();
+    await this.page.locator(`#calcCheckCompleted${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectSubmittedToHmrc(answer = null) {
+    await this.checkInUrl('/intestacy/new-submitted-to-hmrc');
+    await expect(this.page.locator(`#estateValueCompleted${answer}`)).toBeEnabled();
+    await this.page.locator(`#estateValueCompleted${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectHmrcLetterComplete(answer = null) {
+    await this.checkInUrl('/intestacy/hmrc-letter');
+    await expect(this.page.locator(`#hmrcLetterId${answer}`)).toBeEnabled();
+    await this.page.locator(`#hmrcLetterId${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async enterHmrcCode(hmrcCode = null) {
+    await this.checkInUrl('/intestacy/unique-probate-code');
+    await expect(this.page.locator('#uniqueProbateCodeId')).toBeEnabled();
+    await this.page.locator('#uniqueProbateCodeId').fill(hmrcCode);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async enterProbateAssetValues(grossValue = null, netValue = null) {
+    await this.checkInUrl('/intestacy/probate-estate-values');
+    await expect(this.page.locator('#grossValueField')).toBeEnabled();
+    await this.page.locator('#grossValueField').fill(grossValue);
+    await this.page.locator('#netValueField').fill(netValue);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectAssetsOutsideEnglandWales(language = 'en', answer = null) {
+    const assetsContent = getContent(`app/resources/${language}/translation/iht/assetsoutside.json`);
+    await this.checkInUrl('/intestacy/assets-outside-england-wales');
+    await expect(this.page.getByText(await decodeHTML(assetsContent.hint))).toBeVisible();
+    await expect(this.page.locator(`#assetsOutside${answer}`)).toBeEnabled();
+    await this.page.locator(`#assetsOutside${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
     // const I = this;
     // const commonContent = require(`app/resources/${language}/translation/common`);
-    // const foreignDeathCertTranslationContent = require(`app/resources/${language}/translation/deceased/foreigndeathcerttranslation`);
+    // const assetsContent = require(`app/resources/${language}/translation/iht/assetsoutside`);
 
-    // await I.checkInUrl('/foreign-death-cert-translation');
-    // await I.waitForText(foreignDeathCertTranslationContent.question, config.TestWaitForTextToAppear);
+    // await I.checkInUrl('/assets-outside-england-wales');
+    // await I.waitForText(assetsContent.hint, config.TestWaitForTextToAppear);
+    // const locator = {css: `#assetsOutside ${answer}`};
+    // await I.waitForEnabled(locator);
+    // await I.click(locator);
+    // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+  }
 
-    // const locator = {css: `#foreignDeathCertTranslation${answer}`};
+  async enterValueAssetsOutsideEnglandWales(netAmount = null) {
+    await this.checkInUrl('/intestacy/value-assets-outside-england-wales');
+    await expect(this.page.locator('#netValueAssetsOutsideField')).toBeEnabled();
+    await this.page.locator('#netValueAssetsOutsideField').fill(netAmount);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+    // const I = this;
+    // const commonContent = require(`app/resources/${language}/translation/common`);
+
+    // await I.checkInUrl('/value-assets-outside-england-wales');
+    // const locator = {css: '#netValueAssetsOutsideField'};
+    // await I.waitForEnabled(locator);
+    // await I.fillField(locator, netAmount);
+
+    // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+  }
+
+  async selectDeceasedAlias(language = 'en', answer = null) {
+    const aliasContent = getContent(`app/resources/${language}/translation/deceased/alias.json`);
+    await this.checkInUrl('/intestacy/deceased-alias');
+    await expect(this.page.getByText(await decodeHTML(aliasContent.intestacyParagraph1
+      .replace('{deceasedName}', 'Deceased First Name Deceased Last Name'))))
+      .toBeVisible();
+    await expect(this.page.locator(`#alias${answer}`)).toBeEnabled();
+    await this.page.locator(`#alias${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+    // const I = this;
+
+    // const commonContent = require(`app/resources/${language}/translation/common`);
+    // const aliasContent = require(`app/resources/${language}/translation/deceased/alias`);
+
+    // await I.checkInUrl('/deceased-alias');
+    // await I.waitForText(aliasContent.intestacyParagraph1.replace('{deceasedName}', 'Deceased First Name Deceased Last Name'), config.TestWaitForTextToAppear);
+    // const locator = {css: `#alias${answer}`};
     // await I.waitForEnabled(locator);
     // await I.click(locator);
 
+    // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+  }
+
+  async selectDeceasedMaritalStatus(answer = null) {
+    await this.checkInUrl('/intestacy/deceased-marital-status');
+    await expect(this.page.locator(`#maritalStatus${answer}`)).toBeEnabled();
+    await this.page.locator(`#maritalStatus${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+    // const I = this;
+    // const commonContent = require(`app/resources/${language}/translation/common`);
+
+    // await I.checkInUrl('/deceased-marital-status');
+    // const locator = {css: `#maritalStatus${answer}`};
+
+    // await I.waitForEnabled(locator);
+    // await I.click(locator);
     // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
   }
 }

@@ -17,29 +17,39 @@ const optionRenouncing = ihtDataConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
-let testConfigurator: TestConfigurator;
-testConfigurator = new TestConfigurator();
-
-test.beforeEach(async () => {
-  //***Need to migrate code for launch darkly to playwright typescript and enable this line ****//
-  // await TestConfigurator.initLaunchDarkly();
-  await testConfigurator.getBefore();
-});
-
-test.afterEach(async () => {
-  await testConfigurator.getAfter();
-});
+// let testConfigurator: TestConfigurator;
+// testConfigurator = new TestConfigurator();
+//
+// test.beforeEach(async () => {
+//   //***Need to migrate code for launch darkly to playwright typescript and enable this line ****//
+//   // await TestConfigurator.initLaunchDarkly();
+//   await testConfigurator.getBefore();
+// });
+//
+// test.afterEach(async () => {
+//   await testConfigurator.getAfter();
+// });
 
 getTestLanguages().forEach(language => {
   test.describe('Intestacy sole child journey', () => {
     test.use({ language });
-    test(testConfigurator.idamInUseText(`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
-                                                                                                                                          page,
-                                                                                                                                          intestacyScreenerPage,
-                                                                                                                                          apiCallback,
-                                                                                                                                          signInPage,
-                                                                                                                                          taskListPage,
-                                                                                                                                        }) => {
+    let testConfigurator: TestConfigurator;
+    test.beforeEach(async () => {
+      testConfigurator = new TestConfigurator();
+      await testConfigurator.getBefore(); // creates unique user for this language
+    });
+
+    test.afterEach(async () => {
+      await testConfigurator.getAfter(); // only deletes THIS language's user
+    });
+    test((`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
+      page,
+      intestacyScreenerPage,
+      apiCallback,
+      signInPage,
+      taskListPage,
+      deceasedDetailsPage,
+    }) => {
       /*await intestacyScreenerPage.selectYes();
       await page.goto('/death-certificate');
       await deathCertificatePage.selectYes();
@@ -81,15 +91,17 @@ getTestLanguages().forEach(language => {
 
       // Deceased Task
       await taskListPage.selectATask(language, 'deceasedTask');
-      await I.chooseBiLingualGrant(language, optionNo);
-      await I.enterDeceasedDetails(language, 'Deceased First Name', 'Deceased Last Name', '01', '01', '1950', '02', '01', '2022');
-      await I.enterDeceasedAddress(language);
+      await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
+      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
+      await deceasedDetailsPage.enterDobDetails('01', '01', '1950');
+      await deceasedDetailsPage.enterDodDetails('02', '01', '2022');
+      await deceasedDetailsPage.enterDeceasedAddress();
 
-      await I.selectDiedEngOrWales(language, optionNo);
-      await I.selectEnglishForeignDeathCert(language, optionNo);
-      await I.selectForeignDeathCertTranslation(language, optionYes);
+      await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
+      await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
+      await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
 
-      await I.selectEEComplete(language, optionYes);
+      await deceasedDetailsPage.selectEEComplete(language, optionYes);
       await I.selectSubmittedToHmrc(language, optionYes);
       await I.selectHmrcLetterComplete(language, optionYes);
       await I.enterHmrcCode(language, hmrcCode);

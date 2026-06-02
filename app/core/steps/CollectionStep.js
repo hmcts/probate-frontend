@@ -15,7 +15,7 @@ class CollectionStep extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
+            ctx.index = parseInt(req.params[0], 10);
         } else if (startsWith(req.path, this.path)) {
             ctx.index = this.recalcIndex(ctx, 0, req.session.language);
         } else {

@@ -4,7 +4,7 @@ module.exports = async function(language = 'en', executorNumber = null, diedBefo
     const I = this;
     const commonContent = require(`app/resources/${language}/translation/common`);
 
-    await I.checkInUrl(`/executor-when-died/${firstRecord ? '*' : parseInt(executorNumber) - 1}`);
+    await I.checkInUrl(`/executor-when-died/${firstRecord ? '*' : parseInt(executorNumber, 10) - 1}`);
     await I.refreshPage();
 
     const locator = {css: `#diedbefore${diedBefore}`};

@@ -235,7 +235,7 @@
     "tar": "^7.5.15",
     "tar-fs": "^3.1.2",
     "tough-cookie": "^6.0.1",
-    "tmp": "0.2.6",
+    "tmp": "0.2.7",
     "undici": "^8.0.0",
     "is-async-function": "2.1.0",
     "webdriverio": "^9.23.3",

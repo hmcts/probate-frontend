@@ -1,3 +1,9 @@
 {
-  "phoneNumberValue": "07771 900 900"
+  "phoneNumberValue": "07771 900 900",
+  "spouseOfDeceased": "",
+  "relationshipChildOfDeceased": "-2",
+  "optionRenouncing": "",
+  "deceasedFullName": "Deceased First Name Deceased Last Name",
+  "optionAllOfThem": "-2",
+  "optionSomeOfThem": ""
 }

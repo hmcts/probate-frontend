@@ -53,6 +53,7 @@ getTestLanguages().forEach(language => {
       signInPage,
       taskListPage,
       deceasedDetailsPage,
+      applicantDetailsPage
     }) => {
       /*await intestacyScreenerPage.selectYes();
       await page.goto('/death-certificate');
@@ -117,15 +118,15 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
 
       // Applicant Task
-      await I.selectATask(language, 'applicantsTask', taskListContent.taskNotStarted);
-      await I.selectRelationshipToDeceased(language, spouseOfDeceased);
-      await I.enterAnyChildren(language, optionNo);
-      await I.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
-      await I.enterApplicantPhone(language);
-      await I.enterAddressManually(language);
-      if (TestConfigurator.equalityAndDiversityEnabled()) {
-        await I.exitEqualityAndDiversity(language);
-        await I.completeEqualityAndDiversity(language);
+      await taskListPage.selectATask(language, 'applicantsTask');
+      await applicantDetailsPage.selectRelationshipToDeceased(language, spouseOfDeceased, 'Deceased First Name Deceased Last Name');
+      await applicantDetailsPage.enterAnyChildren(language, optionNo);
+      await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
+      await applicantDetailsPage.enterApplicantPhone(language);
+      await applicantDetailsPage.enterAddressManually();
+      if (testConfigurator.equalityAndDiversityEnabled()) {
+        await applicantDetailsPage.exitEqualityAndDiversity(language);
+        await applicantDetailsPage.completeEqualityAndDiversity();
       }
 
       await taskListPage.clickGiveDetailsAboutThePeopleApplying();

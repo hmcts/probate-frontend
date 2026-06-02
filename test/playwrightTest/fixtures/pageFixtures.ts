@@ -2,6 +2,7 @@ import {SignInPage} from '../pages/idam/signIn.ts';
 import {IntestacyScreenerPage} from '../pages/screener/intestacyScreenerPage.ts';
 import {TaskListPage} from '../pages/taskListPage.ts';
 import {DeceasedDetailsSection} from '../pages/deceasedDetails/deceasedDetailsSection.ts';
+import {ApplicantDetailsSection} from '../pages/applicantDetails/applicantDetailsSection.ts';
 
 export interface PageFixtures {
   language: string;
@@ -9,6 +10,7 @@ export interface PageFixtures {
   signInPage: SignInPage;
   taskListPage: TaskListPage;
   deceasedDetailsPage: DeceasedDetailsSection;
+  applicantDetailsPage: ApplicantDetailsSection;
 }
 
 export const pageFixtures = {
@@ -23,5 +25,8 @@ export const pageFixtures = {
   },
   deceasedDetailsPage: async ({ page, context, language }, use) => {
     await use(new DeceasedDetailsSection(page, context, language));
+  },
+  applicantDetailsPage: async ({ page, context, language }, use) => {
+    await use(new ApplicantDetailsSection(page, context, language));
   },
 };

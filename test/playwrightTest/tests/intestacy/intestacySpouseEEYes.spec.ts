@@ -12,7 +12,7 @@ import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.js
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
-const relationshipChildOfDeceased = applicantDetailConfig.relationshipChildOfDeceased;
+const spouseOfDeceased = applicantDetailConfig.spouseOfDeceased;
 const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
@@ -55,15 +55,6 @@ getTestLanguages().forEach(language => {
       deceasedDetailsPage,
       applicantDetailsPage
     }) => {
-      /*await intestacyScreenerPage.selectYes();
-      await page.goto('/death-certificate');
-      await deathCertificatePage.selectYes();
-      await deathCertificateEnglishPage.selectYes();
-      await deceasedDomicilePage.selectYes();
-      await eeDeceasedDodPage.selectYes();
-      await eeEstateValuedPage.selectYes();
-      await willLeftPage.selectNo();
-      await relatedToDeceasedPage.selectChild();*/
       const testConfigurator = new TestConfigurator();
       const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
 
@@ -87,7 +78,7 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(language, optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipChildOfDeceased);
+      await intestacyScreenerPage.selectRelatedToDeceased(language, spouseOfDeceased);
 
       await intestacyScreenerPage.startApply(language);
 
@@ -119,13 +110,15 @@ getTestLanguages().forEach(language => {
 
       // Applicant Task
       await taskListPage.selectATask(language, 'applicantsTask');
-      await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
-      await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
-      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes);
-      await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
-      await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
-      await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionAllOfThem);
-      await applicantDetailsPage.anyGrandChildren(language, optionNo);
+      await applicantDetailsPage.selectRelationshipToDeceased(language, spouseOfDeceased);
+      await applicantDetailsPage.enterAnyChildren(language, optionYes);
+      await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
+      await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);
+      await applicantDetailsPage.anyGrandChildren(language, optionYes);
+      await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
+      await applicantDetailsPage.jointApplication(optionYes);
+      await applicantDetailsPage.spouseCoApplicationStopPage();
+      await applicantDetailsPage.jointApplication(optionNo);
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
@@ -134,6 +127,46 @@ getTestLanguages().forEach(language => {
         await applicantDetailsPage.completeEqualityAndDiversity();
       }
 
+      await taskListPage.clickGiveDetailsAboutThePeopleApplying();
+      await relationshipToDeceasedPage.selectChild();
+      await spouseNotApplyingReasonPage.selectGivingUpRightToApply();
+      await mainApplicantAdoptedInPage.selectYes();
+      await adoptedInEnglandOrWalesPage.selectYes(ROUTES.intestacyAnyOtherChildren);
+      await anyOtherChildrenPage.selectYes();
+      await anyPredeceasedChildrenPage.selectYesSome();
+      await anySurvivingGrandchildrenPage.selectYes();
+      await anyGrandchildrenUnder18Page.selectNo();
+      await allChildrenOver18Page.selectYes();
+      await applicantNamePage.enterApplicantName(
+        soleChildApplicant.firstName,
+        soleChildApplicant.lastName,
+      );
+      await applicantPhonePage.enterApplicantPhoneNumber(
+        soleChildApplicant.phoneNumber,
+      );
+      await mainApplicantAddressPage.enterManualAddressAndContinue(
+        soleChildApplicant.address.line1,
+        soleChildApplicant.address.line2,
+        soleChildApplicant.address.line3,
+        soleChildApplicant.address.town,
+        soleChildApplicant.address.postcode,
+        soleChildApplicant.address.country,
+      );
+
+      await jointApplicationPage.selectNo();
+      await equalityAndDiversityPage.optOut();
+      await taskListPage.goToDeclaration();
+      await summaryDeclarationPage.continueToDeclaration();
+      await declarationPage.confirmDeclarationAndContinue(ROUTES.taskList);
+      await taskListPage.goToPayAndSubmit();
+      await copiesUkPage.enterExtraOfficialCopiesAndContinue('1');
+      await assetsOverseasPage.selectYes();
+      await copiesOverseasPage.enterExtraCertifiedCopiesAndContinue('1');
+      await copiesSummaryPage.saveAndContinue();
+      await paymentBreakdownPage.payAndSubmitApplication();
+      await cardDetailsPage.fillCardDetailsAndContinue(paymentDetails);
+      await cardConfirmPage.confirmPayment();
+      await thankYouPage.expectApplicationSubmitted();
 
 
       const caseId = await thankYouPage.getCaseId();

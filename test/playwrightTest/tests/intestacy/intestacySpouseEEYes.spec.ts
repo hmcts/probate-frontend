@@ -1,10 +1,6 @@
 import { test } from '../../fixtures';
-import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
-import { ROUTES } from '../../pageUrl/routes.ts';
+import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
-import taskListContentEn from "../../../../app/resources/en/translation/tasklist.json";
-import taskListContentCy from "../../../../app/resources/cy/translation/tasklist.json";
-// import {getTestLanguages} from "../../helpers/GeneralHelpers.json" with { type: "json" };
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json";
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json"
@@ -13,22 +9,8 @@ const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
 const spouseOfDeceased = applicantDetailConfig.spouseOfDeceased;
-const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
-
-// let testConfigurator: TestConfigurator;
-// testConfigurator = new TestConfigurator();
-//
-// test.beforeEach(async () => {
-//   //***Need to migrate code for launch darkly to playwright typescript and enable this line ****//
-//   // await TestConfigurator.initLaunchDarkly();
-//   await testConfigurator.getBefore();
-// });
-//
-// test.afterEach(async () => {
-//   await testConfigurator.getAfter();
-// });
 
 getTestLanguages().forEach(language => {
   test.describe('Intestacy sole child journey', () => {
@@ -47,23 +29,21 @@ getTestLanguages().forEach(language => {
     });
 
     test((`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
-      page,
       intestacyScreenerPage,
       apiCallback,
       signInPage,
       taskListPage,
       deceasedDetailsPage,
-      applicantDetailsPage
+      applicantDetailsPage,
+      cyaAndDeclarationPage,
+      paymentTaskPage
     }) => {
       const testConfigurator = new TestConfigurator();
-      const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
       await intestacyScreenerPage.startApplication(language);
-
-      // await I.startApplication(language);
 
       // Probate Sceeners
       await intestacyScreenerPage.selectDeathCertificate(language);
@@ -127,49 +107,32 @@ getTestLanguages().forEach(language => {
         await applicantDetailsPage.completeEqualityAndDiversity();
       }
 
-      await taskListPage.clickGiveDetailsAboutThePeopleApplying();
-      await relationshipToDeceasedPage.selectChild();
-      await spouseNotApplyingReasonPage.selectGivingUpRightToApply();
-      await mainApplicantAdoptedInPage.selectYes();
-      await adoptedInEnglandOrWalesPage.selectYes(ROUTES.intestacyAnyOtherChildren);
-      await anyOtherChildrenPage.selectYes();
-      await anyPredeceasedChildrenPage.selectYesSome();
-      await anySurvivingGrandchildrenPage.selectYes();
-      await anyGrandchildrenUnder18Page.selectNo();
-      await allChildrenOver18Page.selectYes();
-      await applicantNamePage.enterApplicantName(
-        soleChildApplicant.firstName,
-        soleChildApplicant.lastName,
-      );
-      await applicantPhonePage.enterApplicantPhoneNumber(
-        soleChildApplicant.phoneNumber,
-      );
-      await mainApplicantAddressPage.enterManualAddressAndContinue(
-        soleChildApplicant.address.line1,
-        soleChildApplicant.address.line2,
-        soleChildApplicant.address.line3,
-        soleChildApplicant.address.town,
-        soleChildApplicant.address.postcode,
-        soleChildApplicant.address.country,
-      );
+      // Check your answers and declaration
+      await taskListPage.selectATask(language, 'reviewAndConfirmTask');
+      await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
+      await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
 
-      await jointApplicationPage.selectNo();
-      await equalityAndDiversityPage.optOut();
-      await taskListPage.goToDeclaration();
-      await summaryDeclarationPage.continueToDeclaration();
-      await declarationPage.confirmDeclarationAndContinue(ROUTES.taskList);
-      await taskListPage.goToPayAndSubmit();
-      await copiesUkPage.enterExtraOfficialCopiesAndContinue('1');
-      await assetsOverseasPage.selectYes();
-      await copiesOverseasPage.enterExtraCertifiedCopiesAndContinue('1');
-      await copiesSummaryPage.saveAndContinue();
-      await paymentBreakdownPage.payAndSubmitApplication();
-      await cardDetailsPage.fillCardDetailsAndContinue(paymentDetails);
-      await cardConfirmPage.confirmPayment();
-      await thankYouPage.expectApplicationSubmitted();
+      // Payment Task
+      await taskListPage.selectATask(language, 'paymentTask');
 
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await paymentTaskPage.enterUkCopies(language, '5');
+        await paymentTaskPage.selectOverseasAssets(optionYes);
+        await paymentTaskPage.enterOverseasCopies('2');
+      } else {
+        await paymentTaskPage.enterUkCopies(language, '0');
+        await paymentTaskPage.selectOverseasAssets(optionNo);
+      }
+      await paymentTaskPage.seeCopiesSummary(language);
+      await paymentTaskPage.seePaymentBreakdownPage(language);
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await paymentTaskPage.seeGovUkPaymentPage(language);
+        await paymentTaskPage.seeGovUkConfirmPage(language);
+      }
 
-      const caseId = await thankYouPage.getCaseId();
+      // Thank You
+      const caseId = await paymentTaskPage.seeThankYouPage(language);
+
       console.log(`Case ID: ${caseId}`);
     });
   });

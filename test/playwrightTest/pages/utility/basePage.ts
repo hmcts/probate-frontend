@@ -73,7 +73,6 @@ export class BasePage {
     await button.click();
   }
 
-
   async clickSaveAndContinue(nextPageUrl?: RegExp): Promise<void> {
     const button = this.page.getByRole('button', {
       name: /^(Save and continue|Continue)$/i,
@@ -114,9 +113,19 @@ export class BasePage {
     await this.clickSaveAndContinue(nextPageUrl);
   }
 
-  async fillDateByIdPrefix(prefix: string, day: string, month: string, year: string): Promise<void> {
-    await this.getInputById(`${prefix}-day`).fill(day);
-    await this.getInputById(`${prefix}-month`).fill(month);
-    await this.getInputById(`${prefix}-year`).fill(year);
+  async downloadPdfIfNotIE11(locator: Locator): Promise<void> {
+    const [download] = await Promise.all([
+      this.page.waitForEvent('download'),
+      locator.click()
+    ]);
+    expect(download.suggestedFilename()).toContain('.pdf');
+    expect(await download.failure()).toBeNull();
+  }
+
+  async switchToNextTab(tabIndex: number): Promise<Page> {
+    const pages = this.context.pages();
+    const nextTab = pages[tabIndex];
+    await nextTab.waitForLoadState();
+    return nextTab;
   }
 }

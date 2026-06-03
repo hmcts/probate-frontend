@@ -23,6 +23,7 @@ export default defineConfig({
   use: {
     /* Base URL */
     baseURL: process.env.TEST_URL ?? 'http://localhost:3000',
+    acceptDownloads: true,
 
     // Navigation timeout (affects goto, waitForLoadState, etc.)
     navigationTimeout: 60000,

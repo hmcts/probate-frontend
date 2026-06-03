@@ -1,10 +1,6 @@
 import { test } from '../../fixtures';
-import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
-import { ROUTES } from '../../pageUrl/routes.ts';
+import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
-import taskListContentEn from "../../../../app/resources/en/translation/tasklist.json";
-import taskListContentCy from "../../../../app/resources/cy/translation/tasklist.json";
-// import {getTestLanguages} from "../../helpers/GeneralHelpers.json" with { type: "json" };
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json";
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json"
@@ -16,19 +12,6 @@ const relationshipChildOfDeceased = applicantDetailConfig.relationshipChildOfDec
 const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
-
-// let testConfigurator: TestConfigurator;
-// testConfigurator = new TestConfigurator();
-//
-// test.beforeEach(async () => {
-//   //***Need to migrate code for launch darkly to playwright typescript and enable this line ****//
-//   // await TestConfigurator.initLaunchDarkly();
-//   await testConfigurator.getBefore();
-// });
-//
-// test.afterEach(async () => {
-//   await testConfigurator.getAfter();
-// });
 
 getTestLanguages().forEach(language => {
   test.describe('Intestacy sole child journey', () => {
@@ -47,32 +30,21 @@ getTestLanguages().forEach(language => {
     });
 
     test((`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
-      page,
       intestacyScreenerPage,
       apiCallback,
       signInPage,
       taskListPage,
       deceasedDetailsPage,
-      applicantDetailsPage
+      applicantDetailsPage,
+      cyaAndDeclarationPage,
+      paymentTaskPage
     }) => {
-      /*await intestacyScreenerPage.selectYes();
-      await page.goto('/death-certificate');
-      await deathCertificatePage.selectYes();
-      await deathCertificateEnglishPage.selectYes();
-      await deceasedDomicilePage.selectYes();
-      await eeDeceasedDodPage.selectYes();
-      await eeEstateValuedPage.selectYes();
-      await willLeftPage.selectNo();
-      await relatedToDeceasedPage.selectChild();*/
       const testConfigurator = new TestConfigurator();
-      const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
       await intestacyScreenerPage.startApplication(language);
-
-      // await I.startApplication(language);
 
       // Probate Sceeners
       await intestacyScreenerPage.selectDeathCertificate(language);
@@ -134,9 +106,32 @@ getTestLanguages().forEach(language => {
         await applicantDetailsPage.completeEqualityAndDiversity();
       }
 
+      // Check your answers and declaration
+      await taskListPage.selectATask(language, 'reviewAndConfirmTask');
+      await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
+      await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
 
+      // Payment Task
+      await taskListPage.selectATask(language, 'paymentTask');
 
-      const caseId = await thankYouPage.getCaseId();
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await paymentTaskPage.enterUkCopies(language, '5');
+        await paymentTaskPage.selectOverseasAssets(optionYes);
+        await paymentTaskPage.enterOverseasCopies('2');
+      } else {
+        await paymentTaskPage.enterUkCopies(language, '0');
+        await paymentTaskPage.selectOverseasAssets(optionNo);
+      }
+      await paymentTaskPage.seeCopiesSummary(language);
+      await paymentTaskPage.seePaymentBreakdownPage(language);
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await paymentTaskPage.seeGovUkPaymentPage(language);
+        await paymentTaskPage.seeGovUkConfirmPage(language);
+      }
+
+      // Thank You
+      const caseId = await paymentTaskPage.seeThankYouPage(language);
+
       console.log(`Case ID: ${caseId}`);
     });
   });

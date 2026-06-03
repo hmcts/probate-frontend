@@ -3,6 +3,8 @@ import {IntestacyScreenerPage} from '../pages/screener/intestacyScreenerPage.ts'
 import {TaskListPage} from '../pages/taskListPage.ts';
 import {DeceasedDetailsSection} from '../pages/deceasedDetails/deceasedDetailsSection.ts';
 import {ApplicantDetailsSection} from '../pages/applicantDetails/applicantDetailsSection.ts';
+import {CyaAndDeclarationSection} from '../pages/cyaAndDeclarationSection/cyaAndDeclarationSection.ts'
+import {PaymentTaskSection} from '../pages/paymentSection/paymentTaskPage.ts'
 
 export interface PageFixtures {
   language: string;
@@ -11,6 +13,8 @@ export interface PageFixtures {
   taskListPage: TaskListPage;
   deceasedDetailsPage: DeceasedDetailsSection;
   applicantDetailsPage: ApplicantDetailsSection;
+  cyaAndDeclarationPage: CyaAndDeclarationSection;
+  paymentTaskPage: PaymentTaskSection;
 }
 
 export const pageFixtures = {
@@ -28,5 +32,11 @@ export const pageFixtures = {
   },
   applicantDetailsPage: async ({ page, context, language }, use) => {
     await use(new ApplicantDetailsSection(page, context, language));
+  },
+  cyaAndDeclarationPage: async ({ page, context, language }, use) => {
+    await use(new CyaAndDeclarationSection(page, context, language));
+  },
+  paymentTaskPage: async ({ page, context, language }, use) => {
+    await use(new PaymentTaskSection(page, context, language));
   },
 };

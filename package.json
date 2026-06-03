@@ -227,7 +227,7 @@
     "minimatch@npm:9.0.1": "^9.0.9",
     "npm-run-all": "^4.1.5",
     "path-to-regexp": "^0.1.12",
-    "puppeteer": "^24.10.2",
+    "puppeteer": "^25.0.0",
     "qs": "^6.15.1",
     "serialize-javascript": "^7.0.5",
     "shelljs": ">=0.10.0",
@@ -235,12 +235,12 @@
     "tar": "^7.5.15",
     "tar-fs": "^3.1.2",
     "tough-cookie": "^6.0.1",
-    "tmp": "0.2.5",
+    "tmp": "0.2.7",
     "undici": "^8.0.0",
     "is-async-function": "2.1.0",
     "webdriverio": "^9.23.3",
     "yauzl": "^3.2.1",
     "underscore": "^1.13.8"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.15.0"
 }

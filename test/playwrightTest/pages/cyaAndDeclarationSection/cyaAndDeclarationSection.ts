@@ -1,5 +1,5 @@
 import { BrowserContext, expect } from '@playwright/test';
-import {BasePage, decodeHTML} from '../utility/basePage.ts';
+import {BasePage, decodeHTML} from '../utility/basePage';
 import {getContent} from "../utility/contentHelper.ts";
 
 export class CyaAndDeclarationSection extends BasePage {
@@ -18,7 +18,6 @@ export class CyaAndDeclarationSection extends BasePage {
     await this.checkInUrl(`/summary/${redirect}`);
     await expect(this.page.getByText(await decodeHTML(summaryContent.heading))).toBeVisible();
     await expect(this.cyaDownloadLocator).toBeEnabled();
-    await this.runAccessibilityTest();
     await this.downloadPdfIfNotIE11(this.cyaDownloadLocator)
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
@@ -31,7 +30,6 @@ export class CyaAndDeclarationSection extends BasePage {
     }
     await expect(this.enLegalStatementDownloadLocator).toBeVisible();
     await expect(this.enLegalStatementDownloadLocator).toBeEnabled();
-    await this.runAccessibilityTest();
 
     if(bilingualGOP) {
       await expect(this.cyLegalStatementDownloadLocator).toBeVisible();

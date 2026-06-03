@@ -1,11 +1,7 @@
 import { BrowserContext, expect } from '@playwright/test';
 import {BasePage, decodeHTML} from '../utility/basePage';
 import {getContent} from "../utility/contentHelper.ts";
-import ihtDataConfig from '../../data/ee/ihtData.json';
-import config from "config";
 import applicantDetailsConfig from '../../data/intestacy/sole/applicantDetails.json';
-const optionYes = ihtDataConfig.optionYes;
-const optionNo = ihtDataConfig.optionNo;
 const equalityEn = 'Equality and diversity questions';
 const equalityCy = 'Cwestiynau am Gydraddoldeb ac Amrywiaeth';
 
@@ -116,6 +112,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async jointApplication(answer = null) {
     await this.checkInUrl('/intestacy/joint-application');
+    await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeVisible();
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeEnabled();
     await this.page.locator(`#hasCoApplicant${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);

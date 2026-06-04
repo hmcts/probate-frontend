@@ -1,9 +1,15 @@
 {
   "phoneNumberValue": "07771 900 900",
   "spouseOfDeceased": "",
+  "maritalStatusDivorced": "-2",
+  "maritalStatusNotMarried": "-5",
   "relationshipChildOfDeceased": "-2",
+  "relationshipGrandchildOfDeceased": "-3",
+  "relationshipParentOfDeceased": "-3",
+  "relationshipSiblingOfDeceased": "-4",
   "optionRenouncing": "",
   "deceasedFullName": "Deceased First Name Deceased Last Name",
   "optionAllOfThem": "-2",
-  "optionSomeOfThem": ""
+  "optionSomeOfThem": "",
+  "wholeBloodSiblingsOption": ""
 }

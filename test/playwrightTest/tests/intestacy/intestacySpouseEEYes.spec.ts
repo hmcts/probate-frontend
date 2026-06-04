@@ -13,7 +13,7 @@ const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy sole child journey', () => {
+  test.describe('Intestacy spouse journey - EE Yes', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -91,14 +91,17 @@ getTestLanguages().forEach(language => {
       // Applicant Task
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, spouseOfDeceased);
+
       await applicantDetailsPage.enterAnyChildren(language, optionYes);
       await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);
       await applicantDetailsPage.anyGrandChildren(language, optionYes);
       await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
+
       await applicantDetailsPage.jointApplication(optionYes);
       await applicantDetailsPage.spouseCoApplicationStopPage();
       await applicantDetailsPage.jointApplication(optionNo);
+
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();

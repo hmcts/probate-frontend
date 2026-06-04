@@ -3,18 +3,17 @@ import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json";
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json";
+import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json"
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
-const relationshipChildOfDeceased = applicantDetailConfig.relationshipChildOfDeceased;
+const relationshipGrandchildOfDeceased = applicantDetailConfig.relationshipGrandchildOfDeceased;
 const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
-const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy sole child journey - EE Yes', () => {
+  test.describe('Intestacy sole Grandchild journey - EE No', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -59,7 +58,7 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(language, optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipChildOfDeceased);
+      await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipGrandchildOfDeceased);
 
       await intestacyScreenerPage.startApply(language);
 
@@ -79,25 +78,35 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
 
       await deceasedDetailsPage.selectEEComplete(optionYes);
-      await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
-      await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
-      await deceasedDetailsPage.enterHmrcCode(hmrcCode);
+      await deceasedDetailsPage.selectSubmittedToHmrc(optionNo);
+      await deceasedDetailsPage.enterEEValue('500000', '400000', '400000');
+      await deceasedDetailsPage.selectLateSpouseCivilPartner(optionYes);
+      await deceasedDetailsPage.selectUnusedAllowance(optionYes);
       await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
 
       await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
       await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
+
+
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
       await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
 
       // Applicant Task
       await taskListPage.selectATask(language, 'applicantsTask');
-      await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
+      await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipGrandchildOfDeceased);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
-      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'child');
+      await applicantDetailsPage.selectMainApplicantParentAlive(optionNo);
+      await applicantDetailsPage.mainApplicantParentAdoptedIn(language, optionYes);
+      await applicantDetailsPage.mainApplicantParentAdoptionPlace(language, optionYes);
+
+      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'grandchild');
       await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
+
       await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionAllOfThem);
       await applicantDetailsPage.anyGrandChildren(language, optionNo);
+      await applicantDetailsPage.mainApplicantParentAnyOtherChildren(optionNo);
+
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();

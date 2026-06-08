@@ -1,6 +1,6 @@
 import {BrowserContext, expect} from '@playwright/test';
 import {testConfig} from '../../configs/config.ts';
-import {BasePage} from '../utility/basePage.ts';
+import {BasePage, decodeHTML} from '../utility/basePage.ts';
 import {getContent} from "../utility/contentHelper.ts";
 
 const useIdam = testConfig.TestUseIdam;
@@ -33,6 +33,10 @@ export class SignInPage extends BasePage {
         await this.navByClick(this.page.locator('a[href="/sign-out"]'));
         await this.seeSignOut(language);
         await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeVisible();
+        await this.page.goto(`${testConfig.TestFrontendUrl}/?lng=${language}`, {
+          waitUntil: 'load',
+          timeout: 60000
+        });
         // await I.navByClick(locator);
         // await I.seeSignOut(language);
       }
@@ -49,7 +53,7 @@ export class SignInPage extends BasePage {
   async seeSignOut(language = 'en') {
     const signOutContent = getContent(`app/resources/${language}/translation/signout.json`);
     await this.checkInUrl('/sign-out');
-    await expect(this.page.getByText(signOutContent.header)).toBeVisible();
+    await expect(this.page.getByText(decodeHTML(signOutContent.header))).toBeVisible();
     await expect(this.page.locator('#main-content > div > div > p:nth-child(3) > a')).toBeEnabled();
     await this.navByClick(this.page.locator('#main-content > div > div > p:nth-child(3) > a'));
     // const I = this;

@@ -10,6 +10,7 @@ export class ApplicantDetailsSection extends BasePage {
   readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});
   readonly firstNameLocator = this.page.locator('#firstName');
   readonly lastNameLocator = this.page.locator('#lastName');
+  readonly coApplicantNameLocator = this.page.locator('#fullName');
 
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
@@ -37,6 +38,13 @@ export class ApplicantDetailsSection extends BasePage {
     await this.checkInUrl('/intestacy/mainapplicantsparent-alive');
     await expect(this.page.locator(`#childAlive${answer}`)).toBeEnabled();
     await this.page.locator(`#childAlive${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectCoApplicantParentAlive(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/parent-die-before/${coApplicantNumber}`);
+    await expect(this.page.locator(`#applicantParentDieBeforeDeceased${answer}`)).toBeEnabled();
+    await this.page.locator(`#applicantParentDieBeforeDeceased${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
@@ -263,11 +271,23 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async jointApplication(answer = null) {
+  async jointApplication(language = 'en', answer = null) {
+    const jointApplicationPageContent = getContent(`app/resources/${language}/translation/executors/jointapplication.json`);
     await this.checkInUrl('/intestacy/joint-application');
+    await expect(this.page.getByText(jointApplicationPageContent.title)).toBeVisible();
+    await this.page.locator(`#hasCoApplicant${answer}`).scrollIntoViewIfNeeded();
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeVisible();
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeEnabled();
-    await this.page.locator(`#hasCoApplicant${answer}`).click();
+    await this.page.locator(`#hasCoApplicant${answer}`).dispatchEvent('click');
+    try {
+      // Try label click first
+      await this.page.locator(`label[for="hasCoApplicant${answer}"]`).click();
+    } catch {
+      // Fall back to force check
+      await this.page.locator(`#hasCoApplicant${answer}`).check({ force: true });
+    }
+
+    await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeChecked();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
@@ -301,10 +321,87 @@ export class ApplicantDetailsSection extends BasePage {
     await this.checkInUrl('/intestacy/applicant-address');
     await this.page.locator('#details-panel > summary > span').click();
     await expect(this.page.locator('#addressLine1')).toBeEnabled();
-    await this.page.locator('#addressLine1').fill('Deceased Address Line 1');
-    await this.page.locator('#addressLine2').fill('Deceased Address Line 2');
-    await this.page.locator('#addressLine3').fill('Deceased Address Line 3');
-    await this.page.locator('#postTown').fill('Deceased Post Town');
+    await this.page.locator('#addressLine1').fill('Applicant Address Line 1');
+    await this.page.locator('#addressLine2').fill('Applicant Address Line 2');
+    await this.page.locator('#addressLine3').fill('Applicant Address Line 3');
+    await this.page.locator('#postTown').fill('Applicant Post Town');
+    await this.page.locator('#newPostCode').fill('AA1 1AA');
+    await this.page.locator('#country').fill('United Kingdom');
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectCoapplicantRelationship(coapplicantRelationship, coapplicantNumber: string) {
+    await this.checkInUrl(`/coapplicant-relationship-to-deceased/${coapplicantNumber}`);
+    await expect(this.page.locator(`[value="${coapplicantRelationship}"]`)).toBeVisible();
+    await expect(this.page.locator(`[value="${coapplicantRelationship}"]`)).toBeEnabled();
+    await this.page.locator(`[value="${coapplicantRelationship}"]`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async enterCoapplicantName(coApplicantNumber, coApplicantName) {
+    await this.checkInUrl(`/intestacy/coapplicant-name/${coApplicantNumber}`);
+    await expect(this.coApplicantNameLocator).toBeEnabled();
+    await this.coApplicantNameLocator.fill(coApplicantName);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantAdoptedIn(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/coapplicant-adopted-in/${coApplicantNumber}`);
+    await expect(this.page.locator(`#adoptedIn${answer}`)).toBeEnabled();
+    await this.page.locator(`#adoptedIn${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantAdoptionPlace(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/coapplicant-adoption-place/${coApplicantNumber}`);
+    await expect(this.page.locator(`#adoptionPlace${answer}`)).toBeEnabled();
+    await this.page.locator(`#adoptionPlace${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantAdoptedOut(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/coapplicant-adopted-out/${coApplicantNumber}`);
+    await expect(this.page.locator(`#adoptedOut${answer}`)).toBeEnabled();
+    await this.page.locator(`#adoptedOut${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantParentAdoptedIn(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/parent-adopted-in/${coApplicantNumber}`);
+    await expect(this.page.locator(`#applicantParentAdoptedIn${answer}`)).toBeEnabled();
+    await this.page.locator(`#applicantParentAdoptedIn${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantParentAdoptedOut(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/parent-adopted-out/${coApplicantNumber}`);
+    await expect(this.page.locator(`#applicantParentAdoptedOut${answer}`)).toBeEnabled();
+    await this.page.locator(`#applicantParentAdoptedOut${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantParentAdoptionPlace(coApplicantNumber, answer = null) {
+    await this.checkInUrl(`/intestacy/parent-adoption-place/${coApplicantNumber}`);
+    await expect(this.page.locator(`#applicantParentAdoptionPlace${answer}`)).toBeEnabled();
+    await this.page.locator(`#applicantParentAdoptionPlace${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async enterCoApplicantEmail(coApplicantNumber, coApplicantEmail) {
+    await this.checkInUrl(`/intestacy/coapplicant-email/${coApplicantNumber}`);
+    await expect(this.page.locator('#email')).toBeEnabled();
+    await this.page.locator('#email').fill(coApplicantEmail);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async enterCoApplicantAddress(coApplicantNumber) {
+    await this.checkInUrl(`/intestacy/executor-address/${coApplicantNumber}`);
+    await this.page.locator('#details-panel > summary > span').click();
+    await expect(this.page.locator('#addressLine1')).toBeEnabled();
+    await this.page.locator('#addressLine1').fill('Applicant Address Line 1');
+    await this.page.locator('#addressLine2').fill('Applicant Address Line 2');
+    await this.page.locator('#addressLine3').fill('Applicant Address Line 3');
+    await this.page.locator('#postTown').fill('Applicant Post Town');
     await this.page.locator('#newPostCode').fill('AA1 1AA');
     await this.page.locator('#country').fill('United Kingdom');
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -323,7 +420,7 @@ export class ApplicantDetailsSection extends BasePage {
     await this.page.locator('#back-button').click();
   }
 
-  async completeEqualityAndDiversity(isJointApplication: Boolean) {
+  async completeEqualityAndDiversity(language = 'en', isJointApplication?: Boolean) {
     if (this.page.url().includes('pcq')) {
       await this.page.waitForTimeout(300);
       await expect(this.saveAndContinueButtonLocator).toBeVisible();
@@ -331,7 +428,7 @@ export class ApplicantDetailsSection extends BasePage {
     }
 
     if(isJointApplication) {
-      await this.jointApplication(ihtDataConfig.optionNo);
+      await this.jointApplication(language, ihtDataConfig.optionNo);
     } else {
       await expect(this.saveAndContinueButtonLocator).toBeVisible();
       await this.navByClick(this.saveAndContinueButtonLocator);

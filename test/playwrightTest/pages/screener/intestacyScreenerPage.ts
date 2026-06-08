@@ -2,11 +2,8 @@ import { BrowserContext, expect } from "@playwright/test";
 import { BasePage } from "../utility/basePage.ts";
 import { ROUTES } from "../../pageUrl/routes.ts";
 import { testConfig } from "../../configs/config.ts";
-import * as fs from "fs";
-import * as path from "path";
 import { getContent } from '../utility/contentHelper.ts';
 import { decodeHTML } from "../utility/basePage.ts";
-// import config from "config";
 
 export class IntestacyScreenerPage extends BasePage {
   private readonly pageUrl = ROUTES.deathCertificate;
@@ -203,12 +200,6 @@ export class IntestacyScreenerPage extends BasePage {
     await expect(this.page.getByText(applyContent.header)).toBeVisible();
     await expect(this.createAccountButtonLocator).toBeEnabled();
     await this.navByClick(this.createAccountButtonLocator);
-  }
-
-  async switchToNextTab(tabIndex: number) {
-    const pages = this.context.pages();
-    const nextTab = pages[tabIndex];
-    await nextTab.waitForLoadState();
   }
 
   private async selectOptionAndContinue(radioId: string): Promise<void> {

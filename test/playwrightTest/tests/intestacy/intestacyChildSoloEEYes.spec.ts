@@ -103,7 +103,7 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterAddressManually();
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
-        await applicantDetailsPage.completeEqualityAndDiversity();
+        await applicantDetailsPage.completeEqualityAndDiversity(language);
       }
 
       // Check your answers and declaration

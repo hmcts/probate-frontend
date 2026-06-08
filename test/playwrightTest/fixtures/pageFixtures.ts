@@ -3,6 +3,7 @@ import {IntestacyScreenerPage} from '../pages/screener/intestacyScreenerPage.ts'
 import {TaskListPage} from '../pages/taskListPage.ts';
 import {DeceasedDetailsSection} from '../pages/deceasedDetails/deceasedDetailsSection.ts';
 import {ApplicantDetailsSection} from '../pages/applicantDetails/applicantDetailsSection.ts';
+import {CoApplicantNotifyAndDeclarationPage} from '../pages/applicantDetails/coApplicantNotifyAndDeclarationPage.ts';
 import {CyaAndDeclarationSection} from '../pages/cyaAndDeclarationSection/cyaAndDeclarationSection.ts'
 import {PaymentTaskSection} from '../pages/paymentSection/paymentTaskPage.ts'
 
@@ -13,6 +14,7 @@ export interface PageFixtures {
   taskListPage: TaskListPage;
   deceasedDetailsPage: DeceasedDetailsSection;
   applicantDetailsPage: ApplicantDetailsSection;
+  coApplicantNotifyAndDeclarationPage: CoApplicantNotifyAndDeclarationPage;
   cyaAndDeclarationPage: CyaAndDeclarationSection;
   paymentTaskPage: PaymentTaskSection;
 }
@@ -32,6 +34,9 @@ export const pageFixtures = {
   },
   applicantDetailsPage: async ({ page, context, language }, use) => {
     await use(new ApplicantDetailsSection(page, context, language));
+  },
+  coApplicantNotifyAndDeclarationPage: async ({ page, context, language }, use) => {
+    await use(new CoApplicantNotifyAndDeclarationPage(page, context, language));
   },
   cyaAndDeclarationPage: async ({ page, context, language }, use) => {
     await use(new CyaAndDeclarationSection(page, context, language));

@@ -103,9 +103,10 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
+
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
-        await applicantDetailsPage.completeEqualityAndDiversity();
+        await applicantDetailsPage.completeEqualityAndDiversity(language);
       }
 
       // Check your answers and declaration

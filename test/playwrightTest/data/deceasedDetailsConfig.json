@@ -1,4 +1,8 @@
 {
   "legalSeparationTypeEn": "divorce or dissolution",
-  "legalSeparationTypeCy": "ysgariad neu’r diddymiad"
+  "legalSeparationTypeCy": "ysgariad neu’r diddymiad",
+  "deceasedDodDay": "01",
+  "deceasedDodMonth": "01",
+  "deceasedDodYearEE": "2022",
+  "deceasedDodYear": "2017"
 }

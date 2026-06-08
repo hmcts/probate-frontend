@@ -46,6 +46,7 @@ export const testConfig = {
   TestEnvMobileNumber: '07765453421',
   TestInviteIdListUrl: '/inviteIdList',
   TestInvitationUrl: '/executors/invitation',
+  TestIntestacyInvitationUrl: '/executors/intestacy-invitation',
 
   postcodeLookup: {
     contentType: 'application/json',

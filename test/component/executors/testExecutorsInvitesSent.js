@@ -21,7 +21,7 @@ describe('executors-invites-sent', () => {
         testCommonContent.runTest('ExecutorsInvitesSent', null, null, [], false, {type: caseTypes.GOP, declaration: {declarationCheckbox: 'true'}});
 
         it('test content loaded on the page', (done) => {
-            const contentToExclude = ['pageHeaderIntestacy']
+            const contentToExclude = ['pageHeaderIntestacy'];
             const sessionData = {
                 type: caseTypes.GOP,
                 ccdCase: {

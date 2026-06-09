@@ -88,15 +88,17 @@ export class PaymentTaskSection extends BasePage {
     await this.navByClick(this.confirmButtonLocator);
   }
 
-  async seeThankYouPage(language ='en', testSurvey = false) {
+  async seeThankYouPage(language = 'en', testSurvey: boolean = false, isWithoutDocs: boolean = false) {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
     await this.checkInUrl('/thank-you');
     await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
     const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
       .innerText();
-    const caseId = confirmationText.split('\n');
+    const caseId = confirmationText.match(/\d+-\d+/);
     await this.downloadPdfIfNotIE11(this.cyaDownloadLocator);
-    await this.downloadPdfIfNotIE11(this.coverSheetDownloadLocator)
+    if(!isWithoutDocs) {
+      await this.downloadPdfIfNotIE11(this.coverSheetDownloadLocator)
+    }
     await this.downloadPdfIfNotIE11(this.legalStatementDownloadLocator);
 
     if (testSurvey) {
@@ -119,6 +121,6 @@ export class PaymentTaskSection extends BasePage {
     await expect(this.page.locator('#navigation > li:nth-child(2) > a')).toBeEnabled();
     await this.navByClick(this.page.locator('#navigation > li:nth-child(2) > a'));
 
-    return caseId[1].trim();
+    return caseId ? caseId[0].trim() : '';
   }
 }

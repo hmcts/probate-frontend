@@ -78,6 +78,15 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
+  async selectDeathCertificateType(language = 'en', answer = null) {
+    const deathCertificateContent = getContent(`app/resources/${language}/translation/deceased/deathCertificate.json`);
+    await this.checkInUrl('/certificate-interim');
+    await expect(this.page.getByText(await decodeHTML(deathCertificateContent.question))).toBeVisible();
+    await expect(this.page.locator(`#deathCertificate${answer}`)).toBeEnabled();
+    await this.page.locator(`#deathCertificate${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
   async selectEnglishForeignDeathCert(language = 'en', answer = null) {
     const englishForeignDeathCertContent = getContent(`app/resources/${language}/translation/deceased/englishforeigndeathcert.json`);
     await this.checkInUrl('/english-foreign-death-cert');

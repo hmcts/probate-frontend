@@ -104,7 +104,7 @@ export class IntestacyScreenerPage extends BasePage {
       await this.switchToNextTab(1);
       await this.page.close();
     }
-    await this.page.locator('#deathCertificate').click();
+    await this.page.locator(`#deathCertificate`).click();
     await this.navByClick(this.continueButtonLocator);
   }
 

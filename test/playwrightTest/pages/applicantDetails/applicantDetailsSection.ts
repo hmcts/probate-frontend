@@ -252,11 +252,18 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async anyGrandchildrenUnderEighteen(language = 'en', answer = null) {
-    const grandChildrenUnderrEighteenContent = getContent(`app/resources/${language}/translation/deceased/anygrandchildrenunder18.json`);
+    const grandChildrenUnderEighteenContent = getContent(`app/resources/${language}/translation/deceased/anygrandchildrenunder18.json`);
     await this.checkInUrl('/intestacy/any-grandchildren-under-18');
-    await expect(this.page.getByText(await decodeHTML(grandChildrenUnderrEighteenContent.question))).toBeVisible();
+    await expect(this.page.getByText(await decodeHTML(grandChildrenUnderEighteenContent.question))).toBeVisible();
     await expect(this.page.locator(`#anyGrandchildrenUnder18${answer}`)).toBeEnabled();
     await this.page.locator(`#anyGrandchildrenUnder18${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async allGrandchildrenOverEighteen(answer = null) {
+    await this.checkInUrl('/intestacy/all-grandchildren-over-18');
+    await expect(this.page.locator(`#grandchildParentHasAllChildrenOver18${answer}`)).toBeEnabled();
+    await this.page.locator(`#grandchildParentHasAllChildrenOver18${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 

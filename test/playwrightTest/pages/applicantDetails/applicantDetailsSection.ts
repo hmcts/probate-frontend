@@ -278,10 +278,12 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async jointApplication(language = 'en', answer = null) {
+  async jointApplication(language = 'en', answer = null, journey = null) {
     const jointApplicationPageContent = getContent(`app/resources/${language}/translation/executors/jointapplication.json`);
     await this.checkInUrl('/intestacy/joint-application');
-    await expect(this.page.getByText(jointApplicationPageContent.title)).toBeVisible();
+    await expect(this.page
+      .getByRole('heading', { name: jointApplicationPageContent[`title${journey}`], exact: true }))
+      .toBeVisible();
     await this.page.locator(`#hasCoApplicant${answer}`).scrollIntoViewIfNeeded();
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeVisible();
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeEnabled();
@@ -346,7 +348,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async enterCoapplicantName(coApplicantNumber, coApplicantName) {
-    await this.checkInUrl(`/intestacy/coapplicant-name/${coApplicantNumber}`);
+    await this.checkInUrl(`/coapplicant-name/${coApplicantNumber}`);
     await expect(this.coApplicantNameLocator).toBeEnabled();
     await this.coApplicantNameLocator.fill(coApplicantName);
     await this.navByClick(this.saveAndContinueButtonLocator);

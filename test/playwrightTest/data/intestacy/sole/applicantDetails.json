@@ -9,6 +9,7 @@
   "relationshipSiblingOfDeceased": "-4",
   "coapplicantChild": "optionChild",
   "coapplicantGrandchild": "optionGrandchild",
+  "coapplicantParent": "optionParent",
   "firstCoApplicantName": "One Coapplicant",
   "secondCoApplicantName": "Two Coapplicant",
   "thirdCoApplicantName": "Three Coapplicant",

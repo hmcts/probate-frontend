@@ -218,6 +218,17 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
+  async deceasedAdoptedOut(language = 'en', answer = null, journey) {
+    const deceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedout.json`);
+    await this.checkInUrl('/intestacy/deceased-adopted-out');
+    await expect(this.page.getByText(await decodeHTML(deceasedAdoptedOutContent[`${journey}Question`])
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#deceasedAdoptedOut${answer}`)).toBeEnabled();
+    await this.page.locator(`#deceasedAdoptedOut${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
   async deceasedAdoptionPlace(language = 'en', answer = null) {
     const deceasedAdoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptionplace.json`);
     await this.checkInUrl('/intestacy/deceased-adoption-place');
@@ -267,6 +278,16 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
+  async anyWholeNieceOrNephewOver18(language = 'en', answer = null) {
+    const wholeNieceOrNephewOver18Content = getContent(`app/resources/${language}/translation/applicant/allwholeniecesandwholenephewsover18.json`);
+    await this.checkInUrl('/intestacy/whole-nieces-whole-nephews-age');
+    await expect(this.page.getByText(await decodeHTML(wholeNieceOrNephewOver18Content.question)))
+      .toBeVisible();
+    await expect(this.page.locator(`#allWholeNiecesAndWholeNephewsOver18${answer}`)).toBeEnabled();
+    await this.page.locator(`#allWholeNiecesAndWholeNephewsOver18${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
   async selectDeceasedSameParents(language = 'en', answer = null) {
     const sameParentsContent = getContent(`app/resources/${language}/translation/applicant/sameparents.json`);
     await this.checkInUrl('/intestacy/deceased-same-parents');
@@ -282,7 +303,7 @@ export class ApplicantDetailsSection extends BasePage {
     const jointApplicationPageContent = getContent(`app/resources/${language}/translation/executors/jointapplication.json`);
     await this.checkInUrl('/intestacy/joint-application');
     await expect(this.page
-      .getByRole('heading', { name: jointApplicationPageContent[`title${journey}`], exact: true }))
+      .getByRole('heading', { name: jointApplicationPageContent[`title${journey}`], exact: true }).first())
       .toBeVisible();
     await this.page.locator(`#hasCoApplicant${answer}`).scrollIntoViewIfNeeded();
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeVisible();

@@ -10,6 +10,8 @@
   "coapplicantChild": "optionChild",
   "coapplicantGrandchild": "optionGrandchild",
   "coapplicantParent": "optionParent",
+  "coApplicantWholeBloodSibling": "optionWholeBloodSibling",
+  "coApplicantWholeBloodNieceNephew": "optionWholeBloodNieceOrNephew",
   "firstCoApplicantName": "One Coapplicant",
   "secondCoApplicantName": "Two Coapplicant",
   "thirdCoApplicantName": "Three Coapplicant",

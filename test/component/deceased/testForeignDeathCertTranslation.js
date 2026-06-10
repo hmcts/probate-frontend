@@ -183,7 +183,7 @@ describe('foreign-death-cert-translation', () => {
             testWrapper.testRedirect(done, data, expectedNextUrlForEstateForm);
         });
 
-        it(`test it redirects to estate valued for EE FT on INTESTACY: ${expectedNextUrlForCalcCheck}`, (done) => {
+        it(`test it redirects to estate valued for EE FT on INTESTACY: /intestacy${expectedNextUrlForCalcCheck}`, (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -193,11 +193,11 @@ describe('foreign-death-cert-translation', () => {
                         foreignDeathCertTranslation: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForCalcCheck);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCalcCheck}`);
                 });
         });
 
-        it(`test it redirects to estate form for EE FT on INTESTACY: ${expectedNextUrlForEstateForm}`, (done) => {
+        it(`test it redirects to estate form for EE FT on INTESTACY: /intestacy${expectedNextUrlForEstateForm}`, (done) => {
             testWrapper = new TestWrapper('ForeignDeathCertTranslation', {ft_excepted_estates: true});
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
@@ -207,7 +207,7 @@ describe('foreign-death-cert-translation', () => {
                         foreignDeathCertTranslation: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForEstateForm);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForEstateForm}`);
                 });
         });
     });

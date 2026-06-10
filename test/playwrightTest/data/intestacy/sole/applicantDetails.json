@@ -21,9 +21,11 @@
   "secondCoApplicantEmail": "two.coapplicant@test.com",
   "thirdCoApplicantEmail": "three.coapplicant@test.com",
   "optionRenouncing": "",
+  "optionOther": "-2",
   "deceasedFullName": "Deceased First Name Deceased Last Name",
   "optionAllOfThem": "-2",
   "optionSomeOfThem": "",
   "wholeBloodSiblingsOption": "optionBothParentsSame",
-  "halfBloodSiblingsOption": "optionOneParentsSame"
+  "halfBloodSiblingsOption": "optionOneParentsSame",
+  "differentParents": "optionNoParentsSame"
 }

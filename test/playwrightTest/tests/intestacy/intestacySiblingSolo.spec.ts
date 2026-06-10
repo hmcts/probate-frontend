@@ -102,6 +102,8 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.deceasedAdoptedIn(language, optionYes, 'sibling');
       await applicantDetailsPage.deceasedAdoptionPlace(language, optionYes);
 
+      await applicantDetailsPage.selectDeceasedSameParents(language, applicantDetailConfig.differentParents);
+      await applicantDetailsPage.differentParentsStopPage(language);
       await applicantDetailsPage.selectDeceasedSameParents(language, applicantDetailConfig.wholeBloodSiblingsOption);
 
       await applicantDetailsPage.mainApplicantAdoptedIn(language, optionNo, 'wholeBloodSibling');
@@ -110,6 +112,8 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.anyOtherWholeSiblings(language, optionYes);
       await applicantDetailsPage.anyPredeceasedSiblings(language, applicantDetailConfig.optionSomeOfThem, 'whole');
       await applicantDetailsPage.anySurvivingNieceNephew(language, optionNo, 'whole');
+      await applicantDetailsPage.anySiblingsAbove18(language, optionNo, 'whole');
+      await applicantDetailsPage.nieceOrNephewUnder18StopPage(language);
       await applicantDetailsPage.anySiblingsAbove18(language, optionYes, 'whole');
 
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');

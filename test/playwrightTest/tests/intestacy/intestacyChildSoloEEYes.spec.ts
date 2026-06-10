@@ -112,6 +112,8 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Applicant details task", null);
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
+      await applicantDetailsPage.selectSpouseNotApplyingReason(applicantDetailConfig.optionOther);
+      await applicantDetailsPage.viewSpouseNotApplyingStopPage(language);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
       await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
       await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);

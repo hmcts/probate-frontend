@@ -100,8 +100,10 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
 
-      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'child');
-      await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
+      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionNo, 'child');
+      await applicantDetailsPage.mainApplicantAdoptedOut(language, optionYes, 'child');
+      await applicantDetailsPage.adoptedOutStopPage(language);
+      await applicantDetailsPage.mainApplicantAdoptedOut(language, optionNo, 'child');
 
       await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);

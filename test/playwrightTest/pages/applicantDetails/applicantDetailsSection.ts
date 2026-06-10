@@ -11,6 +11,7 @@ export class ApplicantDetailsSection extends BasePage {
   readonly firstNameLocator = this.page.locator('#firstName');
   readonly lastNameLocator = this.page.locator('#lastName');
   readonly coApplicantNameLocator = this.page.locator('#fullName');
+  readonly backLinkLocator = this.page.locator('#backLink');
 
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
@@ -32,6 +33,87 @@ export class ApplicantDetailsSection extends BasePage {
     await expect(this.page.locator(`#spouseNotApplyingReason${reason}`)).toBeEnabled();
     await this.page.locator(`#spouseNotApplyingReason${reason}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async viewSpouseNotApplyingStopPage(language = 'en') {
+    const spouseNotApplyingStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/spouseNotApplying');
+    await expect(this.page.getByRole('heading', { name: spouseNotApplyingStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async adoptedOutStopPage(language = 'en') {
+    const adoptedOutStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/adoptedOut');
+    await expect(this.page.getByRole('heading', { name: adoptedOutStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async deceasedAdoptedOutStopPage(language = 'en') {
+    const deceasedAdoptedOutStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/deceasedAdoptedOut');
+    await expect(this.page.getByRole('heading', { name: deceasedAdoptedOutStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async applicantParentAdoptedOutStopPage(language = 'en') {
+    const applicantParentAdoptedOutStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/grandchildParentAdoptedOut');
+    await expect(this.page.getByRole('heading', { name: applicantParentAdoptedOutStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async grandchildremUnderEighteenStopPage(language = 'en') {
+    const grandchildremUnderEighteenStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/grandchildrenUnder18');
+    await expect(this.page.getByRole('heading', { name: grandchildremUnderEighteenStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async grandChildParentAliveStopPage(language = 'en') {
+    const grandChildParentAliveStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/otherCoApplicantRelationship');
+    await expect(this.page.getByRole('heading', { name: grandChildParentAliveStopPageContent.personCannotApplyByOnlineHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async livingDescendantStopPage(language = 'en') {
+    const livingDescendantStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/notEligibleLivingDescendants');
+    await expect(this.page.getByRole('heading', { name: livingDescendantStopPageContent.notEntitledHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async differentParentsStopPage(language = 'en') {
+    const differentParentsStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/notEligibleSameParents');
+    await expect(this.page.getByRole('heading', { name: differentParentsStopPageContent.notEntitledHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
+  }
+
+  async nieceOrNephewUnder18StopPage(language = 'en') {
+    const nieceOrNephewUnder18StopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+    await this.checkInUrl('/intestacy/stop-page/anyoneUnder18');
+    await expect(this.page.getByRole('heading', { name: nieceOrNephewUnder18StopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
+      .toBeVisible();
+    await expect(this.backLinkLocator).toBeEnabled();
+    await this.navByClick(this.backLinkLocator);
   }
 
   async selectMainApplicantParentAlive(answer = null) {
@@ -70,6 +152,17 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
+  async mainApplicantParentAdoptedOut(language = 'en', answer = null) {
+    const parentAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/parentadoptedout.json`);
+    await this.checkInUrl('/intestacy/mainapplicantsparent-adopted-out');
+    await expect(this.page.getByText(await decodeHTML(parentAdoptedOutContent.question)
+      .replaceAll('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#parentAdoptedOut${answer}`)).toBeEnabled();
+    await this.page.locator(`#parentAdoptedOut${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
   async mainApplicantParentAdoptionPlace(language = 'en', answer = null) {
     const parentAdoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/parentadoptionplace.json`);
     await this.checkInUrl('/intestacy/parent-adoption-place');
@@ -91,7 +184,7 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async mainApplicantAdoptedOut(language = 'en', answer = null, journey) {
+  async mainApplicantAdoptedOut(language = 'en', answer = null, journey = null) {
     const adoptedOutContent = getContent(`app/resources/${language}/translation/applicant/adoptedout.json`);
     await this.checkInUrl('/intestacy/main-applicant-adopted-out');
     await expect(this.page.getByText(await decodeHTML(adoptedOutContent[`${journey}Question`])

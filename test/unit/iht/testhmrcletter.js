@@ -6,6 +6,58 @@ const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname
 const HmrcLetter = steps.HmrcLetter;
 
 describe('HmrcLetter', () => {
+    describe('getContextData()', () => {
+        it('should set threshold flags for date of death before the excepted estate threshold', (done) => {
+            const req = {
+                sessionID: 'session-id-1',
+                body: {},
+                session: {
+                    language: 'en',
+                    featureToggles: {},
+                    form: {
+                        ccdCase: {id: '1234567890123456'},
+                        deceased: {
+                            'dod-date': '2021-12-31',
+                            deathCertificate: 'optionDeathCertificate'
+                        },
+                        iht: {}
+                    }
+                }
+            };
+
+            const result = HmrcLetter.getContextData(req);
+            expect(result.dodBeforeEeDodThreshold).to.equal(true);
+            expect(result.dodAfterEeDodThreshold).to.equal(false);
+            expect(result.isInterimDeathCertificate).to.equal(false);
+            done();
+        });
+
+        it('should set interim-certificate flag and post-threshold date flag', (done) => {
+            const req = {
+                sessionID: 'session-id-2',
+                body: {},
+                session: {
+                    language: 'en',
+                    featureToggles: {},
+                    form: {
+                        ccdCase: {id: '1234567890123456'},
+                        deceased: {
+                            'dod-date': '2022-01-02',
+                            deathCertificate: 'optionInterimCertificate'
+                        },
+                        iht: {}
+                    }
+                }
+            };
+
+            const result = HmrcLetter.getContextData(req);
+            expect(result.dodBeforeEeDodThreshold).to.equal(false);
+            expect(result.dodAfterEeDodThreshold).to.equal(true);
+            expect(result.isInterimDeathCertificate).to.equal(true);
+            done();
+        });
+    });
+
     describe('getUrl()', () => {
         it('should return the correct url', (done) => {
             const url = HmrcLetter.constructor.getUrl();

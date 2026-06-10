@@ -15,10 +15,17 @@ describe('HmrcLetter', () => {
     });
     describe('nextStepOptions()', () => {
         it('should return the correct next step options', (done) => {
-            const result = HmrcLetter.nextStepOptions();
+            const result = HmrcLetter.nextStepOptions({
+                hmrcLetterId: 'optionYes',
+                dodBeforeEeDodThreshold: false,
+                dodAfterEeDodThreshold: true,
+                isInterimDeathCertificate: false
+            });
             expect(result).to.deep.equal({
                 options: [
-                    {key: 'hmrcLetterId', value: 'optionYes', choice: 'hmrcLetter'}
+                    {key: 'hmrcLetterId', value: 'optionYes', choice: 'hmrcLetter'},
+                    {key: 'noHmrcLetterBeforeEeThreshold', value: true, choice: 'noHmrcLetterBeforeEeThreshold'},
+                    {key: 'noHmrcLetterAfterEeThreshold', value: true, choice: 'noHmrcLetterAfterEeThreshold'}
                 ]
             });
             done();

@@ -7,6 +7,7 @@
   "serviceName": "Gwneud cais am brofiant - GOV.UK",
   "start": "Dechrau nawr",
   "confirm": "Cadarnhau eich bod yn gymwys",
+  "confirmPayment": "Cadarnhau’r taliad",
   "acceptAndApply": "Derbyn y gwahoddiad a gwneud cais",
   "checkApply": "Gwirio y gallwch wneud cais",
   "createAccount": "Creu eich cyfrif",

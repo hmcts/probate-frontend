@@ -11,7 +11,9 @@
   "coapplicantGrandchild": "optionGrandchild",
   "coapplicantParent": "optionParent",
   "coApplicantWholeBloodSibling": "optionWholeBloodSibling",
+  "coApplicantHalfBloodSibling": "optionHalfBloodSibling",
   "coApplicantWholeBloodNieceNephew": "optionWholeBloodNieceOrNephew",
+  "coApplicantHalfBloodNieceNephew": "optionHalfBloodNieceOrNephew",
   "firstCoApplicantName": "One Coapplicant",
   "secondCoApplicantName": "Two Coapplicant",
   "thirdCoApplicantName": "Three Coapplicant",
@@ -22,5 +24,6 @@
   "deceasedFullName": "Deceased First Name Deceased Last Name",
   "optionAllOfThem": "-2",
   "optionSomeOfThem": "",
-  "wholeBloodSiblingsOption": ""
+  "wholeBloodSiblingsOption": "optionBothParentsSame",
+  "halfBloodSiblingsOption": "optionOneParentsSame"
 }

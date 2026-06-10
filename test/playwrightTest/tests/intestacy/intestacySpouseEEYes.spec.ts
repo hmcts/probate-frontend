@@ -98,7 +98,7 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.anyGrandChildren(language, optionYes);
       await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
 
-      await applicantDetailsPage.jointApplication(optionYes);
+      await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.spouseCoApplicationStopPage();
       await applicantDetailsPage.jointApplication(language, optionNo);
 

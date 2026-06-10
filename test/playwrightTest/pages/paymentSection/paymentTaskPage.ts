@@ -8,7 +8,8 @@ export class PaymentTaskSection extends BasePage {
   readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});
   readonly payAndSubmitButtonLocator = this.page.getByRole('button', {name: this.commonContent.payAndSubmitApplication});
   readonly submitButtonLocator = this.page.getByRole('button', {name: this.commonContent.submitApplication});
-  readonly confirmButtonLocator = this.page.locator('#confirm');
+  readonly continueButtonLocator = this.page.getByRole('button', {name: this.commonContent.continue});
+  readonly confirmButtonLocator = this.page.getByRole('button', {name: this.commonContent.confirmPayment});
   readonly cyaDownloadLocator = this.page.locator('#checkAnswerHref');
   readonly legalStatementDownloadLocator = this.page.locator('#declarationPdfHref');
   readonly coverSheetDownloadLocator = this.page.locator('#coverSheetPdfHref');
@@ -77,14 +78,12 @@ export class PaymentTaskSection extends BasePage {
     await this.page.locator('#address-city').fill(testConfig.govPayTestCardDetails.addressCity);
     await this.page.locator('#address-postcode').fill(testConfig.govPayTestCardDetails.addressPostcode);
     await this.page.locator('#email').fill(testConfig.TestEnvEmailAddress);
-    await expect(this.page.locator('#submit-card-details')).toBeEnabled();
-    await this.navByClick(this.page.locator('#submit-card-details'));
+    await this.navByClick(this.continueButtonLocator);
   }
 
   async seeGovUkConfirmPage(language = 'en') {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
     await expect(this.page.getByRole('heading', { name: paymentTextConfig[`paymentHeading${langKey}`] })).toBeVisible();
-    await expect(this.confirmButtonLocator).toBeEnabled();
     await this.navByClick(this.confirmButtonLocator);
   }
 
@@ -94,7 +93,7 @@ export class PaymentTaskSection extends BasePage {
     await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
     const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
       .innerText();
-    const caseId = confirmationText.match(/\d+-\d+/);
+    const caseId = confirmationText.match(/\d+(-\d+)+/);
     await this.downloadPdfIfNotIE11(this.cyaDownloadLocator);
     if(!isWithoutDocs) {
       await this.downloadPdfIfNotIE11(this.coverSheetDownloadLocator)

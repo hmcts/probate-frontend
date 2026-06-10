@@ -51,10 +51,20 @@ export class BasePage {
     return this.page.getByRole('button', { name, exact: true });
   }
 
-  async navByClick(button) {
-    await expect(button).toBeVisible();
-    await expect(button).toBeEnabled();
-    await button.click();
+  async navByClick(buttonLocator: Locator | string, timeout: number = 5_000): Promise<void> {
+    const currentUrl = await this.page.url();
+    const locator = typeof buttonLocator === 'string'
+      ? this.page.locator(buttonLocator)  // String - convert to Locator
+      : buttonLocator;
+    await expect(locator).toBeVisible();
+    await expect(locator).toBeEnabled();
+
+    await expect(async () => {
+      await this.page.waitForLoadState('networkidle');
+      await locator.click({ timeout: timeout });
+      await this.page.waitForLoadState('networkidle');
+      await expect(this.page).not.toHaveURL(currentUrl);
+    }).toPass({ intervals: [2_000, 2_000, 2_000], timeout: 60_000 });
   }
 
   async clickContinue(nextPageUrl?: RegExp): Promise<void> {

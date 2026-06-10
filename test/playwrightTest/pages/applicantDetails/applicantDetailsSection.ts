@@ -167,36 +167,74 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async anyPredeceasedWholeSiblings(language = 'en', answer = null) {
+  async anyOtherHalfSiblings(language = 'en', answer = null) {
+    const anyOtherHalfSiblingContent = getContent(`app/resources/${language}/translation/applicant/anyotherhalfsiblings.json`);
+    await this.checkInUrl('/intestacy/deceased-other-half-siblings');
+    await expect(this.page.getByText(await decodeHTML(anyOtherHalfSiblingContent.question)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#anyOtherHalfSiblings${answer}`)).toBeEnabled();
+    await this.page.locator(`#anyOtherHalfSiblings${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async anyPredeceasedSiblings(language = 'en', answer = null, siblingType) {
     const predeceasedWholeSiblingsContent = getContent(`app/resources/${language}/translation/applicant/anypredeceasedwholesiblings.json`);
-    await this.checkInUrl('/intestacy/deceased-whole-siblings');
-    await expect(this.page.getByText(await decodeHTML(predeceasedWholeSiblingsContent.question)
+    const predeceasedHalfSiblingsContent = getContent(`app/resources/${language}/translation/applicant/anypredeceasedhalfsiblings.json`);
+    const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
+    let predeceasedSiblingContent;
+
+    if (siblingType === 'whole') {
+      predeceasedSiblingContent = predeceasedWholeSiblingsContent;
+    } else {
+      predeceasedSiblingContent = predeceasedHalfSiblingsContent;
+    }
+    await this.checkInUrl(`/intestacy/deceased-${siblingType}-siblings`);
+    await expect(this.page.getByText(decodeHTML(predeceasedSiblingContent.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
-    await expect(this.page.locator(`#anyPredeceasedWholeSiblings${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyPredeceasedWholeSiblings${answer}`).click();
+    await expect(this.page.locator(`#anyPredeceased${siblingTypeUpper}Siblings${answer}`)).toBeEnabled();
+    await this.page.locator(`#anyPredeceased${siblingTypeUpper}Siblings${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async anySurvivingWholeNieceNephew(language = 'en', answer = null) {
+  async anySurvivingNieceNephew(language = 'en', answer = null, siblingType) {
     const anySurvivingWholeNieceNephewContent = getContent(`app/resources/${language}/translation/applicant/anysurvivingwholeniecesandwholenephews.json`);
-    await this.checkInUrl('/intestacy/whole-siblings-surviving-children');
-    await expect(this.page.getByText(await decodeHTML(anySurvivingWholeNieceNephewContent.question)
+    const anySurvivingHalfNieceNephewContent = getContent(`app/resources/${language}/translation/applicant/anysurvivinghalfniecesandhalfnephews.json`);
+    const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
+    let survivingNieceNephewContent;
+
+    if (siblingType === 'whole') {
+      survivingNieceNephewContent = anySurvivingWholeNieceNephewContent;
+    } else {
+      survivingNieceNephewContent = anySurvivingHalfNieceNephewContent;
+    }
+    await this.checkInUrl(`/intestacy/${siblingType}-siblings-surviving-children`);
+    await expect(this.page.getByText(await decodeHTML(survivingNieceNephewContent.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
-    await expect(this.page.locator(`#anySurvivingWholeNiecesAndWholeNephews${answer}`)).toBeEnabled();
-    await this.page.locator(`#anySurvivingWholeNiecesAndWholeNephews${answer}`).click();
+    await expect(this.page.locator(`#anySurviving${siblingTypeUpper}NiecesAnd${siblingTypeUpper}Nephews${answer}`)).toBeEnabled();
+    await this.page.locator(`#anySurviving${siblingTypeUpper}NiecesAnd${siblingTypeUpper}Nephews${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async anyWholeSiblingsAbove18(language = 'en', answer = null) {
+  async anySiblingsAbove18(language = 'en', answer = null, siblingType) {
     const wholeSiblingsAbove18Content = getContent(`app/resources/${language}/translation/applicant/allwholesiblingsover18.json`);
-    await this.checkInUrl('/intestacy/whole-siblings-age');
-    await expect(this.page.getByText(await decodeHTML(wholeSiblingsAbove18Content.question)
+    const halfSiblingsAbove18Content = getContent(`app/resources/${language}/translation/applicant/allhalfsiblingsover18.json`);
+    const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
+    let siblingsAbove18Content;
+
+    if (siblingType === 'whole') {
+      siblingsAbove18Content = wholeSiblingsAbove18Content;
+    } else {
+      siblingsAbove18Content = halfSiblingsAbove18Content;
+    }
+    await this.checkInUrl(`/intestacy/${siblingType}-siblings-age`);
+    await expect(this.page.getByText(await decodeHTML(siblingsAbove18Content.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
-    await expect(this.page.locator(`#allWholeSiblingsOver18${answer}`)).toBeEnabled();
-    await this.page.locator(`#allWholeSiblingsOver18${answer}`).click();
+    await expect(this.page.locator(`#all${siblingTypeUpper}SiblingsOver18${answer}`)).toBeEnabled();
+    await this.page.locator(`#all${siblingTypeUpper}SiblingsOver18${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
@@ -278,24 +316,32 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async anyWholeNieceOrNephewOver18(language = 'en', answer = null) {
+  async anyNieceOrNephewOver18(language = 'en', answer = null, siblingType) {
     const wholeNieceOrNephewOver18Content = getContent(`app/resources/${language}/translation/applicant/allwholeniecesandwholenephewsover18.json`);
-    await this.checkInUrl('/intestacy/whole-nieces-whole-nephews-age');
-    await expect(this.page.getByText(await decodeHTML(wholeNieceOrNephewOver18Content.question)))
+    const halfNieceOrNephewOver18Content = getContent(`app/resources/${language}/translation/applicant/allhalfniecesandhalfnephewsover18.json`);
+    const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
+    let nieceOrNephewOver18Content;
+    if (siblingType === 'whole') {
+      nieceOrNephewOver18Content = wholeNieceOrNephewOver18Content;
+    } else {
+      nieceOrNephewOver18Content = halfNieceOrNephewOver18Content;
+    }
+    await this.checkInUrl(`/intestacy/${siblingType}-nieces-${siblingType}-nephews-age`);
+    await expect(this.page.getByText(await decodeHTML(nieceOrNephewOver18Content.question)))
       .toBeVisible();
-    await expect(this.page.locator(`#allWholeNiecesAndWholeNephewsOver18${answer}`)).toBeEnabled();
-    await this.page.locator(`#allWholeNiecesAndWholeNephewsOver18${answer}`).click();
+    await expect(this.page.locator(`#all${siblingTypeUpper}NiecesAnd${siblingTypeUpper}NephewsOver18${answer}`)).toBeEnabled();
+    await this.page.locator(`#all${siblingTypeUpper}NiecesAnd${siblingTypeUpper}NephewsOver18${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async selectDeceasedSameParents(language = 'en', answer = null) {
+  async selectDeceasedSameParents(language = 'en', option = null) {
     const sameParentsContent = getContent(`app/resources/${language}/translation/applicant/sameparents.json`);
     await this.checkInUrl('/intestacy/deceased-same-parents');
     await expect(this.page.getByText(await decodeHTML(sameParentsContent.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
-    await expect(this.page.locator(`#sameParents${answer}`)).toBeEnabled();
-    await this.page.locator(`#sameParents${answer}`).click();
+    await expect(this.page.locator(`[value="${option}"]`)).toBeEnabled();
+    await this.page.locator(`[value="${option}"]`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 

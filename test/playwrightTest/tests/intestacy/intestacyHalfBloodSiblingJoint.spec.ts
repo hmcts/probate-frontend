@@ -12,7 +12,7 @@ const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy whole-blood sibling joint application journey - IHT 400', () => {
+  test.describe('Intestacy half-blood sibling joint application journey - IHT 400', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -108,35 +108,36 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.deceasedAdoptedIn(language, optionNo, 'sibling');
       await applicantDetailsPage.deceasedAdoptedOut(language, optionNo, 'sibling');
 
-      await applicantDetailsPage.selectDeceasedSameParents(language, applicantDetailConfig.wholeBloodSiblingsOption);
+      await applicantDetailsPage.selectDeceasedSameParents(language, applicantDetailConfig.halfBloodSiblingsOption);
 
-      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionNo, 'wholeBloodSibling');
-      await applicantDetailsPage.mainApplicantAdoptedOut(language, optionNo, 'wholeBloodSibling');
+      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'halfBloodSibling');
+      await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
 
-      await applicantDetailsPage.anyOtherWholeSiblings(language, optionYes);
-      await applicantDetailsPage.anyPredeceasedSiblings(language, applicantDetailConfig.optionSomeOfThem, 'whole');
-      await applicantDetailsPage.anySurvivingNieceNephew(language, optionYes, 'whole');
-      await applicantDetailsPage.anyNieceOrNephewOver18(language, optionYes, 'whole');
-      await applicantDetailsPage.anySiblingsAbove18(language, optionYes, 'whole');
+      await applicantDetailsPage.anyOtherWholeSiblings(language, optionNo);
+      await applicantDetailsPage.anyOtherHalfSiblings(language, optionYes);
+      await applicantDetailsPage.anyPredeceasedSiblings(language, applicantDetailConfig.optionSomeOfThem, 'half');
+      await applicantDetailsPage.anySurvivingNieceNephew(language, optionYes, 'half');
+      await applicantDetailsPage.anyNieceOrNephewOver18(language, optionYes, 'half');
+      await applicantDetailsPage.anySiblingsAbove18(language, optionYes, 'half');
 
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
 
-      //First co-applicant - whole-sibling
+      //First co-applicant - half-sibling
       let coApplicantNumber = "1";
       await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantWholeBloodSibling, coApplicantNumber);
+      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodSibling, coApplicantNumber);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.firstCoApplicantName);
-      await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionYes);
-      await applicantDetailsPage.coApplicantAdoptionPlace(coApplicantNumber, optionYes);
+      await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionNo);
+      await applicantDetailsPage.coApplicantAdoptedOut(coApplicantNumber, optionNo);
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.firstCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
 
       //Second co-applicant - whole-niece/nephew
       coApplicantNumber = "2";
       await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantWholeBloodNieceNephew, coApplicantNumber);
+      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodNieceNephew, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.secondCoApplicantName);
       await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionNo);
@@ -151,7 +152,7 @@ getTestLanguages().forEach(language => {
       //Third co-applicant - whole-niece/nephew
       coApplicantNumber = "3";
       await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantWholeBloodNieceNephew, coApplicantNumber);
+      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodNieceNephew, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.thirdCoApplicantName);
       await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionYes);

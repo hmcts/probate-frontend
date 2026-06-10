@@ -98,4 +98,36 @@ describe('HmrcLetter', () => {
             done();
         });
     });
+
+    describe('isComplete()', () => {
+        it('should be complete when hmrcLetterId is optionYes', (done) => {
+            const result = HmrcLetter.isComplete({
+                hmrcLetterId: 'optionYes',
+                noHmrcLetterAfterEeThreshold: false
+            });
+
+            expect(result).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should be complete when no HMRC letter is valid after threshold', (done) => {
+            const result = HmrcLetter.isComplete({
+                hmrcLetterId: 'optionNo',
+                noHmrcLetterAfterEeThreshold: true
+            });
+
+            expect(result).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should be in progress when hmrcLetterId is optionNo and after-threshold flag is false', (done) => {
+            const result = HmrcLetter.isComplete({
+                hmrcLetterId: 'optionNo',
+                noHmrcLetterAfterEeThreshold: false
+            });
+
+            expect(result).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+    });
 });

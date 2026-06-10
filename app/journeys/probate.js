@@ -103,7 +103,8 @@ const stepList = {
     ReportEstateValues: 'CalcCheck',
     HmrcLetter: {
         hmrcLetter: 'UniqueProbateCode',
-        otherwise: 'WaitingForHmrc'
+        noHmrcLetterBeforeEeThreshold: 'IhtEstateForm',
+        noHmrcLetterAfterEeThreshold: 'WaitingForHmrc'
     },
     IhtEstateForm: {
         optionIHT400: 'HmrcLetter',

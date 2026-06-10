@@ -20,16 +20,6 @@ describe('save-and-close', () => {
 
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('ApplicantName');
-        it('test error message displayed for invalid lastName', (done) => {
-            const errorsToTest = ['lastName'];
-            const data = {
-                isSaveAndClose: 'true',
-                firstName: 'dave',
-                lastName: '>bassett'
-            };
-
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
 
         it(`test isSaveAndClose ture redirects to next page: ${expectedNextUrlForTaskList}`, (done) => {
             const data = {

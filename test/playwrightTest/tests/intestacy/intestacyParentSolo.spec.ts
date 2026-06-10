@@ -94,10 +94,14 @@ getTestLanguages().forEach(language => {
       // Applicant Task
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, applicantDetailConfig.relationshipParentOfDeceased);
+      await applicantDetailsPage.selectAnyLivingDescendants(optionYes);
+      await applicantDetailsPage.livingDescendantStopPage(language);
       await applicantDetailsPage.selectAnyLivingDescendants(optionNo);
 
-      await applicantDetailsPage.deceasedAdoptedIn(language, optionYes, 'parent');
-      await applicantDetailsPage.deceasedAdoptionPlace(language, optionYes);
+      await applicantDetailsPage.deceasedAdoptedIn(language, optionNo, 'parent');
+      await applicantDetailsPage.deceasedAdoptedOut(language, optionYes, 'parent');
+      await applicantDetailsPage.deceasedAdoptedOutStopPage(language);
+      await applicantDetailsPage.deceasedAdoptedOut(language, optionNo, 'parent');
 
       await applicantDetailsPage.deceasedOtherParentAlive(language, optionNo);
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');

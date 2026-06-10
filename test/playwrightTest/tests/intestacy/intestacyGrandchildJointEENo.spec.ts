@@ -111,6 +111,8 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);
       await applicantDetailsPage.anyGrandChildren(language, optionYes);
+      await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionYes);
+      await applicantDetailsPage.grandchildremUnderEighteenStopPage(language);
       await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
       await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
       await applicantDetailsPage.mainApplicantParentAnyOtherChildren(optionYes);
@@ -134,6 +136,8 @@ getTestLanguages().forEach(language => {
       coApplicantNumber = "2";
       await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantGrandchild, coApplicantNumber);
+      await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionNo);
+      await applicantDetailsPage.grandChildParentAliveStopPage(language);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.secondCoApplicantName);
       await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionNo);

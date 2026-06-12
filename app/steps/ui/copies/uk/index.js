@@ -39,7 +39,7 @@ class CopiesUk extends ValidationStep {
         if (formdata.deceased) {
             delete formdata.deceased.addresses;
         }
-        if (formdata.executors) {
+        if (formdata.executors?.list?.length > 0) {
             formdata.executors.list.forEach((executor) => {
                 delete executor.addresses;
             });

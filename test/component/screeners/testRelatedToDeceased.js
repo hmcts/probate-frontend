@@ -66,7 +66,7 @@ describe('related-to-deceased', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        related: 'optionYes'
+                        related: 'optionParent'
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForStartApply, cookies);

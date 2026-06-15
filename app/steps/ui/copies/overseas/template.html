@@ -13,18 +13,12 @@
             isPageHeading: true
         }
     }) %}
-        {% if fields.isFeesApiToggleEnabled.value === "true" %}
-            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
-           
-        {% else %}
-            <p class="govuk-body">{{ content.paragraph1Old | safe }}</p>
-            <p class="govuk-body">{{ content.paragraph2Old | safe }}</p>
-        {% endif %}
+        <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+        <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
 
         {{ govukInput({
             label: {
-                text: (content.copies if fields.isFeesApiToggleEnabled.value == "true" else content.copiesOld) | safe
+                text: content.copies | safe
             },
             id: "overseas",
             name: "overseas",

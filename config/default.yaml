@@ -314,7 +314,7 @@ intestacyScreenersDeathCertificateInEnglish:
   completed: 'optionYes'
   left: 'optionNo'
   diedAfter: 'optionYes'
-  related: 'optionYes'
+  related: ['optionPartner','optionChild','optionParent','optionSibling','optionGrandchild']
 intestacyScreenersDeathCertificateNotInEnglish:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -322,7 +322,7 @@ intestacyScreenersDeathCertificateNotInEnglish:
   domicile: 'optionYes'
   completed: 'optionYes'
   left: 'optionNo'
-  related: 'optionYes'
+  related: ['optionPartner','optionChild','optionParent','optionSibling','optionGrandchild']
 intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -330,7 +330,7 @@ intestacyScreenersDeathCertificateInEnglishExceptedEstates:
   eeDeceasedDod: 'optionYes'
   eeEstateValued: 'optionYes'
   left: 'optionNo'
-  related: 'optionYes'
+  related: ['optionPartner','optionChild','optionParent','optionSibling','optionGrandchild']
 intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -339,7 +339,7 @@ intestacyScreenersDeathCertificateNotInEnglishExceptedEstates:
   eeDeceasedDod: 'optionYes'
   eeEstateValued: 'optionYes'
   left: 'optionNo'
-  related: 'optionYes'
+  related: ['optionPartner','optionChild','optionParent','optionSibling','optionGrandchild']
 intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionYes'
@@ -348,7 +348,7 @@ intestacyScreenersDeathCertificateInEnglishDodBeforeThresholdExceptedEstates:
   completed: 'optionYes'
   left: 'optionNo'
   diedAfter: 'optionYes'
-  related: 'optionYes'
+  related: ['optionPartner','optionChild','optionParent','optionSibling','optionGrandchild']
 intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
   deathCertificate: 'optionYes'
   deathCertificateInEnglish: 'optionNo'
@@ -358,7 +358,7 @@ intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
   completed: 'optionYes'
   left: 'optionNo'
   diedAfter: 'optionYes'
-  related: 'optionYes'
+  related: ['optionPartner','optionChild','optionParent','optionSibling','optionGrandchild']
 hardStopParams:
   gop: []
   intestacy: []

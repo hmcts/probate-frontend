@@ -22,7 +22,7 @@ class CodicilsNumber extends ValidationStep {
 
     getContextData(req) {
         const ctx = super.getContextData(req);
-        ctx.codicilsNumber = ctx.codicilsNumber ? parseInt(ctx.codicilsNumber) : ctx.codicilsNumber;
+        ctx.codicilsNumber = ctx.codicilsNumber ? parseInt(ctx.codicilsNumber, 10) : ctx.codicilsNumber;
         return ctx;
     }
 

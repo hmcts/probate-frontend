@@ -11,7 +11,7 @@ module.exports = async function(executorsWhoDiedList = null) {
         if (executorNumber === '2') {
             locator = {css: '#executorsWhoDied'};
         } else {
-            locator = {css: `#executorsWhoDied-${parseInt(executorNumber) - 1}`};
+            locator = {css: `#executorsWhoDied-${parseInt(executorNumber, 10) - 1}`};
         }
         // eslint-disable-next-line no-await-in-loop
         await I.waitForVisible(locator);

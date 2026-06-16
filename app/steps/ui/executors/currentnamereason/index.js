@@ -20,7 +20,7 @@ class ExecutorCurrentNameReason extends ValidationStep {
         const ctx = super.getContextData(req);
         this.setCodicilFlagInCtx(ctx, req.session.form);
         if (req.params && !isNaN(req.params[0])) {
-            ctx.index = parseInt(req.params[0]);
+            ctx.index = parseInt(req.params[0], 10);
             req.session.indexPosition = ctx.index;
         } else if (req.params && req.params[0] === '*') {
             ctx.index = req.session.indexPosition ||

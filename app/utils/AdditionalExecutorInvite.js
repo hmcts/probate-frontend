@@ -44,7 +44,7 @@ class AdditionalExecutorInvite {
                                 emailSent: true
                             };
                             merge(
-                                formdata.executors.list.find(execList => execList.id === parseInt(execResult.id)),
+                                formdata.executors.list.find(execList => execList.id === parseInt(execResult.id, 10)),
                                 sanitizeInput(result)
                             );
                         });

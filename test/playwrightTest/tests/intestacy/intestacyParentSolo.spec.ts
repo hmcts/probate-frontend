@@ -4,6 +4,7 @@ import { getTestLanguages } from '../../pages/utility/basePage.ts';
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json";
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json";
+import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json";
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -66,8 +67,12 @@ getTestLanguages().forEach(language => {
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
-      await deceasedDetailsPage.enterDobDetails('01', '01', '1950');
-      await deceasedDetailsPage.enterDodDetails('02', '01', '2017');
+      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
+      await deceasedDetailsPage.enterDodDetails(
+        deceasedDetailsConfig.deceasedDodDay,
+        deceasedDetailsConfig.deceasedDodMonth,
+        deceasedDetailsConfig.deceasedDodYear
+      );
       await deceasedDetailsPage.enterDeceasedAddress();
 
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);

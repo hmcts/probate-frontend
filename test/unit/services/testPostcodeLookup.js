@@ -11,14 +11,8 @@ describe('PostcodeLookup', () => {
     let axiosGetStub;
 
     beforeEach(() => {
-        config.services = {
-            postcode: {
-                url: 'https://api.postcode-service.com',
-                token: 'mock-token'
-            }
-        };
-
-        // Stub axios.get
+        config.services.postcode.url= 'https://api.postcode-service.com';
+        config.services.postcode.token = 'mock-token';
         axiosGetStub = sinon.stub(axios, 'get');
 
         postcodeLookup = new PostcodeLookup();

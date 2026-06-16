@@ -128,7 +128,7 @@ getTestLanguages().forEach(language => {
 
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
-        await applicantDetailsPage.completeEqualityAndDiversity(language, true, true);
+        await applicantDetailsPage.completeEqualityAndDiversity(language, false, true);
       }
 
       // Check your answers and declaration

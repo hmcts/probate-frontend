@@ -70,7 +70,7 @@ getTestLanguages().forEach(language => {
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
-      await deceasedDetailsPage.enterDobDetails('01', '01', '1950');
+      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
       await deceasedDetailsPage.enterDodDetails('02', '01', '2022');
       await deceasedDetailsPage.enterDeceasedAddress();
 

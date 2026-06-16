@@ -4,6 +4,7 @@ import {getContent} from "../utility/contentHelper.ts";
 import ihtDataConfig from '../../data/ee/ihtData.json';
 import applicantDetailsConfig from "../../data/intestacy/sole/applicantDetails.json"
 import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json";
+
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 
@@ -17,6 +18,7 @@ export class DeceasedDetailsSection extends BasePage {
   readonly dodDayLocator = this.page.locator('#dod-date-day');
   readonly dodMonthLocator = this.page.locator('#dod-date-month');
   readonly dodYearLocator = this.page.locator('#dod-date-year');
+  readonly signOutButtonLocator = this.page.getByRole('link', { name: this.commonContent.signOut });
 
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
@@ -40,13 +42,42 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterDobDetails(dob_day = null, dob_month = null, dob_year = null) {
+  async enterDeceasedNameOnWill(language = 'en', answer = null) {
+    const aliasContent = getContent(`app/resources/${language}/translation/deceased/nameasonwill.json`);
+    await this.checkInUrl('/deceased-name-as-on-will');
+    await expect(this.page.getByText(aliasContent.explanation1)).toBeVisible();
+    await expect(this.page.locator(`#nameAsOnTheWill${answer}`)).toBeEnabled();
+    await this.page.locator(`#nameAsOnTheWill${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+    // const I = this;
+
+    // const commonContent = require(`app/resources/${language}/translation/common`);
+    // const aliasContent = require(`app/resources/${language}/translation/deceased/nameasonwill`);
+
+    // await I.checkInUrl('/deceased-name-as-on-will');
+    // await I.waitForText(aliasContent.explanation1, config.TestWaitForTextToAppear);
+    // const locator = {css: `#nameAsOnTheWill${answer}`};
+    // await I.waitForEnabled(locator);
+    // await I.click(locator);
+
+    //await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
+  }
+
+  async enterDobDetails(language, dob_day = null, dob_month = null, dob_year = null, saveAndClose = false) {
+    const dobContent = getContent(`app/resources/${language}/translation/deceased/dob.json`);
     await this.checkInUrl('/deceased-dob');
+    await expect(this.page.getByText(await decodeHTML(dobContent.question)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
     await expect(this.dobDayLocator).toBeEnabled();
     await this.dobDayLocator.fill(dob_day);
     await this.dobMonthLocator.fill(dob_month);
     await this.dobYearLocator.fill(dob_year);
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    if (saveAndClose) {
+      await this.navByClick(this.signOutButtonLocator);
+    } else {
+      await this.navByClick(this.saveAndContinueButtonLocator);
+    }
   }
 
   async enterDodDetails(dod_day = null, dod_month = null, dod_year = null) {
@@ -156,13 +187,6 @@ export class DeceasedDetailsSection extends BasePage {
     await expect(this.page.locator(`#ihtFormId${option}`)).toBeEnabled();
     await this.page.locator(`#ihtFormId${option}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
-
-    // await I.checkInUrl('/estate-form');
-    // const locator = {css: `#ihtFormId${option}`};
-    // await I.waitForEnabled(locator);
-    // await I.click(locator);
-
-    // await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
   }
 
   async enterEEValue(grossValue = null, netValue = null, netQualifyingValue = null) {
@@ -256,6 +280,155 @@ export class DeceasedDetailsSection extends BasePage {
     await this.page.locator('#divorceDate-day').fill(divorceDay);
     await this.page.locator('#divorceDate-month').fill(divorceMonth);
     await this.page.locator('#divorceDate-year').fill(divorceYear);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  // GOP specific pages
+  async selectDeceasedAliasGop(language = 'en', answer = null) {
+    const aliasContent = getContent(`app/resources/${language}/translation/deceased/alias.json`);
+    await this.checkInUrl('/deceased-alias');
+    await expect(this.page.getByText(aliasContent.GopParagraph2)).toBeVisible();
+    await expect(this.page.locator(`#alias${answer}`)).toBeEnabled();
+    await this.page.locator(`#alias${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectDeceasedMarriedAfterDateOnWill(answer = null) {
+    await this.checkInUrl('/deceased-married');
+    await expect(this.page.locator(`#married${answer}`)).toBeEnabled();
+    await this.page.locator(`#married${answer}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWillDamage(option = null, description = null) {
+    await this.checkInUrl('/will-has-damage');
+    await expect(this.page.locator(`#willHasVisibleDamage${option}`)).toBeEnabled();
+    await this.page.locator(`#willHasVisibleDamage${option}`).click();
+    if (option === '') {
+      await this.page.locator('#willDamageTypes').click();
+      await this.page.locator('#willDamageTypes-2').click();
+      await this.page.locator('#willDamageTypes-3').click();
+      await this.page.locator('#willDamageTypes-4').click();
+      await this.page.locator('#willDamageTypes-5').click();
+      await this.page.locator('#willDamageTypes-6').click();
+
+      await this.page.locator('#otherDamageDescription').fill(description);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWillDamageReason(option = null, reason = null) {
+    await this.checkInUrl('/will-damage-reason');
+    await expect(this.page.locator(`#willDamageReasonKnown${option}`)).toBeEnabled();
+    await this.page.locator(`#willDamageReasonKnown${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#willDamageReasonDescription').fill(reason);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWillDamageWho(option = null, firstName = null, lastName = null) {
+    await this.checkInUrl('/will-damage-who');
+    await expect(this.page.locator(`#willDamageCulpritKnown${option}`)).toBeEnabled();
+    await this.page.locator(`#willDamageCulpritKnown${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#firstName').fill(firstName);
+      await this.page.locator('#lastName').fill(lastName);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWillDamageDate(option = null, year = null) {
+    await this.checkInUrl('/will-damage-date');
+    await expect(this.page.locator(`#willDamageDateKnown${option}`)).toBeEnabled();
+    await this.page.locator(`#willDamageDateKnown${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#willdamagedate-year').fill(year);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWillCodicils(option = null) {
+    await this.checkInUrl('/will-codicils');
+    await expect(this.page.locator(`#codicils${option}`)).toBeEnabled();
+    await this.page.locator(`#codicils${option}`).click();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWillNoOfCodicils(totalCodicils) {
+    await this.checkInUrl('/codicils-number');
+    await expect(this.page.locator(`#codicilsNumber`)).toBeEnabled();
+    await this.page.locator(`#codicilsNumber`).fill(totalCodicils);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectCodicilsDamage(option = null, description = null) {
+    await this.checkInUrl('/codicils-have-damage');
+    await expect(this.page.locator(`#codicilsHasVisibleDamage${option}`)).toBeEnabled();
+    await this.page.locator(`#codicilsHasVisibleDamage${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#codicilsDamageTypes').click();
+      await this.page.locator('#codicilsDamageTypes-2').click();
+      await this.page.locator('#codicilsDamageTypes-3').click();
+      await this.page.locator('#codicilsDamageTypes-4').click();
+      await this.page.locator('#codicilsDamageTypes-5').click();
+      await this.page.locator('#codicilsDamageTypes-6').click();
+
+      await this.page.locator('#otherDamageDescription').fill(description);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectCodicilsReason(option = null, description = null) {
+    await this.checkInUrl('/codicils-damage-reason');
+    await expect(this.page.locator(`#codicilsDamageReasonKnown${option}`)).toBeEnabled();
+    await this.page.locator(`#codicilsDamageReasonKnown${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#codicilsDamageReasonDescription').fill(description);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectCodicilsWho(option = null, firstName = null, lastName = null) {
+    await this.checkInUrl('/codicils-damage-who');
+    await expect(this.page.locator(`#codicilsDamageCulpritKnown${option}`)).toBeEnabled();
+    await this.page.locator(`#codicilsDamageCulpritKnown${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#firstName').fill(firstName);
+      await this.page.locator('#lastName').fill(lastName);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectCodicilsDate(option = null, year = null) {
+    await this.checkInUrl('/codicils-damage-date');
+    await expect(this.page.locator(`#codicilsDamageDateKnown${option}`)).toBeEnabled();
+    await this.page.locator(`#codicilsDamageDateKnown${option}`).click();
+
+    if (option === '') {
+      await this.page.locator('#codicilsdamagedate-year').fill(year);
+    }
+
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async selectWrittenWishes(option = null) {
+    await this.checkInUrl('/deceased-written-wishes');
+    await expect(this.page.locator(`#deceasedWrittenWishes${option}`)).toBeEnabled();
+    await this.page.locator(`#deceasedWrittenWishes${option}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 }

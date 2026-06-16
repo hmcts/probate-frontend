@@ -3,7 +3,6 @@ import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json";
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json";
 import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json";
 
 const optionYes = ihtDataConfig.optionYes;
@@ -11,7 +10,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy parent joint application journey - IHT 205', () => {
+  test.describe('GOP Single Executor journey - EE Yes', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -26,17 +25,19 @@ getTestLanguages().forEach(language => {
       await testConfigurator.getAfter(); // only deletes THIS language's user
     });
 
-    test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`), async ({
-      intestacyScreenerPage,
-      apiCallback,
-      signInPage,
-      taskListPage,
-      deceasedDetailsPage,
-      applicantDetailsPage,
-      coApplicantNotifyAndDeclarationPage,
-      cyaAndDeclarationPage,
-      paymentTaskPage
-    }) => {
+    test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`),
+      async ({
+               intestacyScreenerPage,
+               gopScreenerPage,
+               apiCallback,
+               signInPage,
+               taskListPage,
+               deceasedDetailsPage,
+               applicantDetailsPage,
+               executorDetailsPage,
+               cyaAndDeclarationPage,
+               paymentTaskPage
+      }) => {
       const testConfigurator = new TestConfigurator();
 
       await apiCallback.createAUser(testConfigurator);
@@ -53,11 +54,12 @@ getTestLanguages().forEach(language => {
       await intestacyScreenerPage.selectDeceasedDomicile(language);
       await intestacyScreenerPage.selectEEDeceasedDod(language, optionNo);
       await intestacyScreenerPage.selectIhtCompleted(language, optionYes);
-      await intestacyScreenerPage.selectPersonWhoDiedLeftAWill(language, optionNo);
+      await intestacyScreenerPage.selectPersonWhoDiedLeftAWill(language, optionYes);
 
-      // Intestacy Sceeners
-      await intestacyScreenerPage.selectDiedAfterOctober2014(language, optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceased(language, applicantDetailConfig.relationshipParentOfDeceased);
+      // GOP Sceeners
+      await gopScreenerPage.selectOriginalWill(language, optionYes);
+      await gopScreenerPage.selectApplicantIsExecutor(language, optionYes);
+      await gopScreenerPage.selectMentallyCapable(language, optionYes);
 
       await intestacyScreenerPage.startApply(language);
 
@@ -68,6 +70,17 @@ getTestLanguages().forEach(language => {
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
+      await deceasedDetailsPage.enterDeceasedNameOnWill(language, optionYes);
+      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950', true);
+      await signInPage.seeSignOut(language);
+
+      await signInPage.authenticateWithIdamIfAvailable(language, true);
+
+      // Dashboard
+      await taskListPage.chooseApplication(language);
+
+      // Deceased Details
+      await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
       await deceasedDetailsPage.enterDodDetails(
         deceasedDetailsConfig.deceasedDodDay,
@@ -88,81 +101,42 @@ getTestLanguages().forEach(language => {
         await deceasedDetailsPage.enterProbateAssetValues('500', '400');
       }
 
-      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
-      await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
+      await deceasedDetailsPage.selectDeceasedAliasGop(language, optionNo);
+      await deceasedDetailsPage.selectDeceasedMarriedAfterDateOnWill(optionNo)
+      await deceasedDetailsPage.selectWillDamage(optionYes, 'test');
+      await deceasedDetailsPage.selectWillDamageReason(optionYes, 'test');
+      await deceasedDetailsPage.selectWillDamageWho(optionYes, 'test', 'test');
+      await deceasedDetailsPage.selectWillDamageDate(optionYes, '2017');
 
-      await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
+      await deceasedDetailsPage.selectWillCodicils(optionYes);
+      await deceasedDetailsPage.selectWillNoOfCodicils('1');
 
-      await deceasedDetailsPage.selectDeceasedMaritalStatus(applicantDetailConfig.maritalStatusDivorced);
-      await deceasedDetailsPage.selectDivorcePlace(language, optionYes);
-      await deceasedDetailsPage.enterDivorceDate(language, optionYes, '01', '01', '2015');
+      await deceasedDetailsPage.selectCodicilsDamage(optionYes, 'test');
+      await deceasedDetailsPage.selectCodicilsReason(optionYes, 'test');
+      await deceasedDetailsPage.selectCodicilsWho(optionYes, 'test', 'test');
+      await deceasedDetailsPage.selectCodicilsDate(optionYes, '2000');
+      await deceasedDetailsPage.selectWrittenWishes(optionYes);
 
-      // Applicant Task
-      await taskListPage.selectATask(language, 'applicantsTask');
-      await applicantDetailsPage.selectRelationshipToDeceased(language, applicantDetailConfig.relationshipParentOfDeceased);
-      await applicantDetailsPage.selectAnyLivingDescendants(optionNo);
-
-      await applicantDetailsPage.deceasedAdoptedIn(language, optionYes, 'parent');
-      await applicantDetailsPage.deceasedAdoptionPlace(language, optionYes);
-
-      await applicantDetailsPage.deceasedOtherParentAlive(language, optionYes);
-      await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
+      // ExecutorsTask
+      await taskListPage.selectATask(language, 'executorsTask');
+      await applicantDetailsPage.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
+      await executorDetailsPage.selectNameAsOnTheWill(optionYes);
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
+      await executorDetailsPage.checkWillCodicils();
 
-      //First co-applicant - parent
-      let coApplicantNumber = "1";
-      await applicantDetailsPage.jointApplication(language, optionYes, 'Parent');
-      // await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantParent, coApplicantNumber);
-      await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.firstCoApplicantName);
-      // await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionYes);
-      // await applicantDetailsPage.coApplicantAdoptionPlace(coApplicantNumber, optionYes);
-      await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.firstCoApplicantEmail);
-      await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
-
-      // await applicantDetailsPage.jointApplication(language, optionNo);
+      const totalExecutors = '1';
+      await executorDetailsPage.enterExecutorNamed(totalExecutors, optionNo);
 
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
-        await applicantDetailsPage.completeEqualityAndDiversity(language);
+        await applicantDetailsPage.completeEqualityAndDiversity(language, true, true);
       }
 
       // Check your answers and declaration
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
       await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
-
-      // Notify additional executors Dealing with estate
-      await coApplicantNotifyAndDeclarationPage.notifyAdditionalExecutors(language, 'intestacyQuestion');
-      await coApplicantNotifyAndDeclarationPage.notificationSent(language);
-
-      //Retrieve the email urls for additional executors
-      const grabIds = await coApplicantNotifyAndDeclarationPage.getIdList();
-
-      let idList = null;
-      try {
-        idList = JSON.parse(grabIds);
-      } catch (err) {
-        console.error(err.message);
-      }
-      console.log('idList:', idList);
-
-      for (let i = 0; i < idList.ids.length; i++) {
-        await coApplicantNotifyAndDeclarationPage.seeCoApplicantStartPage(language, idList.ids[i]);
-        await coApplicantNotifyAndDeclarationPage.coApplicantDeclarationPage2(
-          deceasedDetailsConfig.deceasedDodDay,
-          deceasedDetailsConfig.deceasedDodMonth,
-          deceasedDetailsConfig.deceasedDodYear
-        );
-        await coApplicantNotifyAndDeclarationPage.agreeDeclaration(optionYes);
-        await coApplicantNotifyAndDeclarationPage.seeAgreePage(language, 'intestacy');
-      }
-
-      // IDAM
-      await signInPage.authenticateWithIdamIfAvailable(language, true);
-
-      // Dashboard
-      await taskListPage.chooseApplication(language);
 
       // Payment Task
       await taskListPage.selectATask(language, 'paymentTask');

@@ -3,6 +3,7 @@ import {BasePage, decodeHTML} from '../utility/basePage';
 import {getContent} from "../utility/contentHelper.ts";
 import applicantDetailsConfig from '../../data/intestacy/sole/applicantDetails.json';
 import ihtDataConfig from "../../data/ee/ihtData.json";
+
 const equalityEn = 'Equality and diversity questions';
 const equalityCy = 'Cwestiynau am Gydraddoldeb ac Amrywiaeth';
 
@@ -12,6 +13,7 @@ export class ApplicantDetailsSection extends BasePage {
   readonly lastNameLocator = this.page.locator('#lastName');
   readonly coApplicantNameLocator = this.page.locator('#fullName');
   readonly backLinkLocator = this.page.locator('#backLink');
+
 
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
@@ -468,7 +470,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async enterApplicantName(language ='en', firstname = null, lastname = null) {
     const nameContent = getContent(`app/resources/${language}/translation/applicant/name.json`);
-    await this.checkInUrl('/intestacy/applicant-name');
+    await this.checkInUrl('/applicant-name');
     await expect(this.page.getByText(await decodeHTML(nameContent.question))).toBeVisible();
     await expect(this.firstNameLocator).toBeEnabled();
     await this.firstNameLocator.fill(firstname);
@@ -479,7 +481,7 @@ export class ApplicantDetailsSection extends BasePage {
   async enterApplicantPhone(language = 'en') {
     const phoneContent = getContent(`app/resources/${language}/translation/applicant/phone.json`);
     const phoneNumberLabel = await decodeHTML(phoneContent.phoneNumber);
-    await this.checkInUrl('/intestacy/applicant-phone');
+    await this.checkInUrl('/applicant-phone');
     await expect(this.page.locator('label', { hasText: phoneNumberLabel })).toBeVisible();
     await expect(this.page.locator('#phoneNumber')).toBeEnabled();
     await this.page.locator('#phoneNumber').fill(applicantDetailsConfig.phoneNumberValue);
@@ -487,7 +489,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async enterAddressManually() {
-    await this.checkInUrl('/intestacy/applicant-address');
+    await this.checkInUrl('/applicant-address');
     await this.page.locator('#details-panel > summary > span').click();
     await expect(this.page.locator('#addressLine1')).toBeEnabled();
     await this.page.locator('#addressLine1').fill('Applicant Address Line 1');
@@ -589,15 +591,20 @@ export class ApplicantDetailsSection extends BasePage {
     await this.page.locator('#back-button').click();
   }
 
-  async completeEqualityAndDiversity(language = 'en', isJointApplication?: Boolean) {
+  async completeEqualityAndDiversity(language = 'en', isJointApplication?: Boolean, isGop?: Boolean) {
     if (this.page.url().includes('pcq')) {
       await this.page.waitForTimeout(300);
       await expect(this.saveAndContinueButtonLocator).toBeVisible();
       await this.page.reload();
     }
 
-    if(isJointApplication) {
+    if(isJointApplication && !isGop) {
       await this.jointApplication(language, ihtDataConfig.optionNo);
+    } else if(isGop) {
+      await this.checkInUrl('/executors-named');
+      await expect(this.page.locator('#executorsNamed-2')).toBeEnabled();
+      await this.page.locator('#executorsNamed-2').click();
+      await this.navByClick(this.saveAndContinueButtonLocator);
     } else {
       await expect(this.saveAndContinueButtonLocator).toBeVisible();
       await this.navByClick(this.saveAndContinueButtonLocator);

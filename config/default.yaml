@@ -39,6 +39,7 @@ health:
 services:
   postcode:
     name: 'Postcode Lookup Service'
+    url: 'https://api.os.uk/search/places/v1'
     token:
   orchestrator:
     name: 'Orchestrator Service'

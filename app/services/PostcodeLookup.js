@@ -11,7 +11,6 @@ class PostcodeLookup {
 
     get(postcode) {
         logInfo(`PostcodeLookup.get postcode: ${postcode}`);
-        logInfo('PostcodeLookup.get token:'+config.services.postcode.token);
         return axios.get('postcode', {
             baseURL: config.services.postcode.url,
             headers: {

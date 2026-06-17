@@ -10,7 +10,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - EE No', () => {
+  test.describe('GOP Multiple Executors journey - EE No', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -36,6 +36,7 @@ getTestLanguages().forEach(language => {
                applicantDetailsPage,
                executorDetailsPage,
                cyaAndDeclarationPage,
+               coApplicantNotifyAndDeclarationPage,
                paymentTaskPage
       }) => {
       const testConfigurator = new TestConfigurator();
@@ -114,18 +115,99 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterAddressManually();
       await executorDetailsPage.checkWillCodicils();
 
-      const totalExecutors = '1';
-      await executorDetailsPage.enterExecutorNamed(totalExecutors, optionNo);
+      //const totalExecutors = '7';
+      const totalExecutors = '4';
+      await executorDetailsPage.enterExecutorNamed(totalExecutors, optionYes);
+      await executorDetailsPage.selectAnyExecutorsDied(optionYes);
+
+      //const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
+      const executorsWhoDiedList = ['2']; // exec2
+      let diedBefore = optionYes;
+      await executorDetailsPage.selectExecutorsWhoDied(executorsWhoDiedList);
+
+        if (executorsWhoDiedList) {
+          for (let i = 0; i < executorsWhoDiedList.length; i++) {
+            const executorNum = executorsWhoDiedList[i];
+            await executorDetailsPage.selectExecutorsWhenDied(executorNum, diedBefore, executorsWhoDiedList[0] === executorNum);
+            diedBefore = optionNo;
+          }
+        }
+
+        //const executorsApplyingList = ['3', '5']; // exec3 and exec5
+        const executorsApplyingList = ['3']; // exec3
+        await executorDetailsPage.selectExecutorsDealingWithEstate(executorsApplyingList);
+
+        await executorDetailsPage.selectExecutorsWithDifferentNameOnWill(optionNo, '1');
+        //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
+        //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
+
+        // const executorNumber = '5'; // 5 is the number in the name of the executor ie exec5
+        // I.enterExecutorCurrentName(executorNumber);
+        // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
+
+        for (let i = 1; i <= executorsApplyingList.length; i++) {
+          await executorDetailsPage.enterExecutorContactDetails(i);
+          await executorDetailsPage.enterExecutorManualAddress(i);
+        }
+
+        //const executorsAliveList = ['4', '6'];
+        const executorsAliveList = ['4'];
+        // let powerReserved = true;
+        // let answer = optionYes;
+        let powerReserved = false;
+        let answer = optionNo;
+
+        if (executorsAliveList) {
+          for (let i = 0; i < executorsAliveList.length; i++) {
+            const executorNumber = executorsAliveList[i];
+            await executorDetailsPage.selectExecutorRoles(executorNumber, answer, executorsAliveList[0] === executorNumber);
+
+            if (powerReserved) {
+              await executorDetailsPage.selectHasExecutorBeenNotified(optionYes);
+            }
+
+            powerReserved = false;
+            answer = optionNo;
+          }
+        }
 
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
-        await applicantDetailsPage.completeEqualityAndDiversity(language, false, true);
+        await applicantDetailsPage.completeEqualityAndDiversity(language);
       }
 
       // Check your answers and declaration
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
       await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
+
+      // Notify additional executors Dealing with estate
+      await coApplicantNotifyAndDeclarationPage.notifyAdditionalExecutors(language);
+      // await coApplicantNotifyAndDeclarationPage.notificationSent(language);
+
+      //Retrieve the email urls for additional executors
+      const grabIds = await coApplicantNotifyAndDeclarationPage.getIdList();
+
+      let idList = null;
+      try {
+        idList = JSON.parse(grabIds);
+      } catch (err) {
+        console.error(err.message);
+      }
+      console.log('idList:', idList);
+
+      for (let i = 0; i < idList.ids.length; i++) {
+        await coApplicantNotifyAndDeclarationPage.seeCoExecutorLaunchPage(language, idList.ids[i]);
+        await coApplicantNotifyAndDeclarationPage.seeCoExecutorStartPage(language);
+        await coApplicantNotifyAndDeclarationPage.agreeDeclaration(optionYes);
+        await coApplicantNotifyAndDeclarationPage.seeAgreePage(language);
+      }
+
+      // IDAM
+      await signInPage.authenticateWithIdamIfAvailable(language, true);
+
+      // Dashboard
+      await taskListPage.chooseApplication(language);
 
       // Payment Task
       await taskListPage.selectATask(language, 'paymentTask');

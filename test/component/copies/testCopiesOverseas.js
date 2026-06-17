@@ -31,11 +31,11 @@ describe('copies-overseas', () => {
         await testWrapper.destroy();
     });
 
-    describe('Verify Content, Errors and Redirection - Feature toggles', () => {
+    describe('CopiesOverseas Verify Content, Errors and Redirection', () => {
 
-        it('test right content loaded on the page with the ft_fees_api toggle ON', (done) => {
+        it('test right content loaded on the page', (done) => {
 
-            testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: true});
+            testWrapper = new TestWrapper('CopiesOverseas');
             invitesAllAgreedNock();
 
             const sessionData = require('test/data/copiesUk');
@@ -48,42 +48,10 @@ describe('copies-overseas', () => {
                 testWrapper.agent.post('/prepare-session/form')
                     .send(sessionData)
                     .end(() => {
-                        console.log('ft_fees_api toggle ON - 4) into /prepare-session/form post end');
                         delete require.cache[require.resolve('test/data/copiesUk')];
                         const contentToExclude = [
                             'questionOld',
                             'paragraph1Old'
-                        ];
-
-                        testWrapper.testContent(done, {}, contentToExclude);
-                    });
-            } catch (err) {
-                console.error(err.message);
-                done(err);
-            }
-        });
-
-        it('test right content loaded on the page with the ft_fees_api toggle OFF', (done) => {
-            testWrapper = new TestWrapper('CopiesOverseas', {ft_fees_api: false});
-
-            invitesAllAgreedNock();
-
-            const sessionData = require('test/data/copiesUk');
-            sessionData.ccdCase = {
-                state: 'Pending',
-                id: 1234567890123456
-            };
-
-            try {
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(sessionData)
-                    .end(() => {
-                        delete require.cache[require.resolve('test/data/copiesUk')];
-                        const contentToExclude = [
-                            'paragraph1',
-                            'bullet1',
-                            'bullet2',
-                            'copies'
                         ];
 
                         testWrapper.testContent(done, {}, contentToExclude);

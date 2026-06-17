@@ -1,8 +1,17 @@
+{% macro executorsNamedAnswer(executorsList) %}
+    {{
+          content.ExecutorsNamed[fields.executors.executorsNamed.value] if fields.executors.executorsNamed and executorsList and (executorsList | length) === 1
+          else (
+            common.yes if executorsList and (executorsList | length) > 1 else common.no
+          )
+    }}
+{% endmacro %}
+
 {{checkanswer(
     items = [
         {
-            question: content.ExecutorsNamed.question,
-            answer: content.ExecutorsNamed[fields.executors.executorsNamed.value],
+            question: content.ExecutorsNamed.questionCheckYourAnswer,
+            answer: content.ExecutorsNamed[fields.executors.executorsNamed.value] if fields.executors.executorsNamed === undefined else executorsNamedAnswer(fields.executors.list.value),
             visible: true
         }
     ],

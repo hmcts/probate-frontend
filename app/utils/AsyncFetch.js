@@ -67,6 +67,7 @@ class AsyncFetch {
                 const json = JSON.stringify(body);
                 log.error(json);
             }
+            // eslint-disable-next-line no-unused-vars
         } catch (e) {
             log.error(body);
         }

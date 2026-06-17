@@ -108,15 +108,6 @@ export class PaymentTaskSection extends BasePage {
     await expect(this.page.getByText(decodeHTML(paymentContent.applicationFee))).toBeVisible();
     await this.navByClick(this.saveAndCloseLinkLocator);
     await this.navByClick(this.signOutLinkLocator);
-    // const I = this;
-    // const commonContent = require(`app/resources/${language}/translation/common`);
-    // const paymentContent = require(`app/resources/${language}/translation/payment/breakdown`);
-
-    // await I.checkInUrl('/payment-breakdown');
-    // await I.waitForText(paymentContent.applicationFee, testConfig.TestWaitForTextToAppear);
-    // await I.waitForText(commonContent.saveAndClose, testConfig.TestWaitForTextToAppear);
-    // await I.navByClick(commonContent.saveAndClose);
-    // await I.navByClick(commonContent.signOut);
   }
 
   async seeThankYouPage(language = 'en', testSurvey: boolean = false, isWithoutDocs: boolean = false) {

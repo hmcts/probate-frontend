@@ -11,6 +11,7 @@ class PostcodeLookup {
 
     get(postcode) {
         logInfo(`Get postcode address: ${postcode}`);
+        console.log('config.services.postcode.token-->'+config.services.postcode.token);
         return axios.get('postcode', {
             baseURL: config.services.postcode.url,
             headers: {
@@ -41,8 +42,11 @@ class PostcodeLookup {
                 });
             })
             .catch(err => {
-                logError(`Postcode lookup failed to run: ${err}`);
-                // Returning empty list on error to match your logic
+                if (err.response?.status === 401) {
+                    logError('Postcode lookup token is invalid', err);
+                } else {
+                    logError('Postcode lookup service error', err);
+                }
                 return [];
             });
     }

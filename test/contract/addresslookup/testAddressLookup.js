@@ -3,12 +3,14 @@
 const expect = require('chai').expect;
 const logger = require('app/components/logger')('Init');
 const testConfig = require('config');
+const POSTCODE_SERVICE_TOKEN = testConfig.postcodeLookup.token;
 const PostcodeLookup = require('app/services/PostcodeLookup');
 const postcodeLookup = new PostcodeLookup();
 
 describe('Address Lookup API Tests', () => {
     describe('Single address returned for postcode', () => {
         it('Returns single address', (done) => {
+            testConfig.services.postcode.token = POSTCODE_SERVICE_TOKEN;
             postcodeLookup.get(testConfig.postcodeLookup.singleAddressPostcode)
                 .then(res => {
                     expect(res.length).to.equal(1);

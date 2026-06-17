@@ -10,7 +10,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - EE Yes', () => {
+  test.describe('GOP Single Executor journey - IHT 205', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

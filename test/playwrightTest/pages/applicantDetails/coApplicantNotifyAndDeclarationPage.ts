@@ -6,6 +6,7 @@ import {testConfig} from "../../configs/config.ts";
 export class CoApplicantNotifyAndDeclarationPage extends BasePage {
   readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});
   readonly startNowButtonLocator = this.page.getByRole('button', {name: this.commonContent.start});
+  readonly signInButtonLocator = this.page.getByRole('button', {name: this.commonContent.signIn});
   readonly continueButtonLocator = this.page.getByRole('button', {name: this.commonContent.continue});
   readonly submitResponseLocator = this.page.getByRole('button', {name: this.commonContent.submitResponse});
   readonly deceasedDodDayLocator = this.page.locator('#dod-date-day');
@@ -16,10 +17,10 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     super(page, context, language);
   }
 
-  async notifyAdditionalExecutors(language = 'en', question) {
+  async notifyAdditionalExecutors(language = 'en', question = 'question') {
     const content = getContent(`app/resources/${language}/translation/executors/invite.json`);
     await this.checkInUrl('/executors-invite');
-    await expect(this.page.getByText(content[`${question}`])).toBeVisible();
+    await expect(this.page.getByText(decodeHTML(content[`${question}`]))).toBeVisible();
     await this.navByClick(this.page.getByRole('button', { name: decodeHTML(content.sendInvites.trim()) }));
   }
 
@@ -40,6 +41,49 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     return await this.page.getByText('ids').innerText();
   }
 
+  async seeCoExecutorLaunchPage(language = 'en', idList) {
+    await this.page.goto(`${testConfig.TestFrontendUrl}${testConfig.TestInvitationUrl}/${idList}`, {
+      waitUntil: 'load',
+      timeout: 60000
+    });
+    await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeEnabled();
+    await this.page.goto(`${testConfig.TestFrontendUrl}/pin`, {
+      waitUntil: 'load',
+      timeout: 60000
+    });
+    await expect(this.page.getByText('pin')).toBeVisible();
+    const grabPins = await this.page.getByText('pin').innerText();
+    const pinList = JSON.parse(grabPins);
+
+    await this.page.goBack();
+
+    await this.enterPinCode(pinList.pin.toString());
+    // await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
+    // await I.waitForElement('pre');
+
+    // const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
+    // const pinList = JSON.parse(grabPins);
+
+    // await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
+
+    // await I.enterPinCode(pinList.pin.toString());
+  }
+
+  async enterPinCode(pinCode) {
+    await this.checkInUrl('/sign-in');
+    await expect(this.page.locator('#pin')).toBeEnabled();
+    await this.page.locator('#pin').fill(pinCode);
+    await this.navByClick(this.signInButtonLocator);
+    // const I = this;
+
+    // await I.checkInUrl('/sign-in');
+    // const locator = {css: '#pin'};
+    // await I.waitForEnabled(locator);
+    // await I.fillField(locator, pinCode);
+    //
+    // await I.navByClick({css: '.govuk-button'});
+  }
+
   async seeCoApplicantStartPage(language = 'en', idList) {
     const content = getContent(`app/resources/${language}/translation/taskList.json`);
     await this.page.goto(`${testConfig.TestFrontendUrl}${testConfig.TestIntestacyInvitationUrl}/${idList}`, {
@@ -48,6 +92,13 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     });
     await this.checkInUrl('/start-verify');
     await expect(this.page.getByRole('heading', { name: content.header, exact: true })).toBeVisible();
+    await this.navByClick(this.startNowButtonLocator);
+  }
+
+  async seeCoExecutorStartPage(language = 'en') {
+    const content = getContent(`app/resources/${language}/translation/coapplicant/startpage.json`);
+    await this.checkInUrl('/co-applicant-start-page');
+    await expect(this.page.getByRole('heading', { name: content.subHeader1, exact: true })).toBeVisible();
     await this.navByClick(this.startNowButtonLocator);
   }
 
@@ -67,9 +118,12 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     await this.navByClick(this.submitResponseLocator);
   }
 
-  async seeAgreePage(language = 'en', journey) {
+  async seeAgreePage(language = 'en', journey = '') {
     const content = getContent(`app/resources/${language}/translation/coapplicant/agreepage.json`);
-    await this.checkInUrl(`/${journey}-co-applicant-agree-page`);
+    if (journey !== '') {
+      journey = `${journey}-`;
+    }
+    await this.checkInUrl(`/${journey}co-applicant-agree-page`);
     await expect(this.page.getByText(content.subHeader)).toBeVisible();
   }
 

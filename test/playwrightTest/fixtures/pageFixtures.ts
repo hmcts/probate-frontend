@@ -42,8 +42,8 @@ export const pageFixtures = {
   applicantDetailsPage: async ({ page, context, language }, use) => {
     await use(new ApplicantDetailsSection(page, context, language));
   },
-  executorDetailsPage: async ({ page, context, language }, use) => {
-    await use(new ExecutorDetailsSection(page, context, language));
+  executorDetailsPage: async ({ page, context, language, applicantDetailsPage }, use) => {
+    await use(new ExecutorDetailsSection(page, context, language, applicantDetailsPage));
   },
   coApplicantNotifyAndDeclarationPage: async ({ page, context, language }, use) => {
     await use(new CoApplicantNotifyAndDeclarationPage(page, context, language));

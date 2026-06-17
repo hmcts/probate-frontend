@@ -14,7 +14,6 @@ export class ApplicantDetailsSection extends BasePage {
   readonly coApplicantNameLocator = this.page.locator('#fullName');
   readonly backLinkLocator = this.page.locator('#backLink');
 
-
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
   }
@@ -488,8 +487,10 @@ export class ApplicantDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterAddressManually() {
-    await this.checkInUrl('/applicant-address');
+  async enterAddressManually(isGop?: Boolean) {
+    if(!isGop) {
+      await this.checkInUrl('/applicant-address');
+    }
     await this.page.locator('#details-panel > summary > span').click();
     await expect(this.page.locator('#addressLine1')).toBeEnabled();
     await this.page.locator('#addressLine1').fill('Applicant Address Line 1');

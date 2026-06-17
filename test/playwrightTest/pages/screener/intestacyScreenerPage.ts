@@ -9,7 +9,7 @@ export class IntestacyScreenerPage extends BasePage {
   private readonly pageUrl = ROUTES.deathCertificate;
   private readonly nextPageUrl = ROUTES.deathCertificateEnglish;
   readonly eligibilityLinkLocator = this.page.locator('#main-content > div.govuk-grid-row > div > h1');
-  readonly cookiesLinkLocator = this.page.locator('a[href="/cookies"]');
+  readonly cookiesLinkLocator = this.page.getByRole('link', { name: 'View cookies' });
   readonly cookiesBannerLocator = this.page.locator('#cm-cookie-banner');
   readonly analyticsYesLocator = this.page.locator('#analytics');
   readonly analyticsNoLocator = this.page.locator('#analytics-2');
@@ -23,6 +23,10 @@ export class IntestacyScreenerPage extends BasePage {
 
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
+  }
+
+  async clearAllCookies() {
+    await this.context.clearCookies();
   }
 
   async startApplication(language?: string, checkCookies: boolean = false) {
@@ -70,7 +74,7 @@ export class IntestacyScreenerPage extends BasePage {
         await this.page.locator('button.govuk-button[type="submit"]', { hasText: cookiesContent.save }).click();
 
         // return to eligibility page
-        await this.page.goto(`${testConfig.TestFrontendUrl}/start-eligibility', language)`);
+        await this.page.goto(`${testConfig.TestFrontendUrl}/start-eligibility?lng=${language}`);
         await expect(this.cookiesBannerLocator).not.toBeVisible();
       } else {
         // just reject additional cookies

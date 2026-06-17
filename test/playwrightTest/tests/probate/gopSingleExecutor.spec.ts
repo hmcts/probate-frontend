@@ -10,7 +10,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - IHT 205', () => {
+  test.describe('GOP Single Executor journey - IHT 205 and Survey test', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -25,7 +25,7 @@ getTestLanguages().forEach(language => {
       await testConfigurator.getAfter(); // only deletes THIS language's user
     });
 
-    test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`),
+    test((`${language.toUpperCase()} GOP Single Executor journey - IHT 205 and Survey test`),
       async ({
                intestacyScreenerPage,
                gopScreenerPage,
@@ -157,7 +157,7 @@ getTestLanguages().forEach(language => {
       }
 
       // Thank You
-      const caseId = await paymentTaskPage.seeThankYouPage(language);
+      const caseId = await paymentTaskPage.seeThankYouPage(language, true);
 
       console.log(`Case ID: ${caseId}`);
     });

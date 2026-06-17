@@ -111,6 +111,18 @@ export class BasePage {
     return remainingTab;
   }
 
+  async closeCurrentTab(){
+    const pages = this.context.pages();
+    const mostRecentTab = pages[pages.length - 1];
+
+    await mostRecentTab.close();
+
+    const remainingTab = this.context.pages()[0];
+    await remainingTab.bringToFront();
+
+    return remainingTab;
+  }
+
   async clickContinue(nextPageUrl?: RegExp): Promise<void> {
     const button = this.getButtonByText('Continue');
     await expect(button).toBeVisible();

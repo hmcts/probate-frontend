@@ -6,10 +6,13 @@ import paymentTextConfig from "../../data/paymentText.json"
 
 export class PaymentTaskSection extends BasePage {
   readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});
+  readonly saveAndCloseLinkLocator = this.page.getByRole('link', {name: this.commonContent.saveAndClose});
   readonly payAndSubmitButtonLocator = this.page.getByRole('button', {name: this.commonContent.payAndSubmitApplication});
   readonly submitButtonLocator = this.page.getByRole('button', {name: this.commonContent.submitApplication});
   readonly continueButtonLocator = this.page.getByRole('button', {name: this.commonContent.continue});
   readonly confirmButtonLocator = this.page.getByRole('button', {name: this.commonContent.confirmPayment});
+  readonly cancelPaymentButtonLocator = this.page.locator('#cancel-payment');
+  readonly signOutLinkLocator = this.page.getByRole('link', {name: this.commonContent.signOut});
   readonly cyaDownloadLocator = this.page.locator('#checkAnswerHref');
   readonly legalStatementDownloadLocator = this.page.locator('#declarationPdfHref');
   readonly coverSheetDownloadLocator = this.page.locator('#coverSheetPdfHref');
@@ -87,6 +90,35 @@ export class PaymentTaskSection extends BasePage {
     await this.navByClick(this.confirmButtonLocator);
   }
 
+  async seeGovUkCancelPage(language ='en') {
+    const langKey = language.charAt(0).toUpperCase() + language.slice(1);
+    await expect(this.page.getByRole('heading', { name: paymentTextConfig[`paymentHeading${langKey}`] })).toBeVisible();
+    await this.navByClick(this.cancelPaymentButtonLocator);
+  }
+
+  async seeCancellationPage(language ='en') {
+    const langKey = language.charAt(0).toUpperCase() + language.slice(1);
+    await expect(this.page.getByRole('heading', { name: paymentTextConfig[`paymentCancelledContent${langKey}`] })).toBeVisible();
+    await this.navByClick(this.page.locator('#return-url'));
+  }
+
+  async seePaymentClosePage(language = 'en') {
+    const paymentContent = getContent(`app/resources/${language}/translation/payment/breakdown.json`);
+    await this.checkInUrl('/payment-breakdown');
+    await expect(this.page.getByText(decodeHTML(paymentContent.applicationFee))).toBeVisible();
+    await this.navByClick(this.saveAndCloseLinkLocator);
+    await this.navByClick(this.signOutLinkLocator);
+    // const I = this;
+    // const commonContent = require(`app/resources/${language}/translation/common`);
+    // const paymentContent = require(`app/resources/${language}/translation/payment/breakdown`);
+
+    // await I.checkInUrl('/payment-breakdown');
+    // await I.waitForText(paymentContent.applicationFee, testConfig.TestWaitForTextToAppear);
+    // await I.waitForText(commonContent.saveAndClose, testConfig.TestWaitForTextToAppear);
+    // await I.navByClick(commonContent.saveAndClose);
+    // await I.navByClick(commonContent.signOut);
+  }
+
   async seeThankYouPage(language = 'en', testSurvey: boolean = false, isWithoutDocs: boolean = false) {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
     await this.checkInUrl('/thank-you');
@@ -113,8 +145,8 @@ export class PaymentTaskSection extends BasePage {
         await this.page.waitForTimeout(200);
       }
       await this.switchToNextTab(1);
-      await this.page.close();
-      await this.page.waitForTimeout(200);
+      const activeTab = await this.closeCurrentTab();
+      await activeTab.waitForTimeout(200);
     }
 
     await expect(this.page.locator('#navigation > li:nth-child(2) > a')).toBeEnabled();

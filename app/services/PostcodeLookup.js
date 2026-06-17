@@ -10,8 +10,7 @@ const logInfo = (message, applicationId = 'Init') => logger(applicationId).info(
 class PostcodeLookup {
 
     get(postcode) {
-        logInfo(`Get postcode address: ${postcode}`);
-        console.log('config.services.postcode.token-->'+config.services.postcode.token);
+        logInfo(`PostcodeLookup.get postcode: ${postcode}`);
         return axios.get('postcode', {
             baseURL: config.services.postcode.url,
             headers: {

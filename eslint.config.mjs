@@ -2,7 +2,8 @@ import { LintingConfig } from "@hmcts/playwright-common";
 import tseslint from "typescript-eslint";
 
 LintingConfig.ignored.ignores = LintingConfig.ignored.ignores.concat([
-  "**/*.js"
+  "**/*.js",
+  "**/*.cjs"
 ]);
 LintingConfig.tseslintRecommended.files = ["test/playwrightTest/**/*.ts"];
 LintingConfig.tseslintPlugin.files = ["test/playwrightTest/**/*.ts"];

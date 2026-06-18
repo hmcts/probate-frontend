@@ -115,16 +115,19 @@ const runTests = (language ='en') => {
                         .reply(200, 'false');
 
                     const app = require('app');
+                    config.app.port = 0;
                     server = app.init(true, sessionData);
                     httpTerminator = createHttpTerminator({server: server.http});
 
                     agent = request.agent(server.app);
                     co(function* () {
-                        let urlSuffix = '';
-                        if (endsWith(agent.get(`${stepUrl}?lng=${language}`), '*')) {
-                            urlSuffix = '/0';
+                        let fixedUrl;
+                        if (endsWith(stepUrl, '*')) {
+                            fixedUrl = stepUrl.substring(0, stepUrl.lastIndexOf('/')) + '0';
+                        } else {
+                            fixedUrl = stepUrl;
                         }
-                        results = yield a11y(agent.get(`${stepUrl}?lng=${language}`).url + urlSuffix, title);
+                        results = yield a11y(agent.get(`${fixedUrl}?lng=${language}`).url, title);
                     })
                         .then(done, done)
                         .catch((error) => {

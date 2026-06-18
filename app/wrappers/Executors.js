@@ -29,10 +29,9 @@ class Executors {
                 .some(executor => executor.mobile.slice(-10) === mobile.slice(-10));
     }
 
-    executorEmailAlreadyUsed(email, fullName, applicantEmail = '') {
+    executorEmailAlreadyUsed(email, indexToSkip, applicantEmail = '') {
         return applicantEmail.toLowerCase() === email.toLowerCase() || this.executorsList
-            .filter(executor => executor.email)
-            .filter(executor => executor.fullName !== fullName)
+            .filter((executor, idx) => executor.email && idx !== indexToSkip)
             .some(executor => executor.email.toLowerCase() === email.toLowerCase());
     }
 
@@ -165,6 +164,64 @@ class Executors {
             return executor;
         });
     }
-}
 
+    getNextIndex() {
+        const stopPageIndex = this.getStopPageIndex();
+        if (stopPageIndex !== -1) {
+            return stopPageIndex;
+        }
+        const lastIndex = this.executorsList.length - 1;
+        const lastExec = this.executorsList[lastIndex];
+        if (lastExec && (lastExec.isApplicant === true ||
+            (typeof lastExec.isApplicant === 'undefined' && this.isValid(lastExec)))) {
+            return this.executorsList.length;
+        }
+        return lastIndex;
+    }
+    isValid(executor) {
+        return executor?.fullName &&
+            executor?.email &&
+            executor?.address?.formattedAddress;
+    }
+
+    hasStopCondition(executor) {
+        const optionNoFields = [
+            'childAdoptionInEnglandOrWales',
+            'grandchildAdoptionInEnglandOrWales',
+            'grandchildParentAdoptionInEnglandOrWales',
+            'wholeBloodSiblingAdoptionInEnglandOrWales',
+            'halfBloodSiblingAdoptionInEnglandOrWales',
+            'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+            'childDieBeforeDeceased',
+            'wholeBloodSiblingDiedBeforeDeceased',
+            'halfBloodSiblingDiedBeforeDeceased'
+        ];
+
+        const optionYesFields = [
+            'childAdoptedOut',
+            'grandchildAdoptedOut',
+            'grandchildParentAdoptedOut',
+            'wholeBloodSiblingAdoptedOut',
+            'halfBloodSiblingAdoptedOut',
+            'wholeBloodNieceOrNephewAdoptedOut',
+            'halfBloodNieceOrNephewAdoptedOut'
+        ];
+
+        return (
+            optionNoFields.some(field => executor[field] === 'optionNo') ||
+            optionYesFields.some(field => executor[field] === 'optionYes')
+        );
+    }
+    getStopPageIndex() {
+        return this.executorsList.findIndex(executor =>
+            this.hasStopCondition(executor)
+        );
+    }
+
+    isStopPage() {
+        return this.executorsList?.some(executor =>
+            this.hasStopCondition(executor)
+        );
+    }
+}
 module.exports = Executors;

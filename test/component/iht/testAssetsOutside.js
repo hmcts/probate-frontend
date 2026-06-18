@@ -48,7 +48,7 @@ describe('assets-outside-england-wales', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to value of assets outside page: ${expectedNextUrlForValueAssetsOutside}`, (done) => {
+        it(`test it redirects to value of assets outside page: /intestacy${expectedNextUrlForValueAssetsOutside}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -56,11 +56,11 @@ describe('assets-outside-england-wales', () => {
                         assetsOutside: 'optionYes'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForValueAssetsOutside);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForValueAssetsOutside}`);
                 });
         });
 
-        it(`test it redirects to Deceased Alias page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+        it(`test it redirects to Deceased Alias page: /intestacy${expectedNextUrlForDeceasedAlias}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -68,7 +68,7 @@ describe('assets-outside-england-wales', () => {
                         assetsOutside: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedAlias}`);
                 });
         });
     });

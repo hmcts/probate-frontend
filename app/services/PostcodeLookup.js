@@ -43,8 +43,6 @@ class PostcodeLookup {
             .catch(err => {
                 if (err.response?.status === 401) {
                     logError('Postcode lookup token is invalid', err);
-                    logError('Postcode lookup baseURL:', config.services.postcode.url);
-                    logError('Postcode lookup testing:', config.services.postcode.token.length);
                 } else {
                     logError('Postcode lookup service error', err);
                 }

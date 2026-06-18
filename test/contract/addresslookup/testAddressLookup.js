@@ -8,6 +8,19 @@ const PostcodeLookup = require('app/services/PostcodeLookup');
 const postcodeLookup = new PostcodeLookup();
 
 describe('Address Lookup API Tests', () => {
+    describe('Invalid postcode token', () => {
+        it('Returns HTTP 401 status', (done) => {
+            testConfig.services.postcode.token = 'invalid-token';
+            postcodeLookup.get(testConfig.postcodeLookup.singleAddressPostcode)
+                .then(res => {
+                    expect(res.length).to.equal(0);
+                    done();
+                })
+                .catch(err => {
+                    done(err);
+                });
+        });
+    });
     describe('Single address returned for postcode', () => {
         it('Returns single address', (done) => {
             testConfig.services.postcode.token = POSTCODE_SERVICE_TOKEN;
@@ -70,20 +83,6 @@ describe('Address Lookup API Tests', () => {
     describe('No postcode entered test', () => {
         it('No address returned for no postcode entered', (done) => {
             postcodeLookup.get(testConfig.postcodeLookup.emptyAddressPostcode)
-                .then(res => {
-                    expect(res.length).to.equal(0);
-                    done();
-                })
-                .catch(err => {
-                    done(err);
-                });
-        });
-    });
-
-    describe('Basic ping', () => {
-        it('Returns HTTP 401 status', (done) => {
-            testConfig.services.postcode.token = 'invalid-token';
-            postcodeLookup.get(testConfig.postcodeLookup.singleAddressPostcode)
                 .then(res => {
                     expect(res.length).to.equal(0);
                     done();

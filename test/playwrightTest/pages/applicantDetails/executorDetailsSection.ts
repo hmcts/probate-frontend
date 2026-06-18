@@ -1,7 +1,7 @@
 import { Page, BrowserContext, expect } from '@playwright/test';
 import {BasePage} from '../utility/basePage.ts';
-import {testConfig} from "../../configs/config.ts";
 import { ApplicantDetailsSection } from './applicantDetailsSection.ts';
+import applicantDetailsConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
 
 export class ExecutorDetailsSection extends BasePage {
   readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});
@@ -114,8 +114,8 @@ export class ExecutorDetailsSection extends BasePage {
   }
 
   async enterExecutorContactDetails(execNumber) {
-    const emailText = String((testConfig as unknown as Record<string, string>)[`TestEnvEmailAddress${execNumber}`])
-    const mobileText = String((testConfig as unknown as Record<string, string>)[`TestEnvMobileNumber${execNumber}`])
+    const emailText = String((applicantDetailsConfig as unknown as Record<string, string>)[`emailAddress${execNumber}`])
+    const mobileText = String((applicantDetailsConfig as unknown as Record<string, string>)[`mobileNumber${execNumber}`])
     await expect(this.page.locator('#email')).toBeEnabled();
     await this.page.locator('#email').fill(emailText);
     await this.page.locator('#mobile').fill(mobileText);

@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 import { CommonConfig, ProjectsConfig } from "@hmcts/playwright-common";
-const browserName = process.env.BROWSER_NAME || 'default';
 
 export default defineConfig({
   testDir: './test/playwrightTest',
@@ -20,11 +19,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
 
   /* Reporter */
-  reporter: [
-    ['html', { outputFolder: `./functional-output/reports/${browserName}`, open: 'never' }],
-    ['json', { outputFile: './functional-output/results.json' }],
-    ['list'], // Console output
-  ],
+  reporter: 'html',
 
   use: {
     /* Base URL */

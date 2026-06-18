@@ -190,6 +190,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",
     "chai-string": "^1.5.0",
+    "codeceptjs": "^3.7.9",
     "dotenv": "^17.2.0",
     "eslint": "^10.0.0",
     "eslint-plugin-jsdoc": "^62.9.0",

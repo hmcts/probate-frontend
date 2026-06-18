@@ -14,6 +14,7 @@ LintingConfig.ignored.ignores = LintingConfig.ignored.ignores.concat([
   "build/*",
   "functional-output/*",
   "test/component/*",
+  "test/accessibility/*.js",
   "test/contract/*",
   "test/unit/*",
   "test/util/*",

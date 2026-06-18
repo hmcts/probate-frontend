@@ -108,7 +108,7 @@
     "connect-redis": "^8.1.0",
     "connect-timeout": "^1.9.1",
     "cookie-parser": "^1.4.7",
-    "csurf": "^1.10.0",
+    "csrf-sync": "^4.2.1",
     "debug": "^4.4.3",
     "email-validator": "^2.0.4",
     "express": "^4.22.1",

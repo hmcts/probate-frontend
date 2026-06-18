@@ -42,9 +42,39 @@ export default defineConfig({
   },
 
   projects: [
+    /*{
+      ...ProjectsConfig.chrome,
+    },*/
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      ...ProjectsConfig.chromium,
+      outputDir: './test-results/FullFunctionalTests',
+    },
+    {
+      ...ProjectsConfig.edge,
+      outputDir: './test-results/edge',
+      grep: /@edge/,
+    },
+    {
+      ...ProjectsConfig.firefox,
+      outputDir: './test-results/firefox',
+      grep: /@firefox/,
+    },
+    {
+      ...ProjectsConfig.webkit,
+      outputDir: './test-results/webkit',
+      grep: /@webkit/,
+    },
+    {
+      name: 'galaxyS4',
+      outputDir: './test-results/galaxyS4',
+      use: { ...devices['Galaxy S4'] },
+      grep: /@galaxys4/,
+    },
+    {
+      name: 'iPadPro11',
+      outputDir: './test-results/ipadpro11',
+      use: { ...devices['iPad Pro 11'] },
+      grep: /@ipadpro11/,
     },
   ],
 });

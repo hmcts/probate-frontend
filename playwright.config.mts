@@ -1,9 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
+import { CommonConfig, ProjectsConfig } from "@hmcts/playwright-common";
 
 export default defineConfig({
   testDir: './test/playwrightTest',
   timeout: 360000,
-
+  ...CommonConfig.recommended,
   expect: {
     timeout: 60000 // 30 seconds
   },

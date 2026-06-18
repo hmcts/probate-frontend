@@ -14,7 +14,8 @@
   },
   "include": [
     "test/playwrightTest/**/*",
-    "playwright.config.ts"  // ✅ Add this
+    "playwright.config.mts"
+    // ✅ Add this
   ],
   "exclude": ["node_modules", "dist"]
 }

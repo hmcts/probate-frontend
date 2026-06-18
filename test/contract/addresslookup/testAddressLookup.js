@@ -9,7 +9,7 @@ const postcodeLookup = new PostcodeLookup();
 
 describe('Address Lookup API Tests', () => {
     describe('Invalid postcode token', () => {
-        it('Returns HTTP 401 status', (done) => {
+        it('Returns empty array', (done) => {
             testConfig.services.postcode.token = 'invalid-token';
             postcodeLookup.get(testConfig.postcodeLookup.singleAddressPostcode)
                 .then(res => {

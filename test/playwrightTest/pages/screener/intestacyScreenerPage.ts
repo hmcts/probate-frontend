@@ -88,7 +88,6 @@ export class IntestacyScreenerPage extends BasePage {
 
   async selectDeathCertificate(language ='en', testSurvey = false) {
     const deathCertContent = getContent(`app/resources/${language}/translation/screeners/deathcertificate.json`);
-    await this.runAccessibilityTest();
     await this.checkInUrl('/death-certificate');
     await expect(this.page.getByText(await decodeHTML(deathCertContent.question))).toBeVisible();
     await expect(this.page.locator('#deathCertificate')).toBeEnabled();
@@ -107,16 +106,17 @@ export class IntestacyScreenerPage extends BasePage {
       await this.page.close();
     }
     await this.page.locator(`#deathCertificate`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
   async selectDeathCertificateInEnglish(language = 'en', answer = null) {
     const deathCertificateContent = getContent(`app/resources/${language}/translation/screeners/deathcertificateinenglish.json`);
-    await this.runAccessibilityTest();
     await this.checkInUrl('/death-certificate-english');
     await expect(this.page.getByText(await decodeHTML(deathCertificateContent.question))).toBeVisible();
     await expect(this.page.locator(`#deathCertificateInEnglish${answer}`)).toBeEnabled();
     await this.page.locator(`#deathCertificateInEnglish${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
@@ -124,30 +124,30 @@ export class IntestacyScreenerPage extends BasePage {
     const commonContent = getContent(language, true);
     const deathCertTranslationContent = getContent(`app/resources/${language}/translation/screeners/deathcertificatetranslation.json`);
     await this.checkInUrl('/death-certificate-translation');
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(deathCertTranslationContent.question))).toBeVisible();
     await expect(this.page.locator(`#deathCertificateTranslation${answer}`)).toBeEnabled();
     await this.page.locator(`#deathCertificateTranslation${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.page.locator('button.govuk-button', { hasText: commonContent.continue }));
   }
 
   async selectDeceasedDomicile(language) {
     const deceasedDomicileContent = getContent(`app/resources/${language}/translation/screeners/deceaseddomicile.json`);
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(deceasedDomicileContent.question))).toBeVisible();
     await this.checkInUrl('/deceased-domicile');
     await expect(this.page.locator('#domicile')).toBeEnabled();
     await this.page.locator('#domicile').click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
   async selectEEDeceasedDod(language = 'en', answer = null) {
     const eeDeceasedDodContent = getContent(`app/resources/${language}/translation/screeners/eedeceaseddod.json`);
     await this.checkInUrl('/ee-deceased-dod');
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(eeDeceasedDodContent.question))).toBeVisible();
     await expect(this.page.locator(`#eeDeceasedDod${answer}`)).toBeEnabled();
     await this.page.locator(`#eeDeceasedDod${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
 
   }
@@ -155,36 +155,34 @@ export class IntestacyScreenerPage extends BasePage {
   async selectIhtCompleted(language ='en', answer = null) {
     const ihtCompletedContent = getContent(`app/resources/${language}/translation/screeners/ihtcompleted.json`);
     await this.checkInUrl('/iht-completed');
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(ihtCompletedContent.question))).toBeVisible();
     await expect(this.page.locator(`#completed${answer}`)).toBeEnabled();
     await this.page.locator(`#completed${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
-
   }
 
   async selectPersonWhoDiedLeftAWill(language ='en', answer = null) {
     const willLeftContent = getContent(`app/resources/${language}/translation/screeners/willleft.json`);
     await this.checkInUrl('/will-left');
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(willLeftContent.question))).toBeVisible();
     await expect(this.page.locator(`#left${answer}`)).toBeEnabled();
     await this.page.locator(`#left${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
   async selectDiedAfterOctober2014(answer = null) {
     await this.checkInUrl('/died-after-october-2014');
-    await this.runAccessibilityTest();
     await expect(this.page.locator(`#diedAfter${answer}`)).toBeEnabled();
     await this.page.locator(`#diedAfter${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
   async selectRelatedToDeceased(language ='en', answer = null) {
     const relatedToDeceasedContent = getContent(`app/resources/${language}/translation/screeners/relatedtodeceased.json`);
     await this.checkInUrl('/related-to-deceased');
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.question))).toBeVisible();
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionPartner))).toBeVisible();
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextPartner))).toBeVisible();
@@ -200,15 +198,16 @@ export class IntestacyScreenerPage extends BasePage {
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionNone))).toBeVisible();
     await expect(this.page.locator(`#related${answer}`)).toBeEnabled();
     await this.page.locator(`#related${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
   async startApply(language = 'en') {
     const applyContent = getContent(`app/resources/${language}/translation/screeners/startapply.json`);
     await this.checkInUrl('/start-apply');
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(applyContent.header)).toBeVisible();
     await expect(this.createAccountButtonLocator).toBeEnabled();
+    await this.runAccessibilityTest();
     await this.navByClick(this.createAccountButtonLocator);
   }
 }

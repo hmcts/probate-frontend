@@ -16,9 +16,9 @@ export class ExecutorDetailsSection extends BasePage {
 
   async selectNameAsOnTheWill(answer = null) {
     await this.checkInUrl('/applicant-name-as-on-will');
-    await this.runAccessibilityTest();
     await expect(this.page.locator(`#nameAsOnTheWill${answer}`)).toBeEnabled();
     await this.page.locator(`#nameAsOnTheWill${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
@@ -31,9 +31,9 @@ export class ExecutorDetailsSection extends BasePage {
   async enterExecutorNamed(totalExecutors = null, answer = null) {
     if (totalExecutors === 1) {
       await this.checkInUrl('/executors-named');
-      await this.runAccessibilityTest();
       await expect(this.page.locator(`#executorsNamed${answer}`)).toBeEnabled();
       await this.page.locator(`#executorsNamed${answer}`).click();
+      await this.runAccessibilityTest();
       await this.navByClick(this.saveAndContinueButtonLocator);
     } else {
       let i = 0;
@@ -53,21 +53,21 @@ export class ExecutorDetailsSection extends BasePage {
       await this.checkInUrl('/executors-named');
       await expect(this.page.locator('#executorsNamed-2')).toBeEnabled();
       await this.page.locator('#executorsNamed-2').click();
+      await this.runAccessibilityTest();
       await this.navByClick(this.saveAndContinueButtonLocator);
     }
   }
 
   async selectAnyExecutorsDied(answer = null) {
     await this.checkInUrl('/any-executors-died');
-    await this.runAccessibilityTest();
     await expect(this.page.locator(`#anyExecutorsDied${answer}`)).toBeEnabled();
     await this.page.locator(`#anyExecutorsDied${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async selectExecutorsWhoDied(executorsWhoDiedList = null) {
     await this.checkInUrl('/executors-who-died');
-    await this.runAccessibilityTest();
     await this.page.reload();
     for (let i = 0; i < executorsWhoDiedList.length; i++) {
       const executorNumber = executorsWhoDiedList[i];
@@ -81,44 +81,45 @@ export class ExecutorDetailsSection extends BasePage {
         await this.page.locator(`#executorsWhoDied-${parseInt(executorNumber) - 1}`).click();
       }
     }
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async selectExecutorsWhenDied(executorNumber = null, diedBefore = null, firstRecord = null) {
     await this.checkInUrl(`/executor-when-died/${firstRecord ? '*' : parseInt(executorNumber) - 1}`);
     await this.page.reload();
-    await this.runAccessibilityTest();
     await expect(this.page.locator(`#diedbefore${diedBefore}`)).toBeEnabled();
     await this.page.locator(`#diedbefore${diedBefore}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async selectExecutorsDealingWithEstate(executorsApplyingList = null) {
     await this.checkInUrl('/other-executors-applying');
-    await this.runAccessibilityTest();
     for (let i = 0; i < executorsApplyingList.length; i++) {
       await expect(this.page.locator(`#executorsApplying-${parseInt(executorsApplyingList[i]) - 1}`)).toBeEnabled();
       await this.page.locator(`#executorsApplying-${parseInt(executorsApplyingList[i]) - 1}`).check();
     }
 
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async selectExecutorsWithDifferentNameOnWill(answer = null, executorNumber) {
     await this.checkInUrl(`/executors-alias/${executorNumber}`);
-    await this.runAccessibilityTest();
     await expect(this.page.locator(`#alias${answer}`)).toBeEnabled();
     await this.page.locator(`#alias${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async enterExecutorContactDetails(execNumber) {
     const emailText = String((testConfig as unknown as Record<string, string>)[`TestEnvEmailAddress${execNumber}`])
     const mobileText = String((testConfig as unknown as Record<string, string>)[`TestEnvMobileNumber${execNumber}`])
-    await this.runAccessibilityTest();
     await expect(this.page.locator('#email')).toBeEnabled();
     await this.page.locator('#email').fill(emailText);
     await this.page.locator('#mobile').fill(mobileText);
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 

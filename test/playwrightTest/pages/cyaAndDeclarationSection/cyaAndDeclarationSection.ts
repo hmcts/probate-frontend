@@ -16,9 +16,9 @@ export class CyaAndDeclarationSection extends BasePage {
   async seeSummaryPage(language, redirect) {
     const summaryContent = getContent(`app/resources/${language}/translation/summary.json`);
     await this.checkInUrl(`/summary/${redirect}`);
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(summaryContent.heading))).toBeVisible();
     await expect(this.cyaDownloadLocator).toBeEnabled();
+    await this.runAccessibilityTest();
     await this.downloadPdfIfNotIE11(this.cyaDownloadLocator)
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
@@ -26,12 +26,12 @@ export class CyaAndDeclarationSection extends BasePage {
   async acceptDeclaration(language = 'en', bilingualGOP = null) {
     const declarationContent = getContent(`app/resources/${language}/translation/declaration.json`);
     await this.checkInUrl('/declaration');
-    await this.runAccessibilityTest();
     if (language === 'en') {
       await expect(this.page.getByText(await decodeHTML(declarationContent.highCourtHeader))).toBeVisible();
     }
     await expect(this.enLegalStatementDownloadLocator).toBeVisible();
     await expect(this.enLegalStatementDownloadLocator).toBeEnabled();
+    await this.runAccessibilityTest();
 
     if(bilingualGOP) {
       await expect(this.cyLegalStatementDownloadLocator).toBeVisible();

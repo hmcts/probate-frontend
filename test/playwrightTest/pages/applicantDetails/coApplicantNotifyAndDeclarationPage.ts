@@ -63,9 +63,9 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
 
   async enterPinCode(pinCode) {
     await this.checkInUrl('/sign-in');
-    await this.runAccessibilityTest();
     await expect(this.page.locator('#pin')).toBeEnabled();
     await this.page.locator('#pin').fill(pinCode);
+    await this.runAccessibilityTest();
     await this.navByClick(this.signInButtonLocator);
   }
 
@@ -78,34 +78,34 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     });
     console.log(`Invite URL: ${pageUrl}`);
     await this.checkInUrl('/start-verify');
-    await this.runAccessibilityTest();
     await expect(this.page.getByRole('heading', { name: content.header, exact: true })).toBeVisible();
+    await this.runAccessibilityTest();
     await this.navByClick(this.startNowButtonLocator);
   }
 
   async seeCoExecutorStartPage(language = 'en') {
     const content = getContent(`app/resources/${language}/translation/coapplicant/startpage.json`);
     await this.checkInUrl('/co-applicant-start-page');
-    await this.runAccessibilityTest();
     await expect(this.page.getByRole('heading', { name: content.subHeader1, exact: true })).toBeVisible();
+    await this.runAccessibilityTest();
     await this.navByClick(this.startNowButtonLocator);
   }
 
   async coApplicantDeclarationPage2(deceasedDodDay, deceasedDodMonth, deceasedDodYear) {
     await this.checkInUrl('/verify-dod');
-    await this.runAccessibilityTest();
     await expect(this.deceasedDodDayLocator).toBeEnabled();
     await this.deceasedDodDayLocator.fill(deceasedDodDay);
     await this.deceasedDodMonthLocator.fill(deceasedDodMonth);
     await this.deceasedDodYearLocator.fill(deceasedDodYear);
+    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
   async agreeDeclaration(answer = null) {
     await this.checkInUrl('/co-applicant-declaration');
-    await this.runAccessibilityTest();
     await expect(this.page.locator(`#agreement${answer}`)).toBeEnabled();
     await this.page.locator(`#agreement${answer}`).click();
+    await this.runAccessibilityTest();
     await this.navByClick(this.submitResponseLocator);
   }
 

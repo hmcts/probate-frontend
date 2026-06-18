@@ -1,5 +1,5 @@
 import { BrowserContext, expect } from '@playwright/test';
-import {BasePage, decodeHTML} from '../utility/basePage';
+import {BasePage, decodeHTML} from '../utility/basePage.ts';
 import {getContent} from "../utility/contentHelper.ts";
 import {testConfig} from "../../configs/config.ts";
 
@@ -28,6 +28,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     const taskListContent = getContent(`app/resources/${language}/translation/tasklist.json`);
 
     await this.checkInUrl('/executors-invites-sent');
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
     await expect(this.page.getByText(taskListContent.introduction)).toBeVisible();
   }
@@ -41,7 +42,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     return await this.page.getByText('ids').innerText();
   }
 
-  async seeCoExecutorLaunchPage(language = 'en', idList) {
+  async seeCoExecutorLaunchPage(idList) {
     await this.page.goto(`${testConfig.TestFrontendUrl}${testConfig.TestInvitationUrl}/${idList}`, {
       waitUntil: 'load',
       timeout: 60000
@@ -58,39 +59,26 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     await this.page.goBack();
 
     await this.enterPinCode(pinList.pin.toString());
-    // await I.amOnPage(testConfig.TestE2EFrontendUrl + '/pin');
-    // await I.waitForElement('pre');
-
-    // const grabPins = await I.grabTextFrom('pre'); // eslint-disable-line no-await-in-loop
-    // const pinList = JSON.parse(grabPins);
-
-    // await I.clickBrowserBackButton(); // eslint-disable-line no-await-in-loop
-
-    // await I.enterPinCode(pinList.pin.toString());
   }
 
   async enterPinCode(pinCode) {
     await this.checkInUrl('/sign-in');
+    await this.runAccessibilityTest();
     await expect(this.page.locator('#pin')).toBeEnabled();
     await this.page.locator('#pin').fill(pinCode);
     await this.navByClick(this.signInButtonLocator);
-    // const I = this;
-
-    // await I.checkInUrl('/sign-in');
-    // const locator = {css: '#pin'};
-    // await I.waitForEnabled(locator);
-    // await I.fillField(locator, pinCode);
-    //
-    // await I.navByClick({css: '.govuk-button'});
   }
 
   async seeCoApplicantStartPage(language = 'en', idList) {
     const content = getContent(`app/resources/${language}/translation/taskList.json`);
-    await this.page.goto(`${testConfig.TestFrontendUrl}${testConfig.TestIntestacyInvitationUrl}/${idList}`, {
+    const pageUrl = `${testConfig.TestFrontendUrl}${testConfig.TestIntestacyInvitationUrl}/${idList}`;
+    await this.page.goto( `${pageUrl}`, {
       waitUntil: 'load',
       timeout: 60000
     });
+    console.log(`Invite URL: ${pageUrl}`);
     await this.checkInUrl('/start-verify');
+    await this.runAccessibilityTest();
     await expect(this.page.getByRole('heading', { name: content.header, exact: true })).toBeVisible();
     await this.navByClick(this.startNowButtonLocator);
   }
@@ -98,12 +86,14 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
   async seeCoExecutorStartPage(language = 'en') {
     const content = getContent(`app/resources/${language}/translation/coapplicant/startpage.json`);
     await this.checkInUrl('/co-applicant-start-page');
+    await this.runAccessibilityTest();
     await expect(this.page.getByRole('heading', { name: content.subHeader1, exact: true })).toBeVisible();
     await this.navByClick(this.startNowButtonLocator);
   }
 
   async coApplicantDeclarationPage2(deceasedDodDay, deceasedDodMonth, deceasedDodYear) {
     await this.checkInUrl('/verify-dod');
+    await this.runAccessibilityTest();
     await expect(this.deceasedDodDayLocator).toBeEnabled();
     await this.deceasedDodDayLocator.fill(deceasedDodDay);
     await this.deceasedDodMonthLocator.fill(deceasedDodMonth);
@@ -113,6 +103,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
 
   async agreeDeclaration(answer = null) {
     await this.checkInUrl('/co-applicant-declaration');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#agreement${answer}`)).toBeEnabled();
     await this.page.locator(`#agreement${answer}`).click();
     await this.navByClick(this.submitResponseLocator);
@@ -124,6 +115,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
       journey = `${journey}-`;
     }
     await this.checkInUrl(`/${journey}co-applicant-agree-page`);
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(content.subHeader)).toBeVisible();
   }
 

@@ -1,9 +1,9 @@
-import { test } from '../../fixtures';
+import { test } from '../../fixtures/index.ts';
 import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
-import ihtDataConfig from "../../data/ee/ihtData.json";
-import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json";
+import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
+import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -188,7 +188,7 @@ getTestLanguages().forEach(language => {
       console.log('idList:', idList);
 
       for (let i = 0; i < idList.ids.length; i++) {
-        await coApplicantNotifyAndDeclarationPage.seeCoExecutorLaunchPage(language, idList.ids[i]);
+        await coApplicantNotifyAndDeclarationPage.seeCoExecutorLaunchPage(idList.ids[i]);
         await coApplicantNotifyAndDeclarationPage.seeCoExecutorStartPage(language);
         await coApplicantNotifyAndDeclarationPage.agreeDeclaration(optionYes);
         await coApplicantNotifyAndDeclarationPage.seeAgreePage(language);

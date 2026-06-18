@@ -1,8 +1,8 @@
 import { BrowserContext, expect } from '@playwright/test';
-import {BasePage, decodeHTML} from '../utility/basePage';
+import {BasePage, decodeHTML} from '../utility/basePage.ts';
 import {getContent} from "../utility/contentHelper.ts";
 import { testConfig } from "../../configs/config.ts";
-import paymentTextConfig from "../../data/paymentText.json"
+import paymentTextConfig from "../../data/paymentText.json" with { type: "json" };
 
 export class PaymentTaskSection extends BasePage {
   readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});

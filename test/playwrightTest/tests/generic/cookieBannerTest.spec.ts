@@ -1,4 +1,4 @@
-import { test } from '../../fixtures';
+import { test } from '../../fixtures/fixtures.ts';
 const language = 'en';
 
 test.describe('Cookie banner test', () => {

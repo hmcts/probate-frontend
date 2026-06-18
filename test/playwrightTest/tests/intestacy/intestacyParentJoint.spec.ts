@@ -1,10 +1,10 @@
-import { test } from '../../fixtures';
+import { test } from '../../fixtures/index.ts';
 import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
-import ihtDataConfig from "../../data/ee/ihtData.json";
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json";
-import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json";
+import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
+import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -56,7 +56,7 @@ getTestLanguages().forEach(language => {
       await intestacyScreenerPage.selectPersonWhoDiedLeftAWill(language, optionNo);
 
       // Intestacy Sceeners
-      await intestacyScreenerPage.selectDiedAfterOctober2014(language, optionYes);
+      await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
       await intestacyScreenerPage.selectRelatedToDeceased(language, applicantDetailConfig.relationshipParentOfDeceased);
 
       await intestacyScreenerPage.startApply(language);
@@ -111,16 +111,11 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterAddressManually();
 
       //First co-applicant - parent
-      let coApplicantNumber = "1";
+      const coApplicantNumber = "1";
       await applicantDetailsPage.jointApplication(language, optionYes, 'Parent');
-      // await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantParent, coApplicantNumber);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.firstCoApplicantName);
-      // await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionYes);
-      // await applicantDetailsPage.coApplicantAdoptionPlace(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.firstCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
-
-      // await applicantDetailsPage.jointApplication(language, optionNo);
 
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);

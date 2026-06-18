@@ -1,9 +1,9 @@
-import { test } from '../../fixtures';
+import { test } from '../../fixtures/index.ts';
 import { getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
-import ihtDataConfig from "../../data/ee/ihtData.json";
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json"
+import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
+import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -57,7 +57,7 @@ getTestLanguages().forEach(language => {
       await intestacyScreenerPage.selectPersonWhoDiedLeftAWill(language, optionNo);
 
       // Intestacy Sceeners
-      await intestacyScreenerPage.selectDiedAfterOctober2014(language, optionYes);
+      await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
       await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipGrandchildOfDeceased);
 
       await intestacyScreenerPage.startApply(language);

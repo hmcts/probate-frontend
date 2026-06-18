@@ -1,3 +1,4 @@
+import { AxeUtils } from "@hmcts/playwright-common";
 import { BrowserContext, expect, type Locator, type Page } from '@playwright/test';
 import {getContent} from "./contentHelper.ts";
 
@@ -23,12 +24,16 @@ export function decodeHTML(str: string): string {
 export class BasePage {
   public readonly page: Page;
   public readonly context: BrowserContext;
-  protected commonContent: any;
+  protected commonContent;
 
   constructor(page: Page, context: BrowserContext, language: string) {
     this.page = page;
     this.context = context;
     this.commonContent = getContent(language, true)
+  }
+
+  async runAccessibilityTest() {
+    await new AxeUtils(this.page).audit();
   }
 
   async waitForPageUrl(pageUrl: RegExp): Promise<void> {
@@ -60,9 +65,7 @@ export class BasePage {
     await expect(locator).toBeEnabled();
 
     await expect(async () => {
-      await this.page.waitForLoadState('networkidle');
       await locator.click({ timeout: timeout });
-      await this.page.waitForLoadState('networkidle');
       await expect(this.page).not.toHaveURL(currentUrl);
     }).toPass({ intervals: [2_000, 2_000, 2_000], timeout: 60_000 });
   }

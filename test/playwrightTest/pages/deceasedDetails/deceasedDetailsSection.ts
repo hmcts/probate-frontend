@@ -1,9 +1,9 @@
 import { BrowserContext, expect } from '@playwright/test';
-import {BasePage, decodeHTML} from '../utility/basePage';
+import {BasePage, decodeHTML} from '../utility/basePage.ts';
 import {getContent} from "../utility/contentHelper.ts";
-import ihtDataConfig from '../../data/ee/ihtData.json';
-import applicantDetailsConfig from "../../data/intestacy/sole/applicantDetails.json"
-import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json";
+import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
+import applicantDetailsConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -27,6 +27,7 @@ export class DeceasedDetailsSection extends BasePage {
   async chooseBiLingualGrant(answer = null) {
     const otherAnswer = answer === optionYes ? optionNo : optionYes;
     await this.checkInUrl('/bilingual-gop');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#bilingual${answer}`)).toBeEnabled();
     await expect(this.page.locator(`#bilingual${answer}`)).not.toBeChecked();
     await expect(this.page.locator(`#bilingual${otherAnswer}`)).not.toBeChecked();
@@ -36,6 +37,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterDeceasedDetails(firstName = null, lastName = null) {
     await this.checkInUrl('/deceased-name');
+    await this.runAccessibilityTest();
     await expect(this.firstNameLocator).toBeEnabled();
     await this.firstNameLocator.fill(firstName);
     await this.lastNameLocator.fill(lastName);
@@ -45,27 +47,17 @@ export class DeceasedDetailsSection extends BasePage {
   async enterDeceasedNameOnWill(language = 'en', answer = null) {
     const aliasContent = getContent(`app/resources/${language}/translation/deceased/nameasonwill.json`);
     await this.checkInUrl('/deceased-name-as-on-will');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(aliasContent.explanation1)).toBeVisible();
     await expect(this.page.locator(`#nameAsOnTheWill${answer}`)).toBeEnabled();
     await this.page.locator(`#nameAsOnTheWill${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
-    // const I = this;
-
-    // const commonContent = require(`app/resources/${language}/translation/common`);
-    // const aliasContent = require(`app/resources/${language}/translation/deceased/nameasonwill`);
-
-    // await I.checkInUrl('/deceased-name-as-on-will');
-    // await I.waitForText(aliasContent.explanation1, config.TestWaitForTextToAppear);
-    // const locator = {css: `#nameAsOnTheWill${answer}`};
-    // await I.waitForEnabled(locator);
-    // await I.click(locator);
-
-    //await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
   }
 
   async enterDobDetails(language, dob_day = null, dob_month = null, dob_year = null, saveAndClose = false) {
     const dobContent = getContent(`app/resources/${language}/translation/deceased/dob.json`);
     await this.checkInUrl('/deceased-dob');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(dobContent.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -82,6 +74,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterDodDetails(dod_day = null, dod_month = null, dod_year = null) {
     await this.checkInUrl('/deceased-dod');
+    await this.runAccessibilityTest();
     await expect(this.dodDayLocator).toBeEnabled();
     await this.dodDayLocator.fill(dod_day);
     await this.dodMonthLocator.fill(dod_month);
@@ -91,6 +84,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterDeceasedAddress() {
     await this.checkInUrl('/deceased-address');
+    await this.runAccessibilityTest();
     await this.page.locator('#details-panel > summary > span').click();
     await expect(this.page.locator('#addressLine1')).toBeEnabled();
     await this.page.locator('#addressLine1').fill('Deceased Address Line 1');
@@ -104,6 +98,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectDiedEngOrWales(answer = null) {
     await this.checkInUrl('/died-eng-or-wales');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#diedEngOrWales${answer}`)).toBeEnabled();
     await this.page.locator(`#diedEngOrWales${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -112,6 +107,7 @@ export class DeceasedDetailsSection extends BasePage {
   async selectDeathCertificateType(language = 'en', answer = null) {
     const deathCertificateContent = getContent(`app/resources/${language}/translation/deceased/deathCertificate.json`);
     await this.checkInUrl('/certificate-interim');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(deathCertificateContent.question))).toBeVisible();
     await expect(this.page.locator(`#deathCertificate${answer}`)).toBeEnabled();
     await this.page.locator(`#deathCertificate${answer}`).click();
@@ -121,6 +117,7 @@ export class DeceasedDetailsSection extends BasePage {
   async selectEnglishForeignDeathCert(language = 'en', answer = null) {
     const englishForeignDeathCertContent = getContent(`app/resources/${language}/translation/deceased/englishforeigndeathcert.json`);
     await this.checkInUrl('/english-foreign-death-cert');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(englishForeignDeathCertContent.question))).toBeVisible();
     await expect(this.page.locator(`#englishForeignDeathCert${answer}`)).toBeEnabled();
     await this.page.locator(`#englishForeignDeathCert${answer}`).click();
@@ -130,6 +127,7 @@ export class DeceasedDetailsSection extends BasePage {
   async selectForeignDeathCertTranslation(language = 'en', answer = null) {
     const foreignDeathCertTranslationContent = getContent(`app/resources/${language}/translation/deceased/foreigndeathcerttranslation.json`);
     await this.checkInUrl('/foreign-death-cert-translation');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(foreignDeathCertTranslationContent.question))).toBeVisible();
     await expect(this.page.locator(`#foreignDeathCertTranslation${answer}`)).toBeEnabled();
     await this.page.locator(`#foreignDeathCertTranslation${answer}`).click();
@@ -138,6 +136,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectEEComplete(answer = null) {
     await this.checkInUrl('/calc-check');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#calcCheckCompleted${answer}`)).toBeEnabled();
     await this.page.locator(`#calcCheckCompleted${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -145,6 +144,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectSubmittedToHmrc(answer = null) {
     await this.checkInUrl('/new-submitted-to-hmrc');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#estateValueCompleted${answer}`)).toBeEnabled();
     await this.page.locator(`#estateValueCompleted${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -152,6 +152,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectHmrcLetterComplete(answer = null) {
     await this.checkInUrl('/hmrc-letter');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#hmrcLetterId${answer}`)).toBeEnabled();
     await this.page.locator(`#hmrcLetterId${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -159,14 +160,13 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterHmrcCode(hmrcCode = null) {
     await this.checkInUrl('/unique-probate-code');
+    await this.runAccessibilityTest();
     await expect(this.page.locator('#uniqueProbateCodeId')).toBeEnabled();
     await this.page.locator('#uniqueProbateCodeId').fill(hmrcCode);
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async enterGrossAndNet(formName = null) {
-    // const commonContent = require(`app/resources/${language}/translation/common`);
-    // const I = this;
     let option;
 
     switch (formName) {
@@ -184,6 +184,7 @@ export class DeceasedDetailsSection extends BasePage {
     }
 
     await this.checkInUrl('/estate-form');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#ihtFormId${option}`)).toBeEnabled();
     await this.page.locator(`#ihtFormId${option}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -191,6 +192,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterEEValue(grossValue = null, netValue = null, netQualifyingValue = null) {
     await this.checkInUrl('/iht-estate-values');
+    await this.runAccessibilityTest();
     await expect(this.page.locator('#estateGrossValueField')).toBeEnabled();
     await this.page.locator('#estateGrossValueField').fill(grossValue);
     await this.page.locator('#estateNetValueField').fill(netValue);
@@ -200,6 +202,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectLateSpouseCivilPartner(answer = null) {
     await this.checkInUrl('/deceased-late-spouse-civil-partner');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#deceasedHadLateSpouseOrCivilPartner${answer}`)).toBeEnabled();
     await this.page.locator(`#deceasedHadLateSpouseOrCivilPartner${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -207,6 +210,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectUnusedAllowance (answer = null) {
     await this.checkInUrl('/unused-allowance-claimed');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#unusedAllowanceClaimed${answer}`)).toBeEnabled();
     await this.page.locator(`#unusedAllowanceClaimed${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -214,6 +218,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterProbateAssetValues(grossValue = null, netValue = null) {
     await this.checkInUrl('/probate-estate-values');
+    await this.runAccessibilityTest();
     await expect(this.page.locator('#grossValueField')).toBeEnabled();
     await this.page.locator('#grossValueField').fill(grossValue);
     await this.page.locator('#netValueField').fill(netValue);
@@ -223,6 +228,7 @@ export class DeceasedDetailsSection extends BasePage {
   async selectAssetsOutsideEnglandWales(language = 'en', answer = null) {
     const assetsContent = getContent(`app/resources/${language}/translation/iht/assetsoutside.json`);
     await this.checkInUrl('/assets-outside-england-wales');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(assetsContent.hint))).toBeVisible();
     await expect(this.page.locator(`#assetsOutside${answer}`)).toBeEnabled();
     await this.page.locator(`#assetsOutside${answer}`).click();
@@ -231,6 +237,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async enterValueAssetsOutsideEnglandWales(netAmount = null) {
     await this.checkInUrl('/value-assets-outside-england-wales');
+    await this.runAccessibilityTest();
     await expect(this.page.locator('#netValueAssetsOutsideField')).toBeEnabled();
     await this.page.locator('#netValueAssetsOutsideField').fill(netAmount);
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -239,6 +246,7 @@ export class DeceasedDetailsSection extends BasePage {
   async selectDeceasedAlias(language = 'en', answer = null) {
     const aliasContent = getContent(`app/resources/${language}/translation/deceased/alias.json`);
     await this.checkInUrl('/deceased-alias');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(aliasContent.intestacyParagraph1
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName))))
       .toBeVisible();
@@ -249,6 +257,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectDeceasedMaritalStatus(answer = null) {
     await this.checkInUrl('/deceased-marital-status');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#maritalStatus${answer}`)).toBeEnabled();
     await this.page.locator(`#maritalStatus${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -258,6 +267,7 @@ export class DeceasedDetailsSection extends BasePage {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
     const divorcePlaceContent = getContent(`app/resources/${language}/translation/deceased/divorceplace.json`);
     await this.checkInUrl('/deceased-divorce-or-separation-place');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(divorcePlaceContent.question)
       .replace('{legalProcess}', deceasedDetailsConfig[`legalSeparationType${langKey}`])))
       .toBeVisible();
@@ -270,6 +280,7 @@ export class DeceasedDetailsSection extends BasePage {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
     const divorceDateContent = getContent(`app/resources/${language}/translation/deceased/divorcedate.json`);
     await this.checkInUrl('/deceased-divorced-or-separation-date');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(divorceDateContent.question)
       .replace('{legalProcess}', deceasedDetailsConfig[`legalSeparationType${langKey}`])))
       .toBeVisible();
@@ -287,6 +298,7 @@ export class DeceasedDetailsSection extends BasePage {
   async selectDeceasedAliasGop(language = 'en', answer = null) {
     const aliasContent = getContent(`app/resources/${language}/translation/deceased/alias.json`);
     await this.checkInUrl('/deceased-alias');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(aliasContent.GopParagraph2)).toBeVisible();
     await expect(this.page.locator(`#alias${answer}`)).toBeEnabled();
     await this.page.locator(`#alias${answer}`).click();
@@ -295,6 +307,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectDeceasedMarriedAfterDateOnWill(answer = null) {
     await this.checkInUrl('/deceased-married');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#married${answer}`)).toBeEnabled();
     await this.page.locator(`#married${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
@@ -427,6 +440,7 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectWrittenWishes(option = null) {
     await this.checkInUrl('/deceased-written-wishes');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#deceasedWrittenWishes${option}`)).toBeEnabled();
     await this.page.locator(`#deceasedWrittenWishes${option}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);

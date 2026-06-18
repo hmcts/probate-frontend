@@ -1,13 +1,10 @@
 import { BrowserContext, expect } from "@playwright/test";
 import { BasePage } from "../utility/basePage.ts";
-import { ROUTES } from "../../pageUrl/routes.ts";
 import { testConfig } from "../../configs/config.ts";
 import { getContent } from '../utility/contentHelper.ts';
 import { decodeHTML } from "../utility/basePage.ts";
 
 export class IntestacyScreenerPage extends BasePage {
-  private readonly pageUrl = ROUTES.deathCertificate;
-  private readonly nextPageUrl = ROUTES.deathCertificateEnglish;
   readonly eligibilityLinkLocator = this.page.locator('#main-content > div.govuk-grid-row > div > h1');
   readonly cookiesLinkLocator = this.page.getByRole('link', { name: 'View cookies' });
   readonly cookiesBannerLocator = this.page.locator('#cm-cookie-banner');
@@ -91,6 +88,7 @@ export class IntestacyScreenerPage extends BasePage {
 
   async selectDeathCertificate(language ='en', testSurvey = false) {
     const deathCertContent = getContent(`app/resources/${language}/translation/screeners/deathcertificate.json`);
+    await this.runAccessibilityTest();
     await this.checkInUrl('/death-certificate');
     await expect(this.page.getByText(await decodeHTML(deathCertContent.question))).toBeVisible();
     await expect(this.page.locator('#deathCertificate')).toBeEnabled();
@@ -114,7 +112,7 @@ export class IntestacyScreenerPage extends BasePage {
 
   async selectDeathCertificateInEnglish(language = 'en', answer = null) {
     const deathCertificateContent = getContent(`app/resources/${language}/translation/screeners/deathcertificateinenglish.json`);
-    // const commonContent = getContent(language, true);
+    await this.runAccessibilityTest();
     await this.checkInUrl('/death-certificate-english');
     await expect(this.page.getByText(await decodeHTML(deathCertificateContent.question))).toBeVisible();
     await expect(this.page.locator(`#deathCertificateInEnglish${answer}`)).toBeEnabled();
@@ -126,6 +124,7 @@ export class IntestacyScreenerPage extends BasePage {
     const commonContent = getContent(language, true);
     const deathCertTranslationContent = getContent(`app/resources/${language}/translation/screeners/deathcertificatetranslation.json`);
     await this.checkInUrl('/death-certificate-translation');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(deathCertTranslationContent.question))).toBeVisible();
     await expect(this.page.locator(`#deathCertificateTranslation${answer}`)).toBeEnabled();
     await this.page.locator(`#deathCertificateTranslation${answer}`).click();
@@ -134,6 +133,7 @@ export class IntestacyScreenerPage extends BasePage {
 
   async selectDeceasedDomicile(language) {
     const deceasedDomicileContent = getContent(`app/resources/${language}/translation/screeners/deceaseddomicile.json`);
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(deceasedDomicileContent.question))).toBeVisible();
     await this.checkInUrl('/deceased-domicile');
     await expect(this.page.locator('#domicile')).toBeEnabled();
@@ -144,6 +144,7 @@ export class IntestacyScreenerPage extends BasePage {
   async selectEEDeceasedDod(language = 'en', answer = null) {
     const eeDeceasedDodContent = getContent(`app/resources/${language}/translation/screeners/eedeceaseddod.json`);
     await this.checkInUrl('/ee-deceased-dod');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(eeDeceasedDodContent.question))).toBeVisible();
     await expect(this.page.locator(`#eeDeceasedDod${answer}`)).toBeEnabled();
     await this.page.locator(`#eeDeceasedDod${answer}`).click();
@@ -154,6 +155,7 @@ export class IntestacyScreenerPage extends BasePage {
   async selectIhtCompleted(language ='en', answer = null) {
     const ihtCompletedContent = getContent(`app/resources/${language}/translation/screeners/ihtcompleted.json`);
     await this.checkInUrl('/iht-completed');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(ihtCompletedContent.question))).toBeVisible();
     await expect(this.page.locator(`#completed${answer}`)).toBeEnabled();
     await this.page.locator(`#completed${answer}`).click();
@@ -164,14 +166,16 @@ export class IntestacyScreenerPage extends BasePage {
   async selectPersonWhoDiedLeftAWill(language ='en', answer = null) {
     const willLeftContent = getContent(`app/resources/${language}/translation/screeners/willleft.json`);
     await this.checkInUrl('/will-left');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(willLeftContent.question))).toBeVisible();
     await expect(this.page.locator(`#left${answer}`)).toBeEnabled();
     await this.page.locator(`#left${answer}`).click();
     await this.navByClick(this.continueButtonLocator);
   }
 
-  async selectDiedAfterOctober2014(language ='en', answer = null) {
+  async selectDiedAfterOctober2014(answer = null) {
     await this.checkInUrl('/died-after-october-2014');
+    await this.runAccessibilityTest();
     await expect(this.page.locator(`#diedAfter${answer}`)).toBeEnabled();
     await this.page.locator(`#diedAfter${answer}`).click();
     await this.navByClick(this.continueButtonLocator);
@@ -180,6 +184,7 @@ export class IntestacyScreenerPage extends BasePage {
   async selectRelatedToDeceased(language ='en', answer = null) {
     const relatedToDeceasedContent = getContent(`app/resources/${language}/translation/screeners/relatedtodeceased.json`);
     await this.checkInUrl('/related-to-deceased');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.question))).toBeVisible();
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionPartner))).toBeVisible();
     await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextPartner))).toBeVisible();
@@ -201,21 +206,9 @@ export class IntestacyScreenerPage extends BasePage {
   async startApply(language = 'en') {
     const applyContent = getContent(`app/resources/${language}/translation/screeners/startapply.json`);
     await this.checkInUrl('/start-apply');
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(applyContent.header)).toBeVisible();
     await expect(this.createAccountButtonLocator).toBeEnabled();
     await this.navByClick(this.createAccountButtonLocator);
-  }
-
-  private async selectOptionAndContinue(radioId: string): Promise<void> {
-    await this.waitForPageUrl(this.pageUrl);
-    await this.selectRadioByIdAndContinue(radioId, this.nextPageUrl, 'Continue');
-  }
-
-  async selectYes(): Promise<void> {
-    await this.selectOptionAndContinue('deathCertificate');
-  }
-
-  async selectNo(): Promise<void> {
-    await this.selectOptionAndContinue('deathCertificate-2');
   }
 }

@@ -6,7 +6,6 @@ import {getContent} from "../utility/contentHelper.ts";
 const useIdam = testConfig.TestUseIdam;
 
 export class SignInPage extends BasePage {
-  readonly submitButtonLocator = this.page.getByRole('button', { name: this.commonContent.submitOnly });
   readonly signInButtonLocator = this.page.getByRole('button', { name: this.commonContent.signIn });
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);

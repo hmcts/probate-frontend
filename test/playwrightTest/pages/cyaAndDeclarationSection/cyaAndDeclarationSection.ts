@@ -1,5 +1,5 @@
 import { BrowserContext, expect } from '@playwright/test';
-import {BasePage, decodeHTML} from '../utility/basePage';
+import {BasePage, decodeHTML} from '../utility/basePage.ts';
 import {getContent} from "../utility/contentHelper.ts";
 
 export class CyaAndDeclarationSection extends BasePage {
@@ -16,6 +16,7 @@ export class CyaAndDeclarationSection extends BasePage {
   async seeSummaryPage(language, redirect) {
     const summaryContent = getContent(`app/resources/${language}/translation/summary.json`);
     await this.checkInUrl(`/summary/${redirect}`);
+    await this.runAccessibilityTest();
     await expect(this.page.getByText(await decodeHTML(summaryContent.heading))).toBeVisible();
     await expect(this.cyaDownloadLocator).toBeEnabled();
     await this.downloadPdfIfNotIE11(this.cyaDownloadLocator)
@@ -25,6 +26,7 @@ export class CyaAndDeclarationSection extends BasePage {
   async acceptDeclaration(language = 'en', bilingualGOP = null) {
     const declarationContent = getContent(`app/resources/${language}/translation/declaration.json`);
     await this.checkInUrl('/declaration');
+    await this.runAccessibilityTest();
     if (language === 'en') {
       await expect(this.page.getByText(await decodeHTML(declarationContent.highCourtHeader))).toBeVisible();
     }

@@ -13,12 +13,14 @@ export class TaskListPage extends BasePage {
     const currentTaskList = taskListContent[taskName];
     await expect(this.page.getByText(taskListContent.introduction)).toBeVisible();
     await this.checkInUrl('/task-list');
+    await this.runAccessibilityTest();
     await this.navByClick(this.page.getByText(currentTaskList));
   }
 
   async chooseApplication(language ='en') {
     const dashboardContent = getContent(`app/resources/${language}/translation/dashboard.json`);
     await this.checkInUrl('/dashboard');
+    await this.runAccessibilityTest();
     await expect(this.page.locator('#main-content')).toBeVisible();
     const welshLinkText = await this.page.locator('//a[@class =\'govuk-link language\']').innerText();
     console.log('Dash Board Link Name::-->' + welshLinkText);

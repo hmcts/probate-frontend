@@ -20,9 +20,9 @@ describe('FeatureToggle', () => {
                 next: () => true,
                 redirectPage: '/dummy-page',
                 launchDarkly: {
-                    ftValue: {'ft_fees_api': true}
+                    ftValue: {'ft_excepted_estates': true}
                 },
-                featureToggleKey: 'ft_fees_api',
+                featureToggleKey: 'ft_excepted_estates',
                 callback: sinon.spy()
             };
             const featureToggle = new FeatureToggle();
@@ -64,7 +64,7 @@ describe('FeatureToggle', () => {
                 next: sinon.spy(),
                 redirectPage: '/dummy-page',
                 launchDarkly: {},
-                featureToggleKey: 'ft_fees_api',
+                featureToggleKey: 'ft_excepted_estates',
                 callback: () => true
             };
             RewiredFeatureToggle.__set__('LaunchDarkly', FeatureToggleStub);
@@ -77,7 +77,6 @@ describe('FeatureToggle', () => {
             done();
         });
     });
-
     describe('togglePage()', () => {
         it('should call next() when isEnabled is set to true', (done) => {
             const params = {

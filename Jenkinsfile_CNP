@@ -106,7 +106,7 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
-  afterSuccesss('functionalTest:preview') {
+  afterSuccess('functionalTest:preview') {
     def testsRan = true
     try {
       if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {

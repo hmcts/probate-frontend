@@ -1,5 +1,6 @@
 import { test } from '../../../fixtures/index.ts';
 import { BasePage, getTestLanguages } from '../../../pages/utility/basePage.ts';
+import { Page, BrowserContext} from "@playwright/test";
 
 import { TestConfigurator } from "../../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../../data/ee/ihtData.json" with { type: "json" };
@@ -16,10 +17,13 @@ getTestLanguages().forEach(language => {
 
     test.use({ language });
     let testConfigurator: TestConfigurator;
+    let context: BrowserContext;
+    let page: Page;
     let basePage: BasePage;
 
     test.beforeEach(async () => {
       testConfigurator = new TestConfigurator();
+      basePage = new BasePage(page, context, language);
       await testConfigurator.getBefore(); // creates unique user for this language
     });
 

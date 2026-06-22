@@ -105,7 +105,7 @@ export class DeceasedDetailsSection extends BasePage {
   }
 
   async selectDeathCertificateType(language = 'en', answer = null) {
-    const deathCertificateContent = getContent(`app/resources/${language}/translation/deceased/deathCertificate.json`);
+    const deathCertificateContent = getContent(`app/resources/${language}/translation/deceased/deathcertificate.json`);
     await this.checkInUrl('/certificate-interim');
     await expect(this.page.getByText(await decodeHTML(deathCertificateContent.question))).toBeVisible();
     await expect(this.page.locator(`#deathCertificate${answer}`)).toBeEnabled();

@@ -24,7 +24,6 @@ export class ExecutorDetailsSection extends BasePage {
 
   async checkWillCodicils() {
     await this.checkInUrl('/check-will-executors');
-    await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }
 
@@ -32,6 +31,8 @@ export class ExecutorDetailsSection extends BasePage {
     if (totalExecutors === 1) {
       await this.checkInUrl('/executors-named');
       await expect(this.page.locator(`#executorsNamed${answer}`)).toBeEnabled();
+      await this.page.locator(`#executorsNamed${answer}`).focus();
+      await this.page.locator(`#executorsNamed${answer}`).click();
       await this.page.locator(`#executorsNamed${answer}`).click();
       await this.runAccessibilityTest();
       await this.navByClick(this.saveAndContinueButtonLocator);

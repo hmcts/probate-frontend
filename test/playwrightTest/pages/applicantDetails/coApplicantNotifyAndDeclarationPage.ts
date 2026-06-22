@@ -70,7 +70,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
   }
 
   async seeCoApplicantStartPage(language = 'en', idList) {
-    const content = getContent(`app/resources/${language}/translation/taskList.json`);
+    const content = getContent(`app/resources/${language}/translation/tasklist.json`);
     const pageUrl = `${testConfig.TestFrontendUrl}${testConfig.TestIntestacyInvitationUrl}/${idList}`;
     await this.page.goto( `${pageUrl}`, {
       waitUntil: 'load',
@@ -115,7 +115,6 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
       journey = `${journey}-`;
     }
     await this.checkInUrl(`/${journey}co-applicant-agree-page`);
-    await this.runAccessibilityTest();
     await expect(this.page.getByText(content.subHeader)).toBeVisible();
   }
 

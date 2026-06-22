@@ -75,6 +75,19 @@ export class BasePage {
     }).toPass({ intervals: [2_000, 2_000, 2_000], timeout: 60_000 });*/
   }
 
+  async selectJointApplicationOption(radioOptionLocator: Locator, labelLocator: Locator) {
+    await expect(radioOptionLocator).toBeEnabled();
+    await expect(radioOptionLocator).toBeVisible();
+    await radioOptionLocator.focus();
+    await radioOptionLocator.click();
+    const isOptionChecked = await radioOptionLocator.isChecked();
+    if(!isOptionChecked) {
+      await labelLocator.click();
+      await expect(radioOptionLocator).toBeChecked({timeout: 3000});
+    }
+    await radioOptionLocator.click();
+  }
+
   async closeCurrentTab(){
     const pages = this.context.pages();
     const mostRecentTab = pages[pages.length - 1];

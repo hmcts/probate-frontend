@@ -4,6 +4,7 @@ import { getTestLanguages } from '../../pages/utility/basePage.ts';
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
+import {BrowserContext} from "@playwright/test";
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -11,18 +12,20 @@ const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
   test.describe('GOP Multiple Executors journey - EE Yes', () => {
-    test.describe.configure({ mode: 'serial' });
-
     test.use({ language });
     let testConfigurator: TestConfigurator;
+    let context: BrowserContext;
 
-    test.beforeEach(async () => {
+    test.beforeEach(async ({ browser }) => {
       testConfigurator = new TestConfigurator();
       await testConfigurator.getBefore(); // creates unique user for this language
+      context = await browser.newContext({ locale: language });
+      await context.newPage();
     });
 
     test.afterEach(async () => {
       await testConfigurator.getAfter(); // only deletes THIS language's user
+      await context.close();
     });
 
     test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`),

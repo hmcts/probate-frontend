@@ -91,6 +91,7 @@ TestIdamLoginUrl: IDAM_LOGIN_URL
 TestIdamRole: IDAM_CITIZEN_ROLE
 TestIdamUserGroup: IDAM_USER_GROUP
 TestInvitationUrl: INVITATION_URL
+TestIntestacyInvitationUrl: INTESTACY_INVITATION_URL
 TestInviteIdListUrl: INVITE_ID_LIST_URL
 TestOutputDir: E2E_OUTPUT_DIR
 TestPathToRun: FE_E2E_TEST_PATH_TO_RUN

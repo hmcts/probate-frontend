@@ -20,7 +20,7 @@ class DeathCertificateTranslation extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('deathCertificateTranslation');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'deathCertificateTranslation');
     }
 
     nextStepOptions() {

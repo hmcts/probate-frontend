@@ -5,6 +5,10 @@
 {% from "widgets/lists.html" import unorderedList %}
 
 {% block content %}
+{% set feedbackUrl = globals.links.surveyEndOfApplication %}
+{% if fields.caseType.value === globals.caseTypes.intestacy %}
+{% set feedbackUrl = feedbackUrl + "&party=Int" %}
+{% endif %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             {% set referenceNumberHtml %}
@@ -111,7 +115,7 @@
           <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" style="margin-bottom:30px;">
             <div class="govuk-notification-banner__content">
               <h2 class="govuk-notification-banner__heading" style="max-width: 600px">{{ common.exitFeedbackHeading | safe }}</h2>
-              <p class="govuk-body" style="max-width: 600px">{{ common.exitFeedback | replace("{smartSurveyFeedbackUrl}", globals.links.surveyEndOfApplication) | replace("{currentPageUrl}", pageUrl) | safe }}</p>
+              <p class="govuk-body" style="max-width: 600px">{{ common.exitFeedback | replace("{smartSurveyFeedbackUrl}", feedbackUrl) | safe }}</p>
             </div>
           </div>
         </div>

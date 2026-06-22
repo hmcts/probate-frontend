@@ -1,5 +1,5 @@
 import { test } from '../../fixtures/index.ts';
-import { getTestLanguages } from '../../pages/utility/basePage.ts';
+import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
@@ -15,6 +15,7 @@ getTestLanguages().forEach(language => {
     test.use({ language });
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
+    let basePage: BasePage;
 
     test.beforeEach(async ({ browser }) => {
       testConfigurator = new TestConfigurator();
@@ -43,10 +44,12 @@ getTestLanguages().forEach(language => {
                paymentTaskPage
       }) => {
       const testConfigurator = new TestConfigurator();
+        const scenarioName = `GOP co-executor journey - EE Yes - ${language}`;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
+      await basePage.logInfo(scenarioName, "Intestacy screener questions", null);
       await intestacyScreenerPage.startApplication(language);
 
       // Probate Sceeners
@@ -71,6 +74,7 @@ getTestLanguages().forEach(language => {
       await signInPage.authenticateWithIdamIfAvailable(language);
 
       // Deceased Task
+      await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
@@ -110,6 +114,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectWrittenWishes(optionYes);
 
       // ExecutorsTask
+      await basePage.logInfo(scenarioName, "Executor details task", null);
       await taskListPage.selectATask(language, 'executorsTask');
       await applicantDetailsPage.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
       await executorDetailsPage.selectNameAsOnTheWill(optionYes);
@@ -122,6 +127,7 @@ getTestLanguages().forEach(language => {
       await executorDetailsPage.enterExecutorNamed(totalExecutors, optionYes);
       await executorDetailsPage.selectAnyExecutorsDied(optionYes);
 
+      await basePage.logInfo(scenarioName, "Co-executors details", null);
       const executorsWhoDiedList = ['2', '7']; // exec2 and exec7
       //const executorsWhoDiedList = ['2']; // exec2
       let diedBefore = optionYes;
@@ -136,15 +142,8 @@ getTestLanguages().forEach(language => {
         }
 
         const executorsApplyingList = ['3', '4', '5']; // exec1, exec3 and exec5
-        //const executorsApplyingList = ['3']; // exec3
         await executorDetailsPage.selectExecutorsDealingWithEstate(executorsApplyingList);
 
-        //const executorsWithDifferentNameIdList = ['2']; // ie 1 is the HTML id for executor 3, 2 is the HTML id for executor 5
-        //I.selectWhichExecutorsWithDifferentNameOnWill(executorsWithDifferentNameIdList);
-
-        // const executorNumber = '5'; // 5 is the number in the name of the executor ie exec5
-        // I.enterExecutorCurrentName(executorNumber);
-        // I.enterExecutorCurrentNameReason(executorNumber, 'executor_alias_reason');
         for (let i = 1; i <= executorsApplyingList.length; i++) {
           await executorDetailsPage.selectExecutorsWithDifferentNameOnWill(optionNo, i);
         }
@@ -155,9 +154,6 @@ getTestLanguages().forEach(language => {
         }
 
         const executorsAliveList = ['4', '8'];
-        // const executorsAliveList = ['4'];
-        // let powerReserved = true;
-        // let answer = optionYes;
         let powerReserved = false;
         let answer = optionNo;
 
@@ -181,11 +177,13 @@ getTestLanguages().forEach(language => {
       }
 
       // Check your answers and declaration
+      await basePage.logInfo(scenarioName, "CYA and Legal Declaration - main executor", null);
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
       await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
 
       // Notify additional executors Dealing with estate
+      await basePage.logInfo(scenarioName, "CYA and Legal Declaration - co-executors", null);
       await coApplicantNotifyAndDeclarationPage.notifyAdditionalExecutors(language);
       // await coApplicantNotifyAndDeclarationPage.notificationSent(language);
 
@@ -214,6 +212,7 @@ getTestLanguages().forEach(language => {
       await taskListPage.chooseApplication(language);
 
       // Payment Task
+      await basePage.logInfo(scenarioName, "Payment details task", null);
       await taskListPage.selectATask(language, 'paymentTask');
 
       if (testConfigurator.getUseGovPay() === 'true') {
@@ -233,8 +232,7 @@ getTestLanguages().forEach(language => {
 
       // Thank You
       const caseId = await paymentTaskPage.seeThankYouPage(language);
-
-      console.log(`Case ID: ${caseId}`);
+      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
     });
   });
 });

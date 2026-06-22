@@ -36,6 +36,18 @@ export class BasePage {
     await new AxeUtils(this.page).audit();
   }
 
+  async logInfo(scenarioName: string, log: string, caseRef) {
+    let ret = scenarioName;
+    // await this.page.waitForTimeout(testConfig.GetCaseRefFromUrlDelay);
+    if (log) {
+      ret = ret + " : " + log;
+    }
+    if (caseRef) {
+      ret = ret + " : " + caseRef;
+    }
+    console.info(ret);
+  }
+
   async waitForPageUrl(pageUrl: RegExp): Promise<void> {
     await expect(this.page).toHaveURL(pageUrl);
   }

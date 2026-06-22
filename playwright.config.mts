@@ -19,7 +19,11 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
 
   /* Reporter */
-  reporter: 'html',
+  reporter: [
+    ['html', { outputFolder: `./playwright-report/${browserName}`, open: 'never' }],
+    ['json', { outputFile: './playwright-report/results.json' }],
+    ['list'], // Console output
+  ],
 
   use: {
     /* Base URL */

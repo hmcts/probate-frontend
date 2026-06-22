@@ -106,47 +106,40 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
 
-  afterSuccess('functionalTest:preview') {
+  afterSuccesss('functionalTest:preview') {
     def testsRan = true
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-      env.DONT_TEST_WELSH = true
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      sh 'yarn install'
-      sh 'yarn test:fullfunctional-pr'
-    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      sh 'yarn install'
-      sh 'yarn test:fullfunctional-pr'
-    } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      sh 'yarn install'
-      sh 'yarn test:fullfunctional-gop'
-    }else {
-      testsRan = false
+    try {
+      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+        env.DONT_TEST_WELSH = true
+        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+        sh 'yarn install'
+        sh 'yarn test:fullfunctional-pr'
+      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+        sh 'yarn install'
+        sh 'yarn test:fullfunctional-pr'
+      } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
+        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+        sh 'yarn install'
+        sh 'yarn test:fullfunctional-gop'
+      }else {
+        testsRan = false
+      }
+    } finally {
+      if (testsRan && fileExists('playwright-report/index.html')) {
+        publishHTML target: [
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : "playwright-report",
+          reportFiles          : "index.html",
+          reportName           : "Playwright Test Report"
+        ]
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'playwright-report/**/*'
+      } else {
+        echo 'No E2E tests ran or no report generated - skipping report publishing'
+      }
     }
-
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
-    publishHTML target: [
-      allowMissing         : true,
-      alwaysLinkToLastBuild: true,
-      keepAll              : true,
-      reportDir            : "target/site/serenity/",
-      reportFiles          : "index.html",
-      reportName           : "Functional Tests Report"
-    ]
-  }
-
-  afterAlways('functionalTest:preview') {
-    publishHTML([
-      allowMissing         : true,
-      alwaysLinkToLastBuild: true,
-      keepAll              : true,
-      reportDir            : 'functional-output/reports',
-      reportFiles          : 'index.html',
-      reportName           : 'Playwright Test Report',
-      reportTitles         : 'E2E Test Results'
-    ])
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
   }
 
   afterSuccess('functionalTest:aat') {

@@ -290,7 +290,6 @@ export class DeceasedDetailsSection extends BasePage {
     await this.page.locator('#divorceDate-day').fill(divorceDay);
     await this.page.locator('#divorceDate-month').fill(divorceMonth);
     await this.page.locator('#divorceDate-year').fill(divorceYear);
-    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 

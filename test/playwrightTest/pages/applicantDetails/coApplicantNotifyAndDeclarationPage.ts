@@ -43,6 +43,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
   }
 
   async seeCoExecutorLaunchPage(idList) {
+    await this.page.waitForTimeout(200);
     await this.page.goto(`${testConfig.TestFrontendUrl}${testConfig.TestInvitationUrl}/${idList}`, {
       waitUntil: 'load',
       timeout: 60000

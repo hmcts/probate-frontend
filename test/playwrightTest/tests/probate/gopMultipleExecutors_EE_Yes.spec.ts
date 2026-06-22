@@ -4,7 +4,7 @@ import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
-import {BrowserContext} from "@playwright/test";
+import { Page, BrowserContext} from "@playwright/test";
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -15,10 +15,12 @@ getTestLanguages().forEach(language => {
     test.use({ language });
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
+    let page: Page;
     let basePage: BasePage;
 
     test.beforeEach(async ({ browser }) => {
       testConfigurator = new TestConfigurator();
+      basePage = new BasePage(page, context, language);
       await testConfigurator.getBefore(); // creates unique user for this language
       context = await browser.newContext({ locale: language });
       await context.newPage();

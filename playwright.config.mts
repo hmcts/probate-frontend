@@ -21,8 +21,8 @@ export default defineConfig({
 
   /* Reporter */
   reporter: [
-    ['html', { outputFolder: `./playwright-report/${browserName}`, open: 'never' }],
-    ['json', { outputFile: './playwright-report/results.json' }],
+    ['html', { outputFolder: `./functional-output/reports/${browserName}`, open: 'never' }],
+    ['json', { outputFile: './functional-output/results.json' }],
     ['list'], // Console output
   ],
 

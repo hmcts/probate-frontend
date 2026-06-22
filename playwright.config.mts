@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import { CommonConfig, ProjectsConfig } from "@hmcts/playwright-common";
+const browserName = process.env.BROWSER_NAME || 'default';
 
 export default defineConfig({
   testDir: './test/playwrightTest',

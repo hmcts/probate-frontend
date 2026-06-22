@@ -121,12 +121,12 @@ withPipeline("nodejs", product, component) {
       sh 'yarn install'
       sh 'yarn test:fullfunctional-gop'
     }
-    if (fileExists('functional-output/index.html')) {
+    if (fileExists('functional-output/reports/index.html')) {
       publishHTML target: [
         allowMissing         : true,
         alwaysLinkToLastBuild: true,
         keepAll              : true,
-        reportDir            : "functional-output/reports",
+        reportDir            : "functional-output/reports/chromium",
         reportFiles          : "index.html",
         reportName           : "Playwright Test Report",
         reportTitles         : 'E2E Test Results'

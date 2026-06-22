@@ -1,5 +1,5 @@
 import { test } from '../../../fixtures/index.ts';
-import { getTestLanguages } from '../../../pages/utility/basePage.ts';
+import { BasePage, getTestLanguages } from '../../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../../data/ee/ihtData.json" with { type: "json" };
@@ -20,6 +20,7 @@ getTestLanguages().forEach(language => {
 
     test.use({ language });
     let testConfigurator: TestConfigurator;
+    let basePage: BasePage;
 
     test.beforeEach(async () => {
       testConfigurator = new TestConfigurator();
@@ -42,10 +43,12 @@ getTestLanguages().forEach(language => {
       paymentTaskPage
     }) => {
       const testConfigurator = new TestConfigurator();
+      const scenarioName = `Intestacy child co-applicant journey - EE Yes - ${language}`;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
+      await basePage.logInfo(scenarioName, "Intestacy screener questions", null);
       await intestacyScreenerPage.startApplication(language);
 
       // Probate Sceeners
@@ -69,6 +72,7 @@ getTestLanguages().forEach(language => {
       await signInPage.authenticateWithIdamIfAvailable(language);
 
       // Deceased Task
+      await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
@@ -96,6 +100,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
 
       // Applicant Task
+      await basePage.logInfo(scenarioName, "Applicant details task", null);
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
@@ -116,6 +121,7 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterAddressManually();
 
       //First co-applicant - child
+      await basePage.logInfo(scenarioName, "First co-applicant details", null);
       let coApplicantNumber = "1";
       await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantChild, coApplicantNumber);
@@ -126,6 +132,7 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
 
       //Second co-applicant - grandchild
+      await basePage.logInfo(scenarioName, "Second co-applicant details", null);
       coApplicantNumber = "2";
       await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantGrandchild, coApplicantNumber);
@@ -142,6 +149,7 @@ getTestLanguages().forEach(language => {
 
       //Third co-applicant
       coApplicantNumber = "3";
+      await basePage.logInfo(scenarioName, "Third co-applicant details", null);
       await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantGrandchild, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
@@ -163,11 +171,13 @@ getTestLanguages().forEach(language => {
       }
 
       // Check your answers and declaration
+      await basePage.logInfo(scenarioName, "CYA and Legal Declaration - main applicant", null);
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
       await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
 
       // Notify additional executors Dealing with estate
+      await basePage.logInfo(scenarioName, "CYA and Legal Declaration - co-applicants", null);
       await coApplicantNotifyAndDeclarationPage.notifyAdditionalExecutors(language, 'intestacyQuestion');
       await coApplicantNotifyAndDeclarationPage.notificationSent(language);
 
@@ -200,6 +210,7 @@ getTestLanguages().forEach(language => {
       await taskListPage.chooseApplication(language);
 
       // Payment Task
+      await basePage.logInfo(scenarioName, "Payment details task", null);
       await taskListPage.selectATask(language, 'paymentTask');
 
       if (testConfigurator.getUseGovPay() === 'true') {
@@ -219,8 +230,7 @@ getTestLanguages().forEach(language => {
 
       // Thank You
       const caseId = await paymentTaskPage.seeThankYouPage(language);
-
-      console.log(`Case ID: ${caseId}`);
+      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
     });
   });
 });

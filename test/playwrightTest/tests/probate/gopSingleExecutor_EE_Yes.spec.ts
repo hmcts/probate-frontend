@@ -1,5 +1,5 @@
 import { test } from '../../fixtures/index.ts';
-import { getTestLanguages } from '../../pages/utility/basePage.ts';
+import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
@@ -15,6 +15,7 @@ getTestLanguages().forEach(language => {
 
     test.use({ language });
     let testConfigurator: TestConfigurator;
+    let basePage: BasePage;
 
     test.beforeEach(async () => {
       testConfigurator = new TestConfigurator();
@@ -39,10 +40,12 @@ getTestLanguages().forEach(language => {
                paymentTaskPage
       }) => {
       const testConfigurator = new TestConfigurator();
+        const scenarioName = `GOP single executor journey - EE Yes - ${language}`;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
+      await basePage.logInfo(scenarioName, "Intestacy screener questions", null);
       await intestacyScreenerPage.startApplication(language);
 
       // Probate Sceeners
@@ -67,6 +70,7 @@ getTestLanguages().forEach(language => {
       await signInPage.authenticateWithIdamIfAvailable(language);
 
       // Deceased Task
+      await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
@@ -106,6 +110,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectWrittenWishes(optionYes);
 
       // ExecutorsTask
+      await basePage.logInfo(scenarioName, "Executor details task", null);
       await taskListPage.selectATask(language, 'executorsTask');
       await applicantDetailsPage.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
       await executorDetailsPage.selectNameAsOnTheWill(optionYes);
@@ -122,11 +127,13 @@ getTestLanguages().forEach(language => {
       }
 
       // Check your answers and declaration
+      await basePage.logInfo(scenarioName, "CYA and Legal Declaration - main executor", null);
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
       await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
 
       // Payment Task
+      await basePage.logInfo(scenarioName, "Payment details task", null);
       await taskListPage.selectATask(language, 'paymentTask');
 
       if (testConfigurator.getUseGovPay() === 'true') {
@@ -146,8 +153,7 @@ getTestLanguages().forEach(language => {
 
       // Thank You
       const caseId = await paymentTaskPage.seeThankYouPage(language);
-
-      console.log(`Case ID: ${caseId}`);
+      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
     });
   });
 });

@@ -1,21 +1,18 @@
-import { test } from '../../fixtures/index.ts';
-import { getTestLanguages } from '../../pages/utility/basePage.ts';
+import { test } from '../../../fixtures/index.ts';
+import { getTestLanguages } from '../../../pages/utility/basePage.ts';
 
-import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
-import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
-import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
+import { TestConfigurator } from "../../../pages/utility/testConfigurator.ts";
+import ihtDataConfig from "../../../data/ee/ihtData.json" with { type: "json" };
+import applicantDetailConfig from "../../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import deceasedDetailsConfig from "../../../data/deceasedDetailsConfig.json" with { type: "json" };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
-const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
-const relationshipChildOfDeceased = applicantDetailConfig.relationshipChildOfDeceased;
-const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy child co-applicant journey - EE Yes', () => {
+  test.describe('Intestacy half-blood sibling joint application journey - IHT 400', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -61,7 +58,7 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipChildOfDeceased);
+      await intestacyScreenerPage.selectRelatedToDeceased(language, applicantDetailConfig.relationshipSiblingOfDeceased);
 
       await intestacyScreenerPage.startApply(language);
 
@@ -76,7 +73,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.enterDodDetails(
         deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
-        deceasedDetailsConfig.deceasedDodYearEE
+        deceasedDetailsConfig.deceasedDodYear
       );
       await deceasedDetailsPage.enterDeceasedAddress();
 
@@ -84,74 +81,82 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
       await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
 
-      await deceasedDetailsPage.selectEEComplete(optionYes);
-      await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
-      await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
-      await deceasedDetailsPage.enterHmrcCode(hmrcCode);
-      await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await deceasedDetailsPage.enterGrossAndNet('400');
+        await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
+        await deceasedDetailsPage.enterHmrcCode(hmrcCode);
+        await deceasedDetailsPage.enterProbateAssetValues('300000', '200000');
+      } else {
+        await deceasedDetailsPage.enterGrossAndNet('400');
+         await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
+        await deceasedDetailsPage.enterHmrcCode(hmrcCode);
+        await deceasedDetailsPage.enterProbateAssetValues('500', '400');
+      }
 
       await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
       await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
+
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
-      await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
+      await deceasedDetailsPage.selectDeceasedMaritalStatus(applicantDetailConfig.maritalStatusNotMarried);
 
       // Applicant Task
       await taskListPage.selectATask(language, 'applicantsTask');
-      await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
-      await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
+      await applicantDetailsPage.selectRelationshipToDeceased(language, applicantDetailConfig.relationshipSiblingOfDeceased);
+      await applicantDetailsPage.selectAnyLivingDescendants(optionNo);
+      await applicantDetailsPage.selectAnyLivingParents(language, optionNo);
 
-      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionNo, 'child');
-      await applicantDetailsPage.mainApplicantAdoptedOut(language, optionYes, 'child');
-      await applicantDetailsPage.adoptedOutStopPage(language);
-      await applicantDetailsPage.mainApplicantAdoptedOut(language, optionNo, 'child');
+      await applicantDetailsPage.deceasedAdoptedIn(language, optionNo, 'sibling');
+      await applicantDetailsPage.deceasedAdoptedOut(language, optionNo, 'sibling');
 
-      await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
-      await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);
-      await applicantDetailsPage.anyGrandChildren(language, optionYes);
-      await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
-      await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
+      await applicantDetailsPage.selectDeceasedSameParents(language, applicantDetailConfig.halfBloodSiblingsOption);
+
+      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'halfBloodSibling');
+      await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
+
+      await applicantDetailsPage.anyOtherWholeSiblings(language, optionNo);
+      await applicantDetailsPage.anyOtherHalfSiblings(language, optionYes);
+      await applicantDetailsPage.anyPredeceasedSiblings(language, applicantDetailConfig.optionSomeOfThem, 'half');
+      await applicantDetailsPage.anySurvivingNieceNephew(language, optionYes, 'half');
+      await applicantDetailsPage.anyNieceOrNephewOver18(language, optionYes, 'half');
+      await applicantDetailsPage.anySiblingsAbove18(language, optionYes, 'half');
 
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
 
-      //First co-applicant - child
+      //First co-applicant - half-sibling
       let coApplicantNumber = "1";
       await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantChild, coApplicantNumber);
+      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodSibling, coApplicantNumber);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.firstCoApplicantName);
       await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionNo);
       await applicantDetailsPage.coApplicantAdoptedOut(coApplicantNumber, optionNo);
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.firstCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
 
-      //Second co-applicant - grandchild
+      //Second co-applicant - whole-niece/nephew
       coApplicantNumber = "2";
       await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantGrandchild, coApplicantNumber);
+      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodNieceNephew, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.secondCoApplicantName);
       await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionNo);
       await applicantDetailsPage.coApplicantAdoptedOut(coApplicantNumber, optionNo);
 
-      await applicantDetailsPage.coApplicantParentAdoptedIn(coApplicantNumber, optionYes);
-      await applicantDetailsPage.coApplicantParentAdoptionPlace(coApplicantNumber, optionYes);
+      // await applicantDetailsPage.coApplicantParentAdoptedIn(coApplicantNumber, optionYes);
+      // await applicantDetailsPage.coApplicantParentAdoptionPlace(coApplicantNumber, optionYes);
 
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.secondCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
 
-      //Third co-applicant
+      //Third co-applicant - whole-niece/nephew
       coApplicantNumber = "3";
       await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coapplicantGrandchild, coApplicantNumber);
+      await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodNieceNephew, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.thirdCoApplicantName);
       await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionYes);
       await applicantDetailsPage.coApplicantAdoptionPlace(coApplicantNumber, optionYes);
-
-      await applicantDetailsPage.coApplicantParentAdoptedIn(coApplicantNumber, optionNo);
-      await applicantDetailsPage.coApplicantParentAdoptedOut(coApplicantNumber, optionNo);
-
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.thirdCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
 
@@ -187,7 +192,7 @@ getTestLanguages().forEach(language => {
         await coApplicantNotifyAndDeclarationPage.coApplicantDeclarationPage2(
           deceasedDetailsConfig.deceasedDodDay,
           deceasedDetailsConfig.deceasedDodMonth,
-          deceasedDetailsConfig.deceasedDodYearEE
+          deceasedDetailsConfig.deceasedDodYear
         );
         await coApplicantNotifyAndDeclarationPage.agreeDeclaration(optionYes);
         await coApplicantNotifyAndDeclarationPage.seeAgreePage(language, 'intestacy');

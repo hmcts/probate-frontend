@@ -1,9 +1,9 @@
-import { test } from '../../fixtures/index.ts';
-import { getTestLanguages } from '../../pages/utility/basePage.ts';
+import { test } from '../../../fixtures/index.ts';
+import { getTestLanguages } from '../../../pages/utility/basePage.ts';
 
-import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
-import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import { TestConfigurator } from "../../../pages/utility/testConfigurator.ts";
+import ihtDataConfig from "../../../data/ee/ihtData.json" with { type: "json" };
+import applicantDetailConfig from "../../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;

@@ -126,14 +126,15 @@ withPipeline("nodejs", product, component) {
         testsRan = false
       }
     } finally {
-      if (testsRan && fileExists('playwright-report/index.html')) {
+      if (testsRan && fileExists('functional-output/index.html')) {
         publishHTML target: [
           allowMissing         : true,
           alwaysLinkToLastBuild: true,
           keepAll              : true,
-          reportDir            : "playwright-report",
+          reportDir            : "functional-output/reports",
           reportFiles          : "index.html",
-          reportName           : "Playwright Test Report"
+          reportName           : "Playwright Test Report",
+          reportTitles         : 'E2E Test Results'
         ]
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'playwright-report/**/*'
       } else {

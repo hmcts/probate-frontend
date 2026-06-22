@@ -136,7 +136,7 @@ withPipeline("nodejs", product, component) {
           reportName           : "Playwright Test Report",
           reportTitles         : 'E2E Test Results'
         ]
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'playwright-report/**/*'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
       } else {
         echo 'No E2E tests ran or no report generated - skipping report publishing'
       }

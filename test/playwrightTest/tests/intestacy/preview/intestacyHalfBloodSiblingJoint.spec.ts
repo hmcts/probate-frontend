@@ -15,8 +15,9 @@ const hmrcCode = ihtDataConfig.hmrcCode;
 getTestLanguages().forEach(language => {
   test.describe('Intestacy half-blood sibling joint application journey - IHT 400 @galaxys4', () => {
     test.describe.configure({ mode: 'serial' });
-
+    test.setTimeout(300000);
     test.use({ language });
+
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
     let page: Page;

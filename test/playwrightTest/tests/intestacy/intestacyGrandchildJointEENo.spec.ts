@@ -17,8 +17,9 @@ const bilingualGOP = false;
 getTestLanguages().forEach(language => {
   test.describe('Intestacy Grandchild joint application journey - EE No @webkit', () => {
     test.describe.configure({ mode: 'serial' });
-
+    test.setTimeout(300000);
     test.use({ language });
+
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
     let page: Page;

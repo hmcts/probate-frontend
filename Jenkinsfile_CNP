@@ -110,18 +110,24 @@ withPipeline("nodejs", product, component) {
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       sh 'yarn test:fullfunctional-pr'
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       sh 'yarn test:fullfunctional-pr'
     } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       sh 'yarn test:fullfunctional-gop'
     }
-    if (fileExists('functional-output/reports/index.html')) {
+    sh 'echo "Listing functional-output directory:"'
+    sh 'find functional-output -type f -name "index.html"'
+    sh 'ls -la functional-output/reports/'
+    if (fileExists('functional-output/reports/chromium/index.html')) {
       publishHTML target: [
         allowMissing         : true,
         alwaysLinkToLastBuild: true,

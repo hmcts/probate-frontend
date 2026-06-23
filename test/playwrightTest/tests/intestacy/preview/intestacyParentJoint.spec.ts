@@ -12,7 +12,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy parent joint application journey - IHT 205', () => {
+  test.describe('Intestacy parent joint application journey - IHT 205 @ipadpro11', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

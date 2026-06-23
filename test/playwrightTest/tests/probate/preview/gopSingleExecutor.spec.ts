@@ -11,7 +11,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - IHT 205 and Survey test', () => {
+  test.describe('GOP Single Executor journey - IHT 205 and Survey test @galaxys4', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

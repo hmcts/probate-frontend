@@ -3,7 +3,7 @@ import { BasePage } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
 const language = 'en';
 
-test.describe('Cookie banner test', () => {
+test.describe('Cookie banner test @ipadpro11', () => {
   let context: BrowserContext;
   let page: Page;
   let basePage: BasePage;

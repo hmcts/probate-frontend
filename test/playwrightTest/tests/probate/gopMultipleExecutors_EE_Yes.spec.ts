@@ -11,7 +11,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Multiple Executors journey - EE Yes', () => {
+  test.describe('GOP Multiple Executors journey - EE Yes @edge', () => {
     test.use({ language });
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;

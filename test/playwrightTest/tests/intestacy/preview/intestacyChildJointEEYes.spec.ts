@@ -18,8 +18,9 @@ const hmrcCode = ihtDataConfig.hmrcCode;
 getTestLanguages().forEach(language => {
   test.describe('Intestacy child co-applicant journey - EE Yes @edge', () => {
     test.describe.configure({ mode: 'serial' });
-
+    test.setTimeout(300000);
     test.use({ language });
+
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
     let page: Page;

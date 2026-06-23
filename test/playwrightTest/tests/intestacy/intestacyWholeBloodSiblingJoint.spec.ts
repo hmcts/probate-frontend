@@ -13,7 +13,7 @@ const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy whole-blood sibling joint application journey - IHT 400 @edge', () => {
+  test.describe('Intestacy whole-blood sibling joint application journey - IHT 400 @firefox', () => {
     test.describe.configure({ mode: 'serial' });
     test.setTimeout(300000);
     test.use({ language });

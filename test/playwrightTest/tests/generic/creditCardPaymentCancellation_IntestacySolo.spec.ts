@@ -15,10 +15,11 @@ const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy sole child journey - EE Yes @firefox', () => {
+  test.describe('Credit card payment cancellation @firefox', () => {
     test.describe.configure({ mode: 'serial' });
-
+    test.setTimeout(300000);
     test.use({ language });
+
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
     let page: Page;

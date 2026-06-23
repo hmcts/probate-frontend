@@ -6,7 +6,7 @@ const logger = require('app/components/logger')('Init');
 const InviteLink = require('app/services/InviteLink');
 const config = require('config');
 const {sanitizeInput} = require('../../../../utils/Sanitize');
-const {merge} = require('lodash');
+const {assign} = require('lodash');
 const get = require('lodash').get;
 
 class ExecutorsInvite extends ValidationStep {

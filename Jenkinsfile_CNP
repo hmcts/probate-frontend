@@ -107,39 +107,42 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-      env.DONT_TEST_WELSH = true
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.BROWSER_NAME = "chromium"
-      sh 'yarn install'
-      sh 'yarn test:fullfunctional-pr'
-    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.BROWSER_NAME = "chromium"
-      sh 'yarn install'
-      sh 'yarn test:fullfunctional-pr'
-    } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.BROWSER_NAME = "chromium"
-      sh 'yarn install'
-      sh 'yarn test:fullfunctional-gop'
-    }
-    sh 'echo "Listing functional-output directory:"'
-    sh 'find functional-output -type f -name "index.html"'
-    sh 'ls -la functional-output/reports/'
-    if (fileExists('functional-output/reports/chromium/index.html')) {
-      publishHTML target: [
-        allowMissing         : true,
-        alwaysLinkToLastBuild: true,
-        keepAll              : true,
-        reportDir            : "functional-output/reports/chromium",
-        reportFiles          : "index.html",
-        reportName           : "Playwright Test Report",
-        reportTitles         : 'E2E Test Results'
-      ]
-      steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-    } else {
-      echo 'No E2E tests ran or no report generated - skipping report publishing'
+    def testsRan = true
+    try {
+      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+        env.DONT_TEST_WELSH = true
+        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+        env.BROWSER_NAME = "chromium"
+        sh 'yarn install'
+        sh 'yarn test:fullfunctional-pr'
+      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+        env.BROWSER_NAME = "chromium"
+        sh 'yarn install'
+        sh 'yarn test:fullfunctional-pr'
+      } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
+        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+        env.BROWSER_NAME = "chromium"
+        sh 'yarn install'
+        sh 'yarn test:fullfunctional-gop'
+      } else {
+        testsRan = false
+      }
+    } finally {
+        if (testsRan && fileExists('functional-output/reports/chromium/index.html')) {
+          publishHTML target: [
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : "functional-output/reports/chromium",
+          reportFiles          : "index.html",
+          reportName           : "Playwright Test Report",
+          reportTitles         : 'E2E Test Results'
+        ]
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      } else {
+          echo 'No E2E tests ran or no report generated - skipping report publishing'
+      }
     }
   }
 

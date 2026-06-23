@@ -15,7 +15,7 @@ const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy Grandchild joint application journey - EE No', () => {
+  test.describe('Intestacy Grandchild joint application journey - EE No @webkit', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

@@ -55,12 +55,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 withNightlyPipeline("nodejs", product, component) {
   loadVaultSecrets(secrets)
   env.TEST_URL = params.URL_TO_TEST
-  env.FE_E2E_TEST_PATH_TO_RUN = params.test_path
   env.WEBCHAT_ENABLED = params.WEBCHAT_ENABLED
   env.GA_ENABLED = params.GA_ENABLED
 
   enableFullFunctionalTest(200)
-  enableCrossBrowserTest(120)
   enableFortifyScan('probate-aat')
 //    enableSecurityScan()  //we do this in other builds
   afterAlways('build') {
@@ -68,19 +66,105 @@ withNightlyPipeline("nodejs", product, component) {
     yarnBuilder.yarn('setup')
   }
   afterAlways('fullFunctionalTest') {
-    publishHTML target: [
-      allowMissing: false,
-      alwaysLinkToLastBuild: true,
-      keepAll: true,
-      reportDir: "functional-output/merged",
-      reportFiles: "mochawesome.html",
-      reportName: "Functional Test Report"
-    ]
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-  }
+    stage('Publish e2e Test Report') {
+      publishHTML([
+        allowMissing         : true,
+        alwaysLinkToLastBuild: true,
+        keepAll              : true,
+        reportDir            : 'functional-output/reports/FullFunctionalTest',
+        reportFiles          : 'index.html',
+        reportName           : 'Playwright Test Report',
+        reportTitles         : 'E2E Test Results'
+      ])
+      steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    }
 
-  afterAlways('crossBrowserTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    stage('Functional UI tests Edge') {
+      try {
+        yarnBuilder.yarn('test:functional-Edge')
+      } catch (Error) {
+        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+      } finally {
+        publishHTML([
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : 'functional-output/reports/EdgeTests',
+          reportFiles          : 'index.html',
+          reportName           : 'UITestEdgeReport'
+        ])
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      }
+    }
+
+    stage('Functional UI tests firefox') {
+      try {
+        yarnBuilder.yarn('test:functional-firefox')
+      } catch (Error) {
+        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+      } finally {
+        publishHTML([
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : 'functional-output/reports/FirefoxTests',
+          reportFiles          : 'index.html',
+          reportName           : 'UITestFirefoxReport'
+        ])
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      }
+    }
+    stage('Functional UI tests webkit ') {
+      try {
+        yarnBuilder.yarn('test:functional-webkit')
+      } catch (Error) {
+        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+      } finally {
+        publishHTML([
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : 'functional-output/reports/WebkitTests',
+          reportFiles          : 'index.html',
+          reportName           : 'UITestWebkitReport'
+        ])
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      }
+    }
+    stage('Functional UI tests ipadPro11 ') {
+      try {
+        yarnBuilder.yarn('test:functional-ipadPro11')
+      } catch (Error) {
+        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+      } finally {
+        publishHTML([
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : 'functional-output/reports/iPadProTests',
+          reportFiles          : 'index.html',
+          reportName           : 'UITestiPadPro11Report'
+        ])
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      }
+    }
+    stage('Functional UI tests galaxyS4 ') {
+      try {
+        yarnBuilder.yarn('test:functional-galaxyS4')
+      } catch (Error) {
+        unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
+      } finally {
+        publishHTML([
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : 'functional-output/reports/GalaxyS4Tests',
+          reportFiles          : 'index.html',
+          reportName           : 'UITestGalaxyS4Report'
+        ])
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+      }
+    }
   }
 
   afterSuccess('fortify-scan') {

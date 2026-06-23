@@ -12,7 +12,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy sole parent journey - IHT 205', () => {
+  test.describe('Intestacy sole parent journey - IHT 205 @galaxys4', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

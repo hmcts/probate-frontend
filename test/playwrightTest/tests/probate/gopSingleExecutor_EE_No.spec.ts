@@ -11,7 +11,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - EE No', () => {
+  test.describe('GOP Single Executor journey - EE No @ipadpro11', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

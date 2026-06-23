@@ -16,7 +16,7 @@ const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
 getTestLanguages().forEach(language => {
-  test.describe('Intestacy child co-applicant journey - EE Yes', () => {
+  test.describe('Intestacy child co-applicant journey - EE Yes @edge', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });

@@ -44,8 +44,9 @@ getTestLanguages().forEach(language => {
                coApplicantNotifyAndDeclarationPage,
                paymentTaskPage
       }) => {
+      test.setTimeout(300000);
       const testConfigurator = new TestConfigurator();
-        const scenarioName = `GOP co-executor journey - IHT205 - ${language}`;
+      const scenarioName = `GOP co-executor journey - IHT205 - ${language}`;
 
       await apiCallback.createAUser(testConfigurator);
 

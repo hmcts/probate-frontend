@@ -12505,10 +12505,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"properties-file@npm:4.0.0":
-  version: 4.0.0
-  resolution: "properties-file@npm:4.0.0"
-  checksum: 10/9cc3a1f708ac6ff9e0d4d08096cdbcb82611f39740546dc27e8fb2425a951ab19fd9a283e614aa04cb7c18b61b4b0856e0a102ef3d1d5d165e16d076a617fb62
+"properties-file@npm:5.0.5":
+  version: 5.0.5
+  resolution: "properties-file@npm:5.0.5"
+  checksum: 10/75fef1faa1f8777ae90be9bfb5d2c53b0be1151ceba632dfce73c851d4cc0400961b8d07d513945bc8614f8734b3c48c243a1c0e79fb6d94f84c818c808afe2e
   languageName: node
   linkType: hard
 
@@ -13615,12 +13615,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.7.4, semver@npm:^7.0.0, semver@npm:^7.1.3, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.4, semver@npm:~7.7.4":
-  version: 7.7.4
-  resolution: "semver@npm:7.7.4"
+"semver@npm:7.8.4":
+  version: 7.8.4
+  resolution: "semver@npm:7.8.4"
   bin:
     semver: bin/semver.js
-  checksum: 10/26bdc6d58b29528f4142d29afb8526bc335f4fc04c4a10f2b98b217f277a031c66736bf82d3d3bb354a2f6a3ae50f18fd62b053c4ac3f294a3d10a61f5075b75
+  checksum: 10/a9c139031d4143932adfacfd2165d6489848c3b84c26d5fc2beef88c6d54c01191ef553e3f71049ccc47df85f0df30748907f84005f46f326095003171c5b673
   languageName: node
   linkType: hard
 
@@ -13630,6 +13630,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10/1ef3a85bd02a760c6ef76a45b8c1ce18226de40831e02a00bad78485390b98b6ccaa31046245fc63bba4a47a6a592b6c7eedc65cc47126e60489f9cc1ce3ed7e
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.0.0, semver@npm:^7.1.3, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.1, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.4, semver@npm:~7.7.4":
+  version: 7.7.4
+  resolution: "semver@npm:7.7.4"
+  bin:
+    semver: bin/semver.js
+  checksum: 10/26bdc6d58b29528f4142d29afb8526bc335f4fc04c4a10f2b98b217f277a031c66736bf82d3d3bb354a2f6a3ae50f18fd62b053c4ac3f294a3d10a61f5075b75
   languageName: node
   linkType: hard
 
@@ -14007,23 +14016,23 @@ __metadata:
   linkType: hard
 
 "sonarqube-scanner@npm:^4.3.6":
-  version: 4.3.6
-  resolution: "sonarqube-scanner@npm:4.3.6"
+  version: 4.3.8
+  resolution: "sonarqube-scanner@npm:4.3.8"
   dependencies:
     adm-zip: "npm:0.5.17"
-    axios: "npm:1.15.0"
+    axios: "npm:1.17.0"
     commander: "npm:14.0.3"
     hpagent: "npm:1.2.0"
     node-forge: "npm:1.4.0"
-    properties-file: "npm:4.0.0"
+    properties-file: "npm:5.0.5"
     proxy-from-env: "npm:2.1.0"
-    semver: "npm:7.7.4"
+    semver: "npm:7.8.4"
     slugify: "npm:1.6.9"
-    tar-stream: "npm:3.1.8"
+    tar-stream: "npm:3.2.0"
   bin:
     sonar: bin/sonar-scanner.js
     sonar-scanner: bin/sonar-scanner.js
-  checksum: 10/55fa5c334c8b1acdf5a08dd3f3ae8a3dd318147c984dc749ea51fe861073435ae62ea70fa33cae94dbeaecc0e437cf34b6f0dd7cd5c1b845250e76fb2e1b5b6a
+  checksum: 10/96081ba1af968dc9a9a4dc1ab301040dff7cd3cce0b71acd8fd2bcac3f3304e17f763e0c93fb0578e179230d5f26e09b5957b65ddf255d165a837231df645912
   languageName: node
   linkType: hard
 
@@ -14599,7 +14608,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar-stream@npm:3.1.8, tar-stream@npm:^3.0.0, tar-stream@npm:^3.1.5":
+"tar-stream@npm:3.2.0":
+  version: 3.2.0
+  resolution: "tar-stream@npm:3.2.0"
+  dependencies:
+    b4a: "npm:^1.6.4"
+    bare-fs: "npm:^4.5.5"
+    fast-fifo: "npm:^1.2.0"
+    streamx: "npm:^2.15.0"
+  checksum: 10/ce57a81521de73ae7a3b7d55a08da50d6771427c249bfa89a208518e48faf5254c8fa7201a8f5419ab8bde9601a74e6dd512b31a13ec89774aec96178f99a8d3
+  languageName: node
+  linkType: hard
+
+"tar-stream@npm:^3.0.0, tar-stream@npm:^3.1.5":
   version: 3.1.8
   resolution: "tar-stream@npm:3.1.8"
   dependencies:

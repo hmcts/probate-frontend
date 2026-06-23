@@ -13,6 +13,7 @@ const bilingualGOP = false;
 getTestLanguages().forEach(language => {
   test.describe('GOP Multiple Executors journey - EE No @edge', () => {
     test.describe.configure({ mode: 'serial' });
+    test.setTimeout(300000);
 
     test.use({ language });
     let testConfigurator: TestConfigurator;

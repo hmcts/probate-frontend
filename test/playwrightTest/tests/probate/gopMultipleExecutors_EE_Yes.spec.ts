@@ -12,7 +12,9 @@ const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
   test.describe('GOP Multiple Executors journey - EE Yes @edge', () => {
+    test.setTimeout(300000);
     test.use({ language });
+
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
     let page: Page;

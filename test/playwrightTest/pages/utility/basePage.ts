@@ -90,7 +90,14 @@ export class BasePage {
   async selectJointApplicationOption(radioOptionLocator: Locator): Promise<void> {
     await expect(radioOptionLocator).toBeEnabled();
     await expect(radioOptionLocator).toBeVisible();
+
+    await this.page.waitForTimeout(1000);
+
     await radioOptionLocator.check();
+
+    await radioOptionLocator.dispatchEvent('input');
+    await radioOptionLocator.dispatchEvent('change');
+
     await expect(radioOptionLocator).toBeChecked({timeout: 3000});
 
     //   await radioOptionLocator.dispatchEvent('click');

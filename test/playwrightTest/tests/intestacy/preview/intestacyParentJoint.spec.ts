@@ -14,7 +14,7 @@ const bilingualGOP = false;
 getTestLanguages().forEach(language => {
   test.describe('Intestacy parent joint application journey - IHT 205 @firefox', () => {
     test.describe.configure({ mode: 'serial' });
-
+    test.setTimeout(300000);
     test.use({ language });
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;

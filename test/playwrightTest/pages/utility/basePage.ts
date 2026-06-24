@@ -94,6 +94,7 @@ export class BasePage {
     await radioOptionLocator.click();
     const isOptionChecked = await radioOptionLocator.isChecked();
     if(!isOptionChecked) {
+      await radioOptionLocator.dispatchEvent('click');
       await labelLocator.click();
       await expect(radioOptionLocator).toBeChecked({timeout: 3000});
     }

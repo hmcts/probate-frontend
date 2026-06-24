@@ -1,13 +1,13 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const ExceptedEstateDod = require('app/utils/ExceptedEstateDod');
 
 class IhtEstateForm extends ValidationStep {
 
     static getUrl() {
         return '/estate-form';
     }
+
     nextStepOptions() {
         return {
             options: [
@@ -18,11 +18,9 @@ class IhtEstateForm extends ValidationStep {
     }
 
     isComplete(ctx, formdata) {
-        const dod = formdata && formdata.deceased && formdata.deceased['dod-date'];
-        const isDodBeforeThreshold = dod ? ExceptedEstateDod.beforeEeDodThreshold(dod) : false;
         const selectedIht400WithoutHmrcYes = ctx.ihtFormId === 'optionIHT400' && ctx.hmrcLetterId !== 'optionYes';
 
-        if (isDodBeforeThreshold && selectedIht400WithoutHmrcYes) {
+        if (selectedIht400WithoutHmrcYes) {
             return [false, 'inProgress'];
         }
 

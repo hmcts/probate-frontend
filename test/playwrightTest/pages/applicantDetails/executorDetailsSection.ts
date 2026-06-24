@@ -28,12 +28,12 @@ export class ExecutorDetailsSection extends BasePage {
   }
 
   async enterExecutorNamed(totalExecutors = null, answer = null) {
-    const optionYesLabel = this.page.locator(`label[for="executorsNamed${answer}"]`);
+    // const optionYesLabel = this.page.locator(`label[for="executorsNamed${answer}"]`);
     const optionYesRadioOptionLocator = this.page.locator(`#executorsNamed${answer}`);
 
     if (totalExecutors === 1) {
       await this.checkInUrl('/executors-named');
-      await this.selectJointApplicationOption(optionYesRadioOptionLocator, optionYesLabel);
+      await this.selectJointApplicationOption(optionYesRadioOptionLocator);
       await this.runAccessibilityTest();
       await this.navByClick(this.saveAndContinueButtonLocator);
     } else {
@@ -42,7 +42,7 @@ export class ExecutorDetailsSection extends BasePage {
       while (i < (parseInt(totalExecutors) - 1)) {
         await this.checkInUrl('/executors-named');
 
-        await this.selectJointApplicationOption(optionYesRadioOptionLocator, optionYesLabel);
+        await this.selectJointApplicationOption(optionYesRadioOptionLocator);
         await this.navByClick(this.saveAndContinueButtonLocator);
 
         await expect(this.page.locator('#executorName')).toBeEnabled();

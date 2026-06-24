@@ -87,18 +87,14 @@ export class BasePage {
     }).toPass({ intervals: [2_000, 2_000, 2_000], timeout: 60_000 });*/
   }
 
-  async selectJointApplicationOption(radioOptionLocator: Locator, labelLocator: Locator) {
+  async selectJointApplicationOption(radioOptionLocator: Locator): Promise<void> {
     await expect(radioOptionLocator).toBeEnabled();
     await expect(radioOptionLocator).toBeVisible();
-    await radioOptionLocator.focus();
-    await radioOptionLocator.click();
-    const isOptionChecked = await radioOptionLocator.isChecked();
-    if(!isOptionChecked) {
-      await radioOptionLocator.dispatchEvent('click');
-      await labelLocator.click();
-      await expect(radioOptionLocator).toBeChecked({timeout: 3000});
-    }
-    await radioOptionLocator.click();
+    await radioOptionLocator.check();
+    await expect(radioOptionLocator).toBeChecked({timeout: 3000});
+
+    //   await radioOptionLocator.dispatchEvent('click');
+
   }
 
   async closeCurrentTab(){

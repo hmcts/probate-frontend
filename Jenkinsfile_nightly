@@ -71,7 +71,7 @@ withNightlyPipeline("nodejs", product, component) {
     publishHTML target: [
       allowMissing: false,
       alwaysLinkToLastBuild: true,
-      keepAll: true,
+      keepAll: false,
       reportDir: "functional-output/merged",
       reportFiles: "mochawesome.html",
       reportName: "Functional Test Report"

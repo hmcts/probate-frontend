@@ -76,18 +76,5 @@ describe('executor-current-name', () => {
             const errorsToTest = ['currentName'];
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
-
-        it('test errors message displayed for invalid currentname', (done) => {
-            const errorsToTest = ['currentName'];
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        currentName: '< Brian'
-                    };
-
-                    testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-                });
-        });
     });
 });

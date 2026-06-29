@@ -67,7 +67,7 @@ withNightlyPipeline("nodejs", product, component) {
   }
   afterAlways('fullFunctionalTest') {
     script {
-      def statusFile = 'functional-output/test-status.txt'
+      def statusFile = 'functional-output/results.json'
       if (fileExists(statusFile)) {
         def status = readFile(statusFile).trim()
         if (status == 'TEST_FAILED') {

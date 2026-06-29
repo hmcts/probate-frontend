@@ -67,12 +67,10 @@ withNightlyPipeline("nodejs", product, component) {
   }
   afterAlways('fullFunctionalTest') {
     script {
-      def statusFile = 'functional-output/test-status.txt'
-      if (fileExists(statusFile)) {
-        def status = readFile(statusFile).trim()
-        if (status == 'TEST_FAILED') {
-          unstable('E2E tests failed')
-        }
+      def resultsJson = readJSON file: 'functional-output/results.json'
+      hasFailures = resultsJson.stats?.unexpected > 0 || resultsJson.stats?.flaky > 0
+      if (hasFailures) {
+        unstable('E2E tests failed')
       }
     }
     stage('Publish e2e Test Report') {

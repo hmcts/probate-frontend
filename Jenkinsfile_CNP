@@ -113,21 +113,21 @@ withPipeline("nodejs", product, component) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
-      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+      catchError(stageResult: 'UNSTABLE') {
         sh 'yarn test:fullfunctional-pr'
       }
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
-      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+      catchError(stageResult: 'UNSTABLE') {
         sh 'yarn test:fullfunctional-pr'
       }
     } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
-      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+      catchError(stageResult: 'UNSTABLE') {
         sh 'yarn test:fullfunctional-gop'
       }
     } else {

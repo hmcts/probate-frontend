@@ -50,7 +50,7 @@ getTestLanguages().forEach(language => {
 
       // Eligibility Task (pre IdAM)
       await basePage.logInfo(scenarioName, "Intestacy screener questions", null);
-      await intestacyScreenerPage.startApplication(language);
+      // await intestacyScreenerPage.startApplication(language);
 
       // Probate Sceeners
       await intestacyScreenerPage.selectDeathCertificate(language);

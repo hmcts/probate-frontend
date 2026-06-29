@@ -108,28 +108,32 @@ withPipeline("nodejs", product, component) {
 
   afterSuccess('functionalTest:preview') {
     def testsRan = true
-    try {
-      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-        env.DONT_TEST_WELSH = true
-        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-        env.BROWSER_NAME = "chromium"
-        sh 'yarn install'
+    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+      env.DONT_TEST_WELSH = true
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
+      sh 'yarn install'
+      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
         sh 'yarn test:fullfunctional-pr'
-      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-        env.BROWSER_NAME = "chromium"
-        sh 'yarn install'
-        sh 'yarn test:fullfunctional-pr'
-      } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
-        env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-        env.BROWSER_NAME = "chromium"
-        sh 'yarn install'
-        sh 'yarn test:fullfunctional-gop'
-      } else {
-        testsRan = false
       }
-    } finally {
-        if (testsRan && fileExists('functional-output/reports/chromium/index.html')) {
+    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
+      sh 'yarn install'
+      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+        sh 'yarn test:fullfunctional-pr'
+      }
+    } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
+      sh 'yarn install'
+      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+        sh 'yarn test:fullfunctional-gop'
+      }
+    } else {
+      testsRan = false
+    }
+    if (testsRan && fileExists('functional-output/reports/chromium/index.html')) {
           publishHTML target: [
           allowMissing         : true,
           alwaysLinkToLastBuild: true,
@@ -143,7 +147,6 @@ withPipeline("nodejs", product, component) {
       } else {
           echo 'No E2E tests ran or no report generated - skipping report publishing'
       }
-    }
   }
 
   afterSuccess('functionalTest:aat') {

@@ -15,6 +15,13 @@ class HmrcLetter extends ValidationStep {
         };
     }
 
+    handlePost(ctx, errors) {
+        if (ctx.hmrcLetterId === 'optionNo') {
+            delete ctx.uniqueProbateCodeId;
+        }
+        return super.handlePost(ctx, errors);
+    }
+
     isComplete(ctx) {
         return [ctx.hmrcLetterId==='optionYes', 'inProgress'];
     }

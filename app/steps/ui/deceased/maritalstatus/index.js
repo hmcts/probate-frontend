@@ -17,6 +17,18 @@ class DeceasedMaritalStatus extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
+        if (ctx.caseType === 'gop') {
+            return {
+                options: [
+                    {key: 'maritalStatus', value: 'optionMarried', choice: 'gopMarried'},
+                    {key: 'maritalStatus', value: 'optionDivorced', choice: 'gopDivorced'},
+                    {key: 'maritalStatus', value: 'optionWidowed', choice: 'gopWidowed'},
+                    {key: 'maritalStatus', value: 'optionNotMarried', choice: 'gopNotMarried'},
+                    {key: 'maritalStatus', value: 'optionSeparated', choice: 'gopSeparated'}
+                ]
+            };
+            // throw new Error('aaaa');
+        }
         ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
         return {
             options: [

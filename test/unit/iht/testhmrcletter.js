@@ -24,4 +24,19 @@ describe('HmrcLetter', () => {
             done();
         });
     });
+
+    describe('handlePost()', () => {
+        it('should clear unique probate code when HMRC letter is not received', (done) => {
+            const ctx = {
+                hmrcLetterId: 'optionNo',
+                uniqueProbateCodeId: 'CTS04052311043tpps8e9'
+            };
+            const errors = [];
+            const [updatedCtx] = HmrcLetter.handlePost(ctx, errors);
+            expect(updatedCtx).to.deep.equal({
+                hmrcLetterId: 'optionNo'
+            });
+            done();
+        });
+    });
 });

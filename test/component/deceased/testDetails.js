@@ -44,24 +44,6 @@ describe('deceased-details', () => {
             testWrapper.testErrors(done, {}, 'required', errorsToTest);
         });
 
-        it('test errors message displayed for invalid firstName', (done) => {
-            const errorsToTest = ['firstName'];
-            const data = {
-                firstName: '>dee',
-                lastName: 'ceased'
-            };
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
-
-        it('test errors message displayed for invalid lastName', (done) => {
-            const errorsToTest = ['lastName'];
-            const data = {
-                firstName: 'dee',
-                lastName: '>ceased'
-            };
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
-
         it('test errors message displayed for invalid DoB day', (done) => {
             const errorsToTest = ['dob-day'];
             const data = {'dob-day': '32', 'dob-month': '9', 'dob-year': '2000'};

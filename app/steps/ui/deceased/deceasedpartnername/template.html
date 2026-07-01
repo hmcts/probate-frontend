@@ -7,7 +7,7 @@
 {% block form_content %}
     {% call govukFieldset({
         legend: {
-            text: content.question | safe,
+            text: content.question | replace("{deceasedName}", fields.firstName.value + " " + fields.lastName.value) | safe,
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
         }
@@ -16,12 +16,12 @@
 
         {{ govukInput({
             label: {
-                text: content.deceasedSpouseName | safe
+                text: content.deceasedSpouseName | replace("{deceasedName}", fields.firstName.value + " " + fields.lastName.value) | safe
             },
             id: "deceasedSpouseName",
             name: "deceasedSpouseName",
             value: fields.deceasedSpouseName.value | safe,
-            errorMessage: { text: fields.deceasedSpouseName.errorMessage | safe } if fields.deceasedSpouseName.errorMessage,
+            errorMessage: { text: fields.deceasedSpouseName.errorMessage | replace("{deceasedName}", fields.firstName.value + " " + fields.lastName.value) | safe } if fields.deceasedSpouseName.errorMessage,
             classes: "govuk-!-width-three-quarters"
         }) }}
 

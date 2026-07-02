@@ -19,7 +19,7 @@ const Security = require(`${__dirname}/app/services/Security`);
 const helmet = require('helmet');
 const hpkp = require('hpkp');
 const nocache = require('nocache');
-const csrf = require('csurf');
+const {csrfSync} = require('csrf-sync');
 const declaration = require(`${__dirname}/app/declaration`);
 const InviteSecurity = require(`${__dirname}/app/invite`);
 const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
@@ -36,7 +36,7 @@ const setSessionLanguage = require('app/middleware/setSessionLanguage');
 const isEmpty = require('lodash').isEmpty;
 const setupHealthCheck = require('app/utils/setupHealthCheck');
 const {sanitizeInput} = require('./app/utils/Sanitize');
-const {merge} = require('lodash');
+const {assign} = require('lodash');
 const normalizeNonIdamPages = require('app/utils/configNormalisers');
 
 exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
@@ -258,7 +258,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         }
 
         if (isA11yTest && !isEmpty(a11yTestSession)) {
-            req.session = merge(req.session, sanitizeInput(a11yTestSession));
+            req.session = assign(req.session, sanitizeInput(a11yTestSession));
         }
 
         next();
@@ -268,7 +268,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use((req, res, next) => {
         if (isA11yTest && !isEmpty(a11yTestSession)) {
-            req.session = merge(req.session, sanitizeInput(a11yTestSession));
+            req.session = assign(req.session, sanitizeInput(a11yTestSession));
         }
 
         req.session.uuid = uuidv4();
@@ -283,20 +283,25 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
 
+    const {
+        csrfSynchronisedProtection,
+        generateToken,
+    } = csrfSync({
+        getTokenFromRequest: (req) => req.body._csrf,
+    });
+
     if (config.app.useCSRFProtection === 'true') {
         app.use((req, res, next) => {
             // Exclude Dynatrace Beacon POST requests from CSRF check
             if (req.method === 'POST' && req.path.startsWith('/rb_')) {
                 next();
-            } else {
-                csrf({})(req, res, next);
             }
+
+            csrfSynchronisedProtection(req, res, next);
         });
 
         app.use((req, res, next) => {
-            if (req.csrfToken) {
-                res.locals.csrfToken = req.csrfToken();
-            }
+            res.locals.csrfToken = generateToken(req);
             next();
         });
     }

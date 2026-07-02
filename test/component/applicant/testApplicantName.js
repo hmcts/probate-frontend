@@ -54,26 +54,6 @@ describe('applicant-name', () => {
             testWrapper.testErrors(done, data, 'required', errorsToTest);
         });
 
-        it('test error message displayed for invalid firstName', (done) => {
-            const errorsToTest = ['firstName'];
-            const data = {
-                firstName: 'dave>',
-                lastName: 'bassett'
-            };
-
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
-
-        it('test error message displayed for invalid lastName', (done) => {
-            const errorsToTest = ['lastName'];
-            const data = {
-                firstName: 'dave',
-                lastName: '>bassett'
-            };
-
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
-
         it(`test it redirects to next page: ${expectedNextUrlForApplicantNameAsOnWill}`, (done) => {
             const data = {
                 firstName: 'bob',

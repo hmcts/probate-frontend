@@ -9,6 +9,7 @@ router.get('/equality-and-diversity', (req, res, next) => featureToggle.callChec
 
 router.get('/deceased-married', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_will_condition', featureToggle.toggleFeature));
 router.get('/copies-uk', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_probate_fee_increase_2026', featureToggle.toggleFeature));
+router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_probate_fee_increase_2026', featureToggle.toggleFeature));
 router.all('/payment-breakdown', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_newfee_register_code', featureToggle.toggleFeature));
 router.get('/task-list', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_will_condition', featureToggle.toggleFeature));
 router.all('/task-list', (req, res, next) => featureToggle.callCheckToggle(req, res, next, res.locals.launchDarkly, 'ft_excepted_estates', featureToggle.toggleFeature));

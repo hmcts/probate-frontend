@@ -143,6 +143,15 @@ services:
       jurisdiction1: 'family'
       jurisdiction2: 'probate registry'
       service: 'probate'
+      keyword: 'GrantWill'
+    newfee2026_copiesData:
+      amount_or_volume: 0
+      applicant_type: 'all'
+      channel: 'default'
+      event: 'copies'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
       keyword: 'GrantWillCopiesIndividualApplication'
   equalityAndDiversity:
     name: 'Equality and Diversity Service'

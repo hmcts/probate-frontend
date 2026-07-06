@@ -1,6 +1,6 @@
 'use strict';
 
-const {mapValues, map, reduce, escape, isObject, isEmpty, get, merge} = require('lodash');
+const {mapValues, map, reduce, escape, isObject, isEmpty, get, assign} = require('lodash');
 const UIStepRunner = require('app/core/runners/UIStepRunner');
 const JourneyMap = require('app/core/JourneyMap');
 const mapErrorsToFields = require('app/components/error').mapErrorsToFields;
@@ -86,7 +86,7 @@ class Step {
         if (typeof session.form.userLoggedIn === 'boolean') {
             ctx.userLoggedIn = session.form.userLoggedIn;
         }
-        ctx = merge(ctx, Sanitize.sanitizeInput(req.body));
+        ctx = assign(ctx, Sanitize.sanitizeInput(req.body));
         ctx = FeatureToggle.appwideToggles(req, ctx, config.featureToggles.appwideToggles);
         ctx.isWebChatEnabled = config.configFeatureToggles.webchatEnabled;
         ctx.isGaEnabled = config.configFeatureToggles.gaEnabled; // this is a boolean type
@@ -117,7 +117,7 @@ class Step {
         if (!this.content) {
             throw new ReferenceError(`Step ${this.name} has no content.json in its resource folder`);
         }
-        const contentCtx = merge(
+        const contentCtx = assign(
             {},
             Sanitize.sanitizeInput(formdata),
             Sanitize.sanitizeInput(ctx),

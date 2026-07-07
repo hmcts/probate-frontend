@@ -9,7 +9,7 @@ const intestacyOnlyPages = [
     '/assets-outside-england-wales',
     '/value-assets-outside-england-wales',
     // '/deceased-marital-status',
-    '/deceased-divorce-or-separation-place',
+    // '/deceased-divorce-or-separation-place',
     '/relationship-to-deceased',
     '/adoption-place',
     '/spouse-not-applying-reason',

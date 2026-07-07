@@ -143,11 +143,16 @@ const stepList = {
     DeceasedMaritalStatus: {
         gopMarried: 'DeceasedMarried',
         gopNotMarried: 'WillHasVisibleDamage',
-        gopDivorced: 'StopPage',
-        gopSeparated: 'StopPage',
+        gopDivorced: 'DivorcePlace',
+        gopSeparated: 'DivorcePlace',
         gopWidowed: 'DeceasedPartnerName',
         otherwise: 'StopPage'
     },
+    DivorcePlace: {
+        inEnglandOrWales: 'DivorceDate',
+        otherwise: 'StopPage',
+    },
+    DivorceDate: 'DeceasedMarried',
     DeceasedPartnerName: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',

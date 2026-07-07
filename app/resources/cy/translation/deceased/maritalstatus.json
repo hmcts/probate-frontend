@@ -6,8 +6,9 @@
   "optionWidowed": "Gweddw",
   "optionNotMarried": "Erioed wedi priodi",
   "optionSeparated": "Ymwahaniad cyfreithiol",
-  "divorce": "wedi ysgaru",
-  "separation": "wedi gwahanu",
+  "divorce": "ysgariad neu’r diddymiad",
+  "divorced": "ysgariad neu ddiddymiad",
+  "separation": "ymwahaniad cyfreithiol",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {

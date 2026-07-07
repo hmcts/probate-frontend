@@ -14,6 +14,7 @@ class DivorcePlace extends ValidationStep {
         const formdata = req.session.form;
 
         if (formdata.deceased?.maritalStatus) {
+            ctx.copyMaritalStatus = formdata.deceased?.maritalStatus;
             ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
         }
 
@@ -39,11 +40,17 @@ class DivorcePlace extends ValidationStep {
         return fields;
     }
     nextStepUrl(req, ctx) {
-        if (ctx.legalProcess === 'divorce or dissolution') {
-            return this.next(req, ctx).constructor.getUrl('divorcedNotInEnglandOrWales');
+        if (ctx.caseType === 'gop') {
+            if (ctx.copyMaritalStatus === 'optionDivorced') {
+                return this.next(req, ctx).constructor.getUrl('probateDivorcePlace');
+            }
+            return this.next(req, ctx).constructor.getUrl('probateSeparationPlace');
         }
 
-        return this.next(req, ctx).constructor.getUrl('separatedNotInEnglandOrWales');
+        if (ctx.copyMaritalStatus === 'optionDivorced') {
+            return this.next(req, ctx).constructor.getUrl('divorcePlace');
+        }
+        return this.next(req, ctx).constructor.getUrl('separationPlace');
     }
 
     nextStepOptions() {
@@ -57,6 +64,7 @@ class DivorcePlace extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
         delete ctx.legalProcess;
+        delete ctx.copyMaritalStatus;
         return [ctx, formdata];
     }
 }

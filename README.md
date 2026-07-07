@@ -31,7 +31,7 @@ The Frontend Application uses Orchestrator to route specific requests to the und
 ## Getting Started
 ### Prerequisites
 
-- [Node.js](nodejs.org) >= 12.5.0
+- [Node.js](nodejs.org) >= 24.0.0
 - [yarn](yarnpkg.com)
 
 If on Windows 10 follow setup instructions here: https://tools.hmcts.net/confluence/pages/viewpage.action?pageId=1457316967

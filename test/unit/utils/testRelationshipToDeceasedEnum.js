@@ -24,5 +24,15 @@ describe('RelationshipToDeceasedEnum.js', () => {
             done();
         });
     });
+    describe('mapOptionToValue()', () => {
+        it('should return optionSibling value', (done) => {
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionSibling', 'en')).to.equal('half-blood/whole blood sibling');
+            done();
+        });
+        it('should return optionSibling welsh value', (done) => {
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionSibling')).to.equal('hanner brawd neu chwaer/brawd neu chwaer cyflawn');
+            done();
+        });
+    });
 
 });

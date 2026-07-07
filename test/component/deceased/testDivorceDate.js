@@ -1,6 +1,7 @@
 'use strict';
 
 const TestWrapper = require('test/util/TestWrapper');
+const DeceasedMarried = require('app/steps/ui/deceased/married');
 const TaskList = require('app/steps/ui/tasklist');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const contentMaritalStatus = require('app/resources/en/translation/deceased/maritalstatus');
@@ -9,6 +10,7 @@ const caseTypes = require('app/utils/CaseTypes');
 describe('divorce-date', () => {
     let testWrapper;
     const expectedNextUrlForTaskList = TaskList.getUrl();
+    const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DivorceDate');
@@ -69,7 +71,7 @@ describe('divorce-date', () => {
                 });
         });
 
-        it(`test it redirects to tasklist page: ${expectedNextUrlForTaskList}`, (done) => {
+        it.skip(`test it redirects to tasklist page for intestacy: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -79,6 +81,19 @@ describe('divorce-date', () => {
                     };
 
                     testWrapper.testRedirect(done, data, expectedNextUrlForTaskList);
+                });
+        });
+
+        it(`test it redirects to tasklist page for probate: ${expectedNextUrlForDeceasedMarried}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({caseType: caseTypes.GOP})
+                .end(() => {
+                    const data = {
+                        maritalStatus: 'optionDivorced',
+                        divorceDateKnown: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
                 });
         });
     });

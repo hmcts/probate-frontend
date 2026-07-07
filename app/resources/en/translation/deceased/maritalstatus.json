@@ -6,8 +6,9 @@
   "optionWidowed": "Widowed",
   "optionNotMarried": "Never married",
   "optionSeparated": "Judicially separated",
-  "divorce": "divorce",
-  "separation": "separation",
+  "divorce": "divorce or dissolution",
+  "divorced": "divorce or dissolution",
+  "separation": "legal separation",
   "theDeceased": "the deceased",
 
   "errors": {

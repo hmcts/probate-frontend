@@ -170,6 +170,23 @@ getTestLanguages().forEach(language => {
       // Thank You
       const caseId = await paymentTaskPage.seeThankYouPage(language, true);
       await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
+
+      //Citizen hub
+      caseData = await caseApiService.createCaseEvent(
+        userId,
+        jurisdictionId,
+        caseType,
+        caseId,
+        eventId,
+        `Bearer ${process.env.AUTH_TOKEN}`,
+        process.env.SERVICE_AUTH_TOKEN ?? '',
+        {
+          // any additional case data fields
+        }
+      );
+
+      console.log(`Case created via API: ${JSON.stringify(caseData)}`);
+
     });
   });
 });

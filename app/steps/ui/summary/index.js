@@ -14,6 +14,7 @@ const AssetsThreshold = require('app/utils/AssetsThreshold');
 const featureToggle = require('app/utils/FeatureToggle');
 const exceptedEstateDod = require('app/utils/ExceptedEstateDod');
 const IhtEstateValuesUtil = require('app/utils/IhtEstateValuesUtil');
+const moment = require('moment');
 
 class Summary extends Step {
 
@@ -111,6 +112,14 @@ class Summary extends Step {
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         ctx.deceasedHadLateSpouseOrCivilPartnerQuestion = content.DeceasedHadLateSpouseOrCivilPartner.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
+        ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
+            .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+        ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
+            .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+        ctx.deceasedDivorceDate = content.DivorceDate.date
+            .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);
@@ -120,10 +129,6 @@ class Summary extends Step {
             ctx.codicilPresent = hasCodicils;
         } else {
             ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
-            ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
-            ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
-                .replace('{legalProcess}', (formdata.deceased && formdata.deceased.maritalStatus === content.DeceasedMaritalStatus.optionDivorced) ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question
@@ -144,6 +149,12 @@ class Summary extends Step {
 
         if (formdata.documents && formdata.documents.uploads) {
             ctx.uploadedDocuments = formdata.documents.uploads.map(doc => doc.filename);
+        }
+        if (formdata.deceased?.divorceDate) {
+            const date = moment(formdata.deceased.divorceDate, 'YYYY-MM-DD');
+            if (date.isValid()) {
+                ctx.divorceDateFormatted = utils.formattedDate(date, req.session.language);
+            }
         }
 
         ctx.softStop = this.anySoftStops(formdata, ctx);

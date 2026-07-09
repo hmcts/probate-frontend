@@ -1,97 +1,64 @@
-import { APIRequestContext } from '@playwright/test';
-import type { StartEventResponse, DataContent } from './apiTypes.ts';
+// api/apiHelper.ts
+import { request } from '@playwright/test';
 
-export class CaseApiHelper {
-  private requestContext: APIRequestContext;
-  private baseUrl: string;
-  private authToken: string;
-  private serviceAuthToken: string;
+export const getAccessToken = async (
+  idamUrl: string,
+  email: string,
+  password: string
+): Promise<string> => {
+  const requestContext = await request.newContext();
 
-  constructor(
-    requestContext: APIRequestContext,
-    baseUrl: string,
-    authToken: string,
-    serviceAuthToken: string
-  ) {
-    this.requestContext = requestContext;
-    this.baseUrl = baseUrl;
-    this.authToken = authToken;
-    this.serviceAuthToken = serviceAuthToken;
-  }
-
-  // ─────────────────────────────────────────
-  // Step 1: GET token - fetchCaseDataForProcess
-  // ─────────────────────────────────────────
-  async getEventToken(
-    userId: string,
-    jurisdictionId: string,
-    caseType: string,
-    caseId: string,
-    eventId: string,
-    ignoreWarning: boolean = false
-  ): Promise<StartEventResponse> {
-    const response = await this.requestContext.get(
-      `${this.baseUrl}/caseworkers/{userId}/jurisdictions/{jurisdictionId}/case-types/{caseType}/cases/{caseId}/event-triggers/{eventId}/token`,
+  try {
+    const response = await requestContext.post(
+      `${idamUrl}/loginUser?username=${email}&password=${password}`,
       {
         headers: {
-          'Authorization': this.authToken,
-          'ServiceAuthorization': this.serviceAuthToken,
-          'Content-Type': 'application/json'
-        },
-        params: {
-          'ignore-warning': ignoreWarning
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
         failOnStatusCode: false
       }
     );
 
     if (response.status() !== 200) {
-      throw new Error(
-        `Failed to get event token. Status: ${response.status()}, Body: ${await response.text()}`
-      );
+      throw new Error(`Auth failed: ${response.status()} - ${await response.text()}`);
     }
 
-    const data: StartEventResponse = await response.json();
-    console.log(`Event token obtained for eventId: ${eventId}`);
-    console.log(`Case ID: ${data.case_details?.id}`);
-    return data;
+    const data = await response.json();
+    console.log('Auth token obtained for user:', email);
+    return data.access_token;
+  } finally {
+    await requestContext.dispose();
   }
+};
 
-  // ─────────────────────────────────────────
-  // Step 2: POST events - fetchCaseDataForProcess
-  // ─────────────────────────────────────────
-  async submitEvent(
-    userId: string,
-    jurisdictionId: string,
-    caseType: string,
-    caseId: string,
-    dataContent: DataContent,
-    ignoreWarning: boolean = false
-  ): Promise<any> {
-    const response = await this.requestContext.post(
-      `${this.baseUrl}/caseworkers/${userId}/jurisdictions/${jurisdictionId}/case-types/${caseType}/cases/${caseId}/events`,
+export const getServiceAuthToken = async (
+  s2sUrl: string,
+  microserviceName: string
+): Promise<string> => {
+  const requestContext = await request.newContext();
+
+  try {
+    const response = await requestContext.post(
+      `${s2sUrl}`,
       {
         headers: {
-          'Authorization': this.authToken,
-          'ServiceAuthorization': this.serviceAuthToken,
+          'accept': '*/*',
           'Content-Type': 'application/json'
         },
-        params: {
-          'ignore-warning': ignoreWarning
+        data: {
+          microservice: `${microserviceName}`
         },
-        data: dataContent,
         failOnStatusCode: false
       }
     );
 
-    if (response.status() !== 201) {
-      throw new Error(
-        `Failed to submit event. Status: ${response.status()}, Body: ${await response.text()}`
-      );
+    if (response.status() !== 200) {
+      throw new Error(`S2S auth failed: ${response.status()} - ${await response.text()}`);
     }
 
-    const data = await response.json();
-    console.log(`Event submitted successfully`);
-    return data;
+    console.log('Service auth token obtained');
+    return await response.text();
+  } finally {
+    await requestContext.dispose();
   }
-}
+};

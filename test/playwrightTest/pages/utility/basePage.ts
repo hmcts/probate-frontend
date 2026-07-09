@@ -172,6 +172,15 @@ export class BasePage {
     await this.clickSaveAndContinue(nextPageUrl);
   }
 
+  async getEnv() {
+    const url = this.page.url();
+    if (url.includes("aat") || url.includes("preview")) {
+      return "aat";
+    } else if (url.includes("demo")) {
+      return "demo";
+    }
+  }
+
   async downloadPdfIfNotIE11(locator: Locator): Promise<void> {
     const [download] = await Promise.all([
       this.page.waitForEvent('download'),

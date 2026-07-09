@@ -1,15 +1,18 @@
-import { type APIRequestContext, request } from "@playwright/test";
-import { testConfig } from "../configs/config";
-import type { StartEventResponse, DataContent } from '../types/apiTypes.js';
+import { type APIRequestContext, request } from '@playwright/test';
+import { testConfig } from '../configs/config.js';
+import { getAccessToken, getServiceAuthToken } from './apiHelper.js';
+import type { StartEventResponse, DataContent, CaseEventResult, SubmitEventResponse } from './apiTypes.js';
 
 export class apiService {
   readonly request: APIRequestContext;
+  private authToken: string = '';
+  private serviceAuthToken: string = '';
 
   constructor(request: APIRequestContext) {
     this.request = request;
   }
 
-  async createAUser(options) {
+  async createAUser(options): Promise<void> {
     if (testConfig.TestUseIdam === 'true') {
       console.log(`Creating user: ${options.getTestCitizenEmail()}`);
       const userDetails = options.getTestUserDetails();
@@ -53,6 +56,23 @@ export class apiService {
     }
   }
 
+  async initialiseUser2Tokens(): Promise<void> {
+    // ✅ Get tokens for User 2 (fixed credentials from testConfig)
+
+    const accessToken = await getAccessToken(
+      testConfig.TestBoIdamUrl,
+      testConfig.CwEmail,
+      testConfig.CwPassword
+    );
+    this.authToken = `Bearer ${accessToken}`;
+    this.serviceAuthToken = await getServiceAuthToken(testConfig.TestS2sUrl, 'probate_backend');
+
+    console.log('Caseworker tokens initialised');
+  }
+
+  // ─────────────────────────────────────────
+  // Step 1: GET event token
+  // ─────────────────────────────────────────
   async getEventToken(
     userId: string,
     jurisdictionId: string,
@@ -61,17 +81,15 @@ export class apiService {
     eventId: string,
     ignoreWarning: boolean = false
   ): Promise<StartEventResponse> {
-    const response = await this.requestContext.get(
-      `${testConfig.baseUrl}/caseworkers/{userId}/jurisdictions/{jurisdictionId}/case-types/{caseType}/cases/{caseId}/event-triggers/{eventId}/token`,
+    const response = await this.request.get(
+      `${testConfig.TestBaseUrl}/caseworkers/${userId}/jurisdictions/${jurisdictionId}/case-types/${caseType}/cases/${caseId}/event-triggers/${eventId}/token`,
       {
         headers: {
           'Authorization': this.authToken,
           'ServiceAuthorization': this.serviceAuthToken,
           'Content-Type': 'application/json'
         },
-        params: {
-          'ignore-warning': ignoreWarning
-        },
+        params: { 'ignore-warning': ignoreWarning },
         failOnStatusCode: false
       }
     );
@@ -82,14 +100,13 @@ export class apiService {
       );
     }
 
-    const data: StartEventResponse = await response.json();
-    console.log(`Event token obtained for eventId: ${eventId}`);
-    console.log(`Case ID: ${data.case_details?.id}`);
+    const data = await response.json() as StartEventResponse;
+    console.log(`Event token obtained. Case ID: ${data.case_details?.id}`);
     return data;
   }
 
   // ─────────────────────────────────────────
-  // Step 2: POST events - fetchCaseDataForProcess
+  // Step 2: POST events
   // ─────────────────────────────────────────
   async submitEvent(
     userId: string,
@@ -98,22 +115,19 @@ export class apiService {
     caseId: string,
     dataContent: DataContent,
     ignoreWarning: boolean = false
-  ): Promise<any> {
-    const response = await this.requestContext.post(
-      `${testConfig.baseUrl}/caseworkers/${userId}/jurisdictions/${jurisdictionId}/case-types/${caseType}/cases/${caseId}/events`,
-      {
-        headers: {
-          'Authorization': this.authToken,
-          'ServiceAuthorization': this.serviceAuthToken,
-          'Content-Type': 'application/json'
-        },
-        params: {
-          'ignore-warning': ignoreWarning
-        },
-        data: dataContent,
-        failOnStatusCode: false
-      }
-    );
+  ): Promise<SubmitEventResponse> {
+  const response = await this.request.post(
+    `${testConfig.TestBaseUrl}/caseworkers/${userId}/jurisdictions/${jurisdictionId}/case-types/${caseType}/cases/${caseId}/events`,
+    {
+      headers: {
+        'Authorization': this.authToken,
+        'ServiceAuthorization': this.serviceAuthToken,
+        'Content-Type': 'application/json'
+      },
+      params: { 'ignore-warning': ignoreWarning },
+      data: dataContent,
+      failOnStatusCode: false
+    });
 
     if (response.status() !== 201) {
       throw new Error(
@@ -121,46 +135,59 @@ export class apiService {
       );
     }
 
-    const data = await response.json();
-    console.log(`Event submitted successfully`);
-    return data;
+    console.log('Event submitted successfully');
+    return await response.json() as SubmitEventResponse;
   }
 
-  async createCaseEvent(
+  // ─────────────────────────────────────────
+  // Combined: update existing case as Caseworker
+  // ─────────────────────────────────────────
+  async updateCaseAsUser2(
     userId: string,
     jurisdictionId: string,
     caseType: string,
     caseId: string,
-    eventId: string,
-    authToken: string,
-    serviceAuthToken: string,
-    caseDataContent?: Record<string, any>
-  ): Promise<any> {
-    // Step 1: Get token
+    eventId: string
+  ): Promise<CaseEventResult> {
+    // Get caseworker tokens first
+    await this.initialiseUser2Tokens();
+
+    // Step 1: Get event token
     const startEventResponse = await this.getEventToken(
-      userId, jurisdictionId, caseType, caseId, eventId, authToken, serviceAuthToken
+      userId, jurisdictionId, caseType, caseId, eventId
     );
 
-    console.log(`Token obtained for case: ${startEventResponse.case_details?.id}`);
+    console.log(`Updating case: ${caseId} as Caseworker`);
+    console.log(`Current case state: ${startEventResponse.case_details?.state}`);
 
-    // Step 2: Build DataContent with token from Step 1
+    // Step 2: Build DataContent
     const dataContent: DataContent = {
       event: {
-        eventId: startEventResponse.event_id,
-        summary: 'Automated test event',
-        description: 'Created via Playwright API test'
+        id: startEventResponse.event_id,
+        summary: 'Automated test update',
+        description: 'Updated via Playwright API test as caseworker'
       },
-      data: caseDataContent ?? {},
-      event_token: startEventResponse.token, // ✅ token from Step 1
+      data: {
+        ...(startEventResponse.case_details?.case_data as Record<string, unknown> ?? {})
+      },
+      event_token: startEventResponse.token,
       ignore_warning: false,
-      security_classification: 'PUBLIC',
+      security_classification: startEventResponse.case_details?.security_classification ?? 'PUBLIC',
       supplementary_data_request: {}
     };
 
     // Step 3: Submit event
-    return await this.submitEvent(
-      userId, jurisdictionId, caseType, caseId, dataContent, authToken, serviceAuthToken
+    const submitResponse = await this.submitEvent(
+      userId, jurisdictionId, caseType, caseId, dataContent
     );
-  }
 
+    //return CaseEventResult
+    return {
+      caseId: startEventResponse.case_details?.id ?? 0,
+      jurisdiction: startEventResponse.case_details?.jurisdiction ?? '',
+      state: submitResponse.state,
+      caseData: submitResponse.data ?? {},
+      startEventResponse
+    };
+  }
 }

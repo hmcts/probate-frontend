@@ -11,7 +11,7 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - IHT 205 and Survey test @galaxys4', () => {
+  test.describe('GOP Single Executor journey - IHT 205 and Survey test', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
@@ -44,13 +44,13 @@ getTestLanguages().forEach(language => {
                paymentTaskPage
       }) => {
       const testConfigurator = new TestConfigurator();
-        const scenarioName = `GOP single executor journey - IHT 205 - ${language}`;
+      const scenarioName = `GOP single executor journey - IHT 205 - ${language}`;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
       await basePage.logInfo(scenarioName, "Intestacy screener questions", null);
-      // await intestacyScreenerPage.startApplication(language);
+      await intestacyScreenerPage.startApplication(language);
 
       // Probate Sceeners
       await intestacyScreenerPage.selectDeathCertificate(language);
@@ -168,25 +168,26 @@ getTestLanguages().forEach(language => {
       }
 
       // Thank You
-      const caseId = await paymentTaskPage.seeThankYouPage(language, true);
-      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
+      const caseIdWithHyphen = await paymentTaskPage.seeThankYouPage(language, true);
+      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseIdWithHyphen}`);
+      const caseId = caseIdWithHyphen.replace(/-/g, '');
 
       //Citizen hub
-      caseData = await caseApiService.createCaseEvent(
+      const userId = "5927";
+      const jurisdictionId = "PROBATE";
+      const caseType = "GrantOfRepresentation";
+      const eventId = "boGenerateGrantPreviewForExamining";
+
+      const caseData = await apiCallback.updateCaseAsUser2(
         userId,
         jurisdictionId,
         caseType,
         caseId,
-        eventId,
-        `Bearer ${process.env.AUTH_TOKEN}`,
-        process.env.SERVICE_AUTH_TOKEN ?? '',
-        {
-          // any additional case data fields
-        }
+        eventId
       );
 
-      console.log(`Case created via API: ${JSON.stringify(caseData)}`);
+      console.log(`Event submitted: ${caseData.startEventResponse.event_id}`);
 
-    });
+    })
   });
 });

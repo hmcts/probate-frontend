@@ -41,7 +41,7 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionSpousePartner':
                     return 'husband, wife or civil partner';
                 case 'optionSibling':
-                    return 'half-blood/whole blood sibling';
+                    return 'sibling';
                 case 'optionWholeBloodSibling':
                     return 'whole blood sibling';
                 case 'optionHalfBloodSibling':
@@ -66,7 +66,7 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionSpousePartner':
                     return 'gŵr, gwraig neu bartner sifil';
                 case 'optionSibling':
-                    return 'hanner brawd neu chwaer/brawd neu chwaer cyflawn';
+                    return 'brawd/chwaer';
                 case 'optionWholeBloodSibling':
                     return 'brawd neu chwaer gwaed cyfan';
                 case 'optionHalfBloodSibling':

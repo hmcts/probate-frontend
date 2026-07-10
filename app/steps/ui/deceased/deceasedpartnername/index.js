@@ -12,7 +12,7 @@ class DeceasedPartnerName extends ValidationStep {
         const [isValid, errors] = super.validate(ctx, formdata, language);
         if (!isValid) {
             errors.forEach(e => {
-                if (e.msg.indexOf('{deceasedName}') !== -1) {
+                if (e.msg.includes('{deceasedName}')) {
                     e.msg = e.msg.replace('{deceasedName}', `${ctx.firstName} ${ctx.lastName}`);
                 }
             });

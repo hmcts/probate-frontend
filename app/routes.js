@@ -226,32 +226,16 @@ const redirectTaskList = (req, currentPageCleanUrl, formdata, applicationSubmitt
     const hasExecutorsToNotify = executorsWrapper.hasExecutorsToNotify();
     const hasExecutorsEmailChanged = executorsWrapper.hasExecutorsEmailChanged();
     const allExecutorsHaveDeclared = executorsWrapper.haveAllExecutorsDeclared();
-
-    if (!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) {
+    if ((!applicationSubmitted && config.whitelistedPagesAfterSubmission.includes(currentPageCleanUrl)) ||
+        (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) ||
+        (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && hasMultipleApplicants && invitesSent && !hasExecutorsToNotify && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && !hasExecutorsToNotify && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) ||
+        (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && !hasExecutorsToNotify)) && currentPageCleanUrl === '/executors-invite') ||
+        (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') ||
+        (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session)))) {
         return true;
     }
-    if (!applicantHasPassedPayment && config.whitelistedPagesAfterPayment.includes(currentPageCleanUrl)) {
-        return true;
-    }
-    if (!applicantHasDeclared && !applicationSubmitted && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
-        return true;
-    }
-    if (applicantHasDeclared && hasMultipleApplicants && invitesSent && !hasExecutorsToNotify && !allExecutorsHaveDeclared && config.blacklistedPagesBeforeDeclaration.includes(currentPageCleanUrl)) {
-        return true;
-    }
-    if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && !hasExecutorsToNotify && allExecutorsHaveDeclared)) && !config.whitelistedPagesAfterDeclaration.includes(currentPageCleanUrl)) {
-        return true;
-    }
-    if (applicantHasDeclared && (!hasMultipleApplicants || (invitesSent && !hasExecutorsToNotify)) && currentPageCleanUrl === '/executors-invite') {
-        return true;
-    }
-    if (applicantHasDeclared && (!hasMultipleApplicants || !hasExecutorsEmailChanged) && currentPageCleanUrl === '/executors-update-invite') {
-        return true;
-    }
-    if (currentPageCleanUrl === '/summary' && isHardStop(formdata, caseTypes.getCaseType(req.session))) {
-        return true;
-    }
-    return false;
 };
 
 const allSteps = {

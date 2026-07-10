@@ -157,5 +157,27 @@ describe('stop-page', () => {
 
             testWrapper.testContent(done, contentData, contentToExclude);
         });
+
+        it('test right content loaded on the page - probate divorce outside england/wales', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('probateDivorcePlace');
+            const contentData = {
+                applicationFormPA1P: config.links.applicationFormPA1P,
+                deceasedName: '',
+            };
+            const contentToExclude = ['deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'probateSeparationPlace'];
+
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test right content loaded on the page - probate judicial separation outside england/wales', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('probateSeparationPlace');
+            const contentData = {
+                applicationFormPA1P: config.links.applicationFormPA1P,
+                deceasedName: '',
+            };
+            const contentToExclude = ['deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'probateDivorcePlace',];
+
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
     });
 });

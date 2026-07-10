@@ -120,6 +120,8 @@ class Summary extends Step {
             .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
         ctx.deceasedDivorceDate = content.DivorceDate.date
             .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+        ctx.deceasedPartnerNameQuestion = content.DeceasedPartnerName.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);

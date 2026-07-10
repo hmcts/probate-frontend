@@ -327,8 +327,7 @@ class Declaration extends ValidationStep {
     }
 
     intestacyExecutorsApplyingText(props) {
-        // eslint-disable-next-line no-nested-ternary
-        const relationshipKey = props.primaryApplicantRelationshipToDeceased === 'optionSibling'? (props.primaryApplicantSameParents === 'optionBothParentsSame' ? 'optionWholeBloodSibling' : 'optionHalfBloodSibling'): props.primaryApplicantRelationshipToDeceased;
+        const relationshipKey = this.getRelationshipKey(props.primaryApplicantRelationshipToDeceased, props.primaryApplicantSameParents);
         if (!props.hasMultipleApplicants && props.mainApplicantName) {
             return {
                 name: props.content.intestacyPersonApplying
@@ -356,6 +355,16 @@ class Declaration extends ValidationStep {
         }
     }
 
+    getRelationshipKey(relationshipToDeceased, sameParents) {
+        if (relationshipToDeceased !== 'optionSibling') {
+            return relationshipToDeceased;
+        } else if (relationshipToDeceased === 'optionSibling' && sameParents === 'optionBothParentsSame') {
+            return 'optionWholeBloodSibling';
+        } else if (relationshipToDeceased === 'optionSibling' && sameParents === 'optionOneParentsSame') {
+            return 'optionHalfBloodSibling';
+        }
+        return relationshipToDeceased;
+    }
     executorsNotApplying(executorsNotApplying, content, deceasedName, hasCodicils, language) {
         return executorsNotApplying.map(executor => {
             return content[`executorNotApplyingReason${this.codicilsSuffix(hasCodicils)}`]

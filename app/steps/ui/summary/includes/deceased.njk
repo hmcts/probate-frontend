@@ -95,6 +95,10 @@
                 fields.summary.caseType.value == "gop"
                 and
                 (
+                    fields.deceased.maritalStatus.value == "optionMarried"
+                    or
+                    fields.deceased.maritalStatus.value == "optionWidowed"
+                    or
                     fields.deceased.maritalStatus.value == "optionDivorced"
                     or
                     fields.deceased.maritalStatus.value == "optionSeparated"
@@ -159,6 +163,22 @@
         }
     ],
     url = content.DivorcePlace.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedPartnerNameQuestion.value,
+            answer: fields.deceased.deceasedSpouseName.value,
+            visible:
+                fields.summary.caseType.value == "gop"
+                and
+                fields.deceased.maritalStatus.value == "optionWidowed"
+        }
+    ],
+    url = content.DeceasedPartnerName.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

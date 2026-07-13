@@ -208,7 +208,7 @@
     "braces": "^3.0.3",
     "codeceptjs": "3.7.9",
     "command-line-args": "^6.0.0",
-    "cookie": "^1.0.2",
+    "cookie": "^2.0.0",
     "cookiejar": ">=2.1.4",
     "cross-spawn": "^7.0.6",
     "diff": "^9.0.0",

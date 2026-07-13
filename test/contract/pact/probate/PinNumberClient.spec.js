@@ -3,8 +3,8 @@
  */
 const path = require('path');
 const chai = require('chai');
-const {Pact, Matchers} = require('@pact-foundation/pact');
-const {somethingLike: term} = Matchers;
+const {Pact, MatchersV2} = require('@pact-foundation/pact');
+const {somethingLike: term} = MatchersV2;
 const chaiAsPromised = require('chai-as-promised');
 const PinNumberClient = require('app/services/PinNumber');
 const config = require('config');

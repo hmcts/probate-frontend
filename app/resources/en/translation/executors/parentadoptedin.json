@@ -1,6 +1,7 @@
 {
   "title": "Parent adopted in",
   "question": "Did {deceasedName} legally adopt {applicantName}’s parent ({deceasedName}’s child)?",
+  "wholeBloodNieceOrNephewQuestion": "Was this person&rsquo;s parent legally adopted into {deceasedName}&rsquo;s family?",
   "optionYes": "Yes",
   "optionNo": "No",
 

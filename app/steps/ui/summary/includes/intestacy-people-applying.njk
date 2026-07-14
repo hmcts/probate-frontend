@@ -13,6 +13,46 @@
   )}}
 {% endif %}
 
+{% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" %}
+    {% set deceasedName = (fields.deceased.firstName.value ~ " " ~ fields.deceased.lastName.value) | trim %}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantParentAdoptedIn.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
+                answer: content.CoApplicantParentAdoptedIn[executor.wholeBloodNieceOrNephewParentAdoptedIn],
+                visible: executor.wholeBloodNieceOrNephewParentAdoptedIn
+            }
+        ],
+        url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantParentAdoptionPlace.question,
+                answer: content.CoApplicantParentAdoptionPlace[executor.wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales],
+                visible: executor.wholeBloodNieceOrNephewParentAdoptedIn == "optionYes"
+            }
+        ],
+        url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantParentAdoptedOut.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
+                answer: content.CoApplicantParentAdoptedOut[executor.wholeBloodNieceOrNephewParentAdoptedOut],
+                visible: executor.wholeBloodNieceOrNephewParentAdoptedIn == "optionNo"
+            }
+        ],
+        url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+{% endif %}
+
 {{checkanswer(
     items = [
         {

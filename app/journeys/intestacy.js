@@ -336,6 +336,7 @@ const stepList = {
         otherwise: 'CoApplicantAdoptedOut'
     },
     ParentDieBefore: {
+        wholeBloodNieceOrNephewParentDieBefore: 'CoApplicantParentAdoptedIn',
         parentDieBefore: 'CoApplicantName',
         otherwise: 'StopPage'
     },
@@ -351,13 +352,16 @@ const stepList = {
     },
     CoApplicantParentAdoptedIn: {
         parentAdoptedIn: 'CoApplicantParentAdoptionPlace',
+        wholeBloodNieceOrNephewParentAdoptedIn: 'CoApplicantParentAdoptionPlace',
         otherwise: 'CoApplicantParentAdoptedOut'
     },
     CoApplicantParentAdoptedOut: {
+        wholeBloodNieceOrNephewParentNotAdoptedOut: 'CoApplicantName',
         parentNotAdoptedOut: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
     CoApplicantParentAdoptionPlace: {
+        wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales: 'CoApplicantName',
         parentAdoptedOutEnglandOrWales: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },

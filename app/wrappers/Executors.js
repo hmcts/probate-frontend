@@ -192,6 +192,7 @@ class Executors {
             'wholeBloodSiblingAdoptionInEnglandOrWales',
             'halfBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+            'wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales',
             'childDieBeforeDeceased',
             'wholeBloodSiblingDiedBeforeDeceased',
             'halfBloodSiblingDiedBeforeDeceased'
@@ -204,7 +205,8 @@ class Executors {
             'wholeBloodSiblingAdoptedOut',
             'halfBloodSiblingAdoptedOut',
             'wholeBloodNieceOrNephewAdoptedOut',
-            'halfBloodNieceOrNephewAdoptedOut'
+            'halfBloodNieceOrNephewAdoptedOut',
+            'wholeBloodNieceOrNephewParentAdoptedOut'
         ];
 
         return (

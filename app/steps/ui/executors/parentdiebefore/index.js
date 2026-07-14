@@ -9,6 +9,11 @@ const PARENT_DIE_BEFORE_FIELDS = [
     'halfBloodSiblingDiedBeforeDeceased',
     'wholeBloodSiblingDiedBeforeDeceased'
 ];
+const WHOLE_BLOOD_NIECE_OR_NEPHEW_PARENT_ADOPTION_FIELDS = [
+    'wholeBloodNieceOrNephewParentAdoptedIn',
+    'wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales',
+    'wholeBloodNieceOrNephewParentAdoptedOut'
+];
 class ParentDieBefore extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -52,24 +57,36 @@ class ParentDieBefore extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.parentDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased === 'optionYes' ||
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const parentDiedBefore = ctx.applicantParentDieBeforeDeceased === 'optionYes' ||
             PARENT_DIE_BEFORE_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        ctx.wholeBloodNieceOrNephewParentDieBefore = relationship === 'optionWholeBloodNieceOrNephew' && parentDiedBefore;
+        ctx.parentDieBeforeDeceased = parentDiedBefore;
         return {
             options: [
+                {key: 'wholeBloodNieceOrNephewParentDieBefore', value: true, choice: 'wholeBloodNieceOrNephewParentDieBefore'},
                 {key: 'parentDieBeforeDeceased', value: true, choice: 'parentDieBefore'},
             ]
         };
     }
 
     handlePost(ctx, errors) {
-        if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
+        const relationship = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+        if (relationship === 'optionGrandchild') {
             ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
-        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
+        } else if (relationship === 'optionHalfBloodNieceOrNephew') {
             ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
-        } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+        } else if (relationship === 'optionWholeBloodNieceOrNephew') {
             ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
         }
-        if (ctx.applicantParentDieBeforeDeceased==='optionNo') {
+
+        if (relationship === 'optionWholeBloodNieceOrNephew' && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
+            WHOLE_BLOOD_NIECE_OR_NEPHEW_PARENT_ADOPTION_FIELDS.forEach(field => {
+                delete ctx.list[ctx.index][field];
+            });
+        }
+
+        if (ctx.applicantParentDieBeforeDeceased === 'optionNo') {
             ctx.hasCoApplicant = 'optionYes';
         }
         return [ctx, errors];

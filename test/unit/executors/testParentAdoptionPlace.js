@@ -119,6 +119,48 @@ describe('ParentAdoptionPlace', () => {
             expect(nextStepUrl).to.equal(optionNoUrl);
             done();
         });
+
+        it('should return co-applicant name when a whole-blood niece or nephew parent adoption took place in England or Wales', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/coapplicant-name/1');
+        });
+
+        it('should return the no-name stop page when a whole-blood niece or nephew parent adoption took place outside England or Wales', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptionPlaceNoNameStop');
+        });
     });
 
     describe('ParentAdoptionPlace handlePost', () => {
@@ -144,6 +186,34 @@ describe('ParentAdoptionPlace', () => {
             };
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
             expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptionInEnglandOrWales': 'optionYes'});
+        });
+
+        it('should set wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales for a whole-blood niece or nephew', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptionPlace: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {
+                executors: {
+                    list: [
+                        {},
+                        {}
+                    ]
+                }
+            };
+            ParentAdoptionPlace.handlePost(ctx, errors, formdata);
+            expect(formdata.executors.list[1]).to.deep.equal({
+                wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes'
+            });
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes'
+            });
         });
     });
 });

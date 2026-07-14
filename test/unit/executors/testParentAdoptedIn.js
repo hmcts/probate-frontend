@@ -137,6 +137,42 @@ describe('ParentAdoptedIn', () => {
             expect(nextStepUrl).to.equal(optionNoUrl);
             done();
         });
+
+        it('should return the correct url when a whole-blood niece or nephew parent is adopted in', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                list: [{}, {
+                    coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                    wholeBloodNieceOrNephewParentAdoptedIn: 'optionYes',
+                }],
+            };
+            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/parent-adoption-place/1');
+        });
+
+        it('should return the correct url when a whole-blood niece or nephew parent is not adopted in', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                list: [{}, {
+                    coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                    wholeBloodNieceOrNephewParentAdoptedIn: 'optionNo',
+                }],
+            };
+            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/parent-adopted-out/1');
+        });
     });
 
     describe('ParentAdoptedIn.handlePost', () => {
@@ -162,6 +198,31 @@ describe('ParentAdoptedIn', () => {
             };
             ParentAdoptedIn.handlePost(ctx, errors, formdata);
             expect(ctx.list[1]).to.deep.equal({'coApplicantRelationshipToDeceased': 'optionChild', 'grandchildParentAdoptedIn': 'optionYes'});
+        });
+
+        it('should set wholeBloodNieceOrNephewParentAdoptedIn for a whole-blood niece or nephew', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptedIn: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {
+                executors: {
+                    list: [
+                        {},
+                        {}
+                    ]
+                }
+            };
+            ParentAdoptedIn.handlePost(ctx, errors, formdata);
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                wholeBloodNieceOrNephewParentAdoptedIn: 'optionYes'
+            });
         });
     });
     describe('ParentAdoptedIn generateFields()', () => {

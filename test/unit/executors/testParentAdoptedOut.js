@@ -120,6 +120,48 @@ describe('ParentAdoptedOut', () => {
             expect(nextStepUrl).to.equal(optionYesUrl);
             done();
         });
+
+        it('should return co-applicant name when a whole-blood niece or nephew parent is not adopted out', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewParentAdoptedOut: 'optionNo'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/coapplicant-name/1');
+        });
+
+        it('should return the no-name stop page when a whole-blood niece or nephew parent is adopted out', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewParentAdoptedOut: 'optionYes'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptedOutNoNameStop');
+        });
     });
 
     describe('ParentAdoptedOut.generateFields()', () => {
@@ -184,6 +226,34 @@ describe('ParentAdoptedOut', () => {
             };
             ParentAdoptedOut.handlePost(ctx, errors, formdata);
             expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptedOut': 'optionNo'});
+        });
+
+        it('should set wholeBloodNieceOrNephewParentAdoptedOut for a whole-blood niece or nephew', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptedOut: 'optionNo',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {
+                executors: {
+                    list: [
+                        {},
+                        {}
+                    ]
+                }
+            };
+            ParentAdoptedOut.handlePost(ctx, errors, formdata);
+            expect(formdata.executors.list[1]).to.deep.equal({
+                wholeBloodNieceOrNephewParentAdoptedOut: 'optionNo'
+            });
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                wholeBloodNieceOrNephewParentAdoptedOut: 'optionNo'
+            });
         });
     });
 });

@@ -81,6 +81,33 @@ getTestLanguages().forEach(language => {
         await I.enterProbateEstateValues(language, 400000, 400000);
 
         await I.selectDeceasedAliasGop(language, optionNo);
+
+        // state divorced/separated
+        await I.selectDeceasedMaritalStatus(language, '-2');
+        await I.selectDeceasedDivorcePlace('-2');
+        await I.seeStopPage('probateDivorcePlace');
+        await I.selectDeceasedDivorcePlace('');
+        await I.clickBrowserBackButton();
+        await I.clickBrowserBackButton();
+
+        // state judicial separation
+        await I.selectDeceasedMaritalStatus(language, '-5');
+        await I.selectDeceasedDivorcePlace('-2');
+        await I.seeStopPage('probateSeparationPlace');
+        await I.selectDeceasedDivorcePlace('');
+
+        await I.selectDivorceSeparationDate(language, false, false);
+
+        // go back to marital status (there's gotta be a better way...)
+        await I.clickBrowserBackButton();
+        await I.clickBrowserBackButton();
+        await I.clickBrowserBackButton();
+        await I.clickBrowserBackButton();
+
+
+        await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
+        await I.clickBrowserBackButton();
+
         await I.selectDeceasedMarriedAfterDateOnWill(language, optionNo);
 
         await I.selectWillDamage(language, optionYes, 'test');
@@ -145,6 +172,7 @@ getTestLanguages().forEach(language => {
         await I.seeThankYouPage(language);
 
     }).tag('@e2enightly')
+        .tag('@e2enightly-a')
         .tag('@e2enightly-pr')
         .retry(TestConfigurator.getRetryScenarios());
 });

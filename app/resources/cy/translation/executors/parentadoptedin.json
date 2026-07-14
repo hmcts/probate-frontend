@@ -1,6 +1,7 @@
 {
   "title": "Parent adopted in",
   "question": "A wnaeth {deceasedName} fabwysiadu rhiant {applicantName}  (plentyn {deceasedName}) yn gyfreithlon?",
+  "wholeBloodNieceOrNephewQuestion": "A gafodd rhiant yr unigolyn hwn ei fabwysiadu&rsquo;n gyfreithlon i deulu {deceasedName}?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 

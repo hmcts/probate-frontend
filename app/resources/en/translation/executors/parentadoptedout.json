@@ -1,6 +1,7 @@
 {
   "title": "Parent adopted out",
   "question": "Did {deceasedName} legally adopt {applicantName}’s parent ({deceasedName}’s child) out of their family (give them up for adoption)?",
+  "wholeBloodNieceOrNephewQuestion": "Was this person&rsquo;s parent legally adopted out of {deceasedName}&rsquo;s family (given up for adoption)?",
   "optionYes": "Yes",
   "optionNo": "No",
 

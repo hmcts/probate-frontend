@@ -15990,17 +15990,17 @@ __metadata:
   linkType: hard
 
 "ws@npm:^6.2.3":
-  version: 6.2.4
-  resolution: "ws@npm:6.2.4"
+  version: 6.2.5
+  resolution: "ws@npm:6.2.5"
   dependencies:
     async-limiter: "npm:~1.0.0"
-  checksum: 10/5ec88106f4f97fb175837a476e186b889ec8c57a5ee7c511c852fc1d129ad55cd1c1f45092af2df7419c1394f2000f9b1b6f68f2fcfe52d04d8882aafa1b3838
+  checksum: 10/76fe7613a7b98fda84a796a39c8c2f89671e630de28f5d8b2ad3405e309c0913ed06749c1e0f92e696781acea1d469f1c14980450c6bb104cbde47e3c80fe893
   languageName: node
   linkType: hard
 
 "ws@npm:^7, ws@npm:^7.0.0, ws@npm:^7.5.10":
-  version: 7.5.11
-  resolution: "ws@npm:7.5.11"
+  version: 7.5.12
+  resolution: "ws@npm:7.5.12"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -16009,13 +16009,13 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10/486141e4a01bb75883f9ba39317309c2427e24db1cb75e340fad6e5886b65c03d994a34209f0e4ba06dd6cb9ec95dd1b6a09c52c05eed9a34d6376f4fbbf617c
+  checksum: 10/e473a3a17faace64e39e596df585899561dac7ec0768934261fedd04b976c34626f1114dac09174cbd26307e1034783a0f91ea6c69917bc24ba52b27687a8989
   languageName: node
   linkType: hard
 
 "ws@npm:^8.21.0, ws@npm:^8.8.0":
-  version: 8.21.0
-  resolution: "ws@npm:8.21.0"
+  version: 8.21.1
+  resolution: "ws@npm:8.21.1"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -16024,7 +16024,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10/088411956432c8f876158409d5a285cb9ad1382f593391f51d3a599bd0a5b277f876609ebd00fc3596321c4a4c9064d6fffe1ebad960e8ea7fd9ae25324f35c2
+  checksum: 10/8493bc543072763d7bacffb2282c9d7954dc5c599c9df4c2d15f91c217f63e293a33ffc70756e3f2bf8c5d85bc6069ad7d9983c382d4713c807b083ffb1b1719
   languageName: node
   linkType: hard
 

@@ -112,6 +112,15 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        // Keep routing-only flags out of persisted executors payload.
+        delete ctx.childOnly;
+        delete ctx.grandChildOnly;
+        delete ctx.halfSiblingOnly;
+        delete ctx.halfNieceOrNephewOnly;
+        delete ctx.wholeSiblingOnly;
+        delete ctx.wholeNieceOrNephewOnly;
+        delete ctx.deceased;
+        delete ctx.deceasedName;
         return [ctx, formdata];
     }
     clearRelationshipFields(ctx, formdata) {
@@ -152,9 +161,6 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;
-            delete ctx.list[ctx.index].wholeBloodNieceOrNephewParentAdoptedIn;
-            delete ctx.list[ctx.index].wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales;
-            delete ctx.list[ctx.index].wholeBloodNieceOrNephewParentAdoptedOut;
             break;
         default:
             break;

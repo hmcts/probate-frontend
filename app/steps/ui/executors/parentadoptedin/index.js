@@ -5,16 +5,13 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/parent-adopted-in';
 const PARENT_ADOPTED_IN_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptedIn',
-    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewParentAdoptedIn'
+    optionGrandchild: 'grandchildParentAdoptedIn'
 };
 const PARENT_ADOPTION_PLACE_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
-    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales'
+    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales'
 };
 const PARENT_ADOPTED_OUT_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptedOut',
-    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewParentAdoptedOut'
+    optionGrandchild: 'grandchildParentAdoptedOut'
 };
 
 class CoApplicantParentAdoptedIn extends ValidationStep {
@@ -54,8 +51,7 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const adoptedInField = this.parentAdoptedInField(ctx);
-        const coapplParentAdoptedIn = ctx.list?.at(ctx.index)?.[adoptedInField];
+        const coapplParentAdoptedIn = ctx.applicantParentAdoptedIn;
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
         ctx.wholeBloodNieceOrNephewParentAdoptedIn = relationship === 'optionWholeBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
         ctx.parentAdopted = relationship !== 'optionWholeBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
@@ -91,16 +87,26 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         return [ctx, errors];
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep route-only flags out of persisted executor payload.
+        delete ctx.wholeBloodNieceOrNephewParentAdoptedIn;
+        delete ctx.parentAdopted;
+        delete ctx.deceasedName;
+        delete ctx.applicantName;
+        return [ctx, formdata];
+    }
+
     parentAdoptedInField(ctx) {
-        return PARENT_ADOPTED_IN_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || 'grandchildParentAdoptedIn';
+        return PARENT_ADOPTED_IN_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
     }
 
     parentAdoptionPlaceField(ctx) {
-        return PARENT_ADOPTION_PLACE_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || 'grandchildParentAdoptionInEnglandOrWales';
+        return PARENT_ADOPTION_PLACE_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
     }
 
     parentAdoptedOutField(ctx) {
-        return PARENT_ADOPTED_OUT_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || 'grandchildParentAdoptedOut';
+        return PARENT_ADOPTED_OUT_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
     }
 }
 

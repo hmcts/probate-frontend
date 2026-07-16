@@ -5,8 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adoption-place';
 const PARENT_ADOPTION_PLACE_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
-    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales'
+    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales'
 };
 
 class CoApplicantParentAdoptionPlace extends ValidationStep {
@@ -54,8 +53,7 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
 
     nextStepOptions(ctx) {
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
-        const adoptionPlaceField = this.parentAdoptionPlaceField(ctx);
-        const parentAdoptedEngWales = ctx.list?.at(ctx.index)?.[adoptionPlaceField];
+        const parentAdoptedEngWales = ctx.applicantParentAdoptionPlace;
         ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales = relationship === 'optionWholeBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
         ctx.parentAdoptedInEnglandOrWales = relationship !== 'optionWholeBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
         return {
@@ -74,14 +72,21 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
                 formdata.executors.list[ctx.index][adoptionPlaceField] = ctx.applicantParentAdoptionPlace;
             }
         }
-        if (ctx.applicantParentAdoptionPlace === 'optionNo') {
-            ctx.hasCoApplicant = 'optionYes';
-        }
         return [ctx, errors];
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep route-only flags out of persisted executor payload.
+        delete ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales;
+        delete ctx.parentAdoptedInEnglandOrWales;
+        delete ctx.deceasedName;
+        delete ctx.applicantName;
+        return [ctx, formdata];
+    }
+
     parentAdoptionPlaceField(ctx) {
-        return PARENT_ADOPTION_PLACE_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || 'grandchildParentAdoptionInEnglandOrWales';
+        return PARENT_ADOPTION_PLACE_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
     }
 }
 

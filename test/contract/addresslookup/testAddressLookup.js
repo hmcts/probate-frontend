@@ -4,13 +4,12 @@ const {expect} = require('chai');
 const testConfig = require('config');
 const PostcodeLookup = require('app/services/PostcodeLookup');
 
-const POSTCODE_SERVICE_TOKEN = testConfig.services.postcode.token;
+const POSTCODE_SERVICE_TOKEN = testConfig.postcodeLookup.token;
 
 describe('Address Lookup API Tests', () => {
     let postcodeLookup;
 
     beforeEach(() => {
-        testConfig.services.postcode.token = POSTCODE_SERVICE_TOKEN;
         postcodeLookup = new PostcodeLookup();
     });
 

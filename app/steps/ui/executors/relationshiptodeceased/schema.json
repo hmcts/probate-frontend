@@ -3,7 +3,7 @@
   "$id": "co-applicant-relationship-to-deceased",
   "type": "object",
   "properties": {
-    "relationshipToDeceased": {
+    "coApplicantRelationshipToDeceased": {
       "type": "string"
     }
   },

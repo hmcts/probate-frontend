@@ -101,7 +101,7 @@ class CoApplicantAdoptedIn extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.adoptedIn !== formdata.executors.list[ctx.index]?.adoptedIn) {
+        if (formdata.executors && formdata.executors.list && ctx.adoptedIn !== this.currentAdoptedInValue(formdata, ctx)) {
             this.clearAdoptionRelatedFields(ctx, formdata);
         }
         const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
@@ -127,6 +127,35 @@ class CoApplicantAdoptedIn extends ValidationStep {
             break;
         }
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep journey-only values out of persisted executor payload.
+        delete ctx.isAdoptedIn;
+        delete ctx.deceasedName;
+        delete ctx.applicantName;
+        return [ctx, formdata];
+    }
+
+    currentAdoptedInValue(formdata, ctx) {
+        const rel = formdata.executors?.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        switch (rel) {
+        case 'optionChild':
+            return formdata.executors.list[ctx.index].childAdoptedIn;
+        case 'optionGrandchild':
+            return formdata.executors.list[ctx.index].grandchildAdoptedIn;
+        case 'optionHalfBloodSibling':
+            return formdata.executors.list[ctx.index].halfBloodSiblingAdoptedIn;
+        case 'optionHalfBloodNieceOrNephew':
+            return formdata.executors.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
+        case 'optionWholeBloodSibling':
+            return formdata.executors.list[ctx.index].wholeBloodSiblingAdoptedIn;
+        case 'optionWholeBloodNieceOrNephew':
+            return formdata.executors.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn;
+        default:
+            return null;
+        }
     }
 
     clearAdoptionRelatedFields(ctx, formdata) {

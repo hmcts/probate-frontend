@@ -5,8 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adopted-out';
 const PARENT_ADOPTED_OUT_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptedOut',
-    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewParentAdoptedOut'
+    optionGrandchild: 'grandchildParentAdoptedOut'
 };
 
 class CoApplicantParentAdoptedOut extends ValidationStep {
@@ -53,8 +52,7 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
 
     nextStepOptions(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        const adoptedOutField = this.parentAdoptedOutField(ctx);
-        const parentNotAdoptedOut = adoptedOutField && ctx.list[ctx.index]?.[adoptedOutField] === 'optionNo';
+        const parentNotAdoptedOut = ctx.applicantParentAdoptedOut === 'optionNo';
         ctx.wholeBloodNieceOrNephewParentNotAdoptedOut = relationship === 'optionWholeBloodNieceOrNephew' && parentNotAdoptedOut;
         ctx.parentNotAdoptedOut = relationship !== 'optionWholeBloodNieceOrNephew' && parentNotAdoptedOut;
         return {
@@ -81,14 +79,21 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
                 formdata.executors.list[ctx.index][adoptedOutField] = ctx.applicantParentAdoptedOut;
             }
         }
-        if (ctx.applicantParentAdoptedOut === 'optionYes') {
-            ctx.hasCoApplicant = 'optionYes';
-        }
         return [ctx, errors];
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep route-only flags out of persisted executor payload.
+        delete ctx.wholeBloodNieceOrNephewParentNotAdoptedOut;
+        delete ctx.parentNotAdoptedOut;
+        delete ctx.deceasedName;
+        delete ctx.applicantName;
+        return [ctx, formdata];
+    }
+
     parentAdoptedOutField(ctx) {
-        return PARENT_ADOPTED_OUT_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || 'grandchildParentAdoptedOut';
+        return PARENT_ADOPTED_OUT_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
     }
 }
 

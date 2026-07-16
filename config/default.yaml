@@ -16,7 +16,7 @@ featureToggles:
   ft_excepted_estates: 'probate-excepted-estates'
   ft_will_condition : 'probate-will-condition'
   ft_stop_ihtonline : 'probate-stop-ihtonline'
-  ft_probate_fee_increase_2025 : 'probate-fee-increase-2025'
+  ft_probate_fee_increase_2026 : 'probate-fee-increase-2026'
   appwideToggles: []
 # overrides featureToggles to e.g. switch off in pipeline/locally
 configFeatureToggles:
@@ -144,6 +144,15 @@ services:
       jurisdiction2: 'probate registry'
       service: 'probate'
       keyword: 'GrantWill'
+    newfee2026_copiesData:
+      amount_or_volume: 0
+      applicant_type: 'all'
+      channel: 'default'
+      event: 'copies'
+      jurisdiction1: 'family'
+      jurisdiction2: 'probate registry'
+      service: 'probate'
+      keyword: 'GrantWillCopiesIndividualApplication'
   equalityAndDiversity:
     name: 'Equality and Diversity Service'
     url: 'http://localhost:4000'
@@ -419,5 +428,5 @@ disposal:
   inactivityDaysThreshold: 90
   deletionDaysThreshold: 90
 fee:
-  copiesUKFee: '1.50'
-  copiesUKFee2025: '16.00'
+  copiesUKFee: '16.00'
+  copiesUKFee2026: '2.00'

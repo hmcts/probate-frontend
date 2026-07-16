@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /* eslint-disable no-unused-expressions */
 'use strict';
 
@@ -85,30 +84,30 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0219',
                 'description': 'Application for a grant of probate (Estate over £5000)',
                 'version': 3,
-                'fee_amount': 300
+                'fee_amount': 526
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 16
+                'fee_amount': 2
             }));
             feesLookupStub.onCall(2).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 32
+                'fee_amount': 4
             }));
 
             const expectedResponse = {
                 status: 'success',
-                applicationfee: 300,
+                applicationfee: 526,
                 applicationvalue: 6000,
                 ukcopies: 1,
-                ukcopiesfee: 16.00,
+                ukcopiesfee: 2,
                 overseascopies: 2,
-                overseascopiesfee: 32,
-                total: 348.00,
+                overseascopiesfee: 4,
+                total: 532.00,
                 applicationcode: 'FEE0219',
                 applicationversion: 3,
                 ukcopiescode: 'FEE0003',
@@ -142,13 +141,13 @@ describe('FeesCalculator', () => {
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 16.00
+                'fee_amount': 2
             }));
             feesLookupStub.onCall(1).returns(Promise.resolve({
                 'code': 'FEE0003',
                 'description': 'Additional copies of the grant representation',
                 'version': 3,
-                'fee_amount': 32
+                'fee_amount': 4
             }));
 
             const expectedResponse = {
@@ -156,12 +155,12 @@ describe('FeesCalculator', () => {
                 applicationfee: 0,
                 applicationvalue: 4000,
                 ukcopies: 1,
-                ukcopiesfee: 16.00,
+                ukcopiesfee: 2,
                 overseascopies: 2,
-                overseascopiesfee: 32,
+                overseascopiesfee: 4,
                 applicationcode: '',
                 applicationversion: 0,
-                total: 48.00,
+                total: 6.00,
                 ukcopiescode: 'FEE0003',
                 ukcopiesversion: 3,
                 overseascopiescode: 'FEE0003',

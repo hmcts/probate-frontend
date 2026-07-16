@@ -30,12 +30,16 @@ class NewSubmittedToHmrc extends ValidationStep {
             delete ctx.ihtNetValue;
             delete ctx.grossValueField;
             delete ctx.netValueField;
+            delete ctx.hmrcLetterId;
+            delete ctx.uniqueProbateCodeId;
         }
         return super.handlePost(ctx, errors);
     }
     isComplete(ctx) {
+        const noIht400Required = ctx.estateValueCompleted === 'optionNo';
+        const iht400RequiredAndCodeReceived = ctx.estateValueCompleted === 'optionYes' && ctx.hmrcLetterId === 'optionYes';
         return [
-            ctx.estateValueCompleted==='optionYes' || ctx.estateValueCompleted==='optionNo', 'inProgress'
+            noIht400Required || iht400RequiredAndCodeReceived, 'inProgress'
         ];
     }
 }

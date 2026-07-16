@@ -66,7 +66,6 @@ describe(testStepUrl, () => {
                 })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionParent',
                         anyLivingDescendants: 'optionNo'
                     };
 
@@ -84,7 +83,6 @@ describe(testStepUrl, () => {
                 })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionSibling',
                         anyLivingDescendants: 'optionNo'
                     };
 
@@ -102,7 +100,6 @@ describe(testStepUrl, () => {
                 })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionParent',
                         anyLivingDescendants: 'optionYes',
                     };
 

@@ -5,7 +5,8 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adoption-place';
 const PARENT_ADOPTION_PLACE_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales'
+    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
+    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
 };
 
 class CoApplicantParentAdoptionPlace extends ValidationStep {

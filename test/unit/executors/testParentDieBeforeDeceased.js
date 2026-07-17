@@ -167,9 +167,9 @@ describe('Co-applicant-parent-die-before', () => {
                     {firstName: 'John', lastName: 'Doe'},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewParentAdoptedIn: 'optionYes',
-                        wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo',
-                        wholeBloodNieceOrNephewParentAdoptedOut: 'optionYes'
+                        wholeBloodNieceOrNephewAdoptedIn: 'optionYes',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
+                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
                     },
                 ],
                 index: 1,

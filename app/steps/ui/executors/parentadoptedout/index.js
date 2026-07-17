@@ -5,7 +5,8 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adopted-out';
 const PARENT_ADOPTED_OUT_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptedOut'
+    optionGrandchild: 'grandchildParentAdoptedOut',
+    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptedOut'
 };
 
 class CoApplicantParentAdoptedOut extends ValidationStep {

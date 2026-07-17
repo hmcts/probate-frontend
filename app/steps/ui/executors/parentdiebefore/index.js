@@ -9,10 +9,10 @@ const PARENT_DIE_BEFORE_FIELDS = [
     'halfBloodSiblingDiedBeforeDeceased',
     'wholeBloodSiblingDiedBeforeDeceased'
 ];
-const WHOLE_BLOOD_NIECE_OR_NEPHEW_PARENT_ADOPTION_FIELDS = [
-    'wholeBloodNieceOrNephewParentAdoptedIn',
-    'wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales',
-    'wholeBloodNieceOrNephewParentAdoptedOut'
+const PARENT_ADOPTION_FIELDS = [
+    'wholeBloodNieceOrNephewAdoptedIn',
+    'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+    'wholeBloodNieceOrNephewAdoptedOut'
 ];
 class ParentDieBefore extends ValidationStep {
 
@@ -81,7 +81,7 @@ class ParentDieBefore extends ValidationStep {
         }
 
         if (relationship === 'optionWholeBloodNieceOrNephew' && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
-            WHOLE_BLOOD_NIECE_OR_NEPHEW_PARENT_ADOPTION_FIELDS.forEach(field => {
+            PARENT_ADOPTION_FIELDS.forEach(field => {
                 delete ctx.list[ctx.index][field];
             });
         }

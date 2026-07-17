@@ -1041,7 +1041,7 @@ describe('Executors.js', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo'
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
                     }
                 ]
             };
@@ -1055,7 +1055,7 @@ describe('Executors.js', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewParentAdoptedOut: 'optionYes'
+                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
                     }
                 ]
             };

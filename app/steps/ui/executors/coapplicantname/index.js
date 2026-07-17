@@ -43,7 +43,12 @@ class CoApplicantName extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.isChildJointApplication = ctx.applicantRelationshipToDeceased === 'optionChild' || ctx.applicantRelationshipToDeceased === 'optionGrandchild' || ctx.applicantRelationshipToDeceased === 'optionSibling';
+        const currentCoApplicantRelationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        ctx.isChildJointApplication = (
+            ctx.applicantRelationshipToDeceased === 'optionChild' ||
+            ctx.applicantRelationshipToDeceased === 'optionGrandchild' ||
+            ctx.applicantRelationshipToDeceased === 'optionSibling'
+        ) && currentCoApplicantRelationship !== 'optionWholeBloodNieceOrNephew';
         ctx.isParentJointApplication = ctx.applicantRelationshipToDeceased === 'optionParent';
         return {
             options: [

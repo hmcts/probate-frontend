@@ -129,11 +129,12 @@ describe('ParentAdoptionPlace', () => {
             const ctx = {
                 caseType: 'intestacy',
                 index: '1',
+                applicantParentAdoptionPlace: 'optionYes',
                 list: [
                     {},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes'
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
                     }
                 ],
             };
@@ -150,11 +151,12 @@ describe('ParentAdoptionPlace', () => {
             const ctx = {
                 caseType: 'intestacy',
                 index: '1',
+                applicantParentAdoptionPlace: 'optionNo',
                 list: [
                     {},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo'
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
                     }
                 ],
             };
@@ -164,13 +166,13 @@ describe('ParentAdoptionPlace', () => {
     });
 
     describe('ParentAdoptionPlace handlePost', () => {
-        it('should childAdoptionInEnglandOrWales = optionYes if coApplicantRelationshipToDeceased is Child', () => {
+        it('should set grandchildParentAdoptionInEnglandOrWales when relationship is grandchild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptionPlace: 'optionYes',
                 list: [
                     {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ]
             };
@@ -188,7 +190,7 @@ describe('ParentAdoptionPlace', () => {
             expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptionInEnglandOrWales': 'optionYes'});
         });
 
-        it('should set wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales for a whole-blood niece or nephew', () => {
+        it('should map whole-blood niece or nephew parent adoption place to supported field', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptionPlace: 'optionYes',
@@ -208,12 +210,48 @@ describe('ParentAdoptionPlace', () => {
             };
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
             expect(formdata.executors.list[1]).to.deep.equal({
-                wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes'
+                wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
             });
             expect(ctx.list[1]).to.deep.equal({
                 coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes'
+                wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
             });
+        });
+
+        it('should not persist unsupported wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales key', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptionPlace: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {executors: {list: [{}, {}]}};
+
+            ParentAdoptionPlace.handlePost(ctx, errors, formdata);
+
+            // eslint-disable-next-line no-undefined
+            expect(ctx.list[1].wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales).to.equal(undefined);
+        });
+    });
+
+    describe('handleGet()', () => {
+        it('should load saved supported parent adoption place field for whole-blood niece or nephew', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
+                    }
+                ]
+            };
+
+            const [updatedCtx] = ParentAdoptionPlace.handleGet(ctx);
+            expect(updatedCtx.applicantParentAdoptionPlace).to.equal('optionNo');
         });
     });
 });

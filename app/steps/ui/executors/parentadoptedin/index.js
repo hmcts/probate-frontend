@@ -5,13 +5,16 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/parent-adopted-in';
 const PARENT_ADOPTED_IN_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptedIn'
+    optionGrandchild: 'grandchildParentAdoptedIn',
+    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptedIn'
 };
 const PARENT_ADOPTION_PLACE_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales'
+    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
+    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
 };
 const PARENT_ADOPTED_OUT_FIELDS = {
-    optionGrandchild: 'grandchildParentAdoptedOut'
+    optionGrandchild: 'grandchildParentAdoptedOut',
+    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptedOut'
 };
 
 class CoApplicantParentAdoptedIn extends ValidationStep {

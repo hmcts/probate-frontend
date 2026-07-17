@@ -19,8 +19,8 @@
         items = [
             {
                 question: content.CoApplicantParentAdoptedIn.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
-                answer: content.CoApplicantParentAdoptedIn[executor.wholeBloodNieceOrNephewParentAdoptedIn],
-                visible: executor.wholeBloodNieceOrNephewParentAdoptedIn
+                answer: content.CoApplicantParentAdoptedIn[executor.wholeBloodNieceOrNephewAdoptedIn],
+                visible: executor.wholeBloodNieceOrNephewAdoptedIn
             }
         ],
         url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
@@ -31,8 +31,8 @@
         items = [
             {
                 question: content.CoApplicantParentAdoptionPlace.question,
-                answer: content.CoApplicantParentAdoptionPlace[executor.wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales],
-                visible: executor.wholeBloodNieceOrNephewParentAdoptedIn == "optionYes"
+                answer: content.CoApplicantParentAdoptionPlace[executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales],
+                visible: executor.wholeBloodNieceOrNephewAdoptedIn == "optionYes"
             }
         ],
         url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
@@ -43,8 +43,8 @@
         items = [
             {
                 question: content.CoApplicantParentAdoptedOut.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
-                answer: content.CoApplicantParentAdoptedOut[executor.wholeBloodNieceOrNephewParentAdoptedOut],
-                visible: executor.wholeBloodNieceOrNephewParentAdoptedIn == "optionNo"
+                answer: content.CoApplicantParentAdoptedOut[executor.wholeBloodNieceOrNephewAdoptedOut],
+                visible: executor.wholeBloodNieceOrNephewAdoptedIn == "optionNo"
             }
         ],
         url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
@@ -90,11 +90,6 @@
         adoptedIn: "wholeBloodSiblingAdoptedIn",
         adoptedOut: "wholeBloodSiblingAdoptedOut",
         adoptionPlace: "wholeBloodSiblingAdoptionInEnglandOrWales"
-    },
-    "optionWholeBloodNieceOrNephew": {
-        adoptedIn: "wholeBloodNieceOrNephewAdoptedIn",
-        adoptedOut: "wholeBloodNieceOrNephewAdoptedOut",
-        adoptionPlace: "wholeBloodNieceOrNephewAdoptionInEnglandOrWales"
     }
 } %}
 

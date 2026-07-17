@@ -50,7 +50,8 @@ describe('parent-adopted-in', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'});
+                    // The whole-blood niece/nephew wording is rendered only for that relationship path.
+                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'}, ['wholeBloodNieceOrNephewQuestion']);
                 });
         });
 

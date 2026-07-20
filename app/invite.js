@@ -86,7 +86,6 @@ class InviteLink {
         this.getAuth(req)
             .then(([authToken, serviceAuthorisation]) => {
                 if (authToken === null || serviceAuthorisation === null) {
-                    logger.error('Error while getting the authToken and serviceAuthorisation');
                     failure(res);
                 } else {
                     const inviteId = req.params.inviteId;
@@ -95,10 +94,8 @@ class InviteLink {
                     inviteLink.get(inviteId, authToken, serviceAuthorisation)
                         .then(result => {
                             if (result.name === 'Error') {
-                                logger.error(`Error while verifying the token: ${result.message}`);
                                 failure(res);
                             } else {
-                                logger.info('Intestacy Link is valid id:'+result.formdataId);
                                 const formData = ServiceMapper.map(
                                     'FormData',
                                     [config.services.orchestrator.url, req.sessionID]
@@ -109,23 +106,19 @@ class InviteLink {
                                         req.session.formdataId = result.formdataId;
                                         req.session.inviteId = inviteId;
                                         req.session.validLink = true;
-                                        logger.info('successfully got the case for intestacy co-applicant');
                                         success(res);
                                     })
-                                    .catch(err => {
-                                        logger.error(`Error while get the case: ${err}`);
+                                    .catch(() => {
                                         failure(res);
                                     });
                             }
                         })
-                        .catch(err => {
-                            logger.error(`Error while checking the link or sending the pin: ${err}`);
+                        .catch(() => {
                             failure(res);
                         });
                 }
             })
-            .catch(err => {
-                logger.error(`Error while getting the authToken and serviceAuthorisation: ${err}`);
+            .catch(() => {
                 failure(res);
             });
     }

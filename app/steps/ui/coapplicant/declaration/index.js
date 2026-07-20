@@ -52,7 +52,6 @@ class CoApplicantDeclaration extends ValidationStep {
         ctx.serviceAuthorization = req.session.serviceAuthorization;
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.caseType = caseTypes.getCaseType(req.session);
-        console.log('CoApplicantDeclaration ctx.caseType: ', ctx.caseType);
         assign(ctx, Sanitize.sanitizeInput(formdata.declaration));
         return ctx;
     }

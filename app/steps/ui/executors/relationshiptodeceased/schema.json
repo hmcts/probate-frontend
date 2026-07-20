@@ -4,7 +4,17 @@
   "type": "object",
   "properties": {
     "coApplicantRelationshipToDeceased": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "optionChild",
+        "optionGrandchild",
+        "optionHalfBloodSibling",
+        "optionHalfBloodNieceOrNephew",
+        "optionWholeBloodSibling",
+        "optionWholeBloodNieceOrNephew",
+        "optionParent",
+        "optionOther"
+      ]
     }
   },
   "required": [

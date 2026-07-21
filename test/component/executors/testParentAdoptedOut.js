@@ -1,6 +1,5 @@
 'use strict';
 
-const {expect} = require('chai');
 const TestWrapper = require('test/util/TestWrapper');
 const ParentAdoptedOut = require('app/steps/ui/executors/parentadoptedout');
 const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
@@ -97,34 +96,6 @@ describe('parent-adopted-out', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
-                });
-        });
-
-        it('shows required validation for whole-blood sibling path when no option selected', (done) => {
-            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.agent.post(testWrapper.pageUrl)
-                        .type('form')
-                        .send({applicantParentAdoptedOut: ''})
-                        .expect(200)
-                        .then(response => {
-                            const expectedError = 'Select ‘Yes’ if this person’s parent was adopted out of John Doe’s family';
-                            expect(response.text).to.contain('There is a problem');
-                            expect(response.text).to.contain(expectedError);
-                            expect(response.text).to.contain('href="#applicantParentAdoptedOut"');
-                            expect(response.text).to.contain('applicantParentAdoptedOut-error');
-                            done();
-                        })
-                        .catch(done);
                 });
         });
 

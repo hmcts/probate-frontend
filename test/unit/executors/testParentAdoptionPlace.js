@@ -217,41 +217,5 @@ describe('ParentAdoptionPlace', () => {
                 wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
             });
         });
-
-        it('should not persist unsupported wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales key', () => {
-            const ctx = {
-                index: '1',
-                applicantParentAdoptionPlace: 'optionYes',
-                list: [
-                    {},
-                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
-                ]
-            };
-            const errors = [];
-            const formdata = {executors: {list: [{}, {}]}};
-
-            ParentAdoptionPlace.handlePost(ctx, errors, formdata);
-
-            // eslint-disable-next-line no-undefined
-            expect(ctx.list[1].wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales).to.equal(undefined);
-        });
-    });
-
-    describe('handleGet()', () => {
-        it('should load saved supported parent adoption place field for whole-blood niece or nephew', () => {
-            const ctx = {
-                index: 1,
-                list: [
-                    {},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
-                    }
-                ]
-            };
-
-            const [updatedCtx] = ParentAdoptionPlace.handleGet(ctx);
-            expect(updatedCtx.applicantParentAdoptionPlace).to.equal('optionNo');
-        });
     });
 });

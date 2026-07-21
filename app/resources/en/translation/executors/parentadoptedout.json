@@ -7,7 +7,8 @@
 
   "errors": {
     "applicantParentAdoptedOut": {
-      "required": "Select ‘Yes’ if {applicantName}’s parent was adopted out of {deceasedName}’s family"
+      "required": "Select ‘Yes’ if {applicantName}’s parent was adopted out of {deceasedName}’s family",
+      "wholeBloodNieceOrNephewRequired": "Select ‘Yes’ if this person’s parent was adopted out of {deceasedName}’s family"
     }
   }
 }

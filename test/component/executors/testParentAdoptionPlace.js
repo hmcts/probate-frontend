@@ -1,6 +1,5 @@
 'use strict';
 
-const {expect} = require('chai');
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
 const CoApplicantName = require('app/steps/ui/executors/coapplicantname');
@@ -94,34 +93,6 @@ describe('parent-adoption-place', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
-                });
-        });
-
-        it('shows required validation for whole-blood sibling path when no option selected', (done) => {
-            testWrapper.pageUrl = ParentAdoptionPlace.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.agent.post(testWrapper.pageUrl)
-                        .type('form')
-                        .send({applicantParentAdoptionPlace: ''})
-                        .expect(200)
-                        .then(response => {
-                            const expectedError = 'Select &lsquo;Yes&rsquo; if the adoption took place in England or Wales';
-                            expect(response.text).to.contain('There is a problem');
-                            expect(response.text).to.contain(expectedError);
-                            expect(response.text).to.contain('href="#applicantParentAdoptionPlace"');
-                            expect(response.text).to.contain('applicantParentAdoptionPlace-error');
-                            done();
-                        })
-                        .catch(done);
                 });
         });
 

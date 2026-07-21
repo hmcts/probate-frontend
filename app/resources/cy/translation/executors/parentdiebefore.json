@@ -10,7 +10,8 @@
 
   "errors": {
     "applicantParentDieBeforeDeceased": {
-      "required": "Dewiswch 'Do' os wnaeth rhiant y person hwn farw cyn {deceasedName}"
+      "required": "Dewiswch 'Do' os wnaeth rhiant y person hwn farw cyn {deceasedName}",
+      "wholeBloodNieceOrNephewRequired": "Dewiswch 'Do' os wnaeth rhiant y person hwn farw cyn {deceasedName}"
     }
   }
 }

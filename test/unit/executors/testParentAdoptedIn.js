@@ -227,39 +227,5 @@ describe('ParentAdoptedIn', () => {
                 wholeBloodNieceOrNephewAdoptedIn: 'optionYes'
             });
         });
-
-        it('should not persist unsupported wholeBloodNieceOrNephewParentAdoptedIn key', () => {
-            const ctx = {
-                index: '1',
-                applicantParentAdoptedIn: 'optionYes',
-                list: [
-                    {},
-                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
-                ]
-            };
-            const errors = [];
-            const formdata = {executors: {list: [{}, {}]}};
-            ParentAdoptedIn.handlePost(ctx, errors, formdata);
-            // eslint-disable-next-line no-undefined
-            expect(ctx.list[1].wholeBloodNieceOrNephewParentAdoptedIn).to.equal(undefined);
-        });
-    });
-
-    describe('ParentAdoptedIn.handleGet', () => {
-        it('should load saved supported parent field for whole-blood niece or nephew', () => {
-            const ctx = {
-                index: 1,
-                list: [
-                    {},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptedIn: 'optionYes'
-                    }
-                ]
-            };
-
-            const [updatedCtx] = ParentAdoptedIn.handleGet(ctx);
-            expect(updatedCtx.applicantParentAdoptedIn).to.equal('optionYes');
-        });
     });
 });

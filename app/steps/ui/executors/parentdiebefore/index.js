@@ -94,10 +94,28 @@ class ParentDieBefore extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const errorKey = this.requiredErrorKeyForRelationship(relationship);
+        const dynamicRequiredMessage = this.generateContent(ctx, {}, language)
+            ?.errors?.applicantParentDieBeforeDeceased?.[errorKey];
+
+        if (errors?.[0] && dynamicRequiredMessage) {
+            errors[0].msg = dynamicRequiredMessage;
+        }
+
+        if (fields.deceasedName && errors?.[0]) {
             errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+            // Keep inline and summary error messages aligned when we inject relationship-specific copy.
+            fields.applicantParentDieBeforeDeceased.errorMessage = errors[0].msg;
         }
         return fields;
+    }
+
+    requiredErrorKeyForRelationship(relationship) {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeBloodNieceOrNephewRequired';
+        }
+        return 'required';
     }
 }
 

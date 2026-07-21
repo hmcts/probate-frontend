@@ -10,7 +10,8 @@
 
   "errors": {
     "applicantParentDieBeforeDeceased": {
-      "required": "Select &lsquo;Yes&rsquo; if this person&rsquo;s parent died before {deceasedName}"
+      "required": "Select &lsquo;Yes&rsquo; if this person&rsquo;s parent died before {deceasedName}",
+      "wholeBloodNieceOrNephewRequired": "Select &lsquo;Yes&rsquo; if this person&rsquo;s parent died before {deceasedName}"
     }
   }
 }

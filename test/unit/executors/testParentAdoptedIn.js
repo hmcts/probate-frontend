@@ -5,7 +5,6 @@ const initSteps = require('../../../app/core/initSteps');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ParentAdoptedIn = steps.CoApplicantParentAdoptedIn;
-const content = require('app/resources/en/translation/executors/parentadoptedin');
 const stepUrl='/parent-adopted-in/1';
 const optionYesUrl='/intestacy/parent-adoption-place/1';
 const optionNoUrl='/intestacy/parent-adopted-out/1';
@@ -261,44 +260,6 @@ describe('ParentAdoptedIn', () => {
 
             const [updatedCtx] = ParentAdoptedIn.handleGet(ctx);
             expect(updatedCtx.applicantParentAdoptedIn).to.equal('optionYes');
-        });
-    });
-    describe('ParentAdoptedIn generateFields()', () => {
-        it('should return the correct content fields', (done) => {
-            const ctx = {
-                language: 'en',
-                deceasedName: 'John Doe',
-                applicantName: 'Jane Doe'
-            };
-            const errors = [
-                {
-                    field: 'applicantParentAdoptedIn',
-                    href: '#applicantParentAdoptedIn',
-                    msg: content.errors.applicantParentAdoptedIn.required
-                }
-            ];
-
-            const fields = ParentAdoptedIn.generateFields('en', ctx, errors);
-            expect(fields).to.deep.equal({
-                language: {
-                    error: false,
-                    value: 'en'
-                },
-                applicantParentAdoptedIn: {
-                    error: true,
-                    href: '#applicantParentAdoptedIn',
-                    errorMessage: content.errors.applicantParentAdoptedIn.required
-                },
-                deceasedName: {
-                    error: false,
-                    value: 'John Doe'
-                },
-                applicantName: {
-                    error: false,
-                    value: 'Jane Doe'
-                }
-            });
-            done();
         });
     });
 });

@@ -1,5 +1,6 @@
 'use strict';
 
+const {expect} = require('chai');
 const TestWrapper = require('test/util/TestWrapper');
 const ParentAdoptionPlace = require('app/steps/ui/executors/parentadoptionplace');
 const ParentAdoptedOut = require('app/steps/ui/executors/parentadoptedout');
@@ -92,6 +93,70 @@ describe('parent-adopted-in', () => {
                         applicantParentAdoptedIn: 'optionNo'
                     };
 
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptedOut}`);
+                });
+        });
+
+        it('shows govuk error summary and inline error for whole blood sibling path when no option selected', (done) => {
+            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
+            sessionData.executors = {
+                list: [
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post(testWrapper.pageUrl)
+                        .type('form')
+                        .send({
+                            applicantParentAdoptedIn: ''
+                        })
+                        .expect(200)
+                        .then(response => {
+                            const expectedError = 'Select ‘Yes’ if this person’s parent was adopted into John Doe’s family';
+                            expect(response.text).to.contain('There is a problem');
+                            expect(response.text).to.contain(expectedError);
+                            expect(response.text).to.contain('href="#applicantParentAdoptedIn"');
+                            expect(response.text).to.contain('applicantParentAdoptedIn-error');
+                            done();
+                        })
+                        .catch(done);
+                });
+        });
+
+        it(`redirects whole-blood yes to parent adoption place: /intestacy${expectedNextUrlForParentAdoptionPlace}`, (done) => {
+            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
+            sessionData.executors = {
+                list: [
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {applicantParentAdoptedIn: 'optionYes'};
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptionPlace}`);
+                });
+        });
+
+        it(`redirects whole-blood no to parent adopted out: /intestacy${expectedNextUrlForParentAdoptedOut}`, (done) => {
+            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
+            sessionData.executors = {
+                list: [
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {applicantParentAdoptedIn: 'optionNo'};
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptedOut}`);
                 });
         });

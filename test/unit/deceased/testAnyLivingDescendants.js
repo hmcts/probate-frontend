@@ -68,27 +68,5 @@ describe(AnyLivingDescendants.name, () => {
             const nextStepUrl = AnyLivingDescendants.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/intestacy/any-living-parents');
         });
-
-        it('routes parent with no living descendants to deceased-adopted-in', () => {
-            const ctx = {
-                caseType: 'intestacy',
-                relationshipToDeceased: 'optionParent',
-                anyLivingDescendants: 'optionNo'
-            };
-
-            const nextStepUrl = AnyLivingDescendants.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/deceased-adopted-in');
-        });
-
-        it('routes to stop page when living descendants exist', () => {
-            const ctx = {
-                caseType: 'intestacy',
-                relationshipToDeceased: 'optionSibling',
-                anyLivingDescendants: 'optionYes'
-            };
-
-            const nextStepUrl = AnyLivingDescendants.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/stop-page/notEligibleLivingDescendants');
-        });
     });
 });

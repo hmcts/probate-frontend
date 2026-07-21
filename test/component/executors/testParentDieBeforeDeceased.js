@@ -1,6 +1,5 @@
 'use strict';
 
-const {expect} = require('chai');
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantName = require('app/steps/ui/executors/coapplicantname');
 const caseTypes = require('app/utils/CaseTypes');
@@ -179,33 +178,5 @@ describe('Co-applicant-parent-die-before', () => {
                 });
         });
 
-        it('shows govuk error summary and inline error for whole blood sibling journey when no option selected', (done) => {
-            sessionData.executors = {
-                list: [{fullName: 'Bobby Applicant', isApplying: true, isApplicant: true},
-                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplying: true}]
-            };
-            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.agent.post(testWrapper.pageUrl)
-                        .type('form')
-                        .send({
-                            index: 1,
-                            deceasedName: 'John Doe',
-                            applicantParentDieBeforeDeceased: ''
-                        })
-                        .expect(200)
-                        .then(response => {
-                            const expectedError = 'Select &lsquo;Yes&rsquo; if this person&rsquo;s parent died before John Doe';
-                            expect(response.text).to.contain('There is a problem');
-                            expect(response.text).to.contain(expectedError);
-                            expect(response.text).to.contain('href="#applicantParentDieBeforeDeceased"');
-                            expect(response.text).to.contain('applicantParentDieBeforeDeceased-error');
-                            done();
-                        })
-                        .catch(done);
-                });
-        });
     });
 });

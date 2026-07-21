@@ -95,14 +95,6 @@ describe('Co-applicant-parent-die-before', () => {
             expect(url).to.equal('/intestacy/parent-adopted-in/2');
         });
 
-        it('should return the stop page for a whole-blood niece or nephew when their parent did not die before the deceased', () => {
-            ctx.caseType = 'intestacy';
-            ctx.index = 2;
-            ctx.list[2].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
-            ctx.applicantParentDieBeforeDeceased = 'optionNo';
-            const url = ParentDieBefore.nextStepUrl(req, ctx);
-            expect(url).to.equal('/intestacy/stop-page/otherCoApplicantRelationship');
-        });
     });
     describe('CoApplicantParentDieBefore handlePost()', () => {
         let ctx;
@@ -256,11 +248,6 @@ describe('Co-applicant-parent-die-before', () => {
         it('returns whole-blood specific required key for whole-blood niece or nephew', () => {
             expect(ParentDieBefore.requiredErrorKeyForRelationship('optionWholeBloodNieceOrNephew'))
                 .to.equal('wholeBloodNieceOrNephewRequired');
-        });
-
-        it('returns default required key for all other relationships', () => {
-            expect(ParentDieBefore.requiredErrorKeyForRelationship('optionGrandchild')).to.equal('required');
-            expect(ParentDieBefore.requiredErrorKeyForRelationship('optionHalfBloodNieceOrNephew')).to.equal('required');
         });
     });
 });

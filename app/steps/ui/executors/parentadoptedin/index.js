@@ -68,12 +68,31 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
+        const relationship = ctx.relationshipToDeceased || ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const errorKey = this.requiredErrorKeyForRelationship(relationship);
+        this.i18next.changeLanguage(language);
+        const errorPath = `${this.resourcePath.replace(/\//g, '.')}.errors.applicantParentAdoptedIn.${errorKey}`;
+        const dynamicRequiredMessage = this.i18next.t(errorPath);
+
+        if (errors?.[0] && dynamicRequiredMessage) {
+            errors[0].msg = dynamicRequiredMessage;
+        }
+
         if (fields.deceasedName && errors?.[0]) {
             errors[0].msg = errors[0].msg
                 .replace('{deceasedName}', fields.deceasedName.value)
                 .replace('{applicantName}', fields.applicantName?.value || '');
+            // Keep inline and summary error messages aligned after dynamic replacement.
+            fields.applicantParentAdoptedIn.errorMessage = errors[0].msg;
         }
         return fields;
+    }
+
+    requiredErrorKeyForRelationship(relationship) {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeBloodNieceOrNephewRequired';
+        }
+        return 'required';
     }
 
     handlePost(ctx, errors, formdata) {

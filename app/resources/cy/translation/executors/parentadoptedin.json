@@ -7,7 +7,8 @@
 
   "errors": {
     "applicantParentAdoptedIn": {
-      "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {deceasedName}"
+      "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {deceasedName}",
+      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant yr unigolyn hwn ei fabwysiadu i deulu {deceasedName}"
     }
   }
 }

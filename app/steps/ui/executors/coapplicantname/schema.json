@@ -3,7 +3,7 @@
   "$id": "applicant-fullName",
   "type": "object",
   "properties": {
-    "coApplicantName": {
+    "fullName": {
       "type": "string"
     }
   },

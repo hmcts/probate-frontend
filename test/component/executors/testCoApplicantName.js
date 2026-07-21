@@ -1,5 +1,6 @@
 'use strict';
 
+const {expect} = require('chai');
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantAdoptedIn = require('app/steps/ui/executors/adoptedin');
 const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
@@ -131,6 +132,27 @@ describe('coapplicant-name', () => {
                         deceasedName: 'John Doe',
                     };
                     testWrapper.testErrors(done, data, 'required');
+                });
+        });
+
+        it('shows required validation when full name contains only whitespace', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.agent.post(testWrapper.pageUrl)
+                        .type('form')
+                        .send({fullName: '   '})
+                        .expect(200)
+                        .then(response => {
+                            expect(response.text).to.contain('There is a problem');
+                            expect(response.text).to.contain('Enter the applicant');
+                            expect(response.text).to.contain('full name');
+                            expect(response.text).to.contain('href="#fullName"');
+                            expect(response.text).to.contain('fullName-error');
+                            done();
+                        })
+                        .catch(done);
                 });
         });
     });

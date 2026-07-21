@@ -69,6 +69,10 @@ class CoApplicantName extends ValidationStep {
         return [false, 'inProgress'];
     }
     handlePost(ctx, errors, formdata, session) {
+        if (typeof ctx.fullName === 'string') {
+            // Normalize user input so whitespace-only values fail required validation and stored names are clean.
+            ctx.fullName = ctx.fullName.trim();
+        }
         if (ctx.fullName && ctx.fullName.length < 2) {
             errors.push(FieldError('fullName', 'minLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (ctx.fullName && ctx.fullName.length > 100) {

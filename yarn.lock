@@ -1271,7 +1271,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/properties-volume@npm:^1.4.0":
+"@hmcts/properties-volume@npm:^1.4.1":
   version: 1.4.1
   resolution: "@hmcts/properties-volume@npm:1.4.1"
   dependencies:
@@ -1787,7 +1787,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/node-server-sdk@npm:^9.11.3":
+"@launchdarkly/node-server-sdk@npm:^9.12.1":
   version: 9.12.1
   resolution: "@launchdarkly/node-server-sdk@npm:9.12.1"
   dependencies:
@@ -2794,7 +2794,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^24.0.0":
+"@types/node@npm:^24.13.3":
   version: 24.13.3
   resolution: "@types/node@npm:24.13.3"
   dependencies:
@@ -3922,8 +3922,8 @@ __metadata:
   linkType: hard
 
 "body-parser@npm:^1.20.3, body-parser@npm:~1.20.5":
-  version: 1.20.5
-  resolution: "body-parser@npm:1.20.5"
+  version: 1.20.6
+  resolution: "body-parser@npm:1.20.6"
   dependencies:
     bytes: "npm:~3.1.2"
     content-type: "npm:~1.0.5"
@@ -3937,7 +3937,7 @@ __metadata:
     raw-body: "npm:~2.5.3"
     type-is: "npm:~1.6.18"
     unpipe: "npm:~1.0.0"
-  checksum: 10/3ec787c0d23b16542972226ee352ed917ae404bf862b6783040e8cfc994f165432f6d48e9341ef57f489c667c880f9c5174fad559c482607f83f4db7f412de3a
+  checksum: 10/cf3730f79d8d773a1a6f34fdec4bd40cf41b2cf25c17a3b9dfeb81e83b7e62e309285a92ba6bf5d99eee44144083d3122f332757215da37eb4740544432c2766
   languageName: node
   linkType: hard
 
@@ -6436,7 +6436,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.30, eslint@npm:^9.39.4":
+"eslint@npm:^9.30, eslint@npm:^9.39.5":
   version: 9.39.5
   resolution: "eslint@npm:9.39.5"
   dependencies:
@@ -7844,7 +7844,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:^8.2.0":
+"helmet@npm:^8.3.0":
   version: 8.3.0
   resolution: "helmet@npm:8.3.0"
   checksum: 10/077db98df8f8ea749aeab0f56eabe1f37d0ca2ae475c095bc30adf850fe714ea67469dc94b6a6e1b786cde25a40452784e20b728e59c63baa2b18ba12518a6fe
@@ -8111,7 +8111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^26.3.4":
+"i18next@npm:^26.3.6":
   version: 26.3.6
   resolution: "i18next@npm:26.3.6"
   peerDependencies:
@@ -9485,7 +9485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"libphonenumber-js@npm:^1.13.8":
+"libphonenumber-js@npm:^1.13.9":
   version: 1.13.9
   resolution: "libphonenumber-js@npm:1.13.9"
   checksum: 10/c77b291aaa8da9a2e90fbcd6b2ffcfab66d418d37597272b090a04e75fb66e88faffc326ce041676a96f1fe0ab52c5ba79ce178344157fd0b45fabfe7c5c9a02
@@ -12149,13 +12149,13 @@ __metadata:
   dependencies:
     "@hmcts/nodejs-healthcheck": "npm:^1.8.6"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
-    "@hmcts/properties-volume": "npm:^1.4.0"
-    "@launchdarkly/node-server-sdk": "npm:^9.11.3"
+    "@hmcts/properties-volume": "npm:^1.4.1"
+    "@launchdarkly/node-server-sdk": "npm:^9.12.1"
     "@pact-foundation/pact": "npm:^15.0.1"
     "@pact-foundation/pact-node": "npm:^10.18.0"
     "@playwright/test": "npm:^1.61.1"
     "@stylistic/eslint-plugin": "npm:^5.10.0"
-    "@types/node": "npm:^24.0.0"
+    "@types/node": "npm:^24.13.3"
     "@wdio/cli": "npm:^9.29.1"
     ajv: "npm:^6.15.0"
     ajv-keywords: "npm:^3.5.2"
@@ -12176,7 +12176,7 @@ __metadata:
     csrf-sync: "npm:^4.2.1"
     debug: "npm:^4.4.3"
     email-validator: "npm:^2.0.4"
-    eslint: "npm:^9.39.4"
+    eslint: "npm:^9.39.5"
     eslint-plugin-jsdoc: "npm:^62.9.0"
     eslint-plugin-mocha: "npm:^11.3.0"
     eslint-plugin-n: "npm:^17.24.0"
@@ -12187,17 +12187,17 @@ __metadata:
     git-rev-sync: "npm:^3.0.2"
     globals: "npm:^17.7.0"
     govuk-frontend: "npm:^5.14.0"
-    helmet: "npm:^8.2.0"
+    helmet: "npm:^8.3.0"
     hpkp: "npm:^3.0.0"
     http-terminator: "npm:^3.2.0"
     https-proxy-agent: "npm:^5.0.1"
-    i18next: "npm:^26.3.4"
+    i18next: "npm:^26.3.6"
     if-env: "npm:^1.0.4"
     ioredis: "npm:^5.11.1"
     jquery: "npm:^4.0.0"
-    js-yaml: "npm:^5.1.0"
+    js-yaml: "npm:^5.2.1"
     jsdom: "npm:^29.1.1"
-    libphonenumber-js: "npm:^1.13.8"
+    libphonenumber-js: "npm:^1.13.9"
     lodash: "npm:^4.18.1"
     mocha: "npm:^11.7.6"
     mocha-junit-reporter: "npm:^2.2.1"
@@ -12234,17 +12234,17 @@ __metadata:
     sinon: "npm:^22.0.0"
     sinon-chai: "npm:^3.7.0"
     sonar-scanner: "npm:^3.1.0"
-    sonarqube-scanner: "npm:^4.3.8"
+    sonarqube-scanner: "npm:^4.4.0"
     superagent: "npm:^10.3.0"
     supertest: "npm:^7.0.0"
-    tar: "npm:^7.5.19"
+    tar: "npm:^7.5.20"
     traverse: "npm:^0.6.11"
     tunnel-agent: "npm:^0.6.0"
     uuid: "npm:^11.1.1"
     validator: "npm:^13.15.35"
     webdriverio: "npm:^9.29.1"
     when: "npm:^3.7.8"
-    ws: "npm:^8.21.0"
+    ws: "npm:^8.21.1"
   languageName: unknown
   linkType: soft
 
@@ -13855,7 +13855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sonarqube-scanner@npm:^4.3.8":
+"sonarqube-scanner@npm:^4.4.0":
   version: 4.4.0
   resolution: "sonarqube-scanner@npm:4.4.0"
   dependencies:
@@ -15719,7 +15719,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.21.0, ws@npm:^8.8.0":
+"ws@npm:^8.21.0, ws@npm:^8.21.1, ws@npm:^8.8.0":
   version: 8.21.1
   resolution: "ws@npm:8.21.1"
   peerDependencies:

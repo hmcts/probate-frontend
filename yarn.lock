@@ -8227,13 +8227,13 @@ __metadata:
   linkType: hard
 
 "import-in-the-middle@npm:^3.0.0":
-  version: 3.3.1
-  resolution: "import-in-the-middle@npm:3.3.1"
+  version: 3.3.2
+  resolution: "import-in-the-middle@npm:3.3.2"
   dependencies:
     cjs-module-lexer: "npm:^2.2.0"
     es-module-lexer: "npm:^2.2.0"
     module-details-from-path: "npm:^1.0.4"
-  checksum: 10/0b3e9de63816481b0fe07abb145258ecbc3c78251200807dacbff87bfcaaa3e5568e1184f26dba57da520a90843f51cf21d79fe3ea9383b6de3037a5976a96b3
+  checksum: 10/46c4bb22c5b2342547d4efaa5f1d2dc69ca94feb361aac92bbbc26b796bdbbeb0dab81e5e78205b6147b1cf571dbe2b50f219d2977eba951b63469918b411d9f
   languageName: node
   linkType: hard
 

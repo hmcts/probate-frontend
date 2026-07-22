@@ -1,538 +1,674 @@
-import { BrowserContext, expect } from '@playwright/test';
-import {BasePage, decodeHTML} from '../utility/basePage.ts';
-import {getContent} from "../utility/contentHelper.ts";
-import applicantDetailsConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
-import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
+import { BrowserContext, expect, Page } from '@playwright/test';
+import { BasePage, decodeHTML } from '../utility/basePage.js';
+import { getContent } from '../utility/contentHelper.js';
+import applicantDetailsConfig from '../../data/intestacy/sole/applicantDetails.json' with { type: 'json' };
+import ihtDataConfig from '../../data/ee/ihtData.json' with { type: 'json' };
 
 const equalityEn = 'Equality and diversity questions';
 const equalityCy = 'Cwestiynau am Gydraddoldeb ac Amrywiaeth';
 
+export type YesNoOption = 'optionYes' | 'optionNo';
+export type SiblingType = 'whole' | 'half';
+export type ApplicantJourney =
+  | 'child'
+  | 'grandchild'
+  | 'parent'
+  | 'sibling'
+  | 'wholeBloodSibling'
+  | 'halfBloodSibling';
+
+export type SpouseNotApplyingReason = 'optionRenouncing' | 'optionOther';
+
+export const relationshipToDeceasedOptions = {
+  spousePartner: 'optionSpousePartner',
+  child: 'optionChild',
+  adoptedChild: 'optionAdoptedChild',
+  grandchild: 'optionGrandchild',
+  parent: 'optionParent',
+  sibling: 'optionSibling',
+  other: 'optionOther',
+} as const;
+
+export type RelationshipToDeceasedOption =
+  typeof relationshipToDeceasedOptions[keyof typeof relationshipToDeceasedOptions];
+
 export class ApplicantDetailsSection extends BasePage {
-  readonly saveAndContinueButtonLocator = this.page.getByRole('button', {name: this.commonContent.saveAndContinue});
+  readonly saveAndContinueButtonLocator = this.page.getByRole('button', {
+    name: this.commonContent.saveAndContinue,
+  });
   readonly firstNameLocator = this.page.locator('#firstName');
   readonly lastNameLocator = this.page.locator('#lastName');
   readonly coApplicantNameLocator = this.page.locator('#fullName');
   readonly backLinkLocator = this.page.locator('#backLink');
 
-  constructor(page, context: BrowserContext, language: string) {
+  constructor(page: Page, context: BrowserContext, language: string) {
     super(page, context, language);
   }
 
-  async selectRelationshipToDeceased(language = 'en', answer = null) {
-    const relationshipContent = getContent(`app/resources/${language}/translation/applicant/relationshiptodeceased.json`);
-    await this.checkInUrl('/intestacy/relationship-to-deceased');
-    await expect(this.page.getByText(await decodeHTML(relationshipContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#relationshipToDeceased${answer}`)).toBeEnabled();
-    await this.page.locator(`#relationshipToDeceased${answer}`).click();
+  private async chooseRadioById(id: string): Promise<void> {
+    const radio = this.page.locator(`#${id}`);
+    await expect(radio).toBeVisible();
+    await expect(radio).toBeEnabled();
+    await radio.check();
+  }
+
+  private async chooseRadioByNameValue(name: string, value: string): Promise<void> {
+    const radio = this.page.locator(`input[name="${name}"][value="${value}"]`);
+    await expect(radio).toBeVisible();
+    await expect(radio).toBeEnabled();
+    await radio.check();
+  }
+
+  private async continue(): Promise<void> {
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async selectSpouseNotApplyingReason(reason = null) {
-    await this.checkInUrl('/intestacy/spouse-not-applying-reason');
-    await expect(this.page.locator(`#spouseNotApplyingReason${reason}`)).toBeEnabled();
-    await this.page.locator(`#spouseNotApplyingReason${reason}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+  async selectRelationshipToDeceased(answer: RelationshipToDeceasedOption): Promise<void> {
+    await this.checkInUrl('/relationship-to-deceased');
+    await this.chooseRadioByNameValue('relationshipToDeceased', answer);
+    await this.continue();
   }
 
-  async viewSpouseNotApplyingStopPage(language = 'en') {
-    const spouseNotApplyingStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
-    await this.checkInUrl('/intestacy/stop-page/spouseNotApplying');
-    await expect(this.page.getByRole('heading', { name: spouseNotApplyingStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
-      .toBeVisible();
-    await expect(this.backLinkLocator).toBeEnabled();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.backLinkLocator);
+  async selectSpouseNotApplyingReason(reason: SpouseNotApplyingReason): Promise<void> {
+    await this.checkInUrl('/spouse-not-applying-reason');
+    await this.chooseRadioByNameValue('spouseNotApplyingReason', reason);
+    await this.continue();
   }
 
-  async adoptedOutStopPage(language = 'en') {
-    const adoptedOutStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async viewSpouseNotApplyingStopPage(language: string): Promise<void> {
+    await this.checkInUrl('/stop-page/spouseNotApplying');
+
+    if (language === 'cy') {
+      await expect(
+        this.page.getByRole('heading', {
+          name: /Yn anffodus, ni allwch ddefnyddio’r gwasanaeth ar-lein/i,
+        })
+      ).toBeVisible();
+    } else {
+      await expect(
+        this.page.getByRole('heading', {
+          name: /Sorry, you can’t use the online service/i,
+        })
+      ).toBeVisible();
+    }
+
+    await this.page.goBack();
+    await this.checkInUrl('/spouse-not-applying-reason');
+  }
+
+  async adoptedOutStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/adoptedOut');
-    await expect(this.page.getByRole('heading', { name: adoptedOutStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.deceasedNoLegalPartnerAndRelationshipOtherHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async deceasedAdoptedOutStopPage(language = 'en') {
-    const deceasedAdoptedOutStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async deceasedAdoptedOutStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/deceasedAdoptedOut');
-    await expect(this.page.getByRole('heading', { name: deceasedAdoptedOutStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.deceasedNoLegalPartnerAndRelationshipOtherHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async applicantParentAdoptedOutStopPage(language = 'en') {
-    const applicantParentAdoptedOutStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async applicantParentAdoptedOutStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/grandchildParentAdoptedOut');
-    await expect(this.page.getByRole('heading', { name: applicantParentAdoptedOutStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.deceasedNoLegalPartnerAndRelationshipOtherHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async grandchildremUnderEighteenStopPage(language = 'en') {
-    const grandchildremUnderEighteenStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async grandchildrenUnderEighteenStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/grandchildrenUnder18');
-    await expect(this.page.getByRole('heading', { name: grandchildremUnderEighteenStopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.deceasedNoLegalPartnerAndRelationshipOtherHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async grandChildParentAliveStopPage(language = 'en') {
-    const grandChildParentAliveStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async grandChildParentAliveStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/otherCoApplicantRelationship');
-    await expect(this.page.getByRole('heading', { name: grandChildParentAliveStopPageContent.personCannotApplyByOnlineHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.personCannotApplyByOnlineHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async livingDescendantStopPage(language = 'en') {
-    const livingDescendantStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async livingDescendantStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/notEligibleLivingDescendants');
-    await expect(this.page.getByRole('heading', { name: livingDescendantStopPageContent.notEntitledHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.notEntitledHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async differentParentsStopPage(language = 'en') {
-    const differentParentsStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async differentParentsStopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/notEligibleSameParents');
-    await expect(this.page.getByRole('heading', { name: differentParentsStopPageContent.notEntitledHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.notEntitledHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async nieceOrNephewUnder18StopPage(language = 'en') {
-    const nieceOrNephewUnder18StopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
+  async nieceOrNephewUnder18StopPage(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/stoppage.json`);
     await this.checkInUrl('/intestacy/stop-page/anyoneUnder18');
-    await expect(this.page.getByRole('heading', { name: nieceOrNephewUnder18StopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
-      .toBeVisible();
+    await expect(
+      this.page.getByRole('heading', {
+        name: content.deceasedNoLegalPartnerAndRelationshipOtherHeader,
+      })
+    ).toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
     await this.runAccessibilityTest();
     await this.navByClick(this.backLinkLocator);
   }
 
-  async selectMainApplicantParentAlive(answer = null) {
+  async selectMainApplicantParentAlive(answer: YesNoOption): Promise<void> {
     await this.checkInUrl('/intestacy/mainapplicantsparent-alive');
-    await expect(this.page.locator(`#childAlive${answer}`)).toBeEnabled();
-    await this.page.locator(`#childAlive${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`childAlive${answer}`);
+    await this.continue();
   }
 
-  async selectCoApplicantParentAlive(coApplicantNumber, answer = null) {
+  async selectCoApplicantParentAlive(coApplicantNumber: string, answer: YesNoOption): Promise<void> {
     await this.checkInUrl(`/intestacy/parent-die-before/${coApplicantNumber}`);
-    await expect(this.page.locator(`#applicantParentDieBeforeDeceased${answer}`)).toBeEnabled();
-    await this.page.locator(`#applicantParentDieBeforeDeceased${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`applicantParentDieBeforeDeceased${answer}`);
+    await this.continue();
   }
 
-  async selectAnyLivingParents(language = 'en', answer = null) {
-    const anyLivingParentContent = getContent(`app/resources/${language}/translation/deceased/anylivingparents.json`);
+  async selectAnyLivingParents(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/deceased/anylivingparents.json`);
     await this.checkInUrl('/intestacy/any-living-parents');
-    await expect(this.page.getByText(await decodeHTML(anyLivingParentContent.question)
-      .replaceAll('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anyLivingParents${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyLivingParents${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replaceAll(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`anyLivingParents${answer}`);
+    await this.continue();
   }
 
-  async mainApplicantParentAdoptedIn(language = 'en', answer = null) {
-    const parentAdoptedInContent = getContent(`app/resources/${language}/translation/applicant/parentadoptedin.json`);
+  async mainApplicantParentAdoptedIn(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/parentadoptedin.json`);
     await this.checkInUrl('/intestacy/mainapplicantsparent-adopted-in');
-    await expect(this.page.getByText(await decodeHTML(parentAdoptedInContent.question)
-      .replaceAll('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#parentAdoptedIn${answer}`)).toBeEnabled();
-    await this.page.locator(`#parentAdoptedIn${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replaceAll(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`parentAdoptedIn${answer}`);
+    await this.continue();
   }
 
-  async mainApplicantParentAdoptedOut(language = 'en', answer = null) {
-    const parentAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/parentadoptedout.json`);
+  async mainApplicantParentAdoptedOut(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/parentadoptedout.json`);
     await this.checkInUrl('/intestacy/mainapplicantsparent-adopted-out');
-    await expect(this.page.getByText(await decodeHTML(parentAdoptedOutContent.question)
-      .replaceAll('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#parentAdoptedOut${answer}`)).toBeEnabled();
-    await this.page.locator(`#parentAdoptedOut${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replaceAll(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`parentAdoptedOut${answer}`);
+    await this.continue();
   }
 
-  async mainApplicantParentAdoptionPlace(language = 'en', answer = null) {
-    const parentAdoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/parentadoptionplace.json`);
+  async mainApplicantParentAdoptionPlace(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/parentadoptionplace.json`);
     await this.checkInUrl('/intestacy/parent-adoption-place');
-    await expect(this.page.getByText(await decodeHTML(parentAdoptionPlaceContent.question)))
-      .toBeVisible();
-    await expect(this.page.locator(`#parentAdoptionPlace${answer}`)).toBeEnabled();
-    await this.page.locator(`#parentAdoptionPlace${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(this.page.getByText(await decodeHTML(content.question))).toBeVisible();
+    await this.chooseRadioById(`parentAdoptionPlace${answer}`);
+    await this.continue();
   }
 
-  async mainApplicantAdoptedIn(language = 'en', answer = null, journey) {
-    const adoptedInContent = getContent(`app/resources/${language}/translation/applicant/adoptedin.json`);
+  async mainApplicantAdoptedIn(
+    language = 'en',
+    answer: YesNoOption,
+    journey: ApplicantJourney
+  ): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/adoptedin.json`);
     await this.checkInUrl('/intestacy/main-applicant-adopted-in');
-    await expect(this.page.getByText(await decodeHTML(adoptedInContent[`${journey}Question`])
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#adoptedIn${answer}`)).toBeEnabled();
-    await this.page.locator(`#adoptedIn${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content[`${journey}Question`]).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`adoptedIn${answer}`);
+    await this.continue();
   }
 
-  async mainApplicantAdoptedOut(language = 'en', answer = null, journey = null) {
-    const adoptedOutContent = getContent(`app/resources/${language}/translation/applicant/adoptedout.json`);
+  async mainApplicantAdoptedOut(
+    language = 'en',
+    answer: YesNoOption,
+    journey: ApplicantJourney
+  ): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/adoptedout.json`);
     await this.checkInUrl('/intestacy/main-applicant-adopted-out');
-    await expect(this.page.getByText(await decodeHTML(adoptedOutContent[`${journey}Question`])
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#adoptedOut${answer}`)).toBeEnabled();
-    await this.page.locator(`#adoptedOut${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content[`${journey}Question`]).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`adoptedOut${answer}`);
+    await this.continue();
   }
 
-  async mainApplicantAdoptionPlace(language = 'en', answer = null) {
-    const adoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/adoptionplace.json`);
+  async mainApplicantAdoptionPlace(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/adoptionplace.json`);
     await this.checkInUrl('/intestacy/adopted-in-england-or-wales');
-    await expect(this.page.getByText(await decodeHTML(adoptionPlaceContent.question))).toBeVisible();
-    await expect(this.page.locator(`#adoptionPlace${answer}`)).toBeEnabled();
-    await this.page.locator(`#adoptionPlace${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(this.page.getByText(await decodeHTML(content.question))).toBeVisible();
+    await this.chooseRadioById(`adoptionPlace${answer}`);
+    await this.continue();
   }
 
-  async enterAnyOtherChildren(language = 'en', answer = null) {
-    const otherChildrenContent = getContent(`app/resources/${language}/translation/deceased/anyotherchildren.json`);
-    await this.checkInUrl('/intestacy/any-other-children');
-    await expect(this.page.getByText(await decodeHTML(otherChildrenContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anyOtherChildren${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyOtherChildren${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+  async enterAnyOtherChildren(answer: YesNoOption): Promise<void> {
+    await this.checkInUrl('/any-other-children');
+    await this.chooseRadioByNameValue('anyOtherChildren', answer);
+    await this.continue();
   }
 
-  async enterAnyChildren(language = 'en', answer = null) {
-    const childrenContent = getContent(`app/resources/${language}/translation/deceased/anychildren.json`);
-    await this.checkInUrl('/intestacy/any-children');
-    await expect(this.page.getByText(await decodeHTML(childrenContent.hint))).toBeVisible();
-    await expect(this.page.locator(`#anyChildren${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyChildren${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+  async allChildrenOver18(answer: YesNoOption): Promise<void> {
+    await this.checkInUrl('/all-children-over-18');
+    await this.chooseRadioByNameValue('allChildrenOver18', answer);
+    await this.continue();
+
+    if (answer === 'optionNo') {
+      await expect(this.page).toHaveURL(/\/stop-page\/childrenUnder18/);
+    } else {
+      await expect(this.page).toHaveURL(/\/any-deceased-children/);
+    }
   }
 
-  async otherChildrenDiedBefore(answer = null) {
-    await this.checkInUrl('/intestacy/any-predeceased-children');
-    await expect(this.page.locator(`#anyPredeceasedChildren${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyPredeceasedChildren${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+  async anyDeceasedChildren(answer: YesNoOption): Promise<void> {
+    await this.checkInUrl('/any-deceased-children');
+    await this.chooseRadioByNameValue('anyDeceasedChildren', answer);
+    await this.continue();
+
+    if (answer === 'optionNo') {
+      await expect(this.page).toHaveURL(/\/applicant-name/);
+    } else {
+      await expect(this.page).toHaveURL(/\/any-grandchildren-under-18/);
+    }
   }
 
-  async anyGrandChildren(language = 'en', answer = null) {
-    const grandChildrenContent = getContent(`app/resources/${language}/translation/deceased/anysurvivinggrandchildren.json`);
-    await this.checkInUrl('/intestacy/any-surviving-grandchildren');
-    await expect(this.page.getByText(await decodeHTML(grandChildrenContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anySurvivingGrandchildren${answer}`)).toBeEnabled();
-    await this.page.locator(`#anySurvivingGrandchildren${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+  async anyGrandchildrenUnder18(answer: YesNoOption): Promise<void> {
+    await this.checkInUrl('/any-grandchildren-under-18');
+    await this.chooseRadioByNameValue('anyGrandchildrenUnder18', answer);
+    await this.continue();
+
+    if (answer === 'optionYes') {
+      await expect(this.page).toHaveURL(/\/stop-page\/grandchildrenUnder18/);
+    } else {
+      await expect(this.page).toHaveURL(/\/applicant-name/);
+    }
   }
 
-  async mainApplicantParentAnyOtherChildren(answer = null) {
+  async enterAnyChildren(answer: YesNoOption): Promise<void> {
+    await this.checkInUrl('/any-children');
+    await this.chooseRadioByNameValue('anyChildren', answer);
+    await this.continue();
+  }
+
+  async mainApplicantParentAnyOtherChildren(answer: YesNoOption): Promise<void> {
     await this.checkInUrl('/intestacy/mainapplicantsparent-any-other-children');
-    await expect(this.page.locator(`#grandchildParentHasOtherChildren${answer}`)).toBeEnabled();
-    await this.page.locator(`#grandchildParentHasOtherChildren${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`grandchildParentHasOtherChildren${answer}`);
+    await this.continue();
   }
 
-  async anyOtherWholeSiblings(language = 'en', answer = null) {
-    const anyOtherWholeSiblingContent = getContent(`app/resources/${language}/translation/applicant/anyotherwholesiblings.json`);
+  async anyOtherWholeSiblings(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/applicant/anyotherwholesiblings.json`
+    );
     await this.checkInUrl('/intestacy/deceased-other-whole-siblings');
-    await expect(this.page.getByText(await decodeHTML(anyOtherWholeSiblingContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anyOtherWholeSiblings${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyOtherWholeSiblings${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`anyOtherWholeSiblings${answer}`);
+    await this.continue();
   }
 
-  async anyOtherHalfSiblings(language = 'en', answer = null) {
-    const anyOtherHalfSiblingContent = getContent(`app/resources/${language}/translation/applicant/anyotherhalfsiblings.json`);
+  async anyOtherHalfSiblings(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/applicant/anyotherhalfsiblings.json`
+    );
     await this.checkInUrl('/intestacy/deceased-other-half-siblings');
-    await expect(this.page.getByText(await decodeHTML(anyOtherHalfSiblingContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anyOtherHalfSiblings${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyOtherHalfSiblings${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`anyOtherHalfSiblings${answer}`);
+    await this.continue();
   }
 
-  async anyPredeceasedSiblings(language = 'en', answer = null, siblingType) {
-    const predeceasedWholeSiblingsContent = getContent(`app/resources/${language}/translation/applicant/anypredeceasedwholesiblings.json`);
-    const predeceasedHalfSiblingsContent = getContent(`app/resources/${language}/translation/applicant/anypredeceasedhalfsiblings.json`);
+  async anyPredeceasedSiblings(
+    language = 'en',
+    answer: YesNoOption,
+    siblingType: SiblingType
+  ): Promise<void> {
+    const wholeContent = getContent(
+      `app/resources/${language}/translation/applicant/anypredeceasedwholesiblings.json`
+    );
+    const halfContent = getContent(
+      `app/resources/${language}/translation/applicant/anypredeceasedhalfsiblings.json`
+    );
     const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
-    let predeceasedSiblingContent;
+    const content = siblingType === 'whole' ? wholeContent : halfContent;
 
-    if (siblingType === 'whole') {
-      predeceasedSiblingContent = predeceasedWholeSiblingsContent;
-    } else {
-      predeceasedSiblingContent = predeceasedHalfSiblingsContent;
-    }
     await this.checkInUrl(`/intestacy/deceased-${siblingType}-siblings`);
-    await expect(this.page.getByText(decodeHTML(predeceasedSiblingContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anyPredeceased${siblingTypeUpper}Siblings${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyPredeceased${siblingTypeUpper}Siblings${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`anyPredeceased${siblingTypeUpper}Siblings${answer}`);
+    await this.continue();
   }
 
-  async anySurvivingNieceNephew(language = 'en', answer = null, siblingType) {
-    const anySurvivingWholeNieceNephewContent = getContent(`app/resources/${language}/translation/applicant/anysurvivingwholeniecesandwholenephews.json`);
-    const anySurvivingHalfNieceNephewContent = getContent(`app/resources/${language}/translation/applicant/anysurvivinghalfniecesandhalfnephews.json`);
+  async anySurvivingNieceNephew(
+    language = 'en',
+    answer: YesNoOption,
+    siblingType: SiblingType
+  ): Promise<void> {
+    const wholeContent = getContent(
+      `app/resources/${language}/translation/applicant/anysurvivingwholeniecesandwholenephews.json`
+    );
+    const halfContent = getContent(
+      `app/resources/${language}/translation/applicant/anysurvivinghalfniecesandhalfnephews.json`
+    );
     const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
-    let survivingNieceNephewContent;
+    const content = siblingType === 'whole' ? wholeContent : halfContent;
 
-    if (siblingType === 'whole') {
-      survivingNieceNephewContent = anySurvivingWholeNieceNephewContent;
-    } else {
-      survivingNieceNephewContent = anySurvivingHalfNieceNephewContent;
-    }
     await this.checkInUrl(`/intestacy/${siblingType}-siblings-surviving-children`);
-    await expect(this.page.getByText(await decodeHTML(survivingNieceNephewContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anySurviving${siblingTypeUpper}NiecesAnd${siblingTypeUpper}Nephews${answer}`)).toBeEnabled();
-    await this.page.locator(`#anySurviving${siblingTypeUpper}NiecesAnd${siblingTypeUpper}Nephews${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(
+      `anySurviving${siblingTypeUpper}NiecesAnd${siblingTypeUpper}Nephews${answer}`
+    );
+    await this.continue();
   }
 
-  async anySiblingsAbove18(language = 'en', answer = null, siblingType) {
-    const wholeSiblingsAbove18Content = getContent(`app/resources/${language}/translation/applicant/allwholesiblingsover18.json`);
-    const halfSiblingsAbove18Content = getContent(`app/resources/${language}/translation/applicant/allhalfsiblingsover18.json`);
+  async anySiblingsAbove18(
+    language = 'en',
+    answer: YesNoOption,
+    siblingType: SiblingType
+  ): Promise<void> {
+    const wholeContent = getContent(
+      `app/resources/${language}/translation/applicant/allwholesiblingsover18.json`
+    );
+    const halfContent = getContent(
+      `app/resources/${language}/translation/applicant/allhalfsiblingsover18.json`
+    );
     const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
-    let siblingsAbove18Content;
+    const content = siblingType === 'whole' ? wholeContent : halfContent;
 
-    if (siblingType === 'whole') {
-      siblingsAbove18Content = wholeSiblingsAbove18Content;
-    } else {
-      siblingsAbove18Content = halfSiblingsAbove18Content;
-    }
     await this.checkInUrl(`/intestacy/${siblingType}-siblings-age`);
-    await expect(this.page.getByText(await decodeHTML(siblingsAbove18Content.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#all${siblingTypeUpper}SiblingsOver18${answer}`)).toBeEnabled();
-    await this.page.locator(`#all${siblingTypeUpper}SiblingsOver18${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`all${siblingTypeUpper}SiblingsOver18${answer}`);
+    await this.continue();
   }
 
-  async selectAnyLivingDescendants(answer = null) {
+  async selectAnyLivingDescendants(answer: YesNoOption): Promise<void> {
     await this.checkInUrl('/intestacy/any-living-descendants');
-    await expect(this.page.locator(`#anyLivingDescendants${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyLivingDescendants${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`anyLivingDescendants${answer}`);
+    await this.continue();
   }
 
-  async deceasedAdoptedIn(language = 'en', answer = null, journey) {
-    const deceasedAdoptedInContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedin.json`);
+  async deceasedAdoptedIn(
+    language = 'en',
+    answer: YesNoOption,
+    journey: ApplicantJourney
+  ): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/applicant/deceasedadoptedin.json`
+    );
     await this.checkInUrl('/intestacy/deceased-adopted-in');
-    await expect(this.page.getByText(await decodeHTML(deceasedAdoptedInContent[`${journey}Question`])
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#deceasedAdoptedIn${answer}`)).toBeEnabled();
-    await this.page.locator(`#deceasedAdoptedIn${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content[`${journey}Question`]).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`deceasedAdoptedIn${answer}`);
+    await this.continue();
   }
 
-  async deceasedAdoptedOut(language = 'en', answer = null, journey) {
-    const deceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedout.json`);
+  async deceasedAdoptedOut(
+    language = 'en',
+    answer: YesNoOption,
+    journey: ApplicantJourney
+  ): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/applicant/deceasedadoptedout.json`
+    );
     await this.checkInUrl('/intestacy/deceased-adopted-out');
-    await expect(this.page.getByText(await decodeHTML(deceasedAdoptedOutContent[`${journey}Question`])
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#deceasedAdoptedOut${answer}`)).toBeEnabled();
-    await this.page.locator(`#deceasedAdoptedOut${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content[`${journey}Question`]).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`deceasedAdoptedOut${answer}`);
+    await this.continue();
   }
 
-  async deceasedAdoptionPlace(language = 'en', answer = null) {
-    const deceasedAdoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptionplace.json`);
+  async deceasedAdoptionPlace(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/applicant/deceasedadoptionplace.json`
+    );
     await this.checkInUrl('/intestacy/deceased-adoption-place');
-    await expect(this.page.getByText(await decodeHTML(deceasedAdoptionPlaceContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#deceasedAdoptionPlace${answer}`)).toBeEnabled();
-    await this.page.locator(`#deceasedAdoptionPlace${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`deceasedAdoptionPlace${answer}`);
+    await this.continue();
   }
 
-  async deceasedOtherParentAlive(language = 'en', answer = null) {
-    const otherParentAliveContent = getContent(`app/resources/${language}/translation/deceased/anyotherparentalive.json`);
+  async deceasedOtherParentAlive(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/deceased/anyotherparentalive.json`
+    );
     await this.checkInUrl('/intestacy/any-other-parent-alive');
-    await expect(this.page.getByText(await decodeHTML(otherParentAliveContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#anyOtherParentAlive${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyOtherParentAlive${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioById(`anyOtherParentAlive${answer}`);
+    await this.continue();
   }
 
-  async anyChildrenOverEighteen(language = 'en', answer = null) {
-    const childrenOverEighteenContent = getContent(`app/resources/${language}/translation/deceased/allchildrenover18.json`);
-    await this.checkInUrl('/intestacy/all-children-over-18');
-    await expect(this.page.getByText(await decodeHTML(childrenOverEighteenContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`#allChildrenOver18${answer}`)).toBeEnabled();
-    await this.page.locator(`#allChildrenOver18${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
-  }
-
-  async anyGrandchildrenUnderEighteen(language = 'en', answer = null) {
-    const grandChildrenUnderEighteenContent = getContent(`app/resources/${language}/translation/deceased/anygrandchildrenunder18.json`);
+  async anyGrandchildrenUnderEighteen(language = 'en', answer: YesNoOption): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/deceased/anygrandchildrenunder18.json`
+    );
     await this.checkInUrl('/intestacy/any-grandchildren-under-18');
-    await expect(this.page.getByText(await decodeHTML(grandChildrenUnderEighteenContent.question))).toBeVisible();
-    await expect(this.page.locator(`#anyGrandchildrenUnder18${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyGrandchildrenUnder18${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(this.page.getByText(await decodeHTML(content.question))).toBeVisible();
+    await this.chooseRadioById(`anyGrandchildrenUnder18${answer}`);
+    await this.continue();
   }
 
-  async allGrandchildrenOverEighteen(answer = null) {
+  async allGrandchildrenOverEighteen(answer: YesNoOption): Promise<void> {
     await this.checkInUrl('/intestacy/all-grandchildren-over-18');
-    await expect(this.page.locator(`#grandchildParentHasAllChildrenOver18${answer}`)).toBeEnabled();
-    await this.page.locator(`#grandchildParentHasAllChildrenOver18${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`grandchildParentHasAllChildrenOver18${answer}`);
+    await this.continue();
   }
 
-  async anyNieceOrNephewOver18(language = 'en', answer = null, siblingType) {
-    const wholeNieceOrNephewOver18Content = getContent(`app/resources/${language}/translation/applicant/allwholeniecesandwholenephewsover18.json`);
-    const halfNieceOrNephewOver18Content = getContent(`app/resources/${language}/translation/applicant/allhalfniecesandhalfnephewsover18.json`);
+  async anyNieceOrNephewOver18(
+    language = 'en',
+    answer: YesNoOption,
+    siblingType: SiblingType
+  ): Promise<void> {
+    const wholeContent = getContent(
+      `app/resources/${language}/translation/applicant/allwholeniecesandwholenephewsover18.json`
+    );
+    const halfContent = getContent(
+      `app/resources/${language}/translation/applicant/allhalfniecesandhalfnephewsover18.json`
+    );
     const siblingTypeUpper = siblingType.charAt(0).toUpperCase() + siblingType.slice(1);
-    let nieceOrNephewOver18Content;
-    if (siblingType === 'whole') {
-      nieceOrNephewOver18Content = wholeNieceOrNephewOver18Content;
-    } else {
-      nieceOrNephewOver18Content = halfNieceOrNephewOver18Content;
-    }
+    const content = siblingType === 'whole' ? wholeContent : halfContent;
+
     await this.checkInUrl(`/intestacy/${siblingType}-nieces-${siblingType}-nephews-age`);
-    await expect(this.page.getByText(await decodeHTML(nieceOrNephewOver18Content.question)))
-      .toBeVisible();
-    await expect(this.page.locator(`#all${siblingTypeUpper}NiecesAnd${siblingTypeUpper}NephewsOver18${answer}`)).toBeEnabled();
-    await this.page.locator(`#all${siblingTypeUpper}NiecesAnd${siblingTypeUpper}NephewsOver18${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(this.page.getByText(await decodeHTML(content.question))).toBeVisible();
+    await this.chooseRadioById(
+      `all${siblingTypeUpper}NiecesAnd${siblingTypeUpper}NephewsOver18${answer}`
+    );
+    await this.continue();
   }
 
-  async selectDeceasedSameParents(language = 'en', option = null) {
-    const sameParentsContent = getContent(`app/resources/${language}/translation/applicant/sameparents.json`);
+  async selectDeceasedSameParents(language = 'en', option: YesNoOption): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/sameparents.json`);
     await this.checkInUrl('/intestacy/deceased-same-parents');
-    await expect(this.page.getByText(await decodeHTML(sameParentsContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
-    await expect(this.page.locator(`[value="${option}"]`)).toBeEnabled();
-    await this.page.locator(`[value="${option}"]`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await expect(
+      this.page.getByText(
+        await decodeHTML(content.question).replace(
+          '{deceasedName}',
+          applicantDetailsConfig.deceasedFullName
+        )
+      )
+    ).toBeVisible();
+    await this.chooseRadioByNameValue('deceasedSameParents', option);
+    await this.continue();
   }
 
-  async jointApplication(language = 'en', answer = null, journey = null) {
-    const jointApplicationPageContent = getContent(`app/resources/${language}/translation/executors/jointapplication.json`);
+  async jointApplication(
+    language = 'en',
+    answer: YesNoOption,
+    journey: string | null = null
+  ): Promise<void> {
+    const content = getContent(
+      `app/resources/${language}/translation/executors/jointapplication.json`
+    );
     await this.checkInUrl('/intestacy/joint-application');
-    await expect(this.page
-      .getByRole('heading', { name: jointApplicationPageContent[`title${journey}`], exact: true }).first())
-      .toBeVisible();
-    await this.page.locator(`#hasCoApplicant${answer}`).scrollIntoViewIfNeeded();
-    await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeVisible();
-    await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeEnabled();
-    await this.page.locator(`#hasCoApplicant${answer}`).dispatchEvent('click');
-    try {
-      // Try label click first
-      await this.page.locator(`label[for="hasCoApplicant${answer}"]`).click();
-    } catch {
-      // Fall back to force check
-      await this.page.locator(`#hasCoApplicant${answer}`).check({ force: true });
-    }
 
+    const titleKey = `title${journey ?? ''}`;
+    const headingText = content[titleKey] ?? content.title;
+
+    await expect(
+      this.page.getByRole('heading', { name: headingText, exact: true }).first()
+    ).toBeVisible();
+
+    await this.chooseRadioById(`hasCoApplicant${answer}`);
     await expect(this.page.locator(`#hasCoApplicant${answer}`)).toBeChecked();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async spouseCoApplicationStopPage() {
+  async spouseCoApplicationStopPage(): Promise<void> {
     await this.checkInUrl('/intestacy/stop-page/noJointApplicationApplicable');
     await expect(this.page.locator('#backLink')).toBeVisible();
     await this.runAccessibilityTest();
     await this.page.locator('#backLink').click();
   }
 
-  async enterApplicantName(language ='en', firstname = null, lastname = null) {
-    const nameContent = getContent(`app/resources/${language}/translation/applicant/name.json`);
+  async enterApplicantName(language = 'en', firstname: string, lastname: string): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/name.json`);
     await this.checkInUrl('/applicant-name');
-    await expect(this.page.getByText(await decodeHTML(nameContent.question))).toBeVisible();
+    await expect(this.page.getByText(await decodeHTML(content.question))).toBeVisible();
     await expect(this.firstNameLocator).toBeEnabled();
     await this.firstNameLocator.fill(firstname);
     await this.lastNameLocator.fill(lastname);
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async enterApplicantPhone(language = 'en') {
-    const phoneContent = getContent(`app/resources/${language}/translation/applicant/phone.json`);
-    const phoneNumberLabel = await decodeHTML(phoneContent.phoneNumber);
+  async enterApplicantPhone(language = 'en'): Promise<void> {
+    const content = getContent(`app/resources/${language}/translation/applicant/phone.json`);
+    const phoneNumberLabel = await decodeHTML(content.phoneNumber);
     await this.checkInUrl('/applicant-phone');
     await expect(this.page.locator('label', { hasText: phoneNumberLabel })).toBeVisible();
     await expect(this.page.locator('#phoneNumber')).toBeEnabled();
     await this.page.locator('#phoneNumber').fill(applicantDetailsConfig.phoneNumberValue);
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async enterAddressManually(isGop?: boolean) {
-    if(!isGop) {
+  async enterAddressManually(isGop?: boolean): Promise<void> {
+    if (!isGop) {
       await this.checkInUrl('/applicant-address');
     }
     await this.page.locator('#details-panel > summary > span').click();
@@ -543,84 +679,72 @@ export class ApplicantDetailsSection extends BasePage {
     await this.page.locator('#postTown').fill('Applicant Post Town');
     await this.page.locator('#newPostCode').fill('AA1 1AA');
     await this.page.locator('#country').fill('United Kingdom');
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async selectCoapplicantRelationship(coapplicantRelationship, coapplicantNumber: string) {
+  async selectCoapplicantRelationship(
+    coapplicantRelationship: string,
+    coapplicantNumber: string
+  ): Promise<void> {
     await this.checkInUrl(`/coapplicant-relationship-to-deceased/${coapplicantNumber}`);
-    await expect(this.page.locator(`[value="${coapplicantRelationship}"]`)).toBeVisible();
-    await expect(this.page.locator(`[value="${coapplicantRelationship}"]`)).toBeEnabled();
-    await this.page.locator(`[value="${coapplicantRelationship}"]`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioByNameValue('relationshipToDeceased', coapplicantRelationship);
+    await this.continue();
   }
 
-  async enterCoapplicantName(coApplicantNumber, coApplicantName) {
+  async enterCoapplicantName(coApplicantNumber: string, coApplicantName: string): Promise<void> {
     await this.checkInUrl(`/coapplicant-name/${coApplicantNumber}`);
     await expect(this.coApplicantNameLocator).toBeEnabled();
     await this.coApplicantNameLocator.fill(coApplicantName);
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async coApplicantAdoptedIn(coApplicantNumber, answer = null) {
+  async coApplicantAdoptedIn(coApplicantNumber: string, answer: YesNoOption): Promise<void> {
     await this.checkInUrl(`/intestacy/coapplicant-adopted-in/${coApplicantNumber}`);
-    await expect(this.page.locator(`#adoptedIn${answer}`)).toBeEnabled();
-    await this.page.locator(`#adoptedIn${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`adoptedIn${answer}`);
+    await this.continue();
   }
 
-  async coApplicantAdoptionPlace(coApplicantNumber, answer = null) {
+  async coApplicantAdoptionPlace(coApplicantNumber: string, answer: YesNoOption): Promise<void> {
     await this.checkInUrl(`/intestacy/coapplicant-adoption-place/${coApplicantNumber}`);
-    await expect(this.page.locator(`#adoptionPlace${answer}`)).toBeEnabled();
-    await this.page.locator(`#adoptionPlace${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`adoptionPlace${answer}`);
+    await this.continue();
   }
 
-  async coApplicantAdoptedOut(coApplicantNumber, answer = null) {
+  async coApplicantAdoptedOut(coApplicantNumber: string, answer: YesNoOption): Promise<void> {
     await this.checkInUrl(`/intestacy/coapplicant-adopted-out/${coApplicantNumber}`);
-    await expect(this.page.locator(`#adoptedOut${answer}`)).toBeEnabled();
-    await this.page.locator(`#adoptedOut${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`adoptedOut${answer}`);
+    await this.continue();
   }
 
-  async coApplicantParentAdoptedIn(coApplicantNumber, answer = null) {
+  async coApplicantParentAdoptedIn(coApplicantNumber: string, answer: YesNoOption): Promise<void> {
     await this.checkInUrl(`/intestacy/parent-adopted-in/${coApplicantNumber}`);
-    await expect(this.page.locator(`#applicantParentAdoptedIn${answer}`)).toBeEnabled();
-    await this.page.locator(`#applicantParentAdoptedIn${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`applicantParentAdoptedIn${answer}`);
+    await this.continue();
   }
 
-  async coApplicantParentAdoptedOut(coApplicantNumber, answer = null) {
+  async coApplicantParentAdoptedOut(coApplicantNumber: string, answer: YesNoOption): Promise<void> {
     await this.checkInUrl(`/intestacy/parent-adopted-out/${coApplicantNumber}`);
-    await expect(this.page.locator(`#applicantParentAdoptedOut${answer}`)).toBeEnabled();
-    await this.page.locator(`#applicantParentAdoptedOut${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`applicantParentAdoptedOut${answer}`);
+    await this.continue();
   }
 
-  async coApplicantParentAdoptionPlace(coApplicantNumber, answer = null) {
+  async coApplicantParentAdoptionPlace(
+    coApplicantNumber: string,
+    answer: YesNoOption
+  ): Promise<void> {
     await this.checkInUrl(`/intestacy/parent-adoption-place/${coApplicantNumber}`);
-    await expect(this.page.locator(`#applicantParentAdoptionPlace${answer}`)).toBeEnabled();
-    await this.page.locator(`#applicantParentAdoptionPlace${answer}`).click();
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.chooseRadioById(`applicantParentAdoptionPlace${answer}`);
+    await this.continue();
   }
 
-  async enterCoApplicantEmail(coApplicantNumber, coApplicantEmail) {
+  async enterCoApplicantEmail(coApplicantNumber: string, coApplicantEmail: string): Promise<void> {
     await this.checkInUrl(`/intestacy/coapplicant-email/${coApplicantNumber}`);
     await expect(this.page.locator('#email')).toBeEnabled();
     await this.page.locator('#email').fill(coApplicantEmail);
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async enterCoApplicantAddress(coApplicantNumber) {
+  async enterCoApplicantAddress(coApplicantNumber: string): Promise<void> {
     await this.checkInUrl(`/intestacy/executor-address/${coApplicantNumber}`);
     await this.page.locator('#details-panel > summary > span').click();
     await expect(this.page.locator('#addressLine1')).toBeEnabled();
@@ -630,36 +754,48 @@ export class ApplicantDetailsSection extends BasePage {
     await this.page.locator('#postTown').fill('Applicant Post Town');
     await this.page.locator('#newPostCode').fill('AA1 1AA');
     await this.page.locator('#country').fill('United Kingdom');
-    await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.continue();
   }
 
-  async exitEqualityAndDiversity (language ='en') {
+  async skipEqualityAndDiversityQuestions(): Promise<void> {
+    await expect(this.page).toHaveURL(/pcq/);
+    await expect(this.page.locator('button[name="opt-out-button"]')).toBeVisible();
+    await this.page.locator('button[name="opt-out-button"]').click();
+    await expect(this.page).toHaveURL(/\/task-list/);
+  }
+
+  async exitEqualityAndDiversity(language = 'en'): Promise<void> {
     const equalityContent = language === 'en' ? equalityEn : equalityCy;
     await this.checkInUrl('pcq');
     await expect(this.page.locator('#back-button')).toBeVisible();
     await this.page.reload();
     await expect(this.page.locator('#back-button')).toBeVisible();
-    const currentUrl = await this.page.url();
+
+    const currentUrl = this.page.url();
     if (!currentUrl.includes('/offline')) {
       await expect(this.page.getByText(equalityContent).nth(1)).toBeVisible();
     }
+
     await this.page.locator('#back-button').click();
   }
 
-  async completeEqualityAndDiversity(language = 'en', isJointApplication?: boolean, isGop?: boolean) {
+  async completeEqualityAndDiversity(
+    language = 'en',
+    isJointApplication?: boolean,
+    isGop?: boolean
+  ): Promise<void> {
     if (this.page.url().includes('pcq')) {
       await this.page.waitForTimeout(300);
       await expect(this.saveAndContinueButtonLocator).toBeVisible();
       await this.page.reload();
     }
 
-    if(isJointApplication && !isGop) {
-      await this.jointApplication(language, ihtDataConfig.optionNo);
-    } else if(isGop) {
+    if (isJointApplication && !isGop) {
+      await this.jointApplication(language, ihtDataConfig.optionNo as YesNoOption);
+    } else if (isGop) {
       await this.checkInUrl('/executors-named');
       await expect(this.page.locator('#executorsNamed-2')).toBeEnabled();
-      await this.page.locator('#executorsNamed-2').click();
+      await this.page.locator('#executorsNamed-2').check();
       await this.navByClick(this.saveAndContinueButtonLocator);
     } else {
       await expect(this.saveAndContinueButtonLocator).toBeVisible();

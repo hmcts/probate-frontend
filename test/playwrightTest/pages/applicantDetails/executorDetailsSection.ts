@@ -59,6 +59,24 @@ export class ExecutorDetailsSection extends BasePage {
     }
   }
 
+  async enterApplicantPhoneNumber(phoneNumber = process.env.APPLICANT_PHONE_NUMBER || '07845000000') {
+    await this.checkInUrl('/applicant-phone');
+    await expect(this.page.locator('#phoneNumber')).toBeVisible();
+    await expect(this.page.locator('#phoneNumber')).toBeEnabled();
+    await this.page.locator('#phoneNumber').fill(phoneNumber);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async continueCheckWillExecutors() {
+    await this.checkInUrl('/check-will-executors');
+
+    const continueButton = this.page.getByRole('button', { name: /^(Continue|Parhau)$/ });
+
+    await expect(continueButton).toBeVisible();
+    await expect(continueButton).toBeEnabled();
+    await this.navByClick(continueButton);
+  }
+
   async selectAnyExecutorsDied(answer = null) {
     await this.checkInUrl('/any-executors-died');
     await expect(this.page.locator(`#anyExecutorsDied${answer}`)).toBeEnabled();

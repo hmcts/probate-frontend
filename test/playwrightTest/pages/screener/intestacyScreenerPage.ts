@@ -152,6 +152,16 @@ export class IntestacyScreenerPage extends BasePage {
 
   }
 
+  async selectEEEstateValued(language = 'en', answer = null) {
+    const eeEstateValuedContent = getContent(`app/resources/${language}/translation/screeners/eeestatevalued.json`);
+    await this.checkInUrl('/ee-estate-valued');
+    await expect(this.page.getByText(await decodeHTML(eeEstateValuedContent.question))).toBeVisible();
+    await expect(this.page.locator(`#eeEstateValued${answer}`)).toBeEnabled();
+    await this.page.locator(`#eeEstateValued${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.continueButtonLocator);
+  }
+
   async selectIhtCompleted(language ='en', answer = null) {
     const ihtCompletedContent = getContent(`app/resources/${language}/translation/screeners/ihtcompleted.json`);
     await this.checkInUrl('/iht-completed');
@@ -180,24 +190,54 @@ export class IntestacyScreenerPage extends BasePage {
     await this.navByClick(this.continueButtonLocator);
   }
 
-  async selectRelatedToDeceased(language ='en', answer = null) {
-    const relatedToDeceasedContent = getContent(`app/resources/${language}/translation/screeners/relatedtodeceased.json`);
+  async selectRelatedToDeceased(language = 'en') {
     await this.checkInUrl('/related-to-deceased');
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.question))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionPartner))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextPartner))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionChild))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextChild))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionGrandchild))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextGrandchild))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionParent))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextParent))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionSibling))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.hintTextSibling))).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.or), { exact: true })).toBeVisible();
-    await expect(this.page.getByText(await decodeHTML(relatedToDeceasedContent.optionNone))).toBeVisible();
-    await expect(this.page.locator(`#related${answer}`)).toBeEnabled();
-    await this.page.locator(`#related${answer}`).click();
+
+    const heading =
+      language === 'cy'
+        ? /A ydych chi’n ŵr\/gwraig, yn bartner sifil neu’n blentyn yr unigolyn sydd wedi marw\?/i
+        : /Are you the spouse, civil partner or child of the person who died\?/i;
+
+    await expect(this.page.getByRole('heading', { name: heading })).toBeVisible();
+
+    const relatedRadio = this.page.locator('input[name="related"][value="optionYes"]');
+    await expect(relatedRadio).toBeEnabled();
+    await relatedRadio.check();
+
+    await this.runAccessibilityTest();
+    await this.navByClick(this.continueButtonLocator);
+  }
+
+
+
+  async selectOtherApplicants(language = 'en', answer: string | null = null) {
+    await this.checkInUrl('/other-applicants');
+
+    const selectedValue =
+      answer === 'optionNo' || answer === '-2'
+        ? 'optionNo'
+        : answer === 'optionYes' || answer === '-1'
+          ? 'optionYes'
+          : 'optionNo';
+
+    const heading =
+      language === 'cy'
+        ? /A ydych chi’n bwriadu gwneud cais ar y cyd\?/i
+        : /Are you planning to make a joint application\?/i;
+
+    await expect(
+      this.page.getByRole('heading', { name: heading })
+    ).toBeVisible();
+
+    const otherApplicantsRadio = this.page.locator(
+      `input[name="otherApplicants"][value="${selectedValue}"]`
+    );
+
+    await expect(otherApplicantsRadio).toBeVisible();
+    await expect(otherApplicantsRadio).toBeEnabled();
+    await otherApplicantsRadio.click();
+    await expect(otherApplicantsRadio).toBeChecked();
+
     await this.runAccessibilityTest();
     await this.navByClick(this.continueButtonLocator);
   }

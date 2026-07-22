@@ -1,15 +1,14 @@
 import { test } from '../../fixtures/index.ts';
 import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
-
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import { relationshipToDeceasedOptions } from '../../pages/applicantDetails/applicantDetailsSection.ts';
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
-const spouseOfDeceased = applicantDetailConfig.spouseOfDeceased;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 
@@ -59,14 +58,13 @@ getTestLanguages().forEach(language => {
       await intestacyScreenerPage.selectDeathCertificateTranslation(language, optionYes);
 
       await intestacyScreenerPage.selectDeceasedDomicile(language);
-      await intestacyScreenerPage.selectEEDeceasedDod(language, optionNo);
-      await intestacyScreenerPage.selectIhtCompleted(language, optionYes);
+      await intestacyScreenerPage.selectEEDeceasedDod(language, optionYes);
+      await intestacyScreenerPage.selectEEEstateValued(language, optionYes);
       await intestacyScreenerPage.selectPersonWhoDiedLeftAWill(language, optionNo);
 
       // Intestacy Sceeners
-      await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceased(language, spouseOfDeceased);
-
+      await intestacyScreenerPage.selectRelatedToDeceased(language);
+      await intestacyScreenerPage.selectOtherApplicants(language, optionNo);
       await intestacyScreenerPage.startApply(language);
 
       // IdAM
@@ -75,23 +73,28 @@ getTestLanguages().forEach(language => {
       // Deceased Task
       await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
-      await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
-      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
-      await deceasedDetailsPage.enterDodDetails('02', '01', '2022');
+      await deceasedDetailsPage.chooseBiLingualGrant(optionYes);
+      await deceasedDetailsPage.enterDeceasedDetails(
+        'intestacy',
+        applicantDetailConfig.deceasedFirstName,
+        applicantDetailConfig.deceasedLastName,
+        applicantDetailConfig.dob_day,
+        applicantDetailConfig.dob_month,
+        applicantDetailConfig.dob_year,
+        applicantDetailConfig.dod_day,
+        applicantDetailConfig.dod_month,
+        applicantDetailConfig.dod_year,
+      );
       await deceasedDetailsPage.enterDeceasedAddress();
-
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
       await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
-
       await deceasedDetailsPage.selectEEComplete(optionYes);
       await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
       await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
       await deceasedDetailsPage.enterHmrcCode(hmrcCode);
       await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
-
-      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
+      await deceasedDetailsPage.selectAssetsOutsideEnglandWales('optionYes');
       await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
       await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
@@ -99,21 +102,16 @@ getTestLanguages().forEach(language => {
       // Applicant Task
       await basePage.logInfo(scenarioName, "Applicant details task", null);
       await taskListPage.selectATask(language, 'applicantsTask');
-      await applicantDetailsPage.selectRelationshipToDeceased(language, spouseOfDeceased);
-
-      await applicantDetailsPage.enterAnyChildren(language, optionYes);
-      await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
-      await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);
-      await applicantDetailsPage.anyGrandChildren(language, optionYes);
-      await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
-
-      await applicantDetailsPage.jointApplication(language, optionYes);
-      await applicantDetailsPage.spouseCoApplicationStopPage();
-      await applicantDetailsPage.jointApplication(language, optionNo);
-
+      await applicantDetailsPage.selectRelationshipToDeceased(
+        relationshipToDeceasedOptions.spousePartner
+      );
+      await applicantDetailsPage.enterAnyChildren('optionYes');
+      await applicantDetailsPage.allChildrenOver18('optionYes');
+      await applicantDetailsPage.anyDeceasedChildren('optionNo');
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
+
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
         await applicantDetailsPage.completeEqualityAndDiversity(language);

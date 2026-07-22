@@ -5,6 +5,7 @@ import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
 import { Page, BrowserContext} from "@playwright/test";
+import applicantDetailConfig from '../../data/intestacy/sole/applicantDetails.json' with { type: 'json' };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -81,14 +82,16 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
-      await deceasedDetailsPage.enterDeceasedNameOnWill(language, optionYes);
-      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
-      await deceasedDetailsPage.enterDodDetails(
-        deceasedDetailsConfig.deceasedDodDay,
-        deceasedDetailsConfig.deceasedDodMonth,
-        deceasedDetailsConfig.deceasedDodYearEE
-      );
+      await deceasedDetailsPage.enterDeceasedDetails(
+          applicantDetailConfig.deceasedFirstName,
+          applicantDetailConfig.deceasedLastName,
+          applicantDetailConfig.dob_day,
+          applicantDetailConfig.dob_month,
+          applicantDetailConfig.dob_year,
+          applicantDetailConfig.dod_day,
+          applicantDetailConfig.dod_month,
+          applicantDetailConfig.dod_year,
+        );
       await deceasedDetailsPage.enterDeceasedAddress();
 
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);

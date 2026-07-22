@@ -8,7 +8,7 @@ export class TaskListPage extends BasePage {
     super(page, context, language);
   }
 
-  async selectATask(language ='en', taskName) {
+  async selectATask(language = 'en', taskName) {
     const taskListContent = getContent(`app/resources/${language}/translation/tasklist.json`);
     const currentTaskList = taskListContent[taskName];
     await expect(this.page.getByText(taskListContent.introduction)).toBeVisible();
@@ -17,7 +17,22 @@ export class TaskListPage extends BasePage {
     await this.navByClick(this.page.getByText(currentTaskList));
   }
 
-  async chooseApplication(language ='en') {
+  async selectCheckYourAnswersAndDeclaration(language = 'en'): Promise<void> {
+    const linkName = language === 'en'
+      ? 'Check your answers and make your legal declaration'
+      : 'Gwiriwch eich atebion a gwnewch eich datganiad cyfreithiol';
+
+    await this.checkInUrl('/task-list');
+    await expect(
+      this.page.getByRole('link', { name: linkName })
+    ).toBeVisible();
+    await this.navByClick(
+      this.page.getByRole('link', { name: linkName })
+    );
+    await expect(this.page).toHaveURL(/summary\/declaration/);
+  }
+
+  async chooseApplication(language = 'en') {
     const dashboardContent = getContent(`app/resources/${language}/translation/dashboard.json`);
     await this.checkInUrl('/dashboard');
     await this.runAccessibilityTest();
@@ -29,7 +44,7 @@ export class TaskListPage extends BasePage {
     // database gives a success before is actually populated, so is async.
     if (language === 'en') {
       for (let i = 0; i <= 5; i++) {
-        await expect(this.page.getByRole('heading', { name: dashboardContent.header, exact: true})).toBeVisible();
+        await expect(this.page.getByRole('heading', {name: dashboardContent.header, exact: true})).toBeVisible();
         const result = await this.page.getByText(dashboardContent.statusInProgress).isVisible();
         if (result === true) {
           break;

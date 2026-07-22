@@ -35,13 +35,35 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterDeceasedDetails(firstName = null, lastName = null) {
-    await this.checkInUrl('/deceased-name');
-    await expect(this.firstNameLocator).toBeEnabled();
-    await this.firstNameLocator.fill(firstName);
-    await this.lastNameLocator.fill(lastName);
+  async enterDeceasedDetails(
+    caseType: string,
+    firstName: string,
+    lastName: string,
+    dobDay?: string,
+    dobMonth?: string,
+    dobYear?: string,
+    dodDay?: string,
+    dodMonth?: string,
+    dodYear?: string,
+  ): Promise<void> {
+    await expect(this.page).toHaveURL(/\/(deceased-details|deceased-name)(?:\?.*)?$/);
+
+    await this.page.locator('#firstName').fill(firstName);
+    await this.page.locator('#lastName').fill(lastName);
+    if (caseType === 'Intestacy') {
+    // #dob-date-day
+      await this.page.locator('#dob-date-day').fill(dobDay);
+      await this.page.locator('#dob-date-month').fill(dobMonth);
+      await this.page.locator('#dob-date-year').fill(dobYear);
+      // #dod-date-day
+      await this.page.locator('#dod-date-day').fill(dodDay);
+      await this.page.locator('#dod-date-month').fill(dodMonth);
+      await this.page.locator('#dod-date-year').fill(dodYear);
+
+    }
+
     await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator);
+    await this.navByClick(this.saveAndContinueButtonLocator, /\/deceased-address/);
   }
 
   async enterDeceasedNameOnWill(language = 'en', answer = null) {
@@ -55,16 +77,19 @@ export class DeceasedDetailsSection extends BasePage {
   }
 
   async enterDobDetails(language, dob_day = null, dob_month = null, dob_year = null, saveAndClose = false) {
-    const dobContent = getContent(`app/resources/${language}/translation/deceased/dob.json`);
     await this.checkInUrl('/deceased-dob');
-    await expect(this.page.getByText(await decodeHTML(dobContent.question)
-      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
-      .toBeVisible();
+
+    await expect(this.dobDayLocator).toBeVisible();
     await expect(this.dobDayLocator).toBeEnabled();
+    await expect(this.dobMonthLocator).toBeVisible();
+    await expect(this.dobYearLocator).toBeVisible();
+
     await this.dobDayLocator.fill(dob_day);
     await this.dobMonthLocator.fill(dob_month);
     await this.dobYearLocator.fill(dob_year);
+
     await this.runAccessibilityTest();
+
     if (saveAndClose) {
       await this.navByClick(this.signOutButtonLocator);
     } else {
@@ -225,12 +250,11 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async selectAssetsOutsideEnglandWales(language = 'en', answer = null) {
-    const assetsContent = getContent(`app/resources/${language}/translation/iht/assetsoutside.json`);
+  async selectAssetsOutsideEnglandWales(answerValue = 'optionYes') {
     await this.checkInUrl('/assets-outside-england-wales');
-    await expect(this.page.getByText(await decodeHTML(assetsContent.hint))).toBeVisible();
-    await expect(this.page.locator(`#assetsOutside${answer}`)).toBeEnabled();
-    await this.page.locator(`#assetsOutside${answer}`).click();
+    const assetsOutsideRadio = this.page.locator(`input[name="assetsOutside"][value="${answerValue}"]`);
+    await expect(assetsOutsideRadio).toBeEnabled();
+    await assetsOutsideRadio.check();
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }

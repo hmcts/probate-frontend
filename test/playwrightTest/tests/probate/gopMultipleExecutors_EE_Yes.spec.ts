@@ -3,7 +3,6 @@ import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
-import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
 import { Page, BrowserContext} from "@playwright/test";
 import applicantDetailConfig from '../../data/intestacy/sole/applicantDetails.json' with { type: 'json' };
 

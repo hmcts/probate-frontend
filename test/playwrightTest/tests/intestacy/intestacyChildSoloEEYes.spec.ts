@@ -7,11 +7,11 @@ import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.js
 import deceasedDetailsConfig from "../../data/deceasedDetailsConfig.json" with { type: "json" };
 
 
-const optionYes = ihtDataConfig.optionYes;
-const optionNo = ihtDataConfig.optionNo;
+const optionYes: 'optionYes' = ihtDataConfig.optionYes as 'optionYes';
+const optionNo: 'optionNo' = ihtDataConfig.optionNo as 'optionNo';
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
-const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
+const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
   test.describe('Intestacy sole child journey - EE Yes ipadpro11', () => {
@@ -19,8 +19,8 @@ getTestLanguages().forEach(language => {
 
     test.use({ language });
     let testConfigurator: TestConfigurator;
-    let context: BrowserContext;
-    let page: Page;
+    let context!: BrowserContext;
+    let page!: Page;
     let basePage: BasePage;
 
     test.beforeEach(async () => {

@@ -24,7 +24,6 @@ export function decodeHTML(str: string): string {
 export class BasePage {
   public readonly page: Page;
   public readonly context: BrowserContext;
-  protected language: string
   protected commonContent;
 
   constructor(page: Page, context: BrowserContext, language: string) {
@@ -37,7 +36,7 @@ export class BasePage {
     await new AxeUtils(this.page).audit();
   }
 
-  async logInfo(scenarioName: string, log: string, caseRef) {
+  async logInfo(scenarioName: string, log: string, caseRef: string) {
     let ret = scenarioName;
     // await this.page.waitForTimeout(testConfig.GetCaseRefFromUrlDelay);
     if (log) {
@@ -69,27 +68,23 @@ export class BasePage {
     return this.page.getByRole('button', { name, exact: true });
   }
 
-  async navByClick(
-    buttonLocator: Locator | string,
-    nextPageUrl?: RegExp,
-    timeout: number = 60_000
-  ): Promise<void> {
+  async navByClick(buttonLocator: Locator | string, timeout: number = 5_000): Promise<void> {
+    // const currentUrl = await this.page.url();
     const locator = typeof buttonLocator === 'string'
-      ? this.page.locator(buttonLocator)
+      ? this.page.locator(buttonLocator)  // String - convert to Locator
       : buttonLocator;
-
     await expect(locator).toBeVisible();
     await expect(locator).toBeEnabled();
 
-    if (nextPageUrl) {
-      await Promise.all([
-        this.page.waitForURL(nextPageUrl, { timeout, waitUntil: 'domcontentloaded' }),
-        locator.click(),
-      ]);
-      return;
-    }
+    await Promise.all([
+      // this.page.waitForNavigation({ timeout: 60_000 }),
+      locator.click({ timeout })
+    ]);
 
-    await locator.click({ timeout });
+    /*await expect(async () => {
+      await locator.click({ timeout: timeout });
+      await expect(this.page).not.toHaveURL(currentUrl);
+    }).toPass({ intervals: [2_000, 2_000, 2_000], timeout: 60_000 });*/
   }
 
   async selectJointApplicationOption(radioOptionLocator: Locator): Promise<void> {

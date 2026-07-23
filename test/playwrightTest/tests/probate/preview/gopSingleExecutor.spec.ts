@@ -5,7 +5,6 @@ import { TestConfigurator } from '../../../pages/utility/testConfigurator.ts';
 import deceasedDetailsConfig from '../../../data/deceasedDetailsConfig.json' with { type: 'json' };
 import ihtDataConfig from '../../../data/ee/ihtData.json' with { type: 'json' };
 import applicantDetailConfig from '../../../data/intestacy/sole/applicantDetails.json' with { type: 'json' };
-import { PcqPage } from '../../../pages/pcq/pcqPage.js'
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;

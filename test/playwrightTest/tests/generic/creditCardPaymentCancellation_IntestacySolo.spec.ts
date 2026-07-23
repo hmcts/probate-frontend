@@ -9,8 +9,7 @@ import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.js
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const maritalStatusMarried = ihtDataConfig.maritalStatusMarried;
-const relationshipChildOfDeceased = applicantDetailConfig.relationshipChildOfDeceased;
-const optionRenouncing = applicantDetailConfig.optionRenouncing;
+
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
 

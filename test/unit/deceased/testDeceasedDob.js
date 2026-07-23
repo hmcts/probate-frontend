@@ -109,6 +109,137 @@ describe('DeceasedDob', () => {
             ]);
             done();
         });
+        it('should return the error for DoB when no year has been entered', (done) => {
+            ctx = {
+                'dob-day': '01',
+                'dob-month': '01'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-year',
+                    href: '#dob-year',
+                    msg: content.errors['dob-year'].required
+                }
+            ]);
+            done();
+        });
+
+        it('should return the error for DoB when no month has been entered', (done) => {
+            ctx = {
+                'dob-day': '01',
+                'dob-year': '2002'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-month',
+                    href: '#dob-month',
+                    msg: content.errors['dob-month'].required
+                }
+            ]);
+            done();
+        });
+
+        it('should return the error for DoB when no day has been entered', (done) => {
+            ctx = {
+                'dob-month': '01',
+                'dob-year': '2002'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-day',
+                    href: '#dob-day',
+                    msg: content.errors['dob-day'].required
+                }
+            ]);
+            done();
+        });
+
+        it('should return the error for DoB when no day no year has been entered', (done) => {
+            ctx = {
+                'dob-month': '01'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-day-year',
+                    href: '#dob-day-year',
+                    msg: content.errors['dob-day-year'].required
+                }
+            ]);
+            done();
+        });
+        it('should return the error for Dob when no day no month has been entered', (done) => {
+            ctx = {
+                'dob-year': '2002'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-day-month',
+                    href: '#dob-day-month',
+                    msg: content.errors['dob-day-month'].required
+                }
+            ]);
+            done();
+        });
+        it('should return the error for DoB when no month no year has been entered', (done) => {
+            ctx = {
+                'dob-day': '01'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-month-year',
+                    href: '#dob-month-year',
+                    msg: content.errors['dob-month-year'].required
+                }
+            ]);
+            done();
+        });
+        it('should return the error for DoB if negative day, month or year entered', (done) => {
+            ctx = {
+                'dob-day': '-01',
+                'dob-month': '01',
+                'dob-year': '2000'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-date',
+                    href: '#dob-date',
+                    msg: content.errors['dob-date'].invalid
+                }
+            ]);
+            done();
+        });
+
+        it('should return the error for DoB when an invalid date has been entered', (done) => {
+            ctx = {
+                'dob-day': 'a',
+                'dob-month': 'b',
+                'dob-year': 'c'
+            };
+            errors = [];
+            [ctx, errors] = DeceasedDob.handlePost(ctx, errors, formdata, session);
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dob-date',
+                    href: '#dob-date',
+                    msg: content.errors['dob-date'].invalid
+                }
+            ]);
+            done();
+        });
     });
 
     describe('shouldHaveBackLink()', () => {
@@ -119,4 +250,26 @@ describe('DeceasedDob', () => {
         });
     });
 
+    describe('getContextData()', () => {
+        let ctx;
+        let req;
+
+        it('should return the context with the deceased name', (done) => {
+            req = {
+                session: {
+                    form: {
+                        deceased: {
+                            firstName: 'John',
+                            lastName: 'Doe',
+                            'dob-date': '1918-01-01'
+                        }
+                    }
+                }
+            };
+
+            ctx = DeceasedDob.getContextData(req);
+            expect(ctx.deceasedName).to.equal('John Doe');
+            done();
+        });
+    });
 });

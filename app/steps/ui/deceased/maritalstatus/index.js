@@ -27,7 +27,6 @@ class DeceasedMaritalStatus extends ValidationStep {
                     {key: 'maritalStatus', value: 'optionSeparated', choice: 'gopSeparated'}
                 ]
             };
-            // throw new Error('aaaa');
         }
         ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
         return {

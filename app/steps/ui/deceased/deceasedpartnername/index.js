@@ -4,8 +4,8 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 
 class DeceasedPartnerName extends ValidationStep {
 
-    constructor(steps, section, templatePath, i18next, schema, language = 'en') {
-        super(steps, section, templatePath, i18next, schema, language);
+    static getUrl() {
+        return '/deceased-partner-name';
     }
 
     validate(ctx, formdata, language) {
@@ -20,9 +20,6 @@ class DeceasedPartnerName extends ValidationStep {
         return [isValid, errors];
     }
 
-    static getUrl() {
-        return '/deceased-partner-name';
-    }
 }
 
 module.exports = DeceasedPartnerName;

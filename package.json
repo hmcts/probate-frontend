@@ -199,7 +199,7 @@
     "chai-string": "^1.6.0",
     "codeceptjs": "^3.7.9",
     "dotenv": "^17.2.0",
-    "eslint": "^10.0.0",
+    "eslint": "10.0.0",
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-mocha": "^11.3.0",
     "eslint-plugin-n": "^17.24.0",

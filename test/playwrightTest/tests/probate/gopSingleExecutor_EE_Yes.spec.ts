@@ -154,8 +154,8 @@ getTestLanguages().forEach(language => {
       await paymentTaskPage.seeCopiesSummary(language);
       await paymentTaskPage.seePaymentBreakdownPage(language);
       if (testConfigurator.getUseGovPay() === 'true') {
-        await paymentTaskPage.seeGovUkPaymentPage(language);
-        await paymentTaskPage.seeGovUkConfirmPage(language);
+        await paymentTaskPage.seeGovUkPaymentPage();
+        await paymentTaskPage.seeGovUkConfirmPage();
       }
 
       // Thank You

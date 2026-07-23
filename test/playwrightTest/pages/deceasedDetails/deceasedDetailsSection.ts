@@ -63,7 +63,7 @@ export class DeceasedDetailsSection extends BasePage {
     }
 
     await this.runAccessibilityTest();
-    await this.navByClick(this.saveAndContinueButtonLocator, /\/deceased-address/);
+    await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
   async enterDeceasedNameOnWill(language = 'en', answer = null) {
@@ -97,7 +97,7 @@ export class DeceasedDetailsSection extends BasePage {
     }
   }
 
-  async enterDodDetails(dod_day = null, dod_month = null, dod_year = null) {
+  async enterDodDetails(dod_day: string, dod_month: string, dod_year: string) {
     await this.checkInUrl('/deceased-dod');
     await expect(this.dodDayLocator).toBeEnabled();
     await this.dodDayLocator.fill(dod_day);

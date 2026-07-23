@@ -94,7 +94,7 @@ export class PaymentTaskSection extends BasePage {
     }
   }
 
-  async seeGovUkPaymentPage(language = 'en'): Promise<void> {
+  async seeGovUkPaymentPage(): Promise<void> {
     await expect(this.page).toHaveURL(/\/card_details\/[^/?]+(?:\?.*)?$/, { timeout: 60_000 });
 
     const cardNo = this.page.locator('#card-no');
@@ -217,7 +217,7 @@ export class PaymentTaskSection extends BasePage {
     }
   }
 
-  async seeGovUkConfirmPage(language = 'en'): Promise<void> {
+  async seeGovUkConfirmPage(): Promise<void> {
     await expect(this.page).toHaveURL(/\/confirm(?:\?.*)?$/, { timeout: 60_000 });
 
     await expect(this.page.locator('#confirm')).toBeVisible({ timeout: 60_000 });

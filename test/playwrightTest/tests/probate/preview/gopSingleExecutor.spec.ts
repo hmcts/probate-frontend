@@ -153,7 +153,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.enterDodDetails(
         deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
-        deceasedDetailsConfig.deceasedDodYear,
+        deceasedDetailsConfig.deceasedDodYearEE,
       );
       await deceasedDetailsPage.enterDeceasedAddress();
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
@@ -236,8 +236,8 @@ getTestLanguages().forEach(language => {
       await paymentTaskPage.seePaymentBreakdownPage(language);
 
       if (localTestConfigurator.getUseGovPay() === 'true') {
-        await paymentTaskPage.seeGovUkPaymentPage(language);
-        await paymentTaskPage.seeGovUkConfirmPage(language);
+        await paymentTaskPage.seeGovUkPaymentPage();
+        await paymentTaskPage.seeGovUkConfirmPage();
       }
 
       const caseId = await paymentTaskPage.seeThankYouPage(language);

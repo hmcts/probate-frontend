@@ -1,0 +1,12 @@
+{
+  "title": "CY Name of deceased spouse or partner",
+  "question": "CY What was NAME's husband's, wife's or civil partner's name?",
+  "explanation1": "CY If they are listed in the will or any codicils, enter their name exactly as it is written there.",
+  "deceasedSpouseName": "CY Full name of NAME's husband, wife or civil partner",
+
+  "errors": {
+    "deceasedSpouseName": {
+      "required": "CY Enter the full name of NAME's husband, wife or civil partner"
+    }
+  }
+}

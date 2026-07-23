@@ -137,9 +137,23 @@ const stepList = {
     IhtPaper: 'DeceasedAlias',
     DeceasedAlias: {
         assetsInOtherNames: 'DeceasedOtherNames',
-        otherwise: 'DeceasedMarried'
+        otherwise: 'DeceasedMaritalStatus'
     },
-    DeceasedOtherNames: 'DeceasedMarried',
+    DeceasedOtherNames: 'DeceasedMaritalStatus',
+    DeceasedMaritalStatus: {
+        gopMarried: 'DeceasedMarried',
+        gopNotMarried: 'WillHasVisibleDamage',
+        gopDivorced: 'DivorcePlace',
+        gopSeparated: 'DivorcePlace',
+        gopWidowed: 'DeceasedPartnerName',
+        otherwise: 'StopPage'
+    },
+    DivorcePlace: {
+        inEnglandOrWales: 'DivorceDate',
+        otherwise: 'StopPage',
+    },
+    DivorceDate: 'DeceasedMarried',
+    DeceasedPartnerName: 'DeceasedMarried',
     AddAlias: 'DeceasedOtherNames',
     RemoveAlias: 'DeceasedOtherNames',
     DeceasedMarried: 'WillHasVisibleDamage',

@@ -122,6 +122,7 @@ describe('Summary', () => {
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or form a civil partnership after the will was signed?',
+                deceasedPartnerNameQuestion: 'What was Dee Ceased\'s husband\'s, wife\'s or civil partner\'s name?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
                 ihtTotalNetValue: 300000,
                 ihtUnusedAllowanceClaimedQuestion: 'Are you claiming the unused Inheritance Tax allowance of Dee Ceased’s husband, wife or civil partner?',
@@ -153,7 +154,11 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false
+                softStop: false,
+                deceasedDivorceDate: 'Date of legal separation',
+                deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
+                deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
             });
             done();
         });
@@ -197,10 +202,13 @@ describe('Summary', () => {
                 deceasedAnyChildrenQuestion: 'Did Dee Ceased have any children?',
                 deceasedAnyDeceasedChildrenQuestion: 'Did any of Dee Ceased&rsquo;s children die before 2 February 2015?',
                 deceasedAnyOtherChildrenQuestion: 'Did Dee Ceased have any other children?',
-                deceasedDivorcePlaceQuestion: 'Did the separation take place in England or Wales?',
+                deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
                 deceasedHadLateSpouseOrCivilPartnerQuestion: 'Did Dee Ceased have a husband, wife or civil partner who died before them?',
+                deceasedDivorceDate: 'Date of legal separation',
+                deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
                 deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
+                deceasedPartnerNameQuestion: 'What was Dee Ceased\'s husband\'s, wife\'s or civil partner\'s name?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
                 assetsThreshold: 250000,
                 ihtTotalNetValue: 550000,

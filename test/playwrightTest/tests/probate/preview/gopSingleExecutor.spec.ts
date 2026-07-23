@@ -63,81 +63,8 @@ getTestLanguages().forEach(language => {
       await gopScreenerPage.selectApplicantIsExecutor(language, optionYes);
       await gopScreenerPage.selectMentallyCapable(language, optionYes);
 
+      await intestacyScreenerPage.startApply(language);
       await signInPage.authenticateWithIdamIfAvailable(language);
-
-      await expect(signInPage.page).toHaveURL(/\/(start-apply|task-list)/, { timeout: 60_000 });
-      let currentUrl = signInPage.page.url();
-      console.log('Current URL after first sign-in:', currentUrl);
-
-      if (currentUrl.includes('/start-apply')) {
-        const possibleControls = [
-          signInPage.page.getByRole('button', { name: /start now/i }),
-          signInPage.page.getByRole('link', { name: /start now/i }),
-          signInPage.page.getByRole('button', { name: /continue/i }),
-          signInPage.page.getByRole('link', { name: /continue/i }),
-          signInPage.page.getByRole('button', { name: /save and continue/i }),
-          signInPage.page.getByRole('link', { name: /save and continue/i }),
-          signInPage.page.getByRole('button', { name: /apply now/i }),
-          signInPage.page.getByRole('link', { name: /apply now/i }),
-          signInPage.page.locator('.govuk-button').first(),
-          signInPage.page.locator('a.govuk-button').first(),
-          signInPage.page.locator('input.govuk-button').first(),
-        ];
-
-        let clicked = false;
-
-        for (const control of possibleControls) {
-          if (await control.isVisible().catch(() => false)) {
-            await control.click();
-            clicked = true;
-            break;
-          }
-        }
-
-        if (!clicked) {
-          throw new Error(
-            `After sign-in user is on /start-apply but no continue/start control was found. Current URL: ${currentUrl}`,
-          );
-        }
-
-        await signInPage.authenticateWithIdamIfAvailable(language);
-
-        await expect(signInPage.page).toHaveURL(/\/(start-apply|task-list)/, { timeout: 60_000 });
-        currentUrl = signInPage.page.url();
-        console.log('Current URL after start-apply action:', currentUrl);
-
-        if (currentUrl.includes('/start-apply')) {
-          const possibleControlsSecondPass = [
-            signInPage.page.getByRole('button', { name: /start now/i }),
-            signInPage.page.getByRole('link', { name: /start now/i }),
-            signInPage.page.getByRole('button', { name: /continue/i }),
-            signInPage.page.getByRole('link', { name: /continue/i }),
-            signInPage.page.getByRole('button', { name: /save and continue/i }),
-            signInPage.page.getByRole('link', { name: /save and continue/i }),
-            signInPage.page.getByRole('button', { name: /apply now/i }),
-            signInPage.page.getByRole('link', { name: /apply now/i }),
-            signInPage.page.locator('.govuk-button').first(),
-            signInPage.page.locator('a.govuk-button').first(),
-            signInPage.page.locator('input.govuk-button').first(),
-          ];
-
-          let clickedAgain = false;
-
-          for (const control of possibleControlsSecondPass) {
-            if (await control.isVisible().catch(() => false)) {
-              await control.click();
-              clickedAgain = true;
-              break;
-            }
-          }
-
-          if (clickedAgain) {
-            await signInPage.authenticateWithIdamIfAvailable(language);
-          }
-        }
-
-        await expect(signInPage.page).toHaveURL(/\/task-list/, { timeout: 60_000 });
-      }
 
       await basePage.logInfo(scenarioName, 'Deceased Details Task', null);
       await taskListPage.selectATask(language, 'deceasedTask');

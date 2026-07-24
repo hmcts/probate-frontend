@@ -158,7 +158,7 @@ describe('Summary', () => {
                 deceasedDivorceDate: 'Date of legal separation',
                 deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
                 deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
-                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status at the time of their death?',
             });
             done();
         });
@@ -206,7 +206,7 @@ describe('Summary', () => {
                 deceasedHadLateSpouseOrCivilPartnerQuestion: 'Did Dee Ceased have a husband, wife or civil partner who died before them?',
                 deceasedDivorceDate: 'Date of legal separation',
                 deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
-                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status at the time of their death?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why isn&rsquo;t Dee Ceased&rsquo;s spouse applying?',
                 deceasedPartnerNameQuestion: 'What was Dee Ceased\'s husband\'s, wife\'s or civil partner\'s name?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',

@@ -1,12 +1,12 @@
 {
   "title": "Child Alive",
-  "question": "Is your parent ({deceasedName}&rsquo;s child) alive?",
+  "question": "Was your parent ({deceasedName}’s child) alive at the time of {deceasedName}’s death?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "childAlive": {
-      "required": "Select &lsquo;Yes&rsquo; if your parent ({deceasedName}&rsquo;s child) is alive"
+      "required": "Select ‘Yes’ if your parent ({deceasedName}’s child) is alive or if they died after {deceasedName}"
     }
   }
 }

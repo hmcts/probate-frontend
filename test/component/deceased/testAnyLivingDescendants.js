@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const AdoptedIn = require('app/steps/ui/applicant/deceasedadoptedin/index');
+const AnyLivingParents = require('app/steps/ui/deceased/anylivingparents/index');
 const StopPage = require('app/steps/ui/stoppage/index');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
@@ -11,6 +12,7 @@ const testStepUrl = '/any-living-descendants';
 describe(testStepUrl, () => {
     let testWrapper;
     const expectedNextUrlForAdoptedIn = AdoptedIn.getUrl();
+    const expectedNextUrlForAnyLivingParents = AnyLivingParents.getUrl();
     const expectedNextUrlForStopPage = StopPage.getUrl('notEligibleLivingDescendants');
 
     beforeEach(() => {
@@ -64,11 +66,27 @@ describe(testStepUrl, () => {
                 })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionParent',
                         anyLivingDescendants: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAdoptedIn}`);
+                });
+        });
+
+        it(`test it redirects to any living parents page for sibling with no descendants: /intestacy${expectedNextUrlForAnyLivingParents}`, (done) => {
+            testWrapper.agent.post('/prepare-session/form')
+                .send({
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionSibling'
+                    }
+                })
+                .end(() => {
+                    const data = {
+                        anyLivingDescendants: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForAnyLivingParents}`);
                 });
         });
 
@@ -82,7 +100,6 @@ describe(testStepUrl, () => {
                 })
                 .end(() => {
                     const data = {
-                        relationshipToDeceased: 'optionParent',
                         anyLivingDescendants: 'optionYes',
                     };
 

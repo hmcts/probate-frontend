@@ -85,6 +85,16 @@ describe('Co-applicant-parent-die-before', () => {
             const url = ParentDieBefore.nextStepUrl(req, ctx);
             expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
         });
+
+        it('should return parent adopted in for a whole-blood niece or nephew when their parent died before the deceased', () => {
+            ctx.caseType = 'intestacy';
+            ctx.index = 2;
+            ctx.list[2].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+            ctx.applicantParentDieBeforeDeceased = 'optionYes';
+            const url = ParentDieBefore.nextStepUrl(req, ctx);
+            expect(url).to.equal('/intestacy/parent-adopted-in/2');
+        });
+
     });
     describe('CoApplicantParentDieBefore handlePost()', () => {
         let ctx;
@@ -151,6 +161,31 @@ describe('Co-applicant-parent-die-before', () => {
             });
             done();
         });
+
+        it('should clear whole-blood niece or nephew parent adoption fields when parent did not die before the deceased', () => {
+            ctx = {
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptedIn: 'optionYes',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
+                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
+                    },
+                ],
+                index: 1,
+                applicantParentDieBeforeDeceased: 'optionNo'
+            };
+            errors = [];
+
+            [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
+
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                wholeBloodSiblingDiedBeforeDeceased: 'optionNo'
+            });
+            expect(ctx.hasCoApplicant).to.equal('optionYes');
+        });
     });
 
     describe('getContextData()', () => {
@@ -206,6 +241,13 @@ describe('Co-applicant-parent-die-before', () => {
             expect(ctx.index).to.equal(1);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
+        });
+    });
+
+    describe('requiredErrorKeyForRelationship()', () => {
+        it('returns whole-blood specific required key for whole-blood niece or nephew', () => {
+            expect(ParentDieBefore.requiredErrorKeyForRelationship('optionWholeBloodNieceOrNephew'))
+                .to.equal('wholeBloodNieceOrNephewRequired');
         });
     });
 });

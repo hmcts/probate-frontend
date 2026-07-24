@@ -3,8 +3,18 @@
   "$id": "co-applicant-relationship-to-deceased",
   "type": "object",
   "properties": {
-    "relationshipToDeceased": {
-      "type": "string"
+    "coApplicantRelationshipToDeceased": {
+      "type": "string",
+      "enum": [
+        "optionChild",
+        "optionGrandchild",
+        "optionHalfBloodSibling",
+        "optionHalfBloodNieceOrNephew",
+        "optionWholeBloodSibling",
+        "optionWholeBloodNieceOrNephew",
+        "optionParent",
+        "optionOther"
+      ]
     }
   },
   "required": [

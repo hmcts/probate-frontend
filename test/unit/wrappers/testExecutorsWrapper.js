@@ -1034,6 +1034,37 @@ describe('Executors.js', () => {
         });
     });
 
+    describe('isStopPage()', () => {
+        it('should return true when a whole-blood niece or nephew parent adoption took place outside England or Wales', () => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
+                    }
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.isStopPage()).to.equal(true);
+        });
+
+        it('should return true when a whole-blood niece or nephew parent was adopted out', () => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
+                    }
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.isStopPage()).to.equal(true);
+        });
+
+    });
+
     describe('removeAgreedFlag()', () => {
         it('should remove the agree flag of Executors who are applying', (done) => {
             const data = {

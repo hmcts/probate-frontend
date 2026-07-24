@@ -150,6 +150,14 @@ describe('Co-applicant-name', () => {
             const url = CoApplicantName.nextStepUrl(req, ctx);
             expect(url).to.equal('/intestacy/coapplicant-adopted-in/1');
         });
+
+        it('should route whole-blood niece or nephew branch to email after parent assessment', () => {
+            ctx.index = 1;
+            ctx.applicantRelationshipToDeceased = 'optionSibling';
+            ctx.list[1].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+            const url = CoApplicantName.nextStepUrl(req, ctx);
+            expect(url).to.equal('/intestacy/coapplicant-email/1');
+        });
         it('should return the correct URL if the index is there for parent journey', () => {
             ctx = {
                 fullName: '',

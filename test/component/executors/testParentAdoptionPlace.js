@@ -2,6 +2,7 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
+const CoApplicantName = require('app/steps/ui/executors/coapplicantname');
 const ParentAdoptionPlace = require('app/steps/ui/executors/parentadoptionplace');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes= require('app/utils/CaseTypes');
@@ -10,7 +11,9 @@ const StopPage = require('../../../app/steps/ui/stoppage');
 describe('parent-adoption-place', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(2);
+    const expectedNextUrlForCoApplicantName = CoApplicantName.getUrl(1);
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantAdoptionPlaceStop');
+    const expectedNextUrlForNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptionPlaceNoNameStop');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantParentAdoptionPlace');
@@ -90,6 +93,38 @@ describe('parent-adoption-place', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
+                });
+        });
+
+        it(`redirects whole-blood yes to co-applicant name: /intestacy${expectedNextUrlForCoApplicantName}`, (done) => {
+            testWrapper.pageUrl = ParentAdoptionPlace.getUrl(1);
+            sessionData.executors = {
+                list: [
+                    {fullName: 'Main Applicant', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptionPlace: 'optionYes'}, `/intestacy${expectedNextUrlForCoApplicantName}`);
+                });
+        });
+
+        it(`redirects whole-blood no to no-name stop page: /intestacy${expectedNextUrlForNoNameStopPage}`, (done) => {
+            testWrapper.pageUrl = ParentAdoptionPlace.getUrl(1);
+            sessionData.executors = {
+                list: [
+                    {fullName: 'Main Applicant', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptionPlace: 'optionNo'}, `/intestacy${expectedNextUrlForNoNameStopPage}`);
                 });
         });
     });

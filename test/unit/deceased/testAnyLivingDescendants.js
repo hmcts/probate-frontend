@@ -2,6 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
+const journey = require('app/journeys/intestacy');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const AnyLivingDescendants = steps.AnyLivingDescendants;
 
@@ -47,6 +48,25 @@ describe(AnyLivingDescendants.name, () => {
                 ]
             });
             done();
+        });
+    });
+
+    describe('nextStepUrl()', () => {
+        const req = {
+            session: {
+                journey: journey
+            }
+        };
+
+        it('routes sibling with no living descendants to any-living-parents', () => {
+            const ctx = {
+                caseType: 'intestacy',
+                relationshipToDeceased: 'optionSibling',
+                anyLivingDescendants: 'optionNo'
+            };
+
+            const nextStepUrl = AnyLivingDescendants.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/any-living-parents');
         });
     });
 });

@@ -119,16 +119,60 @@ describe('ParentAdoptionPlace', () => {
             expect(nextStepUrl).to.equal(optionNoUrl);
             done();
         });
+
+        it('should return co-applicant name when a whole-blood niece or nephew parent adoption took place in England or Wales', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                applicantParentAdoptionPlace: 'optionYes',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/coapplicant-name/1');
+        });
+
+        it('should return the no-name stop page when a whole-blood niece or nephew parent adoption took place outside England or Wales', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                applicantParentAdoptionPlace: 'optionNo',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptionPlaceNoNameStop');
+        });
     });
 
     describe('ParentAdoptionPlace handlePost', () => {
-        it('should childAdoptionInEnglandOrWales = optionYes if coApplicantRelationshipToDeceased is Child', () => {
+        it('should set grandchildParentAdoptionInEnglandOrWales when relationship is grandchild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptionPlace: 'optionYes',
                 list: [
                     {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ]
             };
@@ -144,6 +188,34 @@ describe('ParentAdoptionPlace', () => {
             };
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
             expect(formdata.executors.list[1]).to.deep.equal({'grandchildParentAdoptionInEnglandOrWales': 'optionYes'});
+        });
+
+        it('should map whole-blood niece or nephew parent adoption place to supported field', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptionPlace: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {
+                executors: {
+                    list: [
+                        {},
+                        {}
+                    ]
+                }
+            };
+            ParentAdoptionPlace.handlePost(ctx, errors, formdata);
+            expect(formdata.executors.list[1]).to.deep.equal({
+                wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+            });
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+            });
         });
     });
 });

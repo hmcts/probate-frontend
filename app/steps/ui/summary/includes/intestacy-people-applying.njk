@@ -13,6 +13,46 @@
   )}}
 {% endif %}
 
+{% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" %}
+    {% set deceasedName = (fields.deceased.firstName.value ~ " " ~ fields.deceased.lastName.value) | trim %}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantParentAdoptedIn.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
+                answer: content.CoApplicantParentAdoptedIn[executor.wholeBloodNieceOrNephewAdoptedIn],
+                visible: executor.wholeBloodNieceOrNephewAdoptedIn
+            }
+        ],
+        url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantParentAdoptionPlace.question,
+                answer: content.CoApplicantParentAdoptionPlace[executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales],
+                visible: executor.wholeBloodNieceOrNephewAdoptedIn == "optionYes"
+            }
+        ],
+        url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantParentAdoptedOut.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
+                answer: content.CoApplicantParentAdoptedOut[executor.wholeBloodNieceOrNephewAdoptedOut],
+                visible: executor.wholeBloodNieceOrNephewAdoptedIn == "optionNo"
+            }
+        ],
+        url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+{% endif %}
+
 {{checkanswer(
     items = [
         {
@@ -50,11 +90,6 @@
         adoptedIn: "wholeBloodSiblingAdoptedIn",
         adoptedOut: "wholeBloodSiblingAdoptedOut",
         adoptionPlace: "wholeBloodSiblingAdoptionInEnglandOrWales"
-    },
-    "optionWholeBloodNieceOrNephew": {
-        adoptedIn: "wholeBloodNieceOrNephewAdoptedIn",
-        adoptedOut: "wholeBloodNieceOrNephewAdoptedOut",
-        adoptionPlace: "wholeBloodNieceOrNephewAdoptionInEnglandOrWales"
     }
 } %}
 

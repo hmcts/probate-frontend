@@ -39,8 +39,8 @@ const updateTaskStatus = (ctx, req, res, steps) => {
             status = step.name === task.lastStep ? 'complete' : status;
         }
 
-        const nextURL = step.constructor.getUrl();
-        const checkYourAnswersLink = steps[task.summary].constructor.getUrl();
+        const nextURL = step.getUrlWithContext(ctx);
+        const checkYourAnswersLink = steps[task.summary].getUrlWithContext(ctx);
 
         ctx[taskName] = {status, nextURL, checkYourAnswersLink};
     });

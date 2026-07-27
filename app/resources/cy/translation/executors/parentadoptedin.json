@@ -1,14 +1,14 @@
 {
   "title": "Rhiant wedi'i fabwysiadu i'r teulu",
   "question": "A wnaeth {deceasedName} fabwysiadu rhiant {applicantName}  (plentyn {deceasedName}) yn gyfreithlon?",
-  "wholeBloodNieceOrNephewQuestion": "A gafodd rhiant yr unigolyn hwn ei fabwysiadu&rsquo;n gyfreithlon i deulu {deceasedName}?",
+  "wholeBloodNieceOrNephewQuestion": "A oedd rhiant y person hwn (brawd neu chwaer {deceasedName}) wedi’i fabwysiadu’n gyfreithiol i deulu {deceasedName}?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "applicantParentAdoptedIn": {
       "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {deceasedName}",
-      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant yr unigolyn hwn ei fabwysiadu i deulu {deceasedName}"
+      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant y person hwn ei fabwysiadu i deulu {deceasedName}"
     }
   }
 }

@@ -1,16 +1,16 @@
 {
   "title": "Parent adopted in",
   "question": "Did {deceasedName} legally adopt {applicantName}’s parent ({deceasedName}’s child)?",
-  "halfBloodNieceOrNephewQuestion": "Was this person&rsquo;s parent legally adopted into {deceasedName}&rsquo;s family?",
+  "halfBloodNieceOrNephewQuestion": "Was this person's parent ({deceasedName}'s half-sibling) legally adopted into {deceasedName}'s family?",
   "wholeBloodNieceOrNephewQuestion": "Was this person&rsquo;s parent legally adopted into {deceasedName}&rsquo;s family?",
   "optionYes": "Yes",
   "optionNo": "No",
 
   "errors": {
     "applicantParentAdoptedIn": {
-      "required": "Select ‘Yes’ if {applicantName}’s parent was adopted by {deceasedName}",
-      "wholeBloodNieceOrNephewRequired": "Select ‘Yes’ if this person’s parent was adopted into {deceasedName}’s family",
-      "halfBloodNieceOrNephewRequired": "Select ‘Yes’ if this person’s parent was adopted into {deceasedName}’s family"
+      "required": "Select 'Yes' if {applicantName}'s parent was adopted by {deceasedName}",
+      "wholeBloodNieceOrNephewRequired": "Select 'Yes' if this person's parent was adopted into {deceasedName}'s family",
+      "halfBloodNieceOrNephewRequired": "Select 'Yes' if this person's parent was adopted into {deceasedName}'s family"
     }
   }
 }

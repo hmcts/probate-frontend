@@ -2,7 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const journey = require('app/journeys/intestacy');
-const expect = require('chai').expect;
+const {expect, assert} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ParentDieBefore = steps.ParentDieBefore;
 const namePath = '/parent-die-before/';
@@ -55,8 +55,7 @@ describe('Co-applicant-parent-die-before', () => {
         it('should not set parent die before field when childDieBeforeDeceased is not present', () => {
             ctx.index = 3;
             [ctx] = ParentDieBefore.handleGet(ctx);
-            // eslint-disable-next-line no-undefined
-            expect(ctx.applicantParentDieBeforeDeceased).to.equal(undefined);
+            assert.isUndefined(ctx.applicantParentDieBeforeDeceased);
         });
     });
     describe('CoApplicantParentDieBefore nextStepUrl', () => {
@@ -185,6 +184,26 @@ describe('Co-applicant-parent-die-before', () => {
                 wholeBloodSiblingDiedBeforeDeceased: 'optionNo'
             });
             expect(ctx.hasCoApplicant).to.equal('optionYes');
+        });
+    });
+
+    describe('CoApplicantParentDieBefore action()', () => {
+        it('should remove whole-blood route-only flags before persistence', () => {
+            const ctx = {
+                wholeBloodNieceOrNephewParentDieBefore: true,
+                parentDieBeforeDeceased: true,
+                deceasedName: 'John Doe',
+                list: [{coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}],
+                index: 0
+            };
+            const formdata = {};
+
+            const [updatedCtx] = ParentDieBefore.action(ctx, formdata);
+
+            assert.isUndefined(updatedCtx.wholeBloodNieceOrNephewParentDieBefore);
+            assert.isUndefined(updatedCtx.parentDieBeforeDeceased);
+            assert.isUndefined(updatedCtx.deceasedName);
+            expect(updatedCtx.list).to.deep.equal([{coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}]);
         });
     });
 

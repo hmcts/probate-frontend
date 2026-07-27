@@ -1,16 +1,24 @@
 {
   "title": "Rhiant wedi'i fabwysiadu i'r teulu",
   "question": "A wnaeth {deceasedName} fabwysiadu rhiant {applicantName}  (plentyn {deceasedName}) yn gyfreithlon?",
+<<<<<<< HEAD
   "halfBloodNieceOrNephewQuestion": "A oedd rhiant y person hwn (hanner brawd neu hanner chwaer {deceasedName}) wedi’i fabwysiadu’n gyfreithiol i deulu {deceasedName}?",
   "wholeBloodNieceOrNephewQuestion": "A gafodd rhiant yr unigolyn hwn ei fabwysiadu&rsquo;n gyfreithlon i deulu {deceasedName}?",
+=======
+  "wholeBloodNieceOrNephewQuestion": "A oedd rhiant y person hwn (brawd neu chwaer {deceasedName}) wedi’i fabwysiadu’n gyfreithiol i deulu {deceasedName}?",
+>>>>>>> origin/DTSPB-5789-whole-blood-niece-nephew-journey
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "applicantParentAdoptedIn": {
       "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {deceasedName}",
+<<<<<<< HEAD
       "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant yr unigolyn hwn ei fabwysiadu i deulu {deceasedName}",
       "halfBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant yr unigolyn hwn ei fabwysiadu i deulu {deceasedName}"
+=======
+      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant y person hwn ei fabwysiadu i deulu {deceasedName}"
+>>>>>>> origin/DTSPB-5789-whole-blood-niece-nephew-journey
     }
   }
 }

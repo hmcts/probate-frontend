@@ -1,18 +1,30 @@
 {
   "grandchildQuestion": "A fu farw rhiant yr unigolyn hwn (plentyn {deceasedName}) cyn {deceasedName}?",
+<<<<<<< HEAD
   "halfBloodNieceOrNephewQuestion": "A fu farw rhiant y person hwn (hanner brawd neu hanner chwaer {deceasedName}) cyn {deceasedName}?",
   "wholeBloodNieceOrNephewQuestion": "A fu farw rhiant yr unigolyn hwn (brawd neu chwaer {deceasedName}) cyn {deceasedName}?",
   "grandchildHintText": "dim ond os bu farw eu rhiant (plentyn {deceasedName}) cyn {deceasedName} y mae wyrion a wyresau {deceasedName} yn gymwys i wneud cais.",
   "halfBloodNieceOrNephewHintText": "Dim ond os bu farw eu rhiant (hanner brawd neu hanner chwaer {deceasedName}) cyn {deceasedName} y mae hanner nithoedd a hanner neiaint {deceasedName} yn gymwys i wneud cais.",
   "wholeBloodNieceOrNephewHintText": "Dim ond os bu farw eu rhiant (brawd neu chwaer {deceasedName}) cyn {deceasedName} y mae nithod a neiod {deceasedName} yn gymwys i wneud cais.",
+=======
+  "halfBloodNieceOrNephewQuestion": "A fu farw rhiant y person hwn (hanner brawd neu chwaer {deceasedName}) cyn {deceasedName}?",
+  "wholeBloodNieceOrNephewQuestion": "A fu farw rhiant y person hwn (brawd neu chwaer {deceasedName}) cyn {deceasedName}?",
+  "grandchildHintText": "dim ond os bu farw eu rhiant (plentyn {deceasedName}) cyn {deceasedName} y mae wyrion a wyresau {deceasedName} yn gymwys i wneud cais.",
+  "halfBloodNieceOrNephewHintText": "Dim ond os bu farw eu rhiant (hanner brawd neu chwaer {deceasedName}) cyn {deceasedName} y mae hanner nithod a hanner neiod {deceasedName} yn gymwys i wneud cais.",
+  "wholeBloodNieceOrNephewHintText": "Dim ond os bu farw eu rhiant (brawd neu chwaer {deceasedName}) cyn {deceasedName} y mae nithoedd a neiaint {deceasedName} yn gymwys i wneud cais.",
+>>>>>>> origin/DTSPB-5789-whole-blood-niece-nephew-journey
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
     "applicantParentDieBeforeDeceased": {
       "required": "Dewiswch 'Do' os wnaeth rhiant y person hwn farw cyn {deceasedName}",
+<<<<<<< HEAD
       "wholeBloodNieceOrNephewRequired": "Dewiswch 'Do' os wnaeth rhiant y person hwn farw cyn {deceasedName}",
       "halfBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os bu farw rhiant y person hwn cyn {deceasedName}"
+=======
+      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os bu farw rhiant y person hwn cyn {deceasedName}"
+>>>>>>> origin/DTSPB-5789-whole-blood-niece-nephew-journey
     }
   }
 }

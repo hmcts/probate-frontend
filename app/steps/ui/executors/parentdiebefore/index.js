@@ -92,6 +92,15 @@ class ParentDieBefore extends ValidationStep {
         return [ctx, errors];
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep route-only flags out of persisted executor payload.
+        delete ctx.wholeBloodNieceOrNephewParentDieBefore;
+        delete ctx.parentDieBeforeDeceased;
+        delete ctx.deceasedName;
+        return [ctx, formdata];
+    }
+
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;

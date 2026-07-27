@@ -218,4 +218,23 @@ describe('ParentAdoptionPlace', () => {
             });
         });
     });
+
+    describe('ParentAdoptionPlace.handleGet', () => {
+        it('should set applicantParentAdoptionPlace from whole-blood niece or nephew field', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {fullName: 'Main Applicant'},
+                    {
+                        fullName: 'First coApplicant',
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+                    }
+                ]
+            };
+
+            const [updatedCtx] = ParentAdoptionPlace.handleGet(ctx);
+            expect(updatedCtx.applicantParentAdoptionPlace).to.equal('optionYes');
+        });
+    });
 });

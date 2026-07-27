@@ -13,14 +13,20 @@
   )}}
 {% endif %}
 
-{% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" %}
+{% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "optionHalfBloodNieceOrNephew" %}
     {% set deceasedName = (fields.deceased.firstName.value ~ " " ~ fields.deceased.lastName.value) | trim %}
+    {% set isWholeBlood = executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" %}
+    {% set parentAdoptedInField = "wholeBloodNieceOrNephewAdoptedIn" if isWholeBlood else "halfBloodNieceOrNephewAdoptedIn" %}
+    {% set parentAdoptionPlaceField = "wholeBloodNieceOrNephewAdoptionInEnglandOrWales" if isWholeBlood else "halfBloodNieceOrNephewAdoptionInEnglandOrWales" %}
+    {% set parentAdoptedOutField = "wholeBloodNieceOrNephewAdoptedOut" if isWholeBlood else "halfBloodNieceOrNephewAdoptedOut" %}
+    {% set parentAdoptedInQuestion = content.CoApplicantParentAdoptedIn.wholeBloodNieceOrNephewQuestion if isWholeBlood else content.CoApplicantParentAdoptedIn.halfBloodNieceOrNephewQuestion %}
+    {% set parentAdoptedOutQuestion = content.CoApplicantParentAdoptedOut.wholeBloodNieceOrNephewQuestion if isWholeBlood else content.CoApplicantParentAdoptedOut.halfBloodNieceOrNephewQuestion %}
     {{checkanswer(
         items = [
             {
-                question: content.CoApplicantParentAdoptedIn.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
-                answer: content.CoApplicantParentAdoptedIn[executor.wholeBloodNieceOrNephewAdoptedIn],
-                visible: executor.wholeBloodNieceOrNephewAdoptedIn
+                question: parentAdoptedInQuestion | replace("{deceasedName}", deceasedName),
+                answer: content.CoApplicantParentAdoptedIn[executor[parentAdoptedInField]],
+                visible: executor[parentAdoptedInField]
             }
         ],
         url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
@@ -31,8 +37,8 @@
         items = [
             {
                 question: content.CoApplicantParentAdoptionPlace.question,
-                answer: content.CoApplicantParentAdoptionPlace[executor.wholeBloodNieceOrNephewAdoptionInEnglandOrWales],
-                visible: executor.wholeBloodNieceOrNephewAdoptedIn == "optionYes"
+                answer: content.CoApplicantParentAdoptionPlace[executor[parentAdoptionPlaceField]],
+                visible: executor[parentAdoptedInField] == "optionYes"
             }
         ],
         url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
@@ -42,9 +48,9 @@
     {{checkanswer(
         items = [
             {
-                question: content.CoApplicantParentAdoptedOut.wholeBloodNieceOrNephewQuestion | replace("{deceasedName}", deceasedName),
-                answer: content.CoApplicantParentAdoptedOut[executor.wholeBloodNieceOrNephewAdoptedOut],
-                visible: executor.wholeBloodNieceOrNephewAdoptedIn == "optionNo"
+                question: parentAdoptedOutQuestion | replace("{deceasedName}", deceasedName),
+                answer: content.CoApplicantParentAdoptedOut[executor[parentAdoptedOutField]],
+                visible: executor[parentAdoptedInField] == "optionNo"
             }
         ],
         url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
@@ -80,11 +86,6 @@
         adoptedIn: "halfBloodSiblingAdoptedIn",
         adoptedOut: "halfBloodSiblingAdoptedOut",
         adoptionPlace: "halfBloodSiblingAdoptionInEnglandOrWales"
-    },
-    "optionHalfBloodNieceOrNephew": {
-        adoptedIn: "halfBloodNieceOrNephewAdoptedIn",
-        adoptedOut: "halfBloodNieceOrNephewAdoptedOut",
-        adoptionPlace: "halfBloodNieceOrNephewAdoptionInEnglandOrWales"
     },
     "optionWholeBloodSibling": {
         adoptedIn: "wholeBloodSiblingAdoptedIn",

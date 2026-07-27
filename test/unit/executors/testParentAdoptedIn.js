@@ -176,6 +176,25 @@ describe('ParentAdoptedIn', () => {
             const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/intestacy/parent-adopted-out/1');
         });
+
+        it('should return the correct url when a half-blood niece or nephew parent is adopted in', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                applicantParentAdoptedIn: 'optionYes',
+                list: [{}, {
+                    coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                    halfBloodNieceOrNephewAdoptedIn: 'optionYes',
+                }],
+            };
+            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/parent-adoption-place/1');
+        });
     });
 
     describe('ParentAdoptedIn.handlePost', () => {
@@ -227,6 +246,31 @@ describe('ParentAdoptedIn', () => {
                 wholeBloodNieceOrNephewAdoptedIn: 'optionYes'
             });
         });
+
+        it('should map half-blood niece or nephew parent adoption to supported field', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptedIn: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {
+                executors: {
+                    list: [
+                        {},
+                        {}
+                    ]
+                }
+            };
+            ParentAdoptedIn.handlePost(ctx, errors, formdata);
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                halfBloodNieceOrNephewAdoptedIn: 'optionYes'
+            });
+        });
     });
 
     describe('ParentAdoptedIn.handleGet', () => {
@@ -245,6 +289,30 @@ describe('ParentAdoptedIn', () => {
 
             const [updatedCtx] = ParentAdoptedIn.handleGet(ctx);
             expect(updatedCtx.applicantParentAdoptedIn).to.equal('optionNo');
+        });
+
+        it('should set applicantParentAdoptedIn from half-blood niece or nephew field', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {fullName: 'Main Applicant'},
+                    {
+                        fullName: 'First coApplicant',
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        halfBloodNieceOrNephewAdoptedIn: 'optionNo'
+                    }
+                ]
+            };
+
+            const [updatedCtx] = ParentAdoptedIn.handleGet(ctx);
+            expect(updatedCtx.applicantParentAdoptedIn).to.equal('optionNo');
+        });
+    });
+
+    describe('requiredErrorKeyForRelationship()', () => {
+        it('should return half-blood specific required key for half-blood niece or nephew', () => {
+            expect(ParentAdoptedIn.requiredErrorKeyForRelationship('optionHalfBloodNieceOrNephew'))
+                .to.equal('halfBloodNieceOrNephewRequired');
         });
     });
 });

@@ -163,6 +163,28 @@ describe('ParentAdoptionPlace', () => {
             const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptionPlaceNoNameStop');
         });
+
+        it('should return the no-name stop page when a half-blood niece or nephew parent adoption took place outside England or Wales', () => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'intestacy',
+                index: '1',
+                applicantParentAdoptionPlace: 'optionNo',
+                list: [
+                    {},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
+                    }
+                ],
+            };
+            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptionPlaceNoNameStop');
+        });
     });
 
     describe('ParentAdoptionPlace handlePost', () => {
@@ -217,6 +239,34 @@ describe('ParentAdoptionPlace', () => {
                 wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
             });
         });
+
+        it('should map half-blood niece or nephew parent adoption place to supported field', () => {
+            const ctx = {
+                index: '1',
+                applicantParentAdoptionPlace: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew'}
+                ]
+            };
+            const errors = [];
+            const formdata = {
+                executors: {
+                    list: [
+                        {},
+                        {}
+                    ]
+                }
+            };
+            ParentAdoptionPlace.handlePost(ctx, errors, formdata);
+            expect(formdata.executors.list[1]).to.deep.equal({
+                halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+            });
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+            });
+        });
     });
 
     describe('ParentAdoptionPlace.handleGet', () => {
@@ -229,6 +279,23 @@ describe('ParentAdoptionPlace', () => {
                         fullName: 'First coApplicant',
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
                         wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+                    }
+                ]
+            };
+
+            const [updatedCtx] = ParentAdoptionPlace.handleGet(ctx);
+            expect(updatedCtx.applicantParentAdoptionPlace).to.equal('optionYes');
+        });
+
+        it('should set applicantParentAdoptionPlace from half-blood niece or nephew field', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {fullName: 'Main Applicant'},
+                    {
+                        fullName: 'First coApplicant',
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
                     }
                 ]
             };

@@ -228,4 +228,23 @@ describe('ParentAdoptedIn', () => {
             });
         });
     });
+
+    describe('ParentAdoptedIn.handleGet', () => {
+        it('should set applicantParentAdoptedIn from whole-blood niece or nephew field', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {fullName: 'Main Applicant'},
+                    {
+                        fullName: 'First coApplicant',
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        wholeBloodNieceOrNephewAdoptedIn: 'optionNo'
+                    }
+                ]
+            };
+
+            const [updatedCtx] = ParentAdoptedIn.handleGet(ctx);
+            expect(updatedCtx.applicantParentAdoptedIn).to.equal('optionNo');
+        });
+    });
 });

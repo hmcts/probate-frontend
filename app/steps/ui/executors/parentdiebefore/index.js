@@ -9,11 +9,18 @@ const PARENT_DIE_BEFORE_FIELDS = [
     'halfBloodSiblingDiedBeforeDeceased',
     'wholeBloodSiblingDiedBeforeDeceased'
 ];
-const PARENT_ADOPTION_FIELDS = [
-    'wholeBloodNieceOrNephewAdoptedIn',
-    'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
-    'wholeBloodNieceOrNephewAdoptedOut'
-];
+const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
+    optionWholeBloodNieceOrNephew: [
+        'wholeBloodNieceOrNephewAdoptedIn',
+        'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+        'wholeBloodNieceOrNephewAdoptedOut'
+    ],
+    optionHalfBloodNieceOrNephew: [
+        'halfBloodNieceOrNephewAdoptedIn',
+        'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
+        'halfBloodNieceOrNephewAdoptedOut'
+    ]
+};
 class ParentDieBefore extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -61,10 +68,12 @@ class ParentDieBefore extends ValidationStep {
         const parentDiedBefore = ctx.applicantParentDieBeforeDeceased === 'optionYes' ||
             PARENT_DIE_BEFORE_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
         ctx.wholeBloodNieceOrNephewParentDieBefore = relationship === 'optionWholeBloodNieceOrNephew' && parentDiedBefore;
+        ctx.halfBloodNieceOrNephewParentDieBefore = relationship === 'optionHalfBloodNieceOrNephew' && parentDiedBefore;
         ctx.parentDieBeforeDeceased = parentDiedBefore;
         return {
             options: [
                 {key: 'wholeBloodNieceOrNephewParentDieBefore', value: true, choice: 'wholeBloodNieceOrNephewParentDieBefore'},
+                {key: 'halfBloodNieceOrNephewParentDieBefore', value: true, choice: 'halfBloodNieceOrNephewParentDieBefore'},
                 {key: 'parentDieBeforeDeceased', value: true, choice: 'parentDieBefore'},
             ]
         };
@@ -80,8 +89,8 @@ class ParentDieBefore extends ValidationStep {
             ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
         }
 
-        if (relationship === 'optionWholeBloodNieceOrNephew' && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
-            PARENT_ADOPTION_FIELDS.forEach(field => {
+        if (PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship] && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
+            PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship].forEach(field => {
                 delete ctx.list[ctx.index][field];
             });
         }
@@ -96,6 +105,7 @@ class ParentDieBefore extends ValidationStep {
         super.action(ctx, formdata);
         // Keep route-only flags out of persisted executor payload.
         delete ctx.wholeBloodNieceOrNephewParentDieBefore;
+        delete ctx.halfBloodNieceOrNephewParentDieBefore;
         delete ctx.parentDieBeforeDeceased;
         delete ctx.deceasedName;
         return [ctx, formdata];
@@ -123,6 +133,9 @@ class ParentDieBefore extends ValidationStep {
     requiredErrorKeyForRelationship(relationship) {
         if (relationship === 'optionWholeBloodNieceOrNephew') {
             return 'wholeBloodNieceOrNephewRequired';
+        }
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return 'halfBloodNieceOrNephewRequired';
         }
         return 'required';
     }

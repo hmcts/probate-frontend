@@ -6,6 +6,7 @@ const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adoption-place';
 const PARENT_ADOPTION_PLACE_FIELDS = {
     optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
+    optionHalfBloodNieceOrNephew: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
     optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
 };
 
@@ -46,7 +47,7 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        if (relationship === 'optionWholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew') {
             return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptionPlaceNoNameStop');
         }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
@@ -55,11 +56,14 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     nextStepOptions(ctx) {
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
         const parentAdoptedEngWales = ctx.applicantParentAdoptionPlace;
+        const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
         ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales = relationship === 'optionWholeBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
-        ctx.parentAdoptedInEnglandOrWales = relationship !== 'optionWholeBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
+        ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales = relationship === 'optionHalfBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
+        ctx.parentAdoptedInEnglandOrWales = !isNieceOrNephew && parentAdoptedEngWales === 'optionYes';
         return {
             options: [
                 {key: 'wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales', value: true, choice: 'wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales'},
+                {key: 'halfBloodNieceOrNephewParentAdoptedInEnglandOrWales', value: true, choice: 'halfBloodNieceOrNephewParentAdoptedInEnglandOrWales'},
                 {key: 'parentAdoptedInEnglandOrWales', value: true, choice: 'parentAdoptedOutEnglandOrWales'},
             ]
         };
@@ -80,6 +84,7 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
         super.action(ctx, formdata);
         // Keep route-only flags out of persisted executor payload.
         delete ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales;
+        delete ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales;
         delete ctx.parentAdoptedInEnglandOrWales;
         delete ctx.deceasedName;
         delete ctx.applicantName;

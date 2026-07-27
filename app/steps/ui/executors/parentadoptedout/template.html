@@ -4,7 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
-    {% set question = content.wholeBloodNieceOrNephewQuestion if fields.relationshipToDeceased.value == "optionWholeBloodNieceOrNephew" else content.question %}
+    {% set question = content.halfBloodNieceOrNephewQuestion if fields.relationshipToDeceased.value == "optionHalfBloodNieceOrNephew" else (content.wholeBloodNieceOrNephewQuestion if fields.relationshipToDeceased.value == "optionWholeBloodNieceOrNephew" else content.question) %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "applicantParentAdoptedOut",

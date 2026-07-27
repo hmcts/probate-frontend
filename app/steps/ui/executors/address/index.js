@@ -23,7 +23,7 @@ class ExecutorAddress extends AddressStep {
         } else if (req.params && req.params[0] === '*') {
             ctx.index = req.session.indexPosition;
             ctx.redirect = `${pageUrl}/${ctx.index}`;
-        } else if (req.path?.match(`^(?:/intestacy)?${pageUrl}`)) {
+        } else if (req.path?.match(`^((?:/intestacy)?${pageUrl}|/task-list)`)) {
             if (ctx.caseType === caseTypes.INTESTACY) {
                 ctx.index = this.recalcIntestacyIndex(ctx, formdata);
             } else if (ctx.caseType === caseTypes.GOP) {

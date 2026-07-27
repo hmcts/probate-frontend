@@ -6,11 +6,7 @@
 
   "errors": {
     "applicantParentAdoptionPlace": {
-<<<<<<< HEAD
-      "required": "Dewiswch ‘Do’ os digwyddodd y mabwysiadu yng Nghymru neu Loegr"
-=======
       "required": "Dewiswch ‘Do’ os digwyddodd y mabwysiadu yng Nghymru neu Lloegr"
->>>>>>> origin/DTSPB-5789-whole-blood-niece-nephew-journey
     }
   }
 }

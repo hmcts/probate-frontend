@@ -4,12 +4,10 @@ import { Page, BrowserContext } from '@playwright/test';
 import { TestConfigurator } from '../../../pages/utility/testConfigurator.ts';
 import deceasedDetailsConfig from '../../../data/deceasedDetailsConfig.json' with { type: 'json' };
 import ihtDataConfig from '../../../data/ee/ihtData.json' with { type: 'json' };
-import applicantDetailConfig from '../../../data/intestacy/sole/applicantDetails.json' with { type: 'json' };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
-const totalExecutors = '1';
 
 getTestLanguages().forEach(language => {
   test.describe('GOP Single Executor journey @preview', () => {
@@ -69,14 +67,9 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, 'Deceased Details Task', null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-
-      await deceasedDetailsPage.enterDeceasedDetails('GOP',
-        applicantDetailConfig.deceasedFirstName,
-        applicantDetailConfig.deceasedLastName,
-      );
-
+      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
       await deceasedDetailsPage.enterDeceasedNameOnWill(language, optionYes);
-      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
+      await deceasedDetailsPage.enterDobDetails('01', '01', '1950');
       await deceasedDetailsPage.enterDodDetails(
         deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
@@ -108,11 +101,19 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
 
       await executorDetailsPage.selectNameAsOnTheWill(optionYes);
-      await executorDetailsPage.enterApplicantPhoneNumber();
+      await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
-      await executorDetailsPage.continueCheckWillExecutors();
+      await executorDetailsPage.checkWillCodicils();
+
+      const totalExecutors = '1';
       await executorDetailsPage.enterExecutorNamed(totalExecutors, optionNo);
 
+      if (testConfigurator.equalityAndDiversityEnabled()) {
+        await applicantDetailsPage.exitEqualityAndDiversity(language);
+        await applicantDetailsPage.completeEqualityAndDiversity(language, false, true);
+      }
+
+      // Check your answers and declaration
       await basePage.logInfo(scenarioName, 'CYA and Legal Declaration', null);
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');

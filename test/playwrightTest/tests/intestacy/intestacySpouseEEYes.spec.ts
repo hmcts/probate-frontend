@@ -3,8 +3,7 @@ import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
-import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
-import { relationshipToDeceasedOptions } from '../../pages/applicantDetails/applicantDetailsSection.ts';
+import {expect} from "../../fixtures/index.js";
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -33,15 +32,15 @@ getTestLanguages().forEach(language => {
     });
 
     test((`${language.toUpperCase()} Go to death-certificate page and complete deceased details`), async ({
-      intestacyScreenerPage,
-      apiCallback,
-      signInPage,
-      taskListPage,
-      deceasedDetailsPage,
-      applicantDetailsPage,
-      cyaAndDeclarationPage,
-      paymentTaskPage
-    }) => {
+                                                                                                            intestacyScreenerPage,
+                                                                                                            apiCallback,
+                                                                                                            signInPage,
+                                                                                                            taskListPage,
+                                                                                                            deceasedDetailsPage,
+                                                                                                            applicantDetailsPage,
+                                                                                                            cyaAndDeclarationPage,
+                                                                                                            paymentTaskPage
+                                                                                                          }) => {
       const testConfigurator = new TestConfigurator();
       const scenarioName = `Intestacy spouse journey - EE Yes - ${language}`;
 
@@ -58,13 +57,18 @@ getTestLanguages().forEach(language => {
       await intestacyScreenerPage.selectDeathCertificateTranslation(language, optionYes);
 
       await intestacyScreenerPage.selectDeceasedDomicile(language);
-      await intestacyScreenerPage.selectEEDeceasedDod(language, optionYes);
-      await intestacyScreenerPage.selectEEEstateValued(language, optionYes);
+      await intestacyScreenerPage.selectEEDeceasedDod(language, optionNo);
+      await intestacyScreenerPage.selectIhtCompleted(language, optionYes);
       await intestacyScreenerPage.selectPersonWhoDiedLeftAWill(language, optionNo);
 
       // Intestacy Sceeners
-      await intestacyScreenerPage.selectRelatedToDeceased(language);
-      await intestacyScreenerPage.selectOtherApplicants(language, optionNo);
+      await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
+      await intestacyScreenerPage.page.locator('#related').check();
+      await intestacyScreenerPage.page.locator('button[type="submit"]').click();
+      await expect(intestacyScreenerPage.page).toHaveURL(/\/other-applicants/);
+      await intestacyScreenerPage.page.locator('#otherApplicants-2').check();
+      await intestacyScreenerPage.page.locator('button[type="submit"]').click();
+
       await intestacyScreenerPage.startApply(language);
 
       // IdAM
@@ -73,18 +77,10 @@ getTestLanguages().forEach(language => {
       // Deceased Task
       await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
-      await deceasedDetailsPage.chooseBiLingualGrant(optionYes);
-      await deceasedDetailsPage.enterDeceasedDetails(
-        'intestacy',
-        applicantDetailConfig.deceasedFirstName,
-        applicantDetailConfig.deceasedLastName,
-        applicantDetailConfig.dob_day,
-        applicantDetailConfig.dob_month,
-        applicantDetailConfig.dob_year,
-        applicantDetailConfig.dod_day,
-        applicantDetailConfig.dod_month,
-        applicantDetailConfig.dod_year,
-      );
+      await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
+      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name',
+        '01', '01', '1950',
+        '02', '01', '2022', 'Intestacy' );
       await deceasedDetailsPage.enterDeceasedAddress();
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
@@ -94,24 +90,22 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
       await deceasedDetailsPage.enterHmrcCode(hmrcCode);
       await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
-      await deceasedDetailsPage.selectAssetsOutsideEnglandWales('optionYes');
+      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(optionYes);
       await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
       await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);
 
       // Applicant Task
-      await basePage.logInfo(scenarioName, "Applicant details task", null);
+      await basePage.logInfo(scenarioName, 'Applicant details task', null);
       await taskListPage.selectATask(language, 'applicantsTask');
-      await applicantDetailsPage.selectRelationshipToDeceased(
-        relationshipToDeceasedOptions.spousePartner
-      );
-      await applicantDetailsPage.enterAnyChildren('optionYes');
-      await applicantDetailsPage.allChildrenOver18('optionYes');
-      await applicantDetailsPage.anyDeceasedChildren('optionNo');
+
+      await applicantDetailsPage.selectRelationshipToDeceased('');
+      await applicantDetailsPage.enterAnyChildren(optionYes);
+      await applicantDetailsPage.anyChildrenOverEighteen(optionYes);
+      await applicantDetailsPage.otherChildrenDiedBefore(optionNo);
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();
-
       if (testConfigurator.equalityAndDiversityEnabled()) {
         await applicantDetailsPage.exitEqualityAndDiversity(language);
         await applicantDetailsPage.completeEqualityAndDiversity(language);
@@ -138,8 +132,8 @@ getTestLanguages().forEach(language => {
       await paymentTaskPage.seeCopiesSummary(language);
       await paymentTaskPage.seePaymentBreakdownPage(language);
       if (testConfigurator.getUseGovPay() === 'true') {
-        await paymentTaskPage.seeGovUkPaymentPage();
-        await paymentTaskPage.seeGovUkConfirmPage();
+        await paymentTaskPage.seeGovUkPaymentPage(language);
+        await paymentTaskPage.seeGovUkConfirmPage(language);
       }
 
       // Thank You

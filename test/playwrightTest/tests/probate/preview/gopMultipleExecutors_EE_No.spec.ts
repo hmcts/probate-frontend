@@ -79,9 +79,9 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-      await deceasedDetailsPage.enterDeceasedDetails('GOP','Deceased First Name', 'Deceased Last Name');
+      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
       await deceasedDetailsPage.enterDeceasedNameOnWill(language, optionYes);
-      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
+      await deceasedDetailsPage.enterDobDetails('01', '01', '1950');
       await deceasedDetailsPage.enterDodDetails(
         deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,

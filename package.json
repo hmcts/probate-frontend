@@ -105,7 +105,7 @@
     "cheerio": "^1.2.0",
     "co": "^4.6.0",
     "config": "^4.4.2",
-    "connect-redis": "^8.1.0",
+    "connect-redis": "^10.0.0",
     "connect-timeout": "^1.9.1",
     "cookie-parser": "^1.4.7",
     "csrf-sync": "^4.2.1",

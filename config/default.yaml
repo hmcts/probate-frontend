@@ -240,6 +240,7 @@ links:
   paymentsAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'
   probateEstate: 'https://www.gov.uk/probate-estate'
   findLegalAdvice: 'https://www.gov.uk/find-legal-advice'
+  applicationFormPA1A: 'https://www.gov.uk/government/publications/apply-for-probate-by-post-if-there-is-not-a-will'
 utils:
   api:
     retries: 10

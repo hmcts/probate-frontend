@@ -1,0 +1,48 @@
+import {BrowserContext, expect} from '@playwright/test';
+import {testConfig} from '../../configs/config.ts';
+import {BasePage, decodeHTML} from '../utility/basePage.ts';
+import {getContent} from "../utility/contentHelper.ts";
+
+const useIdam = testConfig.TestUseIdam;
+
+export class SignInPage extends BasePage {
+  readonly signInButtonLocator = this.page.getByRole('button', { name: this.commonContent.signIn });
+  constructor(page, context: BrowserContext, language: string) {
+    super(page, context, language);
+  }
+
+  async authenticateWithIdamIfAvailable(language ='en', noScreenerQuestions = false) {
+    if (useIdam === 'true') {
+      if (noScreenerQuestions) {
+        await this.page.goto(`${testConfig.TestFrontendUrl}/?lng=${language}`, {
+          waitUntil: 'load',
+          timeout: 60000
+        });
+      }
+
+      await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeVisible();
+      const numEls = await this.page.locator('a[href="/sign-out"]').count();
+      if (numEls > 0) {
+        await this.navByClick(this.page.locator('a[href="/sign-out"]'));
+        await this.seeSignOut(language);
+        await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeVisible();
+        await this.page.goto(`${testConfig.TestFrontendUrl}/?lng=${language}`, {
+          waitUntil: 'load',
+          timeout: 60000
+        });
+      }
+      await this.page.locator('#username').fill(process.env.testCitizenEmail);
+      await this.page.locator('#password').fill(process.env.testCitizenPassword);
+      await this.navByClick(this.signInButtonLocator);
+    }
+
+  }
+
+  async seeSignOut(language = 'en') {
+    const signOutContent = getContent(`app/resources/${language}/translation/signout.json`);
+    await this.checkInUrl('/sign-out');
+    await expect(this.page.getByText(decodeHTML(signOutContent.header))).toBeVisible();
+    await expect(this.page.locator('#main-content > div > div > p:nth-child(3) > a')).toBeEnabled();
+    await this.navByClick(this.page.locator('#main-content > div > div > p:nth-child(3) > a'));
+  }
+}

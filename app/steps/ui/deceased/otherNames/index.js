@@ -62,7 +62,15 @@ class DeceasedOtherNames extends ValidationStep {
             set(fields, 'otherNames.value', new Map());
             Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
                 const otherNameErrors = isEmpty(errors) ? [] : errors.get(index);
-                fields.otherNames.value.set(index, super.generateFields(language, otherName, otherNameErrors));
+                const generated = super.generateFields(language, otherName, otherNameErrors);
+                if (otherNameErrors && otherNameErrors.length) {
+                    otherNameErrors.forEach(err => {
+                        if (err.msg.includes('{deceasedName}') && fields.deceasedFullName) {
+                            err.msg = err.msg.replace('{deceasedName}', fields.deceasedFullName.value);
+                        }
+                    });
+                }
+                fields.otherNames.value.set(index, generated);
             });
             set(errors, 'otherNames', Array.from(errors));
             set(fields, 'otherNames.value', Array.from(fields.otherNames.value));
@@ -78,6 +86,28 @@ class DeceasedOtherNames extends ValidationStep {
             return [ctx, errors];
         }
         return [ctx];
+    }
+
+    handlePost(ctx, errors, formdata, session) {
+        if (ctx.otherNames) {
+            Object.entries(ctx.otherNames).forEach(([index, otherName]) => {
+                const entryErrors = [];
+                if (otherName.firstName && otherName.firstName.length < 2) {
+                    entryErrors.push(FieldError('firstName', 'minLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (otherName.firstName && otherName.firstName.length > 100) {
+                    entryErrors.push(FieldError('firstName', 'maxLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                }
+                if (otherName.lastName && otherName.lastName.length < 2) {
+                    entryErrors.push(FieldError('lastName', 'minLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (otherName.lastName && otherName.lastName.length > 100) {
+                    entryErrors.push(FieldError('lastName', 'maxLength', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                }
+                if (entryErrors.length) {
+                    errors.push([index, entryErrors]);
+                }
+            });
+        }
+        return [ctx, errors];
     }
 
     action(ctx, formdata) {

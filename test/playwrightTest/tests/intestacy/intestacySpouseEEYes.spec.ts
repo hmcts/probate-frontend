@@ -3,7 +3,6 @@ import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
-import {expect} from "../../fixtures/index.js";
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -63,11 +62,8 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.page.locator('#related').check();
-      await intestacyScreenerPage.page.locator('button[type="submit"]').click();
-      await expect(intestacyScreenerPage.page).toHaveURL(/\/other-applicants/);
-      await intestacyScreenerPage.page.locator('#otherApplicants-2').check();
-      await intestacyScreenerPage.page.locator('button[type="submit"]').click();
+      await intestacyScreenerPage.selectIntestacyRelatedToDeceased(optionYes);
+      await intestacyScreenerPage.selectJointApplication(optionNo);
 
       await intestacyScreenerPage.startApply(language);
 

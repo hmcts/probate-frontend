@@ -35,7 +35,7 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterDeceasedDetails(firstName = null, lastName = null,dobDay?: string, dobMonth?: string, dobYear?: string, dodDay?: string, dodMonth?: string, dodYear?: string , caseType= null ) {
+  async enterDeceasedDetails(firstName = null, lastName = null, dobDay?: string, dobMonth?: string, dobYear?: string, dodDay?: string, dodMonth?: string, dodYear?: string , caseType= null ) {
     if (caseType === 'Intestacy') {
       await this.checkInUrl('/deceased-details');
       await expect(this.page.locator('#dob-date-day')).toBeEnabled();

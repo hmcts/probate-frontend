@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/index.ts';
+import { test } from '../../fixtures/index.ts';
 import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
@@ -64,11 +64,14 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.page.locator('#related').check();
-      await intestacyScreenerPage.page.locator('button[type="submit"]').click();
-      await expect(intestacyScreenerPage.page).toHaveURL(/\/other-applicants/);
-      await intestacyScreenerPage.page.locator('#otherApplicants-2').check();
-      await intestacyScreenerPage.page.locator('button[type="submit"]').click();
+      await intestacyScreenerPage.selectIntestacyRelatedToDeceased(optionYes);
+      await intestacyScreenerPage.selectJointApplication(optionNo);
+      // await intestacyScreenerPage.selectIntestacyRelatedToDeceased(language, optionYes);
+      // await intestacyScreenerPage.page.locator('#related').check();
+      // await intestacyScreenerPage.page.locator('button[type="submit"]').click();
+      // //await expect(intestacyScreenerPage.page).toHaveURL(/\/other-applicants/);
+      // await intestacyScreenerPage.page.locator('#otherApplicants-2').check();
+      // await intestacyScreenerPage.page.locator('button[type="submit"]').click();
 
       await intestacyScreenerPage.startApply(language);
 

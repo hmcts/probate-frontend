@@ -115,7 +115,7 @@ export class PaymentTaskSection extends BasePage {
     await this.checkInUrl('/thank-you');
     await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
     const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
-      .innerText();
+        .innerText();
     const caseId = confirmationText.match(/\d+(-\d+)+/);
     await this.downloadPdfIfNotIE11(this.cyaDownloadLocator);
     if(!isWithoutDocs) {
@@ -127,12 +127,10 @@ export class PaymentTaskSection extends BasePage {
       const originalTabs = await this.context.pages().length;
       await this.page.locator('#main-content > div > div > div.govuk-notification-banner > div > p.govuk-body > a').click();
       for (let i = 0; i <= 5; i++) {
-        // eslint-disable-next-line no-await-in-loop
         const currentTabs = await this.context.pages().length;
         if (currentTabs > originalTabs) {
           break;
         }
-        // eslint-disable-next-line no-await-in-loop
         await this.page.waitForTimeout(200);
       }
       await this.switchToNextTab(1);

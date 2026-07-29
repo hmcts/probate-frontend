@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure") _
+@Library("Infrastructure@2.4.4") _
 
 import uk.gov.hmcts.contino.GithubAPI
 import uk.gov.hmcts.contino.AppPipelineDsl
@@ -107,7 +107,6 @@ withPipeline("nodejs", product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   afterSuccess('functionalTest:preview') {
-    def testsRan = true
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
@@ -130,10 +129,9 @@ withPipeline("nodejs", product, component) {
       catchError(stageResult: 'UNSTABLE') {
         sh 'yarn test:fullfunctional-gop'
       }
-    } else {
-      testsRan = false
     }
-    if (testsRan && fileExists('functional-output/reports/chromium/index.html')) {
+  }
+  afterAlways('functionalTest:preview') {
           publishHTML target: [
           allowMissing         : true,
           alwaysLinkToLastBuild: true,
@@ -142,11 +140,8 @@ withPipeline("nodejs", product, component) {
           reportFiles          : "index.html",
           reportName           : "Playwright Test Report",
           reportTitles         : 'E2E Test Results'
-        ]
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-      } else {
-          echo 'No E2E tests ran or no report generated - skipping report publishing'
-      }
+      ]
+      steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
   }
 
   afterSuccess('functionalTest:aat') {

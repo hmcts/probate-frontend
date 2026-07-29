@@ -9,16 +9,16 @@ test.describe('Cookie banner test @ipadpro11', () => {
   let basePage: BasePage;
 
   test(('Check cookie banner in FE application start page'),
-      async ({
-               intestacyScreenerPage,
-             }) => {
-        const scenarioName = `Intestacy child co-applicant journey - EE Yes - ${language}`;
+    async ({
+             intestacyScreenerPage,
+           }) => {
+      const scenarioName = `Intestacy child co-applicant journey - EE Yes - ${language}`;
 
-        basePage = new BasePage(page, context, language);
+      basePage = new BasePage(page, context, language);
 
-        // Screeners & Pre-IDAM
-        await basePage.logInfo(scenarioName, "Clear cookies in check eligibility page", null);
-        await intestacyScreenerPage.clearAllCookies();
-        await intestacyScreenerPage.startApplication(language, true);
+      // Screeners & Pre-IDAM
+      await basePage.logInfo(scenarioName, "Clear cookies in check eligibility page", null);
+      await intestacyScreenerPage.clearAllCookies();
+      await intestacyScreenerPage.startApplication(language, true);
     });
 });

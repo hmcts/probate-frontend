@@ -5,7 +5,6 @@
 
 const initSteps = require('app/core/initSteps');
 const expect = require('chai').expect;
-const ExecutorsWrapper = require('app/wrappers/Executors');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorAddress = steps.ExecutorAddress;
 const executorAddressPath = '/executor-address/';
@@ -88,7 +87,7 @@ describe('ExecutorAddress', () => {
             done();
         });
 
-        it('sets otherExecName and ExecutorsWrapper', (done) => {
+        it('sets otherExecName', (done) => {
             const req = {
                 session: {
                     form: {
@@ -105,7 +104,6 @@ describe('ExecutorAddress', () => {
             const ctx = ExecutorAddress.getContextData(req);
 
             expect(ctx.otherExecName).to.equal(executors.list[0].fullName);
-            expect(ctx.executorsWrapper).to.be.instanceOf(ExecutorsWrapper);
             done();
         });
     });
@@ -290,7 +288,6 @@ describe('ExecutorAddress', () => {
                     isApplying: true
                 }],
                 index: 0,
-                executorsWrapper: new ExecutorsWrapper(),
                 addressLine1: 'line1',
                 addressLine2: 'line2',
                 addressLine3: 'line3',
@@ -370,9 +367,10 @@ describe('ExecutorAddress', () => {
                 }
             };
             const testCtx = {
-                list: [{}, {}],
+                list: [
+                    {isApplying: true},
+                ],
                 index: -1,
-                executorsWrapper: new ExecutorsWrapper(this.list),
                 caseType: caseTypes.GOP
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
@@ -390,7 +388,6 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(this.list),
                 caseType: caseTypes.GOP
             };
             const url = ExecutorAddress.nextStepUrl(req, testCtx);
@@ -408,7 +405,6 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(this.list),
                 caseType: caseTypes.INTESTACY,
                 applicantRelationshipToDeceased: 'optionChild',
             };
@@ -427,7 +423,6 @@ describe('ExecutorAddress', () => {
             const testCtx = {
                 list: [{}, {}],
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(this.list),
                 caseType: caseTypes.INTESTACY,
                 applicantRelationshipToDeceased: 'optionParent',
             };
@@ -442,7 +437,6 @@ describe('ExecutorAddress', () => {
         it('returns the next step options for GOP', (done) => {
             const testCtx = {
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(),
                 caseType: caseTypes.GOP
             };
             const nextStepOptions = ExecutorAddress.nextStepOptions(testCtx);
@@ -458,7 +452,6 @@ describe('ExecutorAddress', () => {
         it('returns the next step options for Intestacy', (done) => {
             const testCtx = {
                 index: 1,
-                executorsWrapper: new ExecutorsWrapper(),
                 caseType: caseTypes.INTESTACY
             };
             const nextStepOptions = ExecutorAddress.nextStepOptions(testCtx);
@@ -485,7 +478,6 @@ describe('ExecutorAddress', () => {
                 allExecsApplying: true,
                 continue: true,
                 index: 0,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const testFormdata = {};
             const action = ExecutorAddress.action(testCtx, testFormdata);
@@ -500,7 +492,8 @@ describe('ExecutorAddress', () => {
 
         beforeEach(() => {
             executorsList = [{
-                isApplying: true
+                isApplying: true,
+                isApplicant: true
             }, {
                 isApplying: true,
                 email: 'james.miller@example.com',
@@ -516,7 +509,6 @@ describe('ExecutorAddress', () => {
         it('returns true if all the applying executors excluding the main applicant have an email, mobile and address', (done) => {
             const testCtx = {
                 list: executorsList,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const isComplete = ExecutorAddress.isComplete(testCtx);
 
@@ -525,10 +517,9 @@ describe('ExecutorAddress', () => {
         });
 
         it('returns true if there is one executor applying (the main applicant)', (done) => {
-            executorsList = [{isApplying: true}];
+            executorsList = [{isApplying: true, isApplicant: true}];
             const testCtx = {
                 list: executorsList,
-                executorsWrapper: new ExecutorsWrapper()
             };
             const isComplete = ExecutorAddress.isComplete(testCtx);
 
@@ -540,7 +531,6 @@ describe('ExecutorAddress', () => {
             executorsList.push({isApplying: true});
             const testCtx = {
                 list: executorsList,
-                executorsWrapper: new ExecutorsWrapper({list: executorsList})
             };
             const isComplete = ExecutorAddress.isComplete(testCtx);
 

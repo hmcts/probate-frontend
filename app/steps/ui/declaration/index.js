@@ -3,7 +3,7 @@
 const probateDeclarationFactory = require('app/utils/ProbateDeclarationFactory');
 const intestacyDeclarationFactory = require('app/utils/IntestacyDeclarationFactory');
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {mapValues, get, merge} = require('lodash');
+const {mapValues, get, assign} = require('lodash');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const WillWrapper = require('app/wrappers/Will');
 const FormatName = require('app/utils/FormatName');
@@ -145,7 +145,7 @@ class Declaration extends ValidationStep {
     }
 
     generateContent(ctx, formdata) {
-        const contentCtx = merge(
+        const contentCtx = assign(
             {},
             sanitizeInput(formdata),
             sanitizeInput(ctx),

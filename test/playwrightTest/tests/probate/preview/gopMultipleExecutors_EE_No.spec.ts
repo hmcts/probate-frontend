@@ -81,7 +81,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
       await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
       await deceasedDetailsPage.enterDeceasedNameOnWill(language, optionYes);
-      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
+      await deceasedDetailsPage.enterDobDetails('01', '01', '1950');
       await deceasedDetailsPage.enterDodDetails(
         deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
@@ -224,8 +224,8 @@ getTestLanguages().forEach(language => {
       await paymentTaskPage.seeCopiesSummary(language);
       await paymentTaskPage.seePaymentBreakdownPage(language);
       if (testConfigurator.getUseGovPay() === 'true') {
-        await paymentTaskPage.seeGovUkPaymentPage(language);
-        await paymentTaskPage.seeGovUkConfirmPage(language);
+        await paymentTaskPage.seeGovUkPaymentPage();
+        await paymentTaskPage.seeGovUkConfirmPage();
       }
 
       // Thank You

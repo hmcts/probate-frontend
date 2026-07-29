@@ -180,6 +180,22 @@ export class IntestacyScreenerPage extends BasePage {
     await this.navByClick(this.continueButtonLocator);
   }
 
+  async selectIntestacyRelatedToDeceased(answer = null) {
+    await this.checkInUrl('/related-to-deceased');
+    await expect(this.page.locator(`#related${answer}`)).toBeEnabled();
+    await this.page.locator(`#related${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.continueButtonLocator);
+  }
+
+  async selectJointApplication(answer = null) {
+    await this.checkInUrl('/other-applicants');
+    await expect(this.page.locator(`#otherApplicants${answer}`)).toBeEnabled();
+    await this.page.locator(`#otherApplicants${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.continueButtonLocator);
+  }
+
   async selectRelatedToDeceased(language ='en', answer = null) {
     const relatedToDeceasedContent = getContent(`app/resources/${language}/translation/screeners/relatedtodeceased.json`);
     await this.checkInUrl('/related-to-deceased');

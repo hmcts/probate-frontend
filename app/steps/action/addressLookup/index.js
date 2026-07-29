@@ -4,7 +4,7 @@ const {isEmpty} = require('lodash');
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ActionStepRunner = require('app/core/runners/ActionStepRunner');
 const FieldError = require('app/components/error');
-const PostcodeAddress = require('app/services/PostcodeAddress');
+const PostcodeLookup = require('app/services/PostcodeLookup');
 const stringUtils = require('app/components/string-utils');
 
 class AddressLookup extends ValidationStep {
@@ -31,8 +31,8 @@ class AddressLookup extends ValidationStep {
 
         if (isEmpty(errors)) {
             try {
-                const postcodeAddress = new PostcodeAddress();
-                const addresses = yield postcodeAddress.get(ctx.postcode);
+                const postcodeLookup = new PostcodeLookup();
+                const addresses = yield postcodeLookup.get(ctx.postcode);
                 if (!isEmpty(addresses)) {
                     referrerData.addresses = addresses;
                     referrerData.addressFound = 'true';

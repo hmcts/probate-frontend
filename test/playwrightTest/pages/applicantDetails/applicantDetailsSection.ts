@@ -100,7 +100,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async livingDescendantStopPage(language = 'en') {
     const livingDescendantStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
-    await this.checkInUrl('/intestacy/stop-page/notEligibleLivingDescendants');
+    await this.checkInUrl('/stop-page/notEligibleLivingDescendants');
     await expect(this.page.getByRole('heading', { name: livingDescendantStopPageContent.notEntitledHeader}))
       .toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
@@ -110,7 +110,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async differentParentsStopPage(language = 'en') {
     const differentParentsStopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
-    await this.checkInUrl('/intestacy/stop-page/notEligibleSameParents');
+    await this.checkInUrl('/stop-page/notEligibleSameParents');
     await expect(this.page.getByRole('heading', { name: differentParentsStopPageContent.notEntitledHeader}))
       .toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
@@ -120,7 +120,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async nieceOrNephewUnder18StopPage(language = 'en') {
     const nieceOrNephewUnder18StopPageContent = getContent(`app/resources/${language}/translation/stoppage.json`);
-    await this.checkInUrl('/intestacy/stop-page/anyoneUnder18');
+    await this.checkInUrl('/stop-page/anyoneUnder18');
     await expect(this.page.getByRole('heading', { name: nieceOrNephewUnder18StopPageContent.deceasedNoLegalPartnerAndRelationshipOtherHeader}))
       .toBeVisible();
     await expect(this.backLinkLocator).toBeEnabled();
@@ -129,7 +129,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async selectMainApplicantParentAlive(answer = null) {
-    await this.checkInUrl('/intestacy/mainapplicantsparent-alive');
+    await this.checkInUrl('/mainapplicantsparent-alive');
     await expect(this.page.locator(`#childAlive${answer}`)).toBeEnabled();
     await this.page.locator(`#childAlive${answer}`).click();
     await this.runAccessibilityTest();
@@ -137,7 +137,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async selectCoApplicantParentAlive(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/parent-die-before/${coApplicantNumber}`);
+    await this.checkInUrl(`/parent-die-before/${coApplicantNumber}`);
     await expect(this.page.locator(`#applicantParentDieBeforeDeceased${answer}`)).toBeEnabled();
     await this.page.locator(`#applicantParentDieBeforeDeceased${answer}`).click();
     await this.runAccessibilityTest();
@@ -146,7 +146,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async selectAnyLivingParents(language = 'en', answer = null) {
     const anyLivingParentContent = getContent(`app/resources/${language}/translation/deceased/anylivingparents.json`);
-    await this.checkInUrl('/intestacy/any-living-parents');
+    await this.checkInUrl('/any-living-parents');
     await expect(this.page.getByText(await decodeHTML(anyLivingParentContent.question)
       .replaceAll('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -170,7 +170,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async mainApplicantParentAdoptedOut(language = 'en', answer = null) {
     const parentAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/parentadoptedout.json`);
-    await this.checkInUrl('/intestacy/mainapplicantsparent-adopted-out');
+    await this.checkInUrl('/mainapplicantsparent-adopted-out');
     await expect(this.page.getByText(await decodeHTML(parentAdoptedOutContent.question)
       .replaceAll('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -205,7 +205,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async mainApplicantAdoptedOut(language = 'en', answer = null, journey = null) {
     const adoptedOutContent = getContent(`app/resources/${language}/translation/applicant/adoptedout.json`);
-    await this.checkInUrl('/intestacy/main-applicant-adopted-out');
+    await this.checkInUrl('/main-applicant-adopted-out');
     await expect(this.page.getByText(await decodeHTML(adoptedOutContent[`${journey}Question`])
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -289,7 +289,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async anyOtherHalfSiblings(language = 'en', answer = null) {
     const anyOtherHalfSiblingContent = getContent(`app/resources/${language}/translation/applicant/anyotherhalfsiblings.json`);
-    await this.checkInUrl('/intestacy/deceased-other-half-siblings');
+    await this.checkInUrl('/deceased-other-half-siblings');
     await expect(this.page.getByText(await decodeHTML(anyOtherHalfSiblingContent.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -331,7 +331,7 @@ export class ApplicantDetailsSection extends BasePage {
     } else {
       survivingNieceNephewContent = anySurvivingHalfNieceNephewContent;
     }
-    await this.checkInUrl(`/intestacy/${siblingType}-siblings-surviving-children`);
+    await this.checkInUrl(`/${siblingType}-siblings-surviving-children`);
     await expect(this.page.getByText(await decodeHTML(survivingNieceNephewContent.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -352,7 +352,7 @@ export class ApplicantDetailsSection extends BasePage {
     } else {
       siblingsAbove18Content = halfSiblingsAbove18Content;
     }
-    await this.checkInUrl(`/intestacy/${siblingType}-siblings-age`);
+    await this.checkInUrl(`/${siblingType}-siblings-age`);
     await expect(this.page.getByText(await decodeHTML(siblingsAbove18Content.question)
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -384,7 +384,7 @@ export class ApplicantDetailsSection extends BasePage {
 
   async deceasedAdoptedOut(language = 'en', answer = null, journey) {
     const deceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptedout.json`);
-    await this.checkInUrl('/intestacy/deceased-adopted-out');
+    await this.checkInUrl('/deceased-adopted-out');
     await expect(this.page.getByText(await decodeHTML(deceasedAdoptedOutContent[`${journey}Question`])
       .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
       .toBeVisible();
@@ -458,7 +458,7 @@ export class ApplicantDetailsSection extends BasePage {
     } else {
       nieceOrNephewOver18Content = halfNieceOrNephewOver18Content;
     }
-    await this.checkInUrl(`/intestacy/${siblingType}-nieces-${siblingType}-nephews-age`);
+    await this.checkInUrl(`/${siblingType}-nieces-${siblingType}-nephews-age`);
     await expect(this.page.getByText(await decodeHTML(nieceOrNephewOver18Content.question)))
       .toBeVisible();
     await expect(this.page.locator(`#all${siblingTypeUpper}NiecesAnd${siblingTypeUpper}NephewsOver18${answer}`)).toBeEnabled();
@@ -503,7 +503,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async spouseCoApplicationStopPage() {
-    await this.checkInUrl('/intestacy/stop-page/noJointApplicationApplicable');
+    await this.checkInUrl('/stop-page/noJointApplicationApplicable');
     await expect(this.page.locator('#backLink')).toBeVisible();
     await this.runAccessibilityTest();
     await this.page.locator('#backLink').click();
@@ -565,7 +565,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async coApplicantAdoptedIn(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/coapplicant-adopted-in/${coApplicantNumber}`);
+    await this.checkInUrl(`/coapplicant-adopted-in/${coApplicantNumber}`);
     await expect(this.page.locator(`#adoptedIn${answer}`)).toBeEnabled();
     await this.page.locator(`#adoptedIn${answer}`).click();
     await this.runAccessibilityTest();
@@ -573,7 +573,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async coApplicantAdoptionPlace(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/coapplicant-adoption-place/${coApplicantNumber}`);
+    await this.checkInUrl(`/coapplicant-adoption-place/${coApplicantNumber}`);
     await expect(this.page.locator(`#adoptionPlace${answer}`)).toBeEnabled();
     await this.page.locator(`#adoptionPlace${answer}`).click();
     await this.runAccessibilityTest();
@@ -581,7 +581,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async coApplicantAdoptedOut(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/coapplicant-adopted-out/${coApplicantNumber}`);
+    await this.checkInUrl(`/coapplicant-adopted-out/${coApplicantNumber}`);
     await expect(this.page.locator(`#adoptedOut${answer}`)).toBeEnabled();
     await this.page.locator(`#adoptedOut${answer}`).click();
     await this.runAccessibilityTest();
@@ -589,7 +589,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async coApplicantParentAdoptedIn(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/parent-adopted-in/${coApplicantNumber}`);
+    await this.checkInUrl(`/parent-adopted-in/${coApplicantNumber}`);
     await expect(this.page.locator(`#applicantParentAdoptedIn${answer}`)).toBeEnabled();
     await this.page.locator(`#applicantParentAdoptedIn${answer}`).click();
     await this.runAccessibilityTest();
@@ -597,7 +597,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async coApplicantParentAdoptedOut(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/parent-adopted-out/${coApplicantNumber}`);
+    await this.checkInUrl(`/parent-adopted-out/${coApplicantNumber}`);
     await expect(this.page.locator(`#applicantParentAdoptedOut${answer}`)).toBeEnabled();
     await this.page.locator(`#applicantParentAdoptedOut${answer}`).click();
     await this.runAccessibilityTest();
@@ -605,7 +605,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async coApplicantParentAdoptionPlace(coApplicantNumber, answer = null) {
-    await this.checkInUrl(`/intestacy/parent-adoption-place/${coApplicantNumber}`);
+    await this.checkInUrl(`/parent-adoption-place/${coApplicantNumber}`);
     await expect(this.page.locator(`#applicantParentAdoptionPlace${answer}`)).toBeEnabled();
     await this.page.locator(`#applicantParentAdoptionPlace${answer}`).click();
     await this.runAccessibilityTest();
@@ -613,7 +613,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async enterCoApplicantEmail(coApplicantNumber, coApplicantEmail) {
-    await this.checkInUrl(`/intestacy/coapplicant-email/${coApplicantNumber}`);
+    await this.checkInUrl(`/coapplicant-email/${coApplicantNumber}`);
     await expect(this.page.locator('#email')).toBeEnabled();
     await this.page.locator('#email').fill(coApplicantEmail);
     await this.runAccessibilityTest();
@@ -621,7 +621,7 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async enterCoApplicantAddress(coApplicantNumber) {
-    await this.checkInUrl(`/intestacy/executor-address/${coApplicantNumber}`);
+    await this.checkInUrl(`/executor-address/${coApplicantNumber}`);
     await this.page.locator('#details-panel > summary > span').click();
     await expect(this.page.locator('#addressLine1')).toBeEnabled();
     await this.page.locator('#addressLine1').fill('Applicant Address Line 1');

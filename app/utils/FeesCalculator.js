@@ -12,7 +12,7 @@ class FeesCalculator {
         this.endpoint = endpoint;
         this.sessionId = sessionId;
         this.issuesData = config.services.feesRegister.issuesData;
-        this.copiesData = config.services.feesRegister.copiesData;
+        this.copiesData = config.services.feesRegister.newfee_copiesData;
         this.issuesDataIhtMinAmount = null;
         this.feesLookup = new FeesLookup(this.endpoint, sessionId);
     }
@@ -24,10 +24,11 @@ class FeesCalculator {
 
         if (featureToggle.isEnabled(featureToggles, 'ft_newfee_register_code')) {
             this.issuesData = config.services.feesRegister.newfee_issuesData;
-            this.copiesData = config.services.feesRegister.newfee_copiesData;
             this.issuesDataIhtMinAmount = config.services.feesRegister.newfee_issuesDataIhtMinAmount;
         }
-
+        if (featureToggle.isEnabled(featureToggles, 'ft_probate_fee_increase_2026')) {
+            this.copiesData = config.services.feesRegister.newfee2026_copiesData;
+        }
         return createCallsRequired(formdata, headers, featureToggles, this.feesLookup, this.issuesData, this.copiesData, this.issuesDataIhtMinAmount);
     }
 }

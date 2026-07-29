@@ -407,4 +407,82 @@ describe('ExecutorCurrentNameReason', () => {
             expect(result).to.deep.equal([true, 'inProgress']);
         });
     });
+
+    describe('pruneFormData()', () => {
+        let ExecutorCurrentNameReason;
+        let ctx;
+        before(() => {
+            ExecutorCurrentNameReason = steps.ExecutorCurrentNameReason;
+        });
+        beforeEach(() => {
+            ctx = {
+                alias: 'optionYes',
+                list: [
+                    {fullName: 'Executor 1', hasOtherName: true, currentNameReason: 'optionMarriage'},
+                    {fullName: 'Executor 2', hasOtherName: true, currentNameReason: 'optionOther', otherReason: 'Yolo'}
+                ]
+            };
+        });
+        it('should not prune when alias is optionYes', () => {
+            const result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            expect(result.list[0].currentNameReason).to.equal('optionMarriage');
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[1].hasOtherName).to.be.true;
+            expect(result.list[1].currentNameReason).to.equal('optionOther');
+            expect(result.list[1].otherReason).to.equal('Yolo');
+        });
+        it('should prune hasOtherName and currentNameReason when alias is changed to optionNo', () => {
+            ctx.alias = 'optionNo';
+            const result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            expect(result.list[0]).to.not.have.property('currentNameReason');
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[1].hasOtherName).to.be.false;
+            expect(result.list[1]).to.not.have.property('currentNameReason');
+            expect(result.list[1]).to.not.have.property('otherReason');
+        });
+        it('should handle sequential: optionYes -> optionNo -> optionYes', () => {
+            let result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            ctx.alias = 'optionNo';
+            result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            expect(result.list[0]).to.not.have.property('currentNameReason');
+            ctx.alias = 'optionYes';
+            ctx.list[0].hasOtherName = true;
+            ctx.list[0].currentNameReason = 'optionDeedPoll';
+            result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            expect(result.list[0].currentNameReason).to.equal('optionDeedPoll');
+        });
+        it('should handle sequential: optionNo -> optionYes -> optionNo', () => {
+            ctx.alias = 'optionNo';
+            ctx.list[0].hasOtherName = false;
+            delete ctx.list[0].currentNameReason;
+            let result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            ctx.alias = 'optionYes';
+            ctx.list[0].hasOtherName = true;
+            ctx.list[0].currentNameReason = 'optionOther';
+            ctx.list[0].otherReason = 'Test';
+            result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            expect(result.list[0].currentNameReason).to.equal('optionOther');
+            expect(result.list[0].otherReason).to.equal('Test');
+            ctx.alias = 'optionNo';
+            result = ExecutorCurrentNameReason.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            expect(result.list[0]).to.not.have.property('currentNameReason');
+            expect(result.list[0]).to.not.have.property('otherReason');
+        });
+    });
 });

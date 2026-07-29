@@ -39,8 +39,6 @@ class ExecutorAddress extends AddressStep {
             ctx.otherExecName = ctx.list[ctx.index].hasOtherName ? ctx.list[ctx.index].currentName : ctx.list[ctx.index].fullName;
         }
         ctx.applicantRelationshipToDeceased = get(req.session.form, 'applicant.relationshipToDeceased');
-        ctx.executorsWrapper = new ExecutorsWrapper(ctx);
-
         return ctx;
     }
 
@@ -88,7 +86,7 @@ class ExecutorAddress extends AddressStep {
 
         ctx.index = this.recalcIndex(ctx, ctx.index);
         if (ctx.index === -1) {
-            ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
+            ctx.allExecsApplying = new ExecutorsWrapper(ctx).areAllAliveExecutorsApplying();
         }
         return [ctx, errors];
     }
@@ -100,7 +98,8 @@ class ExecutorAddress extends AddressStep {
     nextStepOptions(ctx) {
         if (ctx.caseType === caseTypes.GOP) {
             ctx.continue = get(ctx, 'index', -1) !== -1;
-            ctx.allExecsApplying = ctx.executorsWrapper.areAllAliveExecutorsApplying();
+            ctx.allExecsApplying = new ExecutorsWrapper(ctx).areAllAliveExecutorsApplying();
+
             return {
                 options: [
                     {key: 'continue', value: true, choice: 'continue'},
@@ -140,7 +139,8 @@ class ExecutorAddress extends AddressStep {
             return [false, 'inProgress'];
         }
         return [
-            ctx.executorsWrapper.executorsApplying(true).every(executor => executor.email && executor.mobile && executor.address),
+            new ExecutorsWrapper(ctx).executorsApplying(true)
+                .every(executor => executor.email && executor.mobile && executor.address),
             'inProgress'
         ];
     }

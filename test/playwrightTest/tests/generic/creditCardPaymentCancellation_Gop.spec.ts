@@ -36,15 +36,15 @@ getTestLanguages().forEach(language => {
     });
 
     test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`), async ({
-      intestacyScreenerPage,
-      apiCallback,
-      signInPage,
-      taskListPage,
-      deceasedDetailsPage,
-      applicantDetailsPage,
-      cyaAndDeclarationPage,
-      paymentTaskPage
-    }) => {
+                                                                                                                             intestacyScreenerPage,
+                                                                                                                             apiCallback,
+                                                                                                                             signInPage,
+                                                                                                                             taskListPage,
+                                                                                                                             deceasedDetailsPage,
+                                                                                                                             applicantDetailsPage,
+                                                                                                                             cyaAndDeclarationPage,
+                                                                                                                             paymentTaskPage
+                                                                                                                           }) => {
       const testConfigurator = new TestConfigurator();
       const scenarioName = `Credit card payment cancellation - ${language}`;
 
@@ -93,7 +93,7 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.enterHmrcCode(hmrcCode);
       await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
 
-      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
+      await deceasedDetailsPage.selectAssetsOutsideEnglandWales(optionYes);
       await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
       await deceasedDetailsPage.selectDeceasedMaritalStatus(maritalStatusMarried);

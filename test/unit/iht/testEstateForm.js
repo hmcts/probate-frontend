@@ -33,4 +33,54 @@ describe('EstateForm', () => {
         });
     });
 
+    describe('isComplete()', () => {
+        it('should return incomplete for pre-threshold deaths when IHT400 is selected and HMRC letter is not yes', (done) => {
+            const ctx = {
+                ihtFormId: 'optionIHT400',
+                hmrcLetterId: 'optionNo'
+            };
+            const formdata = {
+                deceased: {
+                    'dod-date': '2021-12-31'
+                }
+            };
+
+            const result = IhtEstateForm.isComplete(ctx, formdata);
+            expect(result).to.deep.equal([false, 'inProgress']);
+            done();
+        });
+
+        it('should return complete for pre-threshold deaths when IHT400 is selected and HMRC letter is yes', (done) => {
+            const ctx = {
+                ihtFormId: 'optionIHT400',
+                hmrcLetterId: 'optionYes'
+            };
+            const formdata = {
+                deceased: {
+                    'dod-date': '2021-12-31'
+                }
+            };
+
+            const result = IhtEstateForm.isComplete(ctx, formdata);
+            expect(result).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+
+        it('should return complete for pre-threshold deaths when IHT205 is selected', (done) => {
+            const ctx = {
+                ihtFormId: 'optionIHT205',
+                hmrcLetterId: 'optionNo'
+            };
+            const formdata = {
+                deceased: {
+                    'dod-date': '2021-12-31'
+                }
+            };
+
+            const result = IhtEstateForm.isComplete(ctx, formdata);
+            expect(result).to.deep.equal([true, 'inProgress']);
+            done();
+        });
+    });
+
 });

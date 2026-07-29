@@ -35,11 +35,23 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterDeceasedDetails(firstName = null, lastName = null) {
-    await this.checkInUrl('/deceased-name');
+  async enterDeceasedDetails(firstName = null, lastName = null, dobDay?: string, dobMonth?: string, dobYear?: string, dodDay?: string, dodMonth?: string, dodYear?: string , caseType= null ) {
+    if (caseType === 'Intestacy') {
+      await this.checkInUrl('/deceased-details');
+      await expect(this.page.locator('#dob-date-day')).toBeEnabled();
+      await this.page.locator('#dob-date-day').fill(dobDay);
+      await this.page.locator('#dob-date-month').fill(dobMonth);
+      await this.page.locator('#dob-date-year').fill(dobYear);
+      await this.page.locator('#dod-date-day').fill(dodDay);
+      await this.page.locator('#dod-date-month').fill(dodMonth);
+      await this.page.locator('#dod-date-year').fill(dodYear);
+    } else {
+      await this.checkInUrl('/deceased-name');
+    }
     await expect(this.firstNameLocator).toBeEnabled();
     await this.firstNameLocator.fill(firstName);
     await this.lastNameLocator.fill(lastName);
+
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
@@ -225,10 +237,8 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async selectAssetsOutsideEnglandWales(language = 'en', answer = null) {
-    const assetsContent = getContent(`app/resources/${language}/translation/iht/assetsoutside.json`);
+  async selectAssetsOutsideEnglandWales(answer = null) {
     await this.checkInUrl('/assets-outside-england-wales');
-    await expect(this.page.getByText(await decodeHTML(assetsContent.hint))).toBeVisible();
     await expect(this.page.locator(`#assetsOutside${answer}`)).toBeEnabled();
     await this.page.locator(`#assetsOutside${answer}`).click();
     await this.runAccessibilityTest();

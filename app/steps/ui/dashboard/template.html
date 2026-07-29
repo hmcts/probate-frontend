@@ -23,7 +23,7 @@
         {% else %}
             {% set nameValue = content.statusDraftIntestacy %}
         {% endif %}
-        {% set actionLabel = actionText + " " + nameValue %}
+        {% set actionLabel = actionText + " " + (nameValue | escape) %}
 
         {% if grantIssued %}
            {% set statusValue = content.statusGrantIssued %}

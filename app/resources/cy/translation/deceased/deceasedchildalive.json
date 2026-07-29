@@ -1,12 +1,12 @@
 {
   "title": "Child Alive",
-  "question": "[CY Was your parent ({deceasedName}’s child) alive at the time of {deceasedName}’s death?]",
-  "optionYes": "Ydy",
-  "optionNo": "Nac ydy",
+  "question": "A oedd eich rhiant (plentyn {deceasedName}) iddynt farw ôl {deceasedName}?",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
 
   "errors": {
     "childAlive": {
-      "required": "[CY Select ‘Yes’ if your parent ({deceasedName}’s child) is alive or if they died after {deceasedName}]"
+      "required": "Dewiswch ‘Oedd’ os oedd eich rhiant (plentyn {deceasedName}) yn fyw adeg marwolaeth {deceasedName}"
     }
   }
 }

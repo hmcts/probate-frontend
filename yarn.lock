@@ -6386,15 +6386,15 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-mocha@npm:^12.0.0":
-  version: 12.0.0
-  resolution: "eslint-plugin-mocha@npm:12.0.0"
+  version: 12.0.1
+  resolution: "eslint-plugin-mocha@npm:12.0.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:4.10.1"
     "@eslint/core": "npm:1.2.1"
     globals: "npm:17.7.0"
   peerDependencies:
     eslint: ">=10.2.0"
-  checksum: 10/494d7716a4c881fdf82478dc0ef3d8f6573c966a9b2ca01188f7051d66ce14c547fd8a8830a5ab7274b32a95c982c1267dce40e3ce26ef2863d33d7900c5e049
+  checksum: 10/459422771ef56d98aab01d3865f82080ec0c77b9aafce0fccc972c7f120c826667762d31f50552caf2c64c26d7020627190a04b2bda40892787c64186954c831
   languageName: node
   linkType: hard
 

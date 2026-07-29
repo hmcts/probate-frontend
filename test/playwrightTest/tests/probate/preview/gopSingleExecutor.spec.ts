@@ -178,7 +178,7 @@ getTestLanguages().forEach(language => {
       const caseType = "GrantOfRepresentation";
       const eventId = "boGenerateGrantPreviewForExamining";
 
-      const caseData = await apiCallback.updateCaseAsUser2(
+      const caseData = await apiCallback.updateCaseAsCaseworker(
         userId,
         jurisdictionId,
         caseType,

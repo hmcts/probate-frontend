@@ -56,7 +56,7 @@ export class apiService {
     }
   }
 
-  async initialiseUser2Tokens(): Promise<void> {
+  async initialiseCaseworkerTokens(): Promise<void> {
     // ✅ Get tokens for User 2 (fixed credentials from testConfig)
 
     const accessToken = await getAccessToken(
@@ -142,7 +142,7 @@ export class apiService {
   // ─────────────────────────────────────────
   // Combined: update existing case as Caseworker
   // ─────────────────────────────────────────
-  async updateCaseAsUser2(
+  async updateCaseAsCaseworker(
     userId: string,
     jurisdictionId: string,
     caseType: string,
@@ -150,7 +150,7 @@ export class apiService {
     eventId: string
   ): Promise<CaseEventResult> {
     // Get caseworker tokens first
-    await this.initialiseUser2Tokens();
+    await this.initialiseCaseworkerTokens();
 
     // Step 1: Get event token
     const startEventResponse = await this.getEventToken(

@@ -172,7 +172,7 @@
     "codeceptjs": "^3.7.9",
     "eslint": "^9.39.5",
     "eslint-plugin-jsdoc": "^62.9.0",
-    "eslint-plugin-mocha": "^11.3.0",
+    "eslint-plugin-mocha": "^12.0.0",
     "eslint-plugin-n": "^17.24.0",
     "globals": "^17.7.0",
     "if-env": "^1.0.4",
@@ -246,5 +246,5 @@
     "yauzl": "^3.4.0",
     "underscore": "^1.13.8"
   },
-  "packageManager": "yarn@4.17.1"
+  "packageManager": "yarn@4.18.0"
 }

@@ -14,7 +14,7 @@ export class SignInPage extends BasePage {
   async authenticateWithIdamIfAvailable(language ='en', noScreenerQuestions = false) {
     if (useIdam === 'true') {
       if (noScreenerQuestions) {
-        await this.page.goto(`${testConfig.TestFrontendUrl}/?lng=${language}`, {
+        await this.page.goto(`${process.env.TEST_URL}/?lng=${language}`, {
           waitUntil: 'load',
           timeout: 60000
         });

@@ -36,11 +36,8 @@ export class DeceasedDetailsSection extends BasePage {
   }
 
   async enterDeceasedDetails(firstName = null, lastName = null,dobDay?: string, dobMonth?: string, dobYear?: string, dodDay?: string, dodMonth?: string, dodYear?: string , caseType= null ) {
-    await this.checkInUrl('/deceased-details');
-    await expect(this.firstNameLocator).toBeEnabled();
-    await this.firstNameLocator.fill(firstName);
-    await this.lastNameLocator.fill(lastName);
     if (caseType === 'Intestacy') {
+      await this.checkInUrl('/deceased-details');
       await expect(this.page.locator('#dob-date-day')).toBeEnabled();
       await this.page.locator('#dob-date-day').fill(dobDay);
       await this.page.locator('#dob-date-month').fill(dobMonth);
@@ -48,7 +45,13 @@ export class DeceasedDetailsSection extends BasePage {
       await this.page.locator('#dod-date-day').fill(dodDay);
       await this.page.locator('#dod-date-month').fill(dodMonth);
       await this.page.locator('#dod-date-year').fill(dodYear);
+    } else {
+      await this.checkInUrl('/deceased-name');
     }
+    await expect(this.firstNameLocator).toBeEnabled();
+    await this.firstNameLocator.fill(firstName);
+    await this.lastNameLocator.fill(lastName);
+
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }

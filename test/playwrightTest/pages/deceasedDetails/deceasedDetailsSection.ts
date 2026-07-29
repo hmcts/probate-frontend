@@ -36,7 +36,7 @@ export class DeceasedDetailsSection extends BasePage {
   }
 
   async enterDeceasedDetails(firstName = null, lastName = null,dobDay?: string, dobMonth?: string, dobYear?: string, dodDay?: string, dodMonth?: string, dodYear?: string , caseType= null ) {
-    await this.checkInUrl('/deceased-name');
+    await this.checkInUrl('/deceased-details');
     await expect(this.firstNameLocator).toBeEnabled();
     await this.firstNameLocator.fill(firstName);
     await this.lastNameLocator.fill(lastName);

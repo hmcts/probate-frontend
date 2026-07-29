@@ -64,6 +64,7 @@ getTestLanguages().forEach(language => {
       await intestacyScreenerPage.startApply(language);
       await signInPage.authenticateWithIdamIfAvailable(language);
 
+      // Deceased Task
       await basePage.logInfo(scenarioName, 'Deceased Details Task', null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);

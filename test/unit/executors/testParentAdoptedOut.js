@@ -153,7 +153,7 @@ describe('ParentAdoptedOut', () => {
                 ],
             };
             const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptedOutNoNameStop');
+            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptedOutWholeBloodNoNameStop');
         });
 
         it('should return the no-name stop page when a half-blood niece or nephew parent is adopted out', () => {
@@ -175,7 +175,7 @@ describe('ParentAdoptedOut', () => {
                 ],
             };
             const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptedOutNoNameStop');
+            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptedOutHalfBloodNoNameStop');
         });
     });
 

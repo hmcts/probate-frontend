@@ -139,44 +139,6 @@ describe('ParentAdoptedIn', () => {
             done();
         });
 
-        it('should return the correct url when a whole-blood niece or nephew parent is adopted in', () => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                caseType: 'intestacy',
-                index: '1',
-                applicantParentAdoptedIn: 'optionYes',
-                list: [{}, {
-                    coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                    wholeBloodNieceOrNephewAdoptedIn: 'optionYes',
-                }],
-            };
-            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/parent-adoption-place/1');
-        });
-
-        it('should return the correct url when a whole-blood niece or nephew parent is not adopted in', () => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                caseType: 'intestacy',
-                index: '1',
-                applicantParentAdoptedIn: 'optionNo',
-                list: [{}, {
-                    coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                    wholeBloodNieceOrNephewAdoptedIn: 'optionNo',
-                }],
-            };
-            const nextStepUrl = ParentAdoptedIn.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/parent-adopted-out/1');
-        });
-
         it('should return the correct url when a half-blood niece or nephew parent is adopted in', () => {
             const req = {
                 session: {

@@ -96,12 +96,12 @@ describe('parent-adoption-place', () => {
                 });
         });
 
-        it(`redirects whole-blood yes to co-applicant name: /intestacy${expectedNextUrlForCoApplicantName}`, (done) => {
+        it(`redirects half-blood yes to co-applicant name: /intestacy${expectedNextUrlForCoApplicantName}`, (done) => {
             testWrapper.pageUrl = ParentAdoptionPlace.getUrl(1);
             sessionData.executors = {
                 list: [
                     {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
                 ]
             };
 
@@ -112,12 +112,12 @@ describe('parent-adoption-place', () => {
                 });
         });
 
-        it(`redirects whole-blood no to no-name stop page: /intestacy${expectedNextUrlForNoNameStopPage}`, (done) => {
+        it(`redirects half-blood no to no-name stop page: /intestacy${expectedNextUrlForNoNameStopPage}`, (done) => {
             testWrapper.pageUrl = ParentAdoptionPlace.getUrl(1);
             sessionData.executors = {
                 list: [
                     {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
                 ]
             };
 

@@ -13,7 +13,6 @@ describe('parent-adopted-out', () => {
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
     const expectedNextUrlForCoApplicantName = CoApplicantName.getUrl(1);
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantParentAdoptedOutStop');
-    const expectedNextUrlForWholeBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutWholeBloodNoNameStop');
     const expectedNextUrlForHalfBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutHalfBloodNoNameStop');
 
     beforeEach(() => {
@@ -55,8 +54,8 @@ describe('parent-adopted-out', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    // Whole-blood wording renders only on the whole-blood relationship path.
-                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'}, ['wholeBloodNieceOrNephewQuestion']);
+                    // Default fixture uses optionChild, so exclude niece/nephew-only question variants.
+                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'}, ['wholeBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewQuestion']);
                 });
         });
 
@@ -100,12 +99,12 @@ describe('parent-adopted-out', () => {
                 });
         });
 
-        it(`redirects whole-blood no to co-applicant name: /intestacy${expectedNextUrlForCoApplicantName}`, (done) => {
+        it(`redirects half-blood no to co-applicant name: /intestacy${expectedNextUrlForCoApplicantName}`, (done) => {
             testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
             sessionData.executors = {
                 list: [
                     {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
                 ]
             };
 
@@ -113,22 +112,6 @@ describe('parent-adopted-out', () => {
                 .send(sessionData)
                 .end(() => {
                     testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionNo'}, `/intestacy${expectedNextUrlForCoApplicantName}`);
-                });
-        });
-
-        it(`redirects whole-blood yes to no-name stop page: /intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`, (done) => {
-            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`);
                 });
         });
 

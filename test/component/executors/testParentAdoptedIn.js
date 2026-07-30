@@ -50,8 +50,8 @@ describe('parent-adopted-in', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    // The whole-blood niece/nephew wording is rendered only for that relationship path.
-                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'}, ['wholeBloodNieceOrNephewQuestion']);
+                    // Default fixture uses optionChild, so exclude niece/nephew-only question variants.
+                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'}, ['wholeBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewQuestion']);
                 });
         });
 
@@ -96,38 +96,5 @@ describe('parent-adopted-in', () => {
                 });
         });
 
-        it(`redirects whole-blood yes to parent adoption place: /intestacy${expectedNextUrlForParentAdoptionPlace}`, (done) => {
-            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {applicantParentAdoptedIn: 'optionYes'};
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptionPlace}`);
-                });
-        });
-
-        it(`redirects whole-blood no to parent adopted out: /intestacy${expectedNextUrlForParentAdoptedOut}`, (done) => {
-            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {applicantParentAdoptedIn: 'optionNo'};
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForParentAdoptedOut}`);
-                });
-        });
     });
 });

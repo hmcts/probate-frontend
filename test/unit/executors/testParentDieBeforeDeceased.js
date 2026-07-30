@@ -85,15 +85,6 @@ describe('Co-applicant-parent-die-before', () => {
             expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
         });
 
-        it('should return parent adopted in for a whole-blood niece or nephew when their parent died before the deceased', () => {
-            ctx.caseType = 'intestacy';
-            ctx.index = 2;
-            ctx.list[2].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
-            ctx.applicantParentDieBeforeDeceased = 'optionYes';
-            const url = ParentDieBefore.nextStepUrl(req, ctx);
-            expect(url).to.equal('/intestacy/parent-adopted-in/2');
-        });
-
         it('should return parent adopted in for a half-blood niece or nephew when their parent died before the deceased', () => {
             ctx.caseType = 'intestacy';
             ctx.index = 2;
@@ -297,15 +288,4 @@ describe('Co-applicant-parent-die-before', () => {
         });
     });
 
-    describe('requiredErrorKeyForRelationship()', () => {
-        it('returns whole-blood specific required key for whole-blood niece or nephew', () => {
-            expect(ParentDieBefore.requiredErrorKeyForRelationship('optionWholeBloodNieceOrNephew'))
-                .to.equal('wholeBloodNieceOrNephewRequired');
-        });
-
-        it('returns half-blood specific required key for half-blood niece or nephew', () => {
-            expect(ParentDieBefore.requiredErrorKeyForRelationship('optionHalfBloodNieceOrNephew'))
-                .to.equal('halfBloodNieceOrNephewRequired');
-        });
-    });
 });

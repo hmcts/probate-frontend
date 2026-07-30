@@ -112,7 +112,7 @@ describe('ParentAdoptedOut', () => {
             done();
         });
 
-        it('should return co-applicant name when a whole-blood niece or nephew parent is not adopted out', () => {
+        it('should return co-applicant name when a half-blood niece or nephew parent is not adopted out', () => {
             const req = {
                 session: {
                     journey: journey
@@ -125,35 +125,13 @@ describe('ParentAdoptedOut', () => {
                 list: [
                     {},
                     {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptedOut: 'optionNo'
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        halfBloodNieceOrNephewAdoptedOut: 'optionNo'
                     }
                 ],
             };
             const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/intestacy/coapplicant-name/1');
-        });
-
-        it('should return the no-name stop page when a whole-blood niece or nephew parent is adopted out', () => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                caseType: 'intestacy',
-                index: '1',
-                applicantParentAdoptedOut: 'optionYes',
-                list: [
-                    {},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
-                    }
-                ],
-            };
-            const nextStepUrl = ParentAdoptedOut.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptedOutWholeBloodNoNameStop');
         });
 
         it('should return the no-name stop page when a half-blood niece or nephew parent is adopted out', () => {

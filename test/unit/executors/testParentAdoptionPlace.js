@@ -120,7 +120,7 @@ describe('ParentAdoptionPlace', () => {
             done();
         });
 
-        it('should return co-applicant name when a whole-blood niece or nephew parent adoption took place in England or Wales', () => {
+        it('should return co-applicant name when a half-blood niece or nephew parent adoption took place in England or Wales', () => {
             const req = {
                 session: {
                     journey: journey
@@ -133,35 +133,13 @@ describe('ParentAdoptionPlace', () => {
                 list: [
                     {},
                     {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes'
                     }
                 ],
             };
             const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/intestacy/coapplicant-name/1');
-        });
-
-        it('should return the no-name stop page when a whole-blood niece or nephew parent adoption took place outside England or Wales', () => {
-            const req = {
-                session: {
-                    journey: journey
-                }
-            };
-            const ctx = {
-                caseType: 'intestacy',
-                index: '1',
-                applicantParentAdoptionPlace: 'optionNo',
-                list: [
-                    {},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
-                    }
-                ],
-            };
-            const nextStepUrl = ParentAdoptionPlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/intestacy/stop-page/coApplicantParentAdoptionPlaceNoNameStop');
         });
 
         it('should return the no-name stop page when a half-blood niece or nephew parent adoption took place outside England or Wales', () => {

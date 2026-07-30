@@ -177,6 +177,5 @@ describe('Co-applicant-parent-die-before', () => {
                     testWrapper.testErrors(done, data, 'required', errorsToTest);
                 });
         });
-
     });
 });

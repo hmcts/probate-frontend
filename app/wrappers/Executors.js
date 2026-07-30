@@ -192,6 +192,7 @@ class Executors {
             'wholeBloodSiblingAdoptionInEnglandOrWales',
             'halfBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+            'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
             'childDieBeforeDeceased',
             'wholeBloodSiblingDiedBeforeDeceased',
             'halfBloodSiblingDiedBeforeDeceased'

@@ -1049,6 +1049,20 @@ describe('Executors.js', () => {
             expect(executorsWrapper.isStopPage()).to.equal(true);
         });
 
+        it('should return true when a half-blood niece or nephew parent adoption took place outside England or Wales', () => {
+            const data = {
+                list: [
+                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
+                    }
+                ]
+            };
+            const executorsWrapper = new ExecutorsWrapper(data);
+            expect(executorsWrapper.isStopPage()).to.equal(true);
+        });
+
         it('should return true when a whole-blood niece or nephew parent was adopted out', () => {
             const data = {
                 list: [

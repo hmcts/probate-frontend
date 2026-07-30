@@ -13,7 +13,8 @@ describe('parent-adopted-out', () => {
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
     const expectedNextUrlForCoApplicantName = CoApplicantName.getUrl(1);
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantParentAdoptedOutStop');
-    const expectedNextUrlForNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutNoNameStop');
+    const expectedNextUrlForWholeBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutWholeBloodNoNameStop');
+    const expectedNextUrlForHalfBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutHalfBloodNoNameStop');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantParentAdoptedOut');
@@ -115,7 +116,7 @@ describe('parent-adopted-out', () => {
                 });
         });
 
-        it(`redirects whole-blood yes to no-name stop page: /intestacy${expectedNextUrlForNoNameStopPage}`, (done) => {
+        it(`redirects whole-blood yes to no-name stop page: /intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`, (done) => {
             testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
             sessionData.executors = {
                 list: [
@@ -127,7 +128,23 @@ describe('parent-adopted-out', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForNoNameStopPage}`);
+                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`);
+                });
+        });
+
+        it(`redirects half-blood yes to no-name stop page: /intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`, (done) => {
+            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
+            sessionData.executors = {
+                list: [
+                    {fullName: 'Main Applicant', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`);
                 });
         });
     });

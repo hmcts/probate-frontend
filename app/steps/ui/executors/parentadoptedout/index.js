@@ -46,8 +46,11 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew') {
-            return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutNoNameStop');
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutWholeBloodNoNameStop');
+        }
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutHalfBloodNoNameStop');
         }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutStop');
     }

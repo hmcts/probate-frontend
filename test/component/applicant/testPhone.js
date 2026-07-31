@@ -39,7 +39,7 @@ describe('applicant-phone', () => {
         });
 
         it(`test it redirects to next page: ${expectedNextUrlForApplicantAddress}`, (done) => {
-            const data = {phoneNumber: '1234567890'};
+            const data = {phoneNumber: '07123456789'};
 
             testWrapper.testRedirect(done, data, expectedNextUrlForApplicantAddress);
         });

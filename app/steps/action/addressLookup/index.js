@@ -25,6 +25,9 @@ class AddressLookup extends ValidationStep {
         let referrerData = this.getReferrerData(ctx, formdata);
         referrerData = this.pruneReferrerData(referrerData);
         referrerData.postcode = ctx.postcode;
+        if (ctx._index) {
+            ctx.index = ctx._index;
+        }
 
         if (isEmpty(errors)) {
             try {

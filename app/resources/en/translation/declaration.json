@@ -79,7 +79,7 @@
   "codicils": "codicils",
   "intestacyLegalStatementDeceased": "That {deceasedName} of {deceasedAddress}, was born on {deceasedDob} and died on {deceasedDod} intestate.",
   "intestacyDeceasedMaritalStatus": "They were {deceasedMaritalStatus} and domiciled in England and Wales.",
-  "intestacyDeceasedChildren": "No children under 18 are entitled to the estate.",
+  "intestacyDeceasedChildren": "There is no one under 18 entitled to the estate.",
   "intestacyDeceasedEstateOutside": "The deceased had assets overseas amounting to a net value of &pound;{ihtNetValueAssetsOutside}.",
   "intestacyDeceasedEstateLand": "To the best of my knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death of {deceasedName} and which remained settled land notwithstanding such death.",
   "intestacyDeceasedEstateLand-multipleApplicants": "To the best of our knowledge, information and belief, there was no land vested in {deceasedName} which was settled previously to the death of {deceasedName} and which remained settled land notwithstanding such death.",

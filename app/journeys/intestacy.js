@@ -355,13 +355,19 @@ const stepList = {
         parentAdoptedIn: 'CoApplicantParentAdoptionPlace',
         wholeBloodNieceOrNephewParentAdoptedIn: 'CoApplicantParentAdoptionPlace',
         halfBloodNieceOrNephewParentAdoptedIn: 'CoApplicantParentAdoptionPlace',
-        otherwise: 'CoApplicantParentAdoptedOut'
+        parentNotAdoptedIn: 'CoApplicantParentAdoptedOut',
+        wholeBloodNieceOrNephewParentNotAdoptedIn: 'CoApplicantParentAdoptedOut',
+        halfBloodNieceOrNephewParentNotAdoptedIn: 'CoApplicantParentAdoptedOut',
+        otherwise: 'CoApplicantParentAdoptedIn'
     },
     CoApplicantParentAdoptedOut: {
         wholeBloodNieceOrNephewParentNotAdoptedOut: 'CoApplicantName',
         halfBloodNieceOrNephewParentNotAdoptedOut: 'CoApplicantName',
         parentNotAdoptedOut: 'CoApplicantEmail',
-        otherwise: 'StopPage'
+        parentAdoptedOut: 'StopPage',
+        wholeBloodNieceOrNephewParentAdoptedOut: 'StopPage',
+        halfBloodNieceOrNephewParentAdoptedOut: 'StopPage',
+        otherwise: 'CoApplicantParentAdoptedIn'
     },
     CoApplicantParentAdoptionPlace: {
         wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales: 'CoApplicantName',

@@ -46,27 +46,36 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        let stopReason = 'coApplicantParentAdoptedOutStop';
         if (relationship === 'optionWholeBloodNieceOrNephew') {
-            return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutWholeBloodNoNameStop');
+            stopReason = 'coApplicantParentAdoptedOutWholeBloodNoNameStop';
+        } else if (relationship === 'optionHalfBloodNieceOrNephew') {
+            stopReason = 'coApplicantParentAdoptedOutHalfBloodNoNameStop';
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew') {
-            return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutHalfBloodNoNameStop');
-        }
-        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutStop');
+        return this.next(req, ctx).getUrlWithContext(ctx, stopReason);
     }
 
     nextStepOptions(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        const parentNotAdoptedOut = ctx.applicantParentAdoptedOut === 'optionNo';
+        const adoptedOutField = this.parentAdoptedOutField(ctx);
+        const answer = ctx.applicantParentAdoptedOut || (adoptedOutField && ctx.list?.[ctx.index]?.[adoptedOutField]);
+        const parentNotAdoptedOut = answer === 'optionNo';
+        const parentAdoptedOut = answer === 'optionYes';
         const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
         ctx.wholeBloodNieceOrNephewParentNotAdoptedOut = relationship === 'optionWholeBloodNieceOrNephew' && parentNotAdoptedOut;
+        ctx.wholeBloodNieceOrNephewParentAdoptedOut = relationship === 'optionWholeBloodNieceOrNephew' && parentAdoptedOut;
         ctx.halfBloodNieceOrNephewParentNotAdoptedOut = relationship === 'optionHalfBloodNieceOrNephew' && parentNotAdoptedOut;
+        ctx.halfBloodNieceOrNephewParentAdoptedOut = relationship === 'optionHalfBloodNieceOrNephew' && parentAdoptedOut;
         ctx.parentNotAdoptedOut = !isNieceOrNephew && parentNotAdoptedOut;
+        ctx.parentAdoptedOut = !isNieceOrNephew && parentAdoptedOut;
         return {
             options: [
                 {key: 'wholeBloodNieceOrNephewParentNotAdoptedOut', value: true, choice: 'wholeBloodNieceOrNephewParentNotAdoptedOut'},
+                {key: 'wholeBloodNieceOrNephewParentAdoptedOut', value: true, choice: 'wholeBloodNieceOrNephewParentAdoptedOut'},
                 {key: 'halfBloodNieceOrNephewParentNotAdoptedOut', value: true, choice: 'halfBloodNieceOrNephewParentNotAdoptedOut'},
+                {key: 'halfBloodNieceOrNephewParentAdoptedOut', value: true, choice: 'halfBloodNieceOrNephewParentAdoptedOut'},
                 {key: 'parentNotAdoptedOut', value: true, choice: 'parentNotAdoptedOut'},
+                {key: 'parentAdoptedOut', value: true, choice: 'parentAdoptedOut'},
             ]
         };
     }
@@ -116,8 +125,11 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         super.action(ctx, formdata);
         // Keep route-only flags out of persisted executor payload.
         delete ctx.wholeBloodNieceOrNephewParentNotAdoptedOut;
+        delete ctx.wholeBloodNieceOrNephewParentAdoptedOut;
         delete ctx.halfBloodNieceOrNephewParentNotAdoptedOut;
+        delete ctx.halfBloodNieceOrNephewParentAdoptedOut;
         delete ctx.parentNotAdoptedOut;
+        delete ctx.parentAdoptedOut;
         delete ctx.deceasedName;
         delete ctx.applicantName;
         return [ctx, formdata];

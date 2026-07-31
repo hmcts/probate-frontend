@@ -13,12 +13,18 @@ const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
     optionWholeBloodNieceOrNephew: [
         'wholeBloodNieceOrNephewAdoptedIn',
         'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
-        'wholeBloodNieceOrNephewAdoptedOut'
+        'wholeBloodNieceOrNephewAdoptedOut',
+        'wholeBloodNieceOrNephewParentAdoptedIn',
+        'wholeBloodNieceOrNephewParentAdoptionInEnglandOrWales',
+        'wholeBloodNieceOrNephewParentAdoptedOut'
     ],
     optionHalfBloodNieceOrNephew: [
         'halfBloodNieceOrNephewAdoptedIn',
         'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-        'halfBloodNieceOrNephewAdoptedOut'
+        'halfBloodNieceOrNephewAdoptedOut',
+        'halfBloodNieceOrNephewParentAdoptedIn',
+        'halfBloodNieceOrNephewParentAdoptionInEnglandOrWales',
+        'halfBloodNieceOrNephewParentAdoptedOut'
     ]
 };
 class ParentDieBefore extends ValidationStep {

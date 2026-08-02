@@ -37,6 +37,7 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
         const isParentAdoptionInEnglandOrWales = adoptionPlaceField && ctx.list[ctx.index]?.[adoptionPlaceField] === 'optionYes';
         return [isParentAdoptionInEnglandOrWales, 'inProgress'];
     }
+
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
             const adoptionPlaceField = this.parentAdoptionPlaceField(ctx);

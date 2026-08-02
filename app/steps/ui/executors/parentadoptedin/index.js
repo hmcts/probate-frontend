@@ -19,7 +19,6 @@ const PARENT_ADOPTED_OUT_FIELDS = {
     optionHalfBloodNieceOrNephew: 'halfBloodNieceOrNephewAdoptedOut',
     optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptedOut'
 };
-const PARENT_ADOPTED_IN_FIELD_NAMES = Object.values(PARENT_ADOPTED_IN_FIELDS);
 
 class CoApplicantParentAdoptedIn extends ValidationStep {
     static getUrl(index = '*') {
@@ -58,24 +57,17 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const adoptedInField = this.parentAdoptedInField(ctx);
-        const answer = ctx.applicantParentAdoptedIn || (adoptedInField && ctx.list?.[ctx.index]?.[adoptedInField]) || this.savedParentAdoptedInAnswer(ctx);
+        const coapplParentAdoptedIn = ctx.applicantParentAdoptedIn;
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
         const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
-        ctx.wholeBloodNieceOrNephewParentAdoptedIn = relationship === 'optionWholeBloodNieceOrNephew' && answer === 'optionYes';
-        ctx.wholeBloodNieceOrNephewParentNotAdoptedIn = relationship === 'optionWholeBloodNieceOrNephew' && answer === 'optionNo';
-        ctx.halfBloodNieceOrNephewParentAdoptedIn = relationship === 'optionHalfBloodNieceOrNephew' && answer === 'optionYes';
-        ctx.halfBloodNieceOrNephewParentNotAdoptedIn = relationship === 'optionHalfBloodNieceOrNephew' && answer === 'optionNo';
-        ctx.parentAdopted = !isNieceOrNephew && answer === 'optionYes';
-        ctx.parentNotAdopted = !isNieceOrNephew && answer === 'optionNo';
+        ctx.wholeBloodNieceOrNephewParentAdoptedIn = relationship === 'optionWholeBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
+        ctx.halfBloodNieceOrNephewParentAdoptedIn = relationship === 'optionHalfBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
+        ctx.parentAdopted = !isNieceOrNephew && coapplParentAdoptedIn === 'optionYes';
         return {
             options: [
                 {key: 'wholeBloodNieceOrNephewParentAdoptedIn', value: true, choice: 'wholeBloodNieceOrNephewParentAdoptedIn'},
-                {key: 'wholeBloodNieceOrNephewParentNotAdoptedIn', value: true, choice: 'wholeBloodNieceOrNephewParentNotAdoptedIn'},
                 {key: 'halfBloodNieceOrNephewParentAdoptedIn', value: true, choice: 'halfBloodNieceOrNephewParentAdoptedIn'},
-                {key: 'halfBloodNieceOrNephewParentNotAdoptedIn', value: true, choice: 'halfBloodNieceOrNephewParentNotAdoptedIn'},
                 {key: 'parentAdopted', value: true, choice: 'parentAdoptedIn'},
-                {key: 'parentNotAdopted', value: true, choice: 'parentNotAdoptedIn'},
             ]
         };
     }
@@ -130,11 +122,8 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         super.action(ctx, formdata);
         // Keep route-only flags out of persisted executor payload.
         delete ctx.wholeBloodNieceOrNephewParentAdoptedIn;
-        delete ctx.wholeBloodNieceOrNephewParentNotAdoptedIn;
         delete ctx.halfBloodNieceOrNephewParentAdoptedIn;
-        delete ctx.halfBloodNieceOrNephewParentNotAdoptedIn;
         delete ctx.parentAdopted;
-        delete ctx.parentNotAdopted;
         delete ctx.deceasedName;
         delete ctx.applicantName;
         return [ctx, formdata];
@@ -150,12 +139,6 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
 
     parentAdoptedOutField(ctx) {
         return PARENT_ADOPTED_OUT_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
-    }
-
-    savedParentAdoptedInAnswer(ctx) {
-        const executor = ctx.list?.[ctx.index];
-        const fieldName = PARENT_ADOPTED_IN_FIELD_NAMES.find(field => executor?.[field]);
-        return fieldName ? executor[fieldName] : null;
     }
 }
 

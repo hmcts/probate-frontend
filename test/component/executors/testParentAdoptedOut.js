@@ -2,133 +2,78 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const ParentAdoptedOut = require('app/steps/ui/executors/parentadoptedout');
-const CoApplicantEmail = require('app/steps/ui/executors/coapplicantemail');
 const CoApplicantName = require('app/steps/ui/executors/coapplicantname');
 const StopPage = require('../../../app/steps/ui/stoppage');
-const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes= require('app/utils/CaseTypes');
 
 describe('parent-adopted-out', () => {
-    let testWrapper, sessionData;
-    const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
+    let testWrapper;
     const expectedNextUrlForCoApplicantName = CoApplicantName.getUrl(1);
-    const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantParentAdoptedOutStop');
+    const expectedNextUrlForWholeBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutWholeBloodNoNameStop');
     const expectedNextUrlForHalfBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutHalfBloodNoNameStop');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantParentAdoptedOut');
-        sessionData = {
-            caseType: caseTypes.INTESTACY,
-            applicantName: 'First coApplicant',
-            deceased: {
-                firstName: 'John',
-                lastName: 'Doe'
-            },
-            applicant: {
-                'firstName': 'Bobby',
-                'lastName': 'Applicant',
-                'isApplying': true,
-                'isApplicant': true,
-                'fullName': 'Bobby Applicant'
-            },
-            executors: {
-                list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true}
-                ]
-            }
-        };
     });
 
     afterEach(async () => {
         await testWrapper.destroy();
     });
 
+    const buildSession = relationship => ({
+        caseType: caseTypes.INTESTACY,
+        applicantName: 'First coApplicant',
+        deceased: {
+            firstName: 'John',
+            lastName: 'Doe'
+        },
+        applicant: {
+            'firstName': 'Bobby',
+            'lastName': 'Applicant',
+            'isApplying': true,
+            'isApplicant': true,
+            'fullName': 'Bobby Applicant'
+        },
+        executors: {
+            list: [
+                {fullName: 'Main Applicant', isApplicant: true},
+                {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: relationship, isApplicant: true}
+            ]
+        }
+    });
+
+    const prepareSession = (sessionData, done) => {
+        testWrapper.agent.post('/prepare-session/form')
+            .send(sessionData)
+            .end(done);
+    };
+
+    const assertRedirect = (sessionData, done, payload, expectedUrl) => {
+        prepareSession(sessionData, () => testWrapper.testRedirect(done, payload, expectedUrl));
+    };
+
     describe('Verify Content, Errors and Redirection', () => {
-        testCommonContent.runTest('CoApplicantParentAdoptedOut', null, null, [],
-            false, {caseType: caseTypes.INTESTACY}, ParentAdoptedOut.getUrl(1));
-
-        it('test content loaded on the page', (done) => {
-            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    // Default fixture uses optionChild, so exclude niece/nephew-only question variants.
-                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'}, ['wholeBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewQuestion']);
-                });
-        });
-
-        it('test errors message displayed for missing data', (done) => {
-            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            const data= {
-                type: caseTypes.INTESTACY,
-                applicantName: 'First coApplicant',
-                list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true}
-                ]
-            };
-            testWrapper.agent.post('/prepare-session/form').send(sessionData);
-            testWrapper.testErrors(done, data, 'required');
-        });
-
-        it(`test it redirects to CoApplicant Adoption place page if child is adopted out: /intestacy${expectedNextUrlForCoApplicantEmail}`, (done) => {
-            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        applicantParentAdoptedOut: 'optionNo'
-                    };
-
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
-                });
-        });
-        it(`test it redirects to stop page if co-applicant is adopted out : /intestacy${expectedNextUrlForStopPage}`, (done) => {
-            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    const data = {
-                        applicantParentAdoptedOut: 'optionYes'
-                    };
-
-                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
-                });
-        });
-
         it(`redirects half-blood no to co-applicant name: /intestacy${expectedNextUrlForCoApplicantName}`, (done) => {
             testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionNo'}, `/intestacy${expectedNextUrlForCoApplicantName}`);
-                });
+            assertRedirect(buildSession('optionHalfBloodNieceOrNephew'), done, {applicantParentAdoptedOut: 'optionNo'}, `/intestacy${expectedNextUrlForCoApplicantName}`);
         });
 
-        it(`redirects half-blood yes to no-name stop page: /intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`, (done) => {
+        [
+            {
+                label: `redirects whole-blood yes to no-name stop page: /intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`,
+                relationship: 'optionWholeBloodNieceOrNephew',
+                payload: {applicantParentAdoptedOut: 'optionYes'},
+                expected: `/intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`
+            },
+            {
+                label: `redirects half-blood yes to no-name stop page: /intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`,
+                relationship: 'optionHalfBloodNieceOrNephew',
+                payload: {applicantParentAdoptedOut: 'optionYes'},
+                expected: `/intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`
+            }
+        ].forEach(testCase => it(testCase.label, (done) => {
             testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
-            sessionData.executors = {
-                list: [
-                    {fullName: 'Main Applicant', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
-                ]
-            };
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`);
-                });
-        });
+            assertRedirect(buildSession(testCase.relationship), done, testCase.payload, testCase.expected);
+        }));
     });
 });

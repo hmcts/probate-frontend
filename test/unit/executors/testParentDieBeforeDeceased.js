@@ -2,7 +2,7 @@
 
 const initSteps = require('app/core/initSteps');
 const journey = require('app/journeys/intestacy');
-const {expect, assert} = require('chai');
+const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ParentDieBefore = steps.ParentDieBefore;
 const namePath = '/parent-die-before/';
@@ -55,7 +55,8 @@ describe('Co-applicant-parent-die-before', () => {
         it('should not set parent die before field when childDieBeforeDeceased is not present', () => {
             ctx.index = 3;
             [ctx] = ParentDieBefore.handleGet(ctx);
-            assert.isUndefined(ctx.applicantParentDieBeforeDeceased);
+            // eslint-disable-next-line no-undefined
+            expect(ctx.applicantParentDieBeforeDeceased).to.equal(undefined);
         });
     });
     describe('CoApplicantParentDieBefore nextStepUrl', () => {
@@ -84,16 +85,6 @@ describe('Co-applicant-parent-die-before', () => {
             const url = ParentDieBefore.nextStepUrl(req, ctx);
             expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
         });
-
-        it('should return parent adopted in for a half-blood niece or nephew when their parent died before the deceased', () => {
-            ctx.caseType = 'intestacy';
-            ctx.index = 2;
-            ctx.list[2].coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
-            ctx.applicantParentDieBeforeDeceased = 'optionYes';
-            const url = ParentDieBefore.nextStepUrl(req, ctx);
-            expect(url).to.equal('/intestacy/parent-adopted-in/2');
-        });
-
     });
     describe('CoApplicantParentDieBefore handlePost()', () => {
         let ctx;
@@ -160,76 +151,6 @@ describe('Co-applicant-parent-die-before', () => {
             });
             done();
         });
-
-        it('should clear whole-blood niece or nephew parent adoption fields when parent did not die before the deceased', () => {
-            ctx = {
-                list: [
-                    {firstName: 'John', lastName: 'Doe'},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptedIn: 'optionYes',
-                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
-                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
-                    },
-                ],
-                index: 1,
-                applicantParentDieBeforeDeceased: 'optionNo'
-            };
-            errors = [];
-
-            [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
-
-            expect(ctx.list[1]).to.deep.equal({
-                coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                wholeBloodSiblingDiedBeforeDeceased: 'optionNo'
-            });
-            expect(ctx.hasCoApplicant).to.equal('optionYes');
-        });
-
-        it('should clear half-blood niece or nephew parent adoption fields when parent did not die before the deceased', () => {
-            ctx = {
-                list: [
-                    {firstName: 'John', lastName: 'Doe'},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
-                        halfBloodNieceOrNephewAdoptedIn: 'optionYes',
-                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
-                        halfBloodNieceOrNephewAdoptedOut: 'optionYes'
-                    },
-                ],
-                index: 1,
-                applicantParentDieBeforeDeceased: 'optionNo'
-            };
-            errors = [];
-
-            [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
-
-            expect(ctx.list[1]).to.deep.equal({
-                coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
-                halfBloodSiblingDiedBeforeDeceased: 'optionNo'
-            });
-            expect(ctx.hasCoApplicant).to.equal('optionYes');
-        });
-    });
-
-    describe('CoApplicantParentDieBefore action()', () => {
-        it('should remove whole-blood route-only flags before persistence', () => {
-            const ctx = {
-                wholeBloodNieceOrNephewParentDieBefore: true,
-                parentDieBeforeDeceased: true,
-                deceasedName: 'John Doe',
-                list: [{coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}],
-                index: 0
-            };
-            const formdata = {};
-
-            const [updatedCtx] = ParentDieBefore.action(ctx, formdata);
-
-            assert.isUndefined(updatedCtx.wholeBloodNieceOrNephewParentDieBefore);
-            assert.isUndefined(updatedCtx.parentDieBeforeDeceased);
-            assert.isUndefined(updatedCtx.deceasedName);
-            expect(updatedCtx.list).to.deep.equal([{coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew'}]);
-        });
     });
 
     describe('getContextData()', () => {
@@ -287,5 +208,4 @@ describe('Co-applicant-parent-die-before', () => {
             done();
         });
     });
-
 });

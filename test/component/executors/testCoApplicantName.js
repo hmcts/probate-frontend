@@ -133,6 +133,5 @@ describe('coapplicant-name', () => {
                     testWrapper.testErrors(done, data, 'required');
                 });
         });
-
     });
 });

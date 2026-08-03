@@ -4,7 +4,12 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
-const PARENT_DIE_BEFORE_FIELDS = [
+const PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP = {
+    optionGrandchild: 'childDieBeforeDeceased',
+    optionHalfBloodNieceOrNephew: 'halfBloodSiblingDiedBeforeDeceased',
+    optionWholeBloodNieceOrNephew: 'wholeBloodSiblingDiedBeforeDeceased'
+};
+const PARENT_DIE_BEFORE_FALLBACK_FIELDS = [
     'childDieBeforeDeceased',
     'halfBloodSiblingDiedBeforeDeceased',
     'wholeBloodSiblingDiedBeforeDeceased'
@@ -28,14 +33,10 @@ class ParentDieBefore extends ValidationStep {
     }
 
     handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionGrandchild') {
-                ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].childDieBeforeDeceased;
-            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
-                ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
-            } else if (ctx.list[ctx.index].coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
-                ctx.applicantParentDieBeforeDeceased = ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;
-            }
+        const executor = ctx.list?.[ctx.index];
+        const field = this.parentDieBeforeField(ctx);
+        if (executor && field) {
+            ctx.applicantParentDieBeforeDeceased = executor[field];
         }
         return [ctx];
     }
@@ -55,7 +56,16 @@ class ParentDieBefore extends ValidationStep {
         return ctx;
     }
     isComplete(ctx) {
-        const isAnyParentDieBefore = PARENT_DIE_BEFORE_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        const parentDieBeforeField = this.parentDieBeforeField(ctx);
+        if (parentDieBeforeField) {
+            const selectedAnswer = ctx.list?.[ctx.index]?.[parentDieBeforeField];
+            if (typeof selectedAnswer !== 'undefined') {
+                return [selectedAnswer === 'optionYes', 'inProgress'];
+            }
+        }
+
+        const isAnyParentDieBefore = PARENT_DIE_BEFORE_FALLBACK_FIELDS
+            .some(field => ctx.list?.[ctx.index]?.[field] === 'optionYes');
         return [isAnyParentDieBefore, 'inProgress'];
     }
 
@@ -65,11 +75,22 @@ class ParentDieBefore extends ValidationStep {
 
     nextStepOptions(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        const parentDiedBefore = ctx.applicantParentDieBeforeDeceased === 'optionYes' ||
-            PARENT_DIE_BEFORE_FIELDS.some(field => ctx.list[ctx.index]?.[field] === 'optionYes');
+        const parentDieBeforeField = this.parentDieBeforeField(ctx);
+        const selectedAnswer = ctx.applicantParentDieBeforeDeceased ||
+            (parentDieBeforeField && ctx.list?.[ctx.index]?.[parentDieBeforeField]);
+        let parentDiedBefore;
+        if (selectedAnswer === 'optionYes') {
+            parentDiedBefore = true;
+        } else if (selectedAnswer === 'optionNo') {
+            parentDiedBefore = false;
+        } else {
+            parentDiedBefore = PARENT_DIE_BEFORE_FALLBACK_FIELDS
+                .some(field => ctx.list?.[ctx.index]?.[field] === 'optionYes');
+        }
+        const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
         ctx.wholeBloodNieceOrNephewParentDieBefore = relationship === 'optionWholeBloodNieceOrNephew' && parentDiedBefore;
         ctx.halfBloodNieceOrNephewParentDieBefore = relationship === 'optionHalfBloodNieceOrNephew' && parentDiedBefore;
-        ctx.parentDieBeforeDeceased = parentDiedBefore;
+        ctx.parentDieBeforeDeceased = !isNieceOrNephew && parentDiedBefore;
         return {
             options: [
                 {key: 'wholeBloodNieceOrNephewParentDieBefore', value: true, choice: 'wholeBloodNieceOrNephewParentDieBefore'},
@@ -80,17 +101,15 @@ class ParentDieBefore extends ValidationStep {
     }
 
     handlePost(ctx, errors) {
-        const relationship = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
-        if (relationship === 'optionGrandchild') {
-            ctx.list[ctx.index].childDieBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
-        } else if (relationship === 'optionHalfBloodNieceOrNephew') {
-            ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
-        } else if (relationship === 'optionWholeBloodNieceOrNephew') {
-            ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased = ctx.applicantParentDieBeforeDeceased;
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const parentDieBeforeField = this.parentDieBeforeField(ctx);
+        if (parentDieBeforeField) {
+            ctx.list[ctx.index][parentDieBeforeField] = ctx.applicantParentDieBeforeDeceased;
         }
 
-        if (PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship] && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
-            PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship].forEach(field => {
+        const parentAdoptionFields = PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship];
+        if (parentAdoptionFields && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
+            parentAdoptionFields.forEach(field => {
                 delete ctx.list[ctx.index][field];
             });
         }
@@ -113,7 +132,7 @@ class ParentDieBefore extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const relationship = ctx.relationshipToDeceased || ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         const errorKey = this.requiredErrorKeyForRelationship(relationship);
         const dynamicRequiredMessage = this.generateContent(ctx, {}, language)
             ?.errors?.applicantParentDieBeforeDeceased?.[errorKey];
@@ -139,6 +158,12 @@ class ParentDieBefore extends ValidationStep {
         }
         return 'required';
     }
+
+    parentDieBeforeField(ctx) {
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        return PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP[relationship] ?? null;
+    }
+
 }
 
 module.exports = ParentDieBefore;

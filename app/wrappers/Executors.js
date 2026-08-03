@@ -185,6 +185,18 @@ class Executors {
     }
 
     hasStopCondition(executor) {
+        if (executor?.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+            return executor?.wholeBloodSiblingDiedBeforeDeceased === 'optionNo' ||
+                executor?.wholeBloodNieceOrNephewAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.wholeBloodNieceOrNephewAdoptedOut === 'optionYes';
+        }
+
+        if (executor?.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
+            return executor?.halfBloodSiblingDiedBeforeDeceased === 'optionNo' ||
+                executor?.halfBloodNieceOrNephewAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.halfBloodNieceOrNephewAdoptedOut === 'optionYes';
+        }
+
         const optionNoFields = [
             'childAdoptionInEnglandOrWales',
             'grandchildAdoptionInEnglandOrWales',
@@ -209,10 +221,11 @@ class Executors {
         ];
 
         return (
-            optionNoFields.some(field => executor[field] === 'optionNo') ||
-            optionYesFields.some(field => executor[field] === 'optionYes')
+            optionNoFields.some(field => executor?.[field] === 'optionNo') ||
+            optionYesFields.some(field => executor?.[field] === 'optionYes')
         );
     }
+
     getStopPageIndex() {
         return this.executorsList.findIndex(executor =>
             this.hasStopCondition(executor)

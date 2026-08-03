@@ -242,6 +242,7 @@ links:
   paymentsAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'
   probateEstate: 'https://www.gov.uk/probate-estate'
   findLegalAdvice: 'https://www.gov.uk/find-legal-advice'
+  renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
 utils:
   api:
     retries: 10

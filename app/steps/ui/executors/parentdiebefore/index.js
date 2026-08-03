@@ -9,11 +9,6 @@ const PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP = {
     optionHalfBloodNieceOrNephew: 'halfBloodSiblingDiedBeforeDeceased',
     optionWholeBloodNieceOrNephew: 'wholeBloodSiblingDiedBeforeDeceased'
 };
-const PARENT_DIE_BEFORE_FALLBACK_FIELDS = [
-    'childDieBeforeDeceased',
-    'halfBloodSiblingDiedBeforeDeceased',
-    'wholeBloodSiblingDiedBeforeDeceased'
-];
 const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
     optionWholeBloodNieceOrNephew: [
         'wholeBloodNieceOrNephewAdoptedIn',
@@ -57,16 +52,11 @@ class ParentDieBefore extends ValidationStep {
     }
     isComplete(ctx) {
         const parentDieBeforeField = this.parentDieBeforeField(ctx);
-        if (parentDieBeforeField) {
-            const selectedAnswer = ctx.list?.[ctx.index]?.[parentDieBeforeField];
-            if (typeof selectedAnswer !== 'undefined') {
-                return [selectedAnswer === 'optionYes', 'inProgress'];
-            }
+        const selectedAnswer = parentDieBeforeField && ctx.list?.[ctx.index]?.[parentDieBeforeField];
+        if (typeof selectedAnswer !== 'undefined') {
+            return [selectedAnswer === 'optionYes', 'inProgress'];
         }
-
-        const isAnyParentDieBefore = PARENT_DIE_BEFORE_FALLBACK_FIELDS
-            .some(field => ctx.list?.[ctx.index]?.[field] === 'optionYes');
-        return [isAnyParentDieBefore, 'inProgress'];
+        return [false, 'inProgress'];
     }
 
     nextStepUrl(req, ctx) {
@@ -78,15 +68,7 @@ class ParentDieBefore extends ValidationStep {
         const parentDieBeforeField = this.parentDieBeforeField(ctx);
         const selectedAnswer = ctx.applicantParentDieBeforeDeceased ||
             (parentDieBeforeField && ctx.list?.[ctx.index]?.[parentDieBeforeField]);
-        let parentDiedBefore;
-        if (selectedAnswer === 'optionYes') {
-            parentDiedBefore = true;
-        } else if (selectedAnswer === 'optionNo') {
-            parentDiedBefore = false;
-        } else {
-            parentDiedBefore = PARENT_DIE_BEFORE_FALLBACK_FIELDS
-                .some(field => ctx.list?.[ctx.index]?.[field] === 'optionYes');
-        }
+        const parentDiedBefore = selectedAnswer === 'optionYes';
         const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
         ctx.wholeBloodNieceOrNephewParentDieBefore = relationship === 'optionWholeBloodNieceOrNephew' && parentDiedBefore;
         ctx.halfBloodNieceOrNephewParentDieBefore = relationship === 'optionHalfBloodNieceOrNephew' && parentDiedBefore;

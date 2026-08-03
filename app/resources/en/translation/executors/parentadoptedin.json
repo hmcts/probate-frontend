@@ -12,7 +12,7 @@
 
   "errors": {
     "applicantParentAdoptedIn": {
-      "required": "Select 'Yes' if {applicantName}'s parent was adopted by {deceasedName}",
+      "required": "Select 'Yes' if {applicantName}'s parent was adopted into {deceasedName}'s family",
       "wholeBloodNieceOrNephewRequired": "Select 'Yes' if this person's parent was adopted into {deceasedName}'s family",
       "halfBloodNieceOrNephewRequired": "Select 'Yes' if this person's parent was adopted into {deceasedName}'s family"
     }

@@ -66,8 +66,7 @@ class ParentDieBefore extends ValidationStep {
     nextStepOptions(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         const parentDieBeforeField = this.parentDieBeforeField(ctx);
-        const selectedAnswer = ctx.applicantParentDieBeforeDeceased ||
-            (parentDieBeforeField && ctx.list?.[ctx.index]?.[parentDieBeforeField]);
+        const selectedAnswer = ctx.applicantParentDieBeforeDeceased ?? ctx.list?.[ctx.index]?.[parentDieBeforeField];
         const parentDiedBefore = selectedAnswer === 'optionYes';
         const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
         ctx.wholeBloodNieceOrNephewParentDieBefore = relationship === 'optionWholeBloodNieceOrNephew' && parentDiedBefore;

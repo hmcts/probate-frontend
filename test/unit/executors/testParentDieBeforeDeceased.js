@@ -85,6 +85,37 @@ describe('Co-applicant-parent-die-before', () => {
             const url = ParentDieBefore.nextStepUrl(req, ctx);
             expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
         });
+
+        it('should return parent adopted in for whole-blood niece or nephew when parent died before the deceased', () => {
+            ctx.caseType = 'intestacy';
+            ctx.index = 2;
+            ctx.list[2].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+            ctx.applicantParentDieBeforeDeceased = 'optionYes';
+            const url = ParentDieBefore.nextStepUrl(req, ctx);
+            expect(url).to.equal('/intestacy/parent-adopted-in/2');
+        });
+
+        it('should return parent adopted in for half-blood niece or nephew when parent died before the deceased', () => {
+            ctx.caseType = 'intestacy';
+            ctx.index = 2;
+            ctx.list[2].coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+            ctx.applicantParentDieBeforeDeceased = 'optionYes';
+            const url = ParentDieBefore.nextStepUrl(req, ctx);
+            expect(url).to.equal('/intestacy/parent-adopted-in/2');
+        });
+
+        it('should not route whole-blood niece or nephew from stale half-blood value when mapped value is missing', () => {
+            ctx.caseType = 'intestacy';
+            ctx.index = 2;
+            ctx.list[2].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+            ctx.list[2].halfBloodSiblingDiedBeforeDeceased = 'optionYes';
+            delete ctx.list[2].wholeBloodSiblingDiedBeforeDeceased;
+            delete ctx.applicantParentDieBeforeDeceased;
+
+            const url = ParentDieBefore.nextStepUrl(req, ctx);
+
+            expect(url).to.equal('/intestacy/stop-page/otherCoApplicantRelationship');
+        });
     });
     describe('CoApplicantParentDieBefore handlePost()', () => {
         let ctx;
@@ -206,6 +237,40 @@ describe('Co-applicant-parent-die-before', () => {
             expect(ctx.index).to.equal(1);
             expect(ctx.deceasedName).to.equal('John Doe');
             done();
+        });
+    });
+
+    describe('CoApplicantParentDieBefore isComplete()', () => {
+        it('should only use whole-blood field for whole-blood niece or nephew', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                        halfBloodSiblingDiedBeforeDeceased: 'optionYes',
+                        wholeBloodSiblingDiedBeforeDeceased: 'optionNo'
+                    }
+                ]
+            };
+
+            expect(ParentDieBefore.isComplete(ctx)).to.deep.equal([false, 'inProgress']);
+        });
+
+        it('should only use half-blood field for half-blood niece or nephew', () => {
+            const ctx = {
+                index: 1,
+                list: [
+                    {firstName: 'John', lastName: 'Doe'},
+                    {
+                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
+                        wholeBloodSiblingDiedBeforeDeceased: 'optionYes',
+                        halfBloodSiblingDiedBeforeDeceased: 'optionNo'
+                    }
+                ]
+            };
+
+            expect(ParentDieBefore.isComplete(ctx)).to.deep.equal([false, 'inProgress']);
         });
     });
 });

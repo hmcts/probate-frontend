@@ -111,6 +111,7 @@ describe('ParentAdoptedIn', () => {
             const ctx = {
                 caseType: 'intestacy',
                 index: '1',
+                applicantParentAdoptedIn: 'optionYes',
                 list: [{}, {
                     grandchildParentAdoptedIn: 'optionYes',
                 }],
@@ -178,7 +179,6 @@ describe('ParentAdoptedIn', () => {
                 applicantParentAdoptedIn: 'optionYes',
                 list: [
                     {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ]
             };
@@ -193,7 +193,7 @@ describe('ParentAdoptedIn', () => {
                 }
             };
             ParentAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(ctx.list[1]).to.deep.equal({'coApplicantRelationshipToDeceased': 'optionChild', 'grandchildParentAdoptedIn': 'optionYes'});
+            expect(ctx.list[1]).to.deep.equal({'coApplicantRelationshipToDeceased': 'optionGrandchild', 'grandchildParentAdoptedIn': 'optionYes'});
         });
 
         it('should set whole-blood parent adopted-in field for whole-blood niece or nephew', () => {
@@ -252,7 +252,7 @@ describe('ParentAdoptedIn', () => {
                 applicantParentAdoptedIn: {
                     error: true,
                     href: '#applicantParentAdoptedIn',
-                    errorMessage: content.errors.applicantParentAdoptedIn.required
+                    errorMessage: 'Select \'Yes\' if Jane Doe\'s parent was adopted into John Doe\'s family'
                 },
                 deceasedName: {
                     error: false,

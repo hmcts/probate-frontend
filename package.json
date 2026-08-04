@@ -100,7 +100,7 @@
     "ajv": "^6.15.0",
     "ajv-keywords": "^3.5.2",
     "applicationinsights": "^2.9.8",
-    "basic-auth": "^2.0.1",
+    "basic-auth": "^3.0.0",
     "body-parser": "^2.3.0",
     "cheerio": "^1.2.0",
     "co": "^4.6.0",

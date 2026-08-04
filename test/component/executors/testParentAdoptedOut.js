@@ -11,6 +11,8 @@ describe('parent-adopted-out', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantParentAdoptedOutStop');
+    const expectedNextUrlForWholeBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutWholeBloodNoNameStop');
+    const expectedNextUrlForHalfBloodNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptedOutHalfBloodNoNameStop');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantParentAdoptedOut');
@@ -92,6 +94,28 @@ describe('parent-adopted-out', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
+                });
+        });
+
+        it('redirects whole-blood niece or nephew to whole-blood no-name stop page when parent adopted out', (done) => {
+            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
+            sessionData.executors.list[1].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForWholeBloodNoNameStopPage}`);
+                });
+        });
+
+        it('redirects half-blood niece or nephew to half-blood no-name stop page when parent adopted out', (done) => {
+            testWrapper.pageUrl = ParentAdoptedOut.getUrl(1);
+            sessionData.executors.list[1].coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptedOut: 'optionYes'}, `/intestacy${expectedNextUrlForHalfBloodNoNameStopPage}`);
                 });
         });
     });

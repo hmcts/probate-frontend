@@ -5,6 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adoption-place';
 const PARENT_ADOPTION_PLACE_FIELDS = {
+    optionChild: 'grandchildParentAdoptionInEnglandOrWales',
     optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
     optionHalfBloodNieceOrNephew: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
     optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'

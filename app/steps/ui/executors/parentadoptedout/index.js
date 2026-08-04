@@ -5,10 +5,15 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adopted-out';
 const PARENT_ADOPTED_OUT_FIELDS = {
+    optionChild: 'grandchildParentAdoptedOut',
     optionGrandchild: 'grandchildParentAdoptedOut',
     optionHalfBloodNieceOrNephew: 'halfBloodNieceOrNephewAdoptedOut',
     optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptedOut'
 };
+
+function relationshipFor(ctx) {
+    return ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
+}
 
 class CoApplicantParentAdoptedOut extends ValidationStep {
 
@@ -72,22 +77,25 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
     }
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        const relationship = ctx.relationshipToDeceased || ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const relationship = relationshipFor(ctx);
+        const fieldError = errors?.[0];
         const errorKey = this.requiredErrorKeyForRelationship(relationship);
+        const parentAdoptedOutField = fields.applicantParentAdoptedOut || null;
+        const fieldNameForErrors = parentAdoptedOutField ? 'applicantParentAdoptedOut' : 'adoptedOut';
         this.i18next.changeLanguage(language);
-        const errorPath = `${this.resourcePath.replace(/\//g, '.')}.errors.applicantParentAdoptedOut.${errorKey}`;
+        const errorPath = `${this.resourcePath.replace(/\//g, '.')}.errors.${fieldNameForErrors}.${errorKey}`;
         const dynamicRequiredMessage = this.i18next.t(errorPath);
 
-        if (errors?.[0] && dynamicRequiredMessage) {
-            errors[0].msg = dynamicRequiredMessage;
+        if (fieldError && dynamicRequiredMessage) {
+            fieldError.msg = dynamicRequiredMessage;
         }
 
-        if (fields.deceasedName && errors?.[0]) {
-            errors[0].msg = errors[0].msg
+        if (parentAdoptedOutField && fields.deceasedName && fieldError) {
+            fieldError.msg = fieldError.msg
                 .replace('{deceasedName}', fields.deceasedName.value)
                 .replace('{applicantName}', fields.applicantName?.value || '');
             // Keep inline and summary error messages aligned after dynamic replacement.
-            fields.applicantParentAdoptedOut.errorMessage = errors[0].msg;
+            parentAdoptedOutField.errorMessage = fieldError.msg;
         }
         return fields;
     }

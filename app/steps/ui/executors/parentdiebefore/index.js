@@ -21,6 +21,11 @@ const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
         'halfBloodNieceOrNephewAdoptedOut'
     ]
 };
+
+function relationshipFor(ctx) {
+    return ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
+}
+
 class ParentDieBefore extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -113,19 +118,22 @@ class ParentDieBefore extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        const relationship = ctx.relationshipToDeceased || ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const relationship = relationshipFor(ctx);
+        const fieldError = errors?.[0];
         const errorKey = this.requiredErrorKeyForRelationship(relationship);
         const dynamicRequiredMessage = this.generateContent(ctx, {}, language)
             ?.errors?.applicantParentDieBeforeDeceased?.[errorKey];
 
-        if (errors?.[0] && dynamicRequiredMessage) {
-            errors[0].msg = dynamicRequiredMessage;
+        if (fieldError && dynamicRequiredMessage) {
+            fieldError.msg = dynamicRequiredMessage;
         }
 
-        if (fields.deceasedName && errors?.[0]) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        if (fields.deceasedName && fieldError) {
+            fieldError.msg = fieldError.msg.replace('{deceasedName}', fields.deceasedName.value);
             // Keep inline and summary error messages aligned when we inject relationship-specific copy.
-            fields.applicantParentDieBeforeDeceased.errorMessage = errors[0].msg;
+            if (fields.applicantParentDieBeforeDeceased) {
+                fields.applicantParentDieBeforeDeceased.errorMessage = fieldError.msg;
+            }
         }
         return fields;
     }

@@ -1,105 +1,90 @@
 'use strict';
 
-const expect = require('chai').expect;
-const logger = require('app/components/logger')('Init');
+const {expect} = require('chai');
 const testConfig = require('config');
+const PostcodeLookup = require('app/services/PostcodeLookup');
+
 const POSTCODE_SERVICE_TOKEN = testConfig.postcodeLookup.token;
-const OSPlacesClient = require('@hmcts/os-places-client').OSPlacesClient;
-const osPlacesClient = new OSPlacesClient(POSTCODE_SERVICE_TOKEN);
-const osPlacesClientUnauthorised = new OSPlacesClient('INVALID-TOKEN');
 
 describe('Address Lookup API Tests', () => {
-    describe('Basic ping', () => {
-        it('Returns HTTP 403 status', (done) => {
-            osPlacesClientUnauthorised.lookupByPostcode(testConfig.postcodeLookup.singleAddressPostcode)
-                .then(res => {
-                    done(new Error(`Test failed ${JSON.stringify(res)}`));
-                })
-                .catch(err => {
-                    expect(err.name).to.equal('Error');
-                    expect(err.message).to.equal('Authentication failed');
-                    done();
-                });
+    let postcodeLookup;
+
+    beforeEach(() => {
+        postcodeLookup = new PostcodeLookup();
+    });
+
+    afterEach(() => {
+        testConfig.services.postcode.token = POSTCODE_SERVICE_TOKEN;
+    });
+
+    describe('Invalid postcode token', () => {
+        it('returns systemError', async () => {
+            testConfig.services.postcode.token = 'invalid-token';
+
+            try {
+                await postcodeLookup.get(
+                    testConfig.postcodeLookup.singleAddressPostcode
+                );
+
+                expect.fail('Expected postcode lookup to reject');
+            } catch (err) {
+                expect(err).to.be.instanceOf(Error);
+                expect(err.message).to.equal('systemError');
+            }
         });
     });
 
     describe('Single address returned for postcode', () => {
-        it('Returns single address', (done) => {
-            osPlacesClient.lookupByPostcode(testConfig.postcodeLookup.singleAddressPostcode)
-                .then(res => {
-                    expect(res.addresses.length).to.equal(1);
-                    expect(res.valid).to.equal(true);
-                    expect(res.httpStatus).to.equal(200);
-                    expect(res.addresses[0].organisationName).to.equal(testConfig.postcodeLookup.singleOrganisationName);
-                    expect(res.addresses[0].formattedAddress).to.equal(testConfig.postcodeLookup.singleFormattedAddress);
-                    done();
-                })
-                .catch(err => {
-                    logger.error(`Postcode lookup failed to run: ${err}`);
-                    done(new Error('Test failed'));
-                });
+        it('returns a single address', async () => {
+            const result = await postcodeLookup.get(
+                testConfig.postcodeLookup.singleAddressPostcode
+            );
+
+            expect(result).to.have.lengthOf(1);
+            expect(result[0]).to.deep.equal({
+                postcode: testConfig.postcodeLookup.singleAddressPostcode,
+                formattedAddress: testConfig.postcodeLookup.singleFormattedAddress
+            });
         });
     });
 
     describe('Multiple addresses returned for postcode', () => {
-        it('Returns multiple addresses', (done) => {
-            osPlacesClient.lookupByPostcode(testConfig.postcodeLookup.multipleAddressPostcode)
-                .then(res => {
-                    expect(res.addresses.length).to.equal(12);
-                    expect(res.valid).to.equal(true);
-                    expect(res.httpStatus).to.equal(200);
-                    done();
-                })
-                .catch(err => {
-                    logger.error(`Postcode lookup failed to run: ${err}`);
-                    done(new Error('Test failed'));
-                });
+        it('returns multiple addresses', async () => {
+            const result = await postcodeLookup.get(
+                testConfig.postcodeLookup.multipleAddressPostcode
+            );
+
+            expect(result).to.have.lengthOf(12);
         });
     });
 
-    describe('Partial postcode test (returns greater number of results)', () => {
-        it('No address returned for partial postcode', (done) => {
-            osPlacesClient.lookupByPostcode(testConfig.postcodeLookup.partialAddressPostcode)
-                .then(res => {
-                    expect(res.addresses.length).to.equal(100);
-                    expect(res.valid).to.equal(true);
-                    expect(res.httpStatus).to.equal(200);
-                    done();
-                })
-                .catch(err => {
-                    logger.error(`Postcode lookup failed to run: ${err}`);
-                    done(new Error('Test failed'));
-                });
+    describe('Partial postcode test', () => {
+        it('returns the maximum number of results', async () => {
+            const result = await postcodeLookup.get(
+                testConfig.postcodeLookup.partialAddressPostcode
+            );
+
+            expect(result).to.have.lengthOf(100);
         });
     });
 
     describe('Invalid postcode test', () => {
-        it('No address returned for invalid postcode', (done) => {
-            osPlacesClient.lookupByPostcode(testConfig.postcodeLookup.invalidAddressPostcode)
-                .then(res => {
-                    expect(res.addresses.length).to.equal(0);
-                    expect(res.valid).to.equal(false);
-                    expect(res.httpStatus).to.equal(200);
-                    done();
-                })
-                .catch(err => {
-                    logger.error(`Postcode lookup failed to run: ${err}`);
-                    done(new Error('Test failed'));
-                });
+        it('returns no addresses for an invalid postcode', async () => {
+            const result = await postcodeLookup.get(
+                testConfig.postcodeLookup.invalidAddressPostcode
+            );
+
+            expect(result).to.deep.equal([]);
         });
     });
 
     describe('No postcode entered test', () => {
-        it('No address returned for no postcode entered', (done) => {
-            osPlacesClient.lookupByPostcode(testConfig.postcodeLookup.emptyAddressPostcode)
-                .then(res => {
-                    done(new Error(`Test failed ${JSON.stringify(res)}`));
-                })
-                .catch(err => {
-                    expect(err.name).to.equal('Error');
-                    expect(err.message).to.equal('Missing required postcode');
-                    done();
-                });
+        it('returns no addresses when no postcode is entered', async () => {
+            const result = await postcodeLookup.get(
+                testConfig.postcodeLookup.emptyAddressPostcode
+            );
+
+            expect(result).to.deep.equal([]);
         });
     });
 });

@@ -27,7 +27,6 @@ class DeceasedMaritalStatus extends ValidationStep {
                     {key: 'maritalStatus', value: 'optionSeparated', choice: 'gopSeparated'}
                 ]
             };
-            // throw new Error('aaaa');
         }
         ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
         return {
@@ -35,6 +34,14 @@ class DeceasedMaritalStatus extends ValidationStep {
                 {key: 'divorcedOrSeparated', value: true, choice: 'divorcedOrSeparated'}
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 
     action(ctx, formdata) {

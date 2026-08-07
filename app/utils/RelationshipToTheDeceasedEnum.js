@@ -28,6 +28,63 @@ class RelationshipToTheDeceasedEnum {
             throw new Error(`Enumerator RelationshipToDeceasedEnum value: ${value} not found`);
         }
     }
+
+    // eslint-disable-next-line complexity
+    static mapOptionToValue(optionValue, language) {
+        if (optionValue !== null && typeof optionValue !== 'undefined') {
+            if (language === 'en') {
+                switch (optionValue) {
+                case 'optionChild':
+                    return 'child';
+                case 'optionGrandchild':
+                    return 'grandchild';
+                case 'optionSpousePartner':
+                    return 'husband, wife or civil partner';
+                case 'optionSibling':
+                    return 'sibling';
+                case 'optionWholeBloodSibling':
+                    return 'whole blood sibling';
+                case 'optionHalfBloodSibling':
+                    return 'half blood sibling';
+                case 'optionAdoptedChild':
+                    return 'adopted child';
+                case 'optionParent':
+                    return 'parent';
+                case 'optionWholeBloodNieceOrNephew':
+                    return 'niece or nephew';
+                case 'optionHalfBloodNieceOrNephew':
+                    return 'half-niece or half-nephew';
+                default:
+                    throw new Error(`Enumerator RelationshipToDeceasedEnum English value: ${optionValue} not found`);
+                }
+            } else {
+                switch (optionValue) {
+                case 'optionChild':
+                    return 'plentyn';
+                case 'optionGrandchild':
+                    return 'ŵyr/wyres';
+                case 'optionSpousePartner':
+                    return 'gŵr, gwraig neu bartner sifil';
+                case 'optionSibling':
+                    return 'brawd/chwaer';
+                case 'optionWholeBloodSibling':
+                    return 'brawd neu chwaer gwaed cyfan';
+                case 'optionHalfBloodSibling':
+                    return 'hanner brawd/chwaer';
+                case 'optionAdoptedChild':
+                    return 'plentyn mabwysiedig';
+                case 'optionParent':
+                    return 'rhiant';
+                case 'optionWholeBloodNieceOrNephew':
+                    return 'nith neu nai';
+                case 'optionHalfBloodNieceOrNephew':
+                    return 'hanner nith neu hanner nai';
+                default:
+                    throw new Error(`Enumerator RelationshipToDeceasedEnum Welsh value: ${optionValue} not found`);
+                }
+            }
+        }
+    }
 }
 
 module.exports = RelationshipToTheDeceasedEnum;

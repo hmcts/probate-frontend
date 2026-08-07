@@ -121,7 +121,7 @@ npx @hmcts/probate-dev-env
 
 Alternatively, to run probate-frontend with the other services locally you will need to clone and run the following services:
 
-- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/compose/README.md`.
+- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/README.md`.
 - probate-orchestrator-service: `https://github.com/hmcts/probate-orchestrator-service` - Follow the instructions in `probate-orchestrator-service/README.md`
 - probate-submit-service: `https://github.com/hmcts/probate-submit-service` - Follow the instructions in `probate-submit-service/README.md`
 

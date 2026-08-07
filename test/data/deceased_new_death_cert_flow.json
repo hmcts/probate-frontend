@@ -6,6 +6,8 @@
     "firstName": "Joe",
     "lastName": "Bloggs",
     "alias": "optionNo",
+    "maritalStatus": "optionWidowed",
+    "deceasedSpouseName": "PREDECEASED_PARTNER",
     "married": "optionYes",
     "dod-day": "12",
     "dod-month": "12",

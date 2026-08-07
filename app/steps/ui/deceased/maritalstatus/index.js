@@ -17,12 +17,31 @@ class DeceasedMaritalStatus extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
+        if (ctx.caseType === 'gop') {
+            return {
+                options: [
+                    {key: 'maritalStatus', value: 'optionMarried', choice: 'gopMarried'},
+                    {key: 'maritalStatus', value: 'optionDivorced', choice: 'gopDivorced'},
+                    {key: 'maritalStatus', value: 'optionWidowed', choice: 'gopWidowed'},
+                    {key: 'maritalStatus', value: 'optionNotMarried', choice: 'gopNotMarried'},
+                    {key: 'maritalStatus', value: 'optionSeparated', choice: 'gopSeparated'}
+                ]
+            };
+        }
         ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
         return {
             options: [
                 {key: 'divorcedOrSeparated', value: true, choice: 'divorcedOrSeparated'}
             ]
         };
+    }
+
+    generateFields(language, ctx, errors) {
+        const fields = super.generateFields(language, ctx, errors);
+        if (fields.deceasedName && errors) {
+            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value);
+        }
+        return fields;
     }
 
     action(ctx, formdata) {

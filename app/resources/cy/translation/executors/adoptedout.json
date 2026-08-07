@@ -1,5 +1,5 @@
 {
-  "title": "Co-Applicant adopted out",
+  "title": "Cyd-ymgeisydd wedi'i fabwysiadu allan o'r teulu",
   "question": "A gafodd {applicantName} ei fabwysiadu’n gyfreithlon allan o deulu {deceasedName} (ei roi i ffwrdd i gael ei fabwysiadu)?",
   "optionYes": "Do",
   "optionNo": "Naddo",

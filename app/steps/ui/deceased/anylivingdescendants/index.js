@@ -22,7 +22,8 @@ class AnyLivingDescendants extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        ctx.siblings = ctx.relationshipToDeceased === 'optionSibling' && ctx.anyLivingDescendants === 'optionNo';
+        const siblingRelationships = ['optionSibling', 'optionWholeBloodSibling', 'optionHalfBloodSibling'];
+        ctx.siblings = siblingRelationships.includes(ctx.relationshipToDeceased) && ctx.anyLivingDescendants === 'optionNo';
         ctx.parent = ctx.relationshipToDeceased === 'optionParent' && ctx.anyLivingDescendants === 'optionNo';
         return {
             options: [

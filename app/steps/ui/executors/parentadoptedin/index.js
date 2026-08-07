@@ -5,6 +5,36 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/parent-adopted-in';
 
+const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
+    optionGrandchild: {
+        adoptedIn: 'grandchildParentAdoptedIn',
+        adoptionPlace: 'grandchildParentAdoptionInEnglandOrWales',
+        adoptedOut: 'grandchildParentAdoptedOut'
+    },
+    optionHalfBloodNieceOrNephew: {
+        adoptedIn: 'halfBloodNieceOrNephewAdoptedIn',
+        adoptionPlace: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
+        adoptedOut: 'halfBloodNieceOrNephewAdoptedOut'
+    },
+    optionWholeBloodNieceOrNephew: {
+        adoptedIn: 'wholeBloodNieceOrNephewAdoptedIn',
+        adoptionPlace: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+        adoptedOut: 'wholeBloodNieceOrNephewAdoptedOut'
+    }
+};
+
+function parentAdoptionFieldsFor(relationship) {
+    return PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship] || {
+        adoptedIn: null,
+        adoptionPlace: null,
+        adoptedOut: null
+    };
+}
+
+function relationshipFor(ctx) {
+    return ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
+}
+
 class CoApplicantParentAdoptedIn extends ValidationStep {
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -22,10 +52,13 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         }
         ctx.deceasedName = FormatName.format(formData.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         return ctx;
     }
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.grandchildParentAdoptedIn) {
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const {adoptedIn} = parentAdoptionFieldsFor(relationship);
+        if (adoptedIn && ctx.list[ctx.index]?.[adoptedIn]) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
@@ -33,16 +66,24 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptedIn = ctx.list[ctx.index].grandchildParentAdoptedIn;
+            const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+            const {adoptedIn} = parentAdoptionFieldsFor(relationship);
+            ctx.applicantParentAdoptedIn = ctx.list[ctx.index][adoptedIn];
         }
         return [ctx];
     }
 
     nextStepOptions(ctx) {
-        const coapplParentAdoptedIn = ctx.list?.at(ctx.index)?.grandchildParentAdoptedIn;
-        ctx.parentAdopted = coapplParentAdoptedIn === 'optionYes';
+        const coapplParentAdoptedIn = ctx.applicantParentAdoptedIn;
+        const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
+        const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
+        ctx.wholeBloodNieceOrNephewParentAdoptedIn = relationship === 'optionWholeBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
+        ctx.halfBloodNieceOrNephewParentAdoptedIn = relationship === 'optionHalfBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
+        ctx.parentAdopted = !isNieceOrNephew && coapplParentAdoptedIn === 'optionYes';
         return {
             options: [
+                {key: 'wholeBloodNieceOrNephewParentAdoptedIn', value: true, choice: 'wholeBloodNieceOrNephewParentAdoptedIn'},
+                {key: 'halfBloodNieceOrNephewParentAdoptedIn', value: true, choice: 'halfBloodNieceOrNephewParentAdoptedIn'},
                 {key: 'parentAdopted', value: true, choice: 'parentAdoptedIn'},
             ]
         };
@@ -50,20 +91,63 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
-            errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
+        const relationship = relationshipFor(ctx);
+        const fieldError = errors?.[0];
+        const errorKey = this.requiredErrorKeyForRelationship(relationship);
+        this.i18next.changeLanguage(language);
+        const errorPath = `${this.resourcePath.replace(/\//g, '.')}.errors.applicantParentAdoptedIn.${errorKey}`;
+        const dynamicRequiredMessage = this.i18next.t(errorPath);
+
+        if (fieldError && dynamicRequiredMessage) {
+            fieldError.msg = dynamicRequiredMessage;
+        }
+
+        if (fields.deceasedName && fieldError) {
+            fieldError.msg = fieldError.msg
+                .replace('{deceasedName}', fields.deceasedName.value)
+                .replace('{applicantName}', fields.applicantName?.value || '');
+            // Keep inline and summary error messages aligned after dynamic replacement.
+            if (fields.applicantParentAdoptedIn) {
+                fields.applicantParentAdoptedIn.errorMessage = fieldError.msg;
+            }
         }
         return fields;
     }
 
-    handlePost(ctx, errors, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.grandchildParentAdoptedIn) {
-            delete ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
-            delete ctx.list[ctx.index].grandchildParentAdoptedOut;
+    requiredErrorKeyForRelationship(relationship) {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeBloodNieceOrNephewRequired';
         }
-        ctx.list[ctx.index].grandchildParentAdoptedIn = ctx.applicantParentAdoptedIn;
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return 'halfBloodNieceOrNephewRequired';
+        }
+        return 'required';
+    }
+
+    handlePost(ctx, errors, formdata) {
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        const {adoptedIn, adoptionPlace, adoptedOut} = parentAdoptionFieldsFor(relationship);
+        if (formdata.executors && formdata.executors.list && adoptedIn && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.[adoptedIn]) {
+            delete ctx.list[ctx.index][adoptionPlace];
+            delete ctx.list[ctx.index][adoptedOut];
+        }
+        if (adoptedIn) {
+            ctx.list[ctx.index][adoptedIn] = ctx.applicantParentAdoptedIn;
+        }
         return [ctx, errors];
     }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep route-only flags out of persisted executor payload.
+        delete ctx.wholeBloodNieceOrNephewParentAdoptedIn;
+        delete ctx.halfBloodNieceOrNephewParentAdoptedIn;
+        delete ctx.parentAdopted;
+        delete ctx.deceasedName;
+        delete ctx.applicantName;
+        return [ctx, formdata];
+    }
+
 }
 
 module.exports = CoApplicantParentAdoptedIn;

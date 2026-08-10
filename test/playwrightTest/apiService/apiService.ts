@@ -1,5 +1,5 @@
 import { type APIRequestContext, request } from "@playwright/test";
-import { testConfig } from "../configs/config";
+import { testConfig } from "../configs/config.ts";
 
 export class apiService {
   readonly request: APIRequestContext;

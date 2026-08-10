@@ -31,7 +31,7 @@ export class PaymentTaskSection extends BasePage {
   }
 
   async enterOverseasCopies(copies = null) {
-    await this.checkInUrl('/copies-overseas');
+    await this.checkInUrl('/intestacy/copies-overseas');
     await expect(this.page.locator('#overseas')).toBeEnabled();
     await this.page.locator('#overseas').fill(copies);
     await this.navByClick(this.saveAndContinueButtonLocator);

@@ -69,22 +69,14 @@ export class BasePage {
   }
 
   async navByClick(buttonLocator: Locator | string, timeout: number = 5_000): Promise<void> {
-    // const currentUrl = await this.page.url();
     const locator = typeof buttonLocator === 'string'
-      ? this.page.locator(buttonLocator)  // String - convert to Locator
+      ? this.page.locator(buttonLocator)
       : buttonLocator;
+
     await expect(locator).toBeVisible();
     await expect(locator).toBeEnabled();
 
-    await Promise.all([
-      // this.page.waitForNavigation({ timeout: 60_000 }),
-      locator.click({ timeout })
-    ]);
-
-    /*await expect(async () => {
-      await locator.click({ timeout: timeout });
-      await expect(this.page).not.toHaveURL(currentUrl);
-    }).toPass({ intervals: [2_000, 2_000, 2_000], timeout: 60_000 });*/
+    await locator.click({ timeout, noWaitAfter: true });
   }
 
   async selectJointApplicationOption(radioOptionLocator: Locator): Promise<void> {

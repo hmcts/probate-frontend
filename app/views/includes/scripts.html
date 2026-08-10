@@ -1,12 +1,12 @@
-<script src="/public/javascripts/jquery/jquery.min.js"></script>
+<script nonce="{{ globals.nonce }}" src="/public/javascripts/jquery/jquery.min.js"></script>
 
-<script type="module" src="/public/javascripts/govuk-frontend/govuk/govuk-frontend.min.js"></script>
+<script nonce="{{ globals.nonce }}" type="module" src="/public/javascripts/govuk-frontend/govuk/govuk-frontend.min.js"></script>
 <script nonce="{{ globals.nonce }}" type="module">
   import { initAll } from '{{ globals.basePath }}/public/javascripts/govuk-frontend/govuk/govuk-frontend.min.js'
   initAll()
 </script>
 
-<script src="/public/javascripts/dropzone.js?v=1.0"></script>
+<script nonce="{{ globals.nonce }}" src="/public/javascripts/dropzone.js?v=1.0"></script>
 <script nonce="{{ globals.nonce }}">
     const documentUploadConfig = {
         csrfToken: '{{ csrfToken }}',
@@ -58,9 +58,9 @@
 
 
 </script>
-<script src="/public/javascripts/document-upload.js?v=1.0"></script>
-<script src="/public/javascripts/go-back.js?v=1.1"></script>
+<script nonce="{{ globals.nonce }}" src="/public/javascripts/document-upload.js?v=1.0"></script>
+<script nonce="{{ globals.nonce }}" src="/public/javascripts/go-back.js?v=1.1"></script>
 <!-- Dynatrace -->
-<script type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
+<script nonce="{{ globals.nonce }}" type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
 <!-- End Dynatrace -->
 

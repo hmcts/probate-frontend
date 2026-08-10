@@ -1,12 +1,14 @@
-import {BrowserContext, expect} from '@playwright/test';
-import {testConfig} from '../../configs/config.ts';
-import {BasePage, decodeHTML} from '../utility/basePage.ts';
-import {getContent} from "../utility/contentHelper.ts";
+import { BrowserContext, expect } from '@playwright/test';
+import { testConfig } from '../../configs/config.ts';
+import { BasePage, decodeHTML } from '../utility/basePage.ts';
+import { getContent } from '../utility/contentHelper.ts';
 
 const useIdam = testConfig.TestUseIdam;
 
 export class SignInPage extends BasePage {
+  // Keep this if you need it elsewhere, but don't use navByClick for the final sign-in
   readonly signInButtonLocator = this.page.getByRole('button', { name: this.commonContent.signIn });
+
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
   }
@@ -14,7 +16,7 @@ export class SignInPage extends BasePage {
   async authenticateWithIdamIfAvailable(language ='en', noScreenerQuestions = false) {
     if (useIdam === 'true') {
       if (noScreenerQuestions) {
-        await this.page.goto(`${process.env.TEST_URL}/?lng=${language}`, {
+        await this.page.goto(`${testConfig.TestFrontendUrl}/?lng=${language}`, {
           waitUntil: 'load',
           timeout: 60000
         });

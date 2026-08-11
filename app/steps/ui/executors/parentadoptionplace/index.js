@@ -52,9 +52,13 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const checkAllExecutorsHaveValidDetails = executorsWrapper.checkAllExecutorsHaveValidDetails();
         formdata.executors.list[ctx.index].grandchildParentAdoptionInEnglandOrWales = ctx.applicantParentAdoptionPlace;
         if (ctx.applicantParentAdoptionPlace === 'optionNo') {
             ctx.hasCoApplicant = 'optionYes';
+        } else if (ctx.applicantParentAdoptionPlace === 'optionYes' && checkAllExecutorsHaveValidDetails) {
+            ctx.hasCoApplicant = 'optionNo';
         }
         return [ctx, errors];
     }

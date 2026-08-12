@@ -73,9 +73,24 @@ describe('app-config-helmet', () => {
                 }
 
                 const csp = res.headers['content-security-policy'];
-                expect(csp).to.contain('script-src \'self\' \'strict-dynamic\'');
-                expect(csp).to.match(/script-src[^;]*'nonce-[^']+'/);
-                expect(csp).to.not.match(/script-src[^;]*'unsafe-inline'/);
+                const expectedScriptSrcPrefix = [
+                    'script-src',
+                    '\'self\'',
+                    '\'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw=\'',
+                    '\'sha256-AaA9Rn5LTFZ5vKyp3xOfFcP4YbyOjvWn2up8IKHVAKk=\'',
+                    '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\'',
+                    '\'sha256-BWhcmwio/4/QdqKNw5PKmTItWBjkevCaOUbLkgW5cHs=\'',
+                    '\'sha256-L7viC3kUpXu9uCOi97VqCR2bLlMwSQlmLmSuuQ93ngU=\'',
+                    '\'sha256-nWZRr0RF4OANYiYcCteeOrMWiiSKIEIE+qPfFTq/WyI=\'',
+                    '*.google-analytics.com',
+                    'https://*.dynatrace.com',
+                    '*.googletagmanager.com',
+                    'tagmanager.google.com',
+                    'kerv-genesys-base-url',
+                    '\'strict-dynamic\'',
+                    '\'nonce-'
+                ].join(' ');
+                expect(csp).to.contain(expectedScriptSrcPrefix);
 
                 return done();
             });

@@ -51,6 +51,8 @@ class DeceasedMaritalStatus extends ValidationStep {
 
         if (formdata.deceased && formdata.deceased.maritalStatus && ctx.maritalStatus !== formdata.deceased.maritalStatus) {
             delete ctx.divorcePlace;
+            delete ctx.divorceDateKnown;
+            delete ctx.divorceDate;
             delete ctx.anyChildren;
             delete ctx.anyOtherChildren;
             delete ctx.allChildrenOver18;

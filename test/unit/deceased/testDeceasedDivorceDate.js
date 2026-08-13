@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
@@ -193,6 +195,31 @@ describe('DivorceDate', () => {
                 'field': 'divorceDate',
                 'href': '#divorceDate',
                 'msg': content.errors.divorceDate.divorceDateAfterDod
+            }]);
+            done();
+        });
+
+        it ('should create an error when divorce date is before date of birth', (done) => {
+            const ctxIn = {
+                'divorceDateKnown': 'optionYes',
+                'divorceDate-day': '4',
+                'divorceDate-month': '10',
+                'divorceDate-year': '1980',
+                'dod-day': '2',
+                'dod-month': '3',
+                'dod-year': '2020',
+                'dob-day': '1',
+                'dob-month': '1',
+                'dob-year': '1990'
+            };
+            const errorsIn = [];
+            const formdata = {};
+            const session = {};
+            const [, errors] = DivorceDate.handlePost(ctxIn, errorsIn, formdata, session);
+            expect(errors).to.deep.equal([{
+                'field': 'divorceDate',
+                'href': '#divorceDate',
+                'msg': content.errors.divorceDate.divorceDateBeforeDob
             }]);
             done();
         });

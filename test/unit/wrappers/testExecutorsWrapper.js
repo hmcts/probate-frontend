@@ -1041,7 +1041,7 @@ describe('Executors.js', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo'
+                        wholeBloodSiblingAdoptionInEnglandOrWales: 'optionNo'
                     }
                 ]
             };
@@ -1055,7 +1055,7 @@ describe('Executors.js', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {
                         coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
-                        halfBloodNieceOrNephewAdoptedOut: 'optionYes'
+                        halfBloodSiblingAdoptedOut: 'optionYes'
                     }
                 ]
             };
@@ -1069,8 +1069,8 @@ describe('Executors.js', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {
                         coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
-                        halfBloodNieceOrNephewAdoptedOut: 'optionYes',
+                        halfBloodSiblingAdoptionInEnglandOrWales: 'optionNo',
+                        halfBloodSiblingAdoptedOut: 'optionYes',
                         wholeBloodSiblingDiedBeforeDeceased: 'optionYes'
                     }
                 ]
@@ -1085,8 +1085,8 @@ describe('Executors.js', () => {
                     {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
                     {
                         coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
-                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
-                        wholeBloodNieceOrNephewAdoptedOut: 'optionYes',
+                        wholeBloodSiblingAdoptionInEnglandOrWales: 'optionNo',
+                        wholeBloodSiblingAdoptedOut: 'optionYes',
                         halfBloodSiblingDiedBeforeDeceased: 'optionYes'
                     }
                 ]

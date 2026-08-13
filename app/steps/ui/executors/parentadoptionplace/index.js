@@ -7,8 +7,8 @@ const pageUrl = '/parent-adoption-place';
 const PARENT_ADOPTION_PLACE_FIELDS = {
     optionChild: 'grandchildParentAdoptionInEnglandOrWales',
     optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
-    optionHalfBloodNieceOrNephew: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-    optionWholeBloodNieceOrNephew: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales'
+    optionHalfBloodNieceOrNephew: 'halfBloodSiblingAdoptionInEnglandOrWales',
+    optionWholeBloodNieceOrNephew: 'wholeBloodSiblingAdoptionInEnglandOrWales'
 };
 
 class CoApplicantParentAdoptionPlace extends ValidationStep {

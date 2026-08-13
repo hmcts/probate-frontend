@@ -209,7 +209,8 @@ describe('ParentAdoptedIn', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(ctx.list[1].wholeBloodNieceOrNephewAdoptedIn).to.equal('optionYes');
+            expect(ctx.list[1].wholeBloodSiblingAdoptedIn).to.equal('optionYes');
+            expect(ctx.list[1]).to.not.have.property('wholeBloodNieceOrNephewAdoptedIn');
         });
 
         it('should set half-blood parent adopted-in field for half-blood niece or nephew', () => {
@@ -225,7 +226,8 @@ describe('ParentAdoptedIn', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(ctx.list[1].halfBloodNieceOrNephewAdoptedIn).to.equal('optionNo');
+            expect(ctx.list[1].halfBloodSiblingAdoptedIn).to.equal('optionNo');
+            expect(ctx.list[1]).to.not.have.property('halfBloodNieceOrNephewAdoptedIn');
         });
     });
     describe('ParentAdoptedIn generateFields()', () => {

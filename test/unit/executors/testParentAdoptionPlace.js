@@ -191,7 +191,8 @@ describe('ParentAdoptionPlace', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].wholeBloodNieceOrNephewAdoptionInEnglandOrWales).to.equal('optionNo');
+            expect(formdata.executors.list[1].wholeBloodSiblingAdoptionInEnglandOrWales).to.equal('optionNo');
+            expect(formdata.executors.list[1]).to.not.have.property('wholeBloodNieceOrNephewAdoptionInEnglandOrWales');
         });
 
         it('should set half-blood parent adoption place for half-blood niece or nephew', () => {
@@ -207,7 +208,8 @@ describe('ParentAdoptionPlace', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].halfBloodNieceOrNephewAdoptionInEnglandOrWales).to.equal('optionYes');
+            expect(formdata.executors.list[1].halfBloodSiblingAdoptionInEnglandOrWales).to.equal('optionYes');
+            expect(formdata.executors.list[1]).to.not.have.property('halfBloodNieceOrNephewAdoptionInEnglandOrWales');
         });
     });
 });

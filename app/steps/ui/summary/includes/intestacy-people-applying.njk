@@ -16,9 +16,9 @@
 {% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "optionHalfBloodNieceOrNephew" %}
     {% set deceasedName = (fields.deceased.firstName.value ~ " " ~ fields.deceased.lastName.value) | trim %}
     {% set isWholeBlood = executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" %}
-    {% set parentAdoptedInField = "wholeBloodNieceOrNephewAdoptedIn" if isWholeBlood else "halfBloodNieceOrNephewAdoptedIn" %}
-    {% set parentAdoptionPlaceField = "wholeBloodNieceOrNephewAdoptionInEnglandOrWales" if isWholeBlood else "halfBloodNieceOrNephewAdoptionInEnglandOrWales" %}
-    {% set parentAdoptedOutField = "wholeBloodNieceOrNephewAdoptedOut" if isWholeBlood else "halfBloodNieceOrNephewAdoptedOut" %}
+    {% set parentAdoptedInField = "wholeBloodSiblingAdoptedIn" if isWholeBlood else "halfBloodSiblingAdoptedIn" %}
+    {% set parentAdoptionPlaceField = "wholeBloodSiblingAdoptionInEnglandOrWales" if isWholeBlood else "halfBloodSiblingAdoptionInEnglandOrWales" %}
+    {% set parentAdoptedOutField = "wholeBloodSiblingAdoptedOut" if isWholeBlood else "halfBloodSiblingAdoptedOut" %}
     {% set parentAdoptedInQuestion = content.CoApplicantParentAdoptedIn.wholeBloodNieceOrNephewQuestion if isWholeBlood else content.CoApplicantParentAdoptedIn.halfBloodNieceOrNephewQuestion %}
     {% set parentAdoptedOutQuestion = content.CoApplicantParentAdoptedOut.wholeBloodNieceOrNephewQuestion if isWholeBlood else content.CoApplicantParentAdoptedOut.halfBloodNieceOrNephewQuestion %}
     {{checkanswer(

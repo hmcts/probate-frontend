@@ -231,7 +231,8 @@ describe('ParentAdoptedOut', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].wholeBloodNieceOrNephewAdoptedOut).to.equal('optionYes');
+            expect(formdata.executors.list[1].wholeBloodSiblingAdoptedOut).to.equal('optionYes');
+            expect(formdata.executors.list[1]).to.not.have.property('wholeBloodNieceOrNephewAdoptedOut');
         });
 
         it('should set half-blood parent adopted-out field for half-blood niece or nephew', () => {
@@ -247,7 +248,8 @@ describe('ParentAdoptedOut', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].halfBloodNieceOrNephewAdoptedOut).to.equal('optionNo');
+            expect(formdata.executors.list[1].halfBloodSiblingAdoptedOut).to.equal('optionNo');
+            expect(formdata.executors.list[1]).to.not.have.property('halfBloodNieceOrNephewAdoptedOut');
         });
     });
 });

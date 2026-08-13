@@ -12,14 +12,14 @@ const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
         adoptedOut: 'grandchildParentAdoptedOut'
     },
     optionHalfBloodNieceOrNephew: {
-        adoptedIn: 'halfBloodNieceOrNephewAdoptedIn',
-        adoptionPlace: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-        adoptedOut: 'halfBloodNieceOrNephewAdoptedOut'
+        adoptedIn: 'halfBloodSiblingAdoptedIn',
+        adoptionPlace: 'halfBloodSiblingAdoptionInEnglandOrWales',
+        adoptedOut: 'halfBloodSiblingAdoptedOut'
     },
     optionWholeBloodNieceOrNephew: {
-        adoptedIn: 'wholeBloodNieceOrNephewAdoptedIn',
-        adoptionPlace: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
-        adoptedOut: 'wholeBloodNieceOrNephewAdoptedOut'
+        adoptedIn: 'wholeBloodSiblingAdoptedIn',
+        adoptionPlace: 'wholeBloodSiblingAdoptionInEnglandOrWales',
+        adoptedOut: 'wholeBloodSiblingAdoptedOut'
     }
 };
 

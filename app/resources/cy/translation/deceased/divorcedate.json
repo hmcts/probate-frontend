@@ -41,7 +41,7 @@
       "required": "Nodwch y dyddiad pan ddigwyddodd yr {legalProcess}",
       "invalid": "Rhaid i ddyddiad yr {legalProcessDifferentText} fod yn ddyddiad dilys",
       "divorceDateAfterDod": "Rhaid i ddyddiad yr {legalProcessDifferentText} fod cyn dyddiad marwolaeth {deceasedName}",
-      "divorceDateBeforeDob": "WIP Rhaid i ddyddiad yr {legalProcessDifferentText} fod cyn dyddiad marwolaeth {deceasedName}"
+      "divorceDateBeforeDob": "Rhaid i ddyddiad {legalProcessDifferentText} fod ar ôl dyddiad geni {deceasedName}"
     }
   }
 }

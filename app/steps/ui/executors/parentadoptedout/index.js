@@ -7,8 +7,8 @@ const pageUrl = '/parent-adopted-out';
 const PARENT_ADOPTED_OUT_FIELDS = {
     optionChild: 'grandchildParentAdoptedOut',
     optionGrandchild: 'grandchildParentAdoptedOut',
-    optionHalfBloodNieceOrNephew: 'halfBloodSiblingAdoptedOut',
-    optionWholeBloodNieceOrNephew: 'wholeBloodSiblingAdoptedOut'
+    optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptedOut',
+    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptedOut'
 };
 
 function relationshipFor(ctx) {

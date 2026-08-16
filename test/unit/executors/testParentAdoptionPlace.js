@@ -191,7 +191,7 @@ describe('ParentAdoptionPlace', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].wholeBloodSiblingAdoptionInEnglandOrWales).to.equal('optionNo');
+            expect(formdata.executors.list[1].wholeNieceOrNephewParentAdoptionInEnglandOrWales).to.equal('optionNo');
             expect(formdata.executors.list[1]).to.not.have.property('wholeBloodNieceOrNephewAdoptionInEnglandOrWales');
         });
 
@@ -208,7 +208,7 @@ describe('ParentAdoptionPlace', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptionPlace.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].halfBloodSiblingAdoptionInEnglandOrWales).to.equal('optionYes');
+            expect(formdata.executors.list[1].halfNieceOrNephewParentAdoptionInEnglandOrWales).to.equal('optionYes');
             expect(formdata.executors.list[1]).to.not.have.property('halfBloodNieceOrNephewAdoptionInEnglandOrWales');
         });
     });

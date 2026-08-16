@@ -6,19 +6,19 @@ const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
 const PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP = {
     optionGrandchild: 'childDieBeforeDeceased',
-    optionHalfBloodNieceOrNephew: 'halfBloodSiblingDiedBeforeDeceased',
-    optionWholeBloodNieceOrNephew: 'wholeBloodSiblingDiedBeforeDeceased'
+    optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentDieBeforeDeceased',
+    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentDieBeforeDeceased'
 };
 const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
     optionWholeBloodNieceOrNephew: [
-        'wholeBloodSiblingAdoptedIn',
-        'wholeBloodSiblingAdoptionInEnglandOrWales',
-        'wholeBloodSiblingAdoptedOut'
+        'wholeNieceOrNephewParentAdoptedIn',
+        'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
+        'wholeNieceOrNephewParentAdoptedOut'
     ],
     optionHalfBloodNieceOrNephew: [
-        'halfBloodSiblingAdoptedIn',
-        'halfBloodSiblingAdoptionInEnglandOrWales',
-        'halfBloodSiblingAdoptedOut'
+        'halfNieceOrNephewParentAdoptedIn',
+        'halfNieceOrNephewParentAdoptionInEnglandOrWales',
+        'halfNieceOrNephewParentAdoptedOut'
     ]
 };
 

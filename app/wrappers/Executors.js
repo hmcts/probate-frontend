@@ -186,15 +186,15 @@ class Executors {
 
     hasStopCondition(executor) {
         if (executor?.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
-            return executor?.wholeBloodSiblingDiedBeforeDeceased === 'optionNo' ||
-                executor?.wholeBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||
-                executor?.wholeBloodSiblingAdoptedOut === 'optionYes';
+            return executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+                executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.wholeNieceOrNephewParentAdoptedOut === 'optionYes';
         }
 
         if (executor?.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
-            return executor?.halfBloodSiblingDiedBeforeDeceased === 'optionNo' ||
-                executor?.halfBloodSiblingAdoptionInEnglandOrWales === 'optionNo' ||
-                executor?.halfBloodSiblingAdoptedOut === 'optionYes';
+            return executor?.halfNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+                executor?.halfNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.halfNieceOrNephewParentAdoptedOut === 'optionYes';
         }
 
         const optionNoFields = [

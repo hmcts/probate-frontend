@@ -151,19 +151,19 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             delete ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
             break;
         case 'optionHalfBloodNieceOrNephew':
-            delete ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
-            delete ctx.list[ctx.index].halfBloodSiblingAdoptedIn;
-            delete ctx.list[ctx.index].halfBloodSiblingAdoptionInEnglandOrWales;
-            delete ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentDieBeforeDeceased;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentAdoptedIn;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentAdoptedOut;
             delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
             delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptionInEnglandOrWales;
             delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
             break;
         case 'optionWholeBloodNieceOrNephew':
-            delete ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;
-            delete ctx.list[ctx.index].wholeBloodSiblingAdoptedIn;
-            delete ctx.list[ctx.index].wholeBloodSiblingAdoptionInEnglandOrWales;
-            delete ctx.list[ctx.index].wholeBloodSiblingAdoptedOut;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentDieBeforeDeceased;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentAdoptedIn;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentAdoptedOut;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;

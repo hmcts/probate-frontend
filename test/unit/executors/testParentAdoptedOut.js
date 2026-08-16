@@ -231,7 +231,7 @@ describe('ParentAdoptedOut', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].wholeBloodSiblingAdoptedOut).to.equal('optionYes');
+            expect(formdata.executors.list[1].wholeNieceOrNephewParentAdoptedOut).to.equal('optionYes');
             expect(formdata.executors.list[1]).to.not.have.property('wholeBloodNieceOrNephewAdoptedOut');
         });
 
@@ -248,7 +248,7 @@ describe('ParentAdoptedOut', () => {
             const formdata = {executors: {list: [{}, {}]}};
 
             ParentAdoptedOut.handlePost(ctx, errors, formdata);
-            expect(formdata.executors.list[1].halfBloodSiblingAdoptedOut).to.equal('optionNo');
+            expect(formdata.executors.list[1].halfNieceOrNephewParentAdoptedOut).to.equal('optionNo');
             expect(formdata.executors.list[1]).to.not.have.property('halfBloodNieceOrNephewAdoptedOut');
         });
     });

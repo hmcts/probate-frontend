@@ -237,6 +237,45 @@ describe('Co-applicant-relationship', () => {
             });
             done();
         });
+
+        it('should clear niece-nephew parent fields and niece-nephew own fields when relationship changes away', () => {
+            req.form = {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1'},
+                        {
+                            fullName: 'CoApplicant 1',
+                            coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
+                            wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                            wholeNieceOrNephewParentAdoptedIn: 'optionYes',
+                            wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo',
+                            wholeNieceOrNephewParentAdoptedOut: 'optionYes',
+                            wholeBloodNieceOrNephewAdoptedIn: 'optionYes',
+                            wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionNo',
+                            wholeBloodNieceOrNephewAdoptedOut: 'optionYes'
+                        },
+                        {fullName: 'CoApplicant 2'}
+                    ]
+                },
+            };
+            ctx = {
+                list: [
+                    {fullName: 'Applicant'},
+                    {...req.form.executors.list[1]},
+                    {fullName: 'CoApplicant 2'}
+                ],
+                index: 1,
+                coApplicantRelationshipToDeceased: 'optionChild'
+            };
+            errors = [];
+
+            [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
+
+            expect(ctx.list[1]).to.deep.equal({
+                coApplicantRelationshipToDeceased: 'optionChild',
+                isApplying: true
+            });
+        });
     });
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {

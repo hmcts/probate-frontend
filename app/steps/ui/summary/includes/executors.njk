@@ -7,6 +7,10 @@
     }}
 {% endmacro %}
 
+{% set multiExec = fields.executors.executorsNumber.value > 1 %}
+{% set anyExecDead = fields.executors.anyExecutorsDied.value == "optionYes" %}
+{% set whoDiedVisible = multiExec and anyExecDead %}
+
 {{checkanswer(
     items = [
         {
@@ -25,7 +29,7 @@
         {
             question: content.AnyExecutorsDied.multipleExecutorQuestion,
             answer: content.AnyExecutorsDied[fields.executors.anyExecutorsDied.value],
-            visible: fields.executors.executorsNumber.value > 1
+            visible: multiExec
         }
     ],
     url = content.AnyExecutorsDied.url,
@@ -38,7 +42,7 @@
         {
             question: content.ExecutorsWhoDied.question,
             answer: fields.summary.executorsWhoDied.value,
-            visible: fields.executors.anyExecutorsDied.value == "optionYes"
+            visible: whoDiedVisible
         }
     ],
     url = content.ExecutorsWhoDied.url,

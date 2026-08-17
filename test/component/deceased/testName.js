@@ -40,24 +40,6 @@ describe('deceased-name', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it('test errors message displayed for invalid firstName', (done) => {
-            const errorsToTest = ['firstName'];
-            const data = {
-                firstName: '>dee',
-                lastName: 'ceased'
-            };
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
-
-        it('test errors message displayed for invalid lastName', (done) => {
-            const errorsToTest = ['lastName'];
-            const data = {
-                firstName: 'dee',
-                lastName: '>ceased'
-            };
-            testWrapper.testErrors(done, data, 'invalid', errorsToTest);
-        });
-
         it(`test it redirects to Deceased Name As On Will page: ${expectedNextUrlForDeceasedNameAsOnWill}`, (done) => {
             const data = {
                 firstName: 'Bob',

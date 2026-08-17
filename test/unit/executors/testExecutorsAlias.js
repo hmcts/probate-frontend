@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -56,6 +57,94 @@ describe('Executors-Alias', () => {
         });
     });
 
+    describe('pruneFormData() merge/transition logic', () => {
+        let ctx;
+        beforeEach(() => {
+            ctx = {
+                alias: 'optionYes',
+                list: [
+                    {fullName: 'Executor 1', hasOtherName: true, currentName: 'Steve', currentNameReason: 'optionMarriage'},
+                    {fullName: 'Executor 2', hasOtherName: true, currentName: 'Danny', currentNameReason: 'optionOther', otherReason: 'Yolo'}
+                ]
+            };
+        });
+        it('should not prune when alias is optionYes', () => {
+            const result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            expect(result.list[0].currentName).to.equal('Steve');
+            expect(result.list[0].currentNameReason).to.equal('optionMarriage');
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[1].hasOtherName).to.be.true;
+            expect(result.list[1].currentName).to.equal('Danny');
+            expect(result.list[1].currentNameReason).to.equal('optionOther');
+            expect(result.list[1].otherReason).to.equal('Yolo');
+        });
+        it('should prune currentName, currentNameReason, otherReason when alias is changed to optionNo', () => {
+            ctx.alias = 'optionNo';
+            ctx.list[0].hasOtherName = false;
+            ctx.list[1].hasOtherName = false;
+            const result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            expect(result.list[0]).to.not.have.property('currentName');
+            expect(result.list[0]).to.not.have.property('currentNameReason');
+            expect(result.list[0]).to.not.have.property('otherReason');
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[1].hasOtherName).to.be.false;
+            expect(result.list[1]).to.not.have.property('currentName');
+            expect(result.list[1]).to.not.have.property('currentNameReason');
+            expect(result.list[1]).to.not.have.property('otherReason');
+        });
+        it('should handle sequential: optionYes -> optionNo -> optionYes', () => {
+            let result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            ctx.alias = 'optionNo';
+            ctx.list[0].hasOtherName = false;
+            ctx.list[1].hasOtherName = false;
+            result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            expect(result.list[0]).to.not.have.property('currentName');
+            ctx.alias = 'optionYes';
+            ctx.list[0].hasOtherName = true;
+            ctx.list[0].currentName = 'ReSteve';
+            ctx.list[0].currentNameReason = 'optionDeedPoll';
+            result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            expect(result.list[0].currentName).to.equal('ReSteve');
+            expect(result.list[0].currentNameReason).to.equal('optionDeedPoll');
+        });
+        it('should handle sequential: optionNo -> optionYes -> optionNo', () => {
+            ctx.alias = 'optionNo';
+            ctx.list[0].hasOtherName = false;
+            ctx.list[1].hasOtherName = false;
+            let result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            ctx.alias = 'optionYes';
+            ctx.list[0].hasOtherName = true;
+            ctx.list[0].currentName = 'Danny';
+            ctx.list[0].currentNameReason = 'optionOther';
+            ctx.list[0].otherReason = 'Test';
+            result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.true;
+            expect(result.list[0].currentName).to.equal('Danny');
+            expect(result.list[0].currentNameReason).to.equal('optionOther');
+            expect(result.list[0].otherReason).to.equal('Test');
+            ctx.alias = 'optionNo';
+            ctx.list[0].hasOtherName = false;
+            result = ExecutorsAlias.pruneFormData(ctx);
+            // eslint-disable-next-line no-unused-expressions
+            expect(result.list[0].hasOtherName).to.be.false;
+            expect(result.list[0]).to.not.have.property('currentName');
+            expect(result.list[0]).to.not.have.property('currentNameReason');
+            expect(result.list[0]).to.not.have.property('otherReason');
+        });
+    });
     describe('ExecutorsAlias handleGet', () => {
         let ctx;
 
@@ -204,6 +293,49 @@ describe('Executors-Alias', () => {
             };
             const result = ExecutorsAlias.isComplete(ctx);
             expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should be incomplete when there are no applying co-executors', () => {
+            const ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    {
+                        firstName: 'Main',
+                        lastName: 'Applicant',
+                        isApplicant: true,
+                        isApplying: true
+                    },
+                    {
+                        fullName: 'Some Name',
+                        isApplying: false
+                    }
+                ]
+            };
+
+            expect(ExecutorsAlias.isComplete(ctx))
+                .to.deep.equal([false, 'inProgress']);
+        });
+
+        it('should remain complete when an applying executor has answered the alias question', () => {
+            const ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    {
+                        firstName: 'Main',
+                        lastName: 'Applicant',
+                        isApplicant: true,
+                        isApplying: true
+                    },
+                    {
+                        fullName: 'Some Name',
+                        isApplying: true,
+                        hasOtherName: false
+                    }
+                ]
+            };
+
+            expect(ExecutorsAlias.isComplete(ctx))
+                .to.deep.equal([true, 'inProgress']);
         });
     });
 });

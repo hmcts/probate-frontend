@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure") _
+@Library("Infrastructure@2.4.9") _
 
 import uk.gov.hmcts.contino.GithubAPI
 import uk.gov.hmcts.contino.AppPipelineDsl
@@ -11,10 +11,6 @@ String component = "frontend"
 
 def checkForNightlyLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly").contains("nightly")
-}
-
-def checkForNightlyGopLabel(branch_name) {
-  return new GithubAPI(this).getLabelsbyPattern(branch_name, "nightly-gop").contains("nightly-gop")
 }
 
 def checkForNightlyWithoutWelshTestsLabel(branch_name) {
@@ -29,7 +25,6 @@ def secrets = [
     secret('testInviteIdListUrl', 'INVITE_ID_LIST_URL'),
     secret('testPinUrl', 'PIN_URL'),
     secret('testInvitationUrl', 'INVITATION_URL'),
-    secret('testIntestacyInvitationUrl', 'INTESTACY_INVITATION_URL'),
     secret('testIdamAddUserUrl', 'IDAM_ADD_USER_URL'),
     secret('testIdamRole', 'IDAM_CITIZEN_ROLE'),
     secret('testIdamUserGroup', 'IDAM_USER_GROUP'),
@@ -108,45 +103,31 @@ withPipeline("nodejs", product, component) {
 
   afterSuccess('functionalTest:preview') {
     def testsRan = true
-    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-      env.DONT_TEST_WELSH = true
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.BROWSER_NAME = "chromium"
-      sh 'yarn install'
-      catchError(stageResult: 'UNSTABLE') {
-        sh 'yarn test:fullfunctional-pr'
+    try {
+      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+        env.DONT_TEST_WELSH = true
+        yarnBuilder.yarn('test:fullfunctional-pr');
+      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+        yarnBuilder.yarn('test:fullfunctional-pr');
+      } else {
+        testsRan = false
       }
-    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.BROWSER_NAME = "chromium"
-      sh 'yarn install'
-      catchError(stageResult: 'UNSTABLE') {
-        sh 'yarn test:fullfunctional-pr'
-      }
-    } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
-      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.BROWSER_NAME = "chromium"
-      sh 'yarn install'
-      catchError(stageResult: 'UNSTABLE') {
-        sh 'yarn test:fullfunctional-gop'
-      }
-    } else {
-      testsRan = false
-    }
-    if (testsRan && fileExists('functional-output/reports/chromium/index.html')) {
-          publishHTML target: [
-          allowMissing         : true,
+    } finally {
+      // Only publish if tests ran AND report exists
+      if (testsRan && fileExists('functional-output/merged/mochawesome.html')) {
+        publishHTML target: [
+          allowMissing: false,
           alwaysLinkToLastBuild: true,
-          keepAll              : true,
-          reportDir            : "functional-output/reports/chromium",
-          reportFiles          : "index.html",
-          reportName           : "Playwright Test Report",
-          reportTitles         : 'E2E Test Results'
+          keepAll: false,
+          reportDir: "functional-output/merged",
+          reportFiles: "mochawesome.html",
+          reportName: "Preview Functional Test Report"
         ]
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
       } else {
-          echo 'No E2E tests ran or no report generated - skipping report publishing'
+        echo 'No E2E tests ran or no report generated - skipping report publishing'
       }
+    }
   }
 
   afterSuccess('functionalTest:aat') {

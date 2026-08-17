@@ -58,7 +58,7 @@ describe('AddressLookup', () => {
 
     describe('handlePost()', () => {
         it('should add addresses to formdata', (done) => {
-            const revert = AddressLookup.__set__('PostcodeAddress', class {
+            const revert = AddressLookup.__set__('PostcodeLookup', class {
                 get() {
                     return expectedResponse;
                 }
@@ -76,7 +76,7 @@ describe('AddressLookup', () => {
         });
 
         it('should create an error if address not found', (done) => {
-            const revert = AddressLookup.__set__('PostcodeAddress', class {
+            const revert = AddressLookup.__set__('PostcodeLookup', class {
                 get() {
                     return [];
                 }

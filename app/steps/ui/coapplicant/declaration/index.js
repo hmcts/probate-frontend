@@ -7,10 +7,8 @@ const FieldError = require('app/components/error');
 const Security = require('app/services/Security');
 const Authorise = require('app/services/Authorise');
 const logger = require('app/components/logger')('Init');
-const {mapValues, get, merge} = require('lodash');
+const {mapValues, get, assign} = require('lodash');
 const Sanitize = require('app/utils/Sanitize');
-const caseTypes = require('../../../../utils/CaseTypes');
-const FormatName = require('../../../../utils/FormatName');
 
 class CoApplicantDeclaration extends ValidationStep {
 
@@ -27,7 +25,7 @@ class CoApplicantDeclaration extends ValidationStep {
     }
 
     generateContent(ctx, formdata) {
-        const contentCtx = merge(
+        const contentCtx = assign(
             {},
             Sanitize.sanitizeInput(formdata),
             Sanitize.sanitizeInput(ctx),
@@ -50,10 +48,7 @@ class CoApplicantDeclaration extends ValidationStep {
         ctx.applicant = formdata.applicant;
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;
-        ctx.deceasedName = FormatName.format(formdata.deceased);
-        ctx.caseType = caseTypes.getCaseType(req.session);
-        console.log('CoApplicantDeclaration ctx.caseType: ', ctx.caseType);
-        merge(ctx, Sanitize.sanitizeInput(formdata.declaration));
+        assign(ctx, Sanitize.sanitizeInput(formdata.declaration));
         return ctx;
     }
 

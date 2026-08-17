@@ -5,11 +5,11 @@
   "properties": {
     "firstName": {
       "type": "string",
-      "pattern": "^[^<>]+$"
+      "minLength": 2
     },
     "lastName": {
       "type": "string",
-      "pattern": "^[^<>]+$"
+      "minLength": 2
     }
   },
   "required": [

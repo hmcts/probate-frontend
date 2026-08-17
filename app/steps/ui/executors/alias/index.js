@@ -1,7 +1,7 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {findIndex, merge} = require('lodash');
+const {findIndex, assign} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/executors-alias';
@@ -39,7 +39,7 @@ class ExecutorsAlias extends ValidationStep {
                 }
                 return executor;
             });
-            return merge(ctx, {list: sanitizeInput(list)});
+            return assign(ctx, {list: sanitizeInput(list)});
         }
         return ctx;
     }
@@ -93,8 +93,12 @@ class ExecutorsAlias extends ValidationStep {
         const executorsWrapper = new ExecutorsWrapper(ctx);
         const executors = executorsWrapper.executorsApplying(true);
 
-        const allExecutorsValid = executors.every(executor => {
-            return (executor.hasOtherName === true && executor.currentName && executor.currentNameReason) || executor.hasOtherName === false;
+        const allExecutorsValid = executors.length > 0 && executors.every(executor => {
+            return (
+                executor.hasOtherName === true &&
+                executor.currentName &&
+                executor.currentNameReason
+            ) || executor.hasOtherName === false;
         });
 
         return [allExecutorsValid, 'inProgress'];

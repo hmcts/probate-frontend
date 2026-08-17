@@ -31,7 +31,7 @@ The Frontend Application uses Orchestrator to route specific requests to the und
 ## Getting Started
 ### Prerequisites
 
-- [Node.js](nodejs.org) >= 12.5.0
+- [Node.js](nodejs.org) >= 24.0.0
 - [yarn](yarnpkg.com)
 
 If on Windows 10 follow setup instructions here: https://tools.hmcts.net/confluence/pages/viewpage.action?pageId=1457316967
@@ -121,7 +121,7 @@ npx @hmcts/probate-dev-env
 
 Alternatively, to run probate-frontend with the other services locally you will need to clone and run the following services:
 
-- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/compose/README.md`.
+- probate-back-office: `https://github.com/hmcts/probate-back-office` - Follow the instructions in `probate-back-office/README.md`.
 - probate-orchestrator-service: `https://github.com/hmcts/probate-orchestrator-service` - Follow the instructions in `probate-orchestrator-service/README.md`
 - probate-submit-service: `https://github.com/hmcts/probate-submit-service` - Follow the instructions in `probate-submit-service/README.md`
 

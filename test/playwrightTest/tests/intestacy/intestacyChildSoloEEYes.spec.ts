@@ -1,10 +1,10 @@
 import { test } from '../../fixtures/index.ts';
 import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
-
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import { TaskListPage } from '../../pages/taskListPage.ts';
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -35,17 +35,19 @@ getTestLanguages().forEach(language => {
     });
 
     test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`), async ({
-      intestacyScreenerPage,
-      apiCallback,
-      signInPage,
-      taskListPage,
-      deceasedDetailsPage,
-      applicantDetailsPage,
-      cyaAndDeclarationPage,
-      paymentTaskPage
-    }) => {
+                                                                                                                             page,
+                                                                                                                             context,
+                                                                                                                             intestacyScreenerPage,
+                                                                                                                             apiCallback,
+                                                                                                                             signInPage,
+                                                                                                                             deceasedDetailsPage,
+                                                                                                                             applicantDetailsPage,
+                                                                                                                             cyaAndDeclarationPage,
+                                                                                                                             paymentTaskPage
+                                                                                                                           }) => {
       const testConfigurator = new TestConfigurator();
       const scenarioName = `Intestacy child solo journey - EE Yes - ${language}`;
+      const taskListPage = new TaskListPage(page, context as BrowserContext, language);
 
       await apiCallback.createAUser(testConfigurator);
 
@@ -85,7 +87,6 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
       await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
-
       await deceasedDetailsPage.selectEEComplete(optionYes);
       await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
       await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);

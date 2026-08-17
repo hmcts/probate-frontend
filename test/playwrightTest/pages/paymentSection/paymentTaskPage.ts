@@ -67,27 +67,81 @@ export class PaymentTaskSection extends BasePage {
     }
   }
 
-  async seeGovUkPaymentPage(language ='en') {
-    if (language === 'en') {
-      await expect(this.page.getByRole('heading', { name: 'Enter card details' })).toBeVisible();
+  async seeGovUkPaymentPage(language = 'en') {
+    const heading = language === 'en'
+        ? 'Enter card details'
+        : 'Rhowch fanylion y cerdyn';
+
+    await expect(this.page.getByRole('heading', { name: heading })).toBeVisible();
+    await expect(this.page.getByLabel(/Card number|Rhif cerdyn/)).toBeVisible();
+
+    await this.page.getByLabel(/Card number|Rhif cerdyn/).fill(testConfig.govPayTestCardNos.validCardNo);
+    await this.page.getByLabel(/Month|Mis/).fill(testConfig.govPayTestCardDetails.expiryMonth);
+    await this.page.getByLabel(/Year|Blwyddyn/).fill(testConfig.govPayTestCardDetails.expiryYear);
+    await this.page.getByLabel(/Name on card|Enw ar y cerdyn/).fill(testConfig.govPayTestCardDetails.cardholderName);
+    await this.page.getByLabel(/Card security code|Cod diogelwch y cerdyn/).fill(testConfig.govPayTestCardDetails.cvc);
+    await this.page.getByLabel(/Address line 1|Llinell cyfeiriad 1/).fill(testConfig.govPayTestCardDetails.addressLine1);
+    await this.page.getByLabel(/Town or city|Tref neu ddinas/).fill(testConfig.govPayTestCardDetails.addressCity);
+    await this.page.getByLabel(/Postcode|Cod post/).fill(testConfig.govPayTestCardDetails.addressPostcode);
+    await this.page.getByLabel(/Email|E-bost/).fill(testConfig.TestEnvEmailAddress);
+
+    const continueBtn = this.page.getByRole('button', { name: language === 'en' ? 'Continue' : 'Parhau' });
+    await expect(continueBtn).toBeVisible();
+    await expect(continueBtn).toBeEnabled();
+
+    // First click
+    await continueBtn.click();
+    await this.page.waitForTimeout(3000);
+
+    // If still on the card page (by title), click again once
+    const titleAfterFirstClick = await this.page.title();
+    const isStillCardPage =
+        (language === 'en' && titleAfterFirstClick === 'Enter payment details') ||
+        (language === 'cy' && titleAfterFirstClick === 'Rhowch fanylion taliad');
+
+    if (isStillCardPage) {
+      console.log(`[RETRY CONTINUE] language=${language} still on card page, clicking again`);
+      await continueBtn.click();
+      await this.page.waitForTimeout(2000);
     }
-    await expect(this.page.locator('#card-no')).toBeEnabled();
-    await this.page.locator('#card-no').fill(testConfig.govPayTestCardNos.validCardNo);
-    await this.page.locator('#expiry-month').fill(testConfig.govPayTestCardDetails.expiryMonth);
-    await this.page.locator('#expiry-year').fill(testConfig.govPayTestCardDetails.expiryYear);
-    await this.page.locator('#cardholder-name').fill(testConfig.govPayTestCardDetails.cardholderName);
-    await this.page.locator('#cvc').fill(testConfig.govPayTestCardDetails.cvc);
-    await this.page.locator('#address-line-1').fill(testConfig.govPayTestCardDetails.addressLine1);
-    await this.page.locator('#address-city').fill(testConfig.govPayTestCardDetails.addressCity);
-    await this.page.locator('#address-postcode').fill(testConfig.govPayTestCardDetails.addressPostcode);
-    await this.page.locator('#email').fill(testConfig.TestEnvEmailAddress);
-    await this.navByClick(this.continueButtonLocator);
+
+    // Now wait for navigation to /confirm or at least some change
+    try {
+      await this.page.waitForURL(/\/card_details\/[^/]+\/confirm$/, { timeout: 60000 });
+    } catch {
+      // If we didn't reach /confirm, just ensure we're still on the payment domain
+      await expect(this.page).toHaveURL(/card\.payments\.service\.gov\.uk/);
+    }
+
+    const url = this.page.url();
+    const title = await this.page.title();
+    console.log(`[AFTER CONTINUE] language=${language} url=${url} title=${title}`);
   }
 
   async seeGovUkConfirmPage(language = 'en') {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
-    await expect(this.page.getByRole('heading', { name: paymentTextConfig[`paymentHeading${langKey}`] })).toBeVisible();
-    await this.navByClick(this.confirmButtonLocator);
+    const expectedHeading = paymentTextConfig[`paymentHeading${langKey}`];
+    const confirmButtonName = language === 'en' ? 'Confirm payment' : 'Cadarnhau’r taliad';
+
+    const url = this.page.url();
+    const title = await this.page.title();
+    console.log(`[CONFIRM PAGE] language=${language} url=${url} title=${title}`);
+
+    await expect(this.page).toHaveURL(/card\.payments\.service\.gov\.uk/);
+
+    // If we are on /confirm, assert the confirm heading/button directly
+    if (url.includes('/confirm')) {
+      await expect(this.page.getByRole('heading', { name: expectedHeading })).toBeVisible({ timeout: 60000 });
+    } else {
+      // Still on card domain but not /confirm:
+      // wait for the confirm heading to appear (page may have transitioned without URL change)
+      await expect(this.page.getByRole('heading', { name: expectedHeading })).toBeVisible({ timeout: 60000 });
+    }
+
+    const confirmButton = this.page.getByRole('button', { name: new RegExp(confirmButtonName, 'i') });
+    await expect(confirmButton).toBeVisible({ timeout: 60000 });
+
+    await confirmButton.click();
   }
 
   async seeGovUkCancelPage(language ='en') {

@@ -97,7 +97,8 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     // Security library helmet to verify 11 smaller middleware functions
     app.use(helmet({
         xFrameOptions: false,
-        xXssProtection: false
+        xXssProtection: false,
+        contentSecurityPolicy: false
     }));
 
     app.use((req, res, next) => {

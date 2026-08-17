@@ -6302,8 +6302,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-jsdoc@npm:^64.0.0":
-  version: 64.1.0
-  resolution: "eslint-plugin-jsdoc@npm:64.1.0"
+  version: 64.2.0
+  resolution: "eslint-plugin-jsdoc@npm:64.2.0"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.95.0"
     "@es-joy/resolve.exports": "npm:1.2.0"
@@ -6321,7 +6321,7 @@ __metadata:
     to-valid-identifier: "npm:^1.0.0"
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
-  checksum: 10/91fb6e27c2d0ab1502a4002ae871bde675e8314a76a12cbbe265b68beb9ba3acd6552ef9cb4830c0f16ae5be23219fb9f635e0eed45daa8802cb0b949dd9f596
+  checksum: 10/4abb9159550b5178d76973990cece9c13379448c386466ab49f16eb2ac3484a1a0f6648a4361c1b1a17137a6256c42400ef65269e635b0a88d281378952d3fe4
   languageName: node
   linkType: hard
 

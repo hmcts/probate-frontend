@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "all-half-siblings-over-18",
+  "type": "object",
+  "properties": {
+    "allHalfSiblingsOver18": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "allHalfSiblingsOver18"
+  ]
+}

@@ -1,0 +1,86 @@
+export const ROUTES = {
+  // Common
+  dashboard: /\/dashboard$/,
+  taskList: /\/task-list$/,
+  startApply: /\/start-apply$/,
+  loginPage: /idam-web-public\.ithc\.platform\.hmcts\.net\/login/,
+  summaryDeclaration: /\/summary\/declaration$/,
+  declaration: /\/declaration$/,
+  paymentBreakdown: /\/payment-breakdown$/,
+  cardConfirm: /card\.payments\.service\.gov\.uk\/card_details\/[^/]+\/confirm$/,
+  // PCQ
+  equalityAndDiversity: /pcq\.ithc\.platform\.hmcts\.net\/start-page/,
+  pcqOffline: /pcq\.ithc\.platform\.hmcts\.net\/offline$/,
+
+  // Eligibility
+  startEligibility: /\/start-eligibility$/,
+  deathCertificate: /\/death-certificate$/,
+  deathCertificateEnglish: /\/death-certificate-english$/,
+  deceasedDomicile: /\/deceased-domicile$/,
+  eeDeceasedDod: /\/ee-deceased-dod$/,
+  eeEstateValued: /\/ee-estate-valued$/,
+  willLeft: /\/will-left$/,
+  relatedToDeceased: /\/related-to-deceased$/,
+
+  // Intestacy – Deceased
+  intestacyDeceasedName: /\/intestacy\/deceased-name$/,
+  intestacyDeceasedDob: /\/intestacy\/deceased-dob$/,
+  intestacyDeceasedDod: /\/intestacy\/deceased-dod$/,
+  intestacyDeceasedAddress: /\/intestacy\/deceased-address$/,
+  intestacyAnyLivingDescendants: /\/intestacy\/any-living-descendants$/,
+  intestacyAnyLivingParents: /\/intestacy\/any-living-parents$/,
+  intestacyDeceasedOtherWholeSiblings: /\/intestacy\/deceased-other-whole-siblings$/,
+  intestacyDeceasedAdoptedIn: /\/intestacy\/deceased-adopted-in$/,
+  intestacyDeceasedAdoptionPlace: /\/intestacy\/deceased-adoption-place$/,
+  intestacyProbateEstateValues: /\/intestacy\/probate-estate-values$/,
+  intestacyAssetsOutsideEnglandWales: /\/intestacy\/assets-outside-england-wales$/,
+  intestacyDeceasedAlias: /\/intestacy\/deceased-alias$/,
+  intestacyDeceasedMaritalStatus: /\/intestacy\/deceased-marital-status$/,
+  intestacyBilingualGop: /\/intestacy\/bilingual-gop$/,
+  intestacyDiedEngOrWales: /\/intestacy\/died-eng-or-wales$/,
+  intestacyCertificateInterim: /\/intestacy\/certificate-interim$/,
+  intestacyCalcCheck: /\/intestacy\/calc-check$/,
+  intestacyNewSubmittedToHmrc: /\/intestacy\/new-submitted-to-hmrc$/,
+  intestacyHmrcLetter: /\/intestacy\/hmrc-letter$/,
+  intestacyUniqueProbateCode: /\/intestacy\/unique-probate-code$/,
+
+  // Intestacy – Applicant
+  intestacyRelationshipToDeceased: /\/intestacy\/relationship-to-deceased$/,
+  intestacySpouseNotApplyingReason: /\/intestacy\/spouse-not-applying-reason$/,
+  intestacyParentAdoptionPlace: /\/intestacy\/parent-adoption-place$/,
+  intestacyMainApplicantAdoptedIn: /\/intestacy\/main-applicant-adopted-in$/,
+  intestacyAdoptedInEnglandOrWales: /\/intestacy\/adopted-in-england-or-wales$/,
+  intestacyMainApplicantParentAnyOtherChildren: /\/intestacy\/mainapplicantsparent-any-other-children$/,
+  intestacyMainApplicantAdoptedOut: /\/intestacy\/mainapplicant-adopted-out$/,
+  intestacyAnyOtherChildren: /\/intestacy\/any-other-children$/,
+  intestacyAnyPredeceasedChildren: /\/intestacy\/any-predeceased-children$/,
+  intestacyAnySurvivingGrandchildren: /\/intestacy\/any-surviving-grandchildren$/,
+  intestacyAnyGrandchildrenUnder18: /\/intestacy\/any-grandchildren-under-18$/,
+  intestacyAllChildrenOver18: /\/intestacy\/all-children-over-18$/,
+  intestacyMainApplicantsParentAnyOtherChildren: /\/intestacy\/mainapplicantsparent-any-other-children$/,
+  intestacyAllGrandchildrenOver18: /\/intestacy\/all-grandchildren-over-18$/,
+  intestacyApplicantName: /\/intestacy\/applicant-name$/,
+  intestacyApplicantPhone: /\/intestacy\/applicant-phone$/,
+  intestacyApplicantAddress: /\/intestacy\/applicant-address$/,
+  intestacyJointApplication: /\/intestacy\/joint-application$/,
+  intestacyMainApplicantsParentAlive: /\/intestacy\/mainapplicantsparent-alive$/,
+  intestacyMainApplicantsParentAdoptedIn: /\/intestacy\/mainapplicantsparent-adopted-in$/,
+  intestacyAnyOtherParentAlive: /\/intestacy\/any-other-parent-alive$/,
+  intestacyDeceasedSameParents: /\/intestacy\/deceased-same-parents$/,
+  intestacyDeceasedWholeSiblings: /\/intestacy\/deceased-whole-siblings$/,
+  intestacyWholeSiblingsSurvivingChildren: /\/intestacy\/whole-siblings-surviving-children$/,
+  intestacyWholeNiecesWholeNephewsAge: /\/intestacy\/whole-nieces-whole-nephews-age$/,
+  intestacyWholeSiblingsAge: /\/intestacy\/whole-siblings-age$/,
+
+  // Intestacy – Assets
+  intestacyAssetsOverseas: /\/intestacy\/assets-overseas$/,
+
+  // Intestacy – Payment
+  intestacyCopiesUk: /\/intestacy\/copies-uk$/,
+  intestacyCopiesOverseas: /\/intestacy\/copies-overseas$/,
+  intestacyCopiesSummary: /\/intestacy\/copies-summary$/,
+  intestacyThankYou: /\/intestacy\/thank-you$/,
+
+  // External – Payment
+  cardDetails: /card\.payments\.service\.gov\.uk\/card_details\/[^/]+$/,
+} as const;

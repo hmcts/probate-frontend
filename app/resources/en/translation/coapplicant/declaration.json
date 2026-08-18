@@ -6,6 +6,7 @@
   "highCourtHeader": "In the High Court of Justice",
   "familyDivisionHeader": "Family Division",
   "probateHeader": "(Probate)",
+  "intestacyHeader": "(Intestacy)",
   "deceasedHeader": "The person who died",
   "deceasedEstateHeader": "The estate of the person who died",
   "executorApplyingHeader": "Executors applying for probate",
@@ -13,6 +14,8 @@
   "declarationHeader": "Declaration",
   "agreementHeader": "Do you agree with this information?",
   "agreementParagraph": "By answering &lsquo;yes&rsquo; you will be confirming that:",
+  "intestacyAgreementParagraph1": "If you are not sure about any of the information in the legal statement, you should contact {mainApplicantName} before you continue.",
+  "intestacyAgreementParagraph2": "By agreeing, you confirm that you will administer the estate of {deceasedName} according to law, and that your application is truthful.",
   "agreementItem1": "the information in your application is correct to the best of your knowledge",
   "agreementItem2": "you will administer the estate of the person who died according to law",
   "agreementItem3": "your application is truthful",
@@ -21,6 +24,10 @@
   "optionNoText": "If you&rsquo;re not sure about any of the information in the legal statement, you should contact {mainApplicantName} before saving and continuing.",
   "submit": "Submit your response",
   "warning": "Warning",
+  "intestacyDeceasedChildren": "No children under 18 are entitled to the estate.",
+  "intestacyLettersOfAdministration": "I am applying for letters of administration. I have provided what I believe to be true and accurate information about {deceasedName}.",
+  "intestacyLettersOfAdministrationMultipleApplicants": "We are applying for letters of administration. We have provided what we believe to be true and accurate information about {deceasedName}.",
+  "intestacyDeceasedMarriedSpouseRenouncingText": "{deceasedName}&rsquo;s spouse or civil partner has given up the right to apply for letters of administration now or in the future.",
 
   "errors": {
     "agreement": {

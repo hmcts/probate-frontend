@@ -6,8 +6,11 @@ const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
 const PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP = {
     optionGrandchild: 'childDieBeforeDeceased',
+    grandchild: 'childDieBeforeDeceased',
     optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentDieBeforeDeceased',
-    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentDieBeforeDeceased'
+    halfBloodNieceOrNephew: 'halfNieceOrNephewParentDieBeforeDeceased',
+    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentDieBeforeDeceased',
+    wholeBloodNieceOrNephew: 'wholeNieceOrNephewParentDieBeforeDeceased'
 };
 const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
     optionWholeBloodNieceOrNephew: [
@@ -15,7 +18,17 @@ const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
         'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
         'wholeNieceOrNephewParentAdoptedOut'
     ],
+    wholeBloodNieceOrNephew: [
+        'wholeNieceOrNephewParentAdoptedIn',
+        'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
+        'wholeNieceOrNephewParentAdoptedOut'
+    ],
     optionHalfBloodNieceOrNephew: [
+        'halfNieceOrNephewParentAdoptedIn',
+        'halfNieceOrNephewParentAdoptionInEnglandOrWales',
+        'halfNieceOrNephewParentAdoptedOut'
+    ],
+    halfBloodNieceOrNephew: [
         'halfNieceOrNephewParentAdoptedIn',
         'halfNieceOrNephewParentAdoptionInEnglandOrWales',
         'halfNieceOrNephewParentAdoptedOut'
@@ -73,9 +86,11 @@ class ParentDieBefore extends ValidationStep {
         const parentDieBeforeField = this.parentDieBeforeField(ctx);
         const selectedAnswer = ctx.applicantParentDieBeforeDeceased ?? ctx.list?.[ctx.index]?.[parentDieBeforeField];
         const parentDiedBefore = selectedAnswer === 'optionYes';
-        const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
-        ctx.wholeBloodNieceOrNephewParentDieBefore = relationship === 'optionWholeBloodNieceOrNephew' && parentDiedBefore;
-        ctx.halfBloodNieceOrNephewParentDieBefore = relationship === 'optionHalfBloodNieceOrNephew' && parentDiedBefore;
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isNieceOrNephew = isWhole || isHalf;
+        ctx.wholeBloodNieceOrNephewParentDieBefore = isWhole && parentDiedBefore;
+        ctx.halfBloodNieceOrNephewParentDieBefore = isHalf && parentDiedBefore;
         ctx.parentDieBeforeDeceased = !isNieceOrNephew && parentDiedBefore;
         return {
             options: [
@@ -139,10 +154,10 @@ class ParentDieBefore extends ValidationStep {
     }
 
     requiredErrorKeyForRelationship(relationship) {
-        if (relationship === 'optionWholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew') {
             return 'wholeBloodNieceOrNephewRequired';
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew') {
+        if (relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew') {
             return 'halfBloodNieceOrNephewRequired';
         }
         return 'required';

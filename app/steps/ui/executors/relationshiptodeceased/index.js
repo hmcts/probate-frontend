@@ -5,6 +5,27 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-relationship-to-deceased';
 
+function asOptionRelationship(relationship) {
+    switch (relationship) {
+    case 'child':
+        return 'optionChild';
+    case 'grandchild':
+        return 'optionGrandchild';
+    case 'wholeBloodSibling':
+        return 'optionWholeBloodSibling';
+    case 'halfBloodSibling':
+        return 'optionHalfBloodSibling';
+    case 'wholeBloodNieceOrNephew':
+        return 'optionWholeBloodNieceOrNephew';
+    case 'halfBloodNieceOrNephew':
+        return 'optionHalfBloodNieceOrNephew';
+    case 'other':
+        return 'optionOther';
+    default:
+        return relationship;
+    }
+}
+
 class CoApplicantRelationshipToDeceased extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -75,7 +96,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const applicantRelToDec = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
+        const applicantRelToDec = asOptionRelationship(ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased);
         const childOrSiblingValues = ['optionChild', 'optionHalfBloodSibling', 'optionWholeBloodSibling'];
         const grandchildOrNieceNephewValues = ['optionGrandchild', 'optionHalfBloodNieceOrNephew', 'optionWholeBloodNieceOrNephew'];
         ctx.childOrSibling = childOrSiblingValues.includes(applicantRelToDec);
@@ -89,21 +110,23 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
+        const newRelationship = asOptionRelationship(ctx.coApplicantRelationshipToDeceased);
+        const previousRelationship = asOptionRelationship(formdata.executors?.list?.[ctx.index]?.coApplicantRelationshipToDeceased);
+        if (formdata.executors && formdata.executors.list && newRelationship !== previousRelationship) {
             this.clearRelationshipFields(ctx, formdata);
         }
-        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' ||
-            ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
-            ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+        if (newRelationship === 'optionChild' || newRelationship === 'optionGrandchild' ||
+            newRelationship === 'optionHalfBloodSibling' || newRelationship === 'optionHalfBloodNieceOrNephew' ||
+            newRelationship === 'optionWholeBloodSibling' || newRelationship === 'optionWholeBloodNieceOrNephew') {
             ctx.list[ctx.index] = {
                 ...ctx.list[ctx.index],
-                coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
+                coApplicantRelationshipToDeceased: newRelationship,
                 isApplying: true
             };
-        } else if (ctx.coApplicantRelationshipToDeceased === 'optionOther') {
+        } else if (newRelationship === 'optionOther') {
             ctx.list[ctx.index] = {
                 ...ctx.list[ctx.index],
-                coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
+                coApplicantRelationshipToDeceased: newRelationship,
                 isApplying: false
             };
         }
@@ -124,7 +147,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         return [ctx, formdata];
     }
     clearRelationshipFields(ctx, formdata) {
-        const rel = formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased;
+        const rel = asOptionRelationship(formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased);
         switch (rel) {
         case 'optionChild':
             delete ctx.list[ctx.index].childAdoptedIn;

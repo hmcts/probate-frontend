@@ -11,12 +11,27 @@ const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
         adoptionPlace: 'grandchildParentAdoptionInEnglandOrWales',
         adoptedOut: 'grandchildParentAdoptedOut'
     },
+    grandchild: {
+        adoptedIn: 'grandchildParentAdoptedIn',
+        adoptionPlace: 'grandchildParentAdoptionInEnglandOrWales',
+        adoptedOut: 'grandchildParentAdoptedOut'
+    },
     optionHalfBloodNieceOrNephew: {
         adoptedIn: 'halfNieceOrNephewParentAdoptedIn',
         adoptionPlace: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
         adoptedOut: 'halfNieceOrNephewParentAdoptedOut'
     },
+    halfBloodNieceOrNephew: {
+        adoptedIn: 'halfNieceOrNephewParentAdoptedIn',
+        adoptionPlace: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
+        adoptedOut: 'halfNieceOrNephewParentAdoptedOut'
+    },
     optionWholeBloodNieceOrNephew: {
+        adoptedIn: 'wholeNieceOrNephewParentAdoptedIn',
+        adoptionPlace: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
+        adoptedOut: 'wholeNieceOrNephewParentAdoptedOut'
+    },
+    wholeBloodNieceOrNephew: {
         adoptedIn: 'wholeNieceOrNephewParentAdoptedIn',
         adoptionPlace: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
         adoptedOut: 'wholeNieceOrNephewParentAdoptedOut'
@@ -76,9 +91,11 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     nextStepOptions(ctx) {
         const coapplParentAdoptedIn = ctx.applicantParentAdoptedIn;
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
-        const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
-        ctx.wholeBloodNieceOrNephewParentAdoptedIn = relationship === 'optionWholeBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
-        ctx.halfBloodNieceOrNephewParentAdoptedIn = relationship === 'optionHalfBloodNieceOrNephew' && coapplParentAdoptedIn === 'optionYes';
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isNieceOrNephew = isWhole || isHalf;
+        ctx.wholeBloodNieceOrNephewParentAdoptedIn = isWhole && coapplParentAdoptedIn === 'optionYes';
+        ctx.halfBloodNieceOrNephewParentAdoptedIn = isHalf && coapplParentAdoptedIn === 'optionYes';
         ctx.parentAdopted = !isNieceOrNephew && coapplParentAdoptedIn === 'optionYes';
         return {
             options: [
@@ -115,10 +132,10 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
 
     requiredErrorKeyForRelationship(relationship) {
-        if (relationship === 'optionWholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew') {
             return 'wholeBloodNieceOrNephewRequired';
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew') {
+        if (relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew') {
             return 'halfBloodNieceOrNephewRequired';
         }
         return 'required';

@@ -7,8 +7,11 @@ const pageUrl = '/parent-adoption-place';
 const PARENT_ADOPTION_PLACE_FIELDS = {
     optionChild: 'grandchildParentAdoptionInEnglandOrWales',
     optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
+    grandchild: 'grandchildParentAdoptionInEnglandOrWales',
     optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales'
+    halfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
+    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
+    wholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales'
 };
 
 class CoApplicantParentAdoptionPlace extends ValidationStep {
@@ -49,7 +52,10 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew' ||
+            relationship === 'optionHalfBloodNieceOrNephew' ||
+            relationship === 'wholeBloodNieceOrNephew' ||
+            relationship === 'halfBloodNieceOrNephew') {
             return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptionPlaceNoNameStop');
         }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
@@ -58,9 +64,11 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     nextStepOptions(ctx) {
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
         const parentAdoptedEngWales = ctx.applicantParentAdoptionPlace;
-        const isNieceOrNephew = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'optionHalfBloodNieceOrNephew';
-        ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales = relationship === 'optionWholeBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
-        ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales = relationship === 'optionHalfBloodNieceOrNephew' && parentAdoptedEngWales === 'optionYes';
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isNieceOrNephew = isWhole || isHalf;
+        ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales = isWhole && parentAdoptedEngWales === 'optionYes';
+        ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales = isHalf && parentAdoptedEngWales === 'optionYes';
         ctx.parentAdoptedInEnglandOrWales = !isNieceOrNephew && parentAdoptedEngWales === 'optionYes';
         return {
             options: [

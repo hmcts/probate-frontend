@@ -73,7 +73,7 @@ describe('summary-will-section', () => {
                 id: 1234567890123456,
             };
             sessionData.language = 'cy';
-            const contentToExclude = ['title', 'heading', 'checkCarefully', 'uploadedDocumentsHeading', 'uploadedDocumentsEmpty', 'applicantHeading', 'deceasedHeading', 'ihtHeading', 'otherExecutors', 'executorsWhenDiedQuestion', 'otherNamesLabel', 'aboutPeopleApplyingHeading', 'aboutYouHeading', 'executorApplyingForProbate', 'executorsNotApplyingForProbate', 'executorsWithOtherNames', 'nameOnWill', 'currentName', 'currentNameReason', 'address', 'mobileNumber', 'emailAddress', 'checkAnswersPdf', 'willConditionHeading', 'codicilsConditionHeading'];
+            const contentToExclude = ['title', 'heading', 'checkCarefully', 'uploadedDocumentsHeading', 'uploadedDocumentsEmpty', 'applicantHeading', 'deceasedHeading', 'ihtHeading', 'otherExecutors', 'executorsWhenDiedQuestion', 'otherNamesLabel', 'aboutPeopleApplyingHeading', 'aboutYouHeading', 'executorApplyingForProbate', 'executorsNotApplyingForProbate', 'executorsWithOtherNames', 'nameOnWill', 'currentName', 'currentNameReason', 'address', 'mobileNumber', 'emailAddress', 'checkAnswersPdf', 'willConditionHeading', 'codicilsConditionHeading', 'otherPeopleApplyingHeading', 'applicantRelationshipToDeceased', 'intestacyExecutorApplyingForProbate'];
 
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 const initSteps = require('app/core/initSteps');
@@ -292,6 +293,49 @@ describe('Executors-Alias', () => {
             };
             const result = ExecutorsAlias.isComplete(ctx);
             expect(result).to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should be incomplete when there are no applying co-executors', () => {
+            const ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    {
+                        firstName: 'Main',
+                        lastName: 'Applicant',
+                        isApplicant: true,
+                        isApplying: true
+                    },
+                    {
+                        fullName: 'Some Name',
+                        isApplying: false
+                    }
+                ]
+            };
+
+            expect(ExecutorsAlias.isComplete(ctx))
+                .to.deep.equal([false, 'inProgress']);
+        });
+
+        it('should remain complete when an applying executor has answered the alias question', () => {
+            const ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    {
+                        firstName: 'Main',
+                        lastName: 'Applicant',
+                        isApplicant: true,
+                        isApplying: true
+                    },
+                    {
+                        fullName: 'Some Name',
+                        isApplying: true,
+                        hasOtherName: false
+                    }
+                ]
+            };
+
+            expect(ExecutorsAlias.isComplete(ctx))
+                .to.deep.equal([true, 'inProgress']);
         });
     });
 });

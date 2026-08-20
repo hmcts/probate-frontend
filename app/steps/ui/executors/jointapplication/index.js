@@ -125,6 +125,21 @@ class JointApplication extends ValidationStep {
         return [ctx, errors];
     }
 
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+
+        const hasExistingCoApplicant = Array.isArray(ctx.list) &&
+            ctx.list.some(executor => executor?.isApplicant !== true && executor?.isApplying === true);
+
+        // On this page, selecting "No" can mean "no additional co-applicants" once one already exists.
+        // Persist hasCoApplicant as "Yes" when an applying co-applicant is already present.
+        if (ctx.hasCoApplicant === 'optionNo' && hasExistingCoApplicant) {
+            ctx.hasCoApplicant = 'optionYes';
+        }
+
+        return [ctx, formdata];
+    }
+
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.deceasedName && errors) {

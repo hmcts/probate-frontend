@@ -197,4 +197,33 @@ describe('JointApplication', () => {
             ]);
         });
     });
+
+    describe('JointApplication action', () => {
+        it('should keep hasCoApplicant as optionYes when optionNo is selected but a co-applicant already exists', () => {
+            const ctx = {
+                hasCoApplicant: 'optionNo',
+                list: [
+                    {isApplicant: true, isApplying: true, fullName: 'Main Applicant'},
+                    {isApplicant: false, isApplying: true, fullName: 'Co Applicant'}
+                ]
+            };
+            const formdata = {};
+
+            const [newCtx] = JointApplication.action(ctx, formdata);
+
+            expect(newCtx.hasCoApplicant).to.equal('optionYes');
+        });
+
+        it('should keep hasCoApplicant as optionNo when no co-applicant exists', () => {
+            const ctx = {
+                hasCoApplicant: 'optionNo',
+                list: [{isApplicant: true, isApplying: true, fullName: 'Main Applicant'}]
+            };
+            const formdata = {};
+
+            const [newCtx] = JointApplication.action(ctx, formdata);
+
+            expect(newCtx.hasCoApplicant).to.equal('optionNo');
+        });
+    });
 });

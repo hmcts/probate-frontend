@@ -185,6 +185,18 @@ class Executors {
     }
 
     hasStopCondition(executor) {
+        if (executor?.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+            return executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+                executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.wholeNieceOrNephewParentAdoptedOut === 'optionYes';
+        }
+
+        if (executor?.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
+            return executor?.halfNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+                executor?.halfNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.halfNieceOrNephewParentAdoptedOut === 'optionYes';
+        }
+
         const optionNoFields = [
             'childAdoptionInEnglandOrWales',
             'grandchildAdoptionInEnglandOrWales',
@@ -192,6 +204,7 @@ class Executors {
             'wholeBloodSiblingAdoptionInEnglandOrWales',
             'halfBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+            'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
             'childDieBeforeDeceased',
             'wholeBloodSiblingDiedBeforeDeceased',
             'halfBloodSiblingDiedBeforeDeceased'
@@ -208,10 +221,11 @@ class Executors {
         ];
 
         return (
-            optionNoFields.some(field => executor[field] === 'optionNo') ||
-            optionYesFields.some(field => executor[field] === 'optionYes')
+            optionNoFields.some(field => executor?.[field] === 'optionNo') ||
+            optionYesFields.some(field => executor?.[field] === 'optionYes')
         );
     }
+
     getStopPageIndex() {
         return this.executorsList.findIndex(executor =>
             this.hasStopCondition(executor)

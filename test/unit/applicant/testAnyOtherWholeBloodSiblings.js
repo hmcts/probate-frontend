@@ -177,5 +177,27 @@ describe('AnyOtherWholeSiblings', () => {
             assert.isUndefined(ctx.anyPredeceasedWholeSiblings);
             assert.isUndefined(ctx.allWholeNiecesAndWholeNephewsOver18);
         });
+
+        it('test it cleans up context when answer remains no', () => {
+            const ctx = {
+                anyOtherWholeSiblings: 'optionNo',
+                anyPredeceasedWholeSiblings: 'optionYesAll',
+                anySurvivingWholeNiecesAndWholeNephews: 'optionYes',
+                allWholeNiecesAndWholeNephewsOver18: 'optionYes',
+                allWholeSiblingsOver18: 'optionYes'
+            };
+            const formdata = {
+                applicant: {
+                    anyOtherWholeSiblings: 'optionNo'
+                }
+            };
+
+            AnyOtherWholeSiblings.action(ctx, formdata);
+
+            assert.isUndefined(ctx.allWholeSiblingsOver18);
+            assert.isUndefined(ctx.anyPredeceasedWholeSiblings);
+            assert.isUndefined(ctx.anySurvivingWholeNiecesAndWholeNephews);
+            assert.isUndefined(ctx.allWholeNiecesAndWholeNephewsOver18);
+        });
     });
 });

@@ -6,7 +6,7 @@
 
   "errors": {
     "applicantParentAdoptionPlace": {
-      "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth y mabwysiadu ddigwydd yng Nghymru neu Loegr"
+      "required": "Dewiswch ‘Do’ os digwyddodd y mabwysiadu yng Nghymru neu Loegr"
     }
   }
 }

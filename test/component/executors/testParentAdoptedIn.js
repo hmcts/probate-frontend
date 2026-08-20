@@ -82,6 +82,28 @@ describe('parent-adopted-in', () => {
                 });
         });
 
+        it('redirects whole-blood niece or nephew to parent adoption place when parent adopted in', (done) => {
+            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
+            sessionData.executors.list[1].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptedIn: 'optionYes'}, `/intestacy${expectedNextUrlForParentAdoptionPlace}`);
+                });
+        });
+
+        it('redirects half-blood niece or nephew to parent adopted out when parent not adopted in', (done) => {
+            testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
+            sessionData.executors.list[1].coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testRedirect(done, {applicantParentAdoptedIn: 'optionNo'}, `/intestacy${expectedNextUrlForParentAdoptedOut}`);
+                });
+        });
+
         it(`test it redirects to CoApplicant Adoption place page if child is adopted out: /intestacy${expectedNextUrlForParentAdoptedOut}`, (done) => {
             testWrapper.pageUrl = ParentAdoptedIn.getUrl(1);
             testWrapper.agent.post('/prepare-session/form')

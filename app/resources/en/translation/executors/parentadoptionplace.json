@@ -6,7 +6,7 @@
 
   "errors": {
     "applicantParentAdoptionPlace": {
-      "required": "Select &lsquo;Yes&rsquo; if the adoption took place in England or Wales"
+      "required": "Select 'Yes' if the adoption took place in England or Wales"
     }
   }
 }

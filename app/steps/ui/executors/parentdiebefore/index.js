@@ -4,6 +4,7 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
+// Relationship-to-field map keeps WB/HB niece-nephew answers on dedicated parent fields.
 const PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP = {
     optionGrandchild: 'childDieBeforeDeceased',
     grandchild: 'childDieBeforeDeceased',
@@ -109,6 +110,7 @@ class ParentDieBefore extends ValidationStep {
         }
 
         const parentAdoptionFields = PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship];
+        // If parent did not predecease, downstream adoption questions are no longer relevant for this branch.
         if (parentAdoptionFields && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
             parentAdoptionFields.forEach(field => {
                 delete ctx.list[ctx.index][field];

@@ -50,7 +50,11 @@ describe('parent-adopted-in', () => {
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
-                    testWrapper.testContent(done, {deceasedName: 'John Doe', applicantName: 'First coApplicant'});
+                    testWrapper.testContent(
+                        done,
+                        {deceasedName: 'John Doe', applicantName: 'First coApplicant'},
+                        ['question', 'wholeBloodNieceOrNephewQuestion', 'halfBloodNieceOrNephewQuestion']
+                    );
                 });
         });
 

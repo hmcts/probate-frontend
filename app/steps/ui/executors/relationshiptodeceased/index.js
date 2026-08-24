@@ -5,6 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-relationship-to-deceased';
 
+// Normalise legacy/non-option values so routing/validation can rely on one enum shape.
 function asOptionRelationship(relationship) {
     switch (relationship) {
     case 'child':
@@ -148,6 +149,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
     clearRelationshipFields(ctx, formdata) {
         const rel = asOptionRelationship(formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased);
+        // Drop fields from the previous branch to prevent mixed relationship payloads after edits.
         switch (rel) {
         case 'optionChild':
             delete ctx.list[ctx.index].childAdoptedIn;

@@ -111,7 +111,9 @@ describe('ParentAdoptedIn', () => {
             const ctx = {
                 caseType: 'intestacy',
                 index: '1',
+                applicantParentAdoptedIn: 'optionYes',
                 list: [{}, {
+                    coApplicantRelationshipToDeceased: 'optionGrandchild',
                     grandchildParentAdoptedIn: 'optionYes',
                 }],
             };
@@ -140,13 +142,13 @@ describe('ParentAdoptedIn', () => {
     });
 
     describe('ParentAdoptedIn.handlePost', () => {
-        it('should childAdoptedIn = optionYes if coApplicantRelationshipToDeceased is grandChild', () => {
+        it('should set grandchildParentAdoptedIn when relationship is grandchild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptedIn: 'optionYes',
                 list: [
                     {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ]
             };
@@ -161,7 +163,7 @@ describe('ParentAdoptedIn', () => {
                 }
             };
             ParentAdoptedIn.handlePost(ctx, errors, formdata);
-            expect(ctx.list[1]).to.deep.equal({'coApplicantRelationshipToDeceased': 'optionChild', 'grandchildParentAdoptedIn': 'optionYes'});
+            expect(ctx.list[1]).to.deep.equal({'coApplicantRelationshipToDeceased': 'optionGrandchild', 'grandchildParentAdoptedIn': 'optionYes'});
         });
     });
     describe('ParentAdoptedIn generateFields()', () => {
@@ -180,6 +182,9 @@ describe('ParentAdoptedIn', () => {
             ];
 
             const fields = ParentAdoptedIn.generateFields('en', ctx, errors);
+            const expectedErrorMessage = content.errors.applicantParentAdoptedIn.required
+                .replace('{applicantName}', ctx.applicantName)
+                .replace('{deceasedName}', ctx.deceasedName);
             expect(fields).to.deep.equal({
                 language: {
                     error: false,
@@ -188,7 +193,7 @@ describe('ParentAdoptedIn', () => {
                 applicantParentAdoptedIn: {
                     error: true,
                     href: '#applicantParentAdoptedIn',
-                    errorMessage: content.errors.applicantParentAdoptedIn.required
+                    errorMessage: expectedErrorMessage
                 },
                 deceasedName: {
                     error: false,

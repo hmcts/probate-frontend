@@ -5,6 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/parent-adopted-in';
 
+// Relationship-to-field map allows the same step to persist either legacy or WB/HB parent fields.
 const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
     optionGrandchild: {
         adoptedIn: 'grandchildParentAdoptedIn',
@@ -144,6 +145,7 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     handlePost(ctx, errors, formdata) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         const {adoptedIn, adoptionPlace, adoptedOut} = parentAdoptionFieldsFor(relationship);
+        // Clear dependent answers when adopted-in flips to avoid stale branch data on summary/persistence.
         if (formdata.executors && formdata.executors.list && adoptedIn && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.[adoptedIn]) {
             delete ctx.list[ctx.index][adoptionPlace];
             delete ctx.list[ctx.index][adoptedOut];

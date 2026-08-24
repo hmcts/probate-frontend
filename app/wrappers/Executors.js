@@ -188,6 +188,7 @@ class Executors {
         const wholeNieceNephewRelationships = ['optionWholeBloodNieceOrNephew', 'wholeBloodNieceOrNephew'];
         const halfNieceNephewRelationships = ['optionHalfBloodNieceOrNephew', 'halfBloodNieceOrNephew'];
 
+        // WB/HB niece-nephew stop checks use parent-eligibility answers captured in the newer parent fields.
         if (wholeNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
             return executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
                 executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||

@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const {get, set} = require('lodash');
+const {get} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const FieldError = require('../../../../components/error');
 const caseTypes = require('../../../../utils/CaseTypes');
@@ -116,10 +116,8 @@ class JointApplication extends ValidationStep {
                     this.generateContent({}, {}, session.language), session.language));
             }
         }
-        if (ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo' && Array.isArray(ctx.list)) {
-            ctx.list = ctx.list.filter(executor => executor?.isApplicant === true || executor?.isApplying !== true);
-            set(formdata, 'executors.list', ctx.list);
-        }
+        // "No" on this page means no additional co-applicants. Existing applying
+        // co-applicants must be preserved unless the user explicitly removes them.
         return [ctx, errors];
     }
 

@@ -2,7 +2,7 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const ExecutorsWrapper = require('app/wrappers/Executors');
-const {get} = require('lodash');
+const {get, set} = require('lodash');
 const FormatName = require('../../../../utils/FormatName');
 const FieldError = require('../../../../components/error');
 const caseTypes = require('../../../../utils/CaseTypes');
@@ -116,8 +116,14 @@ class JointApplication extends ValidationStep {
                     this.generateContent({}, {}, session.language), session.language));
             }
         }
-        // "No" on this page means no additional co-applicants. Existing applying
-        // co-applicants must be preserved unless the user explicitly removes them.
+        // Keep this removal intentionally narrow: only parent journey with exactly
+        // one extra executor. Whole/half-blood niece-nephew co-applicants are preserved.
+        if (ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo' &&
+            ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.list.length === 2) {
+            const lastIndex = ctx.list.length - 1;
+            ctx.list.splice(lastIndex, 1);
+            set(formdata, 'executors.list', ctx.list);
+        }
         return [ctx, errors];
     }
 

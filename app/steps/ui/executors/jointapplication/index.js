@@ -123,10 +123,6 @@ class JointApplication extends ValidationStep {
         return [ctx, errors];
     }
 
-    action(ctx, formdata) {
-        return super.action(ctx, formdata);
-    }
-
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
         if (fields.deceasedName && errors) {

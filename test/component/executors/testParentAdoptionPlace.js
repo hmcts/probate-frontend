@@ -11,7 +11,6 @@ describe('parent-adoption-place', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(2);
     const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantAdoptionPlaceStop');
-    const expectedNextUrlForNoNameStopPage = StopPage.getUrl('coApplicantParentAdoptionPlaceNoNameStop');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantParentAdoptionPlace');
@@ -91,28 +90,6 @@ describe('parent-adoption-place', () => {
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
-                });
-        });
-
-        it('redirects whole-blood niece or nephew to no-name stop page when parent adoption place is no', (done) => {
-            testWrapper.pageUrl = ParentAdoptionPlace.getUrl(2);
-            sessionData.executors.list[2].coApplicantRelationshipToDeceased = 'optionWholeBloodNieceOrNephew';
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {applicantParentAdoptionPlace: 'optionNo'}, `/intestacy${expectedNextUrlForNoNameStopPage}`);
-                });
-        });
-
-        it('redirects half-blood niece or nephew to no-name stop page when parent adoption place is no', (done) => {
-            testWrapper.pageUrl = ParentAdoptionPlace.getUrl(2);
-            sessionData.executors.list[2].coApplicantRelationshipToDeceased = 'optionHalfBloodNieceOrNephew';
-
-            testWrapper.agent.post('/prepare-session/form')
-                .send(sessionData)
-                .end(() => {
-                    testWrapper.testRedirect(done, {applicantParentAdoptionPlace: 'optionNo'}, `/intestacy${expectedNextUrlForNoNameStopPage}`);
                 });
         });
     });

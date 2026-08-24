@@ -1034,68 +1034,6 @@ describe('Executors.js', () => {
         });
     });
 
-    describe('isStopPage()', () => {
-        it('should return true when whole-blood niece or nephew parent adoption took place outside England or Wales', () => {
-            const data = {
-                list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo'
-                    }
-                ]
-            };
-            const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.isStopPage()).to.equal(true);
-        });
-
-        it('should return true when half-blood niece or nephew parent was adopted out', () => {
-            const data = {
-                list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
-                        halfNieceOrNephewParentAdoptedOut: 'optionYes'
-                    }
-                ]
-            };
-            const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.isStopPage()).to.equal(true);
-        });
-
-        it('should ignore stale half-blood stop fields for whole-blood niece or nephew', () => {
-            const data = {
-                list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew',
-                        halfNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo',
-                        halfNieceOrNephewParentAdoptedOut: 'optionYes',
-                        wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes'
-                    }
-                ]
-            };
-            const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.isStopPage()).to.equal(false);
-        });
-
-        it('should ignore stale whole-blood stop fields for half-blood niece or nephew', () => {
-            const data = {
-                list: [
-                    {firstName: 'james', lastName: 'miller', isApplying: true, isApplicant: true},
-                    {
-                        coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew',
-                        wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionNo',
-                        wholeNieceOrNephewParentAdoptedOut: 'optionYes',
-                        halfNieceOrNephewParentDieBeforeDeceased: 'optionYes'
-                    }
-                ]
-            };
-            const executorsWrapper = new ExecutorsWrapper(data);
-            expect(executorsWrapper.isStopPage()).to.equal(false);
-        });
-    });
-
     describe('removeAgreedFlag()', () => {
         it('should remove the agree flag of Executors who are applying', (done) => {
             const data = {

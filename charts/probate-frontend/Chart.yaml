@@ -6,7 +6,7 @@ home: https://github.com/hmcts/probate-frontend
 version: 2.3.76
 dependencies:
   - name: nodejs
-    version: 3.2.1
+    version: 3.3.0
     repository: 'oci://hmctsprod.azurecr.io/helm'
   - name: hmcts-redis
     version: 1.0.0

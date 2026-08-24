@@ -96,6 +96,20 @@ class ExecutorsApplying extends ValidationStep {
         return [ctx, formdata];
     }
 
+    isComplete(ctx, formdata) {
+        const [isComplete, progress] = super.isComplete(ctx, formdata);
+
+        if (ctx.otherExecutorsApplying !== 'optionYes') {
+            return [isComplete, progress];
+        }
+
+        const hasApplyingExecutor = new ExecutorsWrapper(ctx)
+            .aliveExecutors(true)
+            .some(executor => executor.isApplying === true);
+
+        return [isComplete && hasApplyingExecutor, progress];
+    }
+
     nextStepOptions() {
         return {
             options: [

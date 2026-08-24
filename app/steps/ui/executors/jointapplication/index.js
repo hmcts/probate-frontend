@@ -116,13 +116,15 @@ class JointApplication extends ValidationStep {
                     this.generateContent({}, {}, session.language), session.language));
             }
         }
-        if (ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo' &&
-            ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.list.length === 2) {
-            const lastIndex = ctx.list.length - 1;
-            ctx.list.splice(lastIndex, 1);
+        if (ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo' && Array.isArray(ctx.list)) {
+            ctx.list = ctx.list.filter(executor => executor?.isApplicant === true || executor?.isApplying !== true);
             set(formdata, 'executors.list', ctx.list);
         }
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        return super.action(ctx, formdata);
     }
 
     generateFields(language, ctx, errors) {

@@ -4,15 +4,18 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set relationship = fields.relationshipToDeceased.value %}
-{% if relationship == "optionGrandchild" %}
+{% if relationship == "optionGrandchild" or relationship == "grandchild" %}
 {%    set legendText = content.grandchildQuestion %}
 {%    set HintText = content.grandchildHintText %}
-{% elseif relationship == "optionWholeBloodNieceOrNephew" %}
+{% elseif relationship == "optionWholeBloodNieceOrNephew" or relationship == "wholeBloodNieceOrNephew" %}
 {%    set legendText = content.wholeBloodNieceOrNephewQuestion %}
 {%    set HintText = content.wholeBloodNieceOrNephewHintText %}
-{% else %}
+{% elseif relationship == "optionHalfBloodNieceOrNephew" or relationship == "halfBloodNieceOrNephew" %}
 {%    set legendText = content.halfBloodNieceOrNephewQuestion %}
 {%    set HintText = content.halfBloodNieceOrNephewHintText %}
+{% else %}
+{%    set legendText = content.grandchildQuestion %}
+{%    set HintText = content.grandchildHintText %}
 {% endif %}
 
 {% block form_content %}

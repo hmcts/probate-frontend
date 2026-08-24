@@ -13,9 +13,9 @@
   )}}
 {% endif %}
 
-{% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "optionHalfBloodNieceOrNephew" %}
+{% if executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "wholeBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "optionHalfBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "halfBloodNieceOrNephew" %}
     {% set deceasedName = (fields.deceased.firstName.value ~ " " ~ fields.deceased.lastName.value) | trim %}
-    {% set isWholeBlood = executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" %}
+    {% set isWholeBlood = executor.coApplicantRelationshipToDeceased == "optionWholeBloodNieceOrNephew" or executor.coApplicantRelationshipToDeceased == "wholeBloodNieceOrNephew" %}
     {% set parentAdoptedInField = "wholeNieceOrNephewParentAdoptedIn" if isWholeBlood else "halfNieceOrNephewParentAdoptedIn" %}
     {% set parentAdoptionPlaceField = "wholeNieceOrNephewParentAdoptionInEnglandOrWales" if isWholeBlood else "halfNieceOrNephewParentAdoptionInEnglandOrWales" %}
     {% set parentAdoptedOutField = "wholeNieceOrNephewParentAdoptedOut" if isWholeBlood else "halfNieceOrNephewParentAdoptedOut" %}

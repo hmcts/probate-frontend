@@ -185,13 +185,16 @@ class Executors {
     }
 
     hasStopCondition(executor) {
-        if (executor?.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+        const wholeNieceNephewRelationships = ['optionWholeBloodNieceOrNephew', 'wholeBloodNieceOrNephew'];
+        const halfNieceNephewRelationships = ['optionHalfBloodNieceOrNephew', 'halfBloodNieceOrNephew'];
+
+        if (wholeNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
             return executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
                 executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
                 executor?.wholeNieceOrNephewParentAdoptedOut === 'optionYes';
         }
 
-        if (executor?.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew') {
+        if (halfNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
             return executor?.halfNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
                 executor?.halfNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
                 executor?.halfNieceOrNephewParentAdoptedOut === 'optionYes';

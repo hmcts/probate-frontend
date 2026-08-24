@@ -34,7 +34,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.coApplicantRelationshipToDeceased = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
+            ctx.coApplicantRelationshipToDeceased = asOptionRelationship(ctx.list[ctx.index].coApplicantRelationshipToDeceased);
         }
         return [ctx];
     }

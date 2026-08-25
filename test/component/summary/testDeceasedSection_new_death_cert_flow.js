@@ -2,6 +2,7 @@
 
 const requireDir = require('require-directory');
 const TestWrapper = require('test/util/TestWrapper');
+const {expect} = require('chai');
 const languageContent = require('../../../app/resources/en/translation/language');
 const deceasedContent = requireDir(module, '../../../app/resources/en/translation/deceased');
 const willContent = requireDir(module, '../../../app/resources/en/translation/will');
@@ -119,6 +120,87 @@ describe('summary-deceased-section', () => {
                     playbackData.deathCertificate = deceasedContent.deathcertificate[playbackData.deathCertificate];
                     playbackData.address = sessionData.deceased.address.formattedAddress;
                     testWrapper.testDataPlayback(done, playbackData);
+                });
+        });
+
+        it('shows widowed marital questions in the expected order under alias on CYA', (done) => {
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    const deceasedName = FormatName.format(sessionData.deceased);
+                    const questionsInOrder = [
+                        deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
+                        deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedName),
+                        deceasedContent.deceasedpartnername.question.replace('{deceasedName}', deceasedName),
+                        deceasedContent.married.question.replace('{deceasedName}', deceasedName)
+                    ];
+
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .expect('Content-type', /html/)
+                        .then((response) => {
+                            let previousPosition = -1;
+                            questionsInOrder.forEach((questionText) => {
+                                const currentPosition = response.text.toLowerCase().indexOf(questionText.toLowerCase());
+                                expect(currentPosition, `Expected to find question: ${questionText}`).to.be.greaterThan(-1);
+                                expect(currentPosition, `Question out of order: ${questionText}`).to.be.greaterThan(previousPosition);
+                                previousPosition = currentPosition;
+                            });
+                            done();
+                        })
+                        .catch((requestErr) => done(requestErr));
+                });
+        });
+
+        it('shows divorced marital questions in the expected order under alias on CYA', (done) => {
+            sessionData.ccdCase = {
+                state: 'Pending',
+                id: 1234567890123456
+            };
+            sessionData.deceased.maritalStatus = 'optionDivorced';
+            sessionData.deceased.divorcePlace = 'optionYes';
+            sessionData.deceased.divorceDateKnown = 'optionYes';
+            sessionData.deceased.divorceDate = '2010-01-10';
+            delete sessionData.deceased.deceasedSpouseName;
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end((err) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    const deceasedName = FormatName.format(sessionData.deceased);
+                    const questionsInOrder = [
+                        deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
+                        deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedName),
+                        deceasedContent.divorceplace.question.replace('{legalProcess}', deceasedContent.maritalstatus.divorce),
+                        deceasedContent.divorcedate.question.replace('{legalProcess}', deceasedContent.maritalstatus.divorce),
+                        deceasedContent.divorcedate.date.replace('{legalProcess}', deceasedContent.maritalstatus.divorce),
+                        deceasedContent.married.question.replace('{deceasedName}', deceasedName)
+                    ];
+
+                    testWrapper.agent.get(testWrapper.pageUrl)
+                        .expect('Content-type', /html/)
+                        .then((response) => {
+                            let previousPosition = -1;
+                            questionsInOrder.forEach((questionText) => {
+                                const currentPosition = response.text.toLowerCase().indexOf(questionText.toLowerCase());
+                                expect(currentPosition, `Expected to find question: ${questionText}`).to.be.greaterThan(-1);
+                                expect(currentPosition, `Question out of order: ${questionText}`).to.be.greaterThan(previousPosition);
+                                previousPosition = currentPosition;
+                            });
+                            done();
+                        })
+                        .catch((requestErr) => done(requestErr));
                 });
         });
     });

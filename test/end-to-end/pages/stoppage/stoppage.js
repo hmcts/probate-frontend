@@ -2,7 +2,7 @@
 
 const testConfig = require('config');
 
-module.exports = async (url = '*') => {
+module.exports = async function(url = '*') {
     const I = this;
 
     if (testConfig.useIdam !== 'false') {

@@ -80,6 +80,7 @@ module.exports = () => {
         selectWillNoOfCodicils: steps.will.codicilsnumber,
         enterAnyChildren: steps.deceased.anychildren,
         enterAnyOtherChildren: steps.deceased.anyotherchildren,
+        selectDivorceSeparationDate: steps.deceased.divorcedate,
 
         // Executors
         enterApplicantName: steps.applicant.name,

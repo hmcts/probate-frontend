@@ -224,7 +224,6 @@ export class IntestacyScreenerPage extends BasePage {
     const continueButton = this.page.getByRole('button', {
       name: language === 'cy' ? 'Parhau' : 'Continue',
     });
-
     await expect(continueButton).toBeVisible();
     await expect(continueButton).toBeEnabled();
     await continueButton.click();

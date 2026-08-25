@@ -202,6 +202,56 @@ export class IntestacyScreenerPage extends BasePage {
     await this.navByClick(this.continueButtonLocator);
   }
 
+  async selectRelatedToDeceasedAat(language = 'en'): Promise<void> {
+    await this.checkInUrl('/related-to-deceased');
+
+    const questionHeading = this.page.locator(
+      '#main-form fieldset legend h1',
+    );
+
+    await expect(questionHeading).toBeVisible();
+
+    const yesRadio = this.page.locator('#related');
+
+    await expect(yesRadio).toBeVisible();
+    await expect(yesRadio).toBeEnabled();
+
+    await yesRadio.check();
+    await expect(yesRadio).toBeChecked();
+
+    await this.runAccessibilityTest();
+
+    const continueButton = this.page.getByRole('button', {
+      name: language === 'cy' ? 'Parhau' : 'Continue',
+    });
+
+    await expect(continueButton).toBeVisible();
+    await expect(continueButton).toBeEnabled();
+    await continueButton.click();
+  }
+
+  async selectOtherApplicantsAat(): Promise<void> {
+
+    await this.checkInUrl('/other-applicants');
+
+    const questionHeading = this.page.locator(
+      '#main-form fieldset legend h1',
+    );
+
+    await expect(questionHeading).toBeVisible();
+
+    const noRadio = this.page.locator('#otherApplicants-2');
+
+    await expect(noRadio).toBeVisible();
+    await expect(noRadio).toBeEnabled();
+
+    await noRadio.check();
+    await expect(noRadio).toBeChecked();
+
+    await this.runAccessibilityTest();
+    await this.navByClick(this.continueButtonLocator);
+  }
+
   async startApply(language = 'en') {
     const applyContent = getContent(`app/resources/${language}/translation/screeners/startapply.json`);
     await this.checkInUrl('/start-apply');

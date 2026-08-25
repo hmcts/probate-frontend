@@ -5,20 +5,23 @@ import {getContent} from "./contentHelper.ts";
 export const getTestLanguages = (): string[] =>
   String(process.env.DONT_TEST_WELSH) === 'true' ? ['en'] : ['en', 'cy'];
 
-export function decodeHTML(str: string): string {
-  return str.replace(/&([a-zA-Z]+);/g,
-    tag => ({
-      '&rsquo;': '\u2019',
-      '&lsquo;': '\u2018',
-      '&iuml;': 'ï',
-      '&acirc;': 'â',
-      '&ecirc;': 'ê',
-      '&icirc;': 'î',
-      '&ocirc;': 'ô',
-      '&ucirc;': 'û',
-      '&wcirc;': 'ŵ',
-      '&ycirc;': 'ŷ',
-    } as Record<string, string>)[tag] ?? tag);
+export function decodeHTML(str: string | undefined | null): string {
+  if (!str) {
+    return '';
+  }
+
+  return str.replace(/&([a-zA-Z]+);/g, tag => ({
+    '&rsquo;': '\u2019',
+    '&lsquo;': '\u2018',
+    '&iuml;': 'ï',
+    '&acirc;': 'â',
+    '&ecirc;': 'ê',
+    '&icirc;': 'î',        // ← fixed line
+    '&ocirc;': 'ô',
+    '&ucirc;': 'û',
+    '&wcirc;': 'ŵ',
+    '&ycirc;': 'ŷ',
+  } as Record<string, string>)[tag] ?? tag);
 }
 
 export class BasePage {

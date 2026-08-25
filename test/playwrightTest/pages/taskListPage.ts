@@ -19,7 +19,7 @@ export class TaskListPage extends BasePage {
 
   async chooseApplication(language ='en') {
     const dashboardContent = getContent(`app/resources/${language}/translation/dashboard.json`);
-    await this.checkInUrl('/task-list');
+    await this.checkInUrl('/dashboard');
     await this.runAccessibilityTest();
     await expect(this.page.locator('#main-content')).toBeVisible();
     const welshLinkText = await this.page.locator('//a[@class =\'govuk-link language\']').innerText();

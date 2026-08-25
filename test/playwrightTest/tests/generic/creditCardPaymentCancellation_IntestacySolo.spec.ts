@@ -5,6 +5,7 @@ import { Page, BrowserContext} from "@playwright/test";
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
+import deceasedDetailsConfig from '../../data/deceasedDetailsConfig.json' with { type: 'json' };
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -13,6 +14,9 @@ const relationshipChildOfDeceased = applicantDetailConfig.relationshipChildOfDec
 const optionRenouncing = applicantDetailConfig.optionRenouncing;
 const bilingualGOP = false;
 const hmrcCode = ihtDataConfig.hmrcCode;
+const nameParts = applicantDetailConfig.deceasedFullName.split(' ');
+const deceasedLastName = nameParts.slice(-2).join(' ');
+const deceasedFirstName = nameParts.slice(0, -2).join(' ');
 
 getTestLanguages().forEach(language => {
   test.describe('Credit card payment cancellation @firefox', () => {
@@ -67,7 +71,8 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipChildOfDeceased);
+      await intestacyScreenerPage.selectRelatedToDeceasedAat(language);
+      await intestacyScreenerPage.selectOtherApplicantsAat();
 
       await intestacyScreenerPage.startApply(language);
 
@@ -75,12 +80,19 @@ getTestLanguages().forEach(language => {
       await signInPage.authenticateWithIdamIfAvailable(language);
 
       // Deceased Task
-      await basePage.logInfo(scenarioName, "Deceased Details Task", null);
+      await basePage.logInfo(scenarioName, 'Deceased Details Task', null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-      await deceasedDetailsPage.enterDeceasedDetails('Deceased First Name', 'Deceased Last Name');
-      await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
-      await deceasedDetailsPage.enterDodDetails('02', '01', '2022');
+      await deceasedDetailsPage.enterDeceasedDetailsAat(
+        deceasedFirstName,
+        deceasedLastName,
+        deceasedDetailsConfig.deceasedDobDay,
+        deceasedDetailsConfig.deceasedDobMonth,
+        deceasedDetailsConfig.deceasedDobYear,
+        deceasedDetailsConfig.deceasedDodDay,
+        deceasedDetailsConfig.deceasedDodMonth,
+        deceasedDetailsConfig.deceasedDodYearEE,
+      );
       await deceasedDetailsPage.enterDeceasedAddress();
 
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
@@ -102,14 +114,11 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Applicant details task", null);
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
-      await applicantDetailsPage.selectSpouseNotApplyingReason(applicantDetailConfig.optionOther);
-      await applicantDetailsPage.viewSpouseNotApplyingStopPage(language);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
-      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'child');
-      await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
       await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
+      await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionAllOfThem);
-      await applicantDetailsPage.anyGrandChildren(language, optionNo);
+      // await applicantDetailsPage.anyGrandChildren(language, optionNo);
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();

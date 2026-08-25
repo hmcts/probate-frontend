@@ -29,7 +29,7 @@ export class IntestacyScreenerPage extends BasePage {
   async startApplication(language?: string, checkCookies: boolean = false) {
     // const commonContent = getContent(language, true);
     const cookiesContent = getContent(`app/resources/${language}/translation/static/cookies.json`);
-    await this.page.goto(`${testConfig.TestFrontendUrl}/start-eligibility?lng=${language}`, {
+    await this.page.goto(`${process.env.TEST_URL}/start-eligibility?lng=${language}`, {
       waitUntil: 'load',
       timeout: 60000
     });

@@ -34,6 +34,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
   }
 
   async getIdList() {
+    await this.page.waitForTimeout(3000);
     await this.page.goto(`${testConfig.TestFrontendUrl}${testConfig.TestInviteIdListUrl}`, {
       waitUntil: 'load',
       timeout: 60000

@@ -5,25 +5,28 @@ const caseTypes = require('app/utils/CaseTypes');
 const journeyCheck = require('app/middleware/journeyCheck');
 
 const intestacyOnlyPages = [
-    '/deceased-details',
     '/assets-outside-england-wales',
     '/value-assets-outside-england-wales',
     '/deceased-marital-status',
     '/deceased-divorce-or-separation-place',
+    '/deceased-divorced-or-separation-date',
     '/relationship-to-deceased',
+    '/child-adopted-in',
+    '/child-adoption-place',
+    '/child-adopted-out',
     '/adoption-place',
     '/spouse-not-applying-reason',
     '/any-children',
     '/any-other-children',
     '/all-children-over-18',
-    '/any-deceased-children',
-    '/any-grandchildren-under-18'
+    '/any-predeceased-children',
+    '/any-surviving-grandchildren',
+    '/any-grandchildren-under-18',
+    '/deceased-same-parents',
+    '/any-living-parents',
 ];
 
 const gopOnlyPages = [
-    '/deceased-name',
-    '/deceased-dob',
-    '/deceased-dod',
     '/will-codicils',
     '/codicils-number',
     '/deceased-married',
@@ -32,8 +35,6 @@ const gopOnlyPages = [
     '/applicant-alias-reason',
     '/executors-additional-invite',
     '/executors-additional-invite-sent',
-    '/executor-address',
-    '/executor-address/*',
     '/check-will-executors',
     '/executors-alias',
     '/any-executors-died',
@@ -45,7 +46,6 @@ const gopOnlyPages = [
     '/executor-id-name/*',
     '/executor-name-reason',
     '/executor-name-reason/*',
-    '/executors-invite',
     '/executors-invites-sent',
     '/executors-names',
     '/executor-notified',

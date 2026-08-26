@@ -112,10 +112,6 @@ export class PaymentTaskSection extends BasePage {
       // If we didn't reach /confirm, just ensure we're still on the payment domain
       await expect(this.page).toHaveURL(/card\.payments\.service\.gov\.uk/);
     }
-
-    const url = this.page.url();
-    const title = await this.page.title();
-    console.log(`[AFTER CONTINUE] language=${language} url=${url} title=${title}`);
   }
 
   async seeGovUkConfirmPage(language = 'en') {
@@ -124,8 +120,6 @@ export class PaymentTaskSection extends BasePage {
     const confirmButtonName = language === 'en' ? 'Confirm payment' : 'Cadarnhau’r taliad';
 
     const url = this.page.url();
-    const title = await this.page.title();
-    console.log(`[CONFIRM PAGE] language=${language} url=${url} title=${title}`);
 
     await expect(this.page).toHaveURL(/card\.payments\.service\.gov\.uk/);
 

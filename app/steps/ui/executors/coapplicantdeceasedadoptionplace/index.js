@@ -27,27 +27,29 @@ class CoApplicantDeceasedAdoptionPlace extends ValidationStep {
     }
 
     isComplete(ctx) {
-        const isGrandchildParentAdoptionInEnglandOrWales = ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes';
-        return [isGrandchildParentAdoptionInEnglandOrWales, 'inProgress'];
+        if (ctx.list[ctx.index]?.coApplicantDeceasedAdoptionPlace) {
+            return [true, 'inProgress'];
+        }
+        return [false, 'inProgress'];
     }
 
     handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
-        }
+        // if (ctx.list?.[ctx.index]) {
+        //     ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
+        // }
         return [ctx];
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
-    }
+    // nextStepUrl(req, ctx) {
+    //     return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
+    // }
 
     nextStepOptions(ctx) {
-        const coAppDeceasedAdoptionPlace = ctx.list?.at(ctx.index)?.coAppDeceasedAdoptionPlace;
-        ctx.coAppDeceasedAdoptionPlace = coAppDeceasedAdoptionPlace === 'optionYes';
+        const coAppDeceasedAdoptedInEnglandOrWales = ctx.coApplicantDeceasedAdoptionPlace;
+        ctx.coApplicantDeceasedAdoptedInEnglandOrWales = coAppDeceasedAdoptedInEnglandOrWales === 'optionYes';
         return {
             options: [
-                {key: 'coAppDeceasedAdoptionPlace', value: true, choice: 'coAppDeceasedAdoptionPlace'},
+                {key: 'coAppDeceasedAdoptedPlace', value: true, choice: 'coAppDeceasedAdoptedPlace'},
             ]
         };
     }

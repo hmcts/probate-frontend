@@ -6,27 +6,26 @@
 {% block form_content %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
-        idPrefix: "CoApplicantDeceasedAdoptedOut",
-        name: "coApplicantDeceasedAdoptedOut",
+        idPrefix: "coApplicantDeceasedAdoptionPlace",
+        name: "coApplicantDeceasedAdoptionPlace",
         fieldset: {
             legend: {
-                text: content.question | replace("{applicantName}", fields.applicantName.value)  | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                text: content.question | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: { text: fields.coApplicantDeceasedAdoptedOut.errorMessage | replace("{applicantName}", fields.applicantName.value)
-| replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.coApplicantDeceasedAdoptedOut.errorMessage,
+        errorMessage: { text: fields.coApplicantDeceasedAdoptionPlace.errorMessage | safe } if fields.coApplicantDeceasedAdoptionPlace.errorMessage,
         items: [
             {
                 value: "optionYes",
                 text: content["optionYes"] | safe,
-                checked: true if fields.coApplicantDeceasedAdoptedOut.value == "optionYes"
+                checked: true if fields.coApplicantDeceasedAdoptionPlace.value == "optionYes"
             },
             {
                 value: "optionNo",
                 text: content["optionNo"] | safe,
-                checked: true if fields.coApplicantDeceasedAdoptedOut.value == "optionNo"
+                checked: true if fields.coApplicantDeceasedAdoptionPlace.value == "optionNo"
             }
         ]
     }) }}

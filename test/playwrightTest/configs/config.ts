@@ -5,13 +5,7 @@ dotenv.config({path: './test/playwrightTest/.env'});
 export const testConfig = {
   environment: 'sandbox',
   featureToggles: {
-    enabled: true,
-    launchDarklyKey: 'sdk-4d50eb6e-8400-4aa7-b4c5-8bdfc8b1d844',
-    launchDarklyUser: {
-      firstName: 'Marian',
-      lastName: 'Local',
-      key: 'Marian.Irudayanathan@justice.gov.uk'
-    }
+    enabled: false,
   },
 
   configFeatureToggles: {
@@ -21,8 +15,8 @@ export const testConfig = {
 
   TestCitizenDomain: '/@probateTest.com',
   TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
-  TestE2EFrontendUrl: 'https://probate.aat.platform.hmcts.net',
-  TestFrontendUrl: 'https://probate.aat.platform.hmcts.net',
+  TestE2EFrontendUrl: 'https://probate-frontend-pr-3527.preview.platform.hmcts.net',
+  TestFrontendUrl: 'https://probate-frontend-pr-3527.preview.platform.hmcts.net',
   TestIdamAddUserUrl: '/testing-support/accounts',
   TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net',
   TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login',

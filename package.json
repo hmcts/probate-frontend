@@ -4,7 +4,7 @@
   "version": "4.1.3",
   "private": true,
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "setup": "NODE_PATH=. yarn git-info && yarn sass && yarn sass-ie8",
@@ -41,7 +41,7 @@
     "test-e2e-gop-single-executor-EE-No-playwright": "yarn playwright install chromium && npx playwright test tests/probate/gopSingleExecutor_EE_No.spec.ts --headed",
     "test-e2e-gop-single-executor-EE-Yes-playwright": "yarn playwright install chromium && npx playwright test tests/probate/gopSingleExecutor_EE_Yes.spec.ts --headed",
     "test-e2e-gop-single-executor-playwright": "yarn playwright install chromium && npx playwright test tests/probate/preview/gopSingleExecutor.spec.ts --headed",
-    "test-e2e-gop-multiple-executors-EE-No-playwright": "yarn playwright install chromium && npx playwright test tests/probate/preview/gopMultipleExecutors_EE_No.spec.ts --headed",
+    "test-e2e-gop-multiple-executors-EE-No-playwright": "yarn playwright install chromium && npx playwright test tests/probate/preview/gopMultipleExecutors_EE_No.spec.ts --workers=1 --headed",
     "test-e2e-gop-multiple-executors-EE-Yes-playwright": "yarn playwright install chromium && npx playwright test tests/probate/gopMultipleExecutors_EE_Yes.spec.ts --headed",
     "test-e2e-gop-multiple-executors-IHT205-playwright": "yarn playwright install chromium && npx playwright test tests/probate/gopMultipleExecutors.spec.ts --headed",
     "test-e2e-intestacy-child-solo-playwright": "yarn playwright install chromium && npx playwright test tests/intestacy/intestacyChildSoloEEYes.spec.ts --headed",

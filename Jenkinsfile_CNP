@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure@2.4.9") _
+@Library("Infrastructure@2.5.4") _
 
 import uk.gov.hmcts.contino.GithubAPI
 import uk.gov.hmcts.contino.AppPipelineDsl
@@ -29,6 +29,7 @@ def secrets = [
     secret('testInviteIdListUrl', 'INVITE_ID_LIST_URL'),
     secret('testPinUrl', 'PIN_URL'),
     secret('testInvitationUrl', 'INVITATION_URL'),
+    secret('testIntestacyInvitationUrl', 'INTESTACY_INVITATION_URL'),
     secret('testIdamAddUserUrl', 'IDAM_ADD_USER_URL'),
     secret('testIdamRole', 'IDAM_CITIZEN_ROLE'),
     secret('testIdamUserGroup', 'IDAM_USER_GROUP'),
@@ -61,43 +62,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
-  /*  afterCheckout {
-     onMaster {
-       try {
-         sh """
-           git fetch origin demo:demo
-           git push --force origin HEAD:demo
-         """
-             } catch (err) {
-                 notifyBuildEvent channel: notificationsChannel, color: 'warning', message: 'Failed to update demo branch'
-             }
-         }
-     } */
 
-//    afterSuccess('test') {
-//        if (env.CHANGE_BRANCH || env.BRANCH_NAME == 'master') {
-//            env.PACT_BRANCH_NAME = env.CHANGE_BRANCH
-//            env.PACT_BROKER_URL = "https://pact-broker.platform.hmcts.net"
-//            if (env.BRANCH_NAME == 'master') {
-//                env.PACT_BRANCH_NAME = 'master'
-//            }
-//            env.PACT_BROKER_VERSION = sh(returnStdout: true, script: 'git rev-parse --verify --short HEAD')
-//            sh 'printenv'
-//            sh 'yarn test-pact'
-//            sh 'yarn publish-pact'
-//            sh 'curl -LO https://github.com/pact-foundation/pact-ruby-standalone/releases/download/v1.63.0/pact-1.63.0-linux-x86_64.tar.gz'
-//            sh 'tar xzf pact-1.63.0-linux-x86_64.tar.gz'
-//            dir('pact/bin') {
-//                sh './pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a probate_frontend -b ${PACT_BROKER_URL} -e ${PACT_BROKER_VERSION}'
-//            }
-//        }
-//    }
-
-/*
-   before('buildinfra:prod') {
-       error 'Deliberately breaking pipeline to prevent prod deployment'
-   }
-*/
   enableAksStagingDeployment()
   disableLegacyDeployment()
 
@@ -107,42 +72,45 @@ withPipeline("nodejs", product, component) {
 
   afterSuccess('functionalTest:preview') {
     def testsRan = true
-    try {
-      if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
-        env.DONT_TEST_WELSH = true
-        yarnBuilder.yarn('test:fullfunctional-pr');
-      } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
-        yarnBuilder.yarn('test:fullfunctional-pr');
-      } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
-        yarnBuilder.yarn('test:fullfunctional-gop');
-      }else {
-        testsRan = false
+    if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
+      env.DONT_TEST_WELSH = true
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
+      sh 'yarn install'
+      catchError(stageResult: 'UNSTABLE') {
+        sh 'yarn test:fullfunctional-pr'
       }
-    } finally {
-      // Only publish if tests ran AND report exists
-      if (testsRan && fileExists('functional-output/merged/mochawesome.html')) {
-        publishHTML target: [
-          allowMissing: false,
-          alwaysLinkToLastBuild: true,
-          keepAll: false,
-          reportDir: "functional-output/merged",
-          reportFiles: "mochawesome.html",
-          reportName: "Preview Functional Test Report"
-        ]
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-      } else {
-        echo 'No E2E tests ran or no report generated - skipping report publishing'
+    } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
+      sh 'yarn install'
+      catchError(stageResult: 'UNSTABLE') {
+        sh 'yarn test:fullfunctional-pr'
       }
+    } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
+      env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+      env.BROWSER_NAME = "chromium"
+      sh 'yarn install'
+      catchError(stageResult: 'UNSTABLE') {
+        sh 'yarn test:fullfunctional-gop'
+      }
+    } else {
+      testsRan = false
     }
-  }
-
-  afterSuccess('functionalTest:aat') {
-    publishHTML target: [
-      reportDir            : "functional-output/",
-      reportFiles          : "mochawesome.html",
-      reportName           : "AAT Functional Tests",
-      alwaysLinkToLastBuild: true
-    ]
+    if (testsRan && fileExists('functional-output/reports/chromium/index.html')) {
+      publishHTML target: [
+        allowMissing         : true,
+        alwaysLinkToLastBuild: true,
+        keepAll              : true,
+        reportDir            : "functional-output/reports/chromium",
+        reportFiles          : "index.html",
+        reportName           : "Playwright Test Report",
+        reportTitles         : 'E2E Test Results'
+      ]
+      steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    } else {
+      echo 'No E2E tests ran or no report generated - skipping report publishing'
+    }
   }
 
   enablePactAs([

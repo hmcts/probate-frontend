@@ -50,7 +50,7 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
       timeout: 60000
     });
     await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeEnabled();
-    await this.page.goto(`${process.env.TEST_URL}/pin`, {
+    await this.page.goto(`${testConfig.TestE2EFrontendUrl}/pin`, {
       waitUntil: 'load',
       timeout: 60000
     });

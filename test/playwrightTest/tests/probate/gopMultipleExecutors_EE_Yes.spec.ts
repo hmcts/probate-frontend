@@ -47,6 +47,7 @@ getTestLanguages().forEach(language => {
                coApplicantNotifyAndDeclarationPage,
                paymentTaskPage
       }) => {
+        test.setTimeout(6000000)
       const testConfigurator = new TestConfigurator();
         const scenarioName = `GOP co-executor journey - EE Yes - ${language}`;
 

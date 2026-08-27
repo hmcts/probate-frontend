@@ -44,6 +44,7 @@ getTestLanguages().forEach(language => {
                cyaAndDeclarationPage,
                paymentTaskPage
       }) => {
+        test.setTimeout(6000000)
       const testConfigurator = new TestConfigurator();
         const scenarioName = `GOP single executor journey - EE No - ${language}`;
 

@@ -2,6 +2,7 @@ import { BrowserContext, expect } from "@playwright/test";
 import { BasePage } from "../utility/basePage.ts";
 import { getContent } from '../utility/contentHelper.ts';
 import { decodeHTML } from "../utility/basePage.ts";
+import { testConfig } from "../../configs/config.ts";
 
 export class IntestacyScreenerPage extends BasePage {
   readonly eligibilityLinkLocator = this.page.locator('#main-content > div.govuk-grid-row > div > h1');
@@ -28,7 +29,7 @@ export class IntestacyScreenerPage extends BasePage {
   async startApplication(language?: string, checkCookies: boolean = false) {
     // const commonContent = getContent(language, true);
     const cookiesContent = getContent(`app/resources/${language}/translation/static/cookies.json`);
-    await this.page.goto(`${process.env.TEST_URL}/start-eligibility?lng=${language}`, {
+    await this.page.goto(`${testConfig.TestE2EFrontendUrl}/start-eligibility?lng=${language}`, {
       waitUntil: 'load',
       timeout: 60000
     });

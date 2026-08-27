@@ -1,0 +1,14 @@
+{
+  "title": "All children over 18",
+  "question": "Are all of these children 18 or older?",
+  "paragraph": "You do not need to include any children that died after {deceasedName}.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "grandchildParentHasAllChildrenOver18": {
+      "required": "Select &lsquo;Yes&rsquo; if all of the children are 18 or older"
+    }
+  }
+}

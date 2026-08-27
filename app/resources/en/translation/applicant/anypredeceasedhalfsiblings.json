@@ -1,0 +1,14 @@
+{
+  "title": "Did any of these half-siblings die before the deceased",
+  "question": "Did any of these half-siblings die before {deceasedName}?",
+  "optionYesAll": "Yes, all of them",
+  "optionYesSome": "Yes, some of them",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "anyPredeceasedHalfSiblings": {
+      "required": "Select if any of the half-siblings died before {deceasedName}"
+    }
+  }
+}

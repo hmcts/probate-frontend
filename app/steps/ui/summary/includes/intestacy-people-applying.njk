@@ -1,0 +1,124 @@
+{% if relationship !== "optionParent" %}
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.otherExecutorRelationshipToDeceased.value,
+              answer: content.CoApplicantRelationshipToDeceased[executor.coApplicantRelationshipToDeceased],
+              visible: true
+          }
+      ],
+      url = content.CoApplicantRelationshipToDeceased.url  | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+{% endif %}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.CoApplicantName.question,
+            answer: executor.fullName,
+            visible: true
+        }
+    ],
+    url = content.CoApplicantName.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+{% set relationships = {
+    "optionChild": {
+        adoptedIn: "childAdoptedIn",
+        adoptedOut: "childAdoptedOut",
+        adoptionPlace: "childAdoptionInEnglandOrWales"
+    },
+    "optionGrandchild": {
+        adoptedIn: "grandchildAdoptedIn",
+        adoptedOut: "grandchildAdoptedOut",
+        adoptionPlace: "grandchildAdoptionInEnglandOrWales"
+    },
+    "optionHalfBloodSibling": {
+        adoptedIn: "halfBloodSiblingAdoptedIn",
+        adoptedOut: "halfBloodSiblingAdoptedOut",
+        adoptionPlace: "halfBloodSiblingAdoptionInEnglandOrWales"
+    },
+    "optionHalfBloodNieceOrNephew": {
+        adoptedIn: "halfBloodNieceOrNephewAdoptedIn",
+        adoptedOut: "halfBloodNieceOrNephewAdoptedOut",
+        adoptionPlace: "halfBloodNieceOrNephewAdoptionInEnglandOrWales"
+    },
+    "optionWholeBloodSibling": {
+        adoptedIn: "wholeBloodSiblingAdoptedIn",
+        adoptedOut: "wholeBloodSiblingAdoptedOut",
+        adoptionPlace: "wholeBloodSiblingAdoptionInEnglandOrWales"
+    },
+    "optionWholeBloodNieceOrNephew": {
+        adoptedIn: "wholeBloodNieceOrNephewAdoptedIn",
+        adoptedOut: "wholeBloodNieceOrNephewAdoptedOut",
+        adoptionPlace: "wholeBloodNieceOrNephewAdoptionInEnglandOrWales"
+    }
+} %}
+
+{% set rel = relationships[executor.coApplicantRelationshipToDeceased] %}
+{% if rel %}
+    {{checkanswer(
+        items = [
+            {
+                question: fields.summary.executorSummary.value[loop.index0].adoptedInQuestion,
+                answer: content.CoApplicantAdoptedIn[executor[rel.adoptedIn]],
+                visible: true
+            }
+        ],
+        url = content.CoApplicantAdoptedIn.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: content.CoApplicantAdoptionPlace.question,
+                answer: content.CoApplicantAdoptionPlace[executor[rel.adoptionPlace]],
+                visible: executor[rel.adoptedIn] == "optionYes"
+            }
+        ],
+        url = content.CoApplicantAdoptionPlace.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+    {{checkanswer(
+        items = [
+            {
+                question: fields.summary.executorSummary.value[loop.index0].adoptedOutQuestion,
+                answer: content.CoApplicantAdoptedOut[executor[rel.adoptedOut]],
+                visible: executor[rel.adoptedIn] == "optionNo"
+            }
+        ],
+        url = content.CoApplicantAdoptedOut.url | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+{% endif %}
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.executorSummary.value[loop.index0].emailQuestion,
+            answer: executor.email,
+            visible: true
+        }
+    ],
+    url = content.CoApplicantEmail.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.executorSummary.value[loop.index0].addressQuestion,
+            answer: executor.address.formattedAddress,
+            visible: true
+        }
+    ],
+    url = content.ExecutorAddress.url | replace("*", loop.index0 ),
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}

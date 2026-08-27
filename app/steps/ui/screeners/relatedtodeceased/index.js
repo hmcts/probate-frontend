@@ -20,13 +20,17 @@ class RelatedToDeceased extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('notRelated');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notRelated');
     }
 
     nextStepOptions() {
         return {
             options: [
-                {key: fieldKey, value: 'optionYes', choice: 'related'}
+                {key: fieldKey, value: 'optionPartner', choice: 'related'},
+                {key: fieldKey, value: 'optionChild', choice: 'related'},
+                {key: fieldKey, value: 'optionGrandchild', choice: 'related'},
+                {key: fieldKey, value: 'optionParent', choice: 'related'},
+                {key: fieldKey, value: 'optionSibling', choice: 'related'}
             ]
         };
     }

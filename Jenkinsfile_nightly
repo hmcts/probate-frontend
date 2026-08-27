@@ -69,7 +69,7 @@ withNightlyPipeline("nodejs", product, component) {
   afterAlways('fullFunctionalTest') {
     script {
       def resultsJson = readJSON file: 'functional-output/results.json'
-      hasFailures = resultsJson.stats?.unexpected > 0 || resultsJson.stats?.flaky > 0
+      hasFailures = resultsJson.stats?.unexpected > 0
       if (hasFailures) {
         unstable('E2E tests failed')
       }

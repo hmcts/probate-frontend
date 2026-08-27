@@ -2,9 +2,9 @@ $path: "/public/images/";
 
 // Import GOV.UK Frontend
 @import "govuk-frontend/dist/govuk/base";
-@import "govuk-frontend/dist/govuk/settings/all";
-@import "govuk-frontend/dist/govuk/core/all";
-@import "govuk-frontend/dist/govuk/objects/all";
+@import "govuk-frontend/dist/govuk/settings/index";
+@import "govuk-frontend/dist/govuk/core/index";
+@import "govuk-frontend/dist/govuk/objects/index";
 @import "govuk-frontend/dist/govuk/components/button/button";
 @import "govuk-frontend/dist/govuk/components/checkboxes/checkboxes";
 @import "govuk-frontend/dist/govuk/components/cookie-banner/cookie-banner";
@@ -28,8 +28,8 @@ $path: "/public/images/";
 @import "govuk-frontend/dist/govuk/components/tag/tag";
 @import "govuk-frontend/dist/govuk/components/textarea/textarea";
 @import "govuk-frontend/dist/govuk/components/warning-text/warning-text";
-@import "govuk-frontend/dist/govuk/utilities/all";
-@import "govuk-frontend/dist/govuk/overrides/all";
+@import "govuk-frontend/dist/govuk/utilities/index";
+@import "govuk-frontend/dist/govuk/overrides/index";
 @import "govuk-frontend/dist/govuk/components/notification-banner/notification-banner";
 @import "govuk-frontend/dist/govuk/components/task-list/task-list";
 

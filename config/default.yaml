@@ -207,6 +207,8 @@ links:
   survey: 'https://www.smartsurvey.co.uk/s/Probate_Feedback/'
   surveyEndOfApplication: 'https://www.smartsurvey.co.uk/s/SurveyExit/?service=Probate'
   ihtNotCompleted: 'https://www.gov.uk/valuing-estate-of-someone-who-died/tell-hmrc-estate-value'
+  applicationFormPA1A: 'https://www.gov.uk/government/publications/form-pa1a-apply-for-probate-deceased-did-not-leave-a-will'
+  applicationFormPA1P: 'https://www.gov.uk/government/publications/form-pa1p-apply-for-probate-the-deceased-had-a-will'
   applicationFormPA12: 'https://www.gov.uk/government/publications/form-pa12-apply-for-power-of-attorney-intestate'
   applicationFormPA14: 'https://www.gov.uk/government/publications/form-pa14-medical-certificate-probate'
   applicationFormPA15: 'https://www.gov.uk/government/publications/form-pa15-give-up-probate-executor-rights'
@@ -240,6 +242,7 @@ links:
   paymentsAccessibilityStatement: 'https://www.payments.service.gov.uk/accessibility-statement/'
   probateEstate: 'https://www.gov.uk/probate-estate'
   findLegalAdvice: 'https://www.gov.uk/find-legal-advice'
+  renunciationForm: 'https://www.gov.uk/government/publications/form-pa15-apply-for-renunciation-will'
 utils:
   api:
     retries: 10

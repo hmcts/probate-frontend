@@ -113,22 +113,40 @@ withPipeline("nodejs", product, component) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
-      catchError(stageResult: 'UNSTABLE') {
-        sh 'yarn test:fullfunctional-pr'
+      script {
+        def exitCode = sh(script: 'yarn test:fullfunctional-pr', returnStatus: true)
+
+        if (exitCode != 0) {
+          catchError(stageResult: 'FAILURE') {
+            error("Playwright functional tests failed (exit code ${exitCode})")
+          }
+        }
       }
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
-      catchError(stageResult: 'UNSTABLE') {
-        sh 'yarn test:fullfunctional-pr'
+      script {
+        def exitCode = sh(script: 'yarn test:fullfunctional-pr', returnStatus: true)
+
+        if (exitCode != 0) {
+          catchError(stageResult: 'FAILURE') {
+            error("Playwright functional tests failed (exit code ${exitCode})")
+          }
+        }
       }
     } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
-      catchError(stageResult: 'UNSTABLE') {
-        sh 'yarn test:fullfunctional-gop'
+      script {
+        def exitCode = sh(script: 'yarn test:fullfunctional-gop', returnStatus: true)
+
+        if (exitCode != 0) {
+          catchError(stageResult: 'FAILURE') {
+            error("Playwright functional tests failed (exit code ${exitCode})")
+          }
+        }
       }
     } else {
       testsRan = false

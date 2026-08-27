@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
-const pageUrl = '/coapplicant-deceased-adopted-in';
+const pageUrl = '/coapplicant-deceased-adopted-out';
 
 class CoApplicantDeceasedAdoptedOut extends ValidationStep {
 
@@ -27,21 +27,22 @@ class CoApplicantDeceasedAdoptedOut extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.grandchildParentAdoptedIn) {
+        if (ctx.coApplicantDeceasedAdoptedOut) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
     }
 
     handleGet(ctx) {
-        if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptedIn = ctx.list[ctx.index].grandchildParentAdoptedIn;
-        }
         return [ctx];
     }
 
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantDeceasedAdoptedOutStop');
+    }
+
     nextStepOptions(ctx) {
-        const coAppDeceasedAdoptedOut = ctx.list?.at(ctx.index)?.coAppDeceasedAdoptedOut;
+        const coAppDeceasedAdoptedOut = ctx.coApplicantDeceasedAdoptedOut;
         ctx.coAppDeceasedAdoptedOut = coAppDeceasedAdoptedOut === 'optionYes';
         return {
             options: [
@@ -58,12 +59,7 @@ class CoApplicantDeceasedAdoptedOut extends ValidationStep {
         return fields;
     }
 
-    handlePost(ctx, errors, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.grandchildParentAdoptedIn) {
-            delete ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
-            delete ctx.list[ctx.index].grandchildParentAdoptedIn;
-        }
-        ctx.list[ctx.index].grandchildParentAdoptedIn = ctx.applicantParentAdoptedIn;
+    handlePost(ctx, errors) {
         return [ctx, errors];
     }
 }

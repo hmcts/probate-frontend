@@ -40,25 +40,21 @@ class CoApplicantDeceasedAdoptionPlace extends ValidationStep {
         return [ctx];
     }
 
-    // nextStepUrl(req, ctx) {
-    //     return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
-    // }
+    nextStepUrl(req, ctx) {
+        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantDeceasedAdoptionPlaceStop');
+    }
 
     nextStepOptions(ctx) {
         const coAppDeceasedAdoptedInEnglandOrWales = ctx.coApplicantDeceasedAdoptionPlace;
-        ctx.coApplicantDeceasedAdoptedInEnglandOrWales = coAppDeceasedAdoptedInEnglandOrWales === 'optionYes';
+        ctx.coAppDeceasedAdoptionPlace = coAppDeceasedAdoptedInEnglandOrWales === 'optionYes';
         return {
             options: [
-                {key: 'coAppDeceasedAdoptedPlace', value: true, choice: 'coAppDeceasedAdoptedPlace'},
+                {key: 'coAppDeceasedAdoptionPlace', value: true, choice: 'coAppDeceasedAdoptionPlace'},
             ]
         };
     }
 
-    handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].grandchildParentAdoptionInEnglandOrWales = ctx.applicantParentAdoptionPlace;
-        if (ctx.applicantParentAdoptionPlace === 'optionNo') {
-            ctx.hasCoApplicant = 'optionYes';
-        }
+    handlePost(ctx, errors) {
         return [ctx, errors];
     }
 }

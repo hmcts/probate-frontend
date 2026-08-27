@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 const initSteps = require('app/core/initSteps');
 const {expect} = require('chai');
@@ -247,6 +248,115 @@ describe('Executors-Applying', () => {
         it('removes currentNameReason from data if isApplying is false', () => {
             const data = ExecsApplying.pruneExecutorData(ctx.list[1]);
             assert.isUndefined(data.currentNameReason);
+        });
+    });
+
+    describe('isComplete()', () => {
+        const applicant = {
+            firstName: 'Main',
+            lastName: 'Applicant',
+            isApplicant: true,
+            isApplying: true
+        };
+
+        it('should be complete when optionYes matches a living executor who is applying', () => {
+            ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    applicant,
+                    {
+                        fullName: 'Some Name',
+                        isApplying: true
+                    }
+                ]
+            };
+
+            expect(ExecsApplying.isComplete(ctx))
+                .to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should be complete when optionYes matches one of multiple living executors who is applying', () => {
+            ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    applicant,
+                    {
+                        fullName: 'Some Name',
+                        isApplying: false
+                    },
+                    {
+                        fullName: 'Another Name',
+                        isApplying: true
+                    }
+                ]
+            };
+
+            expect(ExecsApplying.isComplete(ctx))
+                .to.deep.equal([true, 'inProgress']);
+        });
+
+        it('should be incomplete when optionYes is stale and the executor is not applying', () => {
+            ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    applicant,
+                    {
+                        fullName: 'Some Name',
+                        isApplying: false
+                    }
+                ]
+            };
+
+            expect(ExecsApplying.isComplete(ctx))
+                .to.deep.equal([false, 'inProgress']);
+        });
+
+        it('should be incomplete when optionYes is stale and isApplying has been pruned', () => {
+            ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    applicant,
+                    {
+                        fullName: 'Some Name'
+                    }
+                ]
+            };
+
+            expect(ExecsApplying.isComplete(ctx))
+                .to.deep.equal([false, 'inProgress']);
+        });
+
+        it('should not count a dead executor as an applying executor', () => {
+            ctx = {
+                otherExecutorsApplying: 'optionYes',
+                list: [
+                    applicant,
+                    {
+                        fullName: 'Some Name',
+                        isApplying: true,
+                        isDead: true
+                    }
+                ]
+            };
+
+            expect(ExecsApplying.isComplete(ctx))
+                .to.deep.equal([false, 'inProgress']);
+        });
+
+        it('should preserve the existing completion result for optionNo', () => {
+            ctx = {
+                otherExecutorsApplying: 'optionNo',
+                list: [
+                    applicant,
+                    {
+                        fullName: 'Some Name',
+                        isApplying: false
+                    }
+                ]
+            };
+
+            expect(ExecsApplying.isComplete(ctx))
+                .to.deep.equal([true, 'inProgress']);
         });
     });
 });

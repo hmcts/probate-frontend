@@ -24,9 +24,11 @@ class ExecutorContactDetails extends ValidationStep {
             ctx.index = this.recalcIndex(ctx, 0);
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        const executor = ctx.list[ctx.index];
-        ctx.inviteId = executor.inviteId;
-        ctx.otherExecName = executor.hasOtherName ? executor.currentName : executor.fullName;
+        const executor = ctx.list?.[ctx.index];
+        if (executor) {
+            ctx.inviteId = executor.inviteId;
+            ctx.otherExecName = executor.hasOtherName ? executor.currentName : executor.fullName;
+        }
         ctx.formdataId = req.session.form.applicantEmail;
         ctx.authToken = req.authToken;
         ctx.serviceAuthorization = req.session.serviceAuthorization;

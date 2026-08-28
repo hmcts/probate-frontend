@@ -410,6 +410,7 @@ describe('stop-page', () => {
                     id: 1234567890123456
                 },
                 applicationFormPA1A: config.links.applicationFormPA1A,
+                findLegalAdvice: config.links.findLegalAdvice,
                 whoInherits: config.links.whoInherits,
                 deceased: {
                     firstName: 'John',
@@ -424,6 +425,7 @@ describe('stop-page', () => {
                 .end(() => {
                     const contentData = {
                         applicationFormPA1A: config.links.applicationFormPA1A,
+                        findLegalAdvice: config.links.findLegalAdvice,
                         whoInherits: config.links.whoInherits,
                         deceasedName: 'John Doe'
                     };

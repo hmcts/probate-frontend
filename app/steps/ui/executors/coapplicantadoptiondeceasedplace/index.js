@@ -3,9 +3,9 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
-const pageUrl = '/parent-adoption-place';
+const pageUrl = '/coapplicant-adoption-place';
 
-class CoApplicantDeceasedAdoptionPlace extends ValidationStep {
+class CoApplicantAdoptionDeceasedPlace extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -27,36 +27,40 @@ class CoApplicantDeceasedAdoptionPlace extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.coApplicantDeceasedAdoptionPlace) {
+        if (ctx.list[ctx.index]?.coApplicantAdoptionDeceasedInEnglandOrWales) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
     }
 
     handleGet(ctx) {
-        // if (ctx.list?.[ctx.index]) {
-        //     ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
-        // }
+        if (ctx.list?.[ctx.index]) {
+            ctx.coApplicantAdoptionDeceasedInEnglandOrWales = ctx.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales;
+        }
         return [ctx];
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantDeceasedAdoptionPlaceStop');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionDeceasedPlaceStop');
     }
 
     nextStepOptions(ctx) {
-        const coAppDeceasedAdoptedInEnglandOrWales = ctx.coApplicantDeceasedAdoptionPlace;
-        ctx.coAppDeceasedAdoptionPlace = coAppDeceasedAdoptedInEnglandOrWales === 'optionYes';
+        const coAppDeceasedAdoptionInEnglandOrWales = ctx.coApplicantAdoptionDeceasedPlace;
+        ctx.coAppAdoptionDeceasedPlace = coAppDeceasedAdoptionInEnglandOrWales === 'optionYes';
         return {
             options: [
-                {key: 'coAppDeceasedAdoptionPlace', value: true, choice: 'coAppDeceasedAdoptionPlace'},
+                {key: 'coAppAdoptionDeceasedPlace', value: true, choice: 'coAppAdoptionDeceasedPlace'},
             ]
         };
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata) {
+        formdata.executors.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales = ctx.coAppAdoptionDeceasedPlace;
+        if (ctx.coAppAdoptionDeceasedPlace === 'optionNo') {
+            ctx.hasCoApplicant = 'optionYes';
+        }
         return [ctx, errors];
     }
 }
 
-module.exports = CoApplicantDeceasedAdoptionPlace;
+module.exports = CoApplicantAdoptionDeceasedPlace;

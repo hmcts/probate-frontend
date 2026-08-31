@@ -1,11 +1,11 @@
 {
-  "title": "Co-Applicant deceased adoption place",
+  "title": "Co-Applicant adoption deceased place",
   "question": "Did the adoption take place in England or Wales?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 
   "errors": {
-    "coApplicantDeceasedAdoptedIn": {
+    "coApplicantAdoptedDeceasedInEnglandOrWales": {
       "required": "Select &lsquo;Yes&rsquo; if the adoption took place in England or Wales"
     }
   }

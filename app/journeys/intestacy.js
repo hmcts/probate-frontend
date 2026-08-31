@@ -329,19 +329,19 @@ const stepList = {
     RemoveCoApplicant: 'JointApplication',
     CoApplicantName: {
         isChildJointApplication: 'CoApplicantAdoptedIn',
-        isParentJointApplication: 'CoApplicantDeceasedAdoptedIn',
+        isParentJointApplication: 'CoApplicantAdoptedDeceasedIn',
         otherwise: 'CoApplicantEmail'
     },
-    CoApplicantDeceasedAdoptedIn: {
-        coAppDeceasedAdoptedIn: 'CoApplicantDeceasedAdoptionPlace',
-        otherwise: 'CoApplicantDeceasedAdoptedOut'
+    CoApplicantAdoptedDeceasedIn: {
+        coAppAdoptedDeceasedIn: 'CoApplicantAdoptionDeceasedPlace',
+        otherwise: 'CoApplicantAdoptedDeceasedOut'
     },
-    CoApplicantDeceasedAdoptionPlace: {
-        coAppDeceasedAdoptionPlace: 'CoApplicantEmail',
+    CoApplicantAdoptionDeceasedPlace: {
+        coAppAdoptionDeceasedPlace: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
-    CoApplicantDeceasedAdoptedOut: {
-        coAppDeceasedAdoptedOut: 'StopPage',
+    CoApplicantAdoptedDeceasedOut: {
+        coAppAdoptedDeceasedOut: 'StopPage',
         otherwise: 'CoApplicantEmail'
     },
     CoApplicantAdoptedIn: {

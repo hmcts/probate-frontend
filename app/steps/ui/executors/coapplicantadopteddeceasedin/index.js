@@ -3,9 +3,9 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
-const pageUrl = '/coapplicant-deceased-adopted-out';
+const pageUrl = '/coapplicant-adopted-deceased-in';
 
-class CoApplicantDeceasedAdoptedOut extends ValidationStep {
+class CoApplicantAdoptedDeceasedIn extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -27,26 +27,25 @@ class CoApplicantDeceasedAdoptedOut extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.coApplicantDeceasedAdoptedOut) {
+        if (ctx.list[ctx.index]?.coApplicantAdoptedDeceasedIn) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
     }
 
     handleGet(ctx) {
+        if (ctx.list?.[ctx.index]) {
+            ctx.coApplicantAdoptedDeceasedIn = ctx.list[ctx.index].coApplicantAdoptedDeceasedIn;
+        }
         return [ctx];
     }
 
-    nextStepUrl(req, ctx) {
-        return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantDeceasedAdoptedOutStop');
-    }
-
     nextStepOptions(ctx) {
-        const coAppDeceasedAdoptedOut = ctx.coApplicantDeceasedAdoptedOut;
-        ctx.coAppDeceasedAdoptedOut = coAppDeceasedAdoptedOut === 'optionYes';
+        const coAppAdoptedDeceasedIn = ctx.coApplicantAdoptedDeceasedIn;
+        ctx.coAppAdoptedDeceasedIn = coAppAdoptedDeceasedIn === 'optionYes';
         return {
             options: [
-                {key: 'coAppDeceasedAdoptedOut', value: true, choice: 'coAppDeceasedAdoptedOut'},
+                {key: 'coAppAdoptedDeceasedIn', value: true, choice: 'coAppAdoptedDeceasedIn'},
             ]
         };
     }
@@ -59,9 +58,14 @@ class CoApplicantDeceasedAdoptedOut extends ValidationStep {
         return fields;
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata) {
+        if (formdata.executors && formdata.executors.list && ctx.coApplicantAdoptedDeceasedIn !== formdata.executors.list[ctx.index]?.coApplicantAdoptedDeceasedIn) {
+            delete ctx.list[ctx.index].coApplicantAdoptedDeceasedInEnglandOrWales;
+            delete ctx.list[ctx.index].coApplicantAdoptedDeceasedOut;
+        }
+        ctx.list[ctx.index].coApplicantAdoptedDeceasedIn = ctx.coApplicantAdoptedDeceasedIn;
         return [ctx, errors];
     }
 }
 
-module.exports = CoApplicantDeceasedAdoptedOut;
+module.exports = CoApplicantAdoptedDeceasedIn;

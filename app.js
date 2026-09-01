@@ -26,7 +26,6 @@ const additionalInvite = require(`${__dirname}/app/routes/additionalInvite`);
 const fs = require('fs');
 const https = require('https');
 const {v4: uuidv4} = require('uuid');
-const nonce = uuidv4().replace(/-/g, '');
 const EligibilityCookie = require('app/utils/EligibilityCookie');
 const eligibilityCookie = new EligibilityCookie();
 const caseTypes = require('app/utils/CaseTypes');
@@ -66,7 +65,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         currentYear: new Date().getFullYear(),
         enableTracking: config.enableTracking,
         links: config.links,
-        nonce: nonce,
         documentUpload: {
             validMimeTypes: config.documentUpload.validMimeTypes,
             maxFiles: config.documentUpload.maxFiles,
@@ -97,7 +95,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     app.enable('trust proxy');
 
     // Security library helmet to verify 11 smaller middleware functions
-    app.use(helmet());
+    app.use(helmet({
+        xFrameOptions: false,
+        xXssProtection: false,
+        contentSecurityPolicy: false
+    }));
+
+    app.use((req, res, next) => {
+        res.locals.cspNonce = uuidv4().replace(/-/g, '');
+        res.locals.globals = {...globals, nonce: res.locals.cspNonce};
+        next();
+    });
 
     app.use(globals.dynatrace.dynatraceUrl, (req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
@@ -131,9 +139,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
                 '*.google-analytics.com',
                 'https://*.dynatrace.com',
                 '*.googletagmanager.com',
-                `'nonce-${nonce}'`,
                 'tagmanager.google.com',
                 config.webchat.kerv.genesysBaseUrl,
+                '\'strict-dynamic\'',
+                (req, res) => `'nonce-${res.locals.cspNonce}'`
             ],
             connectSrc: [
                 '\'self\'',
@@ -196,7 +205,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     }));
 
     app.use(nocache());
-    app.use(helmet.xssFilter({setOnOldIE: true}));
 
     app.use(helmet.strictTransportSecurity({
         maxAge: 31536000,
@@ -204,6 +212,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use((req, res, next) => {
         res.header('X-Robots-Tag', 'noindex');
+        res.header('Permissions-Policy', 'geolocation=(), camera=(), microphone=()');
         next();
     });
 

@@ -159,7 +159,7 @@
     "lodash": "^4.18.1",
     "mocha-lcov-reporter": "^1.3.0",
     "moment": "^2.30.1",
-    "multer": "2.2.0",
+    "multer": "2.3.0",
     "nocache": "^4.0.0",
     "node-cache": "^5.1.2",
     "node-emoji": "^2.2.0",

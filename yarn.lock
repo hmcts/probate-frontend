@@ -3606,7 +3606,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/cli@npm:^9.31.3":
+"@wdio/cli@npm:^9.31.5":
   version: 9.31.5
   resolution: "@wdio/cli@npm:9.31.5"
   dependencies:
@@ -7115,7 +7115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:^64.0.0":
+"eslint-plugin-jsdoc@npm:^64.3.2":
   version: 64.3.2
   resolution: "eslint-plugin-jsdoc@npm:64.3.2"
   dependencies:
@@ -10385,7 +10385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"libphonenumber-js@npm:^1.13.10":
+"libphonenumber-js@npm:^1.13.12":
   version: 1.13.12
   resolution: "libphonenumber-js@npm:1.13.12"
   checksum: 10/099de991b482cf0af4776d54dbbfa2bc6461178344374ffb245eb29ee2f0b6a2939b7891ec72ae3ecafa72190b5d082e95db23f0241a60ac0dcf9075dbab6d5e
@@ -11288,16 +11288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.0.0, minimatch@npm:^10.1.1, minimatch@npm:^10.2.1, minimatch@npm:^10.2.2":
-  version: 10.2.5
-  resolution: "minimatch@npm:10.2.5"
-  dependencies:
-    brace-expansion: "npm:^5.0.5"
-  checksum: 10/19e87a931aff60ee7b9d80f39f817b8bfc54f61f8356ee3549fbf636dbccacacfec8d803eac73293955c4527cd085247dfc064bce4a5e349f8f3b85e2bf5da0f
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^10.0.1, minimatch@npm:^10.2.4, minimatch@npm:^10.2.5":
+"minimatch@npm:^10.0.0, minimatch@npm:^10.0.1, minimatch@npm:^10.1.1, minimatch@npm:^10.2.1, minimatch@npm:^10.2.2, minimatch@npm:^10.2.4, minimatch@npm:^10.2.5":
   version: 10.2.6
   resolution: "minimatch@npm:10.2.6"
   dependencies:
@@ -11587,7 +11578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mochawesome@npm:^8.0.0":
+"mochawesome@npm:^8.0.1":
   version: 8.0.1
   resolution: "mochawesome@npm:8.0.1"
   dependencies:
@@ -13151,7 +13142,7 @@ __metadata:
     "@playwright/test": "npm:^1.62.1"
     "@stylistic/eslint-plugin": "npm:^5.10.0"
     "@types/node": "npm:^24.13.3"
-    "@wdio/cli": "npm:^9.31.3"
+    "@wdio/cli": "npm:^9.31.5"
     ajv: "npm:^6.15.0"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.9.8"
@@ -13173,7 +13164,7 @@ __metadata:
     dotenv: "npm:^17.4.2"
     email-validator: "npm:^2.0.4"
     eslint: "npm:^10.9.1"
-    eslint-plugin-jsdoc: "npm:^64.0.0"
+    eslint-plugin-jsdoc: "npm:^64.3.2"
     eslint-plugin-mocha: "npm:^12.0.2"
     eslint-plugin-n: "npm:^17.24.0"
     eslint-plugin-playwright: "npm:^1.8.3"
@@ -13192,15 +13183,15 @@ __metadata:
     if-env: "npm:^1.0.4"
     ioredis: "npm:^6.0.0"
     jquery: "npm:^4.0.0"
-    js-yaml: "npm:^5.4.0"
+    js-yaml: "npm:^5.4.1"
     jsdom: "npm:^30.0.1"
-    libphonenumber-js: "npm:^1.13.10"
+    libphonenumber-js: "npm:^1.13.12"
     lodash: "npm:^4.18.1"
     mocha: "npm:^11.8.0"
     mocha-junit-reporter: "npm:^2.2.1"
     mocha-lcov-reporter: "npm:^1.3.0"
     mocha-multi: "npm:^1.1.7"
-    mochawesome: "npm:^8.0.0"
+    mochawesome: "npm:^8.0.1"
     mochawesome-merge: "npm:^5.1.1"
     mochawesome-report-generator: "npm:^6.3.2"
     moment: "npm:^2.30.1"
@@ -13240,7 +13231,7 @@ __metadata:
     typescript-eslint: "npm:^8.68.0"
     uuid: "npm:^11.1.1"
     validator: "npm:^13.15.35"
-    webdriverio: "npm:^9.31.3"
+    webdriverio: "npm:^9.31.5"
     when: "npm:^3.7.8"
     ws: "npm:^8.21.3"
   languageName: unknown
@@ -16209,9 +16200,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^8.0.0":
-  version: 8.10.0
-  resolution: "undici@npm:8.10.0"
-  checksum: 10/254219966d4a2fb110f565ffe73131caa82e949f207b9dd88930ebc23dfb6561db72ca187391cbd408ceeba7c647cb47d4110e8ae00df44c0c66e8a21e091dc0
+  version: 8.10.1
+  resolution: "undici@npm:8.10.1"
+  checksum: 10/7983c1a9ecf078cf30ca5e70aade598f73ae24451597501e07ec65c411d75f78fe601870e0003e910501eca2e9a8be740cf1fd30044f3ca05297bc6012836c64
   languageName: node
   linkType: hard
 

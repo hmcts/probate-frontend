@@ -3,7 +3,7 @@
   "$id": "co-applicant-adopted-deceased-out",
   "type": "object",
   "properties": {
-    "adoptedIn": {
+    "coApplicantAdoptedDeceasedOut": {
       "type": "string"
     }
   },

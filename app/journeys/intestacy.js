@@ -337,7 +337,7 @@ const stepList = {
         otherwise: 'CoApplicantAdoptedDeceasedOut'
     },
     CoApplicantAdoptionDeceasedPlace: {
-        coAppAdoptionDeceasedPlace: 'CoApplicantEmail',
+        coAppDeceasedInEnglandOrWales: 'CoApplicantEmail',
         otherwise: 'StopPage'
     },
     CoApplicantAdoptedDeceasedOut: {

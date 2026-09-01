@@ -3,7 +3,7 @@
 const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
-const pageUrl = '/coapplicant-adoption-place';
+const pageUrl = '/coapplicant-adoption-deceased-place';
 
 class CoApplicantAdoptionDeceasedPlace extends ValidationStep {
 
@@ -35,7 +35,7 @@ class CoApplicantAdoptionDeceasedPlace extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.coApplicantAdoptionDeceasedInEnglandOrWales = ctx.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales;
+            ctx.coApplicantAdoptionDeceasedPlace = ctx.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales;
         }
         return [ctx];
     }
@@ -45,21 +45,25 @@ class CoApplicantAdoptionDeceasedPlace extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const coAppDeceasedAdoptionInEnglandOrWales = ctx.coApplicantAdoptionDeceasedPlace;
-        ctx.coAppAdoptionDeceasedPlace = coAppDeceasedAdoptionInEnglandOrWales === 'optionYes';
+        const coAppDeceasedAdoptionInEnglandOrWales = ctx.list?.[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales;
+        ctx.thisCoApplicantAdoptedDeceasedInEnglandOrWales = coAppDeceasedAdoptionInEnglandOrWales === 'optionYes';
         return {
             options: [
-                {key: 'coAppAdoptionDeceasedPlace', value: true, choice: 'coAppAdoptionDeceasedPlace'},
+                {key: 'thisCoApplicantAdoptedDeceasedInEnglandOrWales', value: true, choice: 'coAppDeceasedInEnglandOrWales'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales = ctx.coAppAdoptionDeceasedPlace;
-        if (ctx.coAppAdoptionDeceasedPlace === 'optionNo') {
-            ctx.hasCoApplicant = 'optionYes';
-        }
+        formdata.executors.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales = ctx.coApplicantAdoptionDeceasedPlace;
+
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        delete ctx.coAppAdoptionDeceasedPlace;
+        delete ctx.thisCoApplicantAdoptedDeceasedInEnglandOrWales;
+        return super.action(ctx, formdata);
     }
 }
 

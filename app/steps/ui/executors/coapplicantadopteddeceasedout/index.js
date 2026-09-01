@@ -5,7 +5,7 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-adopted-deceased-out';
 
-class coApplicantAdoptedDeceasedOut extends ValidationStep {
+class CoApplicantAdoptedDeceasedOut extends ValidationStep {
 
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -71,4 +71,4 @@ class coApplicantAdoptedDeceasedOut extends ValidationStep {
     }
 }
 
-module.exports = coApplicantAdoptedDeceasedOut;
+module.exports = CoApplicantAdoptedDeceasedOut;

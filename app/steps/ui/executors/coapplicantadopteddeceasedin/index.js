@@ -60,7 +60,7 @@ class CoApplicantAdoptedDeceasedIn extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         if (formdata.executors && formdata.executors.list && ctx.coApplicantAdoptedDeceasedIn !== formdata.executors.list[ctx.index]?.coApplicantAdoptedDeceasedIn) {
-            delete ctx.list[ctx.index].coApplicantAdoptedDeceasedInEnglandOrWales;
+            delete ctx.list[ctx.index].coApplicantAdoptionDeceasedInEnglandOrWales;
             delete ctx.list[ctx.index].coApplicantAdoptedDeceasedOut;
         }
         ctx.list[ctx.index].coApplicantAdoptedDeceasedIn = ctx.coApplicantAdoptedDeceasedIn;

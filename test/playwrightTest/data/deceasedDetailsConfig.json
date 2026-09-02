@@ -1,11 +1,17 @@
 {
-  "legalSeparationTypeEn": "divorce or dissolution",
-  "legalSeparationTypeCy": "ysgariad neu’r diddymiad",
+  "divorcedEn": "divorce or dissolution",
+  "divorcedCy": "ysgariad neu’r diddymiad",
+  "separatedEn": "legal separation",
+  "separatedCy": "ymwahaniad cyfreithiol",
   "deceasedDobDay": "02",
   "deceasedDobMonth": "01",
   "deceasedDobYear": "1945",
   "deceasedDodDay": "02",
   "deceasedDodMonth": "01",
   "deceasedDodYearEE": "2022",
-  "deceasedDodYear": "2017"
+  "deceasedDodYear": "2017",
+  "maritalStatusDivorced": "optionDivorced",
+  "maritalStatusWidowed": "optionWidowed",
+  "maritalStatusSeparated": "optionSeparated",
+  "maritalStatusNeverMarried": "optionNotMarried"
 }

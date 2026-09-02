@@ -50,6 +50,46 @@ describe('task-list', () => {
                 });
         });
 
+        it('[PROBATE] loads the task list when the applying answer no longer matches the executor list', (done) => {
+            sessionData.ccdCase.state = 'Pending';
+            sessionData.caseType = caseTypes.GOP;
+            sessionData.applicantEmail = 'test@email.com';
+            sessionData.documents.uploads = [];
+
+            sessionData.executors = {
+                ...sessionData.executors,
+                executorsNumber: 2,
+                executorsNamed: 'optionNo',
+                anyExecutorsDied: 'optionNo',
+                otherExecutorsApplying: 'optionYes',
+                invitesSent: false,
+                list: [
+                    {
+                        ...sessionData.executors.list[0],
+                        isApplicant: true,
+                        isApplying: true
+                    },
+                    {
+                        fullName: 'Some Name',
+                        isApplying: false
+                    }
+                ]
+            };
+
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(error => {
+                    if (error) {
+                        return done(error);
+                    }
+
+                    return testWrapper.agent.get(testWrapper.pageUrl)
+                        .expect('Content-type', /html/)
+                        .expect(200)
+                        .end(done);
+                });
+        });
+
         it('[PROBATE] test right content loaded on the page when declaration checkbox is true and has multiple applicants', (done) => {
             nock(config.services.orchestrator.url)
                 .get(config.services.orchestrator.paths.forms.replace('{ccdCaseId}', sessionData.ccdCase.id) + '?probateType=PA')

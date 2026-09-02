@@ -1,7 +1,7 @@
 {
   "optionYes": "",
   "optionNo": "-2",
-  "maritalStatusMarried": "",
+  "maritalStatusMarried": "optionMarried",
   "ihtOptionNotSubmitted": "-4",
   "optionIHT400": "",
   "optionIHT400421": "-2",

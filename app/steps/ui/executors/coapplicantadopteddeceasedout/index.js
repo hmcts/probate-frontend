@@ -17,8 +17,11 @@ class CoApplicantAdoptedDeceasedOut extends ValidationStep {
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            const executorsWrapper = new ExecutorsWrapper(formData.executors);
-            ctx.index = executorsWrapper.getNextIndex();
+            // the only context in which we can be on this page is:
+            //  - the applicant is the parent
+            //  - the only valid coapplicant is the other parent
+            // therefore the index should always be one here
+            ctx.index = 1;
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
         ctx.deceasedName = FormatName.format(formData.deceased);
@@ -27,7 +30,7 @@ class CoApplicantAdoptedDeceasedOut extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.coApplicantAdoptedDeceasedOut) {
+        if (ctx.list[ctx.index]?.coApplicantAdoptedDeceasedOut) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];
@@ -35,7 +38,7 @@ class CoApplicantAdoptedDeceasedOut extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.coAppAdoptedDeceasedOut = ctx.list[ctx.index].coAppAdoptedDeceasedOut;
+            ctx.coApplicantAdoptedDeceasedOut = ctx.list[ctx.index].coApplicantAdoptedDeceasedOut;
         }
         return [ctx];
     }
@@ -56,7 +59,7 @@ class CoApplicantAdoptedDeceasedOut extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        if (fields.deceasedName && errors) {
+        if (fields.deceasedName && errors?.at(0)) {
             errors[0].msg = errors[0].msg.replace('{deceasedName}', fields.deceasedName.value).replace('{applicantName}', fields.applicantName.value);
         }
         return fields;

@@ -12,16 +12,19 @@ class CoApplicantAdoptionDeceasedPlace extends ValidationStep {
     }
 
     getContextData(req) {
-        const formdata = req.session.form;
+        const formData = req.session.form;
         const ctx = super.getContextData(req);
         if (req.params && !isNaN(req.params[0])) {
             ctx.index = parseInt(req.params[0]);
         } else {
-            const executorsWrapper = new ExecutorsWrapper(formdata.executors);
-            ctx.index = executorsWrapper.getNextIndex();
+            // the only context in which we can be on this page is:
+            //  - the applicant is the parent
+            //  - the only valid coapplicant is the other parent
+            // therefore the index should always be one here
+            ctx.index = 1;
             ctx.redirect = `${pageUrl}/${ctx.index}`;
         }
-        ctx.deceasedName = FormatName.format(formdata.deceased);
+        ctx.deceasedName = FormatName.format(formData.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
         return ctx;
     }

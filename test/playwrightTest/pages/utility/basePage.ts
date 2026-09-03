@@ -1,4 +1,4 @@
-import { AxeUtils } from '@hmcts/playwright-common/dist/utils/axe.utils.js';
+import { AxeUtils } from "@hmcts/playwright-common";
 import { BrowserContext, expect, type Locator, type Page } from '@playwright/test';
 import {getContent} from "./contentHelper.ts";
 
@@ -68,7 +68,7 @@ export class BasePage {
     return this.page.getByRole('button', { name, exact: true });
   }
 
-  async navByClick(buttonLocator: Locator | string, timeout: number = 30_000): Promise<void> {
+  async navByClick(buttonLocator: Locator | string, timeout: number = 5_000): Promise<void> {
     // const currentUrl = await this.page.url();
     const locator = typeof buttonLocator === 'string'
       ? this.page.locator(buttonLocator)  // String - convert to Locator

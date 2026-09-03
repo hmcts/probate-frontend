@@ -7271,22 +7271,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-playwright@npm:^1.8.3":
-  version: 1.8.3
-  resolution: "eslint-plugin-playwright@npm:1.8.3"
-  dependencies:
-    globals: "npm:^13.23.0"
-  peerDependencies:
-    eslint: ">=8.40.0"
-    eslint-plugin-jest: ">=25"
-  peerDependenciesMeta:
-    eslint-plugin-jest:
-      optional: true
-  checksum: 10/8a0b9f51ba1eb09e64e15452cc78ab7fc82a68e45a432185acc2851eb0ad67b683e9bb2ca9ac9791267608ca0ceb0fca2b551868d494831e1ed62b2c566c099e
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-playwright@npm:^2.5.1":
+"eslint-plugin-playwright@npm:^2.0.0, eslint-plugin-playwright@npm:^2.5.1":
   version: 2.11.0
   resolution: "eslint-plugin-playwright@npm:2.11.0"
   dependencies:
@@ -8563,15 +8548,6 @@ __metadata:
   version: 17.8.0
   resolution: "globals@npm:17.8.0"
   checksum: 10/b7b854b2052d2608d1878884bf730c027e17b9e2d194834f48c3280a7f0005b06d5f51dba362d3149cc05eb90d36d990e5c996728ecd3585a43dc3b4a286ed85
-  languageName: node
-  linkType: hard
-
-"globals@npm:^13.23.0":
-  version: 13.24.0
-  resolution: "globals@npm:13.24.0"
-  dependencies:
-    type-fest: "npm:^0.20.2"
-  checksum: 10/62c5b1997d06674fc7191d3e01e324d3eda4d65ac9cc4e78329fa3b5c4fd42a0e1c8722822497a6964eee075255ce21ccf1eec2d83f92ef3f06653af4d0ee28e
   languageName: node
   linkType: hard
 
@@ -13263,7 +13239,7 @@ __metadata:
     eslint-plugin-jsdoc: "npm:^64.3.4"
     eslint-plugin-mocha: "npm:^12.0.2"
     eslint-plugin-n: "npm:^17.24.0"
-    eslint-plugin-playwright: "npm:^1.8.3"
+    eslint-plugin-playwright: "npm:^2.0.0"
     express: "npm:^4.22.2"
     express-session: "npm:^1.19.0"
     file-type: "npm:^12.4.2"

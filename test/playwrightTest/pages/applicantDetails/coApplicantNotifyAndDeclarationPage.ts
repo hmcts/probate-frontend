@@ -28,7 +28,22 @@ export class CoApplicantNotifyAndDeclarationPage extends BasePage {
     const taskListContent = getContent(`app/resources/${language}/translation/tasklist.json`);
 
     await this.checkInUrl('/executors-invites-sent');
-    await this.runAccessibilityTest();
+    await this.page.waitForLoadState('domcontentloaded');
+    await expect(this.page.locator('main')).toBeVisible();
+
+    try {
+      await this.runAccessibilityTest();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const isTransientAxeFrameError = message.includes('documentElement') || message.includes('frame.evaluate');
+      if (!isTransientAxeFrameError) {
+        throw error;
+      }
+
+      await this.page.waitForLoadState('domcontentloaded');
+      await this.runAccessibilityTest();
+    }
+
     await this.navByClick(this.saveAndContinueButtonLocator);
     await expect(this.page.getByText(taskListContent.introduction)).toBeVisible();
   }

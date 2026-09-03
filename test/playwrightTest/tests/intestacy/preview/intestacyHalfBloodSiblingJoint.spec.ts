@@ -151,9 +151,9 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodNieceNephew, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
+      await applicantDetailsPage.coApplicantParentAdoptedIn(coApplicantNumber, optionNo);
+      await applicantDetailsPage.coApplicantParentAdoptedOut(coApplicantNumber, optionNo);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.secondCoApplicantName);
-      await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionNo);
-      await applicantDetailsPage.coApplicantAdoptedOut(coApplicantNumber, optionNo);
 
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.secondCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
@@ -164,9 +164,9 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.jointApplication(language, optionYes);
       await applicantDetailsPage.selectCoapplicantRelationship(applicantDetailConfig.coApplicantHalfBloodNieceNephew, coApplicantNumber);
       await applicantDetailsPage.selectCoApplicantParentAlive(coApplicantNumber, optionYes);
+      await applicantDetailsPage.coApplicantParentAdoptedIn(coApplicantNumber, optionYes);
+      await applicantDetailsPage.coApplicantParentAdoptionPlace(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoapplicantName(coApplicantNumber, applicantDetailConfig.thirdCoApplicantName);
-      await applicantDetailsPage.coApplicantAdoptedIn(coApplicantNumber, optionYes);
-      await applicantDetailsPage.coApplicantAdoptionPlace(coApplicantNumber, optionYes);
       await applicantDetailsPage.enterCoApplicantEmail(coApplicantNumber, applicantDetailConfig.thirdCoApplicantEmail);
       await applicantDetailsPage.enterCoApplicantAddress(coApplicantNumber);
 

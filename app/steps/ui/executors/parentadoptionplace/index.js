@@ -23,40 +23,85 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
         }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         ctx.applicantName = ctx.list?.[ctx.index]?.fullName;
+        ctx.relationshipToDeceased = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         return ctx;
     }
 
     isComplete(ctx) {
-        const isGrandchildParentAdoptionInEnglandOrWales = ctx.list[ctx.index]?.grandchildParentAdoptionInEnglandOrWales === 'optionYes';
-        return [isGrandchildParentAdoptionInEnglandOrWales, 'inProgress'];
+        const adoptionPlaceField = this.parentAdoptionPlaceField(ctx);
+        const isParentAdoptionInEnglandOrWales = adoptionPlaceField && ctx.list[ctx.index]?.[adoptionPlaceField] === 'optionYes';
+        return [isParentAdoptionInEnglandOrWales, 'inProgress'];
     }
+
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index].grandchildParentAdoptionInEnglandOrWales;
+            const adoptionPlaceField = this.parentAdoptionPlaceField(ctx);
+            ctx.applicantParentAdoptionPlace = ctx.list[ctx.index][adoptionPlaceField];
         }
         return [ctx];
     }
 
     nextStepUrl(req, ctx) {
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        if (relationship === 'optionWholeBloodNieceOrNephew' ||
+            relationship === 'optionHalfBloodNieceOrNephew') {
+            return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptionPlaceNoNameStop');
+        }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
     }
 
     nextStepOptions(ctx) {
-        const parentAdoptedEngWales = ctx.list?.at(ctx.index)?.grandchildParentAdoptionInEnglandOrWales;
-        ctx.parentAdoptedInEnglandOrWales = parentAdoptedEngWales === 'optionYes';
+        const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
+        const parentAdoptedEngWales = ctx.applicantParentAdoptionPlace;
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew';
+        const isNieceOrNephew = isWhole || isHalf;
+        ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales = isWhole && parentAdoptedEngWales === 'optionYes';
+        ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales = isHalf && parentAdoptedEngWales === 'optionYes';
+        ctx.parentAdoptedInEnglandOrWales = !isNieceOrNephew && parentAdoptedEngWales === 'optionYes';
         return {
             options: [
+                {key: 'wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales', value: true, choice: 'wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales'},
+                {key: 'halfBloodNieceOrNephewParentAdoptedInEnglandOrWales', value: true, choice: 'halfBloodNieceOrNephewParentAdoptedInEnglandOrWales'},
                 {key: 'parentAdoptedInEnglandOrWales', value: true, choice: 'parentAdoptedOutEnglandOrWales'},
             ]
         };
     }
 
     handlePost(ctx, errors, formdata) {
-        formdata.executors.list[ctx.index].grandchildParentAdoptionInEnglandOrWales = ctx.applicantParentAdoptionPlace;
-        if (ctx.applicantParentAdoptionPlace === 'optionNo') {
-            ctx.hasCoApplicant = 'optionYes';
+        const adoptionPlaceField = this.parentAdoptionPlaceField(ctx);
+        if (adoptionPlaceField) {
+            ctx.list[ctx.index][adoptionPlaceField] = ctx.applicantParentAdoptionPlace;
+            if (formdata.executors?.list?.[ctx.index]) {
+                formdata.executors.list[ctx.index][adoptionPlaceField] = ctx.applicantParentAdoptionPlace;
+            }
         }
         return [ctx, errors];
+    }
+
+    action(ctx, formdata) {
+        super.action(ctx, formdata);
+        // Keep route-only flags out of persisted executor payload.
+        delete ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales;
+        delete ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales;
+        delete ctx.parentAdoptedInEnglandOrWales;
+        delete ctx.deceasedName;
+        delete ctx.applicantName;
+        return [ctx, formdata];
+    }
+
+    parentAdoptionPlaceField(ctx) {
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        if (relationship === 'optionGrandchild') {
+            return 'grandchildParentAdoptionInEnglandOrWales';
+        }
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return 'halfNieceOrNephewParentAdoptionInEnglandOrWales';
+        }
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeNieceOrNephewParentAdoptionInEnglandOrWales';
+        }
+        return null;
     }
 }
 

@@ -12,6 +12,9 @@ const anyExecutorsDiedContent = require('app/resources/en/translation/executors/
 const executorsRoles = require('app/resources/en/translation/executors/roles');
 const executorsAliasReason = require('app/resources/en/translation/executors/currentnamereason');
 const executorsDiedBefore = require('app/resources/en/translation/executors/whendied');
+const relationshipToDeceasedContent = require('app/resources/en/translation/executors/relationshiptodeceased');
+const parentAdoptedInContent = require('app/resources/en/translation/executors/parentadoptedin');
+const parentAdoptionPlaceContent = require('app/resources/en/translation/executors/parentadoptionplace');
 const FormatName = require('app/utils/FormatName');
 
 describe('summary-executor-section', () => {
@@ -172,6 +175,69 @@ describe('summary-executor-section', () => {
                     playbackData.aliasReason = applicantAliasReasonContent[playbackData.aliasReason];
                     testWrapper.testDataPlayback(done, playbackData);
                 });
+        });
+
+        [
+            {
+                label: 'whole-blood',
+                relationship: 'optionWholeBloodNieceOrNephew',
+                setupApplicant: applicant => {
+                    applicant.sameParents = 'optionBothParentsSame';
+                    applicant.anyOtherWholeSiblings = 'optionYes';
+                    applicant.anyPredeceasedWholeSiblings = 'optionYesSome';
+                    applicant.anySurvivingWholeNiecesAndWholeNephews = 'optionYes';
+                }
+            },
+            {
+                label: 'half-blood',
+                relationship: 'optionHalfBloodNieceOrNephew',
+                setupApplicant: applicant => {
+                    applicant.sameParents = 'optionOneParentsSame';
+                    applicant.anyOtherHalfSiblings = 'optionYes';
+                    applicant.anyPredeceasedHalfSiblings = 'optionYesSome';
+                    applicant.anySurvivingHalfNiecesAndHalfNephews = 'optionYes';
+                }
+            }
+        ].forEach(({label, relationship, setupApplicant}) => {
+            it(`shows ${label} parent adoption answers for co-applicants on intestacy check your answers`, (done) => {
+                sessionData.caseType = 'intestacy';
+                sessionData.deceased = sessionData.deceased || {};
+                sessionData.applicant = sessionData.applicant || {};
+                sessionData.deceased.firstName = 'John';
+                sessionData.deceased.lastName = 'Doe';
+                sessionData.applicant.relationshipToDeceased = 'optionSibling';
+                setupApplicant(sessionData.applicant);
+
+                sessionData.executors.list[1].coApplicantRelationshipToDeceased = relationship;
+                delete sessionData.executors.list[1].wholeNieceOrNephewParentAdoptedIn;
+                delete sessionData.executors.list[1].wholeNieceOrNephewParentAdoptionInEnglandOrWales;
+                delete sessionData.executors.list[1].halfNieceOrNephewParentAdoptedIn;
+                delete sessionData.executors.list[1].halfNieceOrNephewParentAdoptionInEnglandOrWales;
+                if (relationship === 'optionWholeBloodNieceOrNephew') {
+                    sessionData.executors.list[1].wholeNieceOrNephewParentAdoptedIn = 'optionYes';
+                    sessionData.executors.list[1].wholeNieceOrNephewParentAdoptionInEnglandOrWales = 'optionYes';
+                } else {
+                    sessionData.executors.list[1].halfNieceOrNephewParentAdoptedIn = 'optionYes';
+                    sessionData.executors.list[1].halfNieceOrNephewParentAdoptionInEnglandOrWales = 'optionYes';
+                }
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end((err) => {
+                        if (err) {
+                            throw err;
+                        }
+
+                        const playbackData = {
+                            coApplicantRelationshipAnswer: relationshipToDeceasedContent[relationship],
+                            parentAdoptedInAnswer: parentAdoptedInContent.optionYes,
+                            parentAdoptionPlaceQuestion: parentAdoptionPlaceContent.question,
+                            parentAdoptionPlaceAnswer: parentAdoptionPlaceContent.optionYes
+                        };
+
+                        testWrapper.testDataPlayback(done, playbackData);
+                    });
+            });
         });
     });
 });

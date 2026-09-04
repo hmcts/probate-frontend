@@ -1018,6 +1018,46 @@ describe('Executors.js', () => {
         });
     });
 
+    describe('hasStopCondition()', () => {
+        it('returns true for whole and half niece-nephew disqualifying saved states', () => {
+            const scenarios = [
+                {
+                    relationship: 'optionWholeBloodNieceOrNephew',
+                    invalidStates: [
+                        {field: 'wholeNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
+                        {field: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'wholeNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ]
+                },
+                {
+                    relationship: 'optionHalfBloodNieceOrNephew',
+                    invalidStates: [
+                        {field: 'halfNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
+                        {field: 'halfNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'halfNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ]
+                }
+            ];
+
+            scenarios.forEach(({relationship, invalidStates}) => {
+                invalidStates.forEach(({field, value}) => {
+                    const executor = {
+                        coApplicantRelationshipToDeceased: relationship,
+                        wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                        wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                        wholeNieceOrNephewParentAdoptedOut: 'optionNo',
+                        halfNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                        halfNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                        halfNieceOrNephewParentAdoptedOut: 'optionNo'
+                    };
+                    executor[field] = value;
+                    const executorsWrapper = new ExecutorsWrapper({list: []});
+                    expect(executorsWrapper.hasStopCondition(executor)).to.equal(true);
+                });
+            });
+        });
+    });
+
     describe('haveAllExecutorsDeclared()', () => {
         it('should return true if the all executors have declared', (done) => {
             const data = 'true';

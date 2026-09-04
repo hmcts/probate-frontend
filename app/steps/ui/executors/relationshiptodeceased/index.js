@@ -80,6 +80,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         const grandchildOrNieceNephewValues = ['optionGrandchild', 'optionHalfBloodNieceOrNephew', 'optionWholeBloodNieceOrNephew'];
         ctx.childOrSibling = childOrSiblingValues.includes(applicantRelToDec);
         ctx.grandchildOrNieceNephew = grandchildOrNieceNephewValues.includes(applicantRelToDec);
+
         return {
             options: [
                 {key: 'childOrSibling', value: true, choice: 'childOrSibling'},
@@ -89,21 +90,24 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        if (formdata.executors && formdata.executors.list && ctx.coApplicantRelationshipToDeceased !== formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased) {
+        const newRelationship = ctx.coApplicantRelationshipToDeceased;
+        const previousRelationship = formdata.executors?.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+
+        if (formdata.executors && formdata.executors.list && newRelationship !== previousRelationship) {
             this.clearRelationshipFields(ctx, formdata);
         }
-        if (ctx.coApplicantRelationshipToDeceased === 'optionChild' || ctx.coApplicantRelationshipToDeceased === 'optionGrandchild' ||
-            ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionHalfBloodNieceOrNephew' ||
-            ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodSibling' || ctx.coApplicantRelationshipToDeceased === 'optionWholeBloodNieceOrNephew') {
+        if (newRelationship === 'optionChild' || newRelationship === 'optionGrandchild' ||
+            newRelationship === 'optionHalfBloodSibling' || newRelationship === 'optionHalfBloodNieceOrNephew' ||
+            newRelationship === 'optionWholeBloodSibling' || newRelationship === 'optionWholeBloodNieceOrNephew') {
             ctx.list[ctx.index] = {
                 ...ctx.list[ctx.index],
-                coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
+                coApplicantRelationshipToDeceased: newRelationship,
                 isApplying: true
             };
-        } else if (ctx.coApplicantRelationshipToDeceased === 'optionOther') {
+        } else if (newRelationship === 'optionOther') {
             ctx.list[ctx.index] = {
                 ...ctx.list[ctx.index],
-                coApplicantRelationshipToDeceased: ctx.coApplicantRelationshipToDeceased,
+                coApplicantRelationshipToDeceased: newRelationship,
                 isApplying: false
             };
         }
@@ -112,10 +116,20 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        // Keep routing-only flags out of persisted executors payload.
+        delete ctx.childOnly;
+        delete ctx.grandChildOnly;
+        delete ctx.halfSiblingOnly;
+        delete ctx.halfNieceOrNephewOnly;
+        delete ctx.wholeSiblingOnly;
+        delete ctx.wholeNieceOrNephewOnly;
+        delete ctx.deceased;
+        delete ctx.deceasedName;
         return [ctx, formdata];
     }
     clearRelationshipFields(ctx, formdata) {
         const rel = formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased;
+        // Drop fields from the previous branch to prevent mixed relationship payloads after edits.
         switch (rel) {
         case 'optionChild':
             delete ctx.list[ctx.index].childAdoptedIn;
@@ -142,13 +156,19 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
             delete ctx.list[ctx.index].halfBloodSiblingAdoptedOut;
             break;
         case 'optionHalfBloodNieceOrNephew':
-            delete ctx.list[ctx.index].halfBloodSiblingDiedBeforeDeceased;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentDieBeforeDeceased;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentAdoptedIn;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].halfNieceOrNephewParentAdoptedOut;
             delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedIn;
             delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptionInEnglandOrWales;
             delete ctx.list[ctx.index].halfBloodNieceOrNephewAdoptedOut;
             break;
         case 'optionWholeBloodNieceOrNephew':
-            delete ctx.list[ctx.index].wholeBloodSiblingDiedBeforeDeceased;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentDieBeforeDeceased;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentAdoptedIn;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentAdoptionInEnglandOrWales;
+            delete ctx.list[ctx.index].wholeNieceOrNephewParentAdoptedOut;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedIn;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptionInEnglandOrWales;
             delete ctx.list[ctx.index].wholeBloodNieceOrNephewAdoptedOut;

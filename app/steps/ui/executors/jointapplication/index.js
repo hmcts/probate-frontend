@@ -116,6 +116,8 @@ class JointApplication extends ValidationStep {
                     this.generateContent({}, {}, session.language), session.language));
             }
         }
+        // Keep this removal intentionally narrow: only parent journey with exactly
+        // one extra executor. Whole/half-blood niece-nephew co-applicants are preserved.
         if (ctx.caseType === caseTypes.INTESTACY && ctx.hasCoApplicant === 'optionNo' &&
             ctx.applicantRelationshipToDeceased === 'optionParent' && ctx.list.length === 2) {
             const lastIndex = ctx.list.length - 1;

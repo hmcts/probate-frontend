@@ -97,6 +97,47 @@
         alreadyDeclared = fields.summary.alreadyDeclared.value
     )}}
 {% endif %}
+
+{% if relationship === "optionParent" %}
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedInQuestion,
+              answer: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedInAnswer,
+              visible: true
+          }
+      ],
+      url = content.CoApplicantAdoptedDeceasedIn.url  | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+    {{checkanswer(
+        items = [
+            {
+                question: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptionDeceasedInEnglandOrWalesQuestion,
+                answer: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptionDeceasedInEnglandOrWalesAnswer,
+                visible: executor.coApplicantAdoptedDeceasedIn === 'optionYes'
+            }
+        ],
+        url = content.CoApplicantAdoptionDeceasedInEnglandOrWales.url  | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+
+    {{checkanswer(
+        items = [
+            {
+                question: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedOutQuestion,
+                answer: fields.summary.executorSummary.value[loop.index0].coApplicantAdoptedDeceasedOutAnswer,
+                visible: executor.coApplicantAdoptedDeceasedIn === 'optionNo'
+            }
+        ],
+        url = content.CoApplicantAdoptedDeceasedOut.url  | replace("*", loop.index0 ),
+        common = common,
+        alreadyDeclared = fields.summary.alreadyDeclared.value
+    )}}
+{% endif %}
+
 {{checkanswer(
     items = [
         {

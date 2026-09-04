@@ -1,0 +1,12 @@
+{
+  "title": "Co-Applicant adopted deceased in",
+  "question": "A wnaeth {applicantName} fabwysiadu {deceasedName} yn gyfreithlon i mewn i'w teulu?",
+  "optionYes": "Do",
+  "optionNo": "Naddo",
+
+  "errors": {
+    "coApplicantAdoptedDeceasedIn": {
+      "required": "Select &lsquo;Yes&rsquo; if {applicantName} adopted {deceasedName}"
+    }
+  }
+}

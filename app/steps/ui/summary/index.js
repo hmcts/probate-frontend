@@ -200,6 +200,20 @@ class Summary extends Step {
                         emailQuestion: content.CoApplicantEmail.question
                             .replace('{executorName}', exec.fullName || content.CoApplicantEmail.applicantName),
                         emailAnswer: exec.email || '',
+
+                        coApplicantAdoptedDeceasedInQuestion: content.CoApplicantAdoptedDeceasedIn.question
+                            .replace('{applicantName}', exec.fullName || content.CoApplicantEmail.applicantName)
+                            .replace('{deceasedName}', deceasedName || content.CoApplicantAdoptedOut.theDeceased),
+                        coApplicantAdoptedDeceasedInAnswer: exec.coApplicantAdoptedDeceasedIn ? content.CoApplicantAdoptedDeceasedIn[exec.coApplicantAdoptedDeceasedIn] : '',
+
+                        coApplicantAdoptionDeceasedInEnglandOrWalesQuestion: content.CoApplicantAdoptionDeceasedPlace.question,
+                        coApplicantAdoptionDeceasedInEnglandOrWalesAnswer: exec.coApplicantAdoptionDeceasedInEnglandOrWales ? content.CoApplicantAdoptionDeceasedPlace[exec.coApplicantAdoptionDeceasedInEnglandOrWales] : '',
+
+                        coApplicantAdoptedDeceasedOutQuestion: content.CoApplicantAdoptedDeceasedOut.question
+                            .replace('{applicantName}', exec.fullName || content.CoApplicantEmail.applicantName)
+                            .replace('{deceasedName}', deceasedName || content.CoApplicantAdoptedOut.theDeceased),
+                        coApplicantAdoptedDeceasedOutAnswer: exec.coApplicantAdoptedDeceasedOut ? content.CoApplicantAdoptedDeceasedOut[exec.coApplicantAdoptedDeceasedOut] : '',
+
                         addressQuestion: content.ExecutorAddress.question
                             .replace('{executorName}', exec.fullName || content.ExecutorAddress.applicantName),
                         addressAnswer: exec.address && exec.address.formattedAddress ? exec.address.formattedAddress : ''

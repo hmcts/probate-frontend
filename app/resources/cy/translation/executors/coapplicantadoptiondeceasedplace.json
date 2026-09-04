@@ -5,7 +5,7 @@
   "optionNo": "Naddo",
 
   "errors": {
-    "coApplicantAdoptedDeceasedInEnglandOrWales": {
+    "coApplicantAdoptionDeceasedPlace": {
       "required": "Dewiswch &lsquo;Do&rsquo; os wnaeth y mabwysiadu ddigwydd yng Nghymru neu Loegr"
     }
   }

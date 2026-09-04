@@ -5,7 +5,7 @@
   "optionNo": "No",
 
   "errors": {
-    "coApplicantAdoptionDeceasedInEnglandOrWales": {
+    "coApplicantAdoptionDeceasedPlace": {
       "required": "Select &lsquo;Yes&rsquo; if the adoption took place in England or Wales"
     }
   }

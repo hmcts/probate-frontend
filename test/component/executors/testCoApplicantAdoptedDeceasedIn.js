@@ -30,7 +30,8 @@ describe('coapplicant-adopted-deceased-in', () => {
             },
             executors: {
                 list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true}
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
                 ]
             }
         };
@@ -59,7 +60,8 @@ describe('coapplicant-adopted-deceased-in', () => {
                 type: caseTypes.INTESTACY,
                 applicantName: 'First coApplicant',
                 list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true}
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
                 ]
             };
             testWrapper.agent.post('/prepare-session/form').send(sessionData);
@@ -72,7 +74,7 @@ describe('coapplicant-adopted-deceased-in', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        adoptedIn: 'optionYes'
+                        coApplicantAdoptedDeceasedIn: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptionDeceasedPlace}`);
@@ -85,7 +87,7 @@ describe('coapplicant-adopted-deceased-in', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        adoptedIn: 'optionNo'
+                        coApplicantAdoptedDeceasedIn: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptedDeceasedOut}`);

@@ -10,7 +10,7 @@ const caseTypes= require('app/utils/CaseTypes');
 describe('coapplicant-adopted-deceased-out', () => {
     let testWrapper, sessionData;
     const expectedNextUrlForCoApplicantEmail = CoApplicantEmail.getUrl(1);
-    const expectedNextUrlForStopPage = StopPage.getUrl('CoApplicantAdoptedDeceasedOutStop');
+    const expectedNextUrlForStopPage = StopPage.getUrl('coApplicantAdoptedDeceasedOutStop');
 
     beforeEach(() => {
         testWrapper = new TestWrapper('CoApplicantAdoptedDeceasedOut');
@@ -30,7 +30,8 @@ describe('coapplicant-adopted-deceased-out', () => {
             },
             executors: {
                 list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true}
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
                 ]
             }
         };
@@ -59,7 +60,8 @@ describe('coapplicant-adopted-deceased-out', () => {
                 type: caseTypes.INTESTACY,
                 applicantName: 'First coApplicant',
                 list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true}
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionParent', isApplicant: true},
                 ]
             };
             testWrapper.agent.post('/prepare-session/form').send(sessionData);
@@ -72,7 +74,7 @@ describe('coapplicant-adopted-deceased-out', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        coApplicantDeceasedAdoptedOut: 'optionNo'
+                        coApplicantAdoptedDeceasedOut: 'optionNo'
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
@@ -85,7 +87,7 @@ describe('coapplicant-adopted-deceased-out', () => {
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        coApplicantDeceasedAdoptedOut: 'optionYes'
+                        coApplicantAdoptedDeceasedOut: 'optionYes'
                     };
 
                     testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);

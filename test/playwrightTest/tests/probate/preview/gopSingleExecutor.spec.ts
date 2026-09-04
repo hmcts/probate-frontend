@@ -1,6 +1,5 @@
 import { test } from '../../../fixtures/index.ts';
-import { BasePage, getTestLanguages } from '../../../pages/utility/basePage.ts';
-import { Page, BrowserContext} from "@playwright/test";
+import { getTestLanguages } from '../../../pages/utility/basePage.ts';
 
 import { TestConfigurator } from "../../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../../data/ee/ihtData.json" with { type: "json" };
@@ -11,18 +10,14 @@ const optionNo = ihtDataConfig.optionNo;
 const bilingualGOP = false;
 
 getTestLanguages().forEach(language => {
-  test.describe('GOP Single Executor journey - IHT 205 and Survey test @galaxys4', () => {
+  test.describe('GOP Single Executor journey - IHT 205 and Survey test', () => {
     test.describe.configure({ mode: 'serial' });
 
     test.use({ language });
     let testConfigurator: TestConfigurator;
-    let context: BrowserContext;
-    let page: Page;
-    let basePage: BasePage;
 
     test.beforeEach(async () => {
       testConfigurator = new TestConfigurator();
-      basePage = new BasePage(page, context, language);
       await testConfigurator.getBefore(); // creates unique user for this language
     });
 
@@ -43,14 +38,11 @@ getTestLanguages().forEach(language => {
                cyaAndDeclarationPage,
                paymentTaskPage
       }) => {
-        test.setTimeout(6000000)
       const testConfigurator = new TestConfigurator();
-        const scenarioName = `GOP single executor journey - IHT 205 - ${language}`;
 
       await apiCallback.createAUser(testConfigurator);
 
       // Eligibility Task (pre IdAM)
-      await basePage.logInfo(scenarioName, "Intestacy screener questions", null);
       await intestacyScreenerPage.startApplication(language);
 
       // Probate Sceeners
@@ -88,7 +80,6 @@ getTestLanguages().forEach(language => {
       await taskListPage.chooseApplication(language);
 
       // Deceased Details
-      await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.enterDobDetails(language, '01', '01', '1950');
       await deceasedDetailsPage.enterDodDetails(
@@ -127,7 +118,6 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectWrittenWishes(optionYes);
 
       // ExecutorsTask
-      await basePage.logInfo(scenarioName, "Executor details task", null);
       await taskListPage.selectATask(language, 'executorsTask');
       await applicantDetailsPage.enterApplicantName(language, 'Applicant First Name', 'Applicant Last Name');
       await executorDetailsPage.selectNameAsOnTheWill(optionYes);
@@ -144,13 +134,11 @@ getTestLanguages().forEach(language => {
       }
 
       // Check your answers and declaration
-      await basePage.logInfo(scenarioName, "CYA and Legal Declaration - main executor", null);
       await taskListPage.selectATask(language, 'reviewAndConfirmTask');
       await cyaAndDeclarationPage.seeSummaryPage(language, 'declaration');
       await cyaAndDeclarationPage.acceptDeclaration(language, bilingualGOP);
 
       // Payment Task
-      await basePage.logInfo(scenarioName, "Payment details task", null);
       await taskListPage.selectATask(language, 'paymentTask');
 
       if (testConfigurator.getUseGovPay() === 'true') {
@@ -170,7 +158,8 @@ getTestLanguages().forEach(language => {
 
       // Thank You
       const caseId = await paymentTaskPage.seeThankYouPage(language, true);
-      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
+
+      console.log(`Case ID: ${caseId}`);
     });
   });
 });

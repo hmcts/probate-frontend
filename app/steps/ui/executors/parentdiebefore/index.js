@@ -4,41 +4,6 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('app/utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-die-before';
-// Relationship-to-field map keeps WB/HB niece-nephew answers on dedicated parent fields.
-const PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP = {
-    optionGrandchild: 'childDieBeforeDeceased',
-    grandchild: 'childDieBeforeDeceased',
-    optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentDieBeforeDeceased',
-    halfBloodNieceOrNephew: 'halfNieceOrNephewParentDieBeforeDeceased',
-    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentDieBeforeDeceased',
-    wholeBloodNieceOrNephew: 'wholeNieceOrNephewParentDieBeforeDeceased'
-};
-const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
-    optionWholeBloodNieceOrNephew: [
-        'wholeNieceOrNephewParentAdoptedIn',
-        'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
-        'wholeNieceOrNephewParentAdoptedOut'
-    ],
-    wholeBloodNieceOrNephew: [
-        'wholeNieceOrNephewParentAdoptedIn',
-        'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
-        'wholeNieceOrNephewParentAdoptedOut'
-    ],
-    optionHalfBloodNieceOrNephew: [
-        'halfNieceOrNephewParentAdoptedIn',
-        'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-        'halfNieceOrNephewParentAdoptedOut'
-    ],
-    halfBloodNieceOrNephew: [
-        'halfNieceOrNephewParentAdoptedIn',
-        'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-        'halfNieceOrNephewParentAdoptedOut'
-    ]
-};
-
-function relationshipFor(ctx) {
-    return ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
-}
 
 class ParentDieBefore extends ValidationStep {
 
@@ -87,8 +52,8 @@ class ParentDieBefore extends ValidationStep {
         const parentDieBeforeField = this.parentDieBeforeField(ctx);
         const selectedAnswer = ctx.applicantParentDieBeforeDeceased ?? ctx.list?.[ctx.index]?.[parentDieBeforeField];
         const parentDiedBefore = selectedAnswer === 'optionYes';
-        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
-        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew';
         const isNieceOrNephew = isWhole || isHalf;
         ctx.wholeBloodNieceOrNephewParentDieBefore = isWhole && parentDiedBefore;
         ctx.halfBloodNieceOrNephewParentDieBefore = isHalf && parentDiedBefore;
@@ -109,7 +74,11 @@ class ParentDieBefore extends ValidationStep {
             ctx.list[ctx.index][parentDieBeforeField] = ctx.applicantParentDieBeforeDeceased;
         }
 
-        const parentAdoptionFields = PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship];
+        const parentAdoptionFields = relationship === 'optionWholeBloodNieceOrNephew'
+            ? ['wholeNieceOrNephewParentAdoptedIn', 'wholeNieceOrNephewParentAdoptionInEnglandOrWales', 'wholeNieceOrNephewParentAdoptedOut']
+            : relationship === 'optionHalfBloodNieceOrNephew'
+                ? ['halfNieceOrNephewParentAdoptedIn', 'halfNieceOrNephewParentAdoptionInEnglandOrWales', 'halfNieceOrNephewParentAdoptedOut']
+                : null;
         // If parent did not predecease, downstream adoption questions are no longer relevant for this branch.
         if (parentAdoptionFields && ctx.applicantParentDieBeforeDeceased === 'optionNo') {
             parentAdoptionFields.forEach(field => {
@@ -135,7 +104,7 @@ class ParentDieBefore extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        const relationship = relationshipFor(ctx);
+        const relationship = ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
         const fieldError = errors?.[0];
         const errorKey = this.requiredErrorKeyForRelationship(relationship);
         const dynamicRequiredMessage = this.generateContent(ctx, {}, language)
@@ -156,10 +125,10 @@ class ParentDieBefore extends ValidationStep {
     }
 
     requiredErrorKeyForRelationship(relationship) {
-        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
             return 'wholeBloodNieceOrNephewRequired';
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew') {
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
             return 'halfBloodNieceOrNephewRequired';
         }
         return 'required';
@@ -167,7 +136,16 @@ class ParentDieBefore extends ValidationStep {
 
     parentDieBeforeField(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        return PARENT_DIE_BEFORE_FIELD_BY_RELATIONSHIP[relationship] ?? null;
+        if (relationship === 'optionGrandchild') {
+            return 'childDieBeforeDeceased';
+        }
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return 'halfNieceOrNephewParentDieBeforeDeceased';
+        }
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeNieceOrNephewParentDieBeforeDeceased';
+        }
+        return null;
     }
 
 }

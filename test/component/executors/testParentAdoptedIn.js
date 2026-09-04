@@ -30,9 +30,9 @@ describe('parent-adopted-in', () => {
             },
             executors: {
                 list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true}
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true},
+                    {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
                 ]
             }
         };
@@ -64,9 +64,9 @@ describe('parent-adopted-in', () => {
                 type: caseTypes.INTESTACY,
                 applicantName: 'First coApplicant',
                 list: [
-                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionChild', isApplicant: true},
-                    {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true}
+                    {fullName: 'Hello', lastName: 'ABC', coApplicantRelationshipToDeceased: 'optionGrandchild', isApplicant: true},
+                    {fullName: 'First coApplicant', coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', isApplicant: true},
+                    {fullName: 'Second coApplicant', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', isApplicant: true}
                 ]
             };
             testWrapper.agent.post('/prepare-session/form').send(sessionData);

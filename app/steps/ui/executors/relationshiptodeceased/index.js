@@ -5,28 +5,6 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/coapplicant-relationship-to-deceased';
 
-// Normalise legacy/non-option values so routing/validation can rely on one enum shape.
-function asOptionRelationship(relationship) {
-    switch (relationship) {
-    case 'child':
-        return 'optionChild';
-    case 'grandchild':
-        return 'optionGrandchild';
-    case 'wholeBloodSibling':
-        return 'optionWholeBloodSibling';
-    case 'halfBloodSibling':
-        return 'optionHalfBloodSibling';
-    case 'wholeBloodNieceOrNephew':
-        return 'optionWholeBloodNieceOrNephew';
-    case 'halfBloodNieceOrNephew':
-        return 'optionHalfBloodNieceOrNephew';
-    case 'other':
-        return 'optionOther';
-    default:
-        return relationship;
-    }
-}
-
 class CoApplicantRelationshipToDeceased extends ValidationStep {
 
     static getUrl(index = '*') {
@@ -35,7 +13,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
 
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
-            ctx.coApplicantRelationshipToDeceased = asOptionRelationship(ctx.list[ctx.index].coApplicantRelationshipToDeceased);
+            ctx.coApplicantRelationshipToDeceased = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
         }
         return [ctx];
     }
@@ -97,11 +75,12 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
-        const applicantRelToDec = asOptionRelationship(ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased);
+        const applicantRelToDec = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
         const childOrSiblingValues = ['optionChild', 'optionHalfBloodSibling', 'optionWholeBloodSibling'];
         const grandchildOrNieceNephewValues = ['optionGrandchild', 'optionHalfBloodNieceOrNephew', 'optionWholeBloodNieceOrNephew'];
         ctx.childOrSibling = childOrSiblingValues.includes(applicantRelToDec);
         ctx.grandchildOrNieceNephew = grandchildOrNieceNephewValues.includes(applicantRelToDec);
+
         return {
             options: [
                 {key: 'childOrSibling', value: true, choice: 'childOrSibling'},
@@ -111,8 +90,9 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata) {
-        const newRelationship = asOptionRelationship(ctx.coApplicantRelationshipToDeceased);
-        const previousRelationship = asOptionRelationship(formdata.executors?.list?.[ctx.index]?.coApplicantRelationshipToDeceased);
+        const newRelationship = ctx.coApplicantRelationshipToDeceased;
+        const previousRelationship = formdata.executors?.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+
         if (formdata.executors && formdata.executors.list && newRelationship !== previousRelationship) {
             this.clearRelationshipFields(ctx, formdata);
         }
@@ -148,7 +128,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
         return [ctx, formdata];
     }
     clearRelationshipFields(ctx, formdata) {
-        const rel = asOptionRelationship(formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased);
+        const rel = formdata.executors.list[ctx.index]?.coApplicantRelationshipToDeceased;
         // Drop fields from the previous branch to prevent mixed relationship payloads after edits.
         switch (rel) {
         case 'optionChild':

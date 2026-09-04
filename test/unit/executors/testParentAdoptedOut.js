@@ -162,24 +162,19 @@ describe('ParentAdoptedOut', () => {
     });
 
     describe('ParentAdoptedOut handlePost', () => {
-        it('should adoptedOut = optionNo if coApplicantRelationshipToDeceased is grandChild', () => {
+        it('should set grandchildParentAdoptedOut = optionNo when relationship is optionGrandchild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptedOut: 'optionNo',
                 list: [
                     {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ]
             };
             const errors = [];
             const formdata = {
                 executors: {
-                    list: [
-                        {},
-                        {},
-                        {}
-                    ]
+                    list: [{}, {}]
                 }
             };
             ParentAdoptedOut.handlePost(ctx, errors, formdata);

@@ -4,19 +4,6 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adopted-out';
-const PARENT_ADOPTED_OUT_FIELDS = {
-    optionChild: 'grandchildParentAdoptedOut',
-    optionGrandchild: 'grandchildParentAdoptedOut',
-    grandchild: 'grandchildParentAdoptedOut',
-    optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptedOut',
-    halfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptedOut',
-    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptedOut',
-    wholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptedOut'
-};
-
-function relationshipFor(ctx) {
-    return ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
-}
 
 class CoApplicantParentAdoptedOut extends ValidationStep {
 
@@ -54,10 +41,10 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
 
     nextStepUrl(req, ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
             return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutWholeBloodNoNameStop');
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew') {
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
             return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutHalfBloodNoNameStop');
         }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptedOutStop');
@@ -66,8 +53,8 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
     nextStepOptions(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         const parentNotAdoptedOut = ctx.applicantParentAdoptedOut === 'optionNo';
-        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
-        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew';
         const isNieceOrNephew = isWhole || isHalf;
         ctx.wholeBloodNieceOrNephewParentNotAdoptedOut = isWhole && parentNotAdoptedOut;
         ctx.halfBloodNieceOrNephewParentNotAdoptedOut = isHalf && parentNotAdoptedOut;
@@ -82,7 +69,7 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
     }
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        const relationship = relationshipFor(ctx);
+        const relationship = ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
         const fieldError = errors?.[0];
         const errorKey = this.requiredErrorKeyForRelationship(relationship);
         const parentAdoptedOutField = fields.applicantParentAdoptedOut || null;
@@ -106,10 +93,10 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
     }
 
     requiredErrorKeyForRelationship(relationship) {
-        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
             return 'wholeBloodNieceOrNephewRequired';
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew') {
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
             return 'halfBloodNieceOrNephewRequired';
         }
         return 'required';
@@ -121,6 +108,9 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
             if (formdata.executors?.list?.[ctx.index]) {
                 formdata.executors.list[ctx.index][adoptedOutField] = ctx.applicantParentAdoptedOut;
             }
+        }
+        if (ctx.applicantParentAdoptedOut === 'optionYes') {
+            ctx.hasCoApplicant = 'optionYes';
         }
         return [ctx, errors];
     }
@@ -137,7 +127,17 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
     }
 
     parentAdoptedOutField(ctx) {
-        return PARENT_ADOPTED_OUT_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        if (relationship === 'optionGrandchild') {
+            return 'grandchildParentAdoptedOut';
+        }
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return 'halfNieceOrNephewParentAdoptedOut';
+        }
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeNieceOrNephewParentAdoptedOut';
+        }
+        return null;
     }
 }
 

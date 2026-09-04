@@ -5,52 +5,6 @@ const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('app/wrappers/Executors');
 const pageUrl = '/parent-adopted-in';
 
-// Relationship-to-field map allows the same step to persist either legacy or WB/HB parent fields.
-const PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP = {
-    optionGrandchild: {
-        adoptedIn: 'grandchildParentAdoptedIn',
-        adoptionPlace: 'grandchildParentAdoptionInEnglandOrWales',
-        adoptedOut: 'grandchildParentAdoptedOut'
-    },
-    grandchild: {
-        adoptedIn: 'grandchildParentAdoptedIn',
-        adoptionPlace: 'grandchildParentAdoptionInEnglandOrWales',
-        adoptedOut: 'grandchildParentAdoptedOut'
-    },
-    optionHalfBloodNieceOrNephew: {
-        adoptedIn: 'halfNieceOrNephewParentAdoptedIn',
-        adoptionPlace: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-        adoptedOut: 'halfNieceOrNephewParentAdoptedOut'
-    },
-    halfBloodNieceOrNephew: {
-        adoptedIn: 'halfNieceOrNephewParentAdoptedIn',
-        adoptionPlace: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-        adoptedOut: 'halfNieceOrNephewParentAdoptedOut'
-    },
-    optionWholeBloodNieceOrNephew: {
-        adoptedIn: 'wholeNieceOrNephewParentAdoptedIn',
-        adoptionPlace: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
-        adoptedOut: 'wholeNieceOrNephewParentAdoptedOut'
-    },
-    wholeBloodNieceOrNephew: {
-        adoptedIn: 'wholeNieceOrNephewParentAdoptedIn',
-        adoptionPlace: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
-        adoptedOut: 'wholeNieceOrNephewParentAdoptedOut'
-    }
-};
-
-function parentAdoptionFieldsFor(relationship) {
-    return PARENT_ADOPTION_FIELDS_BY_RELATIONSHIP[relationship] || {
-        adoptedIn: null,
-        adoptionPlace: null,
-        adoptedOut: null
-    };
-}
-
-function relationshipFor(ctx) {
-    return ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
-}
-
 class CoApplicantParentAdoptedIn extends ValidationStep {
     static getUrl(index = '*') {
         return `${pageUrl}/${index}`;
@@ -73,7 +27,13 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
     isComplete(ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        const {adoptedIn} = parentAdoptionFieldsFor(relationship);
+        const adoptedIn = relationship === 'optionGrandchild'
+            ? 'grandchildParentAdoptedIn'
+            : relationship === 'optionHalfBloodNieceOrNephew'
+                ? 'halfNieceOrNephewParentAdoptedIn'
+                : relationship === 'optionWholeBloodNieceOrNephew'
+                    ? 'wholeNieceOrNephewParentAdoptedIn'
+                    : null;
         if (adoptedIn && ctx.list[ctx.index]?.[adoptedIn]) {
             return [true, 'inProgress'];
         }
@@ -83,7 +43,13 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     handleGet(ctx) {
         if (ctx.list?.[ctx.index]) {
             const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-            const {adoptedIn} = parentAdoptionFieldsFor(relationship);
+            const adoptedIn = relationship === 'optionGrandchild'
+                ? 'grandchildParentAdoptedIn'
+                : relationship === 'optionHalfBloodNieceOrNephew'
+                    ? 'halfNieceOrNephewParentAdoptedIn'
+                    : relationship === 'optionWholeBloodNieceOrNephew'
+                        ? 'wholeNieceOrNephewParentAdoptedIn'
+                        : null;
             ctx.applicantParentAdoptedIn = ctx.list[ctx.index][adoptedIn];
         }
         return [ctx];
@@ -92,8 +58,8 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     nextStepOptions(ctx) {
         const coapplParentAdoptedIn = ctx.applicantParentAdoptedIn;
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
-        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
-        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew';
         const isNieceOrNephew = isWhole || isHalf;
         ctx.wholeBloodNieceOrNephewParentAdoptedIn = isWhole && coapplParentAdoptedIn === 'optionYes';
         ctx.halfBloodNieceOrNephewParentAdoptedIn = isHalf && coapplParentAdoptedIn === 'optionYes';
@@ -109,7 +75,7 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
 
     generateFields(language, ctx, errors) {
         const fields = super.generateFields(language, ctx, errors);
-        const relationship = relationshipFor(ctx);
+        const relationship = ctx?.relationshipToDeceased ?? ctx?.list?.[ctx?.index]?.coApplicantRelationshipToDeceased ?? null;
         const fieldError = errors?.[0];
         const errorKey = this.requiredErrorKeyForRelationship(relationship);
         this.i18next.changeLanguage(language);
@@ -133,10 +99,10 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
     }
 
     requiredErrorKeyForRelationship(relationship) {
-        if (relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew') {
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
             return 'wholeBloodNieceOrNephewRequired';
         }
-        if (relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew') {
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
             return 'halfBloodNieceOrNephewRequired';
         }
         return 'required';
@@ -144,7 +110,27 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
 
     handlePost(ctx, errors, formdata) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
-        const {adoptedIn, adoptionPlace, adoptedOut} = parentAdoptionFieldsFor(relationship);
+        const adoptedIn = relationship === 'optionGrandchild'
+            ? 'grandchildParentAdoptedIn'
+            : relationship === 'optionHalfBloodNieceOrNephew'
+                ? 'halfNieceOrNephewParentAdoptedIn'
+                : relationship === 'optionWholeBloodNieceOrNephew'
+                    ? 'wholeNieceOrNephewParentAdoptedIn'
+                    : null;
+        const adoptionPlace = relationship === 'optionGrandchild'
+            ? 'grandchildParentAdoptionInEnglandOrWales'
+            : relationship === 'optionHalfBloodNieceOrNephew'
+                ? 'halfNieceOrNephewParentAdoptionInEnglandOrWales'
+                : relationship === 'optionWholeBloodNieceOrNephew'
+                    ? 'wholeNieceOrNephewParentAdoptionInEnglandOrWales'
+                    : null;
+        const adoptedOut = relationship === 'optionGrandchild'
+            ? 'grandchildParentAdoptedOut'
+            : relationship === 'optionHalfBloodNieceOrNephew'
+                ? 'halfNieceOrNephewParentAdoptedOut'
+                : relationship === 'optionWholeBloodNieceOrNephew'
+                    ? 'wholeNieceOrNephewParentAdoptedOut'
+                    : null;
         // Clear dependent answers when adopted-in flips to avoid stale branch data on summary/persistence.
         if (formdata.executors && formdata.executors.list && adoptedIn && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.[adoptedIn]) {
             delete ctx.list[ctx.index][adoptionPlace];

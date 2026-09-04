@@ -4,15 +4,6 @@ const ValidationStep = require('app/core/steps/ValidationStep');
 const FormatName = require('../../../../utils/FormatName');
 const ExecutorsWrapper = require('../../../../wrappers/Executors');
 const pageUrl = '/parent-adoption-place';
-const PARENT_ADOPTION_PLACE_FIELDS = {
-    optionChild: 'grandchildParentAdoptionInEnglandOrWales',
-    optionGrandchild: 'grandchildParentAdoptionInEnglandOrWales',
-    grandchild: 'grandchildParentAdoptionInEnglandOrWales',
-    optionHalfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-    halfBloodNieceOrNephew: 'halfNieceOrNephewParentAdoptionInEnglandOrWales',
-    optionWholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
-    wholeBloodNieceOrNephew: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales'
-};
 
 class CoApplicantParentAdoptionPlace extends ValidationStep {
 
@@ -53,9 +44,7 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     nextStepUrl(req, ctx) {
         const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
         if (relationship === 'optionWholeBloodNieceOrNephew' ||
-            relationship === 'optionHalfBloodNieceOrNephew' ||
-            relationship === 'wholeBloodNieceOrNephew' ||
-            relationship === 'halfBloodNieceOrNephew') {
+            relationship === 'optionHalfBloodNieceOrNephew') {
             return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantParentAdoptionPlaceNoNameStop');
         }
         return this.next(req, ctx).getUrlWithContext(ctx, 'coApplicantAdoptionPlaceStop');
@@ -64,8 +53,8 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     nextStepOptions(ctx) {
         const relationship = ctx.list?.at(ctx.index)?.coApplicantRelationshipToDeceased;
         const parentAdoptedEngWales = ctx.applicantParentAdoptionPlace;
-        const isWhole = relationship === 'optionWholeBloodNieceOrNephew' || relationship === 'wholeBloodNieceOrNephew';
-        const isHalf = relationship === 'optionHalfBloodNieceOrNephew' || relationship === 'halfBloodNieceOrNephew';
+        const isWhole = relationship === 'optionWholeBloodNieceOrNephew';
+        const isHalf = relationship === 'optionHalfBloodNieceOrNephew';
         const isNieceOrNephew = isWhole || isHalf;
         ctx.wholeBloodNieceOrNephewParentAdoptedInEnglandOrWales = isWhole && parentAdoptedEngWales === 'optionYes';
         ctx.halfBloodNieceOrNephewParentAdoptedInEnglandOrWales = isHalf && parentAdoptedEngWales === 'optionYes';
@@ -102,7 +91,17 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
     }
 
     parentAdoptionPlaceField(ctx) {
-        return PARENT_ADOPTION_PLACE_FIELDS[ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased] || null;
+        const relationship = ctx.list?.[ctx.index]?.coApplicantRelationshipToDeceased;
+        if (relationship === 'optionGrandchild') {
+            return 'grandchildParentAdoptionInEnglandOrWales';
+        }
+        if (relationship === 'optionHalfBloodNieceOrNephew') {
+            return 'halfNieceOrNephewParentAdoptionInEnglandOrWales';
+        }
+        if (relationship === 'optionWholeBloodNieceOrNephew') {
+            return 'wholeNieceOrNephewParentAdoptionInEnglandOrWales';
+        }
+        return null;
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "title": "Co-Applicant adopted deceased in",
-  "question": "Did {applicantName} legally adopt {deceasedName} in to their family?",
+  "question": "A wnaeth {applicantName} fabwysiadu {deceasedName} yn gyfreithlon i mewn i'w teulu?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 

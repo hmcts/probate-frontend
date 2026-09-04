@@ -1,6 +1,6 @@
 {
   "title": "Co-Applicant adopted deceased out",
-  "question": "Did {applicantName} legally adopt {deceasedName} out of their family (give them up for adoption)?",
+  "question": "A wnaeth {applicantName} fabwysiadu {deceasedName} yn gyfreithlon allan o'u teulu (ei roi i fyny i'w fabwysiadu/mabwysiadu)?",
   "optionYes": "Do",
   "optionNo": "Naddo",
 

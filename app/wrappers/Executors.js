@@ -185,6 +185,22 @@ class Executors {
     }
 
     hasStopCondition(executor) {
+        const wholeNieceNephewRelationships = ['optionWholeBloodNieceOrNephew', 'wholeBloodNieceOrNephew'];
+        const halfNieceNephewRelationships = ['optionHalfBloodNieceOrNephew', 'halfBloodNieceOrNephew'];
+
+        // WB/HB niece-nephew stop checks use parent-eligibility answers captured in the newer parent fields.
+        if (wholeNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
+            return executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+                executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.wholeNieceOrNephewParentAdoptedOut === 'optionYes';
+        }
+
+        if (halfNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
+            return executor?.halfNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+                executor?.halfNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+                executor?.halfNieceOrNephewParentAdoptedOut === 'optionYes';
+        }
+
         const optionNoFields = [
             'childAdoptionInEnglandOrWales',
             'grandchildAdoptionInEnglandOrWales',
@@ -192,6 +208,7 @@ class Executors {
             'wholeBloodSiblingAdoptionInEnglandOrWales',
             'halfBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
+            'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
             'childDieBeforeDeceased',
             'wholeBloodSiblingDiedBeforeDeceased',
             'halfBloodSiblingDiedBeforeDeceased'
@@ -208,10 +225,11 @@ class Executors {
         ];
 
         return (
-            optionNoFields.some(field => executor[field] === 'optionNo') ||
-            optionYesFields.some(field => executor[field] === 'optionYes')
+            optionNoFields.some(field => executor?.[field] === 'optionNo') ||
+            optionYesFields.some(field => executor?.[field] === 'optionYes')
         );
     }
+
     getStopPageIndex() {
         return this.executorsList.findIndex(executor =>
             this.hasStopCondition(executor)

@@ -13517,17 +13517,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:25.9.0":
-  version: 25.9.0
-  resolution: "puppeteer-core@npm:25.9.0"
+"puppeteer-core@npm:25.10.0":
+  version: 25.10.0
+  resolution: "puppeteer-core@npm:25.10.0"
   dependencies:
-    "@puppeteer/browsers": "npm:3.2.1"
+    "@puppeteer/browsers": "npm:3.2.2"
     chromium-bidi: "npm:17.0.2"
     devtools-protocol: "npm:0.0.1666840"
     typed-query-selector: "npm:^2.12.2"
-    webdriver-bidi-protocol: "npm:0.4.2"
+    webdriver-bidi-protocol: "npm:0.4.3"
     ws: "npm:^8.21.3"
-  checksum: 10/a32cfb62abebdc3de654b691f7c7fa195e63a288ace7b1dfc023a2964ea83478f40a09e402028f40a993162dd50c9cbb9f95fcf0d7d364b563eed17f5e2cdf4d
+  checksum: 10/4e01919f487fc75f543a639017bfab45775c1d13e4c1e37a7f1db6ca22c78a2275fe1d3d0e1fa54aee622adb0660cd3cb81f7f85d02b85adee6af2385ebb7fc1
   languageName: node
   linkType: hard
 
@@ -13546,18 +13546,18 @@ __metadata:
   linkType: hard
 
 "puppeteer@npm:^25.3.0":
-  version: 25.9.0
-  resolution: "puppeteer@npm:25.9.0"
+  version: 25.10.0
+  resolution: "puppeteer@npm:25.10.0"
   dependencies:
-    "@puppeteer/browsers": "npm:3.2.1"
+    "@puppeteer/browsers": "npm:3.2.2"
     chromium-bidi: "npm:17.0.2"
     devtools-protocol: "npm:0.0.1666840"
     lilconfig: "npm:^3.1.3"
-    puppeteer-core: "npm:25.9.0"
+    puppeteer-core: "npm:25.10.0"
     typed-query-selector: "npm:^2.12.2"
   bin:
     puppeteer: lib/puppeteer/node/cli.js
-  checksum: 10/ebbfd2568b8f0a2158d52fe911eeb7fb97969a6b65bc2db32fdf11ab2d9c9e5945ed27cdc630b8fa0e0ba4383ff9ff9b0b759550231576bf79202719b4690b45
+  checksum: 10/cd68439c4290a2d021a6273db0f3bbadff98e322de29b1b08f3458a25cf080df2eee25d33bfb3d1314d2df9dff18bd380079f43806021100306f109aa1e10de6
   languageName: node
   linkType: hard
 
@@ -16535,6 +16535,13 @@ __metadata:
   version: 0.4.2
   resolution: "webdriver-bidi-protocol@npm:0.4.2"
   checksum: 10/66b83275cf150dc2af5f296da833a045c3a4f1c0976e91a30bc4e74022d50943ebb96e85f91d82a6020349a47685eb4f892987c7e644bc38668cb94e505f39ca
+  languageName: node
+  linkType: hard
+
+"webdriver-bidi-protocol@npm:0.4.3":
+  version: 0.4.3
+  resolution: "webdriver-bidi-protocol@npm:0.4.3"
+  checksum: 10/d250430751616f67726c31067c59c9226af61c5caceb229228eb5470bfad89f30a314b3b977f780510a62a41e49da7edd78d9b1b13dc2018de57729babb74f79
   languageName: node
   linkType: hard
 

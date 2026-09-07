@@ -79,7 +79,7 @@
   "codicils": "codisiliau",
   "intestacyLegalStatementDeceased": "Nid oedd gan {deceasedName}, o {deceasedAddress}, a anwyd ar {deceasedDob} ac a fu farw ar {deceasedDod} ewyllys.",
   "intestacyDeceasedMaritalStatus": "Roeddynt yn {deceasedMaritalStatus} ac fel arfer yn preswylio yng Nghymru a Lloegr.",
-  "intestacyDeceasedChildren": "Nid oes gan blant dan 18 oed hawl i&rsquo;r ystad.",
+  "intestacyDeceasedChildren": "Nid oes unrhyw un o dan 18 oed sydd â hawl i&rsquo;r ystad.",
   "intestacyDeceasedEstateOutside": "Roedd gan yr unigolyn sydd wedi marw asedau dramor a oedd werth net &pound;{ihtNetValueAssetsOutside}.",
   "intestacyDeceasedEstateLand": "Hyd eithaf fy ngwybodaeth a&rsquo;m cred, nid oedd unrhyw dir wedi&rsquo;i freinio yn {deceasedName} a setlwyd cyn marwolaeth {deceasedName} ac a oedd dal yn dir a setlwyd er gwaethaf y farwolaeth honno.",
   "intestacyDeceasedEstateLand-multipleApplicants": "Hyd eithaf fy ngwybodaeth a’m cred, nid oedd unrhyw dir wedi’i freinio yn {deceasedName} a setlwyd yn flaenorol cyn marwolaeth {deceasedName} ac a oedd dal yn dir a setlwyd er gwaethaf y farwolaeth honno.",

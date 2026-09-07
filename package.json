@@ -229,7 +229,7 @@
   "resolutions": {
     "@azure/identity": "^4.13.0",
     "@azure/msal-browser": "^5.0.0",
-    "@azure/msal-node": "^5.0.0",
+    "@azure/msal-node": "^6.0.0",
     "@eslint/plugin-kit": "^0.7.0",
     "@puppeteer/browsers": "^3.0.0",
     "@opentelemetry/core": "^2.8.0",

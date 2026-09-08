@@ -30,7 +30,11 @@ class CoApplicantAdoptedDeceasedOut extends ValidationStep {
     }
 
     isComplete(ctx) {
-        if (ctx.list[ctx.index]?.coApplicantAdoptedDeceasedOut) {
+        if (ctx.list[ctx.index]?.coApplicantAdoptedDeceasedIn == "optionYes" &&
+            ctx.list[ctx.index]?.coApplicantAdoptionDeceasedInEnglandOrWales == "optionYes") {
+            return [true, 'inProgress'];
+        }
+        else if (ctx.list[ctx.index]?.coApplicantAdoptedDeceasedOut) {
             return [true, 'inProgress'];
         }
         return [false, 'inProgress'];

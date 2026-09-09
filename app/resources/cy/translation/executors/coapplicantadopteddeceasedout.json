@@ -6,7 +6,7 @@
 
   "errors": {
     "coApplicantAdoptedDeceasedOut": {
-      "required": "Select &lsquo;Yes&rsquo; if {applicantName} gave {deceasedName} up for adoption"
+      "required": "Dewiswch &lsquo;Do&rsquo; os cafodd {{deceasedName}} ei fabwysiadu/ei mabwysiadu gan {{applicantName}}"
     }
   }
 }

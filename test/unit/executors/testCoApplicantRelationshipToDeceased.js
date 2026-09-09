@@ -237,6 +237,76 @@ describe('Co-applicant-relationship', () => {
             });
             done();
         });
+
+        [
+            {
+                fromRelationship: 'optionWholeBloodNieceOrNephew',
+                toRelationship: 'optionHalfBloodNieceOrNephew',
+                parentFieldsToClear: [
+                    'wholeNieceOrNephewParentDieBeforeDeceased',
+                    'wholeNieceOrNephewParentAdoptedIn',
+                    'wholeNieceOrNephewParentAdoptionInEnglandOrWales',
+                    'wholeNieceOrNephewParentAdoptedOut'
+                ],
+                staleValues: {
+                    wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                    wholeNieceOrNephewParentAdoptedIn: 'optionNo',
+                    wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                    wholeNieceOrNephewParentAdoptedOut: 'optionNo'
+                }
+            },
+            {
+                fromRelationship: 'optionHalfBloodNieceOrNephew',
+                toRelationship: 'optionWholeBloodNieceOrNephew',
+                parentFieldsToClear: [
+                    'halfNieceOrNephewParentDieBeforeDeceased',
+                    'halfNieceOrNephewParentAdoptedIn',
+                    'halfNieceOrNephewParentAdoptionInEnglandOrWales',
+                    'halfNieceOrNephewParentAdoptedOut'
+                ],
+                staleValues: {
+                    halfNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                    halfNieceOrNephewParentAdoptedIn: 'optionNo',
+                    halfNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                    halfNieceOrNephewParentAdoptedOut: 'optionNo'
+                }
+            }
+        ].forEach(({fromRelationship, toRelationship, parentFieldsToClear, staleValues}) => {
+            it(`clears stale parent answers when relationship changes from ${fromRelationship} to ${toRelationship}`, () => {
+                const formdata = {
+                    executors: {
+                        list: [
+                            {fullName: 'Main Applicant1'},
+                            {
+                                fullName: 'CoApplicant 1',
+                                coApplicantRelationshipToDeceased: fromRelationship,
+                                ...staleValues
+                            }
+                        ]
+                    }
+                };
+
+                let ctx = {
+                    list: [
+                        {fullName: 'Applicant'},
+                        {
+                            fullName: 'CoApplicant 1',
+                            coApplicantRelationshipToDeceased: fromRelationship,
+                            ...staleValues
+                        }
+                    ],
+                    index: 1,
+                    coApplicantRelationshipToDeceased: toRelationship
+                };
+
+                [ctx] = CoApplicantRelationshipToDeceased.handlePost(ctx, [], formdata);
+                expect(ctx.list[1].coApplicantRelationshipToDeceased).to.equal(toRelationship);
+                expect(ctx.list[1].isApplying).to.equal(true);
+                parentFieldsToClear.forEach(field => {
+                    expect(ctx.list[1]).to.not.have.property(field);
+                });
+            });
+        });
     });
     describe('nextStepOptions()', () => {
         it('should return the correct options', (done) => {

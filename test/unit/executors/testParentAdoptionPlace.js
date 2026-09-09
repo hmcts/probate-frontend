@@ -122,13 +122,13 @@ describe('ParentAdoptionPlace', () => {
     });
 
     describe('ParentAdoptionPlace handlePost', () => {
-        it('should childAdoptionInEnglandOrWales = optionYes if coApplicantRelationshipToDeceased is Child', () => {
+        it('should set grandchildParentAdoptionInEnglandOrWales = optionYes when relationship is optionGrandchild', () => {
             const ctx = {
                 index: '1',
                 applicantParentAdoptionPlace: 'optionYes',
                 list: [
                     {},
-                    {coApplicantRelationshipToDeceased: 'optionChild'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ]
             };

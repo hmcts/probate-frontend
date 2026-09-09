@@ -49,6 +49,13 @@ class AnyOtherWholeSiblings extends ValidationStep {
     action(ctx, formdata) {
         super.action(ctx, formdata);
 
+        if (ctx.anyOtherWholeSiblings === 'optionNo') {
+            delete ctx.allWholeSiblingsOver18;
+            delete ctx.anyPredeceasedWholeSiblings;
+            delete ctx.anySurvivingWholeNiecesAndWholeNephews;
+            delete ctx.allWholeNiecesAndWholeNephewsOver18;
+        }
+
         if (formdata.applicant?.anyOtherWholeSiblings && ctx.anyOtherWholeSiblings !== formdata.applicant.anyOtherWholeSiblings) {
             delete ctx.allWholeSiblingsOver18;
             delete ctx.anyPredeceasedWholeSiblings;

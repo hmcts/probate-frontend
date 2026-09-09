@@ -8,6 +8,10 @@
 
 {% set taskNumber = 0 %}
 {% block content %}
+{% set bannerText = content.notificationBanner %}
+{% if fields.caseType.value === globals.caseTypes.intestacy %}
+{% set bannerText = content.intestacyNotificationBanner %}
+{% endif %}
     <div class="govuk-grid-row">
         {% if fields.displaySuccessBanner.value == "true" %}
           <div class="govuk-grid-column-two-thirds" style="padding-left: 0px;">
@@ -46,7 +50,7 @@
           {% for executor in fields.declarationStatuses.value %}
             {% if executor.agreed != "agreed" and not bannerDisplayed %}
                 {{ govukNotificationBanner({
-                  text: content.notificationBanner | safe
+                  text: bannerText | safe
                 }) }}
                 {% set bannerDisplayed = true %}
             {% endif %}
@@ -55,6 +59,9 @@
             <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
             <p class="govuk-body">{{ content.introduction | safe }}</p>
             <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+            {% if fields.caseType.value === 'intestacy' %}
+              <p class="govuk-body">{{ content.intestacyParagraph1 | safe }}</p>
+            {% endif %}
                 {% ifAsync fields.caseType.value === globals.caseTypes.gop %}
                     {% set taskNumber = taskNumber + 1 %}
                     {{ taskHeader(

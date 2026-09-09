@@ -11,6 +11,6 @@ module.exports = async function(language = 'en') {
     await I.waitForText(phoneContent.phoneNumber, config.TestWaitForTextToAppear);
     const locator = {css: '#phoneNumber'};
     await I.waitForEnabled(locator);
-    await I.fillField(locator, '123456789');
+    await I.fillField(locator, '07771 900 900');
     await I.navByClick(commonContent.saveAndContinue, 'button.govuk-button');
 };

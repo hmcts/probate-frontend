@@ -26,7 +26,7 @@ class DeceasedDomicile extends EligibilityValidationStep {
             return ExceptedEstateDeceasedDod.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('notInEnglandOrWales');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notInEnglandOrWales');
     }
 
     nextStepOptions() {

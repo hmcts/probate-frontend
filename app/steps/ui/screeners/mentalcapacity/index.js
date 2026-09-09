@@ -20,7 +20,7 @@ class MentalCapacity extends EligibilityValidationStep {
             return TaskList.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('mentalCapacity');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'mentalCapacity');
     }
 
     nextStepOptions() {

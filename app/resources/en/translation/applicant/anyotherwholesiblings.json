@@ -1,0 +1,17 @@
+{
+  "title": "Did the deceased have any other siblings who have the same parents?",
+  "question": "Did {deceasedName} have any other siblings who have the same parents?",
+  "paragraph1": "We need to know about all siblings {deceasedName} had who have the same parents, including any siblings who:",
+  "listItem1": "were legally adopted or given up for adoption by both parents",
+  "listItem2": "have died, either before or after {deceasedName}",
+  "paragraph2": "This does not include any step-siblings or siblings who only have one parent in common (half-siblings).",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "anyOtherWholeSiblings": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} had any other siblings who have the same parents"
+    }
+  }
+}

@@ -179,7 +179,8 @@ describe('executors-address', () => {
                         {fullName: 'Other Applicant', isApplying: true, isApplicant: true},
                         {fullName: 'Harvey', isApplying: true, isApplicant: true}
                     ]
-                }
+                },
+                caseType: caseTypes.GOP
             };
 
             testWrapper.agent.post('/prepare-session/form')
@@ -190,6 +191,8 @@ describe('executors-address', () => {
                         addressLine1: 'line1',
                         postTown: 'town',
                         newPostCode: 'postCode',
+                        country: 'country',
+                        caseType: caseTypes.GOP,
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
@@ -206,6 +209,7 @@ describe('executors-address', () => {
                         addressLine1: 'line1',
                         postTown: 'town',
                         newPostCode: 'postCode',
+                        country: 'country',
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(2);
@@ -237,6 +241,7 @@ describe('executors-address', () => {
                         addressLine1: 'line1',
                         postTown: 'town',
                         newPostCode: 'postCode',
+                        country: 'country',
                     };
 
                     testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);

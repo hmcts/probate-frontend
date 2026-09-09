@@ -1,0 +1,12 @@
+{
+  "title": "Remove co-applicant",
+  "question": "Are you sure you want to remove {executorFullName}?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "removeCoApplicant": {
+      "required": "Select &lsquo;Yes&rsquo; if you want to remove {executorFullName}"
+    }
+  }
+}

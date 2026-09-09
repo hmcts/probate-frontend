@@ -1,11 +1,11 @@
 import { test } from '../../fixtures/index.ts';
 import { BasePage, getTestLanguages } from '../../pages/utility/basePage.ts';
 import { Page, BrowserContext} from "@playwright/test";
-
 import { TestConfigurator } from "../../pages/utility/testConfigurator.ts";
 import ihtDataConfig from "../../data/ee/ihtData.json" with { type: "json" };
 import applicantDetailConfig from "../../data/intestacy/sole/applicantDetails.json" with { type: "json" };
 import deceasedDetailsConfig from '../../data/deceasedDetailsConfig.json' with { type: 'json' };
+import { TaskListPage } from '../../pages/taskListPage.ts';
 
 const optionYes = ihtDataConfig.optionYes;
 const optionNo = ihtDataConfig.optionNo;
@@ -19,11 +19,10 @@ const deceasedLastName = nameParts.slice(-2).join(' ');
 const deceasedFirstName = nameParts.slice(0, -2).join(' ');
 
 getTestLanguages().forEach(language => {
-  test.describe('Credit card payment cancellation @firefox', () => {
+  test.describe('Intestacy sole child journey - EE Yes ipadpro11', () => {
     test.describe.configure({ mode: 'serial' });
-    test.setTimeout(300000);
-    test.use({ language });
 
+    test.use({ language });
     let testConfigurator: TestConfigurator;
     let context: BrowserContext;
     let page: Page;
@@ -40,17 +39,19 @@ getTestLanguages().forEach(language => {
     });
 
     test((`${language.toUpperCase()} Go to application task list page to complete deceased and applicant details`), async ({
-      intestacyScreenerPage,
-      apiCallback,
-      signInPage,
-      taskListPage,
-      deceasedDetailsPage,
-      applicantDetailsPage,
-      cyaAndDeclarationPage,
-      paymentTaskPage
-    }) => {
+                                                                                                                             page,
+                                                                                                                             context,
+                                                                                                                             intestacyScreenerPage,
+                                                                                                                             apiCallback,
+                                                                                                                             signInPage,
+                                                                                                                             deceasedDetailsPage,
+                                                                                                                             applicantDetailsPage,
+                                                                                                                             cyaAndDeclarationPage,
+                                                                                                                             paymentTaskPage
+                                                                                                                           }) => {
       const testConfigurator = new TestConfigurator();
-      const scenarioName = `Credit card payment cancellation - ${language}`;
+      const scenarioName = `Intestacy child solo journey - EE Yes - ${language}`;
+      const taskListPage = new TaskListPage(page, context as BrowserContext, language);
 
       await apiCallback.createAUser(testConfigurator);
 
@@ -89,19 +90,15 @@ getTestLanguages().forEach(language => {
         deceasedDetailsConfig.deceasedDobYear);
       await deceasedDetailsPage.enterDodDetails(deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
-        deceasedDetailsConfig.deceasedDodYearEE);
+        deceasedDetailsConfig.deceasedDodYear);
       await deceasedDetailsPage.enterDeceasedAddress();
-
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
       await deceasedDetailsPage.selectForeignDeathCertTranslation(language, optionYes);
-
-      await deceasedDetailsPage.selectEEComplete(optionYes);
-      await deceasedDetailsPage.selectSubmittedToHmrc(optionYes);
+      await deceasedDetailsPage.enterGrossAndNet('400');
       await deceasedDetailsPage.selectHmrcLetterComplete(optionYes);
       await deceasedDetailsPage.enterHmrcCode(hmrcCode);
-      await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
-
+      await deceasedDetailsPage.enterProbateAssetValues('2500', '2000');
       await deceasedDetailsPage.selectAssetsOutsideEnglandWales(language, optionYes);
       await deceasedDetailsPage.enterValueAssetsOutsideEnglandWales('400000');
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
@@ -111,6 +108,8 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Applicant details task", null);
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
+      await applicantDetailsPage.selectSpouseNotApplyingReason(applicantDetailConfig.optionOther);
+      await applicantDetailsPage.viewSpouseNotApplyingStopPage(language);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
       await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'child');
       await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
@@ -135,17 +134,24 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Payment details task", null);
       await taskListPage.selectATask(language, 'paymentTask');
 
-      await paymentTaskPage.enterUkCopies(language, '5');
-      await paymentTaskPage.selectOverseasAssets(optionYes);
-      await paymentTaskPage.enterOverseasCopies('2');
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await paymentTaskPage.enterUkCopies(language, '5');
+        await paymentTaskPage.selectOverseasAssets(optionYes);
+        await paymentTaskPage.enterOverseasCopies('2');
+      } else {
+        await paymentTaskPage.enterUkCopies(language, '0');
+        await paymentTaskPage.selectOverseasAssets(optionNo);
+      }
       await paymentTaskPage.seeCopiesSummary(language);
       await paymentTaskPage.seePaymentBreakdownPage(language);
+      if (testConfigurator.getUseGovPay() === 'true') {
+        await paymentTaskPage.seeGovUkPaymentPage(language);
+        await paymentTaskPage.seeGovUkConfirmPage(language);
+      }
 
-      await paymentTaskPage.seeGovUkPaymentPage(language);
-      await paymentTaskPage.seeGovUkCancelPage(language);
-      await paymentTaskPage.seeCancellationPage(language);
-      await paymentTaskPage.seePaymentClosePage(language);
-      await signInPage.seeSignOut(language);
+      // Thank You
+      const caseId = await paymentTaskPage.seeThankYouPage(language);
+      await basePage.logInfo(scenarioName, "Application submitted successfully", `${caseId}`);
     });
   });
 });

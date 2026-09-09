@@ -39,7 +39,7 @@ describe('deceased-marital-status', () => {
                 .send(sessionData)
                 .end(() => {
                     const contentData = {deceasedName: 'John Doe'};
-                    const contentToExclude = ['divorce', 'separation'];
+                    const contentToExclude = ['divorce', 'divorced', 'separation'];
 
                     testWrapper.testContent(done, contentData, contentToExclude);
                 });

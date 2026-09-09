@@ -2,14 +2,14 @@
 
 const TestWrapper = require('test/util/TestWrapper');
 const DeceasedOtherNames = require('app/steps/ui/deceased/otherNames');
-const DeceasedMarried = require('app/steps/ui/deceased/married');
+const DeceasedMaritalStatus = require('app/steps/ui/deceased/maritalstatus');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
 
 describe('deceased-alias', () => {
     let testWrapper;
     const expectedNextUrlForDeceasedOtherNames = DeceasedOtherNames.getUrl();
-    const expectedNextUrlForDeceasedMarried = DeceasedMarried.getUrl();
+    const expectedNextUrlForDeceasedMaritalStatus = DeceasedMaritalStatus.getUrl();
 
     beforeEach(() => {
         testWrapper = new TestWrapper('DeceasedAlias');
@@ -56,14 +56,14 @@ describe('deceased-alias', () => {
 
             testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedOtherNames);
         });
-        it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMarried}`, (done) => {
+        it(`test it redirects to deceased married page: ${expectedNextUrlForDeceasedMaritalStatus}`, (done) => {
             const data = {
                 alias: 'optionNo'
             };
 
             testWrapper.agent.post('/prepare-session/form')
                 .end(() => {
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMarried);
+                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedMaritalStatus);
                 });
         });
     });

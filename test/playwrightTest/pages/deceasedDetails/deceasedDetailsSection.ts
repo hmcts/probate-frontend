@@ -309,18 +309,18 @@ export class DeceasedDetailsSection extends BasePage {
 
   async selectDeceasedMaritalStatus(answer = null) {
     await this.checkInUrl('/deceased-marital-status');
-    await expect(this.page.locator(`#maritalStatus${answer}`)).toBeEnabled();
-    await this.page.locator(`#maritalStatus${answer}`).click();
+    await expect(this.page.locator(`input[type="radio"][value="${answer}"]`)).toBeVisible();
+    await this.page.locator(`input[type="radio"][value="${answer}"]`).click();
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async selectDivorcePlace(language = 'en', answer = null) {
+  async selectDivorcePlace(language = 'en', answer = null, legalSeparationType: string) {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
     const divorcePlaceContent = getContent(`app/resources/${language}/translation/deceased/divorceplace.json`);
     await this.checkInUrl('/deceased-divorce-or-separation-place');
     await expect(this.page.getByText(await decodeHTML(divorcePlaceContent.question)
-      .replace('{legalProcess}', deceasedDetailsConfig[`legalSeparationType${langKey}`])))
+      .replace('{legalProcess}', deceasedDetailsConfig[`${legalSeparationType}${langKey}`])))
       .toBeVisible();
     await expect(this.page.locator(`#divorcePlace${answer}`)).toBeEnabled();
     await this.page.locator(`#divorcePlace${answer}`).click();
@@ -328,12 +328,12 @@ export class DeceasedDetailsSection extends BasePage {
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterDivorceDate(language = 'en', answer = null, divorceDay, divorceMonth, divorceYear) {
+  async enterDivorceDate(language = 'en', answer = null, legalSeparationType, divorceDay, divorceMonth, divorceYear) {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
     const divorceDateContent = getContent(`app/resources/${language}/translation/deceased/divorcedate.json`);
     await this.checkInUrl('/deceased-divorced-or-separation-date');
     await expect(this.page.getByText(await decodeHTML(divorceDateContent.question)
-      .replace('{legalProcess}', deceasedDetailsConfig[`legalSeparationType${langKey}`])))
+      .replace('{legalProcess}', deceasedDetailsConfig[`${legalSeparationType}${langKey}`])))
       .toBeVisible();
     await expect(this.page.locator(`#divorceDateKnown${answer}`)).toBeEnabled();
     await this.page.locator(`#divorceDateKnown${answer}`).click();
@@ -342,6 +342,14 @@ export class DeceasedDetailsSection extends BasePage {
     await this.page.locator('#divorceDate-day').fill(divorceDay);
     await this.page.locator('#divorceDate-month').fill(divorceMonth);
     await this.page.locator('#divorceDate-year').fill(divorceYear);
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async enterDeceasedSpouseName(deceasedSpouseName = null) {
+    await this.checkInUrl('/deceased-partner-name');
+    await expect(this.page.locator('#deceasedSpouseName')).toBeEnabled();
+    await this.page.locator('#deceasedSpouseName').fill(deceasedSpouseName);
+    await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 

@@ -86,7 +86,7 @@ describe('DivorcePlace', () => {
                     error: false,
                     value: 'divorce'
                 },
-                title: `Where the divorce took place - ${commonContent.serviceName}`
+                title: `Did the divorce take place in England or Wales? - ${commonContent.serviceName}`
             });
             done();
         });
@@ -107,14 +107,14 @@ describe('DivorcePlace', () => {
             done();
         });
 
-        it('should return the correct url when No is given and legal act is Divorce', (done) => {
+        it('should return the correct url when intestacy and No is given and legal act is Divorce', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                legalProcess: 'divorce',
+                copyMaritalStatus: 'optionDivorced',
                 divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
@@ -122,18 +122,50 @@ describe('DivorcePlace', () => {
             done();
         });
 
-        it('should return the correct url when No is given and legal act is Separation', (done) => {
+        it('should return the correct url when intestacy and No is given and legal act is Separation', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                legalProcess: 'separation',
+                copyMaritalStatus: 'optionSeparated',
                 divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/separationPlace');
+            done();
+        });
+
+        it('should return the correct url when probate and No is given and legal act is Divorce', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'gop',
+                copyMaritalStatus: 'optionDivorced',
+                divorcePlace: 'optionNo'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/probateDivorcePlace');
+            done();
+        });
+
+        it('should return the correct url when probate and No is given and legal act is Separation', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'gop',
+                copyMaritalStatus: 'optionSeparated',
+                divorcePlace: 'optionNo'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/probateSeparationPlace');
             done();
         });
     });

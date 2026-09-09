@@ -102,7 +102,7 @@ getTestLanguages().forEach(language => {
       }
 
       await deceasedDetailsPage.selectDeceasedAliasGop(language, optionNo);
-      await deceasedDetailsPage.selectDeceasedMarriedAfterDateOnWill(optionNo)
+      await deceasedDetailsPage.selectDeceasedMaritalStatus(deceasedDetailsConfig.maritalStatusNeverMarried);
       await deceasedDetailsPage.selectWillDamage(optionYes, 'test');
       await deceasedDetailsPage.selectWillDamageReason(optionYes, 'test');
       await deceasedDetailsPage.selectWillDamageWho(optionYes, 'test', 'test');

@@ -70,6 +70,8 @@ describe('DeceasedMaritalStatus', () => {
                 deceasedName: 'Dee Ceased',
                 divorcedOrSeparated: true,
                 divorcePlace: 'optionYes',
+                divorceDateKnown: 'optionYes',
+                divorceDate: '2020-01-01',
                 anyChildren: 'optionYes',
                 anyOtherChildren: 'optionYes',
                 allChildrenOver18: 'optionYes',

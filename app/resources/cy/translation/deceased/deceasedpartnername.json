@@ -1,0 +1,12 @@
+{
+  "title": "Enw gŵr/gwraig neu bartner yr unigolyn a fu farw",
+  "question": "Beth oedd enw gŵr, gwraig neu bartner sifil {deceasedName}?",
+  "explanation1": "Os oes sôn amdanynt yn yr ewyllys neu unrhyw godisiliau, nodwch eu henw yn union fel y mae wedi'i ysgrifennu yno.",
+  "deceasedSpouseName": "Enw llawn gŵr, gwraig neu bartner sifil {deceasedName}",
+
+  "errors": {
+    "deceasedSpouseName": {
+      "required": "Nodwch enw llawn gŵr, gwraig neu bartner sifil {deceasedName}"
+    }
+  }
+}

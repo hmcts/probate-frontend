@@ -103,7 +103,8 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.enterProbateAssetValues('400000', '400000');
 
       await deceasedDetailsPage.selectDeceasedAliasGop(language, optionNo);
-      await deceasedDetailsPage.selectDeceasedMarriedAfterDateOnWill(optionNo)
+      await deceasedDetailsPage.selectDeceasedMaritalStatus(ihtDataConfig.maritalStatusMarried);
+      await deceasedDetailsPage.selectDeceasedMarriedAfterDateOnWill(optionYes)
       await deceasedDetailsPage.selectWillDamage(optionYes, 'test');
       await deceasedDetailsPage.selectWillDamageReason(optionYes, 'test');
       await deceasedDetailsPage.selectWillDamageWho(optionYes, 'test', 'test');

@@ -39,3 +39,12 @@ dump.rdb
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+playwright-e2e/.env
+playwright/.auth/
+playwright-e2e/tests/auth.setup.ts
+**/.auth/
+**/.env
+.env
+.env.*
+playwright-report/
+test-results/

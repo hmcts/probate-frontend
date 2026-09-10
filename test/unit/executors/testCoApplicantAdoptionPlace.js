@@ -164,6 +164,16 @@ describe('CoApplicantAdoptionPlace', () => {
     });
 
     describe('CoApplicantAdoptionPlace handlePost', () => {
+        const req= {
+            form: {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1'},
+                        {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild'}
+                    ]
+                }
+            }
+        };
         it('should childAdoptionInEnglandOrWales = optionYes if coApplicantRelationshipToDeceased is Child', () => {
             const ctx = {
                 index: '1',
@@ -175,7 +185,7 @@ describe('CoApplicantAdoptionPlace', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptionPlace.handlePost(ctx, errors);
+            CoApplicantAdoptionPlace.handlePost(ctx, errors, req.form);
             expect(ctx.list[1]).to.deep.equal({'childAdoptionInEnglandOrWales': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionChild'});
         });
@@ -190,9 +200,32 @@ describe('CoApplicantAdoptionPlace', () => {
                 ]
             };
             const errors = [];
-            CoApplicantAdoptionPlace.handlePost(ctx, errors);
+            CoApplicantAdoptionPlace.handlePost(ctx, errors, req.form);
             expect(ctx.list[2]).to.deep.equal({'grandchildAdoptionInEnglandOrWales': 'optionYes',
                 coApplicantRelationshipToDeceased: 'optionGrandchild'});
+        });
+        it('should grandchildAdoptionInEnglandOrWales = optionYes if coApplicantRelationshipToDeceased is grandchild and should set hasCoApplicant as no if all valid fields are there', () => {
+            req.form = {
+                executors: {
+                    list: [
+                        {fullName: 'Main Applicant1', isApplicant: true},
+                        {fullName: 'Cher', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}},
+                        {fullName: 'Cher2', isApplying: true, coapplicantRelationshipToDeceased: 'optionGrandchild', email: 'abc@gmail.com', address: {formattedAddress: 'addressLine1',}}]
+                }};
+            const ctx = {
+                index: '2',
+                adoptionPlace: 'optionYes',
+                list: [
+                    {},
+                    {coApplicantRelationshipToDeceased: 'optionChild'},
+                    {coApplicantRelationshipToDeceased: 'optionGrandchild'}
+                ]
+            };
+            const errors = [];
+            CoApplicantAdoptionPlace.handlePost(ctx, errors, req.form);
+            expect(ctx.list[2]).to.deep.equal({'grandchildAdoptionInEnglandOrWales': 'optionYes',
+                coApplicantRelationshipToDeceased: 'optionGrandchild'});
+            expect(ctx.hasCoApplicant).to.equal('optionNo');
         });
     });
 });

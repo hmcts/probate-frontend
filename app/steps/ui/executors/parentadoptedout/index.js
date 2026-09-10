@@ -56,9 +56,13 @@ class CoApplicantParentAdoptedOut extends ValidationStep {
         return fields;
     }
     handlePost(ctx, errors, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const checkAllExecutorsHaveValidDetails = executorsWrapper.checkAllExecutorsHaveValidDetails();
         formdata.executors.list[ctx.index].grandchildParentAdoptedOut = ctx.applicantParentAdoptedOut;
         if (ctx.applicantParentAdoptedOut === 'optionYes') {
             ctx.hasCoApplicant = 'optionYes';
+        } else if (ctx.applicantParentAdoptedOut === 'optionNo' && checkAllExecutorsHaveValidDetails) {
+            ctx.hasCoApplicant = 'optionNo';
         }
         return [ctx, errors];
     }

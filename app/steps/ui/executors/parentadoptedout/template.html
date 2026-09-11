@@ -4,13 +4,17 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block form_content %}
+    {% set relationship = fields.relationshipToDeceased.value %}
+    {% set isWhole = relationship == "optionWholeBloodNieceOrNephew" or relationship == "wholeBloodNieceOrNephew" %}
+    {% set isHalf = relationship == "optionHalfBloodNieceOrNephew" or relationship == "halfBloodNieceOrNephew" %}
+    {% set question = content.wholeBloodNieceOrNephewQuestion if isWhole else (content.halfBloodNieceOrNephewQuestion if isHalf else content.question) %}
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "applicantParentAdoptedOut",
         name: "applicantParentAdoptedOut",
         fieldset: {
             legend: {
-                text: content.question | replace("{applicantName}", fields.applicantName.value)  | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                text: question | replace("{applicantName}", fields.applicantName.value)  | replace("{deceasedName}", fields.deceasedName.value) | safe,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }

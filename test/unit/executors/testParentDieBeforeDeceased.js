@@ -5,6 +5,8 @@ const journey = require('app/journeys/intestacy');
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ParentDieBefore = steps.ParentDieBefore;
+const ParentAdoptedIn = steps.CoApplicantParentAdoptedIn;
+const ParentAdoptionPlace = steps.CoApplicantParentAdoptionPlace;
 const namePath = '/parent-die-before/';
 
 describe('Co-applicant-parent-die-before', () => {
@@ -32,7 +34,7 @@ describe('Co-applicant-parent-die-before', () => {
             ctx = {
                 list: [
                     {fullName: 'Applicant'},
-                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', halfBloodSiblingDiedBeforeDeceased: 'optionYes'},
+                    {fullName: 'CoApplicant 1', coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', halfNieceOrNephewParentDieBeforeDeceased: 'optionYes'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild', childDieBeforeDeceased: 'optionYes'},
                     {coApplicantRelationshipToDeceased: 'optionGrandchild'}
                 ],
@@ -85,6 +87,65 @@ describe('Co-applicant-parent-die-before', () => {
             const url = ParentDieBefore.nextStepUrl(req, ctx);
             expect(url).to.equal('/stop-page/otherCoApplicantRelationship');
         });
+
+        [
+            {
+                label: 'whole-blood niece or nephew',
+                relationship: 'optionWholeBloodNieceOrNephew',
+                parentDieField: 'wholeNieceOrNephewParentDieBeforeDeceased',
+                parentAdoptedInField: 'wholeNieceOrNephewParentAdoptedIn',
+                parentAdoptionPlaceField: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales'
+            },
+            {
+                label: 'half-blood niece or nephew',
+                relationship: 'optionHalfBloodNieceOrNephew',
+                parentDieField: 'halfNieceOrNephewParentDieBeforeDeceased',
+                parentAdoptedInField: 'halfNieceOrNephewParentAdoptedIn',
+                parentAdoptionPlaceField: 'halfNieceOrNephewParentAdoptionInEnglandOrWales'
+            }
+        ].forEach(({label, relationship, parentDieField, parentAdoptedInField, parentAdoptionPlaceField}) => {
+            it(`routes eligible ${label} journey to co-applicant-name and disqualifying answer to stop page`, () => {
+                const req = {
+                    session: {
+                        journey: journey
+                    }
+                };
+                const formdata = {
+                    executors: {
+                        list: [
+                            {firstName: 'John', lastName: 'Doe', isApplicant: true, isApplying: true},
+                            {fullName: 'Case CoApplicant', coApplicantRelationshipToDeceased: relationship, isApplying: true}
+                        ]
+                    }
+                };
+
+                let ctx = {
+                    caseType: 'intestacy',
+                    index: 1,
+                    list: formdata.executors.list,
+                    applicantParentDieBeforeDeceased: 'optionYes'
+                };
+
+                [ctx] = ParentDieBefore.handlePost(ctx, [], formdata, {});
+                expect(ctx.list[1][parentDieField]).to.equal('optionYes');
+                expect(ParentDieBefore.nextStepUrl(req, ctx)).to.equal('/intestacy/parent-adopted-in/1');
+
+                ctx.applicantParentAdoptedIn = 'optionYes';
+                [ctx] = ParentAdoptedIn.handlePost(ctx, [], formdata);
+                expect(ctx.list[1][parentAdoptedInField]).to.equal('optionYes');
+                expect(ParentAdoptedIn.nextStepUrl(req, ctx)).to.equal('/intestacy/parent-adoption-place/1');
+
+                ctx.applicantParentAdoptionPlace = 'optionYes';
+                [ctx] = ParentAdoptionPlace.handlePost(ctx, [], formdata);
+                expect(ctx.list[1][parentAdoptionPlaceField]).to.equal('optionYes');
+                expect(ParentAdoptionPlace.nextStepUrl(req, ctx)).to.equal('/intestacy/coapplicant-name/1');
+
+                ctx.applicantParentDieBeforeDeceased = 'optionNo';
+                [ctx] = ParentDieBefore.handlePost(ctx, [], formdata, {});
+                expect(ctx.list[1][parentDieField]).to.equal('optionNo');
+                expect(ParentDieBefore.nextStepUrl(req, ctx)).to.equal('/intestacy/stop-page/otherCoApplicantRelationship');
+            });
+        });
     });
     describe('CoApplicantParentDieBefore handlePost()', () => {
         let ctx;
@@ -125,7 +186,7 @@ describe('Co-applicant-parent-die-before', () => {
             [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
             expect(ctx).to.deep.equal({
                 list: [{firstName: 'John', lastName: 'Doe'},
-                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', halfBloodSiblingDiedBeforeDeceased: 'optionYes'},],
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodNieceOrNephew', halfNieceOrNephewParentDieBeforeDeceased: 'optionYes'},],
                 index: 1,
                 applicantParentDieBeforeDeceased: 'optionYes'
             });
@@ -145,7 +206,7 @@ describe('Co-applicant-parent-die-before', () => {
             [ctx, errors] = ParentDieBefore.handlePost(ctx, errors, formdata, session);
             expect(ctx).to.deep.equal({
                 list: [{firstName: 'John', lastName: 'Doe'},
-                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', wholeBloodSiblingDiedBeforeDeceased: 'optionYes'},],
+                    {coApplicantRelationshipToDeceased: 'optionWholeBloodNieceOrNephew', wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes'},],
                 index: 1,
                 applicantParentDieBeforeDeceased: 'optionYes'
             });

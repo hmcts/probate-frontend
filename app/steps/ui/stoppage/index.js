@@ -96,8 +96,11 @@ class StopPage extends Step {
         case 'deceasedAdoptedOut':
         case 'childrenUnder18':
         case 'coApplicantAdoptionPlaceStop':
+        case 'coApplicantParentAdoptionPlaceNoNameStop':
         case 'coApplicantAdoptedOutStop':
         case 'coApplicantParentAdoptedOutStop':
+        case 'coApplicantParentAdoptedOutWholeBloodNoNameStop':
+        case 'coApplicantParentAdoptedOutHalfBloodNoNameStop':
         case 'grandchildrenUnder18':
         case 'deceasedNoLegalPartnerAndRelationshipOther':
         case 'notRelated':

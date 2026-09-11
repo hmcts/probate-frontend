@@ -35,17 +35,51 @@ describe('AnyGrandchildrenUnder18', () => {
     });
 
     describe('nextStepUrl()', () => {
-        it('should return the correct url when all grandchildren are over 18', (done) => {
+        it('should return the correct url when other grandchildren are over 18 and all other predeceased children and relationship is child', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                anyGrandchildrenUnder18: 'optionNo'
+                anyGrandchildrenUnder18: 'optionNo',
+                anyPredeceasedChildren: 'optionYesAll',
+                relationshipToDeceased: 'optionChild'
             };
             const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/applicant-name');
+            done();
+        });
+
+        it('should return the correct url when other grandchildren are over 18 and all other predeceased children  and relationship is grandchild', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyGrandchildrenUnder18: 'optionNo',
+                anyPredeceasedChildren: 'optionYesAll',
+                relationshipToDeceased: 'optionGrandchild'
+            };
+            const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/mainapplicantsparent-any-other-children');
+            done();
+        });
+
+        it('should return the correct url when all grandchildren are over 18 and some predeceased children', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                anyGrandchildrenUnder18: 'optionNo',
+                anyPredeceasedChildren: 'optionYesSome',
+                relationshipToDeceased: 'optionChild'
+            };
+            const nextStepUrl = AnyGrandchildrenUnder18.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/all-children-over-18');
             done();
         });
 
@@ -70,7 +104,10 @@ describe('AnyGrandchildrenUnder18', () => {
             const nextStepOptions = AnyGrandchildrenUnder18.nextStepOptions(ctx);
             expect(nextStepOptions).to.deep.equal({
                 options: [
-                    {key: 'anyGrandchildrenUnder18', value: 'optionNo', choice: 'allGrandchildrenOver18'},
+                    {key: 'allGrandchildrenOver18AndSomePredeceasedChildren', value: true, choice: 'allGrandchildrenOver18AndSomePredeceasedChildren'},
+                    {key: 'childAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'childAndGrandchildrenOver18AndAllPredeceasedChildren'},
+                    {key: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren', value: true, choice: 'grandchildAndGrandchildrenOver18AndAllPredeceasedChildren'},
+                    {key: 'spouseAndGrandchildrenOver18', value: true, choice: 'spouseAndGrandchildrenOver18'}
                 ]
             });
             done();

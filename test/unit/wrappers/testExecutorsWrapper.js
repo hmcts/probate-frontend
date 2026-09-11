@@ -88,37 +88,37 @@ describe('Executors.js', () => {
 
                 it('should return true if email is already used for another executor', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('jake.smith@test.com', 4, 'applicant.email@test.com')).to.deep.equal(true);
                     done();
                 });
 
                 it('should be case insensitive', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('JAKE.SMITH@TEST.COM', 4, 'applicant.email@test.com')).to.deep.equal(true);
                     done();
                 });
 
                 it('should return true if email is already used for primary applicant', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('applicant.email@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('applicant.email@test.com', 4, 'applicant.email@test.com')).to.deep.equal(true);
                     done();
                 });
 
                 it('should return true if email is already used for primary applicant', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('APPLICANT.EMAIL@TEST.COM', 'bob smith', 'applicant.email@test.com')).to.deep.equal(true);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('APPLICANT.EMAIL@TEST.COM', 4, 'applicant.email@test.com')).to.deep.equal(true);
                     done();
                 });
 
                 it('should return false if email is not already used for another executor', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('bob.smith@test.com', 'bob smith', 'applicant.email@test.com')).to.deep.equal(false);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('bob.smith@test.com', 4, 'applicant.email@test.com')).to.deep.equal(false);
                     done();
                 });
 
                 it('should exclude current executor', (done) => {
                     const executorsWrapper = new ExecutorsWrapper(data);
-                    expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 'ed brown', 'applicant.email@test.com')).to.deep.equal(false);
+                    expect(executorsWrapper.executorEmailAlreadyUsed('ed.brown@test.com', 4, 'applicant.email@test.com')).to.deep.equal(true);
                     done();
                 });
             });
@@ -1015,6 +1015,46 @@ describe('Executors.js', () => {
             const executorsWrapper = new ExecutorsWrapper(data);
             expect(executorsWrapper.invitesSent()).to.equal(false);
             done();
+        });
+    });
+
+    describe('hasStopCondition()', () => {
+        it('returns true for whole and half niece-nephew disqualifying saved states', () => {
+            const scenarios = [
+                {
+                    relationship: 'optionWholeBloodNieceOrNephew',
+                    invalidStates: [
+                        {field: 'wholeNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
+                        {field: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'wholeNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ]
+                },
+                {
+                    relationship: 'optionHalfBloodNieceOrNephew',
+                    invalidStates: [
+                        {field: 'halfNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
+                        {field: 'halfNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'halfNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ]
+                }
+            ];
+
+            scenarios.forEach(({relationship, invalidStates}) => {
+                invalidStates.forEach(({field, value}) => {
+                    const executor = {
+                        coApplicantRelationshipToDeceased: relationship,
+                        wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                        wholeNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                        wholeNieceOrNephewParentAdoptedOut: 'optionNo',
+                        halfNieceOrNephewParentDieBeforeDeceased: 'optionYes',
+                        halfNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
+                        halfNieceOrNephewParentAdoptedOut: 'optionNo'
+                    };
+                    executor[field] = value;
+                    const executorsWrapper = new ExecutorsWrapper({list: []});
+                    expect(executorsWrapper.hasStopCondition(executor)).to.equal(true);
+                });
+            });
         });
     });
 

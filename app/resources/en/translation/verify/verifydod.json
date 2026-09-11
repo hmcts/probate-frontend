@@ -1,0 +1,41 @@
+{
+  "title": "Deceased date of death",
+  "question": "What was the date that {deceasedName} died?",
+  "questionHint": "Use the date from the death certificate. For example, 30 01 2025",
+  "dayName": "Day",
+  "monthName": "Month",
+  "yearName": "Year",
+  "theDeceased": "the deceased",
+  "noInfoHeading": "I do not have this information",
+  "noInfoDetails": "You can find the date of death on the death certificate. If you do not have this, ask {applicantName} to tell you.",
+
+  "errors": {
+    "dod-day": {
+      "required": "Date of death must include a day",
+      "invalid": "Date of death must be a real date"
+    },
+    "dod-month": {
+      "required": "Date of death must include a month",
+      "invalid": "Date of death must be a real date"
+    },
+    "dod-year": {
+      "required": "Date of death must include a year",
+      "invalid": "Date of death must be a real date"
+    },
+    "dod-day-month": {
+      "required": "Date of death must include a day and month"
+    },
+    "dod-month-year": {
+      "required": "Date of death must include a month and year"
+    },
+    "dod-day-year": {
+      "required": "Date of death must include a day and year"
+    },
+    "dod-date": {
+      "required": "Enter the date {deceasedName} died",
+      "invalid": "Date of death must be a real date",
+      "dateInFuture": "Date of death must be in the past",
+      "dodNotMatch": "Date of death does not match the date {applicantName} has given"
+    }
+  }
+}

@@ -51,7 +51,7 @@ describe('AnyChildren', () => {
                 deceasedName: 'Dee Ceased',
                 anyChildren: 'optionNo',
                 allChildrenOver18: 'optionYes',
-                anyDeceasedChildren: 'optionYes',
+                anyPredeceasedChildren: 'optionYesAll',
                 anyGrandchildrenUnder18: 'optionNo'
             };
             const formdata = {
@@ -68,7 +68,7 @@ describe('AnyChildren', () => {
             assert.isUndefined(ctx.deceasedName);
 
             assert.isUndefined(ctx.allChildrenOver18);
-            assert.isUndefined(ctx.anyDeceasedChildren);
+            assert.isUndefined(ctx.anyPredeceasedChildren);
             assert.isUndefined(ctx.anyGrandchildrenUnder18);
         });
     });

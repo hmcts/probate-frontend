@@ -10,11 +10,12 @@ describe('summary-deceased-section', () => {
     let testWrapper, sessionData;
 
     beforeEach(() => {
-        testWrapper = new TestWrapper('Summary');
         sessionData = require('test/data/deceased');
+        testWrapper = new TestWrapper('Summary');
     });
 
     afterEach(() => {
+        delete require.cache[require.resolve('test/data/deceased')];
         testWrapper.destroy();
     });
 
@@ -38,8 +39,8 @@ describe('summary-deceased-section', () => {
                         firstName: deceasedContent.name.firstName,
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
-                        dob: deceasedContent.dob.question,
-                        dod: deceasedContent.dod.question,
+                        dob: deceasedContent.dob.question.replace('{deceasedName}', deceasedContent.dob.theDeceased),
+                        dod: deceasedContent.dod.question.replace('{deceasedName}', deceasedContent.dod.theDeceased),
                         address: deceasedContent.address.question.replace('{deceasedName}', deceasedContent.alias.theDeceased)
                     };
 
@@ -67,8 +68,8 @@ describe('summary-deceased-section', () => {
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        dob: deceasedContent.dob.question,
-                        dod: deceasedContent.dod.question,
+                        dob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
+                        dod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
                         address: deceasedContent.address.question.replace('{deceasedName}', deceasedName)
                     };
 
@@ -96,8 +97,8 @@ describe('summary-deceased-section', () => {
                         questionLastName: deceasedContent.name.lastName,
                         questionAlias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
                         questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        questionDob: deceasedContent.dob.question,
-                        questionDod: deceasedContent.dod.question,
+                        questionDob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
+                        questionDod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
                         questionAddress: deceasedContent.address.question.replace('{deceasedName}', deceasedName)
                     };
                     Object.assign(playbackData, sessionData.deceased);

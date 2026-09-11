@@ -24,5 +24,23 @@ describe('RelationshipToDeceasedEnum.js', () => {
             done();
         });
     });
+    describe('mapOptionToValue()', () => {
+        it('should return optionWholeBloodSibling value', (done) => {
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionWholeBloodSibling', 'en')).to.equal('whole blood sibling');
+            done();
+        });
+        it('should return optionWholeBloodSibling welsh value', (done) => {
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionWholeBloodSibling')).to.equal('brawd neu chwaer gwaed cyfan');
+            done();
+        });
+        it('should return optionHalfBloodSibling value', (done) => {
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionHalfBloodSibling', 'en')).to.equal('half blood sibling');
+            done();
+        });
+        it('should return optionHalfBloodSibling welsh value', (done) => {
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionHalfBloodSibling')).to.equal('hanner brawd/chwaer');
+            done();
+        });
+    });
 
 });

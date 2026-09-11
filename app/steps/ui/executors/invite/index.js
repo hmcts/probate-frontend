@@ -24,7 +24,7 @@ class ExecutorsInvite extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl();
+        return this.next(req, ctx).getUrlWithContext(ctx);
     }
 
     * handlePost(ctx, errors, formdata) {

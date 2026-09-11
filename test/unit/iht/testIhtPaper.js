@@ -192,7 +192,7 @@ describe('IhtPaper', () => {
                 deceased: {
                     anyChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 }
             };
@@ -203,7 +203,7 @@ describe('IhtPaper', () => {
             });
             assert.isUndefined(formdata.deceased.anyChildren);
             assert.isUndefined(formdata.deceased.allChildrenOver18);
-            assert.isUndefined(formdata.deceased.anyDeceasedChildren);
+            assert.isUndefined(formdata.deceased.anyPredeceasedChildren);
             assert.isUndefined(formdata.deceased.anyGrandchildrenUnder18);
         });
     });

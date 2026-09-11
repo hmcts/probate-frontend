@@ -1,0 +1,17 @@
+{
+  "title": "A oedd gan yr unigolyn sydd wedi marw unrhyw frodyr neu chwiorydd eraill sydd â’r un rhieni?",
+  "question": "A oedd gan {deceasedName} unrhyw frodyr neu chwiorydd eraill sydd â’r un rhieni?",
+  "paragraph1": "Mae arnom angen gwybod am yr holl frodyr a chwiorydd oedd gan {deceasedName}, gan gynnwys unrhyw frodyr neu chwiorydd oedd:",
+  "listItem1": "wedi cael eu mabwysiadu’r gyfreithlon neu wedi cael eu rhoi i ffwrdd i gael eu mabwysiadu gan y ddau riant",
+  "listItem2": "wedi marw, un ai cyn neu ar ôl {deceasedName}",
+  "paragraph2": "Nid yw hyn yn cynnwys unrhyw lysfrodyr neu lyschwiorydd neu frodyr/chwiorydd sydd ag un rhiant yn gyffredin yn unig (hanner frodyr neu hanner chwiorydd).",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "anyOtherWholeSiblings": {
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oedd gan {deceasedName} unrhyw frodyr neu chwiorydd eraill sydd â’r un rhieni"
+    }
+  }
+}

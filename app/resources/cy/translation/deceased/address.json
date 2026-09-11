@@ -1,29 +1,34 @@
 {
   "title": "Cyfeiriad yr unigolyn sydd wedi marw",
-  "question": "Beth oedd cyfeiriad parhaol {deceasedName} pan fu iddi farw?",
+  "question": "Beth oedd cyfeiriad parhaol {deceasedName} pan fu iddo/iddi farw?",
   "explanation1": "Os oedd yn byw mewn cartref gofal, dylech nodi'r cyfeiriad hwnnw.",
   "postTown": "Tref neu ddinas",
   "postcode": "Cod post",
-  "country": "Gwlad (dewisol)",
-  "findAddress": "Dod o hyd i gyfeiriad yn y DU",
+  "postcodeUK": "Cod post yn y DU",
+  "country": "Gwlad",
+  "findAddress": "Dod o hyd i gyfeiriad",
   "addressLabel": "Cyfeiriad",
-  "addressLabel2": "Ail linell y cyfeiriad (dewisol)",
+  "addressLabel1": "Llinell cyfeiriad 1",
+  "addressLabel2": "Llinell cyfeiriad 2 (dewisol)",
   "addressLabel3": "Trydydd llinell y cyfeiriad (dewisol)",
   "selectAddress": "Dewiswch gyfeiriad",
-  "enterManually": "neu teipiwch eu cyfeiriad",
+  "enterManually": "Neu fel arall teipiwch gyfeiriad",
 
   "errors": {
     "addressLine1": {
-      "required": "Nodwch linell gyntaf y cyfeiriad",
+      "required": "Nodwch linell 1 y cyfeiriad, fel arfer yr adeilad a’r stryd",
       "invalid": "Rhowch linell cyfeiriad sydd rhwng 2 a 150 nod o hyd"
     },
     "postTown": {
-      "required": "Nodwch dref neu ddinas",
+      "required": "Nodwch tref neu ddinas",
       "invalid": "Rhowch dref sydd rhwng 2 a 50 nod o hyd"
     },
     "newPostCode": {
-      "required": "Nodwch god post",
+      "required": "Rhowch god post",
       "invalid": "Nodwch god post sydd 2-14 nod o hyd"
+    },
+    "country": {
+      "required": "Nodwch y wlad"
     }
   }
 }

@@ -162,7 +162,7 @@ describe('Co-applicant-name', () => {
                 ]
             };
             const url = CoApplicantName.nextStepUrl(req, ctx);
-            expect(url).to.equal('/intestacy/coapplicant-email/1');
+            expect(url).to.equal('/intestacy/coapplicant-adopted-deceased-in/1');
         });
     });
 

@@ -44,15 +44,15 @@ describe('coapplicant-adoption-deceased-place', () => {
     describe('Verify Content, Errors and Redirection', () => {
         testCommonContent.runTest('CoApplicantAdoptionDeceasedPlace', null, null, [],
             false, {type: caseTypes.INTESTACY}, CoApplicantAdoptionDeceasedPlace.getUrl(1));
-        //
-        // it('test content loaded on the page', (done) => {
-        //     testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
-        //     testWrapper.agent.post('/prepare-session/form')
-        //         .send(sessionData)
-        //         .end(() => {
-        //             testWrapper.testContent(done);
-        //         });
-        // });
+
+        it('test content loaded on the page', (done) => {
+            testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    testWrapper.testContent(done);
+                });
+        });
 
         it('test errors message displayed for missing data', (done) => {
             testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
@@ -67,31 +67,31 @@ describe('coapplicant-adoption-deceased-place', () => {
             testWrapper.agent.post('/prepare-session/form').send(sessionData);
             testWrapper.testErrors(done, data, 'required');
         });
-        //
-        // it(`test it redirects to email page if co-applicant is adopted in England or Wales: /intestacy${expectedNextUrlForCoApplicantEmail}`, (done) => {
-        //     testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
-        //     testWrapper.agent.post('/prepare-session/form')
-        //         .send(sessionData)
-        //         .end(() => {
-        //             const data = {
-        //                 coApplicantAdoptionDeceasedPlace: 'optionYes'
-        //             };
-        //
-        //             testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
-        //         });
-        // });
-        //
-        // it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
-        //     testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
-        //     testWrapper.agent.post('/prepare-session/form')
-        //         .send(sessionData)
-        //         .end(() => {
-        //             const data = {
-        //                 coApplicantAdoptionDeceasedPlace: 'optionNo'
-        //             };
-        //
-        //             testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
-        //         });
-        // });
+
+        it(`test it redirects to email page if co-applicant is adopted in England or Wales: /intestacy${expectedNextUrlForCoApplicantEmail}`, (done) => {
+            testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        coApplicantAdoptionDeceasedPlace: 'optionYes'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantEmail}`);
+                });
+        });
+
+        it(`test it redirects to stop page if co-applicant is not adopted in England or Wales: /intestacy${expectedNextUrlForStopPage}`, (done) => {
+            testWrapper.pageUrl = CoApplicantAdoptionDeceasedPlace.getUrl(1);
+            testWrapper.agent.post('/prepare-session/form')
+                .send(sessionData)
+                .end(() => {
+                    const data = {
+                        coApplicantAdoptionDeceasedPlace: 'optionNo'
+                    };
+
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`);
+                });
+        });
     });
 });

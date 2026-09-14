@@ -71,6 +71,7 @@
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
+{# This map renders the co-applicant's own adoption answers and stays separate from the parent-answer section above. #}
 {% set relationships = {
     "optionChild": {
         adoptedIn: "childAdoptedIn",
@@ -91,6 +92,16 @@
         adoptedIn: "wholeBloodSiblingAdoptedIn",
         adoptedOut: "wholeBloodSiblingAdoptedOut",
         adoptionPlace: "wholeBloodSiblingAdoptionInEnglandOrWales"
+    },
+    "optionWholeBloodNieceOrNephew": {
+        adoptedIn: "wholeBloodNieceOrNephewAdoptedIn",
+        adoptedOut: "wholeBloodNieceOrNephewAdoptedOut",
+        adoptionPlace: "wholeBloodNieceOrNephewAdoptionInEnglandOrWales"
+    },
+    "optionHalfBloodNieceOrNephew": {
+        adoptedIn: "halfBloodNieceOrNephewAdoptedIn",
+        adoptedOut: "halfBloodNieceOrNephewAdoptedOut",
+        adoptionPlace: "halfBloodNieceOrNephewAdoptionInEnglandOrWales"
     }
 } %}
 

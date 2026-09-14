@@ -187,19 +187,15 @@ class Executors {
     hasStopCondition(executor) {
         const wholeNieceNephewRelationships = ['optionWholeBloodNieceOrNephew', 'wholeBloodNieceOrNephew'];
         const halfNieceNephewRelationships = ['optionHalfBloodNieceOrNephew', 'halfBloodNieceOrNephew'];
-
-        // WB/HB niece-nephew stop checks use parent-eligibility answers captured in the newer parent fields.
-        if (wholeNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
-            return executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
-                executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
-                executor?.wholeNieceOrNephewParentAdoptedOut === 'optionYes';
-        }
-
-        if (halfNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased)) {
-            return executor?.halfNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
-                executor?.halfNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
-                executor?.halfNieceOrNephewParentAdoptedOut === 'optionYes';
-        }
+        // WB/HB niece-nephew eligibility depends on both parent answers and the co-applicant's own adoption answers; either can restore stop state.
+        const isWholeNieceNephew = wholeNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased);
+        const isHalfNieceNephew = halfNieceNephewRelationships.includes(executor?.coApplicantRelationshipToDeceased);
+        const hasWholeParentStop = executor?.wholeNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+            executor?.wholeNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+            executor?.wholeNieceOrNephewParentAdoptedOut === 'optionYes';
+        const hasHalfParentStop = executor?.halfNieceOrNephewParentDieBeforeDeceased === 'optionNo' ||
+            executor?.halfNieceOrNephewParentAdoptionInEnglandOrWales === 'optionNo' ||
+            executor?.halfNieceOrNephewParentAdoptedOut === 'optionYes';
 
         const optionNoFields = [
             'childAdoptionInEnglandOrWales',
@@ -224,10 +220,20 @@ class Executors {
             'halfBloodNieceOrNephewAdoptedOut'
         ];
 
-        return (
+        const hasGenericStop = (
             optionNoFields.some(field => executor?.[field] === 'optionNo') ||
             optionYesFields.some(field => executor?.[field] === 'optionYes')
         );
+
+        if (isWholeNieceNephew) {
+            return hasWholeParentStop || hasGenericStop;
+        }
+
+        if (isHalfNieceNephew) {
+            return hasHalfParentStop || hasGenericStop;
+        }
+
+        return hasGenericStop;
     }
 
     getStopPageIndex() {

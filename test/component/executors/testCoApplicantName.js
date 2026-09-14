@@ -88,6 +88,34 @@ describe('coapplicant-name', () => {
                 });
         });
 
+        [
+            {label: 'whole-blood niece/nephew', relationship: 'optionWholeBloodNieceOrNephew'},
+            {label: 'half-blood niece/nephew', relationship: 'optionHalfBloodNieceOrNephew'}
+        ].forEach(({label, relationship}) => {
+            it(`test redirection to Adopted in page when co applicant is ${label} and name is provided`, (done) => {
+                testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
+                const sessionData = {
+                    caseType: caseTypes.INTESTACY,
+                    applicant: {
+                        relationshipToDeceased: 'optionSibling'
+                    }
+                };
+
+                testWrapper.agent.post('/prepare-session/form')
+                    .send(sessionData)
+                    .end(() => {
+                        const data = {
+                            fullName: 'CoApplicant',
+                            list: [
+                                {firstName: 'John', lastName: 'TheApplicant', isApplying: true, isApplicant: true},
+                                {coApplicantRelationshipToDeceased: relationship, isApplying: true}
+                            ]};
+
+                        testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForCoApplicantAdoptedIn}`);
+                    });
+            });
+        });
+
         it('test redirection to co-applicant email in page when co applicant name is provided and is Parent', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl(1);
             const sessionData = {

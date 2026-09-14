@@ -1023,24 +1023,32 @@ describe('Executors.js', () => {
             const scenarios = [
                 {
                     relationship: 'optionWholeBloodNieceOrNephew',
-                    invalidStates: [
+                    invalidParentStates: [
                         {field: 'wholeNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
                         {field: 'wholeNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
                         {field: 'wholeNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ],
+                    invalidOwnStates: [
+                        {field: 'wholeBloodNieceOrNephewAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'wholeBloodNieceOrNephewAdoptedOut', value: 'optionYes'}
                     ]
                 },
                 {
                     relationship: 'optionHalfBloodNieceOrNephew',
-                    invalidStates: [
+                    invalidParentStates: [
                         {field: 'halfNieceOrNephewParentDieBeforeDeceased', value: 'optionNo'},
                         {field: 'halfNieceOrNephewParentAdoptionInEnglandOrWales', value: 'optionNo'},
                         {field: 'halfNieceOrNephewParentAdoptedOut', value: 'optionYes'}
+                    ],
+                    invalidOwnStates: [
+                        {field: 'halfBloodNieceOrNephewAdoptionInEnglandOrWales', value: 'optionNo'},
+                        {field: 'halfBloodNieceOrNephewAdoptedOut', value: 'optionYes'}
                     ]
                 }
             ];
 
-            scenarios.forEach(({relationship, invalidStates}) => {
-                invalidStates.forEach(({field, value}) => {
+            scenarios.forEach(({relationship, invalidParentStates, invalidOwnStates}) => {
+                [...invalidParentStates, ...invalidOwnStates].forEach(({field, value}) => {
                     const executor = {
                         coApplicantRelationshipToDeceased: relationship,
                         wholeNieceOrNephewParentDieBeforeDeceased: 'optionYes',
@@ -1048,7 +1056,11 @@ describe('Executors.js', () => {
                         wholeNieceOrNephewParentAdoptedOut: 'optionNo',
                         halfNieceOrNephewParentDieBeforeDeceased: 'optionYes',
                         halfNieceOrNephewParentAdoptionInEnglandOrWales: 'optionYes',
-                        halfNieceOrNephewParentAdoptedOut: 'optionNo'
+                        halfNieceOrNephewParentAdoptedOut: 'optionNo',
+                        wholeBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes',
+                        wholeBloodNieceOrNephewAdoptedOut: 'optionNo',
+                        halfBloodNieceOrNephewAdoptionInEnglandOrWales: 'optionYes',
+                        halfBloodNieceOrNephewAdoptedOut: 'optionNo'
                     };
                     executor[field] = value;
                     const executorsWrapper = new ExecutorsWrapper({list: []});

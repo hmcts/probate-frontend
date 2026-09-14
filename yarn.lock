@@ -2012,31 +2012,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.25.2":
-  version: 2.25.2
-  resolution: "@launchdarkly/js-sdk-common@npm:2.25.2"
-  checksum: 10/7b9ffdfd5e6e92ec7e916c795abec647af7a9b97293c74c9edaa922d53f6e688a7e6b276f5005532fa049ed270fe912c124ee0ff3e1316d61758658814a165fb
+"@launchdarkly/js-sdk-common@npm:2.26.0":
+  version: 2.26.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.26.0"
+  checksum: 10/8df0c0ad768464d11cb28800e9d16da9b790274526eef1dd53b3260086a430d4ceb0bedec9da1630d23f3f8b375d03fc08c43b39e8d9786744510836cbbdfaea
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.21.1":
-  version: 2.21.1
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.21.1"
+"@launchdarkly/js-server-sdk-common@npm:2.21.2":
+  version: 2.21.2
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.21.2"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.25.2"
+    "@launchdarkly/js-sdk-common": "npm:2.26.0"
     semver: "npm:7.5.4"
-  checksum: 10/d3ca3b1c4b17f87b54d095fb6a11f1066fcd0da9eb9717ddf7ca49a8c133f51014fc225034aa817f8fee2c431db1467a9db10a89bc1d8e06f4f3fed34acb8d1a
+  checksum: 10/7038faea2ea20f73c98202674261c42beee0c870f929b2ed1df88471c3b3fcab6480059658439601886fda0465af0144e2badcd2b6648f0fe690d8743f6ede79
   languageName: node
   linkType: hard
 
-"@launchdarkly/node-server-sdk@npm:^9.13.1":
-  version: 9.13.3
-  resolution: "@launchdarkly/node-server-sdk@npm:9.13.3"
+"@launchdarkly/node-server-sdk@npm:^9.13.4":
+  version: 9.13.4
+  resolution: "@launchdarkly/node-server-sdk@npm:9.13.4"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.21.1"
+    "@launchdarkly/js-server-sdk-common": "npm:2.21.2"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.2.0"
-  checksum: 10/aa0d31bb61fd63f7009ac1f719f8141bd31552a32ced4b26cdfd75418449910af6601cd0f0832cf053b7c6e12044984adcd84265d1aa34483dcb0bb76343e2dc
+  checksum: 10/10bb2e574109f03af4389fbb9c872967d09388255877dcfc3ddb45e7678d2f55cedb0b4b69f7b3f02fa0faa73ead0e35b74d224f44302a13696885cc97e12cdc
   languageName: node
   linkType: hard
 
@@ -3214,7 +3214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^24.13.3":
+"@types/node@npm:^24.13.4":
   version: 24.13.4
   resolution: "@types/node@npm:24.13.4"
   dependencies:
@@ -3726,7 +3726,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/cli@npm:^9.31.6":
+"@wdio/cli@npm:^9.31.8":
   version: 9.31.8
   resolution: "@wdio/cli@npm:9.31.8"
   dependencies:
@@ -3886,10 +3886,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xmldom/xmldom@npm:0.9.10":
-  version: 0.9.10
-  resolution: "@xmldom/xmldom@npm:0.9.10"
-  checksum: 10/8d39ed498baf33dc8bbc82ec575e7448ddf08a0d6874bcc30a70c001b7519e6df6564f98d13c03836fa8be099c6d74cbc4078cfcfcbcf005681d4e67f1363412
+"@xmldom/xmldom@npm:^0.9.11":
+  version: 0.9.12
+  resolution: "@xmldom/xmldom@npm:0.9.12"
+  checksum: 10/4a38ed437688b0e33919f7597c6669f8b0507e80ee15497ee163d6e4bbf7a69fd24a4fe4c2d3ee9fe1e861d42b4030d72895a64a92cb8d4ebc3091f560c29111
   languageName: node
   linkType: hard
 
@@ -3983,7 +3983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"adm-zip@npm:^0.6.0":
+"adm-zip@npm:^0.6.1":
   version: 0.6.1
   resolution: "adm-zip@npm:0.6.1"
   checksum: 10/072af04891b33a68aba6b6979d6eec56cbe8d5bca9a349c2e78f86cc64e872e75faf56341e20541c6ffd7bcfb931187157c24f141b97ad1f18ebd8bfacbcf437
@@ -7258,7 +7258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:^64.3.6":
+"eslint-plugin-jsdoc@npm:^64.3.10":
   version: 64.3.10
   resolution: "eslint-plugin-jsdoc@npm:64.3.10"
   dependencies:
@@ -10531,7 +10531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"libphonenumber-js@npm:^1.13.12":
+"libphonenumber-js@npm:^1.13.13":
   version: 1.13.13
   resolution: "libphonenumber-js@npm:1.13.13"
   checksum: 10/740b9a30a0ef1c4951a324ba9c603303ddd75c5cf6fbfc305897fd14503692ea983da90ca12b6a0bf55dce9b8152576f514c0049b633807c7f9472a82ab07484
@@ -11724,7 +11724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mochawesome@npm:^8.0.1":
+"mochawesome@npm:^8.1.0":
   version: 8.1.0
   resolution: "mochawesome@npm:8.1.0"
   dependencies:
@@ -13265,13 +13265,13 @@ __metadata:
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/playwright-common": "npm:^1.1.5"
     "@hmcts/properties-volume": "npm:^1.4.1"
-    "@launchdarkly/node-server-sdk": "npm:^9.13.1"
+    "@launchdarkly/node-server-sdk": "npm:^9.13.4"
     "@pact-foundation/pact": "npm:^15.0.1"
     "@pact-foundation/pact-node": "npm:^10.18.0"
     "@playwright/test": "npm:^1.63.0"
     "@stylistic/eslint-plugin": "npm:^5.10.0"
-    "@types/node": "npm:^24.13.3"
-    "@wdio/cli": "npm:^9.31.6"
+    "@types/node": "npm:^24.13.4"
+    "@wdio/cli": "npm:^9.31.8"
     ajv: "npm:^6.15.0"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.9.8"
@@ -13293,7 +13293,7 @@ __metadata:
     dotenv: "npm:^17.4.2"
     email-validator: "npm:^2.0.4"
     eslint: "npm:^10.10.0"
-    eslint-plugin-jsdoc: "npm:^64.3.6"
+    eslint-plugin-jsdoc: "npm:^64.3.10"
     eslint-plugin-mocha: "npm:^12.0.2"
     eslint-plugin-n: "npm:^17.24.0"
     eslint-plugin-playwright: "npm:^2.11.0"
@@ -13312,15 +13312,15 @@ __metadata:
     if-env: "npm:^1.0.4"
     ioredis: "npm:^6.0.0"
     jquery: "npm:^4.0.0"
-    js-yaml: "npm:^5.4.1"
+    js-yaml: "npm:^5.4.2"
     jsdom: "npm:^30.0.1"
-    libphonenumber-js: "npm:^1.13.12"
+    libphonenumber-js: "npm:^1.13.13"
     lodash: "npm:^4.18.1"
     mocha: "npm:^11.8.0"
     mocha-junit-reporter: "npm:^2.2.1"
     mocha-lcov-reporter: "npm:^1.3.0"
     mocha-multi: "npm:^1.1.7"
-    mochawesome: "npm:^8.0.1"
+    mochawesome: "npm:^8.1.0"
     mochawesome-merge: "npm:^5.1.1"
     mochawesome-report-generator: "npm:^6.3.2"
     moment: "npm:^2.30.1"
@@ -13344,7 +13344,7 @@ __metadata:
     require-directory: "npm:^2.1.1"
     rewire: "npm:^9.0.1"
     sanitizer: "npm:^0.1.3"
-    sass: "npm:^1.104.0"
+    sass: "npm:^1.104.1"
     selenium-standalone: "npm:^10.0.2"
     serve-favicon: "npm:^2.5.1"
     simple-random: "npm:^1.0.3"
@@ -13357,10 +13357,10 @@ __metadata:
     tar: "npm:^7.5.22"
     traverse: "npm:^0.6.11"
     tunnel-agent: "npm:^0.6.0"
-    typescript-eslint: "npm:^8.69.0"
+    typescript-eslint: "npm:^8.70.0"
     uuid: "npm:^11.1.1"
     validator: "npm:^13.15.35"
-    webdriverio: "npm:^9.31.6"
+    webdriverio: "npm:^9.31.8"
     when: "npm:^3.7.8"
     ws: "npm:^8.21.3"
   languageName: unknown
@@ -14446,7 +14446,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.104.0":
+"sass@npm:^1.104.1":
   version: 1.104.1
   resolution: "sass@npm:1.104.1"
   dependencies:
@@ -16210,7 +16210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^8.54.0, typescript-eslint@npm:^8.69.0":
+"typescript-eslint@npm:^8.54.0, typescript-eslint@npm:^8.70.0":
   version: 8.70.0
   resolution: "typescript-eslint@npm:8.70.0"
   dependencies:

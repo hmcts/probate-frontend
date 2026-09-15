@@ -2,22 +2,21 @@
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block form_content %}
+    {% call govukFieldset({
+        legend: {
+        text: content.question | safe,
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+    }
+    }) %}
+    <p class="govuk-body">{{ content.paragraph | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "anyGrandchildrenUnder18",
         name: "anyGrandchildrenUnder18",
-        fieldset: {
-            legend: {
-                text: content.question | safe,
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-            }
-        },
-        hint: {
-            text: content.hint | replace("{deceasedName}", fields.deceasedName.value) | safe
-        },
         errorMessage: { text: fields.anyGrandchildrenUnder18.errorMessage | safe } if fields.anyGrandchildrenUnder18.errorMessage,
         items: [
             {
@@ -32,7 +31,7 @@
             }
         ]
     }) }}
-
+    {% endcall %}
     <div class="govuk-form-group">
         {{ govukButton({
             text: common.saveAndContinue | safe,

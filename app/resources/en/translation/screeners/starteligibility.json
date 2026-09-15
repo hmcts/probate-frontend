@@ -10,6 +10,7 @@
   "listItem3": "the name, email address and mobile phone number for each person applying for probate",
   "listItem4": "the values of the estate for Inheritance Tax (IHT) – you can estimate these using HMRC&rsquo;s ",
   "listItem5": "a debit or credit card, if you need to pay a fee",
+  "listItem6": "If the person who died did not leave a will, you must also <a href=\"https://www.gov.uk/inherits-someone-dies-without-will\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"check if you are the most entitled person to apply (opens in a new tab)\">check if you are the most entitled person to apply (opens in a new tab)</a> before you start.",
   "linkText3": "online IHT checker (opens in a new tab)",
   "applicationStartedHeader": "Have you already started an application?",
   "paragraph3": "Return to an existing application"

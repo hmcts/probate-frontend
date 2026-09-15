@@ -17,11 +17,15 @@
       "type": "string",
       "minLength": 2,
       "maxLength": 14
+    },
+    "country": {
+      "type": "string"
     }
   },
   "required": [
     "addressLine1",
     "postTown",
-    "newPostCode"
+    "newPostCode",
+    "country"
   ]
 }

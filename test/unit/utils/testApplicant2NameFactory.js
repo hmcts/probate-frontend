@@ -149,6 +149,7 @@ describe('Applicant2NameFactory', () => {
 
         it('should return intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted', (done) => {
             formdata.maritalStatus = 'optionNotMarried';
+            formdata.relationshipToDeceased = 'optionChild';
             formdata.anyOtherChildren = 'optionNo';
             const applicant2Name = applicant2NameFactory.getApplicant2Name(formdata, content);
             expect(applicant2Name).to.equal(content.intestacyDeceasedNotMarriedChildApplyingHasNoSiblingsIsNotAdopted);

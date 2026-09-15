@@ -109,6 +109,7 @@ class JSWait extends codecept_helper {
                 document.querySelector('#addressLine3').value = 'test address for deceased line 3';
                 document.querySelector('#postTown').value = 'test address for deceased town';
                 document.querySelector('#newPostCode').value = 'postcode';
+                document.querySelector('#country').value = 'United Kingdom';
             });
         } else {
             await helper.waitForVisible('#postcode');
@@ -120,6 +121,7 @@ class JSWait extends codecept_helper {
             await helper.fillField('#addressLine3', 'test address for deceased line 3');
             await helper.fillField('#postTown', 'test address for deceased town');
             await helper.fillField('#newPostCode', 'postcode');
+            await helper.fillField('#country', 'United Kingdom');
         }
     }
 

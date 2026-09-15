@@ -26,12 +26,14 @@ const errorOnTimeout = (req, res, next) => {
 
 const returnError = (req, res, next, error) => {
     if (req.get('x-csrf-token')) {
-        res.status(400);
-        return res.send(error.js);
+        return res
+            .status(400)
+            .type('text/plain')
+            .send(error.js);
     }
     req.session.form.documents.error = error.nonJs;
     console.info(`Uploaded document returnError error: ${req.session.form.documents.error}`);
-    next();
+    return next();
 };
 
 const uploadDocument = (req, res, next) => {

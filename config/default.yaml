@@ -63,7 +63,7 @@ services:
     gitCommitIdPath: 'git.commit.id'
   idam:
     name: 'IdAM Service'
-    loginUrl: 'http://localhost:3501/login'
+    loginUrl: 'http://localhost:3501/o/authorize'
     apiUrl: 'http://localhost:5000'
     roles: ['probate-private-beta', 'citizen']
     s2s_url: 'http://localhost:4502'

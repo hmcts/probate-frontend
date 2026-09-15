@@ -19,7 +19,7 @@ export const testConfig = {
   TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
   TestIdamAddUserUrl: '/testing-support/accounts',
   TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net',
-  TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login',
+  TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize',
   TestIdamRole: 'citizen',
   TestIdamUserGroup: 'caseworker',
   TestOutputDir: './functional-output',

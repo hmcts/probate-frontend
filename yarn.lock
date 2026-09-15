@@ -7057,10 +7057,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-lexer@npm:^2.2.0":
-  version: 2.3.0
-  resolution: "es-module-lexer@npm:2.3.0"
-  checksum: 10/daf73d870758116a84ba5801ec297c891837f482bb0b9836a431e5b71965a544e909d9cb6a5887f7e08d23dd20ad13838e569c7029413da88402b9ea567f3afe
+"es-module-lexer@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "es-module-lexer@npm:3.0.2"
+  checksum: 10/5768f5614937f0a1f24fe985174c8202f4c1a53826249040a9c62d9473a22261cceaa3481e97d10f3854a966131b86047a163a9ac8db9a19aae2e2e96edd0fe3
   languageName: node
   linkType: hard
 
@@ -9226,13 +9226,13 @@ __metadata:
   linkType: hard
 
 "import-in-the-middle@npm:^3.0.0":
-  version: 3.4.0
-  resolution: "import-in-the-middle@npm:3.4.0"
+  version: 3.5.1
+  resolution: "import-in-the-middle@npm:3.5.1"
   dependencies:
     cjs-module-lexer: "npm:^2.2.0"
-    es-module-lexer: "npm:^2.2.0"
+    es-module-lexer: "npm:^3.0.2"
     module-details-from-path: "npm:^1.0.4"
-  checksum: 10/87569be1e8aa3c866aa53da6ffe2090aa1c16464623529b96ffe4c4986782a298d0c32366164a37ff9d45570e3d90bbe18291c3d7af07fa737fb079671c406e2
+  checksum: 10/4e5e355a24597eee79f29e5db35bfd4b394f64b446ea202a7757a4ec048c318a01a5b1c0345aa5b70dcff5cc546e4467e69a2662ff539bdfc9772e36ba8f4bed
   languageName: node
   linkType: hard
 

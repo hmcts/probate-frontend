@@ -9,8 +9,8 @@
   "errors": {
     "applicantParentAdoptedIn": {
       "required": "Dewiswch ‘Do’ os cafodd rhiant {applicantName} eu mabwysiadu gan {deceasedName}",
-      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant yr unigolyn hwn ei fabwysiadu i deulu {deceasedName}",
-      "halfBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant yr unigolyn hwn ei fabwysiadu i deulu {deceasedName}"
+      "wholeBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant y person hwn ei fabwysiadu i deulu {deceasedName}",
+      "halfBloodNieceOrNephewRequired": "Dewiswch ‘Do’ os cafodd rhiant y person hwn ei fabwysiadu i deulu {deceasedName}"
     }
   }
 }

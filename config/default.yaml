@@ -63,8 +63,9 @@ services:
     gitCommitIdPath: 'git.commit.id'
   idam:
     name: 'IdAM Service'
-    loginUrl: 'http://localhost:3501/login'
+    loginUrl: 'http://localhost:3501/o/authorize'
     apiUrl: 'http://localhost:5000'
+    endSessionUrl: 'http://localhost:3501/o/endSession'
     roles: ['probate-private-beta', 'citizen']
     s2s_url: 'http://localhost:4502'
     service_name: 'probate_frontend'
@@ -375,7 +376,7 @@ intestacyScreenersDeathCertificateNotInEnglishDodBeforeThresholdExceptedEstates:
 hardStopParams:
   gop: []
   intestacy: []
-nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'ee-deceased-dod', 'ee-estate-valued', 'time-out']
+nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'ee-deceased-dod', 'ee-estate-valued', 'time-out', 'sign-out']
 noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'ee-deceased-dod', 'ee-estate-valued', 'task-list']
 endpoints:
   health: '/health'

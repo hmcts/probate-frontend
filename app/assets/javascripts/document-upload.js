@@ -39,9 +39,16 @@ var DocumentUpload = {
                     DocumentUpload.removeDocument(file._removeLink.dataset.index);
                     DocumentUpload.updateLinkAttributes();
                 })
-                .on('error', function(file, error) {
+                .on('error', function(file, error, xhr) {
+                    var errorMessage = DocumentUpload.getDisplayError(error);
+                    if (!errorMessage) {
+                        return;
+                    }
+                    $(file.previewElement)
+                        .find('[data-dz-errormessage]')
+                        .text(errorMessage);
                     DocumentUpload.showErrorSummary();
-                    DocumentUpload.showErrorSummaryLine(error);
+                    DocumentUpload.showErrorSummaryLine(errorMessage);
                 })
                 .on('queuecomplete', function(file) {
                     DocumentUpload.enableButtonAndLinks();
@@ -111,5 +118,23 @@ var DocumentUpload = {
     },
     removeDocument: function(index) {
         $.get('/provide-information/remove/' + index);
-    }
+    },
+    getDisplayError: function(error) {
+        if (error == null) {
+            return null;
+        }
+        if (error && typeof error === 'object') {
+            error = error.error || error.message;
+        }
+
+        if (typeof error === 'string') {
+            var errorKey = DocumentUpload.getErrorKey(error);
+
+            if (errorKey && documentUploadConfig.content[errorKey + 'Summary']) {
+                return error;
+            }
+        }
+
+        return documentUploadConfig.content.uploadFailed;
+    },
 };

@@ -9,6 +9,7 @@ services:
   idam:
     loginUrl: http://idam-web-public.aat.platform.hmcts.net/o/authorize
     apiUrl: https://idam-api.aat.platform.hmcts.net
+    endSessionUrl: https://idam-web-public.aat.platform.hmcts.net/o/endSession
     s2s_url: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     service_name: probate_frontend
     probate_oauth2_client: probate

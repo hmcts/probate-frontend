@@ -11720,15 +11720,15 @@ __metadata:
   linkType: hard
 
 "mochawesome@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "mochawesome@npm:8.1.0"
+  version: 8.1.1
+  resolution: "mochawesome@npm:8.1.1"
   dependencies:
     diff: "npm:^5.2.0"
     json-stringify-safe: "npm:^5.0.1"
     mochawesome-report-generator: "npm:^6.3.2"
   peerDependencies:
     mocha: ">=8"
-  checksum: 10/e6a1bb9c17e813e414e29f8afccebfa0edfc17cfa70b010142c79e658cede90f9f0e6dbe3f978811f8117368912dc1c3d3ed9904897ece96130c8cd61b36a80b
+  checksum: 10/a4f74402472170fd3ca8b0515c07c550683234fb7680bd3d3fb356db77003a3d39125e6cb87414b7d8b446ee4a0123971f97270fc95a909f47f3dba241bd0fb1
   languageName: node
   linkType: hard
 

@@ -32,6 +32,10 @@ app:
   session:
     expires: 3600000 # ms (60 minutes)
     ttl: 28800 # ms (8 hours)
+  sessionConcurrency:
+    enabled: 'true'
+    mappingTtlSeconds: 28800
+    redisKeyPrefix: 'session:active:user:'
 health:
   service_name: 'Apply for Probate'
   timeout: 30000

@@ -15,8 +15,26 @@ const Sanitize = require('app/utils/Sanitize');
 
 class Step {
 
-    static getUrl() {
-        throw new ReferenceError('Step must override #url');
+    // eslint-disable-next-line no-unused-vars
+    static getUrl(urlParam) {
+        throw new ReferenceError('Step must implement #getUrl');
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    getUrlParamFromContext(context, unused) {
+        const indexValue = context?.index;
+        if (indexValue !== -1) {
+            return indexValue;
+        }
+    }
+
+    getUrlWithContext(ctx, unused) {
+        const urlParam = this.getUrlParamFromContext(ctx, unused);
+        const noCtxUrl = this.constructor.getUrl(urlParam);
+        if (ctx?.caseType === 'intestacy') {
+            return `/intestacy${noCtxUrl}`;
+        }
+        return noCtxUrl;
     }
 
     get name() {
@@ -49,7 +67,7 @@ class Step {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl();
+        return this.next(req, ctx).getUrlWithContext(ctx);
     }
 
     shouldHaveBackLink() {

@@ -20,7 +20,7 @@ class ExceptedEstateDeceasedDod extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('eeDeceasedDod');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'eeDeceasedDod');
     }
 
     nextStepOptions() {

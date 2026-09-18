@@ -14,6 +14,16 @@
   "changeLink": "Newid",
   "sendInvites": "Hysbysu&rsquo;r ysgutorion eraill sy&rsquo;n gwneud cais",
 
+  "intestacyQuestion": "Hysbysu’r ceiswyr eraill",
+  "intestacyParagraph1": "Byddwn yn anfon e-bost at y ceiswyr eraill yn gofyn iddynt gadarnhau’r wybodaeth a ddarparwyd gennych a gwneud eu datganiad.",
+  "intestacyParagraph2": "Os nad yw’r ceiswyr eraill yn cytuno â'r wybodaeth a ddarparwyd gennych, neu os nad ydynt am wneud cais mwyach, byddwn yn gofyn iddynt gysylltu â chi i drafod y cais.",
+  "intestacyParagraph3": "Gallwch barhau i wneud newidiadau i’r cais nes bod yr holl geiswyr wedi gwneud eu datganiadau.",
+  "intestacyParagraph4": "Os gwnewch unrhyw newidiadau i’ch cais, bydd angen i chi gysylltu â’r ceiswyr eraill i roi gwybod iddynt fod y datganiad cyfreithiol wedi'i ddiweddaru.",
+  "intestacyParagraph5": "Ni fyddwch yn gallu cyflwyno’ch cais nes bod yr holl geiswyr wedi gwneud eu datganiadau.",
+  "intestacyHeading1": "Os nad yw’r ceiswyr eraill yn cytuno â’r wybodaeth",
+  "intestacyHeading2": "Ceiswyr eraill",
+  "intestacyHeading3": "Ceiswyr eraill",
+
   "errors": {
     "getUrl(index": {
       "invalid": "Roedd problem wrth geisio anfon y negeseuon e-bost, rhowch gynnig arall arni hwyrach ymlaen"

@@ -8,6 +8,12 @@ const ScreenerValidation = require('app/utils/ScreenerValidation');
 const screenerValidation = new ScreenerValidation();
 
 class EligibilityValidationStep extends ValidationStep {
+    // these pages should only be used in the pre-application screening
+    // and splitting on intestacy/non-intestacy does not matter at this point
+    // eslint-disable-next-line no-unused-vars
+    getUrlWithContext(ctx, unused) {
+        return this.constructor.getUrl();
+    }
 
     setFeatureTogglesOnCtx(ctx, featureToggles = {}) {
         Object.keys(featureToggles).forEach((toggle) => {

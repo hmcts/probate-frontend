@@ -1,5 +1,13 @@
 {% set previousTaskStatus = fields.previousTaskStatus.value.ReviewAndConfirmTask %}
-
+{% if fields.caseType.value === globals.caseTypes.intestacy %}
+  {% set reviewAndConfirmParagraph1 = content.reviewAndConfirmTaskMultiplesIntestacyParagraph1 %}
+  {% set reviewAndConfirmParagraph2 = content.reviewAndConfirmTaskMultiplesIntestacyParagraph2 %}
+  {% set nameText = content.applicantName %}
+{% else %}
+  {% set reviewAndConfirmParagraph1 = content.reviewAndConfirmTaskMultiplesParagraph1 %}
+  {% set reviewAndConfirmParagraph2 = content.reviewAndConfirmTaskMultiplesParagraph2 %}
+  {% set nameText = content.executorName %}
+{% endif %}
       <li class="govuk-task-list__item govuk-task-list__item--with-link">
 
         {% if previousTaskStatus == "complete" %}
@@ -31,8 +39,8 @@
                                               ]), declarationStatusRows) %}
                                           {% endfor %}
                                           <br>
-                                          <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
-                                          <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+                                          <p class="govuk-body">{{ reviewAndConfirmParagraph1 | safe }}</p>
+                                          <p class="govuk-body">{{ reviewAndConfirmParagraph2 | safe }}</p>
 
                                           {% set declarationStatusRows = [] %}
 
@@ -58,7 +66,7 @@
                                             firstCellIsHeader: false,
                                             head: [
                                               {
-                                                text: content.executorName | safe
+                                                text: nameText | safe
                                               },
                                               {
                                                 text: content.declarationStatus | safe
@@ -86,8 +94,8 @@
                                                 ]), declarationStatusRows) %}
                                             {% endfor %}
                                             <br>
-                                            <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
-                                            <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+                                            <p class="govuk-body">{{ reviewAndConfirmParagraph1 | safe }}</p>
+                                            <p class="govuk-body">{{ reviewAndConfirmParagraph2 | safe }}</p>
 
                                             {% set declarationStatusRows = [] %}
 
@@ -113,7 +121,7 @@
                                               firstCellIsHeader: false,
                                               head: [
                                                 {
-                                                  text: content.executorName | safe
+                                                  text: nameText | safe
                                                 },
                                                 {
                                                   text: content.declarationStatus | safe
@@ -140,8 +148,8 @@
                                       ]), declarationStatusRows) %}
                                   {% endfor %}
                                   <br>
-                                  <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph1 | safe }}</p>
-                                  <p class="govuk-body">{{ content.reviewAndConfirmTaskMultiplesParagraph2 | safe }}</p>
+                                  <p class="govuk-body">{{ reviewAndConfirmParagraph1 | safe }}</p>
+                                  <p class="govuk-body">{{ reviewAndConfirmParagraph2 | safe }}</p>
 
                                   {% set declarationStatusRows = [] %}
 
@@ -167,7 +175,7 @@
                                     firstCellIsHeader: false,
                                     head: [
                                       {
-                                        text: content.executorName | safe
+                                        text: nameText | safe
                                       },
                                       {
                                         text: content.declarationStatus | safe

@@ -173,7 +173,7 @@ describe('Co-applicant-parent-die-before', () => {
             done();
         });
 
-        it('should set halfBloodSiblingDiedBeforeDeceased field in the list if ctx has applicantParentDieBeforeDeceased', (done) => {
+        it('should set halfNieceOrNephewParentDieBeforeDeceased field in the list if ctx has applicantParentDieBeforeDeceased', (done) => {
             ctx = {
                 list: [
                     {firstName: 'John', lastName: 'Doe'},
@@ -193,7 +193,7 @@ describe('Co-applicant-parent-die-before', () => {
             done();
         });
 
-        it('should set wholeBloodSiblingDiedBeforeDeceased field in the list if ctx has applicantParentDieBeforeDeceased', (done) => {
+        it('should set wholeNieceOrNephewParentDieBeforeDeceased field in the list if ctx has applicantParentDieBeforeDeceased', (done) => {
             ctx = {
                 list: [
                     {firstName: 'John', lastName: 'Doe'},

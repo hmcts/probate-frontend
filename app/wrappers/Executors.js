@@ -205,9 +205,7 @@ class Executors {
             'halfBloodSiblingAdoptionInEnglandOrWales',
             'wholeBloodNieceOrNephewAdoptionInEnglandOrWales',
             'halfBloodNieceOrNephewAdoptionInEnglandOrWales',
-            'childDieBeforeDeceased',
-            'wholeBloodSiblingDiedBeforeDeceased',
-            'halfBloodSiblingDiedBeforeDeceased'
+            'childDieBeforeDeceased'
         ];
 
         const optionYesFields = [

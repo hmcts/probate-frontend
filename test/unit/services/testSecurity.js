@@ -272,6 +272,29 @@ describe('Security component', () => {
                 });
         });
 
+        it('should redirect to time-out page when the session is superseded by a newer login', (done) => {
+            req.session = {expires: expiresTime, regId: 'regid123'};
+            req.sessionID = 'stale-session-id';
+            req.sessionStore = {destroy: sinon.stub()};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().returns(true),
+                isCurrentSessionActive: sinon.stub().resolves(false),
+                registerAndInvalidatePreviousSession: sinon.stub().resolves()
+            };
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledOnce(res.redirect);
+                expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                sinon.assert.notCalled(next);
+                done();
+            });
+        });
+
         it('should retrieve user details when auth token provided', () => {
             const revert = Security.__set__('IdamSession', class {
                 get() {

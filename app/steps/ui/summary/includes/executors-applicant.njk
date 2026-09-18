@@ -218,6 +218,50 @@
 {{checkanswer(
     items = [
         {
+            question: content.ParentAdoptedIn.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.ParentAdoptedIn[fields.applicant.parentAdoptedIn.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+        }
+    ],
+    url = content.parentAdoptedInUrl.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ParentAdoptedOut.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.ParentAdoptedOut[fields.applicant.parentAdoptedOut.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                     and fields.applicant.parentAdoptedIn.value == "optionNo"
+        }
+    ],
+    url = content.parentAdoptedOutUrl.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ParentAdoptionPlace.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.ParentAdoptionPlace[fields.applicant.parentAdoptionPlace.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                     and fields.applicant.parentAdoptedIn.value == "optionYes"
+        }
+    ],
+    url = content.parentAdoptionPlaceUrl.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedSiblingLegallyAdoptedIn.value,
             answer: content.DeceasedAdoptedIn[fields.applicant.deceasedAdoptedIn.value],
             visible: fields.summary.caseType.value == "intestacy" and fields.applicant.relationshipToDeceased.value == "optionParent"

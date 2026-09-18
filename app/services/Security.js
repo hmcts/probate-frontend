@@ -10,8 +10,10 @@ const URL = require('url');
 const {v4: UUID} = require('uuid');
 const IdamSession = require('app/services/IdamSession');
 const Oauth2Token = require('app/services/Oauth2Token');
+const SessionConcurrency = require('app/services/SessionConcurrency');
 const SessionStatusEnum = require('app/utils/SessionStatusEnum');
 const SECURITY_COOKIE = `__auth-token-${config.payloadVersion}`;
+const EXPRESS_SESSION_COOKIE = config.redis?.cookie?.name || 'connect.sid';
 const REDIRECT_COOKIE = '__redirect';
 const ACCESS_TOKEN_OAUTH2 = 'access_token';
 const NodeCache = require('node-cache');
@@ -24,6 +26,10 @@ class Security {
         if (loginUrl) {
             this.loginUrl = loginUrl;
         }
+        this.sessionConcurrency = new SessionConcurrency({
+            redisEnabled: config.redis && config.redis.enabled,
+            sessionTtl: config.app && config.app.session && config.app.session.ttl
+        });
     }
 
     protect(authorisedRoles) {
@@ -36,31 +42,47 @@ class Security {
             }
 
             if (securityCookie) {
-                if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
-                    req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
+                const sessionStatus = this.getSessionStatus(req);
+                if (sessionStatus === SessionStatusEnum.getExpired()) {
+                    req.log.error('The current user session is EXPIRED, redirecting user to the time-out page.');
                     this.handleLostOrExpiredSession(req, res);
                     return res.redirect('/time-out');
                 }
+                if (sessionStatus === SessionStatusEnum.getLost()) {
+                    req.log.error('The current user session is LOST, redirecting user to login for reauthentication.');
+                    return this._reauthenticateUser(req, res);
+                }
+
+                const authorizeAfterActiveSessionValidation = idamResponse => {
+                    return Promise.resolve(this._validateActiveSession(req, res))
+                        .then(sessionIsActive => {
+                            if (sessionIsActive !== true) {
+                                return false;
+                            }
+                            this._authorize(req, res, next, idamResponse.roles, authorisedRoles);
+                            return true;
+                        });
+                };
 
                 const isIdamDetailsCached = this.idamDetailsCache && req.session.regId && this.idamDetailsCache.get(req.session.regId);
                 if (isIdamDetailsCached) {
                     console.log('Using cache...');
                     const cachedResponse = this.idamDetailsCache.get(req.session.regId);
                     this.handleSuccessfulIdamDetailsResponse(req, cachedResponse);
-                    this._authorize(req, res, next, cachedResponse.roles, authorisedRoles);
+                    return authorizeAfterActiveSessionValidation(cachedResponse).catch(next);
                 } else {
                     const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
-                    idamSession
+                    return idamSession
                         .get(securityCookie)
                         .then(response => {
                             if (response.name !== 'Error') {
                                 req.log.debug('Extending session for active user.');
                                 this.handleSuccessfulIdamDetailsResponse(req, response);
-                                this._authorize(req, res, next, response.roles, authorisedRoles);
                                 if (this.idamDetailsCache) {
                                     console.log('Setting cache...');
                                     this.idamDetailsCache.set(req.session.regId, response);
                                 }
+                                return authorizeAfterActiveSessionValidation(response);
                             } else {
                                 req.log.error('Error authorising user');
                                 req.log.error(`Error ${JSON.stringify(response)} \n`);
@@ -69,20 +91,24 @@ class Security {
                                 } else {
                                     this._denyAccess(req, res);
                                 }
+                                return false;
                             }
-                        });
+                        })
+                        .catch(next);
                 }
             } else {
                 this._login(req, res);
+                return false;
             }
         };
     }
 
-    handleSuccessfulIdamDetailsResponse(req, res) {
+    handleSuccessfulIdamDetailsResponse(req, res, authToken = req.cookies[SECURITY_COOKIE]) {
         req.session.expires = Date.now() + config.app.session.expires;
         req.session.regId = res.email;
+        req.session.idamUserId = res.id;
         req.userId = res.id;
-        req.authToken = req.cookies[SECURITY_COOKIE];
+        req.authToken = authToken;
         req.session.authToken = req.authToken;
     }
 
@@ -107,7 +133,53 @@ class Security {
         delete req.sessionStore;
     }
 
-    _login(req, res) {
+    _reauthenticateUser(req, res) {
+        const language = req.session && req.session.language ? req.session.language : 'en';
+        const accessToken = req.cookies && req.cookies[SECURITY_COOKIE];
+        const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+        const destroySessionPromise = () => new Promise(resolve => {
+            if (req.session && typeof req.session.destroy === 'function') {
+                req.session.destroy(err => {
+                    if (err) {
+                        req.log.error(`Unable to destroy superseded local session (${this._safeErrorType(err)}).`);
+                    }
+                    resolve();
+                });
+                return;
+            }
+            resolve();
+        });
+
+        const cleanupLocalAuthenticationState = () => {
+            res.clearCookie(SECURITY_COOKIE);
+            res.clearCookie(EXPRESS_SESSION_COOKIE);
+            delete req.authToken;
+            delete req.userId;
+            delete req.cookies;
+            delete req.sessionID;
+            delete req.session;
+            delete req.sessionStore;
+        };
+
+        const idamDeletion = accessToken
+            ? idamSession.delete(accessToken)
+                .catch(err => {
+                    req.log.error(`Unable to invalidate stale IDAM session token (${this._safeErrorType(err)}).`);
+                })
+            : Promise.resolve();
+
+        return idamDeletion
+            .finally(() => destroySessionPromise()
+                .finally(() => {
+                    cleanupLocalAuthenticationState();
+                }))
+            .then(() => {
+                this._login(req, res, language);
+                return false;
+            });
+    }
+
+    _login(req, res, language = req.session && req.session.language ? req.session.language : 'en') {
         const state = this._generateState();
         let returnUrl = FormatUrl.createHostname(req);
         if (req.baseUrl.indexOf('get-case') > 0) {
@@ -118,7 +190,7 @@ class Security {
 
         const callbackUrl = FormatUrl.format(returnUrl, idamConfig.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
-        redirectUrl.query.ui_locales = req.session.language;
+        redirectUrl.query.ui_locales = language;
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
@@ -150,7 +222,7 @@ class Security {
     }
 
     oAuth2CallbackEndpoint() {
-        return (req, res) => {
+        return (req, res, next) => {
             const redirectInfo = this._getRedirectCookie(req);
             req.log = loggerRaw(req.sessionID);
 
@@ -174,14 +246,94 @@ class Security {
                                 this._denyAccess(req, res);
                             }
                         } else {
-                            this._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
-                            req.session.expires = Date.now() + config.app.session.expires;
-                            res.clearCookie(REDIRECT_COOKIE);
-                            res.redirect(redirectInfo.continue_url);
+                            const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+                            return idamSession.get(result[ACCESS_TOKEN_OAUTH2])
+                                .then(response => {
+                                    if (response.name === 'Error') {
+                                        req.log.error('Error authorising user in callback');
+                                        if (response.message === 'Unauthorized') {
+                                            this._login(req, res);
+                                        } else {
+                                            this._denyAccess(req, res);
+                                        }
+                                        return null;
+                                    }
+
+                                    if (!response.id) {
+                                        throw new Error('IDAM details response did not include a user ID.');
+                                    }
+
+                                    this.handleSuccessfulIdamDetailsResponse(req, response, result[ACCESS_TOKEN_OAUTH2]);
+                                    return this._activateLatestSession(req)
+                                        .then(() => {
+                                            this._storeCookie(req, res, result[ACCESS_TOKEN_OAUTH2], SECURITY_COOKIE);
+                                            res.clearCookie(REDIRECT_COOKIE);
+                                            res.redirect(redirectInfo.continue_url);
+                                            return null;
+                                        });
+                                });
                         }
+                        return null;
+                    })
+                    .catch(err => {
+                        next(err);
                     });
             }
         };
+    }
+
+    _activateLatestSession(req) {
+        return this.sessionConcurrency
+            .activateLatest(req.sessionStore, req.session.idamUserId, req.sessionID)
+            .then(result => {
+                req.log.debug('Active session mapping updated for authenticated user.');
+                if (result && result.destroyError) {
+                    req.log.error(`Unable to destroy previous active session (${this._safeErrorType(result.destroyError)}).`);
+                }
+                return result;
+            });
+    }
+
+    _validateActiveSession(req, res) {
+        try {
+            if (!this.sessionConcurrency.canManageSession(req.sessionStore)) {
+                return true;
+            }
+
+            if (!req.session.idamUserId || !req.sessionID) {
+                req.log.error('Active-session ownership data is missing, redirecting user to login for reauthentication.');
+                return this._reauthenticateUser(req, res);
+            }
+
+            return this.sessionConcurrency
+                .assertAndTouch(req.sessionStore, req.session.idamUserId, req.sessionID)
+                .then(sessionIsActive => {
+                    if (!sessionIsActive) {
+                        req.log.error('Active-session mismatch detected, redirecting user to login for reauthentication.');
+                        return this._reauthenticateUser(req, res);
+                    }
+
+                    return sessionIsActive;
+                })
+                .catch(err => {
+                    req.log.error(`Unable to validate active session mapping (${this._safeErrorType(err)}).`);
+                    this.handleLostOrExpiredSession(req, res);
+                    res.redirect('/time-out');
+                    return false;
+                });
+        } catch (err) {
+            req.log.error(`Unable to validate active session mapping (${this._safeErrorType(err)}).`);
+            this.handleLostOrExpiredSession(req, res);
+            res.redirect('/time-out');
+            return false;
+        }
+    }
+
+    _safeErrorType(err) {
+        if (err && typeof err === 'object' && err.name) {
+            return err.name;
+        }
+        return 'Error';
     }
 
     _getTokenFromCode(req) {

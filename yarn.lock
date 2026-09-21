@@ -6555,10 +6555,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^17.4.2":
-  version: 17.4.2
-  resolution: "dotenv@npm:17.4.2"
-  checksum: 10/ca1b6f54d58e39914901e1518958e86083aca8deb5aa2e7f2a51acd53291d97852479b0ab26ed949b6a45a0e9adcc7b0d1c3c72375e8ea670f7005e341c6daba
+"dotenv@npm:^18.0.0":
+  version: 18.0.1
+  resolution: "dotenv@npm:18.0.1"
+  bin:
+    dotenv: dist/index.cjs
+  checksum: 10/8ac4676bfaa39ffc6fd874af0e0f2eb879265a78f3056ad09f2ed0d2402cd4e011c0477b8e4c1cd5d05167a8d7e881975bead18814feae578fbf8132c8730fc7
   languageName: node
   linkType: hard
 
@@ -13205,7 +13207,7 @@ __metadata:
     cookie-parser: "npm:^1.4.7"
     csrf-sync: "npm:^4.2.1"
     debug: "npm:^4.4.3"
-    dotenv: "npm:^17.4.2"
+    dotenv: "npm:^18.0.0"
     email-validator: "npm:^2.0.4"
     eslint: "npm:^10.10.0"
     eslint-plugin-jsdoc: "npm:^64.3.10"

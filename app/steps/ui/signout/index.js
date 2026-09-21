@@ -19,8 +19,11 @@ class SignOut extends Step {
         const access_token = req.cookies[SECURITY_COOKIE];
         const errorCodes = [400, 401, 403];
         const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
-        const sessionConcurrency = new SessionConcurrency(config.app.sessionConcurrency);
-        const userKey = req.session && req.session.regId;
+        const sessionConcurrency = new SessionConcurrency({
+            redisEnabled: config.redis && config.redis.enabled,
+            sessionTtl: config.app && config.app.session && config.app.session.ttl
+        });
+        const userKey = req.session && req.session.idamUserId;
         const sessionId = req.sessionID;
 
         return idamSession.delete(access_token)
@@ -30,7 +33,7 @@ class SignOut extends Step {
                 }
 
                 return sessionConcurrency
-                    .clearActiveSessionIdIfCurrent(req.sessionStore, userKey, sessionId)
+                    .clearIfCurrent(req.sessionStore, userKey, sessionId)
                     .catch(err => {
                         logger.error(`Unable to clear active session mapping on sign-out: ${err}`);
                     })

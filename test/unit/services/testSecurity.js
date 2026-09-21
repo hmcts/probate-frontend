@@ -125,11 +125,21 @@ describe('Security component', () => {
         let res;
         let next;
         let revertOauth2Token;
+        let revertIdamSession;
 
         beforeEach(() => {
             revertOauth2Token = Security.__set__('Oauth2Token', class {
                 post() {
                     return Promise.resolve({access_token: token});
+                }
+            });
+            revertIdamSession = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({
+                        email: 'user@example.com',
+                        id: 'immutable-idam-user-id',
+                        roles: [role, 'citizen']
+                    });
                 }
             });
 
@@ -168,6 +178,7 @@ describe('Security component', () => {
 
         afterEach(() => {
             revertOauth2Token();
+            revertIdamSession();
         });
 
         it('should redirect to login page when security cookie not defined', () => {
@@ -275,14 +286,107 @@ describe('Security component', () => {
         it('should redirect to time-out page when the session is superseded by a newer login', (done) => {
             req.session = {expires: expiresTime, regId: 'regid123'};
             req.sessionID = 'stale-session-id';
-            req.sessionStore = {destroy: sinon.stub()};
+            const sessionStore = {destroy: sinon.stub()};
+            req.sessionStore = sessionStore;
             req.cookies[securityCookie] = token;
             req.protocol = 'http';
 
             security.sessionConcurrency = {
                 canManageSession: sinon.stub().returns(true),
-                isCurrentSessionActive: sinon.stub().resolves(false),
-                registerAndInvalidatePreviousSession: sinon.stub().resolves()
+                assertAndTouch: sinon.stub().resolves(false),
+                activateLatest: sinon.stub().resolves()
+            };
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledWith(security.sessionConcurrency.assertAndTouch, sessionStore, 'immutable-idam-user-id', 'stale-session-id');
+                sinon.assert.notCalled(security.sessionConcurrency.activateLatest);
+                sinon.assert.calledOnce(res.clearCookie);
+                sinon.assert.calledOnce(res.redirect);
+                expect(res.redirect).to.have.been.calledWith(timeoutUrl);
+                sinon.assert.notCalled(next);
+                done();
+            });
+        });
+
+        it('stores immutable IDAM ID separately from email registration ID', () => {
+            req.session = {};
+
+            security.handleSuccessfulIdamDetailsResponse(req, {
+                email: 'applicant@example.com',
+                id: 'immutable-idam-user-id'
+            }, token);
+
+            expect(req.session.regId).to.equal('applicant@example.com');
+            expect(req.session.idamUserId).to.equal('immutable-idam-user-id');
+            expect(req.userId).to.equal('immutable-idam-user-id');
+        });
+
+        it('authorises a protected request only after ownership validation succeeds', (done) => {
+            req.session = {expires: expiresTime, language: 'en'};
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().returns(true),
+                assertAndTouch: sinon.stub().resolves(true),
+                activateLatest: sinon.stub().resolves()
+            };
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledWith(security.sessionConcurrency.assertAndTouch, req.sessionStore, 'immutable-idam-user-id', 'current-session-id');
+                sinon.assert.notCalled(security.sessionConcurrency.activateLatest);
+                sinon.assert.calledOnce(next);
+                done();
+            });
+        });
+
+        it('persists cached immutable IDAM ID before ownership validation', (done) => {
+            req.session = {expires: expiresTime, language: 'en', regId: 'cached-user@example.com'};
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            security.idamDetailsCache = {
+                get: sinon.stub().withArgs('cached-user@example.com').returns({
+                    email: 'cached-user@example.com',
+                    id: 'cached-immutable-id',
+                    roles: [role]
+                })
+            };
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().returns(true),
+                assertAndTouch: sinon.stub().callsFake(() => {
+                    expect(req.session.idamUserId).to.equal('cached-immutable-id');
+                    return Promise.resolve(true);
+                }),
+                activateLatest: sinon.stub().resolves()
+            };
+
+            protect(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledWith(security.sessionConcurrency.assertAndTouch, req.sessionStore, 'cached-immutable-id', 'current-session-id');
+                expect(req.session.regId).to.equal('cached-user@example.com');
+                sinon.assert.calledOnce(next);
+                done();
+            });
+        });
+
+        it('redirects to time-out when ownership validation rejects and cannot fall through to authorisation', (done) => {
+            req.session = {expires: expiresTime, language: 'en'};
+            req.sessionID = 'current-session-id';
+            req.sessionStore = {};
+            req.cookies[securityCookie] = token;
+            req.protocol = 'http';
+            security.sessionConcurrency = {
+                canManageSession: sinon.stub().returns(true),
+                assertAndTouch: sinon.stub().rejects(new Error('redis failed')),
+                activateLatest: sinon.stub().resolves()
             };
 
             protect(req, res, next);
@@ -367,23 +471,70 @@ describe('Security component', () => {
 
         it('should make the auth cookie secure if the protocol is http', (done) => {
             req.protocol = 'http';
-            req.cookies.__redirect = JSON.stringify({state: 'testState'});
+            req.cookies.__redirect = JSON.stringify({state: 'testState', continue_url: '/continue'});
             callBackEndpoint(req, res, next);
 
             checkAsync(() => {
                 expect(res.cookie).to.have.been.calledWith(securityCookie, token, {secure: true, httpOnly: true});
+                expect(res.redirect).to.have.been.calledWith('/continue');
                 done();
             });
         });
 
         it('should make the auth cookie secure if the protocol is https', () => {
             req.protocol = 'https';
-            req.cookies.__redirect = JSON.stringify({state: 'testState'});
+            req.cookies.__redirect = JSON.stringify({state: 'testState', continue_url: '/continue'});
 
             callBackEndpoint(req, res, next);
 
             checkAsync(() => {
                 expect(res.cookie).to.have.been.calledWith(securityCookie, token, {secure: true, httpOnly: true});
+            });
+        });
+
+        it('activates latest callback session before setting the authenticated cookie and redirecting', (done) => {
+            const callOrder = [];
+            req.protocol = 'http';
+            req.sessionID = 'new-session-id';
+            req.sessionStore = {};
+            req.cookies.__redirect = JSON.stringify({state: 'testState', continue_url: '/continue'});
+            security.sessionConcurrency = {
+                activateLatest: sinon.stub().callsFake((sessionStore, userId, sessionId) => {
+                    callOrder.push('activate');
+                    expect(userId).to.equal('immutable-idam-user-id');
+                    expect(sessionId).to.equal('new-session-id');
+                    return Promise.resolve({previousSessionId: 'old-session-id'});
+                })
+            };
+            res.cookie = sinon.stub().callsFake(() => callOrder.push('cookie'));
+            res.redirect = sinon.stub().callsFake(() => callOrder.push('redirect'));
+
+            callBackEndpoint(req, res, next);
+
+            checkAsync(() => {
+                expect(callOrder).to.deep.equal(['activate', 'cookie', 'redirect']);
+                sinon.assert.notCalled(next);
+                done();
+            });
+        });
+
+        it('passes callback mapping failures to error middleware without setting cookie or redirecting', (done) => {
+            const redisError = new Error('mapping write failed');
+            req.protocol = 'http';
+            req.sessionID = 'new-session-id';
+            req.sessionStore = {};
+            req.cookies.__redirect = JSON.stringify({state: 'testState', continue_url: '/continue'});
+            security.sessionConcurrency = {
+                activateLatest: sinon.stub().rejects(redisError)
+            };
+
+            callBackEndpoint(req, res, next);
+
+            checkAsync(() => {
+                sinon.assert.calledWith(next, redisError);
+                sinon.assert.notCalled(res.cookie);
+                sinon.assert.notCalled(res.redirect);
+                done();
             });
         });
     });

@@ -115,14 +115,15 @@ describe('security', () => {
 
         const activeSessionByUser = {};
         const canManageSessionStub = sinon.stub(SessionConcurrency.prototype, 'canManageSession').returns(true);
-        const registerStub = sinon.stub(SessionConcurrency.prototype, 'registerAndInvalidatePreviousSession')
-            .callsFake((sessionStore, userKey, currentSessionId) => {
-                activeSessionByUser[userKey] = currentSessionId;
-                return Promise.resolve();
+        const activateStub = sinon.stub(SessionConcurrency.prototype, 'activateLatest')
+            .callsFake((sessionStore, userId, currentSessionId) => {
+                const previousSessionId = activeSessionByUser[userId] || null;
+                activeSessionByUser[userId] = currentSessionId;
+                return Promise.resolve({previousSessionId});
             });
-        const isActiveStub = sinon.stub(SessionConcurrency.prototype, 'isCurrentSessionActive')
-            .callsFake((sessionStore, userKey, currentSessionId) => {
-                return Promise.resolve(activeSessionByUser[userKey] === currentSessionId);
+        const assertAndTouchStub = sinon.stub(SessionConcurrency.prototype, 'assertAndTouch')
+            .callsFake((sessionStore, userId, currentSessionId) => {
+                return Promise.resolve(activeSessionByUser[userId] === currentSessionId);
             });
 
         nock(config.services.idam.apiUrl)
@@ -132,7 +133,7 @@ describe('security', () => {
 
         nock(config.services.idam.apiUrl)
             .get('/details')
-            .times(2)
+            .times(4)
             .reply(200, {email: 'same-user@example.com', id: 'idam-user-id', roles: ['probate-private-beta', 'citizen']});
 
         const server = app.init();
@@ -154,10 +155,87 @@ describe('security', () => {
                 .expect(302);
 
             expect(resProtected.headers.location).to.contain(expectedUrlForTimeoutPage);
+
+            const resSessionB = await agentB.get(expectedNextUrlForTaskList)
+                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`);
+
+            expect(resSessionB.headers.location || '').not.to.contain(expectedUrlForTimeoutPage);
         } finally {
             canManageSessionStub.restore();
-            registerStub.restore();
-            isActiveStub.restore();
+            activateStub.restore();
+            assertAndTouchStub.restore();
+            config.app.useIDAM = 'false';
+            nock.cleanAll();
+            await new Promise(resolve => server.http.close(resolve));
+        }
+    }).timeout(8000);
+
+    it('prevents an in-flight protected request from reactivating itself after a newer login wins', async () => {
+        config.app.useIDAM = 'true';
+
+        const activeSessionByUser = {};
+        let pendingValidation;
+        let releaseValidation;
+        const canManageSessionStub = sinon.stub(SessionConcurrency.prototype, 'canManageSession').returns(true);
+        const activateStub = sinon.stub(SessionConcurrency.prototype, 'activateLatest')
+            .callsFake((sessionStore, userId, currentSessionId) => {
+                const previousSessionId = activeSessionByUser[userId] || null;
+                activeSessionByUser[userId] = currentSessionId;
+                return Promise.resolve({previousSessionId});
+            });
+        const assertAndTouchStub = sinon.stub(SessionConcurrency.prototype, 'assertAndTouch')
+            .callsFake((sessionStore, userId, currentSessionId) => {
+                if (!pendingValidation) {
+                    pendingValidation = new Promise(resolve => {
+                        releaseValidation = resolve;
+                    }).then(() => activeSessionByUser[userId] === currentSessionId);
+                    return pendingValidation;
+                }
+                return Promise.resolve(activeSessionByUser[userId] === currentSessionId);
+            });
+
+        nock(config.services.idam.apiUrl)
+            .post(oAuth2TokenUrl)
+            .times(2)
+            .reply(200, {access_token: 'dummyToken'});
+
+        nock(config.services.idam.apiUrl)
+            .get('/details')
+            .times(3)
+            .reply(200, {email: 'same-user@example.com', id: 'idam-user-id', roles: ['probate-private-beta', 'citizen']});
+
+        const server = app.init();
+        const agentA = request.agent(server.app);
+        const agentB = request.agent(server.app);
+        try {
+            await agentA.get(oAuth2CallbackUrl)
+                .set('Cookie', `__redirect=${JSON.stringify({state: 'state-A', continue_url: expectedNextUrlForTaskList})}`)
+                .query({code: 11111, state: 'state-A'})
+                .expect(302);
+
+            const protectedA = agentA.get(expectedNextUrlForTaskList)
+                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .expect(302)
+                .then(res => res);
+
+            while (!pendingValidation) {
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+
+            await agentB.get(oAuth2CallbackUrl)
+                .set('Cookie', `__redirect=${JSON.stringify({state: 'state-B', continue_url: expectedNextUrlForTaskList})}`)
+                .query({code: 22222, state: 'state-B'})
+                .expect(302);
+
+            releaseValidation();
+            const resProtectedA = await protectedA;
+
+            expect(resProtectedA.headers.location).to.contain(expectedUrlForTimeoutPage);
+            expect(activateStub.callCount).to.equal(2);
+        } finally {
+            canManageSessionStub.restore();
+            activateStub.restore();
+            assertAndTouchStub.restore();
             config.app.useIDAM = 'false';
             nock.cleanAll();
             await new Promise(resolve => server.http.close(resolve));

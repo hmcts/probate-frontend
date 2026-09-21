@@ -69,7 +69,7 @@ export class SignInPage extends BasePage {
 
   async seeSignOut(language = 'en') {
     const signOutContent = getContent(`app/resources/${language}/translation/signout.json`);
-    await this.checkInUrl('/sign-out');
+    await this.checkInUrl('/sign-out-idam');
     await expect(this.page.getByText(decodeHTML(signOutContent.header))).toBeVisible();
     await expect(this.page.locator('#main-content > div > div > p:nth-child(3) > a')).toBeEnabled();
     await this.navByClick(this.page.locator('#main-content > div > div > p:nth-child(3) > a'));

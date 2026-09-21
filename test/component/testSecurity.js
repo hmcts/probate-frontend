@@ -157,9 +157,11 @@ describe('security', () => {
             expect(resProtected.headers.location).to.contain(expectedUrlForTimeoutPage);
 
             const resSessionB = await agentB.get(expectedNextUrlForTaskList)
-                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`);
+                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .expect(200);
 
-            expect(resSessionB.headers.location || '').not.to.contain(expectedUrlForTimeoutPage);
+            expect(resSessionB.headers.location).to.equal(undefined);
+            expect(resSessionB.error).to.equal(false);
         } finally {
             canManageSessionStub.restore();
             activateStub.restore();
@@ -201,7 +203,7 @@ describe('security', () => {
 
         nock(config.services.idam.apiUrl)
             .get('/details')
-            .times(3)
+            .times(4)
             .reply(200, {email: 'same-user@example.com', id: 'idam-user-id', roles: ['probate-private-beta', 'citizen']});
 
         const server = app.init();
@@ -232,6 +234,13 @@ describe('security', () => {
 
             expect(resProtectedA.headers.location).to.contain(expectedUrlForTimeoutPage);
             expect(activateStub.callCount).to.equal(2);
+
+            const resSessionB = await agentB.get(expectedNextUrlForTaskList)
+                .set('Cookie', `${SECURITY_COOKIE}=dummyToken`)
+                .expect(200);
+
+            expect(resSessionB.headers.location).to.equal(undefined);
+            expect(resSessionB.error).to.equal(false);
         } finally {
             canManageSessionStub.restore();
             activateStub.restore();
@@ -241,4 +250,46 @@ describe('security', () => {
             await new Promise(resolve => server.http.close(resolve));
         }
     }).timeout(8000);
+
+    it('uses the retained raw Redis client for ownership operations when the store client has no eval', async () => {
+        const state = {};
+        const rawRedisClient = {
+            eval: sinon.stub().callsFake((script, keyCount, key, sessionId) => {
+                if (script.includes('local previous')) {
+                    const previousSessionId = state[key] || null;
+                    state[key] = sessionId;
+                    return Promise.resolve(previousSessionId);
+                }
+                if (state[key] === sessionId) {
+                    return Promise.resolve(1);
+                }
+                if (!state[key] && script.includes('NX')) {
+                    state[key] = sessionId;
+                    return Promise.resolve(1);
+                }
+                return Promise.resolve(0);
+            })
+        };
+        const sessionStore = {
+            client: {
+                get: sinon.stub(),
+                set: sinon.stub(),
+                del: sinon.stub()
+            },
+            redisClient: rawRedisClient,
+            destroy: sinon.stub().callsFake((sessionId, callback) => callback())
+        };
+        const sessionConcurrency = new SessionConcurrency({redisEnabled: true, sessionTtl: 300});
+
+        await sessionConcurrency.activateLatest(sessionStore, 'idam-user-id', 'session-A');
+        await sessionConcurrency.activateLatest(sessionStore, 'idam-user-id', 'session-B');
+        const delayedAStillActive = await sessionConcurrency.assertAndTouch(sessionStore, 'idam-user-id', 'session-A');
+        const sessionBStillActive = await sessionConcurrency.assertAndTouch(sessionStore, 'idam-user-id', 'session-B');
+
+        expect(delayedAStillActive).to.equal(false);
+        expect(sessionBStillActive).to.equal(true);
+        expect(state['session:active:user:idam-user-id']).to.equal('session-B');
+        expect(sessionStore.client.eval).to.equal(undefined);
+        sinon.assert.called(rawRedisClient.eval);
+    });
 });

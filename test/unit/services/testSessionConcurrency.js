@@ -7,6 +7,17 @@ const SessionConcurrency = require('app/services/SessionConcurrency');
 describe('SessionConcurrency service', () => {
     const userId = 'immutable-idam-user-id';
     const redisKey = `session:active:user:${userId}`;
+    const createSessionStore = (redisClient, destroy) => {
+        return {
+            client: {
+                get: sinon.stub(),
+                set: sinon.stub(),
+                del: sinon.stub()
+            },
+            redisClient,
+            destroy: destroy || sinon.stub().callsFake((sessionId, callback) => callback())
+        };
+    };
 
     it('makes callback activation authoritative before destroying the previous session', async () => {
         const state = {};
@@ -17,18 +28,19 @@ describe('SessionConcurrency service', () => {
                 return Promise.resolve(previous);
             })
         };
-        const sessionStore = {
-            client: redisClient,
-            destroy: sinon.stub().callsFake((sessionId, callback) => {
+        const sessionStore = createSessionStore(
+            redisClient,
+            sinon.stub().callsFake((sessionId, callback) => {
                 expect(state[redisKey]).to.equal('new-session-id');
                 callback();
             })
-        };
+        );
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true, sessionTtl: 300});
         state[redisKey] = 'old-session-id';
 
         const result = await sessionConcurrency.activateLatest(sessionStore, userId, 'new-session-id');
 
+        sinon.assert.calledOnce(redisClient.eval);
         expect(result.previousSessionId).to.equal('old-session-id');
         sinon.assert.calledWith(sessionStore.destroy, 'old-session-id');
         expect(state[redisKey]).to.equal('new-session-id');
@@ -44,10 +56,10 @@ describe('SessionConcurrency service', () => {
             })
         };
         const destroyError = new Error('destroy failed');
-        const sessionStore = {
-            client: redisClient,
-            destroy: sinon.stub().callsFake((sessionId, callback) => callback(destroyError))
-        };
+        const sessionStore = createSessionStore(
+            redisClient,
+            sinon.stub().callsFake((sessionId, callback) => callback(destroyError))
+        );
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true, sessionTtl: 300});
         state[redisKey] = 'old-session-id';
 
@@ -71,8 +83,9 @@ describe('SessionConcurrency service', () => {
         };
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true});
 
-        const isActive = await sessionConcurrency.assertAndTouch({client: redisClient}, userId, 'old-session-id');
+        const isActive = await sessionConcurrency.assertAndTouch(createSessionStore(redisClient), userId, 'old-session-id');
 
+        sinon.assert.calledOnce(redisClient.eval);
         expect(isActive).to.equal(false);
         expect(state[redisKey]).to.equal('new-session-id');
     });
@@ -93,9 +106,11 @@ describe('SessionConcurrency service', () => {
         };
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true});
 
-        const firstClaim = await sessionConcurrency.assertAndTouch({client: redisClient}, userId, 'session-A');
-        const secondClaim = await sessionConcurrency.assertAndTouch({client: redisClient}, userId, 'session-B');
+        const sessionStore = createSessionStore(redisClient);
+        const firstClaim = await sessionConcurrency.assertAndTouch(sessionStore, userId, 'session-A');
+        const secondClaim = await sessionConcurrency.assertAndTouch(sessionStore, userId, 'session-B');
 
+        sinon.assert.calledTwice(redisClient.eval);
         expect(firstClaim).to.equal(true);
         expect(secondClaim).to.equal(false);
         expect(state[redisKey]).to.equal('session-A');
@@ -115,9 +130,11 @@ describe('SessionConcurrency service', () => {
         };
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true, sessionTtl: 600});
 
-        const ownerResult = await sessionConcurrency.assertAndTouch({client: redisClient}, userId, 'session-A');
-        const staleResult = await sessionConcurrency.assertAndTouch({client: redisClient}, userId, 'session-B');
+        const sessionStore = createSessionStore(redisClient);
+        const ownerResult = await sessionConcurrency.assertAndTouch(sessionStore, userId, 'session-A');
+        const staleResult = await sessionConcurrency.assertAndTouch(sessionStore, userId, 'session-B');
 
+        sinon.assert.calledTwice(redisClient.eval);
         expect(ownerResult).to.equal(true);
         expect(staleResult).to.equal(false);
         expect(touches).to.deep.equal([{sessionId: 'session-A', ttl: 600}]);
@@ -136,9 +153,11 @@ describe('SessionConcurrency service', () => {
         };
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true});
 
-        const staleClear = await sessionConcurrency.clearIfCurrent({client: redisClient}, userId, 'session-B');
-        const ownerClear = await sessionConcurrency.clearIfCurrent({client: redisClient}, userId, 'session-A');
+        const sessionStore = createSessionStore(redisClient);
+        const staleClear = await sessionConcurrency.clearIfCurrent(sessionStore, userId, 'session-B');
+        const ownerClear = await sessionConcurrency.clearIfCurrent(sessionStore, userId, 'session-A');
 
+        sinon.assert.calledTwice(redisClient.eval);
         expect(staleClear).to.equal(0);
         expect(ownerClear).to.equal(1);
         expect(state[redisKey]).to.equal(undefined);
@@ -152,7 +171,7 @@ describe('SessionConcurrency service', () => {
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true});
 
         try {
-            await sessionConcurrency.assertAndTouch({client: redisClient}, userId, 'session-A');
+            await sessionConcurrency.assertAndTouch(createSessionStore(redisClient), userId, 'session-A');
             throw new Error('Expected assertAndTouch to reject.');
         } catch (err) {
             expect(err).to.equal(redisError);
@@ -173,6 +192,7 @@ describe('SessionConcurrency service', () => {
         const sessionConcurrency = new SessionConcurrency({redisEnabled: true});
 
         expect(() => sessionConcurrency.canManageSession({})).to.throw('Redis-backed session concurrency is enabled');
-        expect(() => sessionConcurrency.canManageSession({client: {get: sinon.stub()}})).to.throw('required Redis commands');
+        expect(() => sessionConcurrency.canManageSession({client: {get: sinon.stub()}})).to.throw('raw Redis client');
+        expect(() => sessionConcurrency.canManageSession({redisClient: {get: sinon.stub()}})).to.throw('required Redis commands');
     });
 });

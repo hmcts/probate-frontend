@@ -139,16 +139,16 @@ class SessionConcurrency {
     }
 
     _getRedisClient(sessionStore) {
-        if (!sessionStore || !sessionStore.client) {
-            throw new Error('Redis-backed session concurrency is enabled, but the session store has no Redis client.');
+        if (!sessionStore || !sessionStore.redisClient) {
+            throw new Error('Redis-backed session concurrency is enabled, but the session store has no raw Redis client.');
         }
 
-        const hasRedisCommands = ['eval'].every(command => typeof sessionStore.client[command] === 'function');
+        const hasRedisCommands = ['eval'].every(command => typeof sessionStore.redisClient[command] === 'function');
         if (!hasRedisCommands) {
             throw new Error('Redis-backed session concurrency is enabled, but required Redis commands are unavailable.');
         }
 
-        return sessionStore.client;
+        return sessionStore.redisClient;
     }
 }
 

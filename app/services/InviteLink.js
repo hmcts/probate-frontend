@@ -18,8 +18,6 @@ class InviteLink extends Service {
     post(data, authToken, serviceAuthorisation, bilingual = false) {
         this.log('Post invite link');
         const url = this.formatUrl.format(this.endpoint, '/invite' + (bilingual ? '/bilingual' : ''));
-        this.log('Post invite link url: ' + url);
-        this.log('Post invite link sessionId: ' + this.sessionId);
         const headers = {
             'Content-Type': 'application/json',
             'Session-Id': this.sessionId,

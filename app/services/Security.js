@@ -124,7 +124,6 @@ class Security {
         redirectUrl.query.scope = 'openid profile roles';
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
-console.log(`Redirecting user to  Idam : ${redirectUrl.format()}`);
         res.redirect(redirectUrl.format());
     }
 

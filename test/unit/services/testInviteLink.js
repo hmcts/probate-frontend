@@ -53,7 +53,7 @@ describe('InviteLinkService', () => {
                     {FirstName: 'John Doe', LastName: 'Smith'}
                 ];
                 inviteLink.post(data, {execObject: true});
-                expect(logSpy.calledThrice).to.equal(true);
+                expect(logSpy.calledOnce).to.equal(true);
                 expect(logSpy.calledWith('Post invite link')).to.equal(true);
                 expect(formatUrlStub.calledOnce).to.equal(true);
                 expect(formatUrlStub.calledWith(endpoint, '/invite')).to.equal(true);

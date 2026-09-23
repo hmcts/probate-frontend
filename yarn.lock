@@ -6559,18 +6559,18 @@ __metadata:
   linkType: hard
 
 "dotenv@npm:^17.2.0":
-  version: 17.2.0
-  resolution: "dotenv@npm:17.2.0"
-  checksum: 10/73d57d7ed8ae46e45c0b1dea382de3f180e71d20a3a4e10a13a3d5271a08639166e6647bb6dc0fa160ea440a55e85ff9be233150d9037d268c823cb72859d87f
+  version: 17.4.2
+  resolution: "dotenv@npm:17.4.2"
+  checksum: 10/ca1b6f54d58e39914901e1518958e86083aca8deb5aa2e7f2a51acd53291d97852479b0ab26ed949b6a45a0e9adcc7b0d1c3c72375e8ea670f7005e341c6daba
   languageName: node
   linkType: hard
 
 "dotenv@npm:^18.0.0":
-  version: 18.0.1
-  resolution: "dotenv@npm:18.0.1"
+  version: 18.0.2
+  resolution: "dotenv@npm:18.0.2"
   bin:
     dotenv: dist/index.cjs
-  checksum: 10/8ac4676bfaa39ffc6fd874af0e0f2eb879265a78f3056ad09f2ed0d2402cd4e011c0477b8e4c1cd5d05167a8d7e881975bead18814feae578fbf8132c8730fc7
+  checksum: 10/7d4d9cc74af3eec32d84a958e21f322928c4eb630f0abdf4d708fdec707fcbda7b781022d88a2b24ce10c87748ccfb21b28f002ce37446a9d3b1ad155fd9d99f
   languageName: node
   linkType: hard
 

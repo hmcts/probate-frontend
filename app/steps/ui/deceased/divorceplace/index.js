@@ -13,7 +13,7 @@ class DivorcePlace extends ValidationStep {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
 
-        if (formdata.deceased && formdata.deceased.maritalStatus) {
+        if (formdata.deceased?.maritalStatus) {
             ctx.legalProcess = formdata.deceased.maritalStatus === 'optionDivorced' ? contentMaritalStatus.divorce : contentMaritalStatus.separation;
         }
 
@@ -38,13 +38,12 @@ class DivorcePlace extends ValidationStep {
 
         return fields;
     }
-
     nextStepUrl(req, ctx) {
-        if (ctx.legalProcess === 'divorce') {
-            return this.next(req, ctx).constructor.getUrl('divorcePlace');
+        if (ctx.legalProcess === 'divorce or dissolution') {
+            return this.next(req, ctx).getUrlWithContext(ctx, 'divorcedNotInEnglandOrWales');
         }
 
-        return this.next(req, ctx).constructor.getUrl('separationPlace');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'separatedNotInEnglandOrWales');
     }
 
     nextStepOptions() {

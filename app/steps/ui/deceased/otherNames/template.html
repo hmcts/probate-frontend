@@ -28,7 +28,7 @@
     {% for index, otherName in fields.otherNames.value %}
         {% call govukFieldset({
             legend: {
-                text: (content.question | replace("{deceasedName}", fields.deceasedFullName.value) if index == "name_0" else content.otherName) | safe,
+                  text: (content.question | replace("{deceasedName}", fields.deceasedFullName.value) if index == "name_0" else content.otherName) | safe,
                 classes: ("govuk-fieldset__legend--l" if index == "name_0" else "govuk-fieldset__legend--m"),
                 isPageHeading: (true if index == "name_0" else false)
             }
@@ -52,10 +52,7 @@
                 id: "otherNames_" + index + "_firstName",
                 name: "otherNames[" + index + "][firstName]",
                 value: otherName["firstName"].value | safe,
-                errorMessage: { text: otherName["firstName"].errorMessage | safe } if otherName["firstName"].errorMessage,
-                attributes: {
-                    maxlength: 100
-                },
+                errorMessage: { text: otherName["firstName"].errorMessage | replace("{deceasedName}", fields.deceasedFullName.value) | safe } if otherName["firstName"].errorMessage,
                 classes: "govuk-!-width-three-quarters"
             }) }}
             {{ govukInput({
@@ -65,10 +62,7 @@
                 id: "otherNames_" + index + "_lastName",
                 name: "otherNames[" + index + "][lastName]",
                 value: otherName["lastName"].value | safe,
-                errorMessage: { text: otherName["lastName"].errorMessage | safe } if otherName["lastName"].errorMessage,
-                attributes: {
-                    maxlength: 100
-                },
+                errorMessage: { text: otherName["lastName"].errorMessage | replace("{deceasedName}", fields.deceasedFullName.value) | safe } if otherName["lastName"].errorMessage,
                 classes: "govuk-!-width-three-quarters"
             }) }}
         {% endcall %}

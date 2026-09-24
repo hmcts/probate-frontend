@@ -1,0 +1,9 @@
+{
+  "title": "Rydych chi wedi gwneud eich datganiad cyfreithiol.",
+  "pageHeader": "Rydych chi wedi gwneud eich datganiad cyfreithiol.",
+  "paragraph1": "Unwaith y bydd yr holl geiswyr wedi gwneud eu datganiadau cyfreithiol gall {leadExecFullName} gwblhau a chyflwyno’r cais.",
+  "subHeader": "Beth fydd yn digwydd nesaf",
+  "paragraph2": "Dylai {leadExecFullName} gael y grant profiant o fewn 12 wythnos o gyflwyno’r cais. Gall gymryd mwy o amser os oes arnynt angen darparu gwybodaeth ychwanegol.",
+  "paragraph3": "Cysylltwch â {leadExecFullName} os oes arnoch angen diweddariad am y cais.",
+  "paragraph4a": "Unwaith bydd y grant profiant gennych, gallwch <a target=\"_blank\" rel=\"external noopener\" href=\"{probateEstate}\" class=\"govuk-link\" aria-label=\"ddechrau delio â’r ystad (yn agor mewn tab newydd).\">ddechrau delio â’r ystad (yn agor mewn tab newydd).</a>"
+}

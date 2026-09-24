@@ -78,7 +78,7 @@ class ExecutorsAlias extends ValidationStep {
         } else if (ctx.alias === 'optionYes') {
             return `/executor-id-name/${ctx.index}`;
         }
-        return this.next(req, ctx).constructor.getUrl(ctx.index);
+        return this.next(req, ctx).getUrlWithContext(ctx, ctx.index);
     }
 
     nextStepOptions() {

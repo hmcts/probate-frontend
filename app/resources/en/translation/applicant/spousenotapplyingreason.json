@@ -1,13 +1,15 @@
 {
-  "title": "Why isn&rsquo;t the spouse applying",
-  "question": "Why isn&rsquo;t {deceasedName}&rsquo;s spouse applying?",
-  "optionRenouncing": "They don&rsquo;t want to apply and they give up the right to apply in the future (this is known as &lsquo;renunciation&rsquo;)",
+  "title": "Why is husband, wife or civil partner not applying?",
+  "question": "Why is {deceasedName}&rsquo;s husband, wife or civil partner not applying?",
+  "paragraph1": "If they do not want to apply, they will need to give up their right to apply (also known as ‘renunciation’) and fill in <a href=\"{spouseGivingUpAdminRightsPA16Link}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Form PA16 (opens in a new tab)\">Form PA16 (opens in a new tab)</a>. This does not affect their entitlement to inherit.",
+  "optionRenouncing": "They are giving up their right to apply",
+  "optionRenouncingHintText": "You will need to include a completed Form PA16 with your documents",
   "optionOther": "Other",
   "theDeceased": "the deceased",
 
   "errors": {
     "spouseNotApplyingReason": {
-      "required": "Answer the question about why the spouse or civil partner isn&rsquo;t applying"
+      "required": "Select the reason why {deceasedName}&rsquo;s husband, wife or civil partner is not applying"
     }
   }
 }

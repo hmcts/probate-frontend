@@ -20,7 +20,7 @@ class ApplicantExecutor extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('notExecutor');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notExecutor');
     }
 
     nextStepOptions() {

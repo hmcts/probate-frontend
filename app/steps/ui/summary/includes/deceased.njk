@@ -68,6 +68,110 @@
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}
 
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedMaritalStatusQuestion.value,
+            answer: content.DeceasedMaritalStatus[fields.deceased.maritalStatus.value],
+            visible: true
+        }
+    ],
+    url = content.DeceasedMaritalStatus.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedDivorcePlaceQuestion.value,
+            answer: content.DivorcePlace[fields.deceased.divorcePlace.value],
+            visible:
+                (
+                    fields.deceased.maritalStatus.value == "optionDivorced"
+                    or
+                    fields.deceased.maritalStatus.value == "optionSeparated"
+                )
+        }
+    ],
+    url = content.DivorcePlace.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedDivorceDateKnownQuestion.value,
+            answer: content.DivorceDate[fields.deceased.divorceDateKnown.value],
+            visible:
+                fields.summary.caseType.value == "gop"
+                and
+                (
+                    fields.deceased.maritalStatus.value == "optionDivorced"
+                    or
+                    fields.deceased.maritalStatus.value == "optionSeparated"
+                )
+        },
+        {
+            question: fields.summary.deceasedDivorceDate.value,
+            answer: fields.summary.divorceDateFormatted.value,
+            visible:
+                fields.summary.caseType.value == "gop"
+                and
+                (
+                    fields.deceased.maritalStatus.value == "optionDivorced"
+                    or
+                    fields.deceased.maritalStatus.value == "optionSeparated"
+                )
+                and fields.deceased.divorceDateKnown.value == 'optionYes'
+        }
+    ],
+    url = content.DivorceDate.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedPartnerNameQuestion.value,
+            answer: fields.deceased.deceasedSpouseName.value,
+            visible:
+                fields.deceased.maritalStatus.value == "optionWidowed"
+                and
+                fields.summary.caseType.value == "gop"
+        }
+    ],
+    url = content.DeceasedPartnerName.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: fields.summary.deceasedMarriedQuestion.value,
+            answer: content.DeceasedMarried[fields.deceased.married.value],
+            visible:
+                fields.summary.caseType.value == "gop"
+                and
+                (
+                    fields.deceased.maritalStatus.value == "optionMarried"
+                    or
+                    fields.deceased.maritalStatus.value == "optionWidowed"
+                    or
+                    fields.deceased.maritalStatus.value == "optionDivorced"
+                    or
+                    fields.deceased.maritalStatus.value == "optionSeparated"
+                )
+        }
+    ],
+    url = content.DeceasedMarried.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
 {% if fields.deceased.otherNames.value.length > 0 %}
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">{{ content.Summary.otherNamesLabel | safe }}</dt>
@@ -85,19 +189,6 @@
         </dd>
     </div>
 {% endif %}
-
-{{checkanswer(
-    items = [
-        {
-            question: fields.summary.deceasedMarriedQuestion.value,
-            answer: content.DeceasedMarried[fields.deceased.married.value],
-            visible: fields.summary.caseType.value == "gop"
-        }
-    ],
-    url = content.DeceasedMarried.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
 
 {{checkanswer(
     items = [
@@ -121,39 +212,6 @@
         }
     ],
     url = content.DeceasedDod.url if fields.summary.caseType.value == "gop" else content.DeceasedDetails.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
-            question: fields.summary.deceasedMaritalStatusQuestion.value,
-            answer: content.DeceasedMaritalStatus[fields.deceased.maritalStatus.value],
-            visible: fields.summary.caseType.value == "intestacy"
-        }
-    ],
-    url = content.DeceasedMaritalStatus.url,
-    common = common,
-    alreadyDeclared = fields.summary.alreadyDeclared.value
-)}}
-
-{{checkanswer(
-    items = [
-        {
-            question: fields.summary.deceasedDivorcePlaceQuestion.value,
-            answer: content.DivorcePlace[fields.deceased.divorcePlace.value],
-            visible:
-                fields.summary.caseType.value == "intestacy"
-                and
-                (
-                    fields.deceased.maritalStatus.value == "optionDivorced"
-                    or
-                    fields.deceased.maritalStatus.value == "optionSeparated"
-                )
-        }
-    ],
-    url = content.DivorcePlace.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

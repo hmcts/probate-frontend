@@ -45,7 +45,7 @@ class RelationshipToTheDeceasedEnum {
                 case 'optionWholeBloodSibling':
                     return 'whole blood sibling';
                 case 'optionHalfBloodSibling':
-                    return 'half blood sibling';
+                    return 'half-blood sibling';
                 case 'optionAdoptedChild':
                     return 'adopted child';
                 case 'optionParent':

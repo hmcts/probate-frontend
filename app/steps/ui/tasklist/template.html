@@ -40,9 +40,6 @@
           </div>
         {% endif %}
         <div class="govuk-grid-column-two-thirds">
-          {{ govukNotificationBanner({
-          text: common.hmctsAccessBanner | safe
-          }) }}
           {% if fields.hasMultipleApplicants.value == "true" %}
           {% set bannerDisplayed = false %}
           {% for executor in fields.declarationStatuses.value %}

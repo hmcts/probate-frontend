@@ -75,32 +75,18 @@
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
 
-                {% if fields.relationshipToDeceased.value == "optionChild"
-                    or fields.relationshipToDeceased.value == "optionAdoptedChild"
-                    or fields.relationshipToDeceased.value == "optionGrandchild"
-                    or (
-                          (fields.relationshipToDeceased.value == "optionSibling")
-                          and
-                          (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" or fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome")
-                          and
-                          (fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionYes")
-                          and
-                          (fields.applicant.allWholeNiecesAndWholeNephewsOver18.value == "optionYes")
-                    )
+                {% if (fields.relationshipToDeceased == "optionChild" or fields.relationshipToDeceased == "optionGrandchild")
+                      and
+                      (fields.applicant.spouseNotApplyingReason == "optionRenouncing")
                 %}
-                  <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.deceasedChildren | safe }}</p>
+                  <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.renouncingText | safe }}</p>
                 {% endif %}
-
-                  {% if (fields.relationshipToDeceased == "optionChild" or fields.relationshipToDeceased == "optionGrandchild")
-                        and
-                        (fields.applicant.spouseNotApplyingReason == "optionRenouncing")
-                  %}
-                    <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.renouncingText | safe }}</p>
-                  {% endif %}
 
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.cy.applying | safe }}</p>
 
-                {{ lists(content.cy, fields.declaration.value.cy) }}
+                <p class="govuk-body declaration-item">{{ content.cy.intestacyDeceasedChildren | safe }}</p>
+
+                  {{ lists(content.cy, fields.declaration.value.cy) }}
                 </div>
                 {{ download('cy', content.cy) }}
             </div>
@@ -175,22 +161,6 @@
                   <p class="govuk-body declaration-item">{{ applicant.name | safe }}</p>
                 {% endfor %}
 
-                {% if fields.relationshipToDeceased.value == "optionChild"
-                    or fields.relationshipToDeceased.value == "optionAdoptedChild"
-                    or fields.relationshipToDeceased.value == "optionGrandchild"
-                    or (
-                          (fields.relationshipToDeceased.value == "optionSibling")
-                          and
-                          (fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesAll" or fields.applicant.anyPredeceasedWholeSiblings.value == "optionYesSome")
-                          and
-                          (fields.applicant.anySurvivingWholeNiecesAndWholeNephews.value == "optionYes")
-                          and
-                          (fields.applicant.allWholeNiecesAndWholeNephewsOver18.value == "optionYes")
-                    )
-                %}
-                  <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.deceasedChildren | safe }}</p>
-                {% endif %}
-
                 {% if ((fields.relationshipToDeceased == "optionChild" or fields.relationshipToDeceased == "optionGrandchild")
                        and
                        (fields.applicant.spouseNotApplyingReason == "optionRenouncing"))
@@ -199,6 +169,8 @@
                 {% endif %}
 
                 <p class="govuk-body declaration-item">{{ fields.legalStatement.value.en.applying | safe }}</p>
+
+                <p class="govuk-body declaration-item">{{ content.en.intestacyDeceasedChildren | safe }}</p>
 
                 {{ lists(content.en, fields.declaration.value.en) }}
             </div>

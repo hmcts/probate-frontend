@@ -26,6 +26,7 @@ services:
   idam:
     loginUrl: IDAM_LOGIN_URL
     apiUrl: IDAM_API_URL
+    endSessionUrl: IDAM_END_SESSION_URL
     s2s_url: IDAM_S2S_URL
     service_key: IDAM_SERVICE_KEY
     probate_oauth2_client: IDAM_CLIENT_NAME

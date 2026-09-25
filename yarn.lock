@@ -2701,8 +2701,8 @@ __metadata:
   linkType: hard
 
 "@puppeteer/browsers@npm:^3.0.0":
-  version: 3.2.2
-  resolution: "@puppeteer/browsers@npm:3.2.2"
+  version: 3.2.3
+  resolution: "@puppeteer/browsers@npm:3.2.3"
   dependencies:
     modern-tar: "npm:^0.8.4"
     yargs: "npm:^18.0.0"
@@ -2716,7 +2716,7 @@ __metadata:
       optional: true
   bin:
     browsers: lib/main-cli.js
-  checksum: 10/8a33681a73c39bfd07e3d1e955bc2c9c12a585134bf2e63bd56616b7ea587b779b8ec4111ab8e213713da6fa5ca84ce63b22563ac11435ac5fe5f0354447a349
+  checksum: 10/fb11420cf187c0159303e31343f137fb5c1b87d82312b7500dfa1366f88ab236607f9c2016841e79e45cc5649a4f4369930d6322dfc3f240e2d166079d5d41f2
   languageName: node
   linkType: hard
 

@@ -9,16 +9,16 @@ export class SignInPage extends BasePage {
   readonly signInButtonLocator = this.page.getByRole("button", {
     name: this.commonContent.signIn,
   })
-  readonly usernameLocator = this.page.getByText('Enter your email address');
-  readonly passwordLocator = this.page.getByText('Enter your password');
+  readonly usernameLocator = this.page.getByText(this.commonContent.enterEmailAddress);
+  readonly passwordLocator = this.page.getByText(this.commonContent.enterPassword);
   readonly usernameTextboxLocator = this.page.getByRole("textbox", {
-    name: "Enter your email address",
+    name: this.commonContent.enterEmailAddress,
   });
   readonly passwordTextboxLocator = this.page.getByRole("textbox", {
-    name: "Enter your password",
+    name: this.commonContent.enterPassword,
   });
   readonly continueButtonLocator = this.page.getByRole("button", {
-    name: "Continue",
+    name: this.commonContent.continue,
   })
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);

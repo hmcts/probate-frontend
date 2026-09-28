@@ -28,6 +28,8 @@
   "answer": "Answer",
   "send": "Send",
   "error": "Error",
+  "enterEmailAddress": "Enter your email address",
+  "enterPassword": "Enter your password",
   "paymentProbateFees": "Probate Fees",
   "cookieText": "GOV.UK uses cookies to make the site simpler. <a href=\"{cookiesLink}\" class=\"govuk-link\" aria-label=\"Find out more about cookies\">Find out more about cookies</a>",
   "errorSummaryHeading": "There is a problem",

@@ -6,9 +6,20 @@ import { getContent } from '../utility/contentHelper.ts';
 const useIdam = testConfig.TestUseIdam;
 
 export class SignInPage extends BasePage {
-  // Keep this if you need it elsewhere, but don't use navByClick for the final sign-in
-  readonly signInButtonLocator = this.page.getByRole('button', { name: this.commonContent.signIn });
-
+  readonly signInButtonLocator = this.page.getByRole("button", {
+    name: this.commonContent.signIn,
+  })
+  readonly usernameLocator = this.page.getByText('Enter your email address');
+  readonly passwordLocator = this.page.getByText('Enter your password');
+  readonly usernameTextboxLocator = this.page.getByRole("textbox", {
+    name: "Enter your email address",
+  });
+  readonly passwordTextboxLocator = this.page.getByRole("textbox", {
+    name: "Enter your password",
+  });
+  readonly continueButtonLocator = this.page.getByRole("button", {
+    name: "Continue",
+  })
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
   }
@@ -33,11 +44,27 @@ export class SignInPage extends BasePage {
           timeout: 60000
         });
       }
-      await this.page.locator('#username').fill(process.env.testCitizenEmail);
-      await this.page.locator('#password').fill(process.env.testCitizenPassword);
+      await this.verifyPageLoad(this.signInButtonLocator, 10_000);
       await this.navByClick(this.signInButtonLocator);
+      await expect(this.usernameLocator).toBeVisible();
+      await this.signIn(process.env.testCitizenEmail, process.env.testCitizenPassword);
     }
 
+  }
+
+  private async signIn(username: string, password: string) {
+    await this.verifyPageLoad(this.usernameLocator, 10_000);
+    await expect(this.usernameLocator).toBeVisible();
+
+    await this.usernameTextboxLocator.fill(username);
+    await this.continueButtonLocator.click();
+
+    await expect(this.passwordLocator).toBeVisible();
+    await this.passwordTextboxLocator.fill(password);
+
+    await this.waitForNavigationToComplete(this.continueButtonLocator);
+
+    await expect(this.passwordLocator).toBeHidden();
   }
 
   async seeSignOut(language = 'en') {

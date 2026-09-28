@@ -34,7 +34,8 @@ class Security {
             if (req.cookies) {
                 securityCookie = req.cookies[SECURITY_COOKIE];
             }
-
+            console.log('Calling idamSession.get()...SECURITY_COOKIE: ', SECURITY_COOKIE);
+            console.log('Calling idamSession.get()..111  securityCookie.'+securityCookie);
             if (securityCookie) {
                 if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
                     req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
@@ -50,6 +51,7 @@ class Security {
                     this._authorize(req, res, next, cachedResponse.roles, authorisedRoles);
                 } else {
                     const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+                    console.log('Calling idamSession.get()...222 securityCookie: ', securityCookie);
                     idamSession
                         .get(securityCookie)
                         .then(response => {
@@ -73,6 +75,7 @@ class Security {
                         });
                 }
             } else {
+                console.log('Calling idamSession this._login  ********************');
                 this._login(req, res);
             }
         };
@@ -123,7 +126,8 @@ class Security {
         redirectUrl.query.state = state;
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
-
+console.log('_login client_id: ', idamConfig.probate_oauth2_client);
+console.log('_login Redirecting to ?????  login page: ', redirectUrl.format());
         res.redirect(redirectUrl.format());
     }
 
@@ -246,6 +250,7 @@ class Security {
         logger.info('calling getOauth2Token to get auth token');
         const client_id = config.services.idam.probate_oauth2_client;
         const client_secret = config.services.idam.probate_oauth2_secret;
+        console.log('client_id:'+client_id+' getOauth2Token:'+client_secret)
         const idam_api_url = config.services.idam.apiUrl;
         const redirect_uri = redirect_url;
 

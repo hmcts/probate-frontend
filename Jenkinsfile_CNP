@@ -69,10 +69,10 @@ def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
 
-  overrideVaultEnvironments(vaultOverrides)
+
   enableAksStagingDeployment()
   disableLegacyDeployment()
-
+  overrideVaultEnvironments(vaultOverrides)
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)

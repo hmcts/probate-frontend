@@ -312,13 +312,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "@azure/msal-node@npm:6.0.1"
+"@azure/msal-node@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@azure/msal-node@npm:7.0.0"
   dependencies:
     "@azure/msal-common": "npm:16.14.1"
     jsonwebtoken: "npm:^9.0.0"
-  checksum: 10/75c8f2d42f0b905b14b0f0cea19efb5f1abff921e6ee2abd021a398b83a1dee6f18d31568f3fb8d3d46fc78d8be6db935a125fc4abe4b7bb674ec6bc74b91dc3
+  checksum: 10/aeb8aaea6fcd1a21402b0e8d96ba517a5fa3ed0269353eb77c83319cb9b9d6ac979e0b3e44eba49b9f96d664950887365625529084b36653430ed49e9d57af88
   languageName: node
   linkType: hard
 

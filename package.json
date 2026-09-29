@@ -278,5 +278,5 @@
     "yauzl": "^3.4.0",
     "underscore": "^1.13.8"
   },
-  "packageManager": "yarn@4.18.0"
+  "packageManager": "yarn@4.18.1"
 }

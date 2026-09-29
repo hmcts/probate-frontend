@@ -18,6 +18,7 @@ const NodeCache = require('node-cache');
 
 class Security {
     constructor(loginUrl) {
+        console.log('Security constructor loginUrl-->'+ loginUrl);
         if (String(config.services.idam.caching) === 'true') {
             this.idamDetailsCache = new NodeCache({stdTTL: 3600, checkperiod: 1800});
         }
@@ -121,6 +122,7 @@ class Security {
 
         const callbackUrl = FormatUrl.format(returnUrl, idamConfig.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
+console.log('_login this.loginUrl: ', this.loginUrl);
         redirectUrl.query.ui_locales = req.session.language;
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;

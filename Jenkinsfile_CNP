@@ -58,11 +58,18 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
+
+
+def vaultOverrides = [
+  'preview': 'demo',
+  'spreview': 'saat'
+]
 // Configure branches to sync with master branch
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
 
+  overrideVaultEnvironments(vaultOverrides)
   enableAksStagingDeployment()
   disableLegacyDeployment()
 

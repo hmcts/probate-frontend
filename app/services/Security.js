@@ -18,7 +18,6 @@ const NodeCache = require('node-cache');
 
 class Security {
     constructor(loginUrl) {
-        console.log('Security constructor loginUrl-->'+ loginUrl);
         if (String(config.services.idam.caching) === 'true') {
             this.idamDetailsCache = new NodeCache({stdTTL: 3600, checkperiod: 1800});
         }
@@ -35,8 +34,6 @@ class Security {
             if (req.cookies) {
                 securityCookie = req.cookies[SECURITY_COOKIE];
             }
-            console.log('Calling idamSession.get()...SECURITY_COOKIE: ', SECURITY_COOKIE);
-            console.log('Calling idamSession.get()..111  securityCookie.'+securityCookie);
             if (securityCookie) {
                 if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
                     req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
@@ -52,7 +49,6 @@ class Security {
                     this._authorize(req, res, next, cachedResponse.roles, authorisedRoles);
                 } else {
                     const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
-                    console.log('Calling idamSession.get()...222 securityCookie: ', securityCookie);
                     idamSession
                         .get(securityCookie)
                         .then(response => {
@@ -76,7 +72,6 @@ class Security {
                         });
                 }
             } else {
-                console.log('Calling idamSession this._login  ********************');
                 this._login(req, res);
             }
         };
@@ -122,14 +117,11 @@ class Security {
 
         const callbackUrl = FormatUrl.format(returnUrl, idamConfig.probate_oauth_callback_path);
         const redirectUrl = URL.parse(this.loginUrl, true);
-console.log('_login this.loginUrl: ', this.loginUrl);
         redirectUrl.query.ui_locales = req.session.language;
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
-console.log('_login client_id: ', idamConfig.probate_oauth2_client);
-console.log('_login Redirecting to ?????  login page: ', redirectUrl.format());
         res.redirect(redirectUrl.format());
     }
 
@@ -252,7 +244,6 @@ console.log('_login Redirecting to ?????  login page: ', redirectUrl.format());
         logger.info('calling getOauth2Token to get auth token');
         const client_id = config.services.idam.probate_oauth2_client;
         const client_secret = config.services.idam.probate_oauth2_secret;
-        console.log('client_id:'+client_id+' getOauth2Token:'+client_secret)
         const idam_api_url = config.services.idam.apiUrl;
         const redirect_uri = redirect_url;
 

@@ -58,12 +58,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   ]
 }
 
-
-
-def vaultOverrides = [
-  'preview': 'demo',
-  'spreview': 'saat'
-]
 // Configure branches to sync with master branch
 def branchesToSync = ['demo', 'ithc', 'perftest']
 
@@ -72,7 +66,6 @@ withPipeline("nodejs", product, component) {
 
   enableAksStagingDeployment()
   disableLegacyDeployment()
-  overrideVaultEnvironments(vaultOverrides)
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)
@@ -82,7 +75,6 @@ withPipeline("nodejs", product, component) {
     if (checkForNightlyWithoutWelshTestsLabel(env.BRANCH_NAME)) {
       env.DONT_TEST_WELSH = true
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.IDAM_LOGIN_URL = "https://idam-web-public.demo.platform.hmcts.net/login"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       catchError(stageResult: 'UNSTABLE') {
@@ -90,7 +82,6 @@ withPipeline("nodejs", product, component) {
       }
     } else if (checkForNightlyLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.IDAM_LOGIN_URL = "https://idam-web-public.demo.platform.hmcts.net/login"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       catchError(stageResult: 'UNSTABLE') {
@@ -98,7 +89,6 @@ withPipeline("nodejs", product, component) {
       }
     } else if (checkForNightlyGopLabel(env.BRANCH_NAME)) {
       env.TEST_URL = "https://probate-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-      env.IDAM_LOGIN_URL = "https://idam-web-public.demo.platform.hmcts.net/login"
       env.BROWSER_NAME = "chromium"
       sh 'yarn install'
       catchError(stageResult: 'UNSTABLE') {

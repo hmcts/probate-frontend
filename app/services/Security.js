@@ -34,6 +34,7 @@ class Security {
             if (req.cookies) {
                 securityCookie = req.cookies[SECURITY_COOKIE];
             }
+
             if (securityCookie) {
                 if ([SessionStatusEnum.getExpired(), SessionStatusEnum.getLost()].includes(this.getSessionStatus(req))) {
                     req.log.error(`The current user session is ${this.getSessionStatus(req)}, redirecting user to the time-out page.`);
@@ -122,6 +123,7 @@ class Security {
         redirectUrl.query.state = state;
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
+
         res.redirect(redirectUrl.format());
     }
 

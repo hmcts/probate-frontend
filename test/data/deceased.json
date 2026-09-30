@@ -6,6 +6,7 @@
     "firstName": "Joe",
     "lastName": "Bloggs",
     "alias": "optionNo",
+    "maritalStatus": "optionMarried",
     "married": "optionYes",
     "dod-day": "12",
     "dod-month": "12",

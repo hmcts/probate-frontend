@@ -57,6 +57,41 @@ describe('DivorcePlace', () => {
         });
     });
 
+    describe('generateFields()', () => {
+        it('should return the correct content fields', (done) => {
+            const ctx = {
+                language: 'en',
+                legalProcess: 'divorce'
+            };
+            const errors = [
+                {
+                    field: 'divorcePlace',
+                    href: '#divorcePlace',
+                    msg: content.errors.divorcePlace.required
+                }
+            ];
+
+            const fields = DivorcePlace.generateFields('en', ctx, errors);
+            expect(fields).to.deep.equal({
+                language: {
+                    error: false,
+                    value: 'en'
+                },
+                divorcePlace: {
+                    error: true,
+                    href: '#divorcePlace',
+                    errorMessage: content.errors.divorcePlace.required.replace('{legalProcess}', 'divorce')
+                },
+                legalProcess: {
+                    error: false,
+                    value: 'divorce'
+                },
+                title: `Did the divorce take place in England or Wales? - ${commonContent.serviceName}`
+            });
+            done();
+        });
+    });
+
     describe('nextStepUrl()', () => {
         it('should return the correct url when Yes is given', (done) => {
             const req = {
@@ -72,13 +107,14 @@ describe('DivorcePlace', () => {
             done();
         });
 
-        it('should return the correct url when No is given and legal act is Divorce', (done) => {
+        it('should return the correct url when intestacy and No is given and legal act is Divorce', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
+                copyMaritalStatus: 'optionDivorced',
                 divorcePlace: 'optionNo',
                 legalProcess: 'divorce or dissolution'
             };
@@ -86,18 +122,51 @@ describe('DivorcePlace', () => {
             expect(nextStepUrl).to.equal('/stop-page/divorcedNotInEnglandOrWales');
             done();
         });
-        it('should return the correct url when No is given and legal act is Separation', (done) => {
+
+        it('should return the correct url when intestacy and No is given and legal act is Separation', (done) => {
             const req = {
                 session: {
                     journey: journey
                 }
             };
             const ctx = {
-                legalProcess: 'separation',
+                copyMaritalStatus: 'optionSeparated',
                 divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
             expect(nextStepUrl).to.equal('/stop-page/separatedNotInEnglandOrWales');
+            done();
+        });
+
+        it('should return the correct url when probate and No is given and legal act is Divorce', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'gop',
+                copyMaritalStatus: 'optionDivorced',
+                divorcePlace: 'optionNo'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/probateDivorcePlace');
+            done();
+        });
+
+        it('should return the correct url when probate and No is given and legal act is Separation', (done) => {
+            const req = {
+                session: {
+                    journey: journey
+                }
+            };
+            const ctx = {
+                caseType: 'gop',
+                copyMaritalStatus: 'optionSeparated',
+                divorcePlace: 'optionNo'
+            };
+            const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
+            expect(nextStepUrl).to.equal('/stop-page/probateSeparationPlace');
             done();
         });
     });

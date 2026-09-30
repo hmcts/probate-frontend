@@ -1,6 +1,6 @@
 {
   "title": "Marital status of the deceased person",
-  "question": "What was {deceasedName}&rsquo;s marital status?",
+  "question": "What was {deceasedName}&rsquo;s marital status at the time of their death?",
   "optionMarried": "Married or in a registered civil partnership",
   "optionDivorced": "Divorced or had ended their civil partnership (also known as a dissolution)",
   "optionWidowed": "Widowed or surviving civil partner",

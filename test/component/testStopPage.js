@@ -106,6 +106,24 @@ describe('stop-page', () => {
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
+        it('test right content loaded on the page - other applicants', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherApplicants');
+            const contentData = {stopReason: 'otherApplicants', applicationFormPA1A: config.links.applicationFormPA1A};
+  
+            const contentToExclude_orig = ['defaultHeader', 'deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'probateDivorcePlace', 'probateSeparationPlace'];
+            const contentToInclude = [];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            
+            // remove once we've got the same
+            for (var i = 0; i < contentToExclude.length(); i++) {
+                const exp = contentToExclude[i];
+                if (!contentToExclude_orig.includes(exp)) {
+                    throw new Error(`contentToExclude_orig does not contain ${exp}`);
+                }
+            }
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
         it('test right content loaded on the page - not original', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notOriginal');
             const contentData = {
@@ -267,10 +285,53 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('grandchildrenUnder18');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
 
+
             const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'grandchildrenUnder18',
             ];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test right content loaded on the page - probate divorce outside england/wales', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('probateDivorcePlace');
+            const contentData = {
+                applicationFormPA1P: config.links.applicationFormPA1P,
+                deceasedName: '',
+            };
+            const contentToExclude_orig = ['deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'probateSeparationPlace'];
+            const contentToInclude = [];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            
+            // remove once we've got the same
+            for (var i = 0; i < contentToExclude.length(); i++) {
+                const exp = contentToExclude[i];
+                if (!contentToExclude_orig.includes(exp)) {
+                    throw new Error(`contentToExclude_orig does not contain ${exp}`);
+                }
+            }
+  
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test right content loaded on the page - probate judicial separation outside england/wales', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('probateSeparationPlace');
+            const contentData = {
+                applicationFormPA1P: config.links.applicationFormPA1P,
+                deceasedName: '',
+            };
+            const contentToExclude_orig = ['deathCertificateHeader', 'deathCertificateTranslationHeader', 'inheritanceHeader', 'eeEstateValuedHeader', 'notOriginalHeader', 'defaultHeader', 'defaultReason', 'deathCertificate', 'deathCertificateTranslation', 'notInEnglandOrWales', 'ihtNotCompleted', 'eeEstateNotValued', 'notDiedAfterOctober2014', 'notRelated', 'otherApplicants', 'notOriginal', 'notExecutor', 'mentalCapacity', 'divorcePlace', 'separationPlace', 'otherRelationship', 'adoptionNotEnglandOrWales', 'spouseNotApplying', 'childrenUnder18', 'grandchildrenUnder18', 'probateDivorcePlace',];
+            const contentToInclude = [];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+            
+            // remove once we've got the same
+            for (var i = 0; i < contentToExclude.length(); i++) {
+                const exp = contentToExclude[i];
+                if (!contentToExclude_orig.includes(exp)) {
+                    throw new Error(`contentToExclude_orig does not contain ${exp}`);
+                }
+            }
+          
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 

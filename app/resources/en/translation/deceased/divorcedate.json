@@ -39,7 +39,8 @@
     "divorceDate": {
       "required": "Enter the date the {legalProcess} took place",
       "invalid": "Date of {legalProcessDifferentText} must be a real date",
-      "divorceDateAfterDod": "The date of {legalProcessDifferentText} must be before {deceasedName}’s date of death"
+      "divorceDateAfterDod": "The date of {legalProcessDifferentText} must be before {deceasedName}’s date of death",
+      "divorceDateBeforeDob": "The date of {legalProcessDifferentText} must be after {deceasedName}’s date of birth"
     }
   }
 }

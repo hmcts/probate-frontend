@@ -67,6 +67,7 @@ class DivorceDate extends ValidationStep {
                 const divorceDate = moment(`${day}/${month}/${year}`, DATE_FORMATS, true).parseZone();
 
                 const dod = moment(`${ctx['dod-day']}/${ctx['dod-month']}/${ctx['dod-year']}`, DATE_FORMATS, true).parseZone();
+                const dob = moment(`${ctx['dob-day']}/${ctx['dob-month']}/${ctx['dob-year']}`, DATE_FORMATS, true).parseZone();
 
                 const missingFields = [];
                 if (!day) {
@@ -95,6 +96,8 @@ class DivorceDate extends ValidationStep {
                     errors.push(FieldError('divorceDate', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
                 } else if (divorceDate.isAfter(dod)) {
                     errors.push(FieldError('divorceDate', 'divorceDateAfterDod', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+                } else if (divorceDate.isBefore(dob)) {
+                    errors.push(FieldError('divorceDate', 'divorceDateBeforeDob', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
                 }
 
                 ctx.divorceDate = FormatDate.formatDateBackend({'day': day, 'month': month, 'year': year});

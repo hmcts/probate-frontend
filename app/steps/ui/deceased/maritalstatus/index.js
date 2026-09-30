@@ -17,6 +17,17 @@ class DeceasedMaritalStatus extends ValidationStep {
     }
 
     nextStepOptions(ctx) {
+        if (ctx.caseType === 'gop') {
+            return {
+                options: [
+                    {key: 'maritalStatus', value: 'optionMarried', choice: 'gopMarried'},
+                    {key: 'maritalStatus', value: 'optionDivorced', choice: 'gopDivorced'},
+                    {key: 'maritalStatus', value: 'optionWidowed', choice: 'gopWidowed'},
+                    {key: 'maritalStatus', value: 'optionNotMarried', choice: 'gopNotMarried'},
+                    {key: 'maritalStatus', value: 'optionSeparated', choice: 'gopSeparated'}
+                ]
+            };
+        }
         ctx.divorcedOrSeparated = (ctx.maritalStatus === 'optionDivorced' || ctx.maritalStatus === 'optionSeparated');
         ctx.divorced = ctx.maritalStatus === 'optionDivorced';
         ctx.separated = ctx.maritalStatus === 'optionSeparated';
@@ -41,6 +52,8 @@ class DeceasedMaritalStatus extends ValidationStep {
         delete ctx.divorcedOrSeparated;
         if (formdata.deceased?.maritalStatus && ctx.maritalStatus !== formdata.deceased.maritalStatus) {
             delete ctx.divorcePlace;
+            delete ctx.divorceDateKnown;
+            delete ctx.divorceDate;
             delete ctx.anyChildren;
             delete ctx.anyOtherChildren;
             delete ctx.allChildrenOver18;

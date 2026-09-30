@@ -63,9 +63,9 @@ def branchesToSync = ['demo', 'ithc', 'perftest']
 
 withPipeline("nodejs", product, component) {
 
-
   enableAksStagingDeployment()
   disableLegacyDeployment()
+
   loadVaultSecrets(secrets)
   enableSlackNotifications('#probate-jenkins')
   syncBranchesWithMaster(branchesToSync)

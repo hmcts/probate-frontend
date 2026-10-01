@@ -9,6 +9,7 @@
 !package.json
 !yarn.lock
 !app
+!app/**
 !app.js
 !gulpfile.js
 !tsconfig.json
@@ -16,6 +17,7 @@
 !app/**
 !config/**
 !public
+!public/**
 !test
 !git.properties.json
 !.git

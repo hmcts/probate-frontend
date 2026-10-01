@@ -6,9 +6,9 @@ import { getContent } from '../utility/contentHelper.ts';
 const useIdam = testConfig.TestUseIdam;
 
 export class SignInPage extends BasePage {
-  readonly signInButtonLocator = this.page.getByRole("button", {
-    name: this.commonContent.signIn,
-  })
+  // Keep this if you need it elsewhere, but don't use navByClick for the final sign-in
+  readonly signInButtonLocator = this.page.getByRole('button', { name: this.commonContent.signIn });
+
   readonly usernameLocator = this.page.getByText(this.commonContent.enterEmailAddress);
   readonly passwordLocator = this.page.getByText(this.commonContent.enterPassword);
   readonly usernameTextboxLocator = this.page.getByRole("textbox", {

@@ -57,7 +57,7 @@ export class SignInPage extends BasePage {
     await expect(this.usernameLocator).toBeVisible();
 
     await this.usernameTextboxLocator.fill(username);
-    await this.continueButtonLocator.click();
+    await this.navByClick(this.continueButtonLocator);
 
     await expect(this.passwordLocator).toBeVisible();
     await this.passwordTextboxLocator.fill(password);

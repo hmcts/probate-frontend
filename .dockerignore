@@ -14,9 +14,12 @@
 !server.js
 !app/**
 !config/**
+!public
 !test
 !git.properties.json
 !.git
+
+!.yarn
 !.yarnrc.yml
 !.yarn/patches
 !.yarn/plugins

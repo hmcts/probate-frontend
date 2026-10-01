@@ -183,28 +183,6 @@ export class BasePage {
     return nextTab;
   }
 
-  async waitForNavigationToComplete(
-    buttonLocator: Locator | string,
-    timeout: number = 30_000,
-  ): Promise<void> {
-    const currentUrl = this.page.url();
-    const button =
-      typeof buttonLocator === "string"
-        ? this.page.locator(buttonLocator) // String - convert to Locator
-        : buttonLocator;
-    await expect(button).toBeVisible({ timeout });
-    await expect(button).toBeEnabled({ timeout });
-
-    // Register the URL wait before clicking. The click happens exactly once.
-    await Promise.all([
-      this.page.waitForURL(
-        url => url.href !== currentUrl,
-        { timeout, waitUntil: "commit" },
-      ),
-      button.click({ timeout }),
-    ]);
-  }
-
   async verifyPageLoad(
     pageLocator: Locator,
     timeout: number = 5_000,

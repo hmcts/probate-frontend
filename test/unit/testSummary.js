@@ -125,6 +125,7 @@ describe('Summary', () => {
                 diedEnglandOrWalesQuestion: 'Did Dee Ceased die in England or Wales?',
                 deceasedNameAsOnWillQuestion: 'Is Dee Ceased exactly how the name is written on the will?',
                 deceasedMarriedQuestion: 'Did Dee Ceased get married or form a civil partnership after the will was signed?',
+                deceasedPartnerNameQuestion: 'What was Dee Ceased\'s husband\'s, wife\'s or civil partner\'s name?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
                 relationshipToDeceasedQuestion: 'What is your relationship to Dee Ceased?',
                 ihtTotalNetValue: 300000,
@@ -158,7 +159,11 @@ describe('Summary', () => {
                     }
                 },
                 sessionID: 'dummy_sessionId',
-                softStop: false
+                softStop: false,
+                deceasedDivorceDate: 'Date of legal separation',
+                deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
+                deceasedDivorcePlaceQuestion: 'Did the legal separation take place in England or Wales?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status at the time of their death?',
             });
             done();
         });
@@ -203,8 +208,9 @@ describe('Summary', () => {
                 deceasedDivorceDateKnownQuestion: 'Do you know the date the legal separation took place?',
                 deceasedDobQuestion: 'What was Dee Ceased’s date of birth?',
                 deceasedDodQuestion: 'What was the date that Dee Ceased died?',
-                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status?',
+                deceasedMaritalStatusQuestion: 'What was Dee Ceased&rsquo;s marital status at the time of their death?',
                 deceasedSpouseNotApplyingReasonQuestion: 'Why is Dee Ceased&rsquo;s husband, wife or civil partner not applying?',
+                deceasedPartnerNameQuestion: 'What was Dee Ceased\'s husband\'s, wife\'s or civil partner\'s name?',
                 deceasedWrittenWishesQuestion: 'Did Dee Ceased leave any other written wishes?',
                 relationshipToDeceasedQuestion: 'What is your relationship to Dee Ceased?',
                 allHalfNiecesAndHalfNephewsOver18: 'Are all of these children 18 or older?',

@@ -106,6 +106,20 @@ describe('stop-page', () => {
             testWrapper.testContent(done, contentData, contentToExclude);
         });
 
+        it('test right content loaded on the page - other applicants', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('otherApplicants');
+            const contentData = {stopReason: 'otherApplicants', applicationFormPA1A: config.links.applicationFormPA1A};
+
+            const contentToInclude = [
+                'eligibilityTitle',
+                'title',
+                'otherApplicants',
+            ];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
         it('test right content loaded on the page - not original', (done) => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('notOriginal');
             const contentData = {
@@ -267,7 +281,44 @@ describe('stop-page', () => {
             testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('grandchildrenUnder18');
             const contentData = {applicationFormPA1A: config.links.applicationFormPA1A};
 
+
             const contentToInclude = ['eligibilityTitle', 'title', 'cannotApplyByOnlineHeader', 'grandchildrenUnder18',
+            ];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test right content loaded on the page - probate divorce outside england/wales', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('probateDivorcePlace');
+            const contentData = {
+                applicationFormPA1P: config.links.applicationFormPA1P,
+                deceasedName: '',
+            };
+            const contentToInclude = [
+                'eligibilityTitle',
+                'title',
+                'applyByPostHeader',
+                'deceasedNoLegalPartnerAndRelationshipOtherHeader',
+                'probateDivorcePlace',
+            ];
+            const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
+
+            testWrapper.testContent(done, contentData, contentToExclude);
+        });
+
+        it('test right content loaded on the page - probate judicial separation outside england/wales', (done) => {
+            testWrapper.pageUrl = testWrapper.pageToTest.constructor.getUrl('probateSeparationPlace');
+            const contentData = {
+                applicationFormPA1P: config.links.applicationFormPA1P,
+                deceasedName: '',
+            };
+            const contentToInclude = [
+                'eligibilityTitle',
+                'title',
+                'applyByPostHeader',
+                'deceasedNoLegalPartnerAndRelationshipOtherHeader',
+                'probateSeparationPlace',
             ];
             const contentToExclude = allContent.filter(k => !contentToInclude.includes(k));
 

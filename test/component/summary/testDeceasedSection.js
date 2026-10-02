@@ -67,6 +67,7 @@ describe('summary-deceased-section', () => {
                         firstName: deceasedContent.name.firstName,
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
+                        maritalStatus: deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedName),
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         dob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
                         dod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
@@ -96,6 +97,7 @@ describe('summary-deceased-section', () => {
                         questionFirstName: deceasedContent.name.firstName,
                         questionLastName: deceasedContent.name.lastName,
                         questionAlias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
+                        questionMaritalStatus: deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedName),
                         questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         questionDob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
                         questionDod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
@@ -103,6 +105,7 @@ describe('summary-deceased-section', () => {
                     };
                     Object.assign(playbackData, sessionData.deceased);
                     playbackData.alias = deceasedContent.alias[playbackData.alias];
+                    playbackData.maritalStatus = deceasedContent.maritalstatus[playbackData.maritalStatus];
                     playbackData.married = deceasedContent.married[playbackData.married];
                     playbackData.domicile = deceasedContent.married[playbackData.domicile];
 

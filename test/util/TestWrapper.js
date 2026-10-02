@@ -48,7 +48,14 @@ class TestWrapper {
         let substitutedContent = null;
         try {
             const content = this[`content_${language}`];
-            const contentToCheck = cloneDeep(filter(content, (value, key) => !excludeKeys.includes(key) && key !== 'errors'));
+
+            const contentToCheck = Object.keys(content)
+                .filter(key => !excludeKeys.includes(key) && key !== 'errors')
+                .reduce((obj, key) => {
+                    obj[key] = content[key];
+                    return obj;
+                }, {});
+
             substitutedContent = this.substituteContent(data, contentToCheck);
             res = this.agent.get(this.pageUrl);
 
@@ -75,7 +82,7 @@ class TestWrapper {
             res.expect('Content-type', /html/)
                 .then(response => {
                     try {
-                        this.assertContentIsPresent(response.text, substitutedContent);
+                        this.assertContentIsPresentObject(response.text, substitutedContent);
                         done();
                     } catch (err) {
                         console.error(`Assert content present error: ${err.message}\nStack:\n${err.stack}`);
@@ -226,9 +233,8 @@ class TestWrapper {
                         if (Array.isArray(data[placeholder])) {
                             data[placeholder].forEach(contentData => {
                                 const contentValueReplace = contentValue.replace(placeholderRegex, contentData);
-                                contentToSubstitute.push(contentValueReplace);
+                                contentToSubstitute[key] = contentValueReplace;
                             });
-                            contentToSubstitute[key] = 'undefined';
                         } else {
                             contentValue = contentValue.replace(placeholderRegex, data[placeholder]);
                             contentToSubstitute[key] = contentValue;
@@ -238,7 +244,7 @@ class TestWrapper {
                     contentToSubstitute[key] = contentValue;
                 }
             });
-        return contentToSubstitute.filter(content => content !== 'undefined');
+        return contentToSubstitute;
     }
 
     substituteErrorsContent(data, contentToSubstitute, type) {
@@ -258,6 +264,15 @@ class TestWrapper {
         expectedContent.forEach(contentValue => {
             expect(actualContent.toLowerCase()).to.contain(contentValue.toString().toLowerCase());
         });
+    }
+
+    assertContentIsPresentObject(actualContent, expectedContent) {
+        Object.keys(expectedContent).forEach((key) => {
+            expect(
+                    actualContent.toLowerCase(),
+                    `didn't have '${key}''`)
+                .to.contain(expectedContent[key].toString().toLowerCase());
+        })
     }
 
     assertContentIsNotPresent(actualContent, expectedContent) {

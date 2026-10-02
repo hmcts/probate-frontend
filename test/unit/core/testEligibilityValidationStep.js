@@ -172,7 +172,7 @@ describe('EligibilityValidationStep', () => {
             expect(result).to.deep.equal(true);
         });
 
-        it('should return true if all intestacy screeners answered before otherApplicants page ()', () => {
+        it('should return true if all intestacy screeners answered before relatedToDeceased page ()', () => {
             const ctx = {};
             const req = {
                 session: {
@@ -195,7 +195,7 @@ describe('EligibilityValidationStep', () => {
             };
 
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
-            const result = eligibilityValidationStep.previousQuestionsAnswered(req, ctx, 'otherApplicants');
+            const result = eligibilityValidationStep.previousQuestionsAnswered(req, ctx, 'related');
             expect(result).to.deep.equal(true);
         });
 
@@ -242,10 +242,7 @@ describe('EligibilityValidationStep', () => {
                             deathCertificateTranslation: 'optionYes',
                             domicile: 'optionYes',
                             completed: 'optionYes',
-                            left: 'optionYes',
-                            original: 'optionYes',
-                            executor: 'optionYes',
-                            mentalCapacity: 'optionYes',
+                            left: 'optionYes'
                         }
                     },
                     featureToggles: {
@@ -255,7 +252,7 @@ describe('EligibilityValidationStep', () => {
             };
 
             const eligibilityValidationStep = new EligibilityValidationStep(steps, section, resourcePath, i18next, schema);
-            const result = eligibilityValidationStep.previousQuestionsAnswered(req, ctx, 'otherApplicants');
+            const result = eligibilityValidationStep.previousQuestionsAnswered(req, ctx, 'related');
             expect(result).to.deep.equal(false);
         });
     });

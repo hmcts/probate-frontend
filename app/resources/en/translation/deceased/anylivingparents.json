@@ -1,0 +1,14 @@
+{
+  "title": "Any Living Parents",
+  "question": "Did {deceasedName} have any living parents at the time of death?",
+  "paragraph1": "This does not include any step-parents.",
+  "paragraph2": "If {deceasedName} was legally adopted, this includes their adoptive parents, but not their biological parents.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "anyLivingParents": {
+      "required": "Select 'Yes' if any of {deceasedName}'s parents were alive when {deceasedName} died"
+    }
+  }
+}

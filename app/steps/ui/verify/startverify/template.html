@@ -1,0 +1,48 @@
+{% extends "includes/layout.html" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">{{ content.header | safe }}</h1>
+            <p class="govuk-body">{{ content.introduction | replace("{applicantName}", fields.applicantName.value) | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph1 | safe }}</p>
+              <p class="govuk-body">
+                  <ul class="govuk-list govuk-list--bullet">
+                      <li>{{ content.listItem1 | safe }}</li>
+                      <li>{{ content.listItem2 | safe }}</li>
+                      <li>{{ content.listItem3 | safe }}</li>
+                  </ul>
+              </p>
+            <p class="govuk-body">{{ content.paragraph2 | safe }}</p>
+            <p class="govuk-body">
+            <ul class="govuk-list govuk-list--bullet">
+              <li>{{ content.listItem4 | replace("{applicantName}", fields.applicantName.value) | safe }}</li>
+              <li>{{ content.listItem5 | safe }}</li>
+            </ul>
+            </p>
+            <p class="govuk-body">{{ content.paragraph3 | replace("{deceasedName}", fields.deceasedName.value)  | safe }}</p>
+            <div class="govuk-form-group">
+              {{ govukButton({
+              text: common.start | safe,
+              href: "/verify-dod",
+              isStartButton: true
+              }) }}
+            </div>
+            <h2 class="govuk-heading-m">{{ content.multipleHeader | safe }}</h2>
+            <p class="govuk-body">{{ content.paragraph4 | safe }}</p>
+            <p class="govuk-body">{{ content.paragraph5 | safe }}</p>
+            <p class="govuk-body">
+            <ul class="govuk-list govuk-list--bullet">
+              <li>{{ content.listItem6 | replace("{applicantName}", fields.applicantName.value) | safe }}</li>
+              <li>{{ content.listItem7 | replace("{applicationFormPA12}", fields.applicationFormPA12.value)| safe }}</li>
+            </ul>
+            </p>
+            <p class="govuk-body">{{ content.paragraph6 | replace("{applicantName}", fields.applicantName.value) | safe }}</p>
+        </div>
+    </div>
+    <br>
+{% endblock %}

@@ -10,7 +10,7 @@
   "warningText": "If there are any assets held in names that are not listed on the grant of probate, you may have difficulties accessing them.",
   "errors": {
     "alias": {
-      "required": "Answer &lsquo;yes&rsquo; if the person who died had assets in another name"
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} had assets in another name"
     }
   }
 }

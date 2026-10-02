@@ -1,33 +1,35 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
-const {get} = require('lodash');
 
 class AdoptionPlace extends ValidationStep {
 
     static getUrl() {
-        return '/adoption-place';
+        return '/adopted-in-england-or-wales';
     }
 
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
-        ctx.deceasedMaritalStatus = get(formdata, 'deceased.maritalStatus');
+        ctx.relationshipToDeceased = formdata.applicant?.relationshipToDeceased;
+        ctx.details = formdata.details || {};
         return ctx;
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('adoptionNotEnglandOrWales');
+        if (ctx.relationshipToDeceased === 'optionSibling') {
+            return this.next(req, ctx).getUrlWithContext(ctx, 'adoptionNotInEnglandOrWales');
+        }
+        return this.next(req, ctx).getUrlWithContext(ctx, 'adoptionNotEnglandOrWales');
     }
 
     nextStepOptions(ctx) {
-        ctx.inEnglandOrWalesDeceasedMarried = ctx.adoptionPlace === 'optionYes' && ctx.deceasedMaritalStatus === 'optionMarried';
-        ctx.inEnglandOrWalesDeceasedNotMarried = ctx.adoptionPlace === 'optionYes' && ctx.deceasedMaritalStatus !== 'optionMarried';
-
+        ctx.childOrGrandChildAdoptedInEnglandOrWales = (ctx.relationshipToDeceased === 'optionChild' || ctx.relationshipToDeceased === 'optionGrandchild') && ctx.adoptionPlace === 'optionYes';
+        ctx.siblingAdoptedInEnglandOrWales = ctx.relationshipToDeceased === 'optionSibling' && ctx.adoptionPlace === 'optionYes';
         return {
             options: [
-                {key: 'inEnglandOrWalesDeceasedMarried', value: true, choice: 'inEnglandOrWalesDeceasedMarried'},
-                {key: 'inEnglandOrWalesDeceasedNotMarried', value: true, choice: 'inEnglandOrWalesDeceasedNotMarried'}
+                {key: 'childOrGrandChildAdoptedInEnglandOrWales', value: true, choice: 'childOrGrandChildAdoptedInEnglandOrWales'},
+                {key: 'siblingAdoptedInEnglandOrWales', value: true, choice: 'siblingAdoptedInEnglandOrWales'}
             ]
         };
     }

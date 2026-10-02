@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "any-surviving-whole-nieces-and-whole-nephews",
+  "type": "object",
+  "properties": {
+    "anySurvivingWholeNiecesAndWholeNephews": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "anySurvivingWholeNiecesAndWholeNephews"
+  ]
+}

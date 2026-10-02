@@ -20,7 +20,7 @@ class RemoveInvitedExecutor {
         const inviteData = new InviteData(config.services.orchestrator.url, req.sessionID);
         const promises = executorsToRemoveFromInviteData.map(exec => inviteData.delete(ccdCaseId, {
             inviteId: exec.inviteId
-        }));
+        }, req));
         return Promise.all(promises).then(result => {
             const isError = result.some(r => r !== '');
             if (isError) {

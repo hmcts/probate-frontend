@@ -9,6 +9,17 @@ export class SignInPage extends BasePage {
   // Keep this if you need it elsewhere, but don't use navByClick for the final sign-in
   readonly signInButtonLocator = this.page.getByRole('button', { name: this.commonContent.signIn });
 
+  readonly usernameLocator = this.page.getByText(this.commonContent.enterEmailAddress);
+  readonly passwordLocator = this.page.getByText(this.commonContent.enterPassword);
+  readonly usernameTextboxLocator = this.page.getByRole("textbox", {
+    name: this.commonContent.enterEmailAddress,
+  });
+  readonly passwordTextboxLocator = this.page.getByRole("textbox", {
+    name: this.commonContent.enterPassword,
+  });
+  readonly continueButtonLocator = this.page.getByRole("button", {
+    name: this.commonContent.continue,
+  })
   constructor(page, context: BrowserContext, language: string) {
     super(page, context, language);
   }
@@ -33,11 +44,27 @@ export class SignInPage extends BasePage {
           timeout: 60000
         });
       }
-      await this.page.locator('#username').fill(process.env.testCitizenEmail);
-      await this.page.locator('#password').fill(process.env.testCitizenPassword);
+      await this.verifyPageLoad(this.signInButtonLocator, 10_000);
       await this.navByClick(this.signInButtonLocator);
+      await expect(this.usernameLocator).toBeVisible();
+      await this.signIn(process.env.testCitizenEmail, process.env.testCitizenPassword);
     }
 
+  }
+
+  private async signIn(username: string, password: string) {
+    await this.verifyPageLoad(this.usernameLocator, 10_000);
+    await expect(this.usernameLocator).toBeVisible();
+
+    await this.usernameTextboxLocator.fill(username);
+    await this.navByClick(this.continueButtonLocator);
+
+    await expect(this.passwordLocator).toBeVisible();
+    await this.passwordTextboxLocator.fill(password);
+
+    await this.navByClick(this.continueButtonLocator);
+
+    await expect(this.passwordLocator).toBeHidden();
   }
 
   async seeSignOut(language = 'en') {

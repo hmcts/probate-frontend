@@ -191,7 +191,8 @@ export class TestConfigurator {
   }
 
   equalityAndDiversityEnabled() {
-    return this.environment !== 'local';
+    //return this.environment !== 'local';
+    return false;
   }
 
   /*checkFeatureToggle(featureToggleKey) {

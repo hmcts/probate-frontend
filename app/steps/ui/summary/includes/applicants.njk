@@ -66,6 +66,23 @@
 {{checkanswer(
     items = [
         {
+            question: content.DeceasedChildAlive.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.DeceasedChildAlive[fields.deceased.childAlive.value],
+            visible:
+            (
+                fields.summary.caseType.value == "intestacy"
+                and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+            )
+        }
+    ],
+    url = content.DeceasedChildAlive.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedAnyOtherChildrenQuestion.value,
             answer: content.AnyOtherChildren[fields.deceased.anyOtherChildren.value],
             visible:

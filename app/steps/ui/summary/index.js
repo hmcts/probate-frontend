@@ -121,6 +121,16 @@ class Summary extends Step {
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         ctx.anyOtherParentAlive = content.AnyOtherParentAlive.question
             .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
+        ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
+            .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
+        ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
+            .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+        ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
+            .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+        ctx.deceasedDivorceDate = content.DivorceDate.date
+            .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
+        ctx.deceasedPartnerNameQuestion = content.DeceasedPartnerName.question
+            .replace('{deceasedName}', deceasedName || content.DeceasedAlias.theDeceased);
         if (ctx.caseType === caseTypes.GOP) {
             ctx.deceasedMarriedQuestion = (hasCodicils ? content.DeceasedMarried.questionWithCodicil : content.DeceasedMarried.question)
                 .replace('{deceasedName}', deceasedName);
@@ -130,14 +140,6 @@ class Summary extends Step {
             ctx.codicilPresent = hasCodicils;
         } else {
             ctx.assetsThreshold = AssetsThreshold.getAssetsThreshold(new Date(get(formdata, 'deceased.dod-date')));
-            ctx.deceasedMaritalStatusQuestion = content.DeceasedMaritalStatus.question
-                .replace('{deceasedName}', deceasedName ? deceasedName : content.DeceasedMaritalStatus.theDeceased);
-            ctx.deceasedDivorcePlaceQuestion = content.DivorcePlace.question
-                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
-            ctx.deceasedDivorceDateKnownQuestion = content.DivorceDate.question
-                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
-            ctx.deceasedDivorceDate = content.DivorceDate.date
-                .replace('{legalProcess}', (formdata.deceased?.maritalStatus === 'optionDivorced') ? content.DeceasedMaritalStatus.divorce : content.DeceasedMaritalStatus.separation);
             ctx.deceasedAnyChildrenQuestion = content.AnyChildren.question
                 .replace('{deceasedName}', deceasedName ? deceasedName : content.AnyChildren.theDeceased);
             ctx.deceasedAnyOtherChildrenQuestion = content.AnyOtherChildren.question

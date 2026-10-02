@@ -26,7 +26,7 @@ describe('RelationshipToDeceasedEnum.js', () => {
     });
     describe('mapOptionToValue()', () => {
         it('should return optionWholeBloodSibling value', (done) => {
-            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionWholeBloodSibling', 'en')).to.equal('whole blood sibling');
+            expect(RelationshipToDeceasedEnum.mapOptionToValue('optionWholeBloodSibling', 'en')).to.equal('whole-blood sibling');
             done();
         });
         it('should return optionWholeBloodSibling welsh value', (done) => {

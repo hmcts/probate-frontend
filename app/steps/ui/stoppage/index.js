@@ -115,6 +115,12 @@ class StopPage extends Step {
         case 'otherCoApplicantRelationship':
             pageHeader = 'personCannotApplyByOnlineHeader';
             break;
+        case 'probateDivorcePlace':
+            pageHeader = 'applyByPostHeader';
+            break;
+        case 'probateSeparationPlace':
+            pageHeader = 'applyByPostHeader';
+            break;
         default:
             pageHeader = 'defaultHeader';
         }

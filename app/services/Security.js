@@ -128,7 +128,7 @@ class Security {
     }
 
     _authorize(req, res, next, userRoles, authorisedRoles) {
-        if (userRoles.some(role => authorisedRoles.includes(role))) {
+        if (userRoles?.some(role => authorisedRoles.includes(role))) {
             next();
         } else {
             loggerRaw().error('[ERROR] :: Error authorising user, Role Not Authorised');

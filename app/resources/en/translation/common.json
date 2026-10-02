@@ -73,6 +73,7 @@
   "documentUpload-uploadFailed": "The selected file could not be uploaded – try again.",
   "documentUpload-uploadTimeoutSummary": "The file has taken too long to upload",
   "documentUpload-uploadTimeout": "The file may be too big, reduce the file size and try again or post the death certificate",
+  "hmctsAccessBanner" : "The sign in screen will have a new look soon. This will not affect your case details or how you access the service.",
   "helpTitle": "Contact us for help",
   "helpHeading1": "Telephone",
   "helpHeading2": "Email",

@@ -4,6 +4,7 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set htmlLang = fields.language.value %}
 
@@ -112,9 +113,16 @@ html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackU
 
 
     {% if showBackLink %}
-    <span class="govuk-back-link govuk-visually-hidden" id="backLink">{{common.back | safe}}</span>
+      <span class="govuk-back-link govuk-visually-hidden" id="backLink">{{common.back | safe}}</span>
     {% endif %}
-
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        {{ govukNotificationBanner({
+        html: common.hmctsAccessBanner | safe,
+        classes: "app-notification-banner--full-width"
+        }) }}
+      </div>
+    </div>
 {% endblock %}
 
 {% block footer %}

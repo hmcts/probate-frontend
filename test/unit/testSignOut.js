@@ -19,6 +19,12 @@ describe('Sign-Out', () => {
                 return Promise.resolve(200);
             }
         });
+        const clearIfCurrentStub = sinon.stub().resolves();
+        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+            clearIfCurrent(...args) {
+                return clearIfCurrentStub(...args);
+            }
+        });
 
         section = 'applicant';
         templatePath = 'addressLookup';
@@ -28,6 +34,9 @@ describe('Sign-Out', () => {
             properties: {}
         };
 
+        const sessionStore = {
+            applicantID: 'test@email.com'
+        };
         const req = {
             cookies: {
                 _ga: 'dummy_ga',
@@ -35,6 +44,7 @@ describe('Sign-Out', () => {
                 _gat: '1'
             },
             session: {
+                idamUserId: 'immutable-idam-user-id',
                 form: {
                     payloadVersion: '4.1.0',
                     applicantEmail: 'test@email.com'
@@ -44,9 +54,8 @@ describe('Sign-Out', () => {
                     delete req.sessionStore;
                 }
             },
-            sessionStore: {
-                applicantID: 'test@email.com'
-            }
+            sessionStore,
+            sessionID: 'current-session-id'
         };
         const res = {
             clearCookie: sinon.spy()
@@ -54,11 +63,55 @@ describe('Sign-Out', () => {
         const signOut = new SignOut(steps, section, templatePath, i18next, schema);
 
         signOut.getContextData(req, res).then(() => {
+            sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
             assert.isUndefined(req.cookies);
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
             revert();
+            revertSessionConcurrency();
+            done();
+        });
+    });
+
+    it('continues local logout when Redis mapping cleanup fails', (done) => {
+        const revert = SignOut.__set__('IdamSession', class {
+            delete() {
+                return Promise.resolve(200);
+            }
+        });
+        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+            clearIfCurrent() {
+                return Promise.reject(new Error('redis failed'));
+            }
+        });
+
+        const req = {
+            cookies: {},
+            session: {
+                idamUserId: 'immutable-idam-user-id',
+                form: {},
+                destroy: () => {
+                    delete req.session;
+                    delete req.sessionStore;
+                }
+            },
+            sessionStore: {},
+            sessionID: 'current-session-id'
+        };
+        const res = {
+            clearCookie: sinon.spy()
+        };
+        const signOut = new SignOut(steps, 'applicant', 'addressLookup', {}, {properties: {}});
+
+        signOut.getContextData(req, res).then(() => {
+            assert.isUndefined(req.cookies);
+            assert.isUndefined(req.sessionID);
+            assert.isUndefined(req.session);
+            assert.isUndefined(req.sessionStore);
+            sinon.assert.calledOnce(res.clearCookie);
+            revert();
+            revertSessionConcurrency();
             done();
         });
     });

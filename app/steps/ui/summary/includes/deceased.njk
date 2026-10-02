@@ -133,8 +133,6 @@
             question: fields.summary.deceasedDivorceDateKnownQuestion.value,
             answer: content.DivorceDate[fields.deceased.divorceDateKnown.value],
             visible:
-                fields.summary.caseType.value == "gop"
-                and
                 (
                     fields.deceased.maritalStatus.value == "optionDivorced"
                     or
@@ -145,8 +143,6 @@
             question: fields.summary.deceasedDivorceDate.value,
             answer: fields.summary.divorceDateFormatted.value,
             visible:
-                fields.summary.caseType.value == "gop"
-                and
                 (
                     fields.deceased.maritalStatus.value == "optionDivorced"
                     or
@@ -251,8 +247,6 @@
             question: fields.summary.deceasedDivorceDateKnownQuestion.value,
             answer: content.DivorceDate[fields.deceased.divorceDateKnown.value],
             visible:
-                fields.summary.caseType.value == "intestacy"
-                and
                 (
                     fields.deceased.maritalStatus.value == "optionDivorced"
                     or
@@ -263,8 +257,6 @@
             question: fields.summary.deceasedDivorceDate.value,
             answer: fields.summary.divorceDateFormatted.value,
             visible:
-                fields.summary.caseType.value == "intestacy"
-                and
                 (
                     fields.deceased.maritalStatus.value == "optionDivorced"
                     or

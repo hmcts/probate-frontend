@@ -23,9 +23,9 @@ export class SignInPage extends BasePage {
       }
 
       await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeVisible();
-      const numEls = await this.page.locator('a[href="/sign-out"]').count();
+      const numEls = await this.page.locator('a[href="/sign-out-idam"]').count();
       if (numEls > 0) {
-        await this.navByClick(this.page.locator('a[href="/sign-out"]'));
+        await this.navByClick(this.page.locator('a[href="/sign-out-idam"]'));
         await this.seeSignOut(language);
         await expect(this.page.locator('//*[@name="loginForm" or @id="main-content"]')).toBeVisible();
         await this.page.goto(`${testConfig.TestFrontendUrl}/?lng=${language}`, {

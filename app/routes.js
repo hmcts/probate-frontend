@@ -28,6 +28,7 @@ const FormatUrl = require('app/utils/FormatUrl');
 const CaseProgress = require('./utils/CaseProgress');
 const utils = require('./components/step-utils');
 const moment = require('moment/moment');
+const IdamSession = require('app/services/IdamSession');
 
 router.all('*', (req, res, next) => {
     req.log = logger(req.sessionID);
@@ -73,6 +74,20 @@ router.post('/payment-breakdown', lockPaymentAttempt);
 router.get('/start-apply', (req, res, next) => {
     if (config.app.useIDAM === 'true' && req.userLoggedIn) {
         res.redirect(301, '/dashboard');
+    } else {
+        next();
+    }
+});
+
+router.get('/sign-out-idam', async (req, res, next) => {
+    const idamSession = new IdamSession(config.services.idam.apiUrl, req.sessionID);
+    if (req.userLoggedIn) {
+        try {
+            const signOutUrl = `${req.protocol}://${req.get('host')}/sign-out`;
+            return idamSession.logoutIdam(req,res, signOutUrl);
+        } catch (err) {
+            return next(err);
+        }
     } else {
         next();
     }

@@ -3,7 +3,7 @@ export const ROUTES = {
   dashboard: /\/dashboard$/,
   taskList: /\/task-list$/,
   startApply: /\/start-apply$/,
-  loginPage: /idam-web-public\.ithc\.platform\.hmcts\.net\/login/,
+  loginPage: /idam-web-public\.ithc\.platform\.hmcts\.net\/o\/authorize/,
   summaryDeclaration: /\/summary\/declaration$/,
   declaration: /\/declaration$/,
   paymentBreakdown: /\/payment-breakdown$/,

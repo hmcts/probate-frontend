@@ -191,7 +191,7 @@ export class TestConfigurator {
   }
 
   equalityAndDiversityEnabled() {
-    //return this.environment !== ('local' || 'demo');
+    //return this.environment !== 'local';
     return false;
   }
 

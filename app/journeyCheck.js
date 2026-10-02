@@ -7,7 +7,6 @@ const journeyCheck = require('app/middleware/journeyCheck');
 const intestacyOnlyPages = [
     '/assets-outside-england-wales',
     '/value-assets-outside-england-wales',
-    '/deceased-divorced-or-separation-date',
     '/relationship-to-deceased',
     '/child-adopted-in',
     '/child-adoption-place',

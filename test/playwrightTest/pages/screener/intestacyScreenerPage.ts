@@ -71,7 +71,6 @@ export class IntestacyScreenerPage extends BasePage {
         await this.page.locator('button.govuk-button[type="submit"]', { hasText: cookiesContent.save }).click();
 
         // return to eligibility page
-        console.log('**********Navigating back to eligibility page--->'+process.env.TEST_URL);
         await this.page.goto(`${testConfig.TestE2EFrontendUrl}/start-eligibility?lng=${language}`);
         await expect(this.cookiesBannerLocator).not.toBeVisible();
       } else {

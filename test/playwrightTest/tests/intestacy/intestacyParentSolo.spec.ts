@@ -101,8 +101,8 @@ getTestLanguages().forEach(language => {
       await deceasedDetailsPage.selectDeceasedAlias(language, optionNo);
 
       await deceasedDetailsPage.selectDeceasedMaritalStatus(applicantDetailConfig.maritalStatusDivorced);
-      await deceasedDetailsPage.selectDivorcePlace(language, optionYes);
-      await deceasedDetailsPage.enterDivorceDate(language, optionYes, '01', '01', '2015');
+      await deceasedDetailsPage.selectDivorcePlace(language, 'optionYes', 'divorced');
+      await deceasedDetailsPage.enterDivorceDate(language, 'optionYes', 'divorced', '01', '01', '2015');
 
       // Applicant Task
       await basePage.logInfo(scenarioName, "Applicant details task", null);

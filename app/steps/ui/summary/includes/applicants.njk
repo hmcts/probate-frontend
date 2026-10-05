@@ -254,6 +254,8 @@
                         fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                         or
                         fields.applicant.relationshipToDeceased.value == "optionChild"
+                        or
+                        fields.applicant.relationshipToDeceased.value == "optionGrandchild"
                     )
                     and
                     fields.deceased.anyOtherChildren.value == "optionYes"
@@ -268,9 +270,13 @@
                 )
             )
             and
-            fields.deceased.allChildrenOver18.value == "optionYes"
+            (
+                fields.deceased.anyPredeceasedChildren.value == "optionYes"
+                or
+                fields.deceased.anyPredeceasedChildren.value == "optionYesSome"
+            )
             and
-            fields.deceased.anyPredeceasedChildren.value == "optionYes"
+            fields.deceased.anySurvivingGrandchildren.value == "optionYes"
         }
     ],
     url = content.AnyGrandchildrenUnder18.url,

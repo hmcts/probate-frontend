@@ -4,19 +4,25 @@
 
 # exceptions from `exclude all` rule
 
+!docker
 !docker/**
 !package.json
 !yarn.lock
 !app
+!app/**
 !app.js
 !gulpfile.js
 !tsconfig.json
 !server.js
 !app/**
 !config/**
+!public
+!public/**
 !test
 !git.properties.json
 !.git
+
+!.yarn
 !.yarnrc.yml
 !.yarn/patches
 !.yarn/plugins

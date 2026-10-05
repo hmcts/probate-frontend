@@ -139,4 +139,49 @@ describe('UIStepRunner', () => {
             done();
         });
     });
+    it('should return 204 and not redirect when uploading a document', (done) => {
+        const reqIsUploadingDocument = {
+            session: {
+                language: 'en',
+                form: {
+                    declaration: {
+                        declarationCheckbox: 'true'
+                    }
+                },
+                back: ['hello']
+            },
+            body: {
+                isUploadingDocument: 'true'
+            }
+        };
+
+        const step = {
+            name: 'test',
+            validate: () => [false, []],
+            getContextData: () => ({
+                isUploadingDocument: 'true'
+            }),
+            nextStepUrl: () => '/task-list',
+            action: () => [{}, reqIsUploadingDocument.session.form],
+            constructor: {
+                getUrl: () => 'hello'
+            }
+        };
+
+        const res = {
+            sendStatus: sinon.spy(),
+            redirect: sinon.spy()
+        };
+
+        const runner = new UIStepRunner();
+
+        co(function* () {
+            yield runner.handlePost(step, reqIsUploadingDocument, res);
+
+            sinon.assert.calledOnceWithExactly(res.sendStatus, 204);
+            sinon.assert.notCalled(res.redirect);
+
+            done();
+        });
+    });
 });

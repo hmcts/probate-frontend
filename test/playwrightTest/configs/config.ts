@@ -13,12 +13,13 @@ export const testConfig = {
     gaEnabled: false
   },
 
+
   TestCitizenDomain: '/@probateTest.com',
   TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
-  TestE2EFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-  TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
+  TestE2EFrontendUrl: 'https://probate.demo.platform.hmcts.net',
+  TestFrontendUrl: 'https://probate.demo.platform.hmcts.net',
   TestIdamAddUserUrl: '/testing-support/accounts',
-  TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net',
+  TestIdamBaseUrl: 'https://idam-api.demo.platform.hmcts.net',
   TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login',
   TestIdamRole: 'citizen',
   TestIdamUserGroup: 'caseworker',

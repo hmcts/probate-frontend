@@ -182,9 +182,9 @@ class Executors {
         return lastIndex;
     }
     isValid(executor) {
-        return executor?.fullName &&
+        return !!(executor?.fullName &&
             executor?.email &&
-            executor?.address?.formattedAddress;
+            executor?.address?.formattedAddress);
     }
     checkAllExecutorsHaveValidDetails() {
         return this.executorsList.filter(executor => !executor.isApplicant).every(executor => this.isValid(executor));

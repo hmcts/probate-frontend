@@ -57,9 +57,8 @@
               {% elseif singleExecutorApplying %}
                 <p class="govuk-body">{{ content.cy.intestacyLettersOfAdministration | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
               {% endif %}
+              <p class="govuk-body declaration-item">{{ content.cy.intestacyDeceasedChildren | safe }}</p>
             {% endif %}
-
-            <p class="govuk-body declaration-item">{{ content.cy.intestacyDeceasedChildren | safe }}</p>
 
             <h2 class="govuk-heading-l">{{ content.cy.declarationHeader | safe }}</h2>
             <p class="govuk-body">{{ fields.declaration.value.cy.confirm | safe }}</p>
@@ -137,9 +136,8 @@
           {% elseif singleExecutorApplying %}
             <p class="govuk-body">{{ content.en.intestacyLettersOfAdministration | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
           {% endif %}
+          <p class="govuk-body declaration-item">{{ content.en.intestacyDeceasedChildren | safe }}</p>
         {% endif %}
-
-        <p class="govuk-body declaration-item">{{ content.en.intestacyDeceasedChildren | safe }}</p>
 
         <h2 class="govuk-heading-l">{{ content.en.declarationHeader | safe }}</h2>
         <p class="govuk-body">{{ fields.declaration.value.en.confirm | safe }}</p>

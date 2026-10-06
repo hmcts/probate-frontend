@@ -1123,6 +1123,31 @@ describe('Executors.js', () => {
         });
     });
 
+    describe('isValid()', () => {
+        describe('it should return false', () => {
+            it('when executor does not have a fullName', () => {
+                const executor = { list: [{email:"applicant.email@test.com", address: { formattedAddress: "address line 1"}}]}
+                const executorsWrapper = new ExecutorsWrapper({list: []})
+                expect(executorsWrapper.isValid(executor)).to.equal(false)
+            })
+            it('when executor does not have an email', () => {
+                const executor = {fullName: "Applicant Name", address: { formattedAddress: "address line 1"}}
+                const executorsWrapper = new ExecutorsWrapper({list: []})
+                expect(executorsWrapper.isValid(executor)).to.equal(false)
+            })
+            it('when executor does not have a formattedAddress', () => {
+                const executor = {fullName: "Applicant Name", email:"applicant.email@test.com"}
+                const executorsWrapper = new ExecutorsWrapper({list: []})
+                expect(executorsWrapper.isValid(executor)).to.equal(false)
+            })
+        })
+        it('should return true when executor has fullName, email and formattedAddress ', () =>{
+            const executor = {fullName: "Applicant Name", email:"applicant.email@test.com",  address: { formattedAddress: "address line 1"}}
+            const executorsWrapper = new ExecutorsWrapper({list: []})
+            expect(executorsWrapper.isValid(executor)).to.equal(true)
+        })
+    })
+
     describe('checkAllExecutorsHaveValidDetails()', () => {
         describe("should return false", () => {
             it('when an executor who is not main applicant does not have a fullName', () => {

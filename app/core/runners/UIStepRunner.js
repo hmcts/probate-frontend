@@ -123,7 +123,11 @@ class UIStepRunner {
                     if (session.back && session.back[session.back.length - 1] !== stepUrl) {
                         session.back.push(stepUrl);
                     }
+                    const isUploadingDocument = req.body?.isUploadingDocument === 'true';
                     if (errorOccurred === false) {
+                        if (isUploadingDocument) {
+                            return res.sendStatus(204);
+                        }
                         if (isSaveAndClose) {
                             res.redirect('/task-list');
                         } else {

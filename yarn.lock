@@ -13626,13 +13626,13 @@ __metadata:
   linkType: hard
 
 "randomstring@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "randomstring@npm:1.3.1"
+  version: 1.3.2
+  resolution: "randomstring@npm:1.3.2"
   dependencies:
     randombytes: "npm:2.1.0"
   bin:
     randomstring: bin/randomstring
-  checksum: 10/04225d1d476d5ae400fde4d6186510e88ad915eeb4cca94b70d3680fa5ea92bca0284ad775b3ce7d03a59f97f248eaaf569e58919c7a85425cefc40d22a87103
+  checksum: 10/03c1a1095ee01931b5ebf333de1ae4d53c7be88e34ef6c09bbc48d46abbf78d0ec271ddf9b59b08678ee7a48c38d1f5c14cc8a1535c599f5b0ec6964ec7f4e45
   languageName: node
   linkType: hard
 

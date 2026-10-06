@@ -165,6 +165,7 @@ describe('UIStepRunner', () => {
             getContextData: () => ({
                 isUploadingDocument: 'true'
             }),
+            getUrlWithContext: () => '/provide-information',
             nextStepUrl: () => '/task-list',
             action: () => [{}, reqIsUploadingDocument.session.form],
             constructor: {

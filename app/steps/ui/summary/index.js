@@ -217,8 +217,16 @@ class Summary extends Step {
                         coApplicantAdoptedDeceasedOutAnswer: exec.coApplicantAdoptedDeceasedOut ? content.CoApplicantAdoptedDeceasedOut[exec.coApplicantAdoptedDeceasedOut] : '',
 
                         addressQuestion: content.ExecutorAddress.question
-                            .replace('{executorName}', exec.fullName || content.ExecutorAddress.applicantName),
-                        addressAnswer: exec.address && exec.address.formattedAddress ? exec.address.formattedAddress : ''
+                            .replace('{applicantName}', exec.fullName || content.ExecutorAddress.applicantName),
+                        addressAnswer: exec.address && exec.address.formattedAddress ? exec.address.formattedAddress : '',
+
+                        grandchildParentAdoptedInQuestion: content.CoApplicantParentAdoptedIn.question
+                            .replace('{applicantName}', exec.fullName || content.ExecutorAddress.applicantName)
+                            .replaceAll('{deceasedName}', deceasedName || content.CoApplicantAdoptedOut.theDeceased),
+                        grandchildParentAdoptedOutQuestion: content.CoApplicantParentAdoptedOut.question
+                            .replace('{applicantName}', exec.fullName || content.ExecutorAddress.applicantName)
+                            .replaceAll('{deceasedName}', deceasedName || content.CoApplicantAdoptedOut.theDeceased),
+                        grandchildParentAdoptionPlaceQuestion: content.CoApplicantParentAdoptionPlace.question,
                     });
                 });
             }

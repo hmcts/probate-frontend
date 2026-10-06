@@ -95,7 +95,10 @@
     "optionGrandchild": {
         adoptedIn: "grandchildAdoptedIn",
         adoptedOut: "grandchildAdoptedOut",
-        adoptionPlace: "grandchildAdoptionInEnglandOrWales"
+        adoptionPlace: "grandchildAdoptionInEnglandOrWales",
+        parentAdoptedIn: "grandchildParentAdoptedIn",
+        parentAdoptedOut: "grandchildParentAdoptedOut",
+        parentAdoptionPlace: "grandchildParentAdoptionInEnglandOrWales"
     },
     "optionHalfBloodSibling": {
         adoptedIn: "halfBloodSiblingAdoptedIn",
@@ -157,6 +160,46 @@
         common = common,
         alreadyDeclared = fields.summary.alreadyDeclared.value
     )}}
+    {% if rel.parentAdoptedIn %}
+        {{checkanswer(
+            items = [
+                {
+                    question: fields.summary.executorSummary.value[loop.index0].parentAdoptedInQuestion,
+                    answer: content.CoApplicantParentAdoptedIn[executor[rel.parentAdoptedIn]],
+                    visible: true
+                }
+            ],
+            url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [
+                {
+                    question: fields.summary.executorSummary.value[loop.index0].parentAdoptedOutQuestion,
+                    answer: content.CoApplicantParentAdoptedOut[executor[rel.parentAdoptedOut]],
+                    visible: executor[rel.parentAdoptedIn] == "optionNo"
+                }
+            ],
+            url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+
+        {{checkanswer(
+            items = [
+                {
+                    question: fields.summary.executorSummary.value[loop.index0].parentAdoptionPlaceQuestion,
+                    answer: content.CoApplicantParentAdoptionPlace[executor[rel.parentAdoptionPlace]],
+                    visible: executor[rel.parentAdoptedIn] == "optionYes"
+                }
+            ],
+            url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
+            common = common,
+            alreadyDeclared = fields.summary.alreadyDeclared.value
+        )}}
+    {% endif %}
 {% endif %}
 
 {% if relationship === "optionParent" %}

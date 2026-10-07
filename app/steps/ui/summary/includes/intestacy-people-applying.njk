@@ -159,6 +159,47 @@
     )}}
 {% endif %}
 
+{% if executor.coApplicantRelationshipToDeceased === "optionGrandchild" %}
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].grandchildParentAdoptedInQuestion,
+              answer: content.CoApplicantParentAdoptedIn[executor.grandchildParentAdoptedIn],
+              visible: true
+          }
+      ],
+      url = content.CoApplicantParentAdoptedIn.url | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].grandchildParentAdoptedOutQuestion,
+              answer: content.CoApplicantParentAdoptedOut[executor.grandchildParentAdoptedOut],
+              visible: executor.grandchildParentAdoptedIn == "optionNo"
+          }
+      ],
+      url = content.CoApplicantParentAdoptedOut.url | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+
+  {{checkanswer(
+      items = [
+          {
+              question: fields.summary.executorSummary.value[loop.index0].grandchildParentAdoptionPlaceQuestion,
+              answer: content.CoApplicantParentAdoptionPlace[executor.grandchildParentAdoptionInEnglandOrWales],
+              visible: executor.grandchildParentAdoptedIn == "optionYes"
+          }
+      ],
+      url = content.CoApplicantParentAdoptionPlace.url | replace("*", loop.index0 ),
+      common = common,
+      alreadyDeclared = fields.summary.alreadyDeclared.value
+  )}}
+{% endif %}
+
 {% if relationship === "optionParent" %}
   {{checkanswer(
       items = [

@@ -210,7 +210,51 @@
                       or fields.applicant.relationshipToDeceased.value == "optionGrandchild")
         }
     ],
-    url = content.adoptionPlace.url,
+    url = content.AdoptionPlace.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ParentAdoptedIn.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.ParentAdoptedIn[fields.applicant.parentAdoptedIn.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+        }
+    ],
+    url = content.ParentAdoptedIn.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ParentAdoptedOut.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.ParentAdoptedOut[fields.applicant.parentAdoptedOut.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                     and fields.applicant.parentAdoptedIn.value == "optionNo"
+        }
+    ],
+    url = content.ParentAdoptedOut.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.ParentAdoptionPlace.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.ParentAdoptionPlace[fields.applicant.parentAdoptionPlace.value],
+            visible: fields.summary.caseType.value == "intestacy"
+                     and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                     and fields.applicant.parentAdoptedIn.value == "optionYes"
+        }
+    ],
+    url = content.ParentAdoptionPlace.url,
     common = common,
     alreadyDeclared = fields.summary.alreadyDeclared.value
 )}}

@@ -66,6 +66,23 @@
 {{checkanswer(
     items = [
         {
+            question: content.DeceasedChildAlive.question | replace("{deceasedName}", fields.deceased.firstName.value + " " + fields.deceased.lastName.value) | safe,
+            answer: content.DeceasedChildAlive[fields.deceased.childAlive.value],
+            visible:
+            (
+                fields.summary.caseType.value == "intestacy"
+                and fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+            )
+        }
+    ],
+    url = content.DeceasedChildAlive.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
             question: fields.summary.deceasedAnyOtherChildrenQuestion.value,
             answer: content.AnyOtherChildren[fields.deceased.anyOtherChildren.value],
             visible:
@@ -188,8 +205,8 @@
 {{checkanswer(
     items = [
         {
-            question: content.AnyGrandchildrenUnder18.question,
-            answer: content.AnyGrandchildrenUnder18[fields.deceased.anyGrandchildrenUnder18.value],
+            question: content.AnySurvivingGrandchildren.question,
+            answer: content.AnySurvivingGrandchildren[fields.deceased.anySurvivingGrandchildren.value],
             visible:
             (
                 (
@@ -197,6 +214,8 @@
                         fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
                         or
                         fields.applicant.relationshipToDeceased.value == "optionChild"
+                        or
+                        fields.applicant.relationshipToDeceased.value == "optionGrandchild"
                     )
                     and
                     fields.deceased.anyOtherChildren.value == "optionYes"
@@ -211,9 +230,53 @@
                 )
             )
             and
-            fields.deceased.allChildrenOver18.value == "optionYes"
+            (
+                fields.deceased.anyPredeceasedChildren.value == "optionYes"
+                or
+                fields.deceased.anyPredeceasedChildren.value == "optionYesSome"
+            )
+        }
+    ],
+    url = content.AnySurvivingGrandchildren.url,
+    common = common,
+    alreadyDeclared = fields.summary.alreadyDeclared.value
+)}}
+
+{{checkanswer(
+    items = [
+        {
+            question: content.AnyGrandchildrenUnder18.question,
+            answer: content.AnyGrandchildrenUnder18[fields.deceased.anyGrandchildrenUnder18.value],
+            visible:
+            (
+                (
+                    (
+                        fields.applicant.relationshipToDeceased.value == "optionAdoptedChild"
+                        or
+                        fields.applicant.relationshipToDeceased.value == "optionChild"
+                        or
+                        fields.applicant.relationshipToDeceased.value == "optionGrandchild"
+                    )
+                    and
+                    fields.deceased.anyOtherChildren.value == "optionYes"
+                )
+                or
+                (
+                    fields.applicant.relationshipToDeceased.value == "optionSpousePartner"
+                    and
+                    fields.summary.ihtTotalNetValueGreaterThanAssetsThreshold.value == "true"
+                    and
+                    fields.deceased.anyChildren.value == "optionYes"
+                )
+            )
             and
-            fields.deceased.anyPredeceasedChildren.value == "optionYes"
+            (
+                fields.deceased.anyPredeceasedChildren.value == "optionYes"
+                or
+                fields.deceased.anyPredeceasedChildren.value == "optionYesSome"
+            )
+            and
+            fields.deceased.anySurvivingGrandchildren.value == "optionYes"
         }
     ],
     url = content.AnyGrandchildrenUnder18.url,

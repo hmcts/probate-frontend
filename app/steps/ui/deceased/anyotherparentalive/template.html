@@ -12,7 +12,8 @@
             isPageHeading: true
     }
     }) %}
-    <p class="govuk-body">{{ content.paragraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+<p class="govuk-body">{{ content.paragraph1 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
+<p class="govuk-body">{{ content.paragraph2 | replace("{deceasedName}", fields.deceasedName.value) | safe }}</p>
     {{ govukRadios({
         classes: "govuk-radios--inline",
         idPrefix: "anyOtherParentAlive",

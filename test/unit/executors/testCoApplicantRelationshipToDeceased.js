@@ -161,10 +161,11 @@ describe('Co-applicant-relationship', () => {
             [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
             expect(ctx).to.deep.equal({
                 list: [{fullName: 'Applicant'},
-                    {coApplicantRelationshipToDeceased: 'optionChild', fullName: 'CoApplicant 1', isApplying: true},
+                    {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionChild'
+                coApplicantRelationshipToDeceased: 'optionChild',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });
@@ -180,11 +181,13 @@ describe('Co-applicant-relationship', () => {
             };
             errors = [];
             [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
+            console.log(ctx)
             expect(ctx).to.deep.equal({
-                list: [{fullName: 'Applicant'}, {coApplicantRelationshipToDeceased: 'optionGrandchild', fullName: 'CoApplicant 1', isApplying: true},
+                list: [{fullName: 'Applicant'}, {coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionGrandchild'
+                coApplicantRelationshipToDeceased: 'optionGrandchild',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });
@@ -198,10 +201,11 @@ describe('Co-applicant-relationship', () => {
             [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
             expect(ctx).to.deep.equal({
                 list: [{fullName: 'Applicant'},
-                    {coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', fullName: 'CoApplicant 1', isApplying: true},
+                    {coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+                coApplicantRelationshipToDeceased: 'optionHalfBloodSibling',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });

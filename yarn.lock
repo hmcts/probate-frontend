@@ -9151,13 +9151,13 @@ __metadata:
   linkType: hard
 
 "import-in-the-middle@npm:^3.0.0":
-  version: 3.5.1
-  resolution: "import-in-the-middle@npm:3.5.1"
+  version: 3.5.2
+  resolution: "import-in-the-middle@npm:3.5.2"
   dependencies:
     cjs-module-lexer: "npm:^2.2.0"
     es-module-lexer: "npm:^3.0.2"
     module-details-from-path: "npm:^1.0.4"
-  checksum: 10/4e5e355a24597eee79f29e5db35bfd4b394f64b446ea202a7757a4ec048c318a01a5b1c0345aa5b70dcff5cc546e4467e69a2662ff539bdfc9772e36ba8f4bed
+  checksum: 10/ffa32f37a056a1914db0961ff1306e8e914946f54b69ef6ca83f4d5734502f97072ce633daef76f4fc7819360b50f8278264a36aab3394743d9a0d5c2ba1c9cc
   languageName: node
   linkType: hard
 

@@ -100,23 +100,24 @@ class TestCommonContent {
                     });
             });
 
-            it('test "sign in" is not displayed on the page when the user is logged in', (done) => {
-                if (typeof beforeEachParam === 'function') {
-                    beforeEachParam();
-                }
-
-                localSessionData.applicantEmail = 'test@email.com';
-
-                testWrapper.agent.post('/prepare-session/form')
-                    .send(localSessionData)
-                    .end(() => {
-                        const playbackData = {
-                            signIn: commonContent.signIn
-                        };
-
-                        testWrapper.testContentNotPresent(done, playbackData);
-                    });
-            });
+            // "sign in" includes in all pages on the hmcts-access banner, so this test should be disabled.
+            // it('test "sign in" is not displayed on the page when the user is logged in', (done) => {
+            //     if (typeof beforeEachParam === 'function') {
+            //         beforeEachParam();
+            //     }
+            //
+            //     localSessionData.applicantEmail = 'test@email.com';
+            //
+            //     testWrapper.agent.post('/prepare-session/form')
+            //         .send(localSessionData)
+            //         .end(() => {
+            //             const playbackData = {
+            //                 signIn: commonContent.signIn
+            //             };
+            //
+            //             testWrapper.testContentNotPresent(done, playbackData);
+            //         });
+            // });
 
             testWrapper.destroy();
             if (typeof afterEachParam === 'function') {

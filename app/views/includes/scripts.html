@@ -56,7 +56,36 @@
       }
     });
 
+    const COOKIE_NAME = 'hideHmctsAccessBanner';
+    const getCookie = name => {
+      const cookies = document.cookie.split(';');
 
+      const cookie = cookies.find(cookie =>
+        cookie.trim().startsWith(`${name}=`)
+      );
+
+      return cookie
+        ? cookie.trim().substring(name.length + 1)
+        : null;
+    };
+
+    const banner = document.getElementById('hmcts-access-banner');
+    const hideButton = document.getElementById('hide-hmcts-access-banner');
+
+    if (banner && hideButton) {
+
+      // Hide banner if user previously dismissed it
+      if (getCookie(COOKIE_NAME) === 'true') {
+        banner.hidden = true;
+      }
+
+      // Hide and remember user's choice
+      hideButton.addEventListener('click', () => {
+        document.cookie =
+          `${COOKIE_NAME}=true; Max-Age=31536000; Path=/; SameSite=Lax`;
+        banner.hidden = true;
+      });
+    }
 </script>
 <script nonce="{{ globals.nonce }}" src="/public/javascripts/document-upload.js?v=1.2"></script>
 <script nonce="{{ globals.nonce }}" src="/public/javascripts/go-back.js?v=1.1"></script>

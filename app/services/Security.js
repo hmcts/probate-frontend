@@ -121,9 +121,9 @@ class Security {
         redirectUrl.query.ui_locales = req.session.language;
         redirectUrl.query.response_type = 'code';
         redirectUrl.query.state = state;
+        redirectUrl.query.scope = 'openid profile roles';
         redirectUrl.query.client_id = idamConfig.probate_oauth2_client;
         redirectUrl.query.redirect_uri = callbackUrl;
-
         res.redirect(redirectUrl.format());
     }
 

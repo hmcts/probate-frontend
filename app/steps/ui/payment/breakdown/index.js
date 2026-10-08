@@ -99,25 +99,26 @@ class PaymentBreakdown extends Step {
 
             const [canCreatePayment, paymentStatus] = yield this.canCreatePayment(ctx, formdata, serviceAuthResult);
             logger.info(`canCreatePayment result = ${canCreatePayment} with status ${paymentStatus}`);
-            if (paymentStatus && paymentStatus.toLowerCase() === 'initiated') {
-                const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
-                const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
-                const data = {
-                    authToken: ctx.authToken,
-                    serviceAuthToken: serviceAuthResult,
-                    userId: ctx.userId,
-                    paymentId: ctx.reference
-                };
-                const paymentResponse = yield payment.get(data);
-                logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
-                if (paymentResponse.status && paymentResponse.status.toLowerCase() === 'initiated') {
-                    logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
-                    errors.push(FieldError('payment', 'initiated', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
-                    return [ctx, errors];
-                }
-            }
+            // if (paymentStatus && paymentStatus.toLowerCase() === 'initiated') {
+            //     const paymentCreateServiceUrl = config.services.payment.url + config.services.payment.paths.createPayment;
+            //     const payment = new Payment(paymentCreateServiceUrl, ctx.sessionID);
+            //     const data = {
+            //         authToken: ctx.authToken,
+            //         serviceAuthToken: serviceAuthResult,
+            //         userId: ctx.userId,
+            //         paymentId: ctx.reference
+            //     };
+            //     const paymentResponse = yield payment.get(data);
+            //     logger.info('Checking status of reference = ' + ctx.reference + ' with response = ' + paymentResponse.status);
+            //     if (paymentResponse.status && paymentResponse.status.toLowerCase() === 'initiated') {
+            //         logger.error('As payment is still Initiated, user will need to wait for this state to expire.');
+            //         errors.push(FieldError('payment', 'initiated', this.resourcePath, this.generateContent(ctx, formdata, session.language), session.language));
+            //         return [ctx, errors];
+            //     }
+            // }
 
-            if (canCreatePayment) {
+            if (canCreatePayment || paymentStatus === 'initiated') {
+                logger.info(`canCreatePayment = ${canCreatePayment}, paymentStatus = ${paymentStatus}`);
                 if (ctx.total > 0) {
                     session.save();
 

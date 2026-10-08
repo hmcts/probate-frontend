@@ -217,7 +217,7 @@ class Summary extends Step {
                         coApplicantAdoptedDeceasedOutAnswer: exec.coApplicantAdoptedDeceasedOut ? content.CoApplicantAdoptedDeceasedOut[exec.coApplicantAdoptedDeceasedOut] : '',
 
                         addressQuestion: content.ExecutorAddress.question
-                            .replace('{applicantName}', exec.fullName || content.ExecutorAddress.applicantName),
+                            .replace('{executorName}', exec.fullName || content.ExecutorAddress.applicantName),
                         addressAnswer: exec.address && exec.address.formattedAddress ? exec.address.formattedAddress : '',
 
                         grandchildParentAdoptedInQuestion: content.CoApplicantParentAdoptedIn.question

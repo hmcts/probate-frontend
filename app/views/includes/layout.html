@@ -118,6 +118,9 @@ html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackU
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
         {{ govukNotificationBanner({
+        attributes: {
+        id: "hmcts-access-banner"
+        },
         html: common.hmctsAccessBanner | safe,
         classes: "app-notification-banner--full-width"
         }) }}
@@ -132,3 +135,4 @@ html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackU
 {% block bodyEnd %}
     {% include "includes/scripts.html" %}
 {% endblock %}
+

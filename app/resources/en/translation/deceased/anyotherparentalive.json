@@ -1,7 +1,8 @@
 {
   "title": "Is the deceased other parent alive?",
   "question": "Is {deceasedName}’s other parent alive?",
-  "paragraph1": "Select ‘No’ if {deceasedName} did not have another parent.",
+  "paragraph1": "This does not include any step-parents or any other parental figures who did not have parental responsibility for {deceasedName}.",
+  "paragraph2": "Select ‘No’ if {deceasedName} did not have another parent.",
   "optionYes": "Yes",
   "optionNo": "No",
   "theDeceased": "the deceased",

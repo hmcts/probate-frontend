@@ -222,6 +222,69 @@ describe('VerifyDod', () => {
             ]);
             done();
         });
+
+
+
+        it('should accept matching dates of death during BST', () => {
+            ctx = {
+                'dod-day': '15',
+                'dod-month': '07',
+                'dod-year': '2020'
+            };
+
+            session.form = {
+                deceased: {
+                    'dod-day': '15',
+                    'dod-month': '07',
+                    'dod-year': '2020'
+                }
+            };
+
+            errors = [];
+
+            [ctx, errors] = VerifyDod.handlePost(ctx, errors, session.form, session);
+
+            expect(errors).to.be.empty;
+        });
+
+        it('should accept a valid leap day', () => {
+            ctx = {
+                'dod-day': '29',
+                'dod-month': '02',
+                'dod-year': '2024'
+            };
+
+            session.form = {
+                deceased: {...ctx}
+            };
+
+            errors = [];
+
+            [ctx, errors] = VerifyDod.handlePost(ctx, errors, session.form, session);
+
+            expect(errors).to.be.empty;
+        });
+
+        it('should return dodNotMatch when stored DOD is missing', () => {
+            ctx = {
+                'dod-day': '15',
+                'dod-month': '07',
+                'dod-year': '2020'
+            };
+
+            session.form = {};
+            errors = [];
+
+            [ctx, errors] = VerifyDod.handlePost(ctx, errors, formdata, session);
+
+            expect(errors).to.deep.equal([
+                {
+                    field: 'dod-date',
+                    href: '#dod-date',
+                    msg: content.errors['dod-date'].dodNotMatch
+                }
+            ]);
+        });
     });
 
     describe('getContextData()', () => {
@@ -253,6 +316,14 @@ describe('VerifyDod', () => {
             const actual = VerifyDod.shouldHaveBackLink();
             expect(actual).to.equal(true);
             done();
+        });
+    });
+
+    describe('createDate()', () => {
+        it('should create a date at midnight UTC', () => {
+            const date = VerifyDod.constructor.createDate('2026', '07', '15');
+
+            expect(date.toISOString()).to.equal('2026-07-15T00:00:00.000Z');
         });
     });
 });

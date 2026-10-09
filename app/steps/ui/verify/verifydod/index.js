@@ -24,20 +24,40 @@ class VerifyDod extends DateStep {
     dateName() {
         return ['dod'];
     }
+
+    static createDate(year, month, day) {
+        // Date.UTC months are zero-based (0-11), while form months are 1-12
+        return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+    }
+
     // eslint-disable-next-line complexity
     handlePost(ctx, errors, formdata, session) {
         let deceasedDod;
         if (session.form.deceased && session.form.deceased['dod-year'] && session.form.deceased['dod-month'] && session.form.deceased['dod-day']) {
-            deceasedDod = new Date(`${session.form.deceased['dod-year']}-${session.form.deceased['dod-month']}-${session.form.deceased['dod-day']}`);
-            deceasedDod.setHours(0, 0, 0, 0);
+            deceasedDod = VerifyDod.createDate(
+                session.form.deceased['dod-year'],
+                session.form.deceased['dod-month'],
+                session.form.deceased['dod-day']
+            );
         }
         const day = ctx['dod-day'];
         const month = ctx['dod-month'];
         const year = ctx['dod-year'];
-        const verifyDod = new Date(`${year}-${month}-${day}`);
+        const verifyDod = VerifyDod.createDate(year, month, day);
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        const todayParts = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Europe/London',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric'
+        }).formatToParts(new Date());
+
+        const getTodayPart = datePart => Number(todayParts.find(part => part.type === datePart).value);
+        const today = VerifyDod.createDate(
+            getTodayPart('year'),
+            getTodayPart('month'),
+            getTodayPart('day')
+        );
 
         const missingFields = ['day', 'month', 'year'].filter(f => typeof ctx[`dod-${f}`] === 'undefined' || ctx[`dod-${f}`] === null || ctx[`dod-${f}`] === '');
         const isDateOutOfRange =
@@ -50,11 +70,15 @@ class VerifyDod extends DateStep {
             errors.push(FieldError(`dod-${missingFields.join('-')}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (missingFields.length === 1) {
             errors.push(FieldError(`dod-${missingFields[0]}`, 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (isNonNumeric || isDateOutOfRange || Number.isNaN(verifyDod.getTime()) || !DateValidation.isPositive([day, month, year])) {
+        } else if (isNonNumeric || isDateOutOfRange || Number.isNaN(verifyDod.getTime()) || !DateValidation.isPositive([day, month, year])
+            || verifyDod.getUTCFullYear() !== Number(year)
+            || verifyDod.getUTCMonth() + 1 !== Number(month)
+            || verifyDod.getUTCDate() !== Number(day)) {
+            // Date.UTC months are zero-based (0-11), while form months are 1-12
             errors.push(FieldError('dod-date', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (verifyDod > today) {
             errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        } else if (typeof verifyDod === 'object' && verifyDod.getTime() !== deceasedDod.getTime()) {
+        } else if (!deceasedDod || verifyDod.getTime() !== deceasedDod.getTime()) {
             errors.push(FieldError('dod-date', 'dodNotMatch', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         }
         return [ctx, errors];
@@ -75,9 +99,8 @@ class VerifyDod extends DateStep {
     }
 
     nextStepOptions(ctx) {
-        const dod = new Date(`${ctx['dod-year']}-${ctx['dod-month']}-${ctx['dod-day']}`);
-        const dod1Oct2014 = new Date('2014-10-01');
-        dod1Oct2014.setHours(0, 0, 0, 0);
+        const dod = VerifyDod.createDate(ctx['dod-year'], ctx['dod-month'], ctx['dod-day']);
+        const dod1Oct2014 = VerifyDod.createDate(2014, 10, 1);
 
         ctx.diedAfterOctober2014 = (dod >= dod1Oct2014 && ctx.caseType === caseTypes.INTESTACY) || ctx.caseType === caseTypes.GOP;
 

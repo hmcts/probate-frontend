@@ -95,6 +95,7 @@ class CoApplicantRelationshipToDeceased extends ValidationStep {
 
         if (formdata.executors && formdata.executors.list && newRelationship !== previousRelationship) {
             this.clearRelationshipFields(ctx, formdata);
+            ctx.hasCoApplicant = 'optionYes';
         }
         if (newRelationship === 'optionChild' || newRelationship === 'optionGrandchild' ||
             newRelationship === 'optionHalfBloodSibling' || newRelationship === 'optionHalfBloodNieceOrNephew' ||

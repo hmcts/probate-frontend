@@ -76,6 +76,13 @@ class CoApplicantParentAdoptionPlace extends ValidationStep {
                 formdata.executors.list[ctx.index][adoptionPlaceField] = ctx.applicantParentAdoptionPlace;
             }
         }
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const checkAllExecutorsHaveValidDetails = executorsWrapper.checkAllExecutorsHaveValidDetails();
+        if (ctx.applicantParentAdoptionPlace === 'optionNo') {
+            ctx.hasCoApplicant = 'optionYes';
+        } else if (ctx.applicantParentAdoptionPlace === 'optionYes' && checkAllExecutorsHaveValidDetails) {
+            ctx.hasCoApplicant = 'optionNo';
+        }
         return [ctx, errors];
     }
 

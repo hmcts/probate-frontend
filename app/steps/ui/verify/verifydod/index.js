@@ -26,6 +26,7 @@ class VerifyDod extends DateStep {
     }
 
     static createDate(year, month, day) {
+        // Date.UTC months are zero-based (0-11), while form months are 1-12
         return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
     }
 
@@ -73,6 +74,7 @@ class VerifyDod extends DateStep {
             || verifyDod.getUTCFullYear() !== Number(year)
             || verifyDod.getUTCMonth() + 1 !== Number(month)
             || verifyDod.getUTCDate() !== Number(day)) {
+            // Date.UTC months are zero-based (0-11), while form months are 1-12
             errors.push(FieldError('dod-date', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
         } else if (verifyDod > today) {
             errors.push(FieldError('dod-date', 'dateInFuture', this.resourcePath, this.generateContent({}, {}, session.language), session.language));

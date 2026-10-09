@@ -28,6 +28,9 @@ getTestLanguages().forEach(language => {
 
     Scenario(TestConfigurator.idamInUseText(`${language.toUpperCase()} - Multiple Executors Journey - Main applicant; Stage 1: Enter deceased and executor details`), async ({I}) => {
         const taskListContent = language === 'en' ? taskListContentEn : taskListContentCy;
+        const deceasedFirstName = 'Deceased First Name';
+        const deceasedLastName = 'Deceased Last Name';
+        const deceasedFullName = `${deceasedFirstName} ${deceasedLastName}`;
         await I.retry(2).createAUser(TestConfigurator);
 
         // Eligibility Task (pre IdAM)
@@ -53,11 +56,11 @@ getTestLanguages().forEach(language => {
         // Deceased Task
         await I.selectATask(language, 'deceasedTask', taskListContent.taskNotStarted);
         await I.chooseBiLingualGrant(language, optionNo);
-        await I.enterDeceasedName(language, 'Deceased First Name', 'Deceased Last Name');
+        await I.enterDeceasedName(language, deceasedFirstName, deceasedLastName);
         await I.enterDeceasedNameOnWill(language, optionNo);
         await I.enterDeceasedAlias(language, 'Deceased Alias First Name', 'Deceased Alias Last Name');
-        await I.enterDeceasedDateOfBirth(language, '01', '01', '1950');
-        await I.enterDeceasedDateOfDeath(language, '01', '01', '2017');
+        await I.enterDeceasedDateOfBirth(language, deceasedFullName, '01', '01', '1950');
+        await I.enterDeceasedDateOfDeath(language, deceasedFullName, '01', '01', '2017');
         await I.enterDeceasedAddress(language);
 
         await I.selectDiedEngOrWales(language, optionNo);
@@ -233,5 +236,6 @@ getTestLanguages().forEach(language => {
 
     }).tag('@e2enightly')
         .tag('@e2enightly-pr')
+        .tag('@e2egop')
         .retry(TestConfigurator.getRetryScenarios());
 });

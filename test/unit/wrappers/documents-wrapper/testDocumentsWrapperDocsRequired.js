@@ -27,7 +27,7 @@ describe('Documents.js', () => {
                 deceased: {
                     anyOtherChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 },
                 applicant: {
@@ -49,7 +49,7 @@ describe('Documents.js', () => {
                 deceased: {
                     anyOtherChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionNo',
+                    anyPredeceasedChildren: 'optionNo',
                 },
                 applicant: {
                     relationshipToDeceased: 'optionChild'
@@ -89,7 +89,7 @@ describe('Documents.js', () => {
                 deceased: {
                     anyOtherChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionYes',
+                    anyPredeceasedChildren: 'optionYesAll',
                     anyGrandchildrenUnder18: 'optionNo'
                 },
                 applicant: {
@@ -111,7 +111,7 @@ describe('Documents.js', () => {
                 deceased: {
                     anyOtherChildren: 'optionYes',
                     allChildrenOver18: 'optionYes',
-                    anyDeceasedChildren: 'optionNo',
+                    anyPredeceasedChildren: 'optionNo',
                 },
                 applicant: {
                     relationshipToDeceased: 'optionAdoptedChild'

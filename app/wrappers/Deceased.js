@@ -26,7 +26,7 @@ class Deceased {
     }
 
     hasAnyDeceasedChildren() {
-        return this.deceased.anyDeceasedChildren === 'optionYes';
+        return this.deceased.anyPredeceasedChildren === 'optionYesSome' || this.deceased.anyPredeceasedChildren === 'optionYesAll';
     }
 
     hasAnyGrandChildrenUnder18() {

@@ -71,7 +71,7 @@ describe('died-after-october-2014', () => {
                 });
         });
 
-        it(`test it redirects to stop page: ${expectedNextUrlForStopPage}`, (done) => {
+        it(`test it redirects to stop page: /intestacy${expectedNextUrlForStopPage}`, (done) => {
             const sessionData = {
                 caseType: caseTypes.INTESTACY,
                 screeners: {
@@ -90,7 +90,7 @@ describe('died-after-october-2014', () => {
                         diedAfter: 'optionNo'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForStopPage, cookies);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForStopPage}`, cookies);
                 });
         });
 

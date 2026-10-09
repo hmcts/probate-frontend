@@ -1,0 +1,14 @@
+{
+  "title": "A wnaeth unrhyw un o’r hanner frodyr/chwiorydd hyn farw cyn yr unigolyn sydd wedi marw?",
+  "question": "A wnaeth unrhyw un o&rsquo;r hanner frodyr/chwiorydd hyn farw cyn {deceasedName}?",
+  "optionYesAll": "Do, pob un ohonynt",
+  "optionYesSome": "Do, rhai ohonynt",
+  "optionNo": "Naddo",
+  "theDeceased": "yr unigolyn sydd wedi marw",
+
+  "errors": {
+    "anyPredeceasedHalfSiblings": {
+      "required": "Dewiswch a wnaeth unrhyw un o&rsquo;r hanner frodyr/chwiorydd farw cyn {deceasedName}"
+    }
+  }
+}

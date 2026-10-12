@@ -2012,31 +2012,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.26.1":
-  version: 2.26.1
-  resolution: "@launchdarkly/js-sdk-common@npm:2.26.1"
-  checksum: 10/b7e5df006ef78bec334c4bc6a8b387bf1cede23e56ef24d2e98decfb0c1771d5778144909f34bdb0b786cdf73ab0fa2dbdb4d8e69a84004f5a012bb9deb07b6c
+"@launchdarkly/js-sdk-common@npm:2.29.0":
+  version: 2.29.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.29.0"
+  checksum: 10/24cdcb5785df7c3e462cd06c1ca0819acb379c4a574ecb87b6f53da8c244eeead9fdbb7eb1bf3fa7ef21b4188901ed4eae7846b7f2fa7d9ac90b100590e445a2
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.21.5":
-  version: 2.21.5
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.21.5"
+"@launchdarkly/js-server-sdk-common@npm:2.24.0":
+  version: 2.24.0
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.24.0"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.26.1"
+    "@launchdarkly/js-sdk-common": "npm:2.29.0"
     semver: "npm:7.5.4"
-  checksum: 10/f0087da469d80621e8856afb5bab1cd15d7f23100dc9e92419a6f035f96a28b9e8d7de88a500094a2a0ef739886c6251a6cb1771adb76a1a856d85e09881d4e7
+  checksum: 10/48376c8cff0a7585b55bd99cc255d0a0a5d0da2e82e43c3d9e0fea6782a4dee11155802c6c4badeea25a95c25f6597be2c74c27a8e37557132407985a3049283
   languageName: node
   linkType: hard
 
 "@launchdarkly/node-server-sdk@npm:^9.13.4":
-  version: 9.13.7
-  resolution: "@launchdarkly/node-server-sdk@npm:9.13.7"
+  version: 9.14.3
+  resolution: "@launchdarkly/node-server-sdk@npm:9.14.3"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.21.5"
+    "@launchdarkly/js-server-sdk-common": "npm:2.24.0"
     https-proxy-agent: "npm:^7.0.6"
-    launchdarkly-eventsource: "npm:2.2.0"
-  checksum: 10/5f58a2bf6b21b6fbedc9fbbfd4ea797ed126835cf101b6e8a25788fd37e266ef6b090c9eed71439f8b59b2e8d1a0925f63ad92c7fa6b36ae289997e3be8331d4
+    launchdarkly-eventsource: "npm:2.3.0"
+  checksum: 10/6d6ba720c26123d91d5ff649ed5f31c4f72b2857fd2fa97225a1d0523114d4d5e47fa4f96215f037af231975b95fbcc4e12c78d5a5e213ded3db39fcf5b81532
   languageName: node
   linkType: hard
 
@@ -2179,13 +2179,13 @@ __metadata:
   linkType: hard
 
 "@opentelemetry/core@npm:^2.8.0":
-  version: 2.11.0
-  resolution: "@opentelemetry/core@npm:2.11.0"
+  version: 2.12.0
+  resolution: "@opentelemetry/core@npm:2.12.0"
   dependencies:
     "@opentelemetry/semantic-conventions": "npm:^1.29.0"
   peerDependencies:
     "@opentelemetry/api": ">=1.0.0 <1.10.0"
-  checksum: 10/934e4c1b9628643365f0a1225734dd2e264e22960eb8b5e484627ffadb94fe4af6e573b4cd568174209c0c9b2a73217af9dfb2b03a97974ea77ab2563d5bb071
+  checksum: 10/2bbc02ad2e131d23061d24826fdd061b5f5527c16f482d05906dfa345373165c2ad6f90089593f30abfd3029d7488b618f029c831155225151b74dec71bf1746
   languageName: node
   linkType: hard
 
@@ -7244,13 +7244,13 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-playwright@npm:^2.11.0, eslint-plugin-playwright@npm:^2.5.1":
-  version: 2.12.0
-  resolution: "eslint-plugin-playwright@npm:2.12.0"
+  version: 2.12.1
+  resolution: "eslint-plugin-playwright@npm:2.12.1"
   dependencies:
     globals: "npm:^17.3.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10/9a77f597d081070f56ba3d0115ac6cd8dc3fc5107f5bc9638b7b3007cc90dcf315785b4b61f1070ac8df2063a72532eed1820e47a8d88b7d11699d4327b0ff24
+  checksum: 10/46e5b410cca0b7f8a55038b1a5f72b65fc83bc27de41e4349fb76213718a53dcc8defa57685874580d9e03ac37a315000e57ded75341fe0ce34e254391f8c2df
   languageName: node
   linkType: hard
 
@@ -10171,13 +10171,13 @@ __metadata:
   linkType: hard
 
 "js-yaml@npm:^5.0.0":
-  version: 5.4.2
-  resolution: "js-yaml@npm:5.4.2"
+  version: 5.4.3
+  resolution: "js-yaml@npm:5.4.3"
   dependencies:
     argparse: "npm:^2.0.1"
   bin:
     js-yaml: bin/js-yaml.mjs
-  checksum: 10/f2461abd1d6268fb226733f0a0e0aa48004bb824116e3dfa75f1a1279001936343b672066dfecdb852ac3ca883452706c383a760aa90430cb68ba395aa2cbc84
+  checksum: 10/2409d1238efddc29ab62ddb26d70bc7f2e8b58b84eb8d41d09d50fab86f8670aa2fec5dc6c99ef71939acab5d7c0b3526f96bdd0055042aa0136cca749b20afc
   languageName: node
   linkType: hard
 
@@ -10404,10 +10404,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"launchdarkly-eventsource@npm:2.2.0":
-  version: 2.2.0
-  resolution: "launchdarkly-eventsource@npm:2.2.0"
-  checksum: 10/9269ca3bc7dead8271e16c26efa4578e33dcf416ad35d05ff10d82d904df162ac4fe0e7a9cd89b9ca219bb5ef0e30005fcce5f8a837acbe3a8db38a7f6acfff6
+"launchdarkly-eventsource@npm:2.3.0":
+  version: 2.3.0
+  resolution: "launchdarkly-eventsource@npm:2.3.0"
+  checksum: 10/8d140836d8774323b05fe58b65a548f4376f6d776db735b1e1e771d8c7583ef7766b58a07c2e3a9592c9427c2b0fe7f8ffeb066a5379c3e124322990ff71dcde
   languageName: node
   linkType: hard
 
@@ -13626,13 +13626,13 @@ __metadata:
   linkType: hard
 
 "randomstring@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "randomstring@npm:1.3.1"
+  version: 1.3.2
+  resolution: "randomstring@npm:1.3.2"
   dependencies:
     randombytes: "npm:2.1.0"
   bin:
     randomstring: bin/randomstring
-  checksum: 10/04225d1d476d5ae400fde4d6186510e88ad915eeb4cca94b70d3680fa5ea92bca0284ad775b3ce7d03a59f97f248eaaf569e58919c7a85425cefc40d22a87103
+  checksum: 10/03c1a1095ee01931b5ebf333de1ae4d53c7be88e34ef6c09bbc48d46abbf78d0ec271ddf9b59b08678ee7a48c38d1f5c14cc8a1535c599f5b0ec6964ec7f4e45
   languageName: node
   linkType: hard
 
@@ -14696,9 +14696,9 @@ __metadata:
   linkType: hard
 
 "shell-quote@npm:^1.6.1, shell-quote@npm:^1.7.2":
-  version: 1.9.0
-  resolution: "shell-quote@npm:1.9.0"
-  checksum: 10/c3bc91e74a469c4f96b6fd13b0c777fff16bcbda202692a4e5402d3d6b78fc6e02fe92fdf8dc0bddf992a9c6758e43207bfc5bdbefbf8a58190b1c885cbcc171
+  version: 1.12.0
+  resolution: "shell-quote@npm:1.12.0"
+  checksum: 10/18b3e382272804e79fd3187c18877cfd4e736b5afb576bf1ab66a561b0a0e26eada4b7c8eb45473d1f17268ffcf12d0aaa90b9235132123eb673df5d0a5df943
   languageName: node
   linkType: hard
 

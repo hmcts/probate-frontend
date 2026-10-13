@@ -117,13 +117,13 @@ html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackU
     {% endif %}
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
-        {{ govukNotificationBanner({
-        attributes: {
-        id: "hmcts-access-banner"
-        },
-        html: common.hmctsAccessBanner | safe,
-        classes: "app-notification-banner--full-width"
-        }) }}
+        {% if globals.enableNotificationBanner == "true" %}
+          {{ govukNotificationBanner({
+          attributes: { id: "hmcts-access-banner" },
+          html: common.hmctsAccessBanner | safe,
+          classes: "app-notification-banner--full-width"
+          }) }}
+        {% endif %}
       </div>
     </div>
 {% endblock %}

@@ -73,6 +73,9 @@ environment: local
 configFeatureToggles:
   webchatEnabled: true
 
+notificationBanner:
+  enabled: 'true'
+
 webchat:
   kerv:
     deploymentId:

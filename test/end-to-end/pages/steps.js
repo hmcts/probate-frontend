@@ -23,7 +23,6 @@ module.exports = () => {
         selectMentallyCapable: steps.screeners.mentalcapacity,
         selectDiedAfterOctober2014: steps.screeners.diedafteroctober2014,
         selectRelatedToDeceased: steps.screeners.relatedtodeceased,
-        selectOtherApplicants: steps.screeners.otherapplicants,
         startApply: steps.screeners.startapply,
 
         // Sign In to IDAM

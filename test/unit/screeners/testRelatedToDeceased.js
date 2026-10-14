@@ -65,10 +65,10 @@ describe('RelatedToDeceased', () => {
                 }
             };
             const ctx = {
-                related: 'optionYes'
+                related: 'optionGrandchild'
             };
             const nextStepUrl = RelatedToDeceased.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/other-applicants');
+            expect(nextStepUrl).to.equal('/start-apply');
             done();
         });
 
@@ -101,11 +101,33 @@ describe('RelatedToDeceased', () => {
         it('should return the correct options', (done) => {
             const nextStepOptions = RelatedToDeceased.nextStepOptions();
             expect(nextStepOptions).to.deep.equal({
-                options: [{
-                    key: 'related',
-                    value: 'optionYes',
-                    choice: 'related'
-                }]
+                options: [
+                    {
+                        key: 'related',
+                        value: 'optionPartner',
+                        choice: 'related'
+                    },
+                    {
+                        key: 'related',
+                        value: 'optionChild',
+                        choice: 'related'
+                    },
+                    {
+                        key: 'related',
+                        value: 'optionGrandchild',
+                        choice: 'related'
+                    },
+                    {
+                        key: 'related',
+                        value: 'optionParent',
+                        choice: 'related'
+                    },
+                    {
+                        key: 'related',
+                        value: 'optionSibling',
+                        choice: 'related'
+                    }
+                ]
             });
             done();
         });

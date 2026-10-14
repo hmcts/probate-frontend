@@ -103,6 +103,7 @@ class CoApplicantAdoptedIn extends ValidationStep {
     handlePost(ctx, errors, formdata) {
         if (formdata.executors && formdata.executors.list && ctx.adoptedIn !== formdata.executors.list[ctx.index]?.adoptedIn) {
             this.clearAdoptionRelatedFields(ctx, formdata);
+            ctx.hasCoApplicant = 'optionYes';
         }
         const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
         // eslint-disable-next-line default-case

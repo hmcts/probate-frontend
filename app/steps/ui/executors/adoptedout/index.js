@@ -92,7 +92,9 @@ class CoApplicantAdoptedOut extends ValidationStep {
         };
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata) {
+        const executorsWrapper = new ExecutorsWrapper(formdata.executors);
+        const checkAllExecutorsHaveValidDetails = executorsWrapper.checkAllExecutorsHaveValidDetails();
         const rel = ctx.list[ctx.index].coApplicantRelationshipToDeceased;
         // eslint-disable-next-line default-case
         switch (rel) {
@@ -117,6 +119,8 @@ class CoApplicantAdoptedOut extends ValidationStep {
         }
         if (ctx.adoptedOut==='optionYes') {
             ctx.hasCoApplicant = 'optionYes';
+        } else if (ctx.adoptedOut === 'optionNo' && checkAllExecutorsHaveValidDetails) {
+            ctx.hasCoApplicant = 'optionNo';
         }
         return [ctx, errors];
     }

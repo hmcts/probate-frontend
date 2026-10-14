@@ -142,8 +142,6 @@ describe('Co-applicant-relationship', () => {
                 executors: {
                     list: [
                         {fullName: 'Main Applicant1'},
-                        {fullName: 'CoApplicant 1'},
-                        {fullName: 'CoApplicant 2'}
                     ]
                 },
             }
@@ -166,7 +164,8 @@ describe('Co-applicant-relationship', () => {
                     {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionChild'
+                coApplicantRelationshipToDeceased: 'optionChild',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });
@@ -182,11 +181,13 @@ describe('Co-applicant-relationship', () => {
             };
             errors = [];
             [ctx, errors] = CoApplicantRelationshipToDeceased.handlePost(ctx, errors, req.form);
+            console.log(ctx)
             expect(ctx).to.deep.equal({
                 list: [{fullName: 'Applicant'}, {coApplicantRelationshipToDeceased: 'optionGrandchild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionGrandchild'
+                coApplicantRelationshipToDeceased: 'optionGrandchild',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });
@@ -203,7 +204,8 @@ describe('Co-applicant-relationship', () => {
                     {coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionHalfBloodSibling'
+                coApplicantRelationshipToDeceased: 'optionHalfBloodSibling',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });
@@ -233,7 +235,8 @@ describe('Co-applicant-relationship', () => {
                     {coApplicantRelationshipToDeceased: 'optionChild', isApplying: true},
                     {fullName: 'CoApplicant 2'}],
                 index: 1,
-                coApplicantRelationshipToDeceased: 'optionChild'
+                coApplicantRelationshipToDeceased: 'optionChild',
+                hasCoApplicant: 'optionYes'
             });
             done();
         });
@@ -406,7 +409,7 @@ describe('Co-applicant-relationship', () => {
                                 {
                                     'firstName': 'Dave', 'lastName': 'Bassett', 'isApplying': true, 'isApplicant': true
                                 }, {
-                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', fullName: 'Ed Brown', childAdoptedIn: 'optionYes', childAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: {addressLine1: 'Adam & Eve', addressLine2: '81 Petty France', formattedAddress: 'Adam & Eve 81 Petty France London SW1H 9EX', postTown: 'London', postCode: 'SW1H 9EX'}
+                                    isApplying: true, coApplicantRelationshipToDeceased: 'optionHalfBloodSibling', fullName: 'Ed Brown', halfBloodSiblingAdoptedIn: 'optionYes', halfBloodSiblingAdoptionInEnglandOrWales: 'optionYes', email: 'abc@gmail.com', address: {addressLine1: 'Adam & Eve', addressLine2: '81 Petty France', formattedAddress: 'Adam & Eve 81 Petty France London SW1H 9EX', postTown: 'London', postCode: 'SW1H 9EX'}
                                 }
                             ]
                         }

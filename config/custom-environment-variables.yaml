@@ -10,6 +10,8 @@ featureToggles:
 configFeatureToggles:
   webchatEnabled: WEBCHAT_ENABLED
   gaEnabled: GA_ENABLED
+notificationBanner:
+  enabled: BANNER_ENABLED
 app:
   username: USERNAME
   password: PASSWORD

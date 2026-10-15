@@ -63,6 +63,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     const globals = {
         currentYear: new Date().getFullYear(),
+        enableNotificationBanner: config.notificationBanner.enabled,
         enableTracking: config.enableTracking,
         links: config.links,
         documentUpload: {

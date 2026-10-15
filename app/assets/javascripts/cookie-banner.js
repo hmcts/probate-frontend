@@ -88,7 +88,8 @@
                     "cm-user-preferences",
                     "connect.sid",
                     document.getElementById('hdnSecurityCookie').value,
-                    "__eligibility"
+                    "__eligibility",
+                    "hideHmctsAccessBanner"
                 ]
               },
               {

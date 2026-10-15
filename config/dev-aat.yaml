@@ -74,7 +74,7 @@ configFeatureToggles:
   webchatEnabled: true
 
 notificationBanner:
-  enabled: 'true'
+  enabled: false
 
 webchat:
   kerv:

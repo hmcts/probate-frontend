@@ -115,7 +115,7 @@ html: (common.feedback + common.languageToggle) | replace("{smartSurveyFeedbackU
     {% if showBackLink %}
       <span class="govuk-back-link govuk-visually-hidden" id="backLink">{{common.back | safe}}</span>
     {% endif %}
-    {% if globals.enableNotificationBanner == "true" %}
+    {% if globals.enableNotificationBanner %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             {{ govukNotificationBanner({

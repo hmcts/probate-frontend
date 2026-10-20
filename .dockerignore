@@ -29,9 +29,3 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-!src/
-!src/main/
-!config/
-!webpack/
-.yarn/cache
-.yarn/install-state.gz

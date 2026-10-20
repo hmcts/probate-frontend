@@ -112,3 +112,13 @@ a[href^="tel"] {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.app-notification-banner--full-width {
+  .govuk-notification-banner__heading,
+  .govuk-notification-banner__content {
+    max-width: none;
+    width: 95.5%;
+    font-size: 24px;
+    font-weight: bold;
+  }
+}

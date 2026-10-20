@@ -23,7 +23,6 @@
 !.git
 
 !.yarn
-!.yarn/
 !.yarnrc.yml
 !.yarn/patches
 !.yarn/plugins

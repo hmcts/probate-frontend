@@ -22,6 +22,8 @@ featureToggles:
 configFeatureToggles:
   webchatEnabled: true
   gaEnabled: true
+notificationBanner:
+  enabled: false
 app:
   username:
   password:

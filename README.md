@@ -143,14 +143,14 @@ yarn npm audit --recursive --environment production --json > yarn-audit-known-is
 
 Before submitting a Pull Request you will be required to run `$ yarn eslint` (which is also run automatically when trying to commit anyway).
 
-We have a number of rules relating to code style that can be found in [.eslintrc.js](https://github.com/hmcts/probate-frontend/blob/develop/.eslintrc.js).
+We have a number of rules relating to code style that can be found in [eslint.config.mjs](eslint.config.mjs).
 
 ### Config
 
 For development only config, rename the `config/dev_template.yaml` file to `config/dev.yaml`. Running the app with the node environment set to `dev` will ensure this file is used.
 This file is not version controlled so any config here will not be pushed to git.
 
-As an example, if you want to use LanuchDarkly locally, place the SDK Key in this file. You can keep the key there as this file is not version controlled.
+As an example, if you want to use LaunchDarkly locally, place the SDK Key in this file. You can keep the key there as this file is not version controlled.
 
 If you want to allowed login you will need all the services running through manually/using docker-compose
 
@@ -163,7 +163,7 @@ you shoud then be able to use a citizen user of
 ```
 testusername@test.com/Pa55word11
 ```
-add a dev.yaml file to the /config folder with contents if you want to run LauchDarkly locally
+add a dev.yaml file to the /config folder with contents if you want to run LaunchDarkly locally
 ```
 featureToggles:
   launchDarklyKey: Located in lower env keyvaults with name launchdarkly-key
@@ -213,5 +213,5 @@ with the tag `@e2enightly-pr`, but only in English language.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/hmcts/probate-frontend/blob/develop/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 

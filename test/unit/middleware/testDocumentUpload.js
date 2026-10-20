@@ -87,14 +87,25 @@ describe('DocumentUploadMiddleware', () => {
 
         it('should return an error correctly for js users', (done) => {
             req['x-csrf-token'] = 'W6g3wqQf-z-bP5Kkg3fw19MVUOG-1dgFrHp8';
+            next = sinon.spy();
+
             res = Object.assign(res, {
-                status: sinon.spy(),
+                status: sinon.stub(),
+                type: sinon.stub(),
                 send: sinon.spy()
             });
+
+            res.status.returns(res);
+            res.type.returns(res);
+
             error.js = 'An error has occurred';
+
             documentUploadMiddleware.returnError(req, res, next, error);
-            expect(res.status.calledWith(400)).to.equal(true);
-            expect(res.send.calledWith(error.js)).to.equal(true);
+
+            sinon.assert.calledOnceWithExactly(res.status, 400);
+            sinon.assert.calledOnceWithExactly(res.type, 'text/plain');
+            sinon.assert.calledOnceWithExactly(res.send, error.js);
+            sinon.assert.notCalled(next);
             done();
         });
 

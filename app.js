@@ -63,6 +63,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     const globals = {
         currentYear: new Date().getFullYear(),
+        enableNotificationBanner: config.notificationBanner.enabled,
         enableTracking: config.enableTracking,
         links: config.links,
         documentUpload: {
@@ -296,17 +297,17 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         csrfSynchronisedProtection,
         generateToken,
     } = csrfSync({
-        getTokenFromRequest: (req) => req.body._csrf,
+        getTokenFromRequest: (req) => req.body?._csrf || req.headers['x-csrf-token']?.toString(),
     });
 
     if (config.app.useCSRFProtection === 'true') {
         app.use((req, res, next) => {
             // Exclude Dynatrace Beacon POST requests from CSRF check
             if (req.method === 'POST' && req.path.startsWith('/rb_')) {
-                next();
+                return next();
             }
 
-            csrfSynchronisedProtection(req, res, next);
+            return csrfSynchronisedProtection(req, res, next);
         });
 
         app.use((req, res, next) => {

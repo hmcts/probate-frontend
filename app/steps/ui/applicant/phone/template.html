@@ -12,9 +12,16 @@
             isPageHeading: true
         }
     }) %}
+
+    <p class="govuk-body">{{ content.content1 | safe }}</p>
+    <p class="govuk-body">{{ content.content2 | safe }}</p>
+
         {{ govukInput({
             label: {
                 text: content.phoneNumber | safe
+            },
+            hint: {
+                text: content.hint | safe
             },
             id: "phoneNumber",
             name: "phoneNumber",

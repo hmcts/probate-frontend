@@ -71,7 +71,7 @@ describe('divorce-date', () => {
                 });
         });
 
-        it.skip(`test it redirects to tasklist page for intestacy: ${expectedNextUrlForTaskList}`, (done) => {
+        it(`test it redirects to tasklist page: ${expectedNextUrlForTaskList}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {

@@ -103,7 +103,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: 'optionYes'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/task-list');
+            expect(nextStepUrl).to.equal('/deceased-divorced-or-separation-date');
             done();
         });
 
@@ -115,10 +115,11 @@ describe('DivorcePlace', () => {
             };
             const ctx = {
                 copyMaritalStatus: 'optionDivorced',
-                divorcePlace: 'optionNo'
+                divorcePlace: 'optionNo',
+                legalProcess: 'divorce or dissolution'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/divorcePlace');
+            expect(nextStepUrl).to.equal('/stop-page/divorcedNotInEnglandOrWales');
             done();
         });
 
@@ -133,7 +134,7 @@ describe('DivorcePlace', () => {
                 divorcePlace: 'optionNo'
             };
             const nextStepUrl = DivorcePlace.nextStepUrl(req, ctx);
-            expect(nextStepUrl).to.equal('/stop-page/separationPlace');
+            expect(nextStepUrl).to.equal('/stop-page/separatedNotInEnglandOrWales');
             done();
         });
 
@@ -179,6 +180,41 @@ describe('DivorcePlace', () => {
                     value: 'optionYes',
                     choice: 'inEnglandOrWales'
                 }]
+            });
+            done();
+        });
+    });
+
+    describe('generateFields()', () => {
+        it('should return the correct content fields', (done) => {
+            const ctx = {
+                language: 'en',
+                legalProcess: 'divorce'
+            };
+            const errors = [
+                {
+                    field: 'divorcePlace',
+                    href: '#divorcePlace',
+                    msg: content.errors.divorcePlace.required
+                }
+            ];
+
+            const fields = DivorcePlace.generateFields('en', ctx, errors);
+            expect(fields).to.deep.equal({
+                language: {
+                    error: false,
+                    value: 'en'
+                },
+                divorcePlace: {
+                    error: true,
+                    href: '#divorcePlace',
+                    errorMessage: content.errors.divorcePlace.required.replace('{legalProcess}', 'divorce')
+                },
+                legalProcess: {
+                    error: false,
+                    value: 'divorce'
+                },
+                title: `Did the divorce take place in England or Wales? - ${commonContent.serviceName}`
             });
             done();
         });

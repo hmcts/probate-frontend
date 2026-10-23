@@ -1,0 +1,12 @@
+{
+  "title": "Child Alive",
+  "question": "A oedd eich rhiant (plentyn {deceasedName}) iddynt farw ôl {deceasedName}?",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+
+  "errors": {
+    "childAlive": {
+      "required": "Dewiswch ‘Oedd’ os oedd eich rhiant (plentyn {deceasedName}) yn fyw adeg marwolaeth {deceasedName}"
+    }
+  }
+}

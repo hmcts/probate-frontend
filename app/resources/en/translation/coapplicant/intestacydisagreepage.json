@@ -1,0 +1,9 @@
+{
+  "title": "You have disagreed with the legal statement",
+  "pageHeader": "You have disagreed with the legal statement",
+  "paragraph1": "You now need to contact {leadExecFullName} to discuss changing the information they have given.",
+  "paragraph2": "As soon as {leadExecFullName} updates the information, they should contact you. You will then be able to access the updated legal statement using the same link we emailed you.",
+  "subHeader": "If you cannot reach an agreement",
+  "paragraph3": "Probate staff cannot help with any disagreements between applicants. You will need to find another way to reach an agreement, which may include <a target=\"_blank\" rel=\"external noopener\" href=\"{findLegalAdvice}\" class=\"govuk-link\" aria-label=\"getting legal advice (opens in a new tab).\">getting legal advice (opens in a new tab).</a>",
+  "paragraph4": "{leadExecFullName} will not be able to submit the application until all applicants have agreed with the legal statement and made their declaration."
+}

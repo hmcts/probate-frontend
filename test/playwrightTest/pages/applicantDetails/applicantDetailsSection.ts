@@ -208,15 +208,12 @@ export class ApplicantDetailsSection extends BasePage {
     answer = null,
     journey: string,
   ): Promise<void> {
-    const contentLanguage = language === 'cy' ? 'en' : language;
     const adoptedInContent = getContent(
-      `app/resources/${contentLanguage}/translation/applicant/adoptionplace.json`,);
+      `app/resources/${language}/translation/applicant/adoptedin.json`);
     await this.checkInUrl('/main-applicant-adopted-in');
-    const expectedText = await decodeHTML(adoptedInContent[`${journey}Question`].replace('{deceasedName}', applicantDetailsConfig.deceasedFullName,),);
-    const question = this.page.getByText(expectedText);
-    if (await question.count() > 0) {
-      await expect(question).toBeVisible();
-    }
+    await expect(this.page.getByText(decodeHTML(adoptedInContent[`${journey}Question`]).replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+
     const radio = this.page.locator(`#adoptedIn${answer}`);
     await expect(radio).toBeVisible();
     await expect(radio).toBeEnabled();
@@ -271,10 +268,19 @@ export class ApplicantDetailsSection extends BasePage {
   }
 
   async otherChildrenDiedBefore(answer = null) {
-    await this.checkInUrl('/any-deceased-children');
-    await expect(this.page.locator(`#anyDeceasedChildren${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyDeceasedChildren${answer}`).click();
+    await this.checkInUrl('/any-predeceased-children');
+    await expect(this.page.locator(`#anyPredeceasedChildren${answer}`)).toBeEnabled();
+    await this.page.locator(`#anyPredeceasedChildren${answer}`).click();
     await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async anySurvivingGrandchildren(language = 'en', answer = null) {
+    const survivingGrandchildrenContent = getContent(`app/resources/${language}/translation/deceased/anysurvivinggrandchildren.json`);
+    await this.checkInUrl('/any-surviving-grandchildren');
+    await expect(this.page.getByText(await decodeHTML(survivingGrandchildrenContent.question))).toBeVisible();
+    await expect(this.page.locator(`#anySurvivingGrandchildren${answer}`)).toBeEnabled();
+    await this.page.locator(`#anySurvivingGrandchildren${answer}`).click();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
@@ -282,8 +288,8 @@ export class ApplicantDetailsSection extends BasePage {
     const grandChildrenContent = getContent(`app/resources/${language}/translation/deceased/anygrandchildrenunder18.json`);
     await this.checkInUrl('/any-grandchildren-under-18');
     await expect(this.page.getByText(await decodeHTML(grandChildrenContent.question))).toBeVisible();
-    await expect(this.page.locator(`#anyGrandchildrenUnder18-2${answer}`)).toBeEnabled();
-    await this.page.locator(`#anyGrandchildrenUnder18-2${answer}`).click();
+    await expect(this.page.locator(`#anyGrandchildrenUnder18${answer}`)).toBeEnabled();
+    await this.page.locator(`#anyGrandchildrenUnder18${answer}`).click();
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
@@ -423,6 +429,44 @@ export class ApplicantDetailsSection extends BasePage {
       .toBeVisible();
     await expect(this.page.locator(`#deceasedAdoptionPlace${answer}`)).toBeEnabled();
     await this.page.locator(`#deceasedAdoptionPlace${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantDeceasedAdoptedIn(language, answer = null, coApplicantNumber) {
+    const coApplicantDeceasedAdoptedInContent = getContent(`app/resources/${language}/translation/executors/coapplicantadopteddeceasedin.json`);
+    await this.checkInUrl(`/intestacy/coapplicant-adopted-deceased-in/${coApplicantNumber}`);
+    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedInContent[`question`])
+      .replace('{applicantName}',applicantDetailsConfig.firstCoApplicantName)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#coApplicantAdoptedDeceasedIn${answer}`)).toBeEnabled();
+    await this.page.locator(`#coApplicantAdoptedDeceasedIn${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantDeceasedAdoptedOut(language, answer = null, coApplicantNumber) {
+    const coApplicantDeceasedAdoptedOutContent = getContent(`app/resources/${language}/translation/executors/coapplicantadopteddeceasedout.json`);
+    await this.checkInUrl(`/intestacy/coapplicant-adopted-deceased-out/${coApplicantNumber}`);
+    await expect(this.page.getByText(await decodeHTML(coApplicantDeceasedAdoptedOutContent[`question`])
+      .replace('{applicantName}',applicantDetailsConfig.firstCoApplicantName)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#coApplicantAdoptedDeceasedOut${answer}`)).toBeEnabled();
+    await this.page.locator(`#coApplicantAdoptedDeceasedOut${answer}`).click();
+    await this.runAccessibilityTest();
+    await this.navByClick(this.saveAndContinueButtonLocator);
+  }
+
+  async coApplicantDeceasedAdoptionPlace(language = 'en', answer = null, coApplicantNumber = null) {
+    const deceasedAdoptionPlaceContent = getContent(`app/resources/${language}/translation/applicant/deceasedadoptionplace.json`);
+    await this.checkInUrl(`/intestacy/coapplicant-adoption-deceased-place/${coApplicantNumber}`);
+    await expect(this.page.getByText(await decodeHTML(deceasedAdoptionPlaceContent.question)
+      .replace('{deceasedName}', applicantDetailsConfig.deceasedFullName)))
+      .toBeVisible();
+    await expect(this.page.locator(`#coApplicantAdoptionDeceasedPlace${answer}`)).toBeEnabled();
+    await this.page.locator(`#coApplicantAdoptionDeceasedPlace${answer}`).click();
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }

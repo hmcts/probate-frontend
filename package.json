@@ -259,6 +259,7 @@
     "http-cache-semantics": ">=4.3.0",
     "image-size": "^2.0.2",
     "import-in-the-middle": "^3.0.0",
+    "ip-address": "10.7.4",
     "js-yaml": "^5.0.0",
     "lodash": "^4.17.23",
     "minimist": "^1.2.8",

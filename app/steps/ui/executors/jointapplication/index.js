@@ -18,6 +18,7 @@ class JointApplication extends ValidationStep {
         let ctx = super.getContextData(req);
         const executorsWrapper = new ExecutorsWrapper(formdata.executors);
         ctx.isStopPage = executorsWrapper.isStopPage();
+        ctx.hasAdoptionDetails = executorsWrapper.hasAdoptionDetails();
         ctx = this.createExecutorList(ctx, req.session.form);
         ctx.deceased = formdata.deceased;
         ctx.deceasedName = FormatName.format(ctx.deceased);
@@ -64,6 +65,8 @@ class JointApplication extends ValidationStep {
         if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !this.areLastExecutorValid(ctx)) {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionYes' && ctx.isStopPage) {
+            return [true, 'inProgress'];
+        } else if (ctx.hasCoApplicant === 'optionYes' && ctx.list.length > 1 && !ctx.hasAdoptionDetails) {
             return [true, 'inProgress'];
         } else if (ctx.hasCoApplicant === 'optionNo') {
             return [true, 'inProgress'];

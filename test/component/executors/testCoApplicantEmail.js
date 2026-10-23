@@ -71,11 +71,11 @@ describe('coapplicant-email', () => {
         });
 
         it('test error messages displayed if no email entered', (done) => {
+            testWrapper.pageUrl = CoApplicantEmail.getUrl(2)
             testWrapper.agent.post('/prepare-session/form')
                 .send(sessionData)
                 .end(() => {
                     const data = {
-                        index: 1,
                         executorName: 'Harvey',
                         email: '',
                     };

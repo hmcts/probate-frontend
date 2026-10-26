@@ -2691,10 +2691,10 @@ __metadata:
   linkType: hard
 
 "@puppeteer/browsers@npm:^3.0.0":
-  version: 3.2.5
-  resolution: "@puppeteer/browsers@npm:3.2.5"
+  version: 3.2.6
+  resolution: "@puppeteer/browsers@npm:3.2.6"
   dependencies:
-    modern-tar: "npm:^0.8.5"
+    modern-tar: "npm:^0.8.6"
     yargs: "npm:^18.0.0"
   peerDependencies:
     proxy-agent: ">=8.0.1"
@@ -2706,7 +2706,7 @@ __metadata:
       optional: true
   bin:
     browsers: lib/main-cli.js
-  checksum: 10/743570771d9b27c78ad6eff04d7885c9e0b715c3edd05695411423ebf4e0ce52e99d1a0d93d83300f884f5606f4ccf88963a07d713b215bc076af53d5f77282f
+  checksum: 10/4a23cfb9765b191e4cfee502840d8e5456fa1d3c98a0c459102df77c59d295ab86c87ad705ff7ef3e84ab7876857441fdce3f190f2184d2aeddcda7cc70a8ecc
   languageName: node
   linkType: hard
 
@@ -11830,10 +11830,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"modern-tar@npm:^0.8.5":
-  version: 0.8.5
-  resolution: "modern-tar@npm:0.8.5"
-  checksum: 10/0797accfa66e6076ef32eced8554c99cf521e56abc998948d1520a0520e8f4778ff356c585c57ee51f146883e12f7d39a120d30d478e1ee898fa81c346ec0bf8
+"modern-tar@npm:^0.8.6":
+  version: 0.8.6
+  resolution: "modern-tar@npm:0.8.6"
+  checksum: 10/ee62124899907a643bae66465c418925af00dc4cce357751de28ee7e4730a4a12ef8c48e92aacab7eb68b94200f0a2c2c12531367e3b153f805a55bd101a9d91
   languageName: node
   linkType: hard
 

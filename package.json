@@ -125,7 +125,7 @@
     "@hmcts/nodejs-logging": "^4.0.4",
     "@hmcts/properties-volume": "^1.4.1",
     "@launchdarkly/node-server-sdk": "^9.15.0",
-    "@wdio/cli": "^9.32.0",
+    "@wdio/cli": "^10.0.0",
     "ajv": "^6.15.0",
     "ajv-keywords": "^3.5.2",
     "applicationinsights": "^2.9.8",
@@ -181,7 +181,7 @@
     "tunnel-agent": "^0.6.0",
     "uuid": "^11.1.1",
     "validator": "^13.15.35",
-    "webdriverio": "^9.32.0",
+    "webdriverio": "^10.0.0",
     "ws": "^8.22.0"
   },
   "devDependencies": {
@@ -279,7 +279,7 @@
     "tmp": "0.2.7",
     "uri-js": "^4.4.1",
     "is-async-function": "2.1.0",
-    "webdriverio": "^9.23.3",
+    "webdriverio": "^10.0.0",
     "yauzl": "^3.4.0",
     "underscore": "^1.13.8"
   },

@@ -4,6 +4,7 @@ const TestWrapper = require('test/util/TestWrapper');
 const DamageDate = require('app/steps/ui/will/willdamagedate');
 const testCommonContent = require('test/component/common/testCommonContent.js');
 const caseTypes = require('app/utils/CaseTypes');
+const {expect} = require('chai');
 
 describe('will-damage-culprit', () => {
     let testWrapper;

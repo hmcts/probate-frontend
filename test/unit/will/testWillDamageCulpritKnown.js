@@ -22,6 +22,33 @@ describe('WillDamageCulpritKnown', () => {
         });
     });
 
+    describe('handleGet()', () => {
+        it('maps willDamageCulpritName into firstName/lastName for playback', (done) => {
+            const [ctx] = WillDamageCulpritKnown.handleGet({
+                willDamageCulpritKnown: 'optionYes',
+                willDamageCulpritName: {
+                    firstName: 'FN1',
+                    lastName: 'LN1'
+                }
+            });
+            expect(ctx).to.deep.equal({
+                willDamageCulpritKnown: 'optionYes',
+                willDamageCulpritName: {
+                    firstName: 'FN1',
+                    lastName: 'LN1'
+                },
+                firstName: 'FN1',
+                lastName: 'LN1'
+            });
+            done();
+        });
+        it('returns unchanged context when willDamageCulpritName is absent', (done) => {
+            const [ctx] = WillDamageCulpritKnown.handleGet({willDamageCulpritKnown: 'optionNo'});
+            expect(ctx).to.deep.equal({willDamageCulpritKnown: 'optionNo'});
+            done();
+        });
+    });
+
     describe('handlePost()', () => {
         const willDamageCulpritKnown = steps.WillDamageCulpritKnown;
         it('add firstName and lastName to willDamageCulpritName object', () => {

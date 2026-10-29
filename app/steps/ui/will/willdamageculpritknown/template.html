@@ -18,7 +18,8 @@
             hint: {
                 text: content["firstName"] | safe
             },
-            value: fields.willDamageCulpritName.value.firstName
+            value: fields.firstName.value | safe,
+            errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage
         }) }}
         {{ govukInput({
             name: "lastName",
@@ -26,12 +27,12 @@
             label: {
                 text: content["lastName"] | safe,
                 classes: "govuk-visually-hidden"
-
             },
             hint: {
                 text: content["lastName"] | safe
             },
-            value: fields.willDamageCulpritName.value.lastName
+            value: fields.lastName.value | safe,
+            errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage
         }) }}
     {% endset -%}
 

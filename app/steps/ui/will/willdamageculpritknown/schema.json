@@ -2,7 +2,16 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "willDamageCulpritKnown",
     "type": "object",
-    "properties": {},
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "minLength": 2
+      },
+      "lastName": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
     "required": [
         "willDamageCulpritKnown"
     ]

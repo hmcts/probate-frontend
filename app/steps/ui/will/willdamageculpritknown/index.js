@@ -10,6 +10,14 @@ class WillDamageCulpritKnown extends ValidationStep {
         return '/will-damage-who';
     }
 
+    handleGet(ctx) {
+        if (ctx.willDamageCulpritName) {
+            ctx.firstName = ctx.willDamageCulpritName.firstName;
+            ctx.lastName = ctx.willDamageCulpritName.lastName;
+        }
+        return [ctx];
+    }
+
     handlePost(ctx, errors, formdata, session) {
         if (ctx.willDamageCulpritKnown === 'optionYes') {
             if (!ctx.firstName) {

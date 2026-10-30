@@ -13,7 +13,7 @@
             "required": "Nodwch enw cyntaf"
         },
         "lastName": {
-            "invalid": "Rhowch enw olaf dilys"
+            "required": "Nodwch gyfenw"
         }
     }
 }

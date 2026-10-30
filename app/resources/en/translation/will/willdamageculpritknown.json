@@ -10,12 +10,10 @@
             "required": "Select &lsquo;yes&rsquo; if you know who damaged or marked the will"
         },
         "firstName": {
-            "required": "Enter a first name",
-            "invalid": "Enter a valid first name - can only contain letters a to z, spaces, hyphens and apostrophes"
+            "required": "Enter a first name"
         },
         "lastName": {
-            "required": "Enter a last name",
-            "invalid": "Enter a valid last name - can only contain letters a to z, spaces, hyphens and apostrophes"
+            "required": "Enter a last name"
         }
     }
 }

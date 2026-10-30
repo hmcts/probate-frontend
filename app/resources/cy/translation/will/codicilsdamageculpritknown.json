@@ -10,12 +10,10 @@
             "required": "Dewiswch &lsquo;Ydw&rsquo; os ydych yn gwybod pwy achosodd y difrod neu&rsquo;r marciau i&rsquo;r codisiliau"
         },
         "firstName": {
-            "required": "Nodwch enw cyntaf",
-            "invalid": "Rhowch enw cyntaf dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
+            "required": "Nodwch enw cyntaf"
         },
         "lastName": {
-            "required": "Nodwch gyfenw",
-            "invalid": "Rhowch enw olaf dilys - dim ond llythrennau a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
+            "invalid": "Rhowch enw olaf dilys"
         }
     }
 }

@@ -25,6 +25,8 @@ describe('WillDamageCulpritKnown', () => {
     describe('handleGet()', () => {
         it('maps willDamageCulpritName into firstName/lastName for playback', (done) => {
             const [ctx] = WillDamageCulpritKnown.handleGet({
+                firstName: 'FN1',
+                lastName: 'LN1',
                 willDamageCulpritKnown: 'optionYes',
                 willDamageCulpritName: {
                     firstName: 'FN1',

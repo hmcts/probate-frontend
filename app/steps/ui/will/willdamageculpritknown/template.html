@@ -18,7 +18,7 @@
             hint: {
                 text: content["firstName"] | safe
             },
-            value: fields.firstName.value | safe,
+            value: fields.willDamageCulpritName.value.firstName,
             errorMessage: { text: fields.firstName.errorMessage | safe } if fields.firstName.errorMessage
         }) }}
         {{ govukInput({
@@ -31,7 +31,7 @@
             hint: {
                 text: content["lastName"] | safe
             },
-            value: fields.lastName.value | safe,
+            value: fields.willDamageCulpritName.value.lastName,
             errorMessage: { text: fields.lastName.errorMessage | safe } if fields.lastName.errorMessage
         }) }}
     {% endset -%}

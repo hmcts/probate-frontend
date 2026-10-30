@@ -101,8 +101,8 @@ getTestLanguages().forEach(language => {
 
       await deceasedDetailsPage.selectDeceasedAliasGop(language, optionNo);
       await deceasedDetailsPage.selectDeceasedMaritalStatus(deceasedDetailsConfig.maritalStatusDivorced);
-      await deceasedDetailsPage.selectDivorcePlace(language, optionYes, 'divorced');
-      await deceasedDetailsPage.enterDivorceDate(language, optionYes, 'divorced', '01', '01', '2000');
+      await deceasedDetailsPage.selectDivorcePlace(language, 'optionYes', 'divorced');
+      await deceasedDetailsPage.enterDivorceDate(language, 'optionYes', 'divorced', '01', '01', '2000');
       await deceasedDetailsPage.selectDeceasedMarriedAfterDateOnWill(optionNo)
       await deceasedDetailsPage.selectWillDamage(optionYes, 'test');
       await deceasedDetailsPage.selectWillDamageReason(optionYes, 'test');

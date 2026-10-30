@@ -1,0 +1,17 @@
+{
+  "title": "Did the deceased have any other siblings who have one parent in common (half-siblings)?",
+  "question": "Did {deceasedName} have any other siblings who have one parent in common (half-siblings)?",
+  "paragraph1": "We need to know about any other half-siblings {deceasedName} had, including any half-siblings who:",
+  "listItem1": "were legally adopted or given up for adoption by the parent they have in common with {deceasedName}",
+  "listItem2": "have died, either before or after {deceasedName}",
+  "paragraph2": "This does not include any step-siblings.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "anyOtherHalfSiblings": {
+      "required": "Select &lsquo;Yes&rsquo; if {deceasedName} had any other half-siblings"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{% extends "includes/two_thirds_form.html" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set relationship = fields.relationship.value %}
+{% if relationship == "optionParent" %}
+{%    set legendText = content.parentQuestion %}
+{% elseif relationship == "optionSibling" %}
+{%    set legendText = content.siblingQuestion %}
+{% else %}
+{%    set legendText = content.parentQuestion %}
+{% endif %}
+
+{% block form_content %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "deceasedAdoptedOut",
+        name: "deceasedAdoptedOut",
+        fieldset: {
+            legend: {
+                text: legendText | replace("{deceasedName}", fields.deceasedName.value) | safe,
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: { text: fields.deceasedAdoptedOut.errorMessage
+        | replace("{deceasedName}", fields.deceasedName.value) | safe } if fields.deceasedAdoptedOut.errorMessage,
+        items: [
+            {
+                value: "optionYes",
+                text: content["optionYes"] | safe,
+                checked: true if fields.deceasedAdoptedOut.value == "optionYes"
+            },
+            {
+                value: "optionNo",
+                text: content["optionNo"] | safe,
+                checked: true if fields.deceasedAdoptedOut.value == "optionNo"
+            }
+        ]
+}) }}
+
+<div class="govuk-form-group">
+  {{ govukButton({
+  text: common.saveAndContinue | safe,
+  preventDoubleClick: true
+  }) }}
+</div>
+{% endblock %}

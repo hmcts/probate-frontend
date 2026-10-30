@@ -89,7 +89,7 @@ describe('ProbateDeclarationFactory', () => {
                     },
                     cy: {
                         applicant: content.cy[`legalStatementApplicant${multipleApplicantSuffix}`]
-                            .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.en, formdata.applicantAddress))
+                            .replace('{detailsOfApplicants}', FormatName.formatMultipleNamesAndAddress(executorsApplying, content.cy, formdata.applicantAddress))
                             .replace('{applicantName}', formdata.applicantName)
                             .replace('{applicantAddress}', formdata.applicantAddress.formattedAddress),
                         deceased: content.cy.legalStatementDeceased
@@ -112,7 +112,8 @@ describe('ProbateDeclarationFactory', () => {
                 },
                 declaration: {
                     en: {
-                        accept: content.en.declarationCheckbox,
+                        accept: content.en.declarationCheckbox
+                            .replace('{deceasedName}', formdata.deceasedName),
                         confirm: content.en[`declarationConfirm${multipleApplicantSuffix}`]
                             .replace('{deceasedName}', formdata.deceasedName),
                         confirmItem1: content.en.declarationConfirmItem1,
@@ -127,7 +128,8 @@ describe('ProbateDeclarationFactory', () => {
                         understandItem2: content.en.declarationUnderstandItem2
                     },
                     cy: {
-                        accept: content.cy.declarationCheckbox,
+                        accept: content.cy.declarationCheckbox
+                            .replace('{deceasedName}', formdata.deceasedName),
                         confirm: content.cy[`declarationConfirm${multipleApplicantSuffix}`]
                             .replace('{deceasedName}', formdata.deceasedName),
                         confirmItem1: content.cy.declarationConfirmItem1,

@@ -2,7 +2,6 @@
 
 const ValidationStep = require('app/core/steps/ValidationStep');
 const {some} = require('lodash');
-const {exec} = require("node:child_process");
 
 class ExecutorsWhoDied extends ValidationStep {
 

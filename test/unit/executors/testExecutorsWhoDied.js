@@ -66,17 +66,15 @@ describe('Executors-Who-Died', () => {
                 executorsWhoDied: 'ExecutorABC'
             };
 
-            const expected = {
-                list: [
-                    {fullName: 'Applicant'},
-                    {fullName: 'ExecutorA', isDead: false},
-                    {fullName: 'ExecutorAB', isDead: false},
-                    {fullName: 'ExecutorABC', isDead: true},
-                ]
-            };
+            const expected = [
+                {fullName: 'Applicant'},
+                {fullName: 'ExecutorA', isDead: false},
+                {fullName: 'ExecutorAB', isDead: false},
+                {fullName: 'ExecutorABC', isDead: true}
+            ];
 
             [ctx, errors] = executorsWhoDied.handlePost(ctx,errors)
-            expect(ctx.list).to.deep.equal(expected.list);
+            expect(ctx.list).to.deep.equal(expected);
             done()
         })
 

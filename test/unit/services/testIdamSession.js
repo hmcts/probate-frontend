@@ -58,7 +58,7 @@ describe('IdamSessionService', () => {
             idamSession.logoutIdam(req, res, redirectUri);
 
             const expectedLogoutUrl =
-                'https://idam.hmcts.net/logout/?post_logout_redirect_uri=' + encodeURI(redirectUri);
+                'https://idam.hmcts.net/logout/?post_logout_redirect_uri=' + encodeURIComponent(redirectUri);
             expect(logSpy.calledTwice).to.equal(true);
             expect(logSpy.firstCall.calledWith('Logout and clear session')).to.equal(true);
             expect(logSpy.secondCall.calledWith('Logout url: ' + expectedLogoutUrl)).to.equal(true);

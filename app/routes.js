@@ -84,7 +84,7 @@ router.get('/sign-out-idam', async (req, res, next) => {
     if (req.userLoggedIn) {
         try {
             const signOutUrl = `${req.protocol}://${req.get('host')}/sign-out`;
-            return idamSession.logoutIdam(req,res, signOutUrl);
+            return await idamSession.logoutIdam(req,res, signOutUrl);
         } catch (err) {
             return next(err);
         }

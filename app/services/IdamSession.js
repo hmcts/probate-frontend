@@ -18,7 +18,7 @@ class IdamSession extends Service {
     async logoutIdam(req, res, postLogoutRedirectUri) {
         this.log('Logout and clear session');
         const SECURITY_COOKIE = `__auth-token-${this.config.payloadVersion}`;
-        const logoutIdamUrl = `${this.config.services.idam.endSessionUrl}/?post_logout_redirect_uri=${encodeURI(postLogoutRedirectUri)}`;
+        const logoutIdamUrl = `${this.config.services.idam.endSessionUrl}/?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}`;
         this.log('Logout url: ' + logoutIdamUrl);
 
         return new Promise((resolve, reject) => {
@@ -32,7 +32,8 @@ class IdamSession extends Service {
                 delete req.sessionID;
                 delete req.session;
                 delete req.sessionStore;
-                return res.redirect(303, logoutIdamUrl);
+                res.redirect(303, logoutIdamUrl);
+                resolve();
             });
         });
     }

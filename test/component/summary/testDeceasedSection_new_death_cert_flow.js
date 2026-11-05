@@ -40,9 +40,10 @@ describe('summary-deceased-section', () => {
                         firstName: deceasedContent.name.firstName,
                         lastName: deceasedContent.name.lastName,
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
+
                         questionMaritalStatus: deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
-                        dob: deceasedContent.dob.question,
-                        dod: deceasedContent.dod.question,
+                        dob: deceasedContent.dob.question.replace('{deceasedName}', deceasedContent.dob.theDeceased),
+                        dod: deceasedContent.dod.question.replace('{deceasedName}', deceasedContent.dod.theDeceased),
                         address: deceasedContent.address.question.replace('{deceasedName}', deceasedContent.alias.theDeceased),
                         willCodicils: willContent.codicils.question
                     };
@@ -72,8 +73,8 @@ describe('summary-deceased-section', () => {
                         alias: deceasedContent.alias.question.replace('{deceasedName}', deceasedName),
                         maritalStatus: deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedName),
                         married: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
-                        dob: deceasedContent.dob.question,
-                        dod: deceasedContent.dod.question,
+                        questionDob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
+                        questionDod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
                         address: deceasedContent.address.question.replace('{deceasedName}', deceasedName),
                         willCodicils: willContent.codicils.question
                     };
@@ -104,8 +105,8 @@ describe('summary-deceased-section', () => {
                         questionMaritalStatus: deceasedContent.maritalstatus.question.replace('{deceasedName}', deceasedName),
                         questionMarried: deceasedContent.married.question.replace('{deceasedName}', deceasedName),
                         questionDeceasedPartnerName: deceasedContent.deceasedpartnername.question.replace('{deceasedName}', deceasedName),
-                        questionDob: deceasedContent.dob.question,
-                        questionDod: deceasedContent.dod.question,
+                        questionDob: deceasedContent.dob.question.replace('{deceasedName}', deceasedName),
+                        questionDod: deceasedContent.dod.question.replace('{deceasedName}', deceasedName),
                         questionAddress: deceasedContent.address.question.replace('{deceasedName}', deceasedName),
                         questionWillCodicils: willContent.codicils.question,
                         questionDiedEngOrWales: deceasedContent.diedengorwales.question.replace('{deceasedName}', deceasedName),

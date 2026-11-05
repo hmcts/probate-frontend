@@ -72,7 +72,7 @@ class PaymentStatus extends Step {
         options.redirect = true;
 
         if (serviceAuthResult.name === 'Error') {
-            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+            options.url = `${this.steps.PaymentBreakdown.getUrlWithContext(ctx)}`;
             return options;
         }
 
@@ -90,7 +90,7 @@ class PaymentStatus extends Step {
             logger.info('Payment retrieval in status for reference = ' + ctx.reference + ' with response = ' + JSON.stringify(getPaymentResponse));
             if (getPaymentResponse.name === 'Error' || getPaymentResponse.status === 'Initiated') {
                 logger.error('Payment retrieval failed for reference = ' + ctx.reference + ' with status = ' + getPaymentResponse.status);
-                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+                options.url = `${this.steps.PaymentBreakdown.getUrlWithContext(ctx)}`;
                 return options;
             }
 
@@ -102,13 +102,13 @@ class PaymentStatus extends Step {
             this.setErrors(options, errors);
 
             if (getPaymentResponse.status !== 'Success') {
-                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+                options.url = `${this.steps.PaymentBreakdown.getUrlWithContext(ctx)}`;
                 logger.error(`Unable to retrieve a payment response with status ${getPaymentResponse.status} for reference ${ctx.reference}`);
             } else if (!updateCcdCaseResponse || !updateCcdCaseResponse.ccdCase || updateCcdCaseResponse.ccdCase.state !== 'CasePrinted') {
-                options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+                options.url = `${this.steps.PaymentBreakdown.getUrlWithContext(ctx)}`;
                 logger.warn(`Did not get a successful case created state for reference ${ctx.reference}`);
             } else {
-                options.url = `${this.steps.ThankYou.constructor.getUrl()}`;
+                options.url = `${this.steps.ThankYou.getUrlWithContext(ctx)}`;
             }
         } else {
             if (ctx.paymentNotRequired) {
@@ -116,13 +116,13 @@ class PaymentStatus extends Step {
             }
             const [updateCcdCaseResponse, errors] = yield this.updateForm(formdata, ctx, ctx.payment, serviceAuthResult, session.language);
             this.setErrors(options, errors);
-            options.url = `${this.steps.PaymentBreakdown.constructor.getUrl()}`;
+            options.url = `${this.steps.PaymentBreakdown.getUrlWithContext(ctx)}`;
 
             if (ctx.paymentNotRequired) {
                 set(formdata, 'ccdCase', updateCcdCaseResponse.ccdCase);
                 set(formdata, 'payment', updateCcdCaseResponse.payment);
                 set(formdata, 'registry', updateCcdCaseResponse.registry);
-                options.url = `${this.steps.ThankYou.constructor.getUrl()}`;
+                options.url = `${this.steps.ThankYou.getUrlWithContext(ctx)}`;
             }
         }
 

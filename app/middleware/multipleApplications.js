@@ -48,7 +48,7 @@ const initDashboard = (req, res, next) => {
 const createNewApplication = (req, res, formdata, formData, result, next) => {
     const eventDescription = formdata.eventDescription;
     const screenersCompleted = formdata.caseType &&
-        formdata.caseType === caseTypes.GOP ? eventDescription === 'Page completed: mental-capacity' : eventDescription === 'Page completed: other-applicants';
+        formdata.caseType === caseTypes.GOP ? eventDescription === 'Page completed: mental-capacity' : eventDescription === 'Page completed: related-to-deceased';
     cleanupSession(req.session, true, true);
     formData.postNew(req.authToken, req.session.serviceAuthorization, req.session.form.caseType)
         .then(result => {
@@ -68,22 +68,26 @@ const createNewApplication = (req, res, formdata, formData, result, next) => {
 };
 
 const allEligibilityQuestionsPresent = (formdata, featureToggles) => {
-    let allQuestionsPresent = true;
-
-    if (formdata.screeners && formdata.screeners.left) {
-        const journeyType = formdata.screeners.left === 'optionNo' ? 'intestacy' : 'probate';
-        const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata, featureToggles);
-
-        Object.entries(eligibilityQuestionsList).forEach(([key, value]) => {
-            if (!Object.keys(formdata.screeners).includes(key) || formdata.screeners[key] !== value) {
-                allQuestionsPresent = false;
-            }
-        });
-    } else {
-        allQuestionsPresent = false;
+    if (!(formdata.screeners && formdata.screeners.left)) {
+        return false;
     }
 
-    return allQuestionsPresent;
+    const screeners = formdata.screeners;
+    const journeyType = screeners.left === 'optionNo' ? 'intestacy' : 'probate';
+    const eligibilityQuestionsList = screenerValidation.getScreeners(journeyType, formdata, featureToggles);
+    const screenerKeys = Object.keys(screeners);
+
+    return Object.entries(eligibilityQuestionsList).every(([key, expectedValue]) => {
+        if (!screenerKeys.includes(key)) {
+            return false;
+        }
+        const actualValue = screeners[key];
+        if (Array.isArray(expectedValue)) {
+            return expectedValue.includes(actualValue);
+        }
+
+        return actualValue === expectedValue;
+    });
 };
 
 const renderDashboard = (req, result, next) => {
@@ -116,7 +120,7 @@ const renderTaskList = (req, res, result, next) => {
         }
     });
     const screenersCompleted = req.session.form.caseType &&
-    req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: other-applicants';
+    req.session.form.caseType === 'PA' ? description === 'Page completed: mental-capacity' : description === 'Page completed: related-to-deceased';
     getCase(req, res, next, false, screenersCompleted);
 };
 

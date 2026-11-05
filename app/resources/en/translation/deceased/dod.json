@@ -1,26 +1,39 @@
 {
   "title": "Deceased date of death",
-  "question": "What was the date that they died?",
-  "questionHint": "Use the date from the death certificate. For example, 30 06 2016",
+  "question": "What was the date that {deceasedName} died?",
+  "questionHint": "Use the date from the death certificate. For example, 30 01 2025",
+  "dayName": "Day",
+  "monthName": "Month",
+  "yearName": "Year",
+  "theDeceased": "the deceased",
 
   "errors": {
     "dod-day": {
-      "required": "Enter the day they died",
-      "invalid": "Enter a valid day of death"
+      "required": "Date of death must include a day",
+      "invalid": "Date of death must be a real date"
     },
     "dod-month": {
-      "required": "Enter the month they died",
-      "invalid": "Enter a valid month of death"
+      "required": "Date of death must include a month",
+      "invalid": "Date of death must be a real date"
     },
     "dod-year": {
-      "required": "Enter the year they died",
-      "invalid": "Enter a valid year of death"
+      "required": "Date of death must include a year",
+      "invalid": "Date of death must be a real date"
+    },
+    "dod-day-month": {
+      "required": "Date of death must include a day and month"
+    },
+    "dod-month-year": {
+      "required": "Date of death must include a month and year"
+    },
+    "dod-day-year": {
+      "required": "Date of death must include a day and year"
     },
     "dod-date": {
-      "required": "Enter the date they died",
-      "invalid": "Enter a valid date of death",
-      "dateInFuture": "Enter a date in the past",
-      "dodBeforeDob": "Enter a date of death that is after the date of birth"
+      "required": "Enter the date {deceasedName} died",
+      "invalid": "Date of death must be a real date",
+      "dateInFuture": "Date of death must be in the past",
+      "dodBeforeDob": "Date of death must be after {deceasedName}’s date of birth"
     }
   }
 }

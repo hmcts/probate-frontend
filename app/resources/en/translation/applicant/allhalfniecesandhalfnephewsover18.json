@@ -1,0 +1,13 @@
+{
+  "title": "Are all of these children 18 or older?",
+  "question": "Are all of these children 18 or older?",
+  "paragraph": "They would be {deceasedName}&rsquo;s half-nieces and half-nephews.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "allHalfNiecesAndHalfNephewsOver18": {
+      "required": "Select &lsquo;Yes&rsquo; if all of these children are 18 or older"
+    }
+  }
+}

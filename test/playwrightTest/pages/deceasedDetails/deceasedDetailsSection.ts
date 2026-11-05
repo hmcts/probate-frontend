@@ -319,24 +319,38 @@ export class DeceasedDetailsSection extends BasePage {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
     const divorcePlaceContent = getContent(`app/resources/${language}/translation/deceased/divorceplace.json`);
     await this.checkInUrl('/deceased-divorce-or-separation-place');
-    await expect(this.page.getByText(await decodeHTML(divorcePlaceContent.question)
-      .replace('{legalProcess}', deceasedDetailsConfig[`${legalSeparationType}${langKey}`])))
-      .toBeVisible();
-    await expect(this.page.locator(`#divorcePlace${answer}`)).toBeEnabled();
-    await this.page.locator(`#divorcePlace${answer}`).click();
+
+    const expectedQuestion = await decodeHTML(divorcePlaceContent.question).replace('{legalProcess}' , deceasedDetailsConfig[`${legalSeparationType}${langKey}`]);
+
+    await expect(this.page.getByText(expectedQuestion, { exact: true })).toBeVisible();
+    const divorcePlaceRadio = this.page.locator(`input[name="divorcePlace"][value="${answer}"]`);
+    await expect(divorcePlaceRadio).toBeEnabled();
+    await divorcePlaceRadio.click();
     await this.runAccessibilityTest();
     await this.navByClick(this.saveAndContinueButtonLocator);
   }
 
-  async enterDivorceDate(language = 'en', answer = null, legalSeparationType, divorceDay, divorceMonth, divorceYear) {
+  async enterDivorceDate(
+    language = 'en',
+    answer = null,
+    legalSeparationType,
+    divorceDay,
+    divorceMonth,
+    divorceYear
+  ) {
     const langKey = language.charAt(0).toUpperCase() + language.slice(1);
-    const divorceDateContent = getContent(`app/resources/${language}/translation/deceased/divorcedate.json`);
+    const divorceDateContent = getContent(
+      `app/resources/${language}/translation/deceased/divorcedate.json`
+    );
+
     await this.checkInUrl('/deceased-divorced-or-separation-date');
-    await expect(this.page.getByText(await decodeHTML(divorceDateContent.question)
-      .replace('{legalProcess}', deceasedDetailsConfig[`${legalSeparationType}${langKey}`])))
-      .toBeVisible();
-    await expect(this.page.locator(`#divorceDateKnown${answer}`)).toBeEnabled();
-    await this.page.locator(`#divorceDateKnown${answer}`).click();
+
+    const expectedQuestion = await decodeHTML(divorceDateContent.question).replace('{legalProcess}', deceasedDetailsConfig[`${legalSeparationType}${langKey}`]);
+
+    await expect(this.page.getByText(expectedQuestion, { exact: true })).toBeVisible();
+    const divorceDateKnownRadio = this.page.locator(`input[name="divorceDateKnown"][value="${answer}"]`);
+    await expect(divorceDateKnownRadio).toBeEnabled();
+    await divorceDateKnownRadio.click();
     await expect(this.page.locator('#divorceDate-day')).toBeVisible();
     await expect(this.page.locator('#divorceDate-day')).toBeEnabled();
     await this.page.locator('#divorceDate-day').fill(divorceDay);

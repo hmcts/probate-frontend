@@ -23,7 +23,7 @@ class WillCodicils extends ValidationStep {
     }
 
     nextStepUrl(req, ctx) {
-        return this.next(req, ctx).constructor.getUrl('codicils');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'codicils');
     }
 
     nextStepOptions() {

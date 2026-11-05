@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "grandchild-parent-adopted-in",
+  "type": "object",
+  "properties": {
+    "parentAdoptedIn": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "parentAdoptedIn"
+  ]
+}

@@ -21,6 +21,7 @@
                     <li>{{ content.listItem5 | safe }}</li>
                 </ul>
             </p>
+            <p class="govuk-body">{{ content.paragraph3 | safe }}</p>
         </div>
     </div>
     <br>
@@ -32,6 +33,6 @@
         }) }}
     </div>
     <h2 class="govuk-heading-m">{{ content.applicationStartedHeader | safe }}</h2>
-    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph3 | safe }}</a></p>
+    <p class="govuk-body"><a href="/dashboard" class="govuk-link">{{ content.paragraph4 | safe }}</a></p>
     {% include "includes/help_details.html" %}
 {% endblock %}

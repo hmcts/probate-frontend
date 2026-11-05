@@ -16,11 +16,25 @@ class JourneyMap {
     }
 
     nextStep(currentStep, ctx) {
-        let nextStepName = this.journey.stepList[currentStep.name];
-        if (nextStepName !== null && typeof nextStepName === 'object') {
-            nextStepName = nextStepName[this.nextOptionStep(currentStep, ctx)];
+        const stepListEntry = this.journey.stepList[currentStep.name];
+        if (stepListEntry !== null && typeof stepListEntry === 'object') {
+            const nextStepId = this.nextOptionStep(currentStep, ctx);
+            const nextStepName = stepListEntry[nextStepId];
+            if (!nextStepName) {
+                const stepOptions = Object.keys(stepListEntry).join(', ');
+                throw Error(`for ${currentStep.name} nextStepId ${nextStepId} not in options - options are [${stepOptions}]`);
+            }
+            const resultingStep = steps[nextStepName];
+            if (!resultingStep) {
+                throw Error(`for ${currentStep.name} nextStepId ${nextStepId} gave ${nextStepName} which is not found in steps`);
+            }
+            return resultingStep;
         }
-        return steps[nextStepName];
+        const directStep = steps[stepListEntry];
+        if (!directStep) {
+            throw Error(`for ${currentStep.name} got non-object ${stepListEntry} which is not found in steps`);
+        }
+        return directStep;
     }
 
     stepList() {

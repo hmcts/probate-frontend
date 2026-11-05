@@ -1,0 +1,14 @@
+{
+  "title": "Are all of the deceased&rsquo;s surviving siblings 18 or older?",
+  "question": "Are all of {deceasedName}&rsquo;s surviving siblings 18 or older?",
+  "paragraph": "You do not need to include any siblings that died after {deceasedName}.",
+  "optionYes": "Yes",
+  "optionNo": "No",
+  "theDeceased": "the deceased",
+
+  "errors": {
+    "allWholeSiblingsOver18": {
+      "required": "Select &lsquo;Yes&rsquo; if all of the siblings are 18 or older"
+    }
+  }
+}

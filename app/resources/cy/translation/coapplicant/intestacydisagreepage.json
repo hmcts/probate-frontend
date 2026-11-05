@@ -1,0 +1,9 @@
+{
+  "title": "Rydych wedi anghytuno â’r datganiad cyfreithiol",
+  "pageHeader": "Rydych wedi anghytuno â’r datganiad cyfreithiol",
+  "paragraph1": "Mae angen ichi nawr gysylltu â/ag {leadExecFullName} i drafod newid yr wybodaeth maent wedi’i rhoi.",
+  "paragraph2": "Ar ôl i {leadExecFullName ddiweddaru’r wybodaeth, dylent gysylltu â chi ar unwaith. Yna byddwch yn gallu cael mynediad at y datganiad cyfreithiol diwygiedig gan ddefnyddio’r un ddolen bu inni ei hanfon atoch drwy e-bost.",
+  "subHeader": "Os na fyddwch yn dod i gytundeb",
+  "paragraph3": "Ni all staff y gwasanaeth profiant helpu gydag unrhyw anghydfodau rhwng ceiswyr. Bydd angen ichi ddod o hyd i ffordd arall i ddod i gytundeb, a allai gynnwys <a target=\"_blank\" rel=\"external noopener\" href=\"{findLegalAdvice}\" class=\"govuk-link\" aria-label=\"cael cyngor cyfreithiol (yn agor mewn tab newydd).\">cael cyngor cyfreithiol (yn agor mewn tab newydd).</a>",
+  "paragraph4": "Ni fydd {leadExecFullName} yn gallu cyflwyno’r datganiad cyfreithiol nes bod yr holl geiswyr wedi cytuno â’r datganiad cyfreithiol, ac wedi gwneud eu datganiadau."
+}

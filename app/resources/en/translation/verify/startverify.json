@@ -1,0 +1,19 @@
+{
+  "title": "Co-Applicant verification - Apply for probate",
+  "header": "Apply for probate",
+  "introduction": "{applicantName} has started an application for a grant of probate to deal with {deceasedName}’s estate, and has named you as an applicant.",
+  "paragraph1": "All applicants named on the grant will be given the legal right to:",
+  "listItem1": "collect the estate’s assets (property, money and possessions)",
+  "listItem2": "pay any taxes and debts",
+  "listItem3": "distribute what is left to the people entitled to it",
+  "paragraph2": "To continue, you will need to:",
+  "listItem4": "check if the information {applicantName} has given is correct",
+  "listItem5": "confirm you agree with the legal statement",
+  "paragraph3": "You will need {deceasedName}’s date of death to access the legal statement.",
+  "multipleHeader": "If you do not want to apply for probate",
+  "paragraph4": "You can choose not to apply if you do not want to manage the estate. This does not affect your right to inherit.",
+  "paragraph5": "You can either:",
+  "listItem6": "let {applicantName} apply without you",
+  "listItem7": "appoint someone else to apply on your behalf – you will need to <a target=\"_blank\" rel=\"external noopener\" href=\"{applicationFormPA12}\" class=\"govuk-link\" aria-label=\"complete Form PA12 (opens in a new tab)\">complete Form PA12 (opens in a new tab)</a>",
+  "paragraph6": "You will need to contact {applicantName} and ask them to change the information they have given if you do not want to apply."
+}

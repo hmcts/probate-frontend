@@ -1,0 +1,9 @@
+{
+  "title": "You&rsquo;ve made your legal declaration",
+  "pageHeader": "You have made your legal declaration",
+  "paragraph1": "Once all applicants have made their legal declaration, {leadExecFullName} can complete and submit the application.",
+  "subHeader": "What happens next",
+  "paragraph2": "{leadExecFullName} should get the grant of probate within 12 weeks of submitting the application. It can take longer if they need to provide additional information.",
+  "paragraph3": "Contact {leadExecFullName} if you need an update on the application.",
+  "paragraph4a": "Once you have the grant of probate, you can <a target=\"_blank\" rel=\"external noopener\" href=\"{probateEstate}\" class=\"govuk-link\" aria-label=\"start dealing with the estate (opens in a new tab).\">start dealing with the estate (opens in a new tab).</a>"
+ }

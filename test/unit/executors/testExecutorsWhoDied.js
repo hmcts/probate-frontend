@@ -32,6 +32,99 @@ describe('Executors-Who-Died', () => {
         });
     });
 
+    describe('handlePost()', () => {
+        let ctx;
+        let errors = {};
+
+        it('converts executorWhoDied string into array', (done) => {
+            ctx = {
+                executorsWhoDied: 'Executor'
+            };
+            [ctx, errors] = executorsWhoDied.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({executorsWhoDied: ['Executor']});
+            done();
+        });
+
+        it('does not alter executorWhoDied if supplied as array', (done) => {
+            ctx = {
+                executorsWhoDied: ['Executor']
+            };
+            [ctx, errors] = executorsWhoDied.handlePost(ctx, errors);
+            expect(ctx).to.deep.equal({executorsWhoDied: ['Executor']});
+            done();
+        })
+
+        it('updates correct executor if executorWhoDied contains substring of another executor', (done) => {
+            ctx = {
+                list: [
+                    {fullName: 'Applicant'},
+                    {fullName: 'ExecutorA'},
+                    {fullName: 'ExecutorAB'},
+                    {fullName: 'ExecutorABC'},
+                ],
+                executorsNumber: 4,
+                executorsWhoDied: 'ExecutorABC'
+            };
+
+            const expected = [
+                {fullName: 'Applicant'},
+                {fullName: 'ExecutorA', isDead: false},
+                {fullName: 'ExecutorAB', isDead: false},
+                {fullName: 'ExecutorABC', isDead: true}
+            ];
+
+            [ctx, errors] = executorsWhoDied.handlePost(ctx,errors)
+            expect(ctx.list).to.deep.equal(expected);
+            done()
+        })
+
+        it('updates list if single executor died', (done) => {
+            ctx = {
+                list: [
+                    {fullName: 'Applicant', isApplying: true},
+                    {fullName: 'Executor1', isApplying: false},
+                    {fullName: 'Executor2', isApplying: false},
+                ],
+                executorsNumber: 3,
+                executorsWhoDied: 'Executor2'
+            };
+
+            const expected = [
+                {fullName:'Applicant', isApplying: true},
+                {fullName:'Executor1', isApplying: false, isDead: false},
+                {fullName:'Executor2', isDead: true}
+            ];
+
+            [ctx, errors] = executorsWhoDied.handlePost(ctx, errors)
+            expect(ctx.list).to.deep.equal(expected);
+            done();
+        })
+
+        it('updates list if multiple executors died', (done) => {
+            ctx = {
+                list: [
+                    {fullName: 'Applicant', isApplying: true},
+                    {fullName: 'Executor1', isApplying: false},
+                    {fullName: 'Executor2', isApplying: false},
+                    {fullName: 'Executor3', isApplying: false},
+                ],
+                executorsNumber: 4,
+                executorsWhoDied: ['Executor1','Executor3']
+            };
+
+            const expected = [
+                {fullName:'Applicant', isApplying: true},
+                {fullName:'Executor1', isDead: true},
+                {fullName:'Executor2', isApplying: false, isDead: false},
+                {fullName:'Executor3', isDead: true}
+            ];
+
+            [ctx, errors] = executorsWhoDied.handlePost(ctx, errors)
+            expect(ctx.list).to.deep.equal(expected);
+            done();
+        })
+    })
+
     describe('action()', () => {
         let ctx;
         let formdata;

@@ -90,7 +90,7 @@ services:
   ccd-case-management-web:
     image: hmctsprod.azurecr.io/ccd/case-management-web:latest
     environment:
-      IDAM_LOGIN_URL: http://localhost:3501/login
+      IDAM_LOGIN_URL: http://localhost:3501/o/authorize
       CCD_GATEWAY_BASE_URL: http://localhost:3453
       CCD_ACTIVITY_BASE_URL:
       DM_GATEWAY_BASE_URL: https://api-gateway.dev.dm.reform.hmcts.net
@@ -178,8 +178,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: openidm
       SPRING_DATA_ELASTICSEARCH_PROPERTIES_PATH_HOME: /tmp/es
       SECURITY_OAUTH2_CLIENT_CLIENTSECRET: password
-      SECURITY_OAUTH2_CLIENT_PRE_ESTABLISHED_REDIRECT_URI: http://localhost:3501/login
-      SECURITY_OAUTH2_CLIENT_REGISTERED_REDIRECT_URI: http://localhost:3501/login
+      SECURITY_OAUTH2_CLIENT_PRE_ESTABLISHED_REDIRECT_URI: http://localhost:3501/o/authorize
+      SECURITY_OAUTH2_CLIENT_REGISTERED_REDIRECT_URI: http://localhost:3501/o/authorize
       IDAM_SPI_FORGEROCK_AM_ROOT: http://fr-am:8080/openam
       IDAM_SPI_FORGEROCK_AM_TOPLEVELHOST: fr-am
       IDAM_SPI_FORGEROCK_AM_USERNAME: amadmin

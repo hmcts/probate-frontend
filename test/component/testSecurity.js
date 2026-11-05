@@ -11,7 +11,7 @@ const TimeoutPage = require('app/steps/ui/timeout/index');
 const nock = require('nock');
 
 describe('security', () => {
-    const LOGIN_URL = 'http://localhost:3501/login';
+    const LOGIN_URL = 'http://localhost:3501/o/authorize';
     const expectedNextUrlForTaskList = TaskList.getUrl();
     const expectedUrlForTimeoutPage = TimeoutPage.getUrl();
     const SECURITY_COOKIE = '__auth-token-' + config.payloadVersion;

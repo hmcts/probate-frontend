@@ -12,20 +12,20 @@ class WillDamageCulpritKnown extends ValidationStep {
 
     handlePost(ctx, errors, formdata, session) {
         if (ctx.willDamageCulpritKnown === 'optionYes') {
-            if (!ctx.firstName) {
+            ctx.willDamageCulpritName = {
+                firstName: ctx.firstName,
+                lastName: ctx.lastName
+            };
+            if (!ctx.willDamageCulpritName.firstName) {
                 errors.push(FieldError('firstName', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             }
-            if (!ctx.lastName) {
+            if (!ctx.willDamageCulpritName.lastName) {
                 errors.push(FieldError('lastName', 'required', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
             }
         }
 
         if (!isEmpty(errors)) {
             return [ctx, errors];
-        }
-
-        if (ctx.willDamageCulpritKnown === 'optionYes' && ctx.firstName && ctx.lastName) {
-            ctx.willDamageCulpritName = {'firstName': ctx.firstName, 'lastName': ctx.lastName};
         }
 
         return [ctx, errors];

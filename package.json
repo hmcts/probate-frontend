@@ -127,7 +127,7 @@
     "@launchdarkly/node-server-sdk": "^9.15.0",
     "@wdio/cli": "^10.1.0",
     "ajv": "^6.15.0",
-    "ajv-keywords": "^3.5.2",
+    "ajv-keywords": "^5.0.0",
     "applicationinsights": "^2.9.8",
     "basic-auth": "^2.0.1",
     "body-parser": "^2.4.0",

@@ -43,6 +43,7 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
     const port = config.app.port;
     const releaseVersion = packageJson.version;
     const useIDAM = config.app.useIDAM.toLowerCase();
+    const idamLoginOrigin = new URL(config.services.idam.loginUrl).origin;
     const security = new Security(config.services.idam.loginUrl);
     const inviteSecurity = new InviteSecurity();
 
@@ -183,7 +184,9 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
             formAction: [
                 '\'self\'',
                 config.services.equalityAndDiversity.url,
-                config.services.payment.externalUrl
+                config.services.payment.externalUrl,
+                // Invalid-session form POSTs redirect (303) to IDAM sign-in, so this trusted origin must be allowed.
+                idamLoginOrigin
             ],
             frameSrc: [
                 '\'self\'',
@@ -291,7 +294,20 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
         next();
     });
 
-    app.use(config.services.idam.probate_oauth_callback_path, security.oAuth2CallbackEndpoint());
+    app.use(config.services.idam.probate_oauth_callback_path, security.handleIdamOAuthCallback());
+    // Invitation and co-applicant routes rely on invitation/PIN context, so they stay outside personal-IDAM ownership checks.
+    app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
+    app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
+
+    // For IDAM-guarded routes, stale-session Security checks run before CSRF so posts from destroyed sessions reauthenticate via IDAM instead of EBADCSRFTOKEN.
+    if (useIDAM === 'true') {
+        const publicScreenerPages = normalizeNonIdamPages(config.publicScreenerPages).map(page => `/${page}`);
+        const nonIdamPages = normalizeNonIdamPages(config.nonIdamPages);
+        const idamPages = new RegExp(`/((?!${nonIdamPages.join('|')}).)*`);
+        // Only this explicit public-screener list gets stale-session recovery; all other nonIdamPages must remain public.
+        app.use(publicScreenerPages, security.guardPublicScreenerSession());
+        app.use(idamPages, security.protectAuthenticatedRoute(config.services.idam.roles));
+    }
 
     const {
         csrfSynchronisedProtection,
@@ -328,11 +344,6 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.post('*', sanitizeRequestBody);
 
-    app.get('/executors/invitation/:inviteId', inviteSecurity.verify());
-    app.use('/co-applicant-*', inviteSecurity.checkCoApplicant(useIDAM));
-    app.use('/executors-additional-invite', additionalInvite);
-    app.use('/declaration', declaration);
-
     app.use((req, res, next) => {
         res.locals.launchDarkly = {};
         if (ftValue) {
@@ -344,10 +355,10 @@ exports.init = function (isA11yTest = false, a11yTestSession = {}, ftValue) {
 
     app.use(featureToggles);
 
+    app.use('/executors-additional-invite', additionalInvite);
+    app.use('/declaration', declaration);
+
     if (useIDAM === 'true') {
-        const nonIdamPages = normalizeNonIdamPages(config.nonIdamPages);
-        const idamPages = new RegExp(`/((?!${nonIdamPages.join('|')}).)*`);
-        app.use(idamPages, security.protect(config.services.idam.roles));
         app.use('/', routes);
     } else {
         app.use('/', (req, res, next) => {

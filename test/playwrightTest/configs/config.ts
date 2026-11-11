@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config({path: './test/playwrightTest/.env'});
 
 export const testConfig = {
-  environment: 'sandbox',
+  environment: 'demo',
   featureToggles: {
     enabled: false,
   },

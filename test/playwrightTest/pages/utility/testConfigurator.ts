@@ -24,7 +24,7 @@ export class TestConfigurator {
   testProxy: string;
 
   constructor() {
-    this.environment = testConfig.TestFrontendUrl.includes('local') ? 'local' : 'aat';
+    this.environment = testConfig.TestFrontendUrl.includes('demo') ? 'demo' : 'aat';
     this.testBaseUrl = testConfig.TestIdamBaseUrl;
     this.useIdam = testConfig.TestUseIdam;
     this.setTestCitizenName();

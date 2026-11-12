@@ -15,6 +15,29 @@ class IdamSession extends Service {
         return AsyncFetch.fetchJson(url, fetchOptions);
     }
 
+    async logoutIdam(req, res, postLogoutRedirectUri) {
+        this.log('Logout and clear session');
+        const SECURITY_COOKIE = `__auth-token-${this.config.payloadVersion}`;
+        const logoutIdamUrl = `${this.config.services.idam.endSessionUrl}/?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}`;
+        this.log('Logout url: ' + logoutIdamUrl);
+
+        return new Promise((resolve, reject) => {
+            req.session.destroy((err) => {
+                if (err) {
+                    this.log(`Error destroying session: ${err}`);
+                    return reject(err);
+                }
+                res.clearCookie(SECURITY_COOKIE);
+                delete req.cookies;
+                delete req.sessionID;
+                delete req.session;
+                delete req.sessionStore;
+                res.redirect(303, logoutIdamUrl);
+                resolve();
+            });
+        });
+    }
+
     delete(accessToken) {
         this.log('Delete idam session');
         const url = `${this.endpoint}/session/${accessToken}`;

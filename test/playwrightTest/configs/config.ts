@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config({path: './test/playwrightTest/.env'});
 
 export const testConfig = {
-  environment: 'sandbox',
+  environment: 'ithc',
   featureToggles: {
     enabled: false,
   },
@@ -16,8 +16,8 @@ export const testConfig = {
 
   TestCitizenDomain: '/@probateTest.com',
   TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
-  TestE2EFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
-  TestFrontendUrl: process.env.TEST_URL || 'http://localhost:3000',
+  TestE2EFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-pr-2734.preview.platform.hmcts.net',
+  TestFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-pr-2734.preview.platform.hmcts.net',
   TestIdamAddUserUrl: '/testing-support/accounts',
   TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net',
   TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login',

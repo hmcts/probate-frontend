@@ -55,6 +55,9 @@ redis:
   useTLS: REDIS_USE_TLS
   enabled: USE_REDIS
   secret: REDIS_SECRET
+singleActiveSession:
+  enabled: SINGLE_ACTIVE_SESSION_ENABLED
+  mappingTtl: SINGLE_ACTIVE_SESSION_MAPPING_TTL
 enableTracking: ENABLE_TRACKING
 webchat:
   kerv:

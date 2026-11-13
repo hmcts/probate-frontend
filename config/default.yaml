@@ -33,7 +33,10 @@ app:
   useCSRFProtection: 'true' # TODO: tech debt, tests should be csrf aware, it shouldn't be possible to accidentally disable this
   session:
     expires: 3600000 # ms (60 minutes)
-    ttl: 28800 # ms (8 hours)
+    ttl: 28800 # seconds (8 hours)
+singleActiveSession:
+  enabled: 'true'
+  mappingTtl: 28800 # seconds (8 hours) for Redis user->active-session ownership mapping
 health:
   service_name: 'Apply for Probate'
   timeout: 30000
@@ -378,6 +381,7 @@ hardStopParams:
   gop: []
   intestacy: []
 nonIdamPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'ee-deceased-dod', 'ee-estate-valued', 'time-out']
+publicScreenerPages: ['start-eligibility', 'death-certificate', 'death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'ee-deceased-dod', 'ee-estate-valued']
 noCcdCaseIdPages: ['health/*', 'stop-page/*', 'error', 'sign-in', 'pin-resend', 'pin-sent', 'co-applicant-*', 'pin', 'inviteIdList', 'start-eligibility', 'death-certificate','death-certificate-english', 'death-certificate-translation', 'deceased-domicile', 'iht-completed', 'will-left', 'will-original', 'applicant-executor', 'mental-capacity', 'died-after-october-2014', 'related-to-deceased', 'other-applicants', 'start-apply', 'contact-us', 'accessibility-statement', 'terms-conditions', 'privacy-policy', 'cookies', 'dashboard', 'sign-out', 'time-out', 'ee-deceased-dod', 'ee-estate-valued', 'task-list']
 endpoints:
   health: '/health'

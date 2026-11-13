@@ -437,3 +437,8 @@ disposal:
 fee:
   copiesUKFee: '16.00'
   copiesUKFee2026: '2.00'
+validUrl:
+  options:
+    protocols: ['http', 'https', 'ftp']
+    require_protocol: true
+    require_tld: false

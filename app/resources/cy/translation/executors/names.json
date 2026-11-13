@@ -11,7 +11,7 @@
   "errors": {
     "executorName": {
       "required": "Nodwch enw&rsquo;r ysgutor",
-      "invalid": "Nodwch enw dilys ar gyfer yr ysgutor - dim ond llythrennau o a i z, bylchau, cysylltnodau a chollnodau y gellir eu cynnwys"
+      "invalid": "Nodwch enw dilys ar gyfer yr ysgutor"
     }
   }
 }

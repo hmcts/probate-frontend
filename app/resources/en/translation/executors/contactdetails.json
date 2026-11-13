@@ -5,7 +5,7 @@
   "paragraph2": "You must provide their current email address and mobile phone number. For international numbers include the country code.",
   "email": "Email address",
   "mobile": "Mobile number",
-  "mobileHint": "For example, 07700900900 or +39133457090",
+  "mobileHint": "For example, 07771 900 900 or +61 491 576 801",
 
   "errors": {
     "email": {

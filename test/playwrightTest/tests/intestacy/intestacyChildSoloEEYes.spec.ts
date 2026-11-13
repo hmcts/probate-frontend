@@ -72,8 +72,7 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceasedAat(language);
-      await intestacyScreenerPage.selectOtherApplicantsAat();
+      await intestacyScreenerPage.selectRelatedToDeceased(language, relationshipChildOfDeceased);
 
       await intestacyScreenerPage.startApply(language);
 
@@ -84,17 +83,14 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, 'Deceased Details Task', null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-      await deceasedDetailsPage.enterDeceasedDetailsAat(
-        deceasedFirstName,
-        deceasedLastName,
+      await deceasedDetailsPage.enterDeceasedDetails(deceasedFirstName, deceasedLastName);
+      await deceasedDetailsPage.enterDobDetails(language,
         deceasedDetailsConfig.deceasedDobDay,
         deceasedDetailsConfig.deceasedDobMonth,
-        deceasedDetailsConfig.deceasedDobYear,
-        deceasedDetailsConfig.deceasedDodDay,
+        deceasedDetailsConfig.deceasedDobYear);
+      await deceasedDetailsPage.enterDodDetails(deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
-        deceasedDetailsConfig.deceasedDodYear,
-      );
-
+        deceasedDetailsConfig.deceasedDodYear);
       await deceasedDetailsPage.enterDeceasedAddress();
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
       await deceasedDetailsPage.selectEnglishForeignDeathCert(language, optionNo);
@@ -112,11 +108,14 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Applicant details task", null);
       await taskListPage.selectATask(language, 'applicantsTask');
       await applicantDetailsPage.selectRelationshipToDeceased(language, relationshipChildOfDeceased);
+      await applicantDetailsPage.selectSpouseNotApplyingReason(applicantDetailConfig.optionOther);
+      await applicantDetailsPage.viewSpouseNotApplyingStopPage(language);
       await applicantDetailsPage.selectSpouseNotApplyingReason(optionRenouncing);
+      await applicantDetailsPage.mainApplicantAdoptedIn(language, optionYes, 'child');
+      await applicantDetailsPage.mainApplicantAdoptionPlace(language, optionYes);
       await applicantDetailsPage.enterAnyOtherChildren(language, optionYes);
-      await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionAllOfThem);
-     // await applicantDetailsPage.anyGrandChildren(language, optionNo);
+      await applicantDetailsPage.anySurvivingGrandchildren(language, optionNo);
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);
       await applicantDetailsPage.enterAddressManually();

@@ -1,0 +1,12 @@
+{
+  "title": "Remove co-applicant",
+  "question": "Ydych chi&rsquo;n si&wcirc;r eich bod eisiau dileu {executorFullName}?",
+  "optionYes": "Ydw",
+  "optionNo": "Nac ydw",
+
+  "errors": {
+    "removeCoApplicant": {
+      "required": "Dewiswch &lsquo;ydw&rsquo; os ydych eisiau dileu {executorFullName}"
+    }
+  }
+}

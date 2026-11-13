@@ -1,0 +1,12 @@
+{
+  "title": "Co-Applicant adopted deceased in",
+  "question": "Did {applicantName} legally adopt {deceasedName} in to their family?",
+  "optionYes": "Yes",
+  "optionNo": "No",
+
+  "errors": {
+    "coApplicantAdoptedDeceasedIn": {
+      "required": "Select &lsquo;Yes&rsquo; if {applicantName} adopted {deceasedName}"
+    }
+  }
+}

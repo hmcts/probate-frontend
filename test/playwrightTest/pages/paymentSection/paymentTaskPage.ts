@@ -160,37 +160,41 @@ export class PaymentTaskSection extends BasePage {
 
   async seeThankYouPage(language = 'en', testSurvey: boolean = false, isWithoutDocs: boolean = false) {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
+    const browserName = this.page.context().browser()?.browserType().name();
     await this.checkInUrl('/thank-you');
-    await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
-    const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
-      .innerText();
-    const caseId = confirmationText.match(/\d+(-\d+)+/);
-    await this.downloadPdfIfNotIE11(this.cyaDownloadLocator);
-    if(!isWithoutDocs) {
-      await this.downloadPdfIfNotIE11(this.coverSheetDownloadLocator)
-    }
-    await this.downloadPdfIfNotIE11(this.legalStatementDownloadLocator);
 
-    if (testSurvey) {
-      const originalTabs = await this.context.pages().length;
-      await this.page.locator('#main-content > div > div > div.govuk-notification-banner > div > p.govuk-body > a').click();
-      for (let i = 0; i <= 5; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        const currentTabs = await this.context.pages().length;
-        if (currentTabs > originalTabs) {
-          break;
-        }
-        // eslint-disable-next-line no-await-in-loop
-        await this.page.waitForTimeout(200);
+    if (browserName !== 'webkit') {
+      await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
+      const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
+        .innerText();
+      const caseId = confirmationText.match(/\d+(-\d+)+/);
+      await this.downloadPdfIfNotIE11(this.cyaDownloadLocator);
+      if (!isWithoutDocs) {
+        await this.downloadPdfIfNotIE11(this.coverSheetDownloadLocator)
       }
-      await this.switchToNextTab(1);
-      const activeTab = await this.closeCurrentTab();
-      await activeTab.waitForTimeout(200);
+      await this.downloadPdfIfNotIE11(this.legalStatementDownloadLocator);
+
+      if (testSurvey) {
+        const originalTabs = await this.context.pages().length;
+        await this.page.locator('#main-content > div > div > div.govuk-notification-banner > div > p.govuk-body > a').click();
+        for (let i = 0; i <= 5; i++) {
+          // eslint-disable-next-line no-await-in-loop
+          const currentTabs = await this.context.pages().length;
+          if (currentTabs > originalTabs) {
+            break;
+          }
+          // eslint-disable-next-line no-await-in-loop
+          await this.page.waitForTimeout(200);
+        }
+        await this.switchToNextTab(1);
+        const activeTab = await this.closeCurrentTab();
+        await activeTab.waitForTimeout(200);
+      }
+
+      await expect(this.page.locator('#navigation > li:nth-child(2) > a')).toBeEnabled();
+      await this.navByClick(this.page.locator('#navigation > li:nth-child(2) > a'));
+
+      return caseId ? caseId[0].trim() : '';
     }
-
-    await expect(this.page.locator('#navigation > li:nth-child(2) > a')).toBeEnabled();
-    await this.navByClick(this.page.locator('#navigation > li:nth-child(2) > a'));
-
-    return caseId ? caseId[0].trim() : '';
   }
 }

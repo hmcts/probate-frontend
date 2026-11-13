@@ -12,13 +12,18 @@ class ApplicantName extends ValidationStep {
     }
 
     handlePost(ctx, errors, formdata, session) {
-        if (ctx.firstName && validator.isURL(ctx.firstName, config.validUrl.options)) {
-            errors.push(FieldError('firstName', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+        ['firstName', 'lastName'].forEach((field) => {
+            if (ctx[field] && validator.isURL(ctx[field], config.validUrl.options)) {
+                errors.push(FieldError(
+                    field,
+                    'invalid',
+                    this.resourcePath,
+                    this.generateContent({}, {}, session.language),
+                    session.language
+                ));
+            }
+        });
 
-        }
-        if (ctx.lastName && validator.isURL(ctx.lastName, config.validUrl.options)) {
-            errors.push(FieldError('lastName', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
-        }
         return [ctx, errors];
     }
 }

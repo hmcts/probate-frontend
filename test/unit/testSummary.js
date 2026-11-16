@@ -306,5 +306,23 @@ describe('Summary', () => {
             expect(fields.isGaEnabled.value).to.deep.equal('true');
             done();
         });
+
+        it('should propagate isWebChatEnabled from ctx into result', (done) => {
+            const language = 'en';
+            const ctx = {
+                isGaEnabled: true,
+                isWebchatEnabled: true,
+            };
+            const errors = [];
+            const formdata = {};
+
+
+            const summary = new Summary(steps, section, templatePath, i18next, schema);
+
+            const result = summary.generateFields(language, ctx, errors, formdata);
+
+            expect(result).to.contain.keys('isWebchatEnabled');
+            done();
+        });
     });
 });

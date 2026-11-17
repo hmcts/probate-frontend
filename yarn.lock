@@ -4802,12 +4802,12 @@ __metadata:
   linkType: hard
 
 "cacache@npm:^21.0.1":
-  version: 21.0.1
-  resolution: "cacache@npm:21.0.1"
+  version: 21.0.2
+  resolution: "cacache@npm:21.0.2"
   dependencies:
     "@npmcli/fs": "npm:^6.0.0"
     fs-minipass: "npm:^3.0.0"
-    glob: "npm:^13.0.0"
+    glob: "npm:^14.0.3"
     lru-cache: "npm:^11.1.0"
     minipass: "npm:^7.0.3"
     minipass-collect: "npm:^2.0.1"
@@ -4815,7 +4815,7 @@ __metadata:
     minipass-pipeline: "npm:^1.2.4"
     p-map: "npm:^7.0.2"
     ssri: "npm:^14.0.0"
-  checksum: 10/b75cdcb71fc2dfa6f9684e97f743f5d46570390cde7c747f82009a09ba6c743ebe401b0127e243f1b6426bd31a4e361df3fa85d429aab361a88d38a06b43d94d
+  checksum: 10/66b69782caea376290fda675c1a2ad6da52852e78c7b14d69360747c2cc389ede3a290b02330498184c3a93ba100eed1760071a3f2dc6d952171f0f61ae5041b
   languageName: node
   linkType: hard
 

@@ -161,6 +161,7 @@ export class PaymentTaskSection extends BasePage {
   async seeThankYouPage(language = 'en', testSurvey: boolean = false, isWithoutDocs: boolean = false) {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
     const browserName = this.page.context().browser()?.browserType().name();
+    console.log('Browser name: ', browserName);
     await this.checkInUrl('/thank-you');
 
     if (browserName !== 'webkit') {

@@ -161,13 +161,14 @@ export class PaymentTaskSection extends BasePage {
   async seeThankYouPage(language = 'en', testSurvey: boolean = false, isWithoutDocs: boolean = false) {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
     const browserName = this.page.context().browser()?.browserType().name();
+    let caseId: RegExpMatchArray | null = null;
 
     if (browserName !== 'webkit') {
       await this.checkInUrl('/thank-you');
       await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
       const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
         .innerText();
-      const caseId = confirmationText.match(/\d+(-\d+)+/);
+      caseId = confirmationText.match(/\d+(-\d+)+/);
       await this.downloadPdfIfNotIE11(this.cyaDownloadLocator);
       if (!isWithoutDocs) {
         await this.downloadPdfIfNotIE11(this.coverSheetDownloadLocator)
@@ -193,8 +194,9 @@ export class PaymentTaskSection extends BasePage {
 
       await expect(this.page.locator('#navigation > li:nth-child(2) > a')).toBeEnabled();
       await this.navByClick(this.page.locator('#navigation > li:nth-child(2) > a'));
-
       return caseId ? caseId[0].trim() : '';
+    } else {
+      return caseId;
     }
   }
 }

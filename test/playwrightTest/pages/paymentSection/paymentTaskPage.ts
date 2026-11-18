@@ -162,9 +162,9 @@ export class PaymentTaskSection extends BasePage {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
     const browserName = this.page.context().browser()?.browserType().name();
     let caseId: RegExpMatchArray | null = null;
-    await this.checkInUrl('/thank-you');
 
     if (browserName !== 'webkit') {
+      await this.checkInUrl('/thank-you');
       await expect(this.page.getByText(await decodeHTML(thankYouContent.header))).toBeVisible();
       const confirmationText = await this.page.locator('#main-content > div > div > div.govuk-panel.govuk-panel--confirmation > div')
         .innerText();

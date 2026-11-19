@@ -59,5 +59,19 @@ describe('AssetsOutside', () => {
             [ctx, formdata] = AssetsOverseas.action(ctx, formdata);
             expect(ctx).to.deep.equal({});
         });
+
+        it('should reset overseas copies to zero when assets overseas is set to No', () => {
+            let formdata = {
+                copies: {
+                    overseas: 3
+                }
+            };
+            let ctx = {
+                deceasedName: 'Dee Ceased',
+                assetsoverseas: 'optionNo'
+            };
+            [ctx, formdata] = AssetsOverseas.action(ctx, formdata);
+            expect(formdata.copies.overseas).to.equal(0);
+        });
     });
 });

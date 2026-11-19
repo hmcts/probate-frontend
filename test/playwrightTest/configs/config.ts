@@ -16,8 +16,8 @@ export const testConfig = {
 
   TestCitizenDomain: '/@probateTest.com',
   TestDocumentToUpload: 'uploadDocuments/test_file_for_document_upload.png',
-  TestE2EFrontendUrl: process.env.TEST_URL || 'https://probate.demo.platform.hmcts.net',
-  TestFrontendUrl: process.env.TEST_URL || 'https://probate.demo.platform.hmcts.net',
+  TestE2EFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-pr-2734.preview.platform.hmcts.net',
+  TestFrontendUrl: process.env.TEST_URL || 'https://probate-frontend-pr-2734.preview.platform.hmcts.net',
   TestIdamAddUserUrl: '/testing-support/accounts',
   TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net',
   TestIdamLoginUrl: 'https://idam-testing-support-api.aat.platform.hmcts.net/login',

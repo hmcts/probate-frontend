@@ -135,6 +135,7 @@ class CoApplicantParentAdoptedIn extends ValidationStep {
         if (formdata.executors && formdata.executors.list && adoptedIn && ctx.applicantParentAdoptedIn !== formdata.executors.list[ctx.index]?.[adoptedIn]) {
             delete ctx.list[ctx.index][adoptionPlace];
             delete ctx.list[ctx.index][adoptedOut];
+            ctx.hasCoApplicant = 'optionYes';
         }
         if (adoptedIn) {
             ctx.list[ctx.index][adoptedIn] = ctx.applicantParentAdoptedIn;

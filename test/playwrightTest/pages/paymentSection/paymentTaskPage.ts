@@ -1,4 +1,4 @@
-import { BrowserContext, expect } from '@playwright/test';
+import { BrowserContext, expect, test } from '@playwright/test';
 import {BasePage, decodeHTML} from '../utility/basePage.ts';
 import {getContent} from "../utility/contentHelper.ts";
 import { testConfig } from "../../configs/config.ts";
@@ -197,7 +197,13 @@ export class PaymentTaskSection extends BasePage {
 
       return caseId ? caseId[0].trim() : '';
     } else {
-      return caseId;
+      // eslint-disable-next-line playwright/no-networkidle
+      await this.page.waitForLoadState('networkidle');
+      test.info().annotations.push({
+        type: 'known-issue',
+        description: 'Thank-you page not rendered in Playwright WebKit; verified manually in Safari',
+      });
+      return null;
     }
   }
 }

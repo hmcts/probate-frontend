@@ -162,7 +162,7 @@ export class PaymentTaskSection extends BasePage {
     const thankYouContent = getContent(`app/resources/${language}/translation/thankyou.json`);
     const browserName = this.page.context().browser()?.browserType().name();
     let caseId: RegExpMatchArray | null = null;
-    await this.page.waitForURL('/thank-you', { timeout: 120_000 });
+    await this.page.waitForURL('**/thank-you**', { timeout: 120_000 });
 
     if (browserName !== 'webkit') {
       await this.checkInUrl('/thank-you');

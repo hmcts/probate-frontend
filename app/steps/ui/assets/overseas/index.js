@@ -26,6 +26,9 @@ class AssetsOverseas extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        if (ctx.assetsoverseas !== 'optionYes' && formdata.copies) {
+            formdata.copies.overseas = 0;
+        }
         delete ctx.deceasedName;
         return [ctx, formdata];
     }

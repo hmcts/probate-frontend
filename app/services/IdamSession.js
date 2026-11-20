@@ -6,7 +6,7 @@ const AsyncFetch = require('app/utils/AsyncFetch');
 class IdamSession extends Service {
     get(securityCookie) {
         this.log('Get idam session');
-        const url = `${this.endpoint}/o/userinfo`;
+        const url = `${this.endpoint}/details`;
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${securityCookie}`

@@ -20,7 +20,7 @@ describe('IdamSessionService', () => {
             expect(idamSession.log.calledOnce).to.equal(true);
             expect(idamSession.log.calledWith('Get idam session')).to.equal(true);
             expect(AsyncFetch.fetchJson.calledOnce).to.equal(true);
-            expect(AsyncFetch.fetchJson.calledWith(`${endpoint}/o/userinfo`, fetchOptions)).to.equal(true);
+            expect(AsyncFetch.fetchJson.calledWith(`${endpoint}/details`, fetchOptions)).to.equal(true);
 
             logSpy.restore();
             fetchJsonSpy.restore();

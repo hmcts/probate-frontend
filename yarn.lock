@@ -3863,7 +3863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.14.0, ajv@npm:^6.15.0":
+"ajv@npm:^6.14.0":
   version: 6.15.0
   resolution: "ajv@npm:6.15.0"
   dependencies:
@@ -3875,7 +3875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.6.3":
+"ajv@npm:^8.0.0, ajv@npm:^8.6.3":
   version: 8.20.0
   resolution: "ajv@npm:8.20.0"
   dependencies:
@@ -12704,7 +12704,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:^5.10.0"
     "@types/node": "npm:^24.19.2"
     "@wdio/cli": "npm:^10.2.0"
-    ajv: "npm:^6.15.0"
+    ajv: "npm:^8.0.0"
     ajv-keywords: "npm:^3.5.2"
     applicationinsights: "npm:^2.9.8"
     basic-auth: "npm:^2.0.1"

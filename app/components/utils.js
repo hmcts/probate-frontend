@@ -10,7 +10,10 @@ const getStore = (redisConfig, ttl) => {
         };
         const redisOptions = redisConfig.useTLS === 'true' ? tlsOptions : {};
         const client = new Redis(redisConfig.port, redisConfig.host, redisOptions);
-        return new RedisStore({client, ttl});
+        const store = new RedisStore({client, ttl});
+        // Keep raw ioredis access because connect-redis does not expose eval, which SessionConcurrency needs for atomic ownership Lua scripts.
+        store.redisClient = client;
+        return store;
     }
     const MemoryStore = require('express-session').MemoryStore;
     return new MemoryStore();

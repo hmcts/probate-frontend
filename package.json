@@ -85,7 +85,7 @@
     "eslint": "NODE_PATH=. eslint .",
     "test:functional": "NODE_ENV=test yarn test-contract && NODE_ENV=test yarn test-e2e-http-launch-darkly",
     "test:fullfunctional": "yarn playwright install chromium && BROWSER_NAME=FullFunctionalTest yarn playwright test --project=chromium",
-    "test:functional-Edge": "yarn playwright install msedge && BROWSER_NAME=EdgeTests yarn playwright test --project=edge ",
+    "test:functional-Edge": "BROWSER_NAME=EdgeTests yarn playwright test --project=edge ",
     "test:functional-chromium": "yarn playwright install chromium && BROWSER_NAME=FullFunctionalTest yarn playwright test --project=chromium ",
     "test:functional-webkit": "yarn playwright install webkit && BROWSER_NAME=WebkitTests yarn playwright test --project=webkit ",
     "test:functional-firefox": "yarn playwright install firefox && BROWSER_NAME=FirefoxTests yarn playwright test --project=firefox ",

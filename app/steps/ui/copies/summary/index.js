@@ -27,7 +27,7 @@ class CopiesSummary extends Step {
     }
 
     generateFields(language, ctx, errors, formdata) {
-        const fields = {};
+        const fields = super.generateFields(language, ctx, errors, formdata);
         Object.keys(this.steps).filter(stepName => copiesSteps.includes(stepName))
             .forEach((stepName) => {
                 const step = this.steps[stepName];

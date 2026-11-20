@@ -1,5 +1,6 @@
 'use strict';
 const initSteps = require('app/core/initSteps');
+const content = require("../../../app/resources/en/translation/executors/names.json");
 const expect = require('chai').expect;
 const steps = initSteps([`${__dirname}/../../../app/steps/action/`, `${__dirname}/../../../app/steps/ui`]);
 const ExecutorsNames = steps.ExecutorsNames;
@@ -59,10 +60,28 @@ describe('ExecutorsNames', () => {
         });
 
         it('should add executorName to ctx.list if executorName exists and is not empty', () => {
-            const ctx = {executorName: 'John Doe'};
-            const errors = [];
-            ExecutorsNames.handlePost(ctx, errors);
+            let ctx = {executorName: 'John Doe'};
+            let errors = [];
+            [ctx, errors] = ExecutorsNames.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(errors).to.deep.equal([]);
             expect(ctx.list).to.deep.equal([{fullName: 'John Doe'}]);
+        });
+        it('should return the executorName errors correctly', (done) => {
+            let ctx = {executorName: 'http://executorName'};
+            let errors = [];
+            [ctx, errors] = ExecutorsNames.handlePost(ctx, errors, {}, {language: 'en'});
+            expect(ctx).to.deep.equal({
+                executorName: 'http://executorName',
+                list: []
+            });
+            expect(errors).to.deep.equal([
+                {
+                    field: 'executorName',
+                    href: '#executorName',
+                    msg: content.errors.executorName.invalid
+                }
+            ]);
+            done();
         });
     });
     describe('action', () => {

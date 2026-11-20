@@ -11,7 +11,7 @@
   "errors": {
     "executorName": {
       "required": "Enter the executor&rsquo;s name",
-      "invalid": "Enter a valid executor&rsquo;s name - can only contain letters a to z, spaces, hyphens and apostrophes"
+      "invalid": "Enter a valid executor&rsquo;s name"
     }
   }
 }

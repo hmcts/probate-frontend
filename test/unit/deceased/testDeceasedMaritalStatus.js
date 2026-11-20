@@ -75,7 +75,7 @@ describe('DeceasedMaritalStatus', () => {
                 anyChildren: 'optionYes',
                 anyOtherChildren: 'optionYes',
                 allChildrenOver18: 'optionYes',
-                anyDeceasedChildren: 'optionYes',
+                anyPredeceasedChildren: 'optionYesAll',
                 anyGrandchildrenUnder18: 'optionYes'
             };
             [ctx, formdata] = DeceasedMaritalStatus.action(ctx, formdata);

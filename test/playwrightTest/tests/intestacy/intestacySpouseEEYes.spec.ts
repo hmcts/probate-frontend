@@ -69,8 +69,7 @@ getTestLanguages().forEach(language => {
 
       // Intestacy Sceeners
       await intestacyScreenerPage.selectDiedAfterOctober2014(optionYes);
-      await intestacyScreenerPage.selectRelatedToDeceasedAat(language);
-      await intestacyScreenerPage.selectOtherApplicantsAat();
+      await intestacyScreenerPage.selectRelatedToDeceased(language, spouseOfDeceased);
 
       await intestacyScreenerPage.startApply(language);
 
@@ -81,16 +80,14 @@ getTestLanguages().forEach(language => {
       await basePage.logInfo(scenarioName, "Deceased Details Task", null);
       await taskListPage.selectATask(language, 'deceasedTask');
       await deceasedDetailsPage.chooseBiLingualGrant(optionNo);
-      await deceasedDetailsPage.enterDeceasedDetailsAat(
-        deceasedFirstName,
-        deceasedLastName,
+      await deceasedDetailsPage.enterDeceasedDetails(deceasedFirstName, deceasedLastName);
+      await deceasedDetailsPage.enterDobDetails(language,
         deceasedDetailsConfig.deceasedDobDay,
         deceasedDetailsConfig.deceasedDobMonth,
-        deceasedDetailsConfig.deceasedDobYear,
-        deceasedDetailsConfig.deceasedDodDay,
+        deceasedDetailsConfig.deceasedDobYear);
+      await deceasedDetailsPage.enterDodDetails(deceasedDetailsConfig.deceasedDodDay,
         deceasedDetailsConfig.deceasedDodMonth,
-        deceasedDetailsConfig.deceasedDodYearEE,
-      );
+        deceasedDetailsConfig.deceasedDodYearEE);
       await deceasedDetailsPage.enterDeceasedAddress();
 
       await deceasedDetailsPage.selectDiedEngOrWales(optionNo);
@@ -116,7 +113,12 @@ getTestLanguages().forEach(language => {
       await applicantDetailsPage.enterAnyChildren(language, optionYes);
       await applicantDetailsPage.anyChildrenOverEighteen(language, optionYes);
       await applicantDetailsPage.otherChildrenDiedBefore(applicantDetailConfig.optionSomeOfThem);
-      await applicantDetailsPage.anyGrandChildren(language, optionYes);
+      await applicantDetailsPage.anySurvivingGrandchildren(language, optionYes);
+      await applicantDetailsPage.anyGrandchildrenUnderEighteen(language, optionNo);
+
+      await applicantDetailsPage.jointApplication(language, optionYes);
+      await applicantDetailsPage.spouseCoApplicationStopPage();
+      await applicantDetailsPage.jointApplication(language, optionNo);
 
       await applicantDetailsPage.enterApplicantName(language, 'ApplicantFirstName', 'ApplicantLastName');
       await applicantDetailsPage.enterApplicantPhone(language);

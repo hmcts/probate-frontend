@@ -48,9 +48,9 @@ class DivorcePlace extends ValidationStep {
         }
 
         if (ctx.copyMaritalStatus === 'optionDivorced') {
-            return this.next(req, ctx).constructor.getUrl('divorcePlace');
+            return this.next(req, ctx).constructor.getUrl('divorcedNotInEnglandOrWales');
         }
-        return this.next(req, ctx).constructor.getUrl('separationPlace');
+        return this.next(req, ctx).constructor.getUrl('separatedNotInEnglandOrWales');
     }
 
     nextStepOptions() {

@@ -1,29 +1,33 @@
 {
   "title": "Applicant address",
   "question": "What is your address?",
-  "explanation1": "We&rsquo;ll send the grant of probate to this address.",
+  "explanation1": "We will send the grant of probate to this address.",
   "postTown": "Town or city",
-  "postcode": "Postcode",
-  "country": "Country (optional)",
+  "postcode": "UK Postcode",
+  "postcodeUK": "UK postcode",
+  "country": "Country",
   "findAddress": "Find UK address",
-  "addressLabel": "Address",
+  "addressLabel": "Address Line 1",
   "addressLabel2": "Address Line 2 (optional)",
   "addressLabel3": "Address Line 3 (optional)",
   "selectAddress": "Select address",
-  "enterManually": "Enter your address instead",
+  "enterManually": "Enter an address instead",
 
   "errors": {
     "addressLine1": {
-      "required": "Enter the first line of the address",
+      "required": "Enter address line 1, typically the building and street",
       "invalid": "Enter an address line that is 2-150 characters long"
     },
     "postTown": {
-      "required": "Enter a town or city",
+      "required": "Enter town or city",
       "invalid": "Enter a post town that is 2-50 characters long"
     },
     "newPostCode": {
-      "required": "Enter a postcode",
+      "required": "Enter postcode",
       "invalid": "Enter a postcode that is 2-14 characters long"
+    },
+    "country": {
+      "required": "Enter country"
     }
   }
 }

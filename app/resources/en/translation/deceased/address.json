@@ -4,26 +4,31 @@
   "explanation1": "If they were living in a care home, you should enter that address.",
   "postTown": "Town or city",
   "postcode": "Postcode",
-  "country": "Country (optional)",
-  "findAddress": "Find UK address",
+  "postcodeUK": "UK postcode",
+  "country": "Country",
+  "findAddress": "Find address",
   "addressLabel": "Address",
+  "addressLabel1": "Address line 1",
   "addressLabel2": "Address Line 2 (optional)",
   "addressLabel3": "Address Line 3 (optional)",
   "selectAddress": "Select address",
-  "enterManually": "Enter their address instead",
+  "enterManually": "Enter an address instead",
 
   "errors": {
     "addressLine1": {
-      "required": "Enter the first line of the address",
+      "required": "Enter address line 1, typically the building and street",
       "invalid": "Enter an address line that is 2-150 characters long"
     },
     "postTown": {
-      "required": "Enter a town or city",
+      "required": "Enter town or city",
       "invalid": "Enter a post town that is 2-50 characters long"
     },
     "newPostCode": {
-      "required": "Enter a postcode",
+      "required": "Enter postcode",
       "invalid": "Enter a postcode that is 2-14 characters long"
+    },
+    "country": {
+      "required": "Enter country"
     }
   }
 }

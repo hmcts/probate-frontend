@@ -32,11 +32,11 @@ app:
   port: '3000'
   useCSRFProtection: 'true' # TODO: tech debt, tests should be csrf aware, it shouldn't be possible to accidentally disable this
   session:
-    expires: 3600000 # ms (60 minutes)
-    ttl: 28800 # seconds (8 hours)
+    expires: 3600000 # ms (1 hour authenticated inactivity limit)
+    ttl: 28800 # seconds (8 hours Redis session storage lifetime)
 singleActiveSession:
   enabled: 'true'
-  mappingTtl: 28800 # seconds (8 hours) for Redis user->active-session ownership mapping
+  mappingTtl: 28800 # seconds (8 hours) matches Redis session storage so ownership cannot outlive/expire before its Express-session record, without extending the 1-hour inactivity limit
 health:
   service_name: 'Apply for Probate'
   timeout: 30000

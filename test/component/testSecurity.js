@@ -406,10 +406,14 @@ describe('security', () => {
             .callsFake((sessionStore, userId, newlyAuthenticatedSessionId) => {
                 const previousSessionId = currentOwnerSessionByUser[userId] || null;
                 currentOwnerSessionByUser[userId] = newlyAuthenticatedSessionId;
-                return Promise.resolve({
+                const activationResult = {
                     previousSessionId,
                     ownershipStatus: SessionOwnershipStatusEnum.getCurrent()
-                });
+                };
+                if (previousSessionId && previousSessionId !== newlyAuthenticatedSessionId) {
+                    activationResult.destroyError = new Error('simulated previous-session destroy failure');
+                }
+                return Promise.resolve(activationResult);
             });
         const validateCurrentOwnerAndRefreshTtlStub = sinon.stub(SessionConcurrency.prototype, 'validateCurrentOwnerAndRefreshTtl')
             .callsFake((sessionStore, userId, currentSessionId) => {

@@ -97,8 +97,9 @@ class SignOut extends Step {
                 });
         };
 
-        const idamSignOutPromise = idamAccessToken
-            ? (() => {
+        if (idamAccessToken) {
+            // Remote IDAM invalidation is best-effort; local sign-out must complete immediately.
+            (() => {
                 logLifecycle('remote_idam_sign_out_attempted');
                 return idamSession.delete(idamAccessToken)
                     .then(result => {
@@ -108,14 +109,13 @@ class SignOut extends Step {
                         if (isErrorResult) {
                             throw result;
                         }
+                    })
+                    .catch(err => {
+                        logger.error(`Remote IDAM sign-out failed; continuing local sign-out${buildFailureSuffix(err)}.`);
                     });
-            })()
-            : Promise.resolve();
-        return idamSignOutPromise
-            .catch(err => {
-                logger.error(`Remote IDAM sign-out failed; continuing local sign-out${buildFailureSuffix(err)}.`);
-            })
-            .finally(() => finalizeLocalSignOut())
+            })();
+        }
+        return finalizeLocalSignOut()
             .then(() => ctx);
     }
 

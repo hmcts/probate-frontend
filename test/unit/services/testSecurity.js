@@ -960,6 +960,72 @@ describe('Security component', () => {
             });
         });
 
+        it('denies access with unverifiable role-authorisation status when IDAM roles are missing or malformed', async () => {
+            const malformedRolesValue = 'sensitive-malformed-roles-value';
+            const loggerInfoSpy = sinon.spy();
+            const loggerErrorSpy = sinon.spy();
+            const revertLogger = Security.__set__('loggerRaw', () => ({
+                info: loggerInfoSpy,
+                error: loggerErrorSpy,
+                warn: sinon.stub(),
+                debug: sinon.stub()
+            }));
+            const buildRequest = () => {
+                const request = {
+                    cookies: [],
+                    method: 'GET',
+                    path: '/role-check',
+                    session: {expires: expiresTime, language: 'en'},
+                    sessionID: 'current-session-id',
+                    sessionStore: {},
+                    protocol: 'http',
+                    get: sinon.stub().returns('localhost:3000')
+                };
+                request.cookies[IDAM_ACCESS_TOKEN_COOKIE] = token;
+                return request;
+            };
+            const buildResponse = () => ({
+                render: sinon.spy(),
+                redirect: sinon.spy(),
+                status: sinon.spy(),
+                cookie: sinon.spy(),
+                clearCookie: sinon.spy()
+            });
+            const nextMissingRoles = sinon.spy();
+            const nextMalformedRoles = sinon.spy();
+            const resMissingRoles = buildResponse();
+            const resMalformedRoles = buildResponse();
+            security._getIdamDetails = sinon.stub()
+                .onFirstCall().resolves({email: 'user@example.com', id: 'immutable-idam-user-id'})
+                .onSecondCall().resolves({email: 'user@example.com', id: 'immutable-idam-user-id', roles: malformedRolesValue});
+            security._hasAuthorisedRole = sinon.stub();
+            security.sessionConcurrency = {
+                validateCurrentOwnerAndRefreshTtl: sinon.stub().resolves(SessionOwnershipStatusEnum.getCurrent()),
+                activateLatestSession: sinon.stub().resolves()
+            };
+
+            await protectAuthenticatedRoute(buildRequest(), resMissingRoles, nextMissingRoles);
+            await protectAuthenticatedRoute(buildRequest(), resMalformedRoles, nextMalformedRoles);
+
+            sinon.assert.notCalled(nextMissingRoles);
+            sinon.assert.notCalled(nextMalformedRoles);
+            sinon.assert.notCalled(security._hasAuthorisedRole);
+            sinon.assert.calledWith(resMissingRoles.status, 403);
+            sinon.assert.calledWith(resMalformedRoles.status, 403);
+            sinon.assert.calledWith(resMissingRoles.render, 'errors/error');
+            sinon.assert.calledWith(resMalformedRoles.render, 'errors/error');
+            const lifecycleMessages = getMessages(loggerInfoSpy).join('\n');
+            const errorMessages = getMessages(loggerErrorSpy).join('\n');
+            const lifecycleMessagesByEvent = getLifecycleMessagesByEvent(loggerInfoSpy);
+            expect(lifecycleMessages).to.contain('event=role_authorisation_denied');
+            expect(lifecycleMessages).to.contain('roleAuthorisationStatus=UNVERIFIABLE');
+            expect(lifecycleMessagesByEvent.role_authorisation_denied).to.contain('requestMethod=GET');
+            expect(lifecycleMessagesByEvent.role_authorisation_denied).to.contain('requestPath=/role-check');
+            expect(lifecycleMessages).to.not.contain(malformedRolesValue);
+            expect(errorMessages).to.not.contain(malformedRolesValue);
+            revertLogger();
+        });
+
         it('reauthenticates when ownership status is unverifiable and does not continue role authorisation', (done) => {
             const sentinel = 'redis://sensitive/key/token';
             const loggerErrorSpy = sinon.spy();
@@ -1390,6 +1456,7 @@ describe('Security component', () => {
                 expect(lifecycleMessages).to.contain('event=authenticated_login_completed');
                 expect(lifecycleMessages).to.contain(`ownershipStatus=${SessionOwnershipStatusEnum.getCurrent()}`);
                 expect(lifecycleMessages).to.contain('previousSessionReplaced=true');
+                expect(lifecycleMessages).to.contain(`previousSessionDestructionOutcome=${SessionCleanupOutcomeEnum.getFailed()}`);
                 expect(lifecycleMessages).to.contain('requestMethod=GET');
                 expect(lifecycleMessages).to.contain('requestPath=/oauth2/callback');
                 expect(lifecycleMessages).to.not.contain(sentinelUserId);
@@ -1398,6 +1465,50 @@ describe('Security component', () => {
                 sinon.assert.calledWith(security._setCookie, res, IDAM_ACCESS_TOKEN_COOKIE, token);
                 sinon.assert.calledWith(res.redirect, '/task-list');
                 expect(req.session.idamUserId).to.equal(sentinelUserId);
+                revertLogger();
+                revertIdam();
+                done();
+            }).catch(done);
+        });
+
+        it('logs completed activation cleanup outcome when previous session is replaced without destroy errors', (done) => {
+            const loggerInfoSpy = sinon.spy();
+            const loggerErrorSpy = sinon.spy();
+            const revertLogger = Security.__set__('loggerRaw', () => ({info: loggerInfoSpy, error: loggerErrorSpy, warn: sinon.stub(), debug: sinon.stub()}));
+            const revertIdam = Security.__set__('IdamSession', class {
+                get() {
+                    return Promise.resolve({
+                        email: 'user@example.com',
+                        id: 'immutable-idam-user-id',
+                        roles: [role]
+                    });
+                }
+            });
+            security.sessionConcurrency = {
+                activateLatestSession: sinon.stub().resolves({
+                    previousSessionId: 'old-session-id',
+                    ownershipStatus: SessionOwnershipStatusEnum.getCurrent()
+                })
+            };
+            security._getTokenFromCode = sinon.stub().resolves({access_token: token});
+            security._setCookie = sinon.stub();
+            req.log = {info: loggerInfoSpy, error: loggerErrorSpy, warn: sinon.stub(), debug: sinon.stub()};
+            req.session = {language: 'en'};
+            req.query = {code: '12345', state: 'testState'};
+            req.sessionID = 'session-id';
+            req.method = 'GET';
+            req.path = '/oauth2/callback';
+            req.sessionStore = {};
+            const redirectInfo = {state: 'testState', continue_url: '/task-list'};
+
+            security._establishAuthenticatedSession(req, res, redirectInfo).then(() => {
+                const lifecycleMessages = getMessages(loggerInfoSpy).join('\n');
+                expect(lifecycleMessages).to.contain('event=authenticated_login_completed');
+                expect(lifecycleMessages).to.contain(`ownershipStatus=${SessionOwnershipStatusEnum.getCurrent()}`);
+                expect(lifecycleMessages).to.contain('previousSessionReplaced=true');
+                expect(lifecycleMessages).to.contain(`previousSessionDestructionOutcome=${SessionCleanupOutcomeEnum.getCompleted()}`);
+                sinon.assert.calledWith(security._setCookie, res, IDAM_ACCESS_TOKEN_COOKIE, token);
+                sinon.assert.calledWith(res.redirect, '/task-list');
                 revertLogger();
                 revertIdam();
                 done();
@@ -1439,6 +1550,7 @@ describe('Security component', () => {
                 expect(lifecycleMessages).to.contain('event=authenticated_login_completed');
                 expect(lifecycleMessages).to.contain(`ownershipStatus=${SessionOwnershipStatusEnum.getNotEnforced()}`);
                 expect(lifecycleMessages).to.contain('previousSessionReplaced=false');
+                expect(lifecycleMessages).to.contain(`previousSessionDestructionOutcome=${SessionCleanupOutcomeEnum.getSkipped()}`);
                 sinon.assert.calledWith(security._setCookie, res, IDAM_ACCESS_TOKEN_COOKIE, token);
                 sinon.assert.calledWith(res.redirect, '/task-list');
                 revertLogger();

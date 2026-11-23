@@ -50,7 +50,7 @@ describe('Sign-Out', () => {
 
     it('skips IDAM delete without auth cookie and still removes authToken, cookies and session data', () => {
         const loggerInfoSpy = sinon.spy();
-        const revertLogger = SignOut.__set__('logger', {info: loggerInfoSpy, error: sinon.spy()});
+        SignOut.__set__('logger', {info: loggerInfoSpy, error: sinon.spy()});
         const sentinelToken = 'token-A';
         const sentinelSessionId = 'current-session-id';
         const sentinelUserId = 'immutable-idam-user-id';
@@ -58,14 +58,14 @@ describe('Sign-Out', () => {
         const sentinelPathQueryValue = 'query-secret-signout';
         const sentinelUrl = `/sign-out?sentinel=${sentinelPathQueryValue}`;
         const idamDeleteStub = sinon.stub().resolves(200);
-        const revert = SignOut.__set__('IdamSession', class {
+        SignOut.__set__('IdamSession', class {
             delete() {
                 return idamDeleteStub();
             }
         });
         const clearIfCurrentStub = sinon.stub().resolves(1);
         let sessionConcurrencyOptions;
-        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+        SignOut.__set__('SessionConcurrency', class {
             constructor(options) {
                 sessionConcurrencyOptions = options;
             }
@@ -164,13 +164,13 @@ describe('Sign-Out', () => {
         const sentinelUrl = 'https://redis.example/session/token-sensitive';
         const loggerErrorSpy = sinon.spy();
         const loggerInfoSpy = sinon.spy();
-        const revertLogger = SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
-        const revert = SignOut.__set__('IdamSession', class {
+        SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
+        SignOut.__set__('IdamSession', class {
             delete() {
                 return Promise.resolve(200);
             }
         });
-        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+        SignOut.__set__('SessionConcurrency', class {
             clearCurrentOwnerMappingOnSessionMatch() {
                 const err = new Error(`redis failed ${sentinelUrl}`);
                 err.code = 503;
@@ -219,23 +219,32 @@ describe('Sign-Out', () => {
         });
     });
 
-    it('continues local logout when IDAM sign-out fails', () => {
+    it('continues local logout when IDAM sign-out fails', async () => {
         const sentinelUrl = 'https://idam.example/session/abc123token';
         const loggerErrorSpy = sinon.spy();
         const loggerInfoSpy = sinon.spy();
-        const revertLogger = SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
-        const revert = SignOut.__set__('IdamSession', class {
+        SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
+        let rejectDelete;
+        let remoteInvalidationSettled = false;
+        SignOut.__set__('IdamSession', class {
             delete() {
-                const err = new Error(`idam unavailable ${sentinelUrl}`);
-                err.name = 'IdamDeleteError';
-                return Promise.reject(err);
+                return new Promise((resolve, reject) => {
+                    rejectDelete = reject;
+                }).finally(() => {
+                    remoteInvalidationSettled = true;
+                });
             }
         });
         const clearIfCurrentStub = sinon.stub().resolves(0);
-        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+        SignOut.__set__('SessionConcurrency', class {
             clearCurrentOwnerMappingOnSessionMatch(...args) {
                 return clearIfCurrentStub(...args);
             }
+        });
+        const destroySpy = sinon.spy(callback => {
+            delete req.session;
+            delete req.sessionStore;
+            callback();
         });
 
         const sessionStore = {};
@@ -246,11 +255,7 @@ describe('Sign-Out', () => {
             session: {
                 idamUserId: 'immutable-idam-user-id',
                 form: {caseType: 'gop'},
-                destroy: callback => {
-                    delete req.session;
-                    delete req.sessionStore;
-                    callback();
-                }
+                destroy: destroySpy
             },
             sessionStore,
             sessionID: 'current-session-id'
@@ -259,9 +264,16 @@ describe('Sign-Out', () => {
             clearCookie: sinon.spy()
         };
         const signOut = new SignOut(steps, 'applicant', 'addressLookup', {}, {properties: {}});
+        const unhandledRejections = [];
+        const onUnhandledRejection = reason => {
+            unhandledRejections.push(reason);
+        };
+        process.on('unhandledRejection', onUnhandledRejection);
 
-        return signOut.getContextData(req, res).then(() => {
+        try {
+            await signOut.getContextData(req, res);
             sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
+            sinon.assert.calledOnce(destroySpy);
             sinon.assert.calledTwice(res.clearCookie);
             sinon.assert.calledWith(res.clearCookie.firstCall, IDAM_ACCESS_TOKEN_COOKIE);
             sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
@@ -269,6 +281,12 @@ describe('Sign-Out', () => {
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
+            assert.strictEqual(remoteInvalidationSettled, false);
+            const err = new Error(`idam unavailable ${sentinelUrl}`);
+            err.name = 'IdamDeleteError';
+            rejectDelete(err);
+            await new Promise(resolve => setImmediate(resolve));
+            assert.deepEqual(unhandledRejections, []);
             const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
             assert.include(messages, 'Remote IDAM sign-out failed; continuing local sign-out.');
             assert.notInclude(messages, sentinelUrl);
@@ -278,24 +296,37 @@ describe('Sign-Out', () => {
             assert.include(lifecycleMessages, 'event=ownership_mapping_cleanup_result');
             assert.include(lifecycleMessages, `ownershipMappingCleanupOutcome=${SessionCleanupOutcomeEnum.getSkipped()}`);
             assert.include(lifecycleMessages, 'event=local_sign_out_completed');
-        });
+        } finally {
+            process.removeListener('unhandledRejection', onUnhandledRejection);
+        }
     });
 
-    it('continues local logout when IDAM sign-out resolves to an Error object', () => {
+    it('continues local logout when IDAM sign-out resolves to an Error object', async () => {
         const sentinelUrl = 'https://idam.example/session/token-401';
         const loggerErrorSpy = sinon.spy();
         const loggerInfoSpy = sinon.spy();
-        const revertLogger = SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
-        const revert = SignOut.__set__('IdamSession', class {
+        SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
+        let resolveDelete;
+        let remoteInvalidationSettled = false;
+        SignOut.__set__('IdamSession', class {
             delete() {
-                return Promise.resolve(new Error('IDAM 401 empty response'));
+                return new Promise(resolve => {
+                    resolveDelete = resolve;
+                }).finally(() => {
+                    remoteInvalidationSettled = true;
+                });
             }
         });
         const clearIfCurrentStub = sinon.stub().resolves(1);
-        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+        SignOut.__set__('SessionConcurrency', class {
             clearCurrentOwnerMappingOnSessionMatch(...args) {
                 return clearIfCurrentStub(...args);
             }
+        });
+        const destroySpy = sinon.spy(callback => {
+            delete req.session;
+            delete req.sessionStore;
+            callback();
         });
 
         const sessionStore = {};
@@ -306,11 +337,7 @@ describe('Sign-Out', () => {
             session: {
                 idamUserId: 'immutable-idam-user-id',
                 form: {caseType: 'gop'},
-                destroy: callback => {
-                    delete req.session;
-                    delete req.sessionStore;
-                    callback();
-                }
+                destroy: destroySpy
             },
             sessionStore,
             sessionID: 'current-session-id'
@@ -319,9 +346,16 @@ describe('Sign-Out', () => {
             clearCookie: sinon.spy()
         };
         const signOut = new SignOut(steps, 'applicant', 'addressLookup', {}, {properties: {}});
+        const unhandledRejections = [];
+        const onUnhandledRejection = reason => {
+            unhandledRejections.push(reason);
+        };
+        process.on('unhandledRejection', onUnhandledRejection);
 
-        return signOut.getContextData(req, res).then(() => {
+        try {
+            await signOut.getContextData(req, res);
             sinon.assert.calledWith(clearIfCurrentStub, sessionStore, 'immutable-idam-user-id', 'current-session-id');
+            sinon.assert.calledOnce(destroySpy);
             sinon.assert.calledTwice(res.clearCookie);
             sinon.assert.calledWith(res.clearCookie.firstCall, IDAM_ACCESS_TOKEN_COOKIE);
             sinon.assert.calledWith(res.clearCookie.secondCall, expressSessionCookie);
@@ -329,6 +363,10 @@ describe('Sign-Out', () => {
             assert.isUndefined(req.sessionID);
             assert.isUndefined(req.session);
             assert.isUndefined(req.sessionStore);
+            assert.strictEqual(remoteInvalidationSettled, false);
+            resolveDelete(new Error('IDAM 401 empty response'));
+            await new Promise(resolve => setImmediate(resolve));
+            assert.deepEqual(unhandledRejections, []);
             const messages = loggerErrorSpy.getCalls().map(call => call.args.join(' ')).join('\n');
             assert.include(messages, 'Remote IDAM sign-out failed; continuing local sign-out.');
             assert.notInclude(messages, sentinelUrl);
@@ -338,21 +376,23 @@ describe('Sign-Out', () => {
             assert.include(lifecycleMessages, 'event=ownership_mapping_cleanup_result');
             assert.include(lifecycleMessages, `ownershipMappingCleanupOutcome=${SessionCleanupOutcomeEnum.getCompleted()}`);
             assert.include(lifecycleMessages, 'event=local_sign_out_completed');
-        });
+        } finally {
+            process.removeListener('unhandledRejection', onUnhandledRejection);
+        }
     });
 
     it('continues local logout when session destroy fails', () => {
         const sentinelUrl = 'https://idam.example/session/token-98765';
         const loggerErrorSpy = sinon.spy();
         const loggerInfoSpy = sinon.spy();
-        const revertLogger = SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
-        const revert = SignOut.__set__('IdamSession', class {
+        SignOut.__set__('logger', {info: loggerInfoSpy, error: loggerErrorSpy});
+        SignOut.__set__('IdamSession', class {
             delete() {
                 return Promise.resolve(200);
             }
         });
         const clearIfCurrentStub = sinon.stub().resolves(1);
-        const revertSessionConcurrency = SignOut.__set__('SessionConcurrency', class {
+        SignOut.__set__('SessionConcurrency', class {
             clearCurrentOwnerMappingOnSessionMatch(...args) {
                 return clearIfCurrentStub(...args);
             }

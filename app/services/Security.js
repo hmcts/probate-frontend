@@ -102,6 +102,13 @@ class Security {
                         if (sessionOwnershipStatus === SessionOwnershipStatusEnum.getCurrent()
                             || sessionOwnershipStatus === SessionOwnershipStatusEnum.getNotEnforced()) {
                             // Reaching this point means identity and ownership checks passed, so role auth can decide access.
+                            const isRolesArray = Array.isArray(idamDetails.roles);
+                            if (!isRolesArray) {
+                                this._logLifecycle(req, 'role_authorisation_denied', {roleAuthorisationStatus: 'UNVERIFIABLE'});
+                                loggerRaw().error('[ERROR] :: Error authorising user, Role Membership Unverifiable');
+                                this._denyAccess(req, res);
+                                return false;
+                            }
                             if (this._hasAuthorisedRole(idamDetails.roles, authorisedRoles)) {
                                 next();
                                 return true;
@@ -374,9 +381,16 @@ class Security {
                             .then(activationResult => {
                                 const ownershipStatus = activationResult.ownershipStatus;
                                 const previousSessionReplaced = Boolean(activationResult && activationResult.previousSessionId);
+                                let previousSessionDestructionOutcome = SessionCleanupOutcomeEnum.getSkipped();
+                                if (previousSessionReplaced) {
+                                    previousSessionDestructionOutcome = activationResult && activationResult.destroyError
+                                        ? SessionCleanupOutcomeEnum.getFailed()
+                                        : SessionCleanupOutcomeEnum.getCompleted();
+                                }
                                 this._logLifecycle(req, 'authenticated_login_completed', {
                                     ownershipStatus,
-                                    previousSessionReplaced
+                                    previousSessionReplaced,
+                                    previousSessionDestructionOutcome
                                 });
                                 // Keep the new owner mapping even if old-session destruction fails, then log for support visibility.
                                 if (activationResult && activationResult.destroyError) {

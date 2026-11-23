@@ -40,7 +40,7 @@ class SessionConcurrency {
             try {
                 await this.destroySessionById(sessionStore, previousSessionId);
             } catch (err) {
-                // Keep authoritative mapping even when old-session destruction fails.
+                // The new mapping is authoritative; already-authorised old-browser requests may finish, but the next protected request is rejected as SUPERSEDED.
                 return {
                     previousSessionId,
                     ownershipStatus: SessionOwnershipStatusEnum.getCurrent(),

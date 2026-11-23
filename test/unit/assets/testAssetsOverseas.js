@@ -20,18 +20,23 @@ describe('AssetsOutside', () => {
 
         it('should return the context with the deceased name', (done) => {
             req = {
+                method: 'GET',
                 session: {
                     form: {
-                        deceased: {
-                            firstName: 'John',
-                            lastName: 'Doe'
-                        }
+                        assets: {
+                            assetsoverseas: 'optionYes'
+                        },
+                    deceased: {
+                        firstName: 'John',
+                        lastName: 'Doe'
                     }
                 }
-            };
+            }
+        };
 
             ctx = AssetsOverseas.getContextData(req);
             expect(ctx.deceasedName).to.equal('John Doe');
+            expect(ctx.assetsoverseas).to.equal(undefined);
             done();
         });
     });

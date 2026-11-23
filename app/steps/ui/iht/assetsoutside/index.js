@@ -30,7 +30,7 @@ class AssetsOutside extends ValidationStep {
 
         if (ctx.assetsOutside === 'optionNo') {
             delete ctx.netValueAssetsOutsideField;
-            delete ctx.netValueAssetsOutside;
+            ctx.netValueAssetsOutside = 0;
         }
 
         return [ctx, formdata];

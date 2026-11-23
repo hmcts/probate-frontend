@@ -81,7 +81,7 @@ class Security {
     handleSuccessfulIdamDetailsResponse(req, res) {
         req.session.expires = Date.now() + config.app.session.expires;
         req.session.regId = res.email;
-        req.userId = res.id;
+        req.userId = res.uid;
         req.authToken = req.cookies[SECURITY_COOKIE];
         req.session.authToken = req.authToken;
     }

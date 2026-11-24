@@ -27,7 +27,7 @@ const inviteAgreedNock = () => {
         .times(2)
         .reply(200, {code: '456'});
     nock(idamApiUrl)
-        .post('/oauth2/token')
+        .post('/o/token')
         .times(2)
         .reply(200, {access_token: '789'});
     nock(orchestratorServiceUrl)

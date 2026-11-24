@@ -32,7 +32,7 @@ describe('pin-resend', () => {
         nock(IDAM_URL).post(config.services.idam.probate_oauth_authorise_path)
             .reply(200, {code: '12345'});
 
-        nock(IDAM_URL).post('/oauth2/token')
+        nock(IDAM_URL).post('/o/token')
             .reply(200, {'access_token': 'sdkfhdskhf'});
     });
 

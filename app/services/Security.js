@@ -248,7 +248,6 @@ class Security {
         });
     };
 
-
     checkForError(result) {
         if (result.name === 'Error') {
             throw result;

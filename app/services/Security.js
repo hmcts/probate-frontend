@@ -212,7 +212,7 @@ class Security {
         const redirect_url = FormatUrl.format(hostname, config.services.idam.probate_oauth_callback_path);
         return this.getOpenIdToken(redirect_url)
             .then((result) => {
-                checkForError(result);
+                this.checkForError(result);
                 return result.access_token;
             })
             .catch((err) => err);
@@ -247,6 +247,7 @@ class Security {
             headers: headers
         });
     };
+
 
     checkForError(result) {
         if (result.name === 'Error') {

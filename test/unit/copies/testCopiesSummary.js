@@ -68,6 +68,21 @@ describe('CopiesSummary', () => {
             expect(fields.isGaEnabled.value).to.deep.equal('false');
             done();
         });
+
+        it('should propagate isWebChatEnabled from ctx into result', (done) => {
+            const language = 'en';
+            const ctx = {
+                isGaEnabled: true,
+                isWebchatEnabled: true,
+            };
+            const errors = [];
+            const formdata = {};
+
+            const result = CopiesSummary.generateFields(language, ctx, errors, formdata);
+
+            expect(result).to.contain.keys('isWebchatEnabled');
+            done();
+        });
     });
 
     describe('isComplete()', () => {

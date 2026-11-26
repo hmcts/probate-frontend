@@ -49,7 +49,7 @@ describe('deceased-marital-status', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to divorce place page if divorced: ${expectedNextUrlForDivorcePlace}`, (done) => {
+        it(`test it redirects to divorce place page if divorced: /intestacy${expectedNextUrlForDivorcePlace}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -57,11 +57,11 @@ describe('deceased-marital-status', () => {
                         maritalStatus: 'optionDivorced'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDivorcePlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDivorcePlace}`);
                 });
         });
 
-        it(`test it redirects to divorce place page if separated: ${expectedNextUrlForDivorcePlace}`, (done) => {
+        it(`test it redirects to divorce place page if separated: /intestacy${expectedNextUrlForDivorcePlace}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -69,7 +69,7 @@ describe('deceased-marital-status', () => {
                         maritalStatus: 'optionSeparated'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDivorcePlace);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDivorcePlace}`);
                 });
         });
 

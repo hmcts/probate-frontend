@@ -1,0 +1,13 @@
+{
+  "title": "A oedd gan unrhyw un o’r plant hyn blant wnaeth eu goroesi?",
+  "question": "A oedd gan unrhyw un o’r plant hyn blant wnaeth eu goroesi?",
+  "paragraph1": "Nhw fyddai wyrion {deceasedName}.",
+  "optionYes": "Oedd",
+  "optionNo": "Nac oedd",
+
+  "errors": {
+    "anySurvivingGrandchildren": {
+      "required": "Dewiswch &lsquo;Oedd&rsquo; os oes unrhyw blant sydd wedi goroesi"
+    }
+  }
+}

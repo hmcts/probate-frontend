@@ -20,7 +20,7 @@ class DiedAfterOctober2014 extends EligibilityValidationStep {
             return Dashboard.getUrl();
         }
 
-        return this.next(req, ctx).constructor.getUrl('notDiedAfterOctober2014');
+        return this.next(req, ctx).getUrlWithContext(ctx, 'notDiedAfterOctober2014');
     }
 
     nextStepOptions() {

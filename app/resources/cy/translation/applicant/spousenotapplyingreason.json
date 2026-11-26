@@ -1,13 +1,15 @@
 {
   "title": "Pam nad yw&rsquo;r g&wcirc;r/gwraig yn gwneud cais",
-  "question": "Pam nad yw g&wcirc;r/gwraig {deceasedName} yn gwneud cais?",
-  "optionRenouncing": "Nid ydynt eisiau gwneud cais ac maent yn rhoi fyny yr hawl i wneud cais yn y dyfodol (gelwir hyn yn &lsquo;ymwrthod&rsquo;)",
+  "question": "Pam bod g&wcirc;r, gwraig, neu bartner sifil {deceasedName} ddim yn gwneud cais?",
+  "paragraph1": "Os nad ydynt eisiau gwneud cais, bydd rhaid iddynt ildio eu hawl i wneud cais (a elwir hefyd yn &lsquo;Ymwrthod&rsquo;) a llenwi <a href=\"{spouseGivingUpAdminRightsPA16Link}\" class=\"govuk-link\" target=\"_blank\" rel=\"external noopener\" aria-label=\"Ffurflen PA16 (yn agor mewn tab newydd)\">Ffurflen PA16 (yn agor mewn tab newydd)</a>. Nid yw hyn yn effeithio ar eu hawl i etifeddu.",
+  "optionRenouncing": "Maen nhw&rsquo;n ildio eu hawl i wneud cais",
+  "optionRenouncingHintText": "Bydd arnoch angen cynnwys Ffurflen PA16 wedi&rsquo;i llenwi gyda&rsquo;ch dogfennau",
   "optionOther": "Arall",
   "theDeceased": "yr unigolyn sydd wedi marw",
 
   "errors": {
     "spouseNotApplyingReason": {
-      "required": "Atebwch y cwestiwn pam nad yw&rsquo;r g&wcirc;r/gwraig neu bartner sifil yn gwneud cais"
+      "required": "Dewiswch y rheswm pam bod gŵr, gwraig, neu bartner sifil {deceasedName} ddim yn gwneud cais"
     }
   }
 }

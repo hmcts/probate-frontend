@@ -14,7 +14,7 @@
     "dod-formattedDate": "12 December 2016",
     "anyOtherChildren": "optionYes",
     "allChildrenOver18": "optionYes",
-    "anyDeceasedChildren": "optionYes",
+    "anyPreDeceasedChildren": "optionYesAll",
     "anyGrandchildrenUnder18": "optionNo",
     "maritalStatus": "optionMarried"
   }

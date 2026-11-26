@@ -40,7 +40,7 @@ describe('value-assets-outside-england-wales', () => {
             testWrapper.testErrors(done, {}, 'required');
         });
 
-        it(`test it redirects to next page: ${expectedNextUrlForDeceasedAlias}`, (done) => {
+        it(`test it redirects to next page: /intestacy${expectedNextUrlForDeceasedAlias}`, (done) => {
             testWrapper.agent.post('/prepare-session/form')
                 .send({caseType: caseTypes.INTESTACY})
                 .end(() => {
@@ -48,7 +48,7 @@ describe('value-assets-outside-england-wales', () => {
                         netValueAssetsOutsideField: '300000'
                     };
 
-                    testWrapper.testRedirect(done, data, expectedNextUrlForDeceasedAlias);
+                    testWrapper.testRedirect(done, data, `/intestacy${expectedNextUrlForDeceasedAlias}`);
                 });
         });
     });

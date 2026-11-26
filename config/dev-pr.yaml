@@ -7,8 +7,9 @@ app:
   useCSRFProtection: 'false'
 services:
   idam:
-    loginUrl: http://idam-web-public.aat.platform.hmcts.net/login
+    loginUrl: http://idam-web-public.aat.platform.hmcts.net/o/authorize
     apiUrl: https://idam-api.aat.platform.hmcts.net
+    endSessionUrl: https://idam-web-public.aat.platform.hmcts.net/o/endSession
     s2s_url: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
     service_name: probate_frontend
     probate_oauth2_client: probate
@@ -32,7 +33,7 @@ TestE2EFrontendUrl: 'http://localhost:3001'
 TestFrontendUrl: 'http://localhost:3001'
 TestIdamAddUserUrl: '/testing-support/accounts'
 TestIdamBaseUrl: 'https://idam-api.aat.platform.hmcts.net'
-TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/login'
+TestIdamLoginUrl: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
 TestIdamRole: 'citizen'
 TestIdamUserGroup: 'caseworker'
 TestOutputDir: './functional-output'

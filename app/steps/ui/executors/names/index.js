@@ -1,8 +1,11 @@
 'use strict';
 
 const ValidationStep = require('app/core/steps/ValidationStep');
+const validator = require('validator');
+const config = require('config');
 const FormatName = require('app/utils/FormatName');
 const WillWrapper = require('../../../../wrappers/Will');
+const FieldError = require("../../../../components/error");
 
 class ExecutorsNames extends ValidationStep {
 
@@ -32,9 +35,13 @@ class ExecutorsNames extends ValidationStep {
         ctx.executorName = [];
     }
 
-    handlePost(ctx, errors) {
+    handlePost(ctx, errors, formdata, session) {
         if (!ctx.list) {
             ctx.list = [];
+        }
+        if (ctx.executorName && validator.isURL(ctx.executorName, config.validUrl.options)) {
+            errors.push(FieldError('executorName', 'invalid', this.resourcePath, this.generateContent({}, {}, session.language), session.language));
+            return [ctx, errors];
         }
         if (ctx.executorName && ctx.executorName.length > 0) {
             ctx.list.push({fullName: ctx.executorName});

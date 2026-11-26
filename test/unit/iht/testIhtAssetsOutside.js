@@ -61,7 +61,8 @@ describe('AssetsOutside', () => {
             };
             [ctx, formdata] = AssetsOutside.action(ctx, formdata);
             expect(ctx).to.deep.equal({
-                assetsOutside: 'optionNo'
+                assetsOutside: 'optionNo',
+                netValueAssetsOutside: 0
             });
         });
     });

@@ -12,6 +12,9 @@ class AssetsOverseas extends ValidationStep {
     getContextData(req) {
         const ctx = super.getContextData(req);
         const formdata = req.session.form;
+        if (req.method === 'GET') {
+            delete ctx.assetsoverseas;
+        }
         ctx.deceasedName = FormatName.format(formdata.deceased);
         return ctx;
     }
@@ -26,6 +29,9 @@ class AssetsOverseas extends ValidationStep {
 
     action(ctx, formdata) {
         super.action(ctx, formdata);
+        if (ctx.assetsoverseas !== 'optionYes' && formdata.copies) {
+            formdata.copies.overseas = 0;
+        }
         delete ctx.deceasedName;
         return [ctx, formdata];
     }
